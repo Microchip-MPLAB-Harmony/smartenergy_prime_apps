@@ -514,22 +514,22 @@ void APP_CONSOLE_Tasks ( void )
                         APP_CONSOLE_Print("  TX_RESULT_TIMEOUT");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_INV_BUFFER:
-                        APP_CONSOLE_Print("  DRV_PLC_PHY_TX_RESULT_INV_BUFFER");
+                        APP_CONSOLE_Print("  TX_RESULT_INV_BUFFER");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_INV_MODE:
-                        APP_CONSOLE_Print("  DRV_PLC_PHY_TX_RESULT_INV_MODE");
+                        APP_CONSOLE_Print("  TX_RESULT_INV_MODE");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_INV_TX_MODE:
-                        APP_CONSOLE_Print("  DRV_PLC_PHY_TX_RESULT_INV_TX_MODE");
+                        APP_CONSOLE_Print("  TX_RESULT_INV_TX_MODE");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_CANCELLED:
-                        APP_CONSOLE_Print("  DRV_PLC_PHY_TX_RESULT_CANCELLED");
+                        APP_CONSOLE_Print("  TX_RESULT_CANCELLED");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120:
-                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120");
+                        APP_CONSOLE_Print("  TX_RESULT_HIGH_TEMP_120");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110:
-                        APP_CONSOLE_Print("...DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110");
+                        APP_CONSOLE_Print("  TX_RESULT_HIGH_TEMP_110");
                         break;
                     case DRV_PLC_PHY_TX_RESULT_NO_TX:
                         APP_CONSOLE_Print("  TX_RESULT_NO_TX");
