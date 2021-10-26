@@ -281,7 +281,7 @@ static uint8_t APP_CONSOLE_SetScheme(char *scheme)
             return 0xFF;        
     }
     
-    APP_PLC_SetModScheme(sch);
+    APP_PLC_PL360_SetModScheme(sch);
 
     return index;
 }
@@ -445,7 +445,7 @@ static bool APP_CONSOLE_SetChannel(char *channel)
     /* Check if channel is available via MCC configuration */
     if (chnData != NULL)
     {
-        APP_PLC_SetChannel(chn);
+        APP_PLC_PL360_SetChannel(chn);
         return true;
     }
     
