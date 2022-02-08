@@ -60,6 +60,7 @@
 #include "peripheral/tc/plib_tc0.h"
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_cdc.h"
+#include "service/pcrc/srv_pcrc.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
