@@ -1,4 +1,4 @@
-<config configName="sam_e70_xult_pl460" projectName="phy_tx_console_sam_e70_xult_pl460" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.3.3">
+<config configName="sam_e70_xult_pl460" projectName="phy_tx_console_sam_e70_xult_pl460" configVersion="1.1" device="ATSAME70Q21B" deviceLibraryClass="com.microchip.mcc.harmony.Harmony3Library" coreVersion="5.4.1">
    <usedPackages class="java.util.ArrayList"/>
    <usedClasses class="java.util.TreeMap">
       <entry>
@@ -79,7 +79,7 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.0.3"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.harmony.Harmony3Library" version="1.0.8"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -2229,7 +2229,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_77_FUNCTION_NAME&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;PLC_CD&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;PLC_TX_ENABLE&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -3988,17 +3988,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_CD_PIN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_CD_PIN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;4&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_COUP_G3_SETTING"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_COUP_G3_SETTING&quot;&gt;
@@ -4423,6 +4412,17 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;1&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/drvPlcPhy&gt;
+&lt;/drvPlcPhy&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_TX_ENABLE_PIN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
+  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_TX_ENABLE_PIN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;4&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
@@ -10842,7 +10842,7 @@
    <generatedFileHashHistoryMap class="java.util.HashMap">
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\service\pvddmon\srv_pvddmon.h</file>
-         <hash>938ed9d9788f8061646247247a87a87fa29c450f7e3d38041c73367821538c0b</hash>
+         <hash>7400d157be55b3fe40daf0d23a207bba3909cd54c8724bb8146cf770742f1619</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\fuses.h</file>
@@ -10854,7 +10854,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\service\pvddmon\srv_pvddmon.c</file>
-         <hash>d0f85df56f7f58698a358bc86141d29d91425003a2804aef5d93693f9d6764c1</hash>
+         <hash>a62464dd334bb9cc91f9f85c538afa726565b3b878299614cdcc729f6b36ca7d</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_gcc.h</file>
@@ -10906,7 +10906,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\pio\plib_pio.h</file>
-         <hash>7d76daf3d752ec31bf3c1f9ec304e380e83e0da4f9b2757aeb8680f808e70a54</hash>
+         <hash>76e2f194429fe8d0823b805fb521c0f83a454b965314ba38b9d44d2b75030133</hash>
       </entry>
       <entry>
          <file>..\src\app_nvm.h</file>
@@ -11158,7 +11158,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\configuration.h</file>
-         <hash>82257214a2160b1bf43284d1591296d06abbc75e07b94c1cd0868b6c92aa0c1e</hash>
+         <hash>e4e160b6857956275115823a3ad12dde1b730bd7010123fefe8794bdee9ba367</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\osal\osal.h</file>
@@ -11190,7 +11190,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\initialization.c</file>
-         <hash>13f7d5c7b7e3888a9746f27d9792c3effe265aef2f4611cc46e0dd7c0b9920ba</hash>
+         <hash>59e9b4fc70c12de06c056b3ae6120a6d6ae12b2bb30ab6a49f468752defa1c6b</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\mcan.h</file>
@@ -11298,7 +11298,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>8c46a5b226775d186d550bd8da3759ff56c3962d67f6a4da13b99cd116576bb3</hash>
+         <hash>4c632e30d7f8cd17ef6bb878d7d8f0f7b42d6dfaac453e538f72911401566520</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cachel1_armv7.h</file>
@@ -11326,7 +11326,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>d0997d5b95bfdcbb3cdd425f3a65e1ac8b489fc29543e09b2e79f5cdf845e013</hash>
+         <hash>e62296b28553ed3fa7e83b89670beefd3b46c44bf199878c16a1007586ed206b</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\efc.h</file>
@@ -11454,7 +11454,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\phy\drv_plc_phy.c</file>
-         <hash>9ac58193e16f4d44e16a96ab18571818e12d9664f1f0cddd98b14960935698c8</hash>
+         <hash>61621500af88251224f94b5195f72b16bd6b6ff0cf486423c833ad9bd18f54a2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\peripheral\trng\plib_trng.h</file>
@@ -11466,7 +11466,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460\driver\plc\phy\drv_plc_phy.h</file>
-         <hash>2e0863e207bfc773a0da8486f50e665eb09477aef6c893bd007273304d3938bb</hash>
+         <hash>b5c0893326bdc4d35ae47625d4cf0ea92d1a53b511565391f8c76aead5e9f43b</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\twihs.h</file>

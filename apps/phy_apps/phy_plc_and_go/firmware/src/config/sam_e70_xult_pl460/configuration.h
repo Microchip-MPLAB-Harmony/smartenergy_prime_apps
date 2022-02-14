@@ -118,7 +118,7 @@ extern "C" {
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PD28
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA0
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PC30
-#define DRV_PLC_CD_PIN                        SYS_PORT_PIN_PA4
+#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA4
 #define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
 
@@ -160,15 +160,6 @@ extern "C" {
 
 
 
-/* Maximum instances of CDC function driver */
-#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
-
-
-/* CDC Transfer Queue Size for both read and
-   write. Applicable to all instances of the
-   function driver */
-#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
-
 /*** USB Driver Configuration ***/
 
 /* Maximum USB driver instances */
@@ -185,6 +176,15 @@ extern "C" {
 
 /* Alignment for buffers that are submitted to USB Driver*/ 
 #define USB_ALIGN  CACHE_ALIGN
+
+/* Maximum instances of CDC function driver */
+#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1
+
+
+/* CDC Transfer Queue Size for both read and
+   write. Applicable to all instances of the
+   function driver */
+#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3
 
 
 

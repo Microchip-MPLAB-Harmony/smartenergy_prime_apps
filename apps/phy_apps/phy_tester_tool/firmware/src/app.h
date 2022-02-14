@@ -150,8 +150,6 @@ typedef struct
     
     APP_PLC_TX_STATE plcTxState;
     
-    bool sendTxEnable;
-    
     SRV_PLC_PCOUP_CHANNEL channel;
     
 } APP_DATA;
