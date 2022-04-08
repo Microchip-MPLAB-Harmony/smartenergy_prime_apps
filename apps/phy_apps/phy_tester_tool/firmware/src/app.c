@@ -560,7 +560,7 @@ void APP_Tasks(void)
             DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
             
             /* Enable PLC PVDD Monitor Service: ADC channel 0 */
-            SRV_PVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
+            SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
             SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             /* Set Application to next state */
             appData.state = APP_STATE_READY;

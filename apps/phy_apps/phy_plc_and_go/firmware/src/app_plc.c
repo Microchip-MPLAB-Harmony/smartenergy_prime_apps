@@ -422,7 +422,7 @@ void APP_PLC_Tasks ( void )
                 APP_PLC_SetInitialConfiguration();
                 
                 /* Enable PLC PVDD Monitor Service: ADC channel 0 */
-                SRV_PVDDMON_RegisterCallback(APP_PLC_PVDDMonitorCb, 0);
+                SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             
                 /* Init Timer to handle blinking led */
