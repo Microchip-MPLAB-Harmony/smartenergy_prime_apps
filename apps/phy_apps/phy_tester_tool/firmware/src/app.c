@@ -59,21 +59,6 @@ static CACHE_ALIGN uint8_t pPLCDataPIBBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_
 static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_DATA_BUFFER_SIZE)];
 
 // *****************************************************************************
-/* Pointer to PLC Coupling configuration data
-
-  Summary:
-    Holds PLC configuration data
-
-  Description:
-    This structure holds the PLC coupling configuration data.
-
-  Remarks:
-    Parameters are defined in srv_pcoup.h file
- */
-
-SRV_PLC_PCOUP_CHANNEL_DATA *appPLCCoupling;
-
-// *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
 // *****************************************************************************
@@ -88,90 +73,22 @@ void Timer2_Callback (uintptr_t context)
     appData.tmr2Expired = true;
 }
 
-static void APP_PLC_SetCouplingConfiguration(SRV_PLC_PCOUP_CHANNEL channel)
+static void APP_PLC_SetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
 {
-    appPLCCoupling = SRV_PCOUP_Get_Channel_Data(channel);
+    SRV_PCOUP_Set_Channel_Config(appData.drvPl360Handle, channel);
     
-    if (appPLCCoupling != NULL)
-    {
-        appData.plcPIB.id = PLC_ID_IC_DRIVER_CFG;
-        appData.plcPIB.length = 1;
-        *appData.plcPIB.pData = appPLCCoupling->lineDrvConf;
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
+    /* Optional ***************************************************/
+    /* Disable AUTO mode and set VLO behavior by default in order to
+     * maximize signal level in any case */
+    appData.plcPIB.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
+    appData.plcPIB.length = 1;
+    *appData.plcPIB.pData = 0;
+    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
 
-        appData.plcPIB.id = PLC_ID_DACC_TABLE_CFG;
-        appData.plcPIB.length = 17 << 2;
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->daccTable,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_NUM_TX_LEVELS;
-        appData.plcPIB.length = 1;
-        *appData.plcPIB.pData = appPLCCoupling->numTxLevels;
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_MAX_RMS_TABLE_HI;
-        appData.plcPIB.length = sizeof(appPLCCoupling->rmsHigh);
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsHigh,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_MAX_RMS_TABLE_VLO;
-        appData.plcPIB.length = sizeof(appPLCCoupling->rmsVLow);
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->rmsVLow,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_HI;
-        appData.plcPIB.length = sizeof(appPLCCoupling->thrsHigh);
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsHigh,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_THRESHOLDS_TABLE_VLO;
-        appData.plcPIB.length = sizeof(appPLCCoupling->thrsVLow);
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->thrsVLow,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_GAIN_TABLE_HI;
-        appData.plcPIB.length = sizeof(appPLCCoupling->gainHigh);
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->gainHigh,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_GAIN_TABLE_VLO;
-        appData.plcPIB.length = sizeof(appPLCCoupling->gainVLow);
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->gainVLow,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_HI;
-        appData.plcPIB.length = appPLCCoupling->equSize;
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->equHigh,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
-        /* Not use size of array. It depends on PHY band in use */
-        appData.plcPIB.length = appPLCCoupling->equSize;
-        memcpy(appData.plcPIB.pData, (uint8_t *)appPLCCoupling->equVlow,
-                appData.plcPIB.length);
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-    
-        /* Optional ***************************************************/
-        /* Disable AUTO mode and set VLO behavior by default in order to
-         * maximize signal level in any case */
-        appData.plcPIB.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
-        appData.plcPIB.length = 1;
-        *appData.plcPIB.pData = 0;
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-
-        appData.plcPIB.id = PLC_ID_CFG_IMPEDANCE;
-        appData.plcPIB.length = 1;
-        *appData.plcPIB.pData = 2;
-        DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-    }
+    appData.plcPIB.id = PLC_ID_CFG_IMPEDANCE;
+    appData.plcPIB.length = 1;
+    *appData.plcPIB.pData = 2;
+    DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
 }
 
 static void APP_PLCExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj,
@@ -248,7 +165,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_PLC_PHY_Enable_TX(appData.drvPl360Handle, false);
+        DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, false);
         appData.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -256,7 +173,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_PLC_PHY_Enable_TX(appData.drvPl360Handle, true);
+        DRV_PLC_PHY_EnableTX(appData.drvPl360Handle, true);
         appData.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -311,11 +228,11 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
             /* Manage Channels configuration */
             if (appData.plcPIB.id == PLC_ID_CHANNEL_CFG)
             {
-                SRV_PLC_PCOUP_CHANNEL channel;
+                DRV_PLC_PHY_CHANNEL channel;
                 
                 channel = *appData.plcPIB.pData;
                 
-                if ((appData.channel != channel) && (SRV_PCOUP_Get_Channel_Data(channel) != NULL))
+                if ((appData.channel != channel) && (SRV_PCOUP_Get_Channel_Config(channel) != NULL))
                 {
                     if (DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB))
                     {
@@ -357,7 +274,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 SRV_PSERIAL_ParseTxMessage(&appData.plcTxObj, pData);
 
                 /* Send Message through PLC */
-                DRV_PLC_PHY_Send(appData.drvPl360Handle, &appData.plcTxObj);
+                DRV_PLC_PHY_TxRequest(appData.drvPl360Handle, &appData.plcTxObj);
             }
             else
             {
@@ -490,7 +407,7 @@ void APP_Tasks(void)
                         APP_PLCExceptionCb, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
                         APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
-                DRV_PLC_PHY_DataCfmCallbackRegister(appData.drvPl360Handle,
+                DRV_PLC_PHY_TxCfmCallbackRegister(appData.drvPl360Handle,
                         APP_PLCDataCfmCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
@@ -545,18 +462,6 @@ void APP_Tasks(void)
             appData.plcPIB.id = PLC_ID_CHANNEL_CFG;
             appData.plcPIB.length = 1;
             *appData.plcPIB.pData = appData.channel;
-            DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-            
-            appData.plcPIB.id = PLC_ID_NUM_CHANNELS;
-            appData.plcPIB.length = 1;
-            if (appData.channel > CHN8) 
-            {
-                *appData.plcPIB.pData = 2;
-            }
-            else
-            {
-                *appData.plcPIB.pData = 1;
-            }
             DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
             
             /* Enable PLC PVDD Monitor Service: ADC channel 0 */

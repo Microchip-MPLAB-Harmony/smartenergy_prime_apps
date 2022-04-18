@@ -148,7 +148,7 @@ typedef struct
     
     APP_PLC_TX_STATE plcTxState;
     
-    SRV_PLC_PCOUP_CHANNEL channel;
+    DRV_PLC_PHY_CHANNEL channel;
     
 } APP_DATA;
 

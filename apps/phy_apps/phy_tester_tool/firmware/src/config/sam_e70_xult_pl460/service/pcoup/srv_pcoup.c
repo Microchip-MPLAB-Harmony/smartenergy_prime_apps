@@ -12,12 +12,13 @@
 
   Description:
     This file contains the source code for the implementation of the
-    PLC PHY Cpupling service.
+    PLC PHY Cpupling service. It helps to configure the PLC PHY Coupling 
+    parameters through PLC Driver PIB interface.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -47,116 +48,205 @@
 // *****************************************************************************
 
 #include "configuration.h"
-#include "srv_pcoup.h"
-#include "driver/driver_common.h"
 #include "service/pcoup/srv_pcoup.h"
-#include "driver/plc/phy/drv_plc_phy_comm.h"
 
-/* Specific gain for each carrier to equalize transmission and compensate HW filter frequency response. */
+// *****************************************************************************
+/* PLC PHY Coupling equalization data
+
+  Summary:
+    Holds the Tx equalization coefficients tables.
+
+  Description:
+    Pre-distorsion applies specific gain factor for each carrier, compensating 
+    the frequency response of the external analog filter, and equalizing the 
+    the transmitted signal.
+
+  Remarks:
+    Values are defined in srv_pcoup.h file. Different values for HIGH and VLOW 
+    modes
+ */
+
 static const uint16_t srvPlcCoupPredistCoefChn1High[SRV_PCOUP_EQU_NUM_COEF_CHN] = SRV_PCOUP_PRED_CHN1_HIGH_TBL;
 static const uint16_t srvPlcCoupPredistCoefChn1Low[SRV_PCOUP_EQU_NUM_COEF_CHN] = SRV_PCOUP_PRED_CHN1_VLOW_TBL;
 
 static const uint16_t srvPlcCoupPredistCoefDummy[SRV_PCOUP_EQU_NUM_COEF_CHN] = SRV_PCOUP_PRED_NOT_USED;
+
+static const uint16_t srvPlcCoupPredist2ChnCoefDummy[SRV_PCOUP_EQU_NUM_COEF_2_CHN] = SRV_PCOUP_PRED_2CHN_NOT_USED;
 
 /* Configuration values of internal DACC peripheral */
 static const uint32_t srvPlcCoupDaccTableCenA[17] = SRV_PCOUP_DACC_CENA_TBL;
 
 static const uint32_t srvPlcCoupDaccTableFcc[17] = SRV_PCOUP_DACC_FCC_TBL;
 
+static const uint32_t srvPlcCoupDaccTable2Chn[17] = SRV_PCOUP_DACC_2CHN_TBL;
 
-// *****************************************************************************
-/* PLC Coupling configuration data
+
+/* PLC PHY Coupling data
 
   Summary:
-    Holds PLC configuration data
+    PLC PHY Coupling data.
 
   Description:
-    This structure holds the PLC coupling configuration data.
+    This structure contains all the data required to set the PLC PHY Coupling 
+    parameters, for each PRIME channel.
 
   Remarks:
-    Parameters are defined in srv_pcoup.h file
+    Values are defined in srv_pcoup.h file
  */
 
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn1Data = {
   SRV_PCOUP_CHN1_RMS_HIGH_TBL, SRV_PCOUP_CHN1_RMS_VLOW_TBL,
   SRV_PCOUP_CHN1_THRS_HIGH_TBL, SRV_PCOUP_CHN1_THRS_VLOW_TBL,
-  SRV_PCOUP_CHN1_GAIN_HIGH_TBL, SRV_PCOUP_CHN1_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN1_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF_CHN << 1, SRV_PCOUP_CHN1_LINE_DRV_CONF,
   srvPlcCoupDaccTableCenA,
-  srvPlcCoupPredistCoefChn1High, srvPlcCoupPredistCoefChn1Low
+  srvPlcCoupPredistCoefChn1High, srvPlcCoupPredistCoefChn1Low,
+  SRV_PCOUP_CHN1_GAIN_HIGH_TBL, SRV_PCOUP_CHN1_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN1_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN1_LINE_DRV_CONF
+  
+};
+
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn2Data = {
+  SRV_PCOUP_CHN2_RMS_HIGH_TBL, SRV_PCOUP_CHN2_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN2_THRS_HIGH_TBL, SRV_PCOUP_CHN2_THRS_VLOW_TBL,
+  srvPlcCoupDaccTableFcc,
+  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
+  SRV_PCOUP_CHN2_GAIN_HIGH_TBL, SRV_PCOUP_CHN2_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN2_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN2_LINE_DRV_CONF
 };
 
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn3Data = {
   SRV_PCOUP_CHN3_RMS_HIGH_TBL, SRV_PCOUP_CHN3_RMS_VLOW_TBL,
   SRV_PCOUP_CHN3_THRS_HIGH_TBL, SRV_PCOUP_CHN3_THRS_VLOW_TBL,
-  SRV_PCOUP_CHN3_GAIN_HIGH_TBL, SRV_PCOUP_CHN3_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN3_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF_CHN << 1, SRV_PCOUP_CHN3_LINE_DRV_CONF,
   srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy
+  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
+  SRV_PCOUP_CHN3_GAIN_HIGH_TBL, SRV_PCOUP_CHN3_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN3_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN3_LINE_DRV_CONF
 };
 
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn4Data = {
   SRV_PCOUP_CHN4_RMS_HIGH_TBL, SRV_PCOUP_CHN4_RMS_VLOW_TBL,
   SRV_PCOUP_CHN4_THRS_HIGH_TBL, SRV_PCOUP_CHN4_THRS_VLOW_TBL,
-  SRV_PCOUP_CHN4_GAIN_HIGH_TBL, SRV_PCOUP_CHN4_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN4_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF_CHN << 1, SRV_PCOUP_CHN4_LINE_DRV_CONF,
   srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy
+  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
+  SRV_PCOUP_CHN4_GAIN_HIGH_TBL, SRV_PCOUP_CHN4_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN4_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN4_LINE_DRV_CONF
 };
 
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn5Data = {
   SRV_PCOUP_CHN5_RMS_HIGH_TBL, SRV_PCOUP_CHN5_RMS_VLOW_TBL,
   SRV_PCOUP_CHN5_THRS_HIGH_TBL, SRV_PCOUP_CHN5_THRS_VLOW_TBL,
-  SRV_PCOUP_CHN5_GAIN_HIGH_TBL, SRV_PCOUP_CHN5_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN5_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF_CHN << 1, SRV_PCOUP_CHN5_LINE_DRV_CONF,
   srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy
+  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
+  SRV_PCOUP_CHN5_GAIN_HIGH_TBL, SRV_PCOUP_CHN5_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN5_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN5_LINE_DRV_CONF
 };
 
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn6Data = {
   SRV_PCOUP_CHN6_RMS_HIGH_TBL, SRV_PCOUP_CHN6_RMS_VLOW_TBL,
   SRV_PCOUP_CHN6_THRS_HIGH_TBL, SRV_PCOUP_CHN6_THRS_VLOW_TBL,
-  SRV_PCOUP_CHN6_GAIN_HIGH_TBL, SRV_PCOUP_CHN6_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN6_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF_CHN << 1, SRV_PCOUP_CHN6_LINE_DRV_CONF,
   srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy
+  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
+  SRV_PCOUP_CHN6_GAIN_HIGH_TBL, SRV_PCOUP_CHN6_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN6_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN6_LINE_DRV_CONF
 };
 
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn7Data = {
   SRV_PCOUP_CHN7_RMS_HIGH_TBL, SRV_PCOUP_CHN7_RMS_VLOW_TBL,
   SRV_PCOUP_CHN7_THRS_HIGH_TBL, SRV_PCOUP_CHN7_THRS_VLOW_TBL,
-  SRV_PCOUP_CHN7_GAIN_HIGH_TBL, SRV_PCOUP_CHN7_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN7_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF_CHN << 1, SRV_PCOUP_CHN7_LINE_DRV_CONF,
   srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy
+  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
+  SRV_PCOUP_CHN7_GAIN_HIGH_TBL, SRV_PCOUP_CHN7_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN7_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN7_LINE_DRV_CONF
 };
 
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn8Data = {
   SRV_PCOUP_CHN8_RMS_HIGH_TBL, SRV_PCOUP_CHN8_RMS_VLOW_TBL,
   SRV_PCOUP_CHN8_THRS_HIGH_TBL, SRV_PCOUP_CHN8_THRS_VLOW_TBL,
-  SRV_PCOUP_CHN8_GAIN_HIGH_TBL, SRV_PCOUP_CHN8_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN8_MAX_NUM_TX_LEVELS, SRV_PCOUP_EQU_NUM_COEF_CHN << 1, SRV_PCOUP_CHN8_LINE_DRV_CONF,
   srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy
+  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
+  SRV_PCOUP_CHN8_GAIN_HIGH_TBL, SRV_PCOUP_CHN8_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN8_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN8_LINE_DRV_CONF
 };
 
-static const SRV_PLC_PCOUP_CHANNEL_DATA * srvPlcCoupChnData[] = {
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn12Data = {
+  SRV_PCOUP_CHN12_RMS_HIGH_TBL, SRV_PCOUP_CHN12_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN12_THRS_HIGH_TBL, SRV_PCOUP_CHN12_THRS_VLOW_TBL,
+  srvPlcCoupDaccTable2Chn,
+  srvPlcCoupPredist2ChnCoefDummy, srvPlcCoupPredist2ChnCoefDummy,
+  SRV_PCOUP_CHN12_GAIN_HIGH_TBL, SRV_PCOUP_CHN12_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN12_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN12_LINE_DRV_CONF
+};
+
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn23Data = {
+  SRV_PCOUP_CHN23_RMS_HIGH_TBL, SRV_PCOUP_CHN23_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN23_THRS_HIGH_TBL, SRV_PCOUP_CHN23_THRS_VLOW_TBL,
+  srvPlcCoupDaccTable2Chn,
+  srvPlcCoupPredist2ChnCoefDummy, srvPlcCoupPredist2ChnCoefDummy,
+  SRV_PCOUP_CHN23_GAIN_HIGH_TBL, SRV_PCOUP_CHN23_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN23_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN23_LINE_DRV_CONF
+};
+
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn34Data = {
+  SRV_PCOUP_CHN34_RMS_HIGH_TBL, SRV_PCOUP_CHN34_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN34_THRS_HIGH_TBL, SRV_PCOUP_CHN34_THRS_VLOW_TBL,
+  srvPlcCoupDaccTable2Chn,
+  srvPlcCoupPredist2ChnCoefDummy, srvPlcCoupPredist2ChnCoefDummy,
+  SRV_PCOUP_CHN34_GAIN_HIGH_TBL, SRV_PCOUP_CHN34_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN34_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN34_LINE_DRV_CONF
+};
+
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn45Data = {
+  SRV_PCOUP_CHN45_RMS_HIGH_TBL, SRV_PCOUP_CHN45_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN45_THRS_HIGH_TBL, SRV_PCOUP_CHN45_THRS_VLOW_TBL,
+  srvPlcCoupDaccTable2Chn,
+  srvPlcCoupPredist2ChnCoefDummy, srvPlcCoupPredist2ChnCoefDummy,
+  SRV_PCOUP_CHN45_GAIN_HIGH_TBL, SRV_PCOUP_CHN45_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN45_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN45_LINE_DRV_CONF
+};
+
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn56Data = {
+  SRV_PCOUP_CHN56_RMS_HIGH_TBL, SRV_PCOUP_CHN56_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN56_THRS_HIGH_TBL, SRV_PCOUP_CHN56_THRS_VLOW_TBL,
+  srvPlcCoupDaccTable2Chn,
+  srvPlcCoupPredist2ChnCoefDummy, srvPlcCoupPredist2ChnCoefDummy,
+  SRV_PCOUP_CHN56_GAIN_HIGH_TBL, SRV_PCOUP_CHN56_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN56_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN56_LINE_DRV_CONF
+};
+
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn67Data = {
+  SRV_PCOUP_CHN67_RMS_HIGH_TBL, SRV_PCOUP_CHN67_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN67_THRS_HIGH_TBL, SRV_PCOUP_CHN67_THRS_VLOW_TBL,
+  srvPlcCoupDaccTable2Chn,
+  srvPlcCoupPredist2ChnCoefDummy, srvPlcCoupPredist2ChnCoefDummy,
+  SRV_PCOUP_CHN67_GAIN_HIGH_TBL, SRV_PCOUP_CHN67_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN67_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN67_LINE_DRV_CONF
+};
+
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn78Data = {
+  SRV_PCOUP_CHN78_RMS_HIGH_TBL, SRV_PCOUP_CHN78_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN78_THRS_HIGH_TBL, SRV_PCOUP_CHN78_THRS_VLOW_TBL,
+  srvPlcCoupDaccTable2Chn,
+  srvPlcCoupPredist2ChnCoefDummy, srvPlcCoupPredist2ChnCoefDummy,
+  SRV_PCOUP_CHN78_GAIN_HIGH_TBL, SRV_PCOUP_CHN78_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN78_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN78_LINE_DRV_CONF
+};
+
+static const SRV_PLC_PCOUP_CHANNEL_DATA * srvPlcCoupChnData[16] = {
     NULL,
     &srvPlcCoupChn1Data,
-    NULL,
+    &srvPlcCoupChn2Data,
     &srvPlcCoupChn3Data,
     &srvPlcCoupChn4Data,
     &srvPlcCoupChn5Data,
     &srvPlcCoupChn6Data,
     &srvPlcCoupChn7Data,
     &srvPlcCoupChn8Data,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
+    &srvPlcCoupChn12Data,
+    &srvPlcCoupChn23Data,
+    &srvPlcCoupChn34Data,
+    &srvPlcCoupChn45Data,
+    &srvPlcCoupChn56Data,
+    &srvPlcCoupChn67Data,
+    &srvPlcCoupChn78Data
 };
 
 // *****************************************************************************
@@ -165,12 +255,12 @@ static const SRV_PLC_PCOUP_CHANNEL_DATA * srvPlcCoupChnData[] = {
 // *****************************************************************************
 // *****************************************************************************
 
-SRV_PLC_PCOUP_CHANNEL SRV_PCOUP_Get_Default_Channel( void )
+DRV_PLC_PHY_CHANNEL SRV_PCOUP_Get_Default_Channel( void )
 {
   return SRV_PCOUP_DEFAULT_CHANNEL;
 }
 
-SRV_PLC_PCOUP_CHANNEL_DATA * SRV_PCOUP_Get_Channel_Data(SRV_PLC_PCOUP_CHANNEL channel)
+SRV_PLC_PCOUP_CHANNEL_DATA * SRV_PCOUP_Get_Channel_Config(DRV_PLC_PHY_CHANNEL channel)
 {
     if ((channel >= CHN1) && (channel <= CHN7_CHN8))
     {
@@ -180,4 +270,84 @@ SRV_PLC_PCOUP_CHANNEL_DATA * SRV_PCOUP_Get_Channel_Data(SRV_PLC_PCOUP_CHANNEL ch
     {
         return NULL;
     }
+}
+
+bool SRV_PCOUP_Set_Channel_Config(DRV_HANDLE handle, DRV_PLC_PHY_CHANNEL channel)
+{
+  SRV_PLC_PCOUP_CHANNEL_DATA *pCoupValues;
+  DRV_PLC_PHY_PIB_OBJ pibObj;
+  bool result;  
+
+  /* Get PLC PHY Coupling parameters for the desired transmission channel */
+  pCoupValues = SRV_PCOUP_Get_Channel_Config(channel);
+
+  if (pCoupValues == NULL)
+  {
+    /* Transmission channel not recognized */
+    return false;
+  }
+
+  /* Set PLC PHY Coupling parameters */
+  pibObj.id = PLC_ID_IC_DRIVER_CFG;
+  pibObj.length = 1;
+  pibObj.pData = &pCoupValues->lineDrvConf;
+  result = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_NUM_TX_LEVELS;
+  pibObj.pData = &pCoupValues->numTxLevels;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_DACC_TABLE_CFG;
+  pibObj.length = 17 << 2;
+  pibObj.pData = (uint8_t *)pCoupValues->daccTable;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);  
+
+  pibObj.id = PLC_ID_MAX_RMS_TABLE_HI;
+  pibObj.length = sizeof(pCoupValues->rmsHigh);
+  pibObj.pData = (uint8_t *)pCoupValues->rmsHigh;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_MAX_RMS_TABLE_VLO;
+  pibObj.pData = (uint8_t *)pCoupValues->rmsVLow;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_THRESHOLDS_TABLE_HI;
+  pibObj.length = sizeof(pCoupValues->thrsHigh);
+  pibObj.pData = (uint8_t *)pCoupValues->thrsHigh;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_THRESHOLDS_TABLE_VLO;
+  pibObj.pData = (uint8_t *)pCoupValues->thrsVLow;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_GAIN_TABLE_HI;
+  pibObj.length = sizeof(pCoupValues->gainHigh);
+  pibObj.pData = (uint8_t *)pCoupValues->gainHigh;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_GAIN_TABLE_VLO;
+  pibObj.pData = (uint8_t *)pCoupValues->gainVLow;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI;
+  pibObj.length = SRV_PCOUP_EQU_NUM_COEF_CHN << 1;
+  pibObj.pData = (uint8_t *)pCoupValues->equHigh;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  pibObj.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
+  pibObj.pData = (uint8_t *)pCoupValues->equVlow;
+  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+  if (channel >= CHN1_CHN2)
+  {
+    pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI_2;
+    pibObj.pData = (uint8_t *)(&pCoupValues->equHigh[SRV_PCOUP_EQU_NUM_COEF_CHN]);
+    result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+
+    pibObj.id = PLC_ID_PREDIST_COEF_TABLE_VLO_2;
+    pibObj.pData = (uint8_t *)(&pCoupValues->equVlow[SRV_PCOUP_EQU_NUM_COEF_CHN]);
+    result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+  }
+
+  return result;
 }
