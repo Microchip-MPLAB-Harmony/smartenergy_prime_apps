@@ -436,11 +436,11 @@ static bool APP_CONSOLE_SetDataMode(char *mode)
 
 static bool APP_CONSOLE_SetChannel(char *channel)
 {
-    SRV_PLC_PCOUP_CHANNEL chn;
+    DRV_PLC_PHY_CHANNEL chn;
     SRV_PLC_PCOUP_CHANNEL_DATA *chnData;
     
-    chn = (SRV_PLC_PCOUP_CHANNEL)(*channel - 0x30);
-    chnData = SRV_PCOUP_Get_Channel_Data(chn);
+    chn = (DRV_PLC_PHY_CHANNEL)(*channel - 0x30);
+    chnData = SRV_PCOUP_Get_Channel_Config(chn);
     
     /* Check if channel is available via MCC configuration */
     if (chnData != NULL)

@@ -152,7 +152,7 @@ typedef struct
     
     bool inTx;
     
-    SRV_PLC_PCOUP_CHANNEL channel;
+    DRV_PLC_PHY_CHANNEL channel;
     
     uint16_t maxPsduLen;
 
@@ -236,7 +236,7 @@ void APP_PLC_Initialize ( void );
 void APP_PLC_Tasks( void );
 
 void APP_PLC_SetModScheme ( DRV_PLC_PHY_SCH scheme );
-void APP_PLC_SetChannel ( SRV_PLC_PCOUP_CHANNEL channel );
+void APP_PLC_SetChannel ( DRV_PLC_PHY_CHANNEL channel );
 
 
 
