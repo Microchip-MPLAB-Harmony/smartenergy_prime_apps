@@ -147,7 +147,7 @@ typedef struct
     
 	uint8_t txImpedance;
     
-    SRV_PLC_PCOUP_CHANNEL channel;
+    DRV_PLC_PHY_CHANNEL channel;
     
     uint16_t maxPsduLen;
 
@@ -233,7 +233,7 @@ void APP_PLC_PL360_Tasks( void );
 
 bool APP_PLC_PL360_SendData ( uint8_t* pData, uint16_t length );
 void APP_PLC_PL360_SetModScheme ( DRV_PLC_PHY_SCH scheme );
-void APP_PLC_PL360_SetChannel ( SRV_PLC_PCOUP_CHANNEL channel );
+void APP_PLC_PL360_SetChannel ( DRV_PLC_PHY_CHANNEL channel );
 
 #endif /* _APP_PLC_H */
 

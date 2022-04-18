@@ -257,9 +257,9 @@ static void APP_CONSOLE_ShowSetSleepMenu( void )
 
 static uint8_t APP_CONSOLE_SetChannel(char channel)
 {
-    SRV_PLC_PCOUP_CHANNEL chn;
+    DRV_PLC_PHY_CHANNEL chn;
     
-    chn = (SRV_PLC_PCOUP_CHANNEL)(channel - 0x30);
+    chn = (DRV_PLC_PHY_CHANNEL)(channel - 0x30);
     
     if ((appPlcTx.channel != chn) && (chn >= CHN1) && (chn <= CHN8))
     {
@@ -272,7 +272,7 @@ static uint8_t APP_CONSOLE_SetChannel(char channel)
 
 static void APP_CONSOLE_ShowSetChannelMenu( void )
 {
-    SRV_PLC_PCOUP_CHANNEL currentChannel;
+    DRV_PLC_PHY_CHANNEL currentChannel;
     uint8_t index;
     
     APP_CONSOLE_Print("\r\n--- Tx/Rx Channel Configuration Menu ---\r\n");
