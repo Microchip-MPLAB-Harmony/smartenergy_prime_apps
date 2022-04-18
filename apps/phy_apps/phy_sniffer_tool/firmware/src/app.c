@@ -123,7 +123,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 	switch (command) {
         case SRV_PSNIFFER_CMD_SET_CHANNEL:
         {
-            SRV_PLC_PCOUP_CHANNEL channel;
+            DRV_PLC_PHY_CHANNEL channel;
             
             channel = *(pData + 1);
             
@@ -180,7 +180,7 @@ void APP_Initialize(void)
     appData.pSerialData = pSerialDataBuffer;
     
     /* Init Channel */
-    appData.channel = SRV_PCOUP_Get_Default_Channel();
+    appData.channel = CHN1;
 }
 
 
@@ -273,18 +273,6 @@ void APP_Tasks(void)
                 DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
                 /* Update channel in PSniffer */
                 SRV_PSNIFFER_SetPLCChannel(appData.channel);
-                
-                appData.plcPIB.id = PLC_ID_NUM_CHANNELS;
-                appData.plcPIB.length = 1;
-                if (appData.channel > CHN8) 
-                {
-                    *appData.plcPIB.pData = 2;
-                }
-                else
-                {
-                    *appData.plcPIB.pData = 1;
-                }
-                DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
 
                 if (appData.tmr1Handle == SYS_TIME_HANDLE_INVALID)
                 {

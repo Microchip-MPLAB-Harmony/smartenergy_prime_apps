@@ -115,7 +115,7 @@ typedef struct
     
     DRV_PLC_PHY_PIB_OBJ plcPIB;
     
-    SRV_PLC_PCOUP_CHANNEL channel;
+    DRV_PLC_PHY_CHANNEL channel;
 
 } APP_DATA;
 
