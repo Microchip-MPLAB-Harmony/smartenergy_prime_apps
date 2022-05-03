@@ -245,7 +245,6 @@ void APP_PLC_Initialize ( void )
     appPlc.state = APP_PLC_STATE_IDLE;
     
     /* Set PVDD Monitor tracking data */
-    SRV_PVDDMON_Initialize();
     appPlc.pvddMonTxEnable = true;
     
     /* Init PLC TX status */
