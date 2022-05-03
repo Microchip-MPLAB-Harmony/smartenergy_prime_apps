@@ -288,7 +288,7 @@ void APP_PLC_PL360_Tasks ( void )
             {
                 /* Configure PLC callbacks */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
-                DRV_PLC_PHY_DataCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
+                DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
                 
                 /* Apply PLC initial configuration */
@@ -369,7 +369,7 @@ bool APP_PLC_PL360_SendData ( uint8_t* pData, uint16_t length )
 
             appPlc.plcTxState = APP_PLC_TX_STATE_WAIT_TX_CFM;
 
-            DRV_PLC_PHY_Send(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
+            DRV_PLC_PHY_TxRequest(appPlc.drvPl360Handle, &appPlcTx.pl360Tx);
 
             /* Set PLC state */
             if (appPlc.plcTxState == APP_PLC_TX_STATE_WAIT_TX_CFM)
