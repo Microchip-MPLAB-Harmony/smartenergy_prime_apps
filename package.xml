@@ -2,5 +2,6 @@
 <Package name="smartenergy_prime_apps">
     <Dependencies>
         <Dependency name="smartenergy" version="v1.0.0"/>
+        <Dependency name="usb" version="v3.9.0"/>
     </Dependencies>
 </Package>
