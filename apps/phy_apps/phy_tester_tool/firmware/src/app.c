@@ -338,7 +338,6 @@ void APP_Initialize(void)
     appData.pSerialData = pSerialDataBuffer;
     
     /* Set PVDD Monitor tracking data */
-    SRV_PVDDMON_Initialize();
     appData.pvddMonTxEnable = true;
     
     /* Init PLC TX status */

@@ -248,7 +248,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
             SRV_PSERIAL_ParseTxMessage(&appData.plcTxObj, pData);
 
             /* Send Message through PLC */
-            DRV_PLC_PHY_Send(appData.drvPl360Handle, &appData.plcTxObj);
+            DRV_PLC_PHY_TxRequest(appData.drvPl360Handle, &appData.plcTxObj);
         }
         break;
 
@@ -367,7 +367,7 @@ void APP_PL360_Tasks(void)
                         APP_PLCExceptionCb, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
                         APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
-                DRV_PLC_PHY_DataCfmCallbackRegister(appData.drvPl360Handle,
+                DRV_PLC_PHY_TxCfmCallbackRegister(appData.drvPl360Handle,
                         APP_PLCDataCfmCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
