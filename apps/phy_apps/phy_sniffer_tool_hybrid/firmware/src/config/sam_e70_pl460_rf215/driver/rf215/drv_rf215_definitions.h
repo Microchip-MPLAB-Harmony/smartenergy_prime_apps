@@ -956,14 +956,14 @@ typedef struct
     /* Pointer to SPI PLIB chip select function */
     DRV_RF215_PLIB_SPI_SET_CS    spiPlibSetChipSelect;
 
-    /* Interrupt source ID for PLC external interrupt */
-    INT_SOURCE                   plcExtIntSource;
-
     /* Interrupt source ID for DMA */
     INT_SOURCE                   dmaIntSource;
 
     /* Interrupt source ID for SYS_TIME */
     INT_SOURCE                   sysTimeIntSource;
+
+    /* Interrupt source ID for PLC external interrupt */
+    INT_SOURCE                   plcExtIntSource;
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
     DRV_RF215_PHY_BAND_OPM       rf09PhyBandOpmIni;

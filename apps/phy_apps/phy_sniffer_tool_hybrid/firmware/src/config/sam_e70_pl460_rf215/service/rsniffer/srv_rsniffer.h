@@ -64,7 +64,7 @@
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: RF PHY Serialization Interface Routines
+// Section: RF PHY Sniffer Serialization Interface Routines
 // *****************************************************************************
 // *****************************************************************************
 
@@ -75,7 +75,7 @@
         DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
         uint16_t paySymbols,
         uint16_t channel,
-        size_t* msgLen
+        size_t* pMsgLen
     )
 
   Summary:
@@ -95,7 +95,7 @@
     pPhyCfgObj - Pointer to RF PHY configuration object
     paySymbols - Number of payload symbols in the received frame
     channel    - RF channel used to receive the message
-    msgLen     - Pointer to sniffer message length in bytes (output)
+    pMsgLen    - Pointer to sniffer message length in bytes (output)
 
   Returns:
     Pointer to sniffer message to be sent through serial interface.
@@ -113,7 +113,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     uint16_t paySymbols,
     uint16_t channel,
-    size_t* msgLen
+    size_t* pMsgLen
 );
 
 // *****************************************************************************
@@ -163,7 +163,7 @@ void SRV_RSNIFFER_SetTxMessage (
         DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
         uint16_t paySymbols,
         uint16_t channel,
-        size_t* msgLen
+        size_t* pMsgLen
     )
 
   Summary:
@@ -184,7 +184,7 @@ void SRV_RSNIFFER_SetTxMessage (
     pPhyCfgObj - Pointer to RF PHY configuration object
     paySymbols - Number of payload symbols in the transmitted frame
     channel    - RF channel used to transmit the message
-    msgLen     - Pointer to sniffer message length in bytes (output)
+    pMsgLen    - Pointer to sniffer message length in bytes (output)
 
   Returns:
     Pointer to sniffer message to be sent through serial interface.
@@ -203,7 +203,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj,
     uint16_t paySymbols,
     uint16_t channel,
-    size_t* msgLen
+    size_t* pMsgLen
 );
 
 #endif //SRV_RSNIFFER_H
