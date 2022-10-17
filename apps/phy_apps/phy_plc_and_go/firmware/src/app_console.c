@@ -64,6 +64,7 @@
 #define BACKSPACE_KEY      0x08
 #define DELETE_KEY         0x7F
 
+#define DIV_ROUND(a, b)    (((a) + (b >> 1)) / (b))
 
 static va_list sArgs = {0};
 
