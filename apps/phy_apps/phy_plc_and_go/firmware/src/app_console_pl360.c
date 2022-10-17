@@ -64,7 +64,8 @@
 #define BACKSPACE_KEY      0x08
 #define DELETE_KEY         0x7F
 
-#define DIV_ROUND(a, b)    (((a) + (b >> 1)) / (b))
+
+static va_list sArgs = {0};
 
 /* Application Data
 
@@ -582,7 +583,6 @@ void APP_CONSOLE_PL360_Tasks ( void )
 void APP_CONSOLE_PL360_Print(const char *format, ...)
 {
     size_t len = 0;
-    va_list args = {0};
     uint32_t numRetries = 1000;
     
     if (appConsole.state == APP_CONSOLE_STATE_INIT)
@@ -603,9 +603,9 @@ void APP_CONSOLE_PL360_Print(const char *format, ...)
         }
     }
 
-    va_start( args, format );
-    len = vsnprintf(appConsole.pTransmitChar, SERIAL_BUFFER_SIZE - 1, format, args);
-    va_end( args );
+    va_start( sArgs, format );
+    len = vsnprintf(appConsole.pTransmitChar, SERIAL_BUFFER_SIZE - 1, format, sArgs);
+    va_end( sArgs );
     
     if (len > SERIAL_BUFFER_SIZE - 1)
     {
