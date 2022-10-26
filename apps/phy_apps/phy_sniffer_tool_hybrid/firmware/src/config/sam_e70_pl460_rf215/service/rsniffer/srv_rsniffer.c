@@ -258,6 +258,11 @@ void SRV_RSNIFFER_SetTxMessage (
     int16_t rssi;
     uint8_t txBufIndex;
 
+    if (txHandle == DRV_RF215_TX_HANDLE_INVALID)
+    {
+        return;
+    }
+
     /* Get buffer index from TX handle */
     txBufIndex = (uint8_t) (txHandle & 0xFF);
     pMsgDest = srvRsnifferTxMsg[txBufIndex];

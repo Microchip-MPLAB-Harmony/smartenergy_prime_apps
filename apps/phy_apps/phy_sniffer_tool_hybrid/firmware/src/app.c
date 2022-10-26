@@ -88,7 +88,7 @@ static uint8_t plcSnifferDataBuffer[APP_PLC_SNIFFER_BUFFER_SIZE];
 
 static void _APP_TimerSyncInit();
 static uint64_t _APP_PlcTimeToSysTime(uint32_t plcTime);
-static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime);
+static uint32_t _APP_SysTimeToUS(uint64_t sysTime);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -133,7 +133,7 @@ static void _APP_PlcDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t ctxt)
 
     /* Convert RX time to SYS_TIME units and convert to 32-bit US counter */
     rxSysTime = _APP_PlcTimeToSysTime(indObj->time);
-    indObj->time = _SRV_RSNIFFER_SysTimeToUS(rxSysTime);
+    indObj->time = _APP_SysTimeToUS(rxSysTime);
 
     /* Serialize received PLC message */
     length = SRV_PSNIFFER_SerialRxMessage(plcSnifferDataBuffer, indObj);
@@ -145,9 +145,11 @@ static void _APP_PlcDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t ctxt)
 
 static void _APP_RfRxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
 {
+    DRV_RF215_PHY_CFG_OBJ rfPhyConfig;
     uint8_t* pRfSnifferData;
     size_t rfSnifferDataSize;
     uint16_t rfPayloadSymbols;
+    uint16_t rfChannel;
 
     /* Avoid warning */
     (void) ctxt;
@@ -155,9 +157,13 @@ static void _APP_RfRxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
     /* Get payload symbols in the received message */
     DRV_RF215_GetPib(appData.drvRf215Handle, RF215_PIB_PHY_RX_PAY_SYMBOLS, &rfPayloadSymbols);
 
+    /* Get RF PHY configuration */
+    DRV_RF215_GetPib(appData.drvRf215Handle, RF215_PIB_PHY_CONFIG, &rfPhyConfig);
+    DRV_RF215_GetPib(appData.drvRf215Handle, RF215_PIB_PHY_CHANNEL_NUM, &rfChannel);
+
     /* Serialize received RF message */
-    pRfSnifferData = SRV_RSNIFFER_SerialRxMessage(indObj, &appData.rfPhyConfig,
-            rfPayloadSymbols, appData.rfChannel, &rfSnifferDataSize);
+    pRfSnifferData = SRV_RSNIFFER_SerialRxMessage(indObj, &rfPhyConfig,
+            rfPayloadSymbols, rfChannel, &rfSnifferDataSize);
 
     /* Send through USI */
     SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIF_PRIME,
@@ -230,8 +236,8 @@ static uint64_t _APP_TimerSyncRead(uint32_t* plcTime)
 
     /* Leave critical region */
     SYS_INT_Enable();
-    
-    /* Compensate difference between timer reads */    
+
+    /* Compensate difference between timer reads */
     sysTime += SYS_TIME_USToCount(5);
 
     *plcTime = *((uint32_t*) appData.plcPIB.pData);
@@ -341,20 +347,34 @@ static uint64_t _APP_PlcTimeToSysTime(uint32_t plcTime)
     return appData.syncSysTimeRef + delaySysTime;
 }
 
-static uint32_t _SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
+static uint32_t _APP_SysTimeToUS(uint64_t sysTime)
 {
-    uint64_t sysTimeDiff;
+    int64_t sysTimeDiff;
     uint32_t timeUS = appData.plcSnifferPrevTimeUS;
 
     /* Difference between current and previous system time */
-    sysTimeDiff = sysTime - appData.plcSnifferPrevSysTime;
+    sysTimeDiff = (int64_t) sysTime - appData.plcSnifferPrevSysTime;
 
     /* Convert system time to microseconds and add to previous time */
     while (sysTimeDiff > 0x10000000)
     {
         timeUS += SYS_TIME_CountToUS(0x10000000);
+        sysTimeDiff -= 0x10000000;
     }
-    timeUS += SYS_TIME_CountToUS((uint32_t) sysTimeDiff);
+    while (sysTimeDiff < -0x10000000)
+    {
+        timeUS -= SYS_TIME_CountToUS(0x10000000);
+        sysTimeDiff += 0x10000000;
+    }
+
+    if (sysTimeDiff >= 0)
+    {
+        timeUS += SYS_TIME_CountToUS((uint32_t) sysTimeDiff);
+    }
+    else
+    {
+        timeUS -= SYS_TIME_CountToUS((uint32_t) (-sysTimeDiff));
+    }
 
     /* Store times for next computation */
     appData.plcSnifferPrevSysTime = sysTime;
@@ -506,13 +526,6 @@ void APP_Tasks ( void )
                 {
                     /* Register RF215 driver callback */
                     DRV_RF215_RxIndCallbackRegister(appData.drvRf215Handle, _APP_RfRxIndCb, 0);
-
-                    /* Get initial RF PHY configuration */
-                    DRV_RF215_GetPib(appData.drvRf215Handle, RF215_PIB_PHY_CONFIG,
-                            &appData.rfPhyConfig);
-
-                    DRV_RF215_GetPib(appData.drvRf215Handle, RF215_PIB_PHY_CHANNEL_NUM,
-                            &appData.rfChannel);
                 }
             }
 

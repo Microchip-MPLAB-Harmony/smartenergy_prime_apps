@@ -165,10 +165,6 @@ typedef struct
 
     DRV_PLC_PHY_CHANNEL plcChannel;
 
-    DRV_RF215_PHY_CFG_OBJ rfPhyConfig;
-
-    uint16_t rfChannel;
-
 } APP_DATA;
 
 // *****************************************************************************
