@@ -382,26 +382,7 @@
       <logicalFolder name="f1"
                      displayName="sam_e70_xult_pl460.mhc"
                      projectFiles="true">
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/afec1.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/BSP_SAM_E70_Xplained_Ultra.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/cmsis.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/core.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/dfp.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/drvPlcPhy.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/drv_memory.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/efc.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/GraphSettings.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/HarmonyCore.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/project.yml</itemPath>
         <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/settings.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/spi0.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/srv_pcoup.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/srv_pvddmon.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/sys_console.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/sys_time.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/tc0.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/trng.yml</itemPath>
-        <itemPath>../src/config/sam_e70_xult_pl460/sam_e70_xult_pl460.mhc/usart1.yml</itemPath>
       </logicalFolder>
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/sam_e70_xult_pl460/harmony-manifest-success.yml</itemPath>
