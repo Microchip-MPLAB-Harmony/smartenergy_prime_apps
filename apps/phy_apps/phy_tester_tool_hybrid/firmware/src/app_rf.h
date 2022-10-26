@@ -98,9 +98,6 @@ typedef struct
     /* The application's current state */
     APP_RF_STATES state;
 
-    DRV_RF215_PHY_CFG_OBJ rfPhyConfigRF09;
-    DRV_RF215_PHY_CFG_OBJ rfPhyConfigRF24;
-
     DRV_HANDLE rf215HandleRF09;
     DRV_HANDLE rf215HandleRF24;
 
