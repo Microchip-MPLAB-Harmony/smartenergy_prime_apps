@@ -204,7 +204,7 @@ Remarks:
 
 typedef struct
 {
-	SYS_MODULE_OBJ  usbDevObject0;
+    SYS_MODULE_OBJ  usbDevObject0;
 
     SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ drvPlcPhy;
