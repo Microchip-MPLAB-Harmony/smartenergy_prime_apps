@@ -121,7 +121,7 @@ typedef struct
     /* Flag to indicate this object is in use  */
     bool                            inUse;
 
-    DRV_PLC_PHY_STATE               state;
+    DRV_PLC_PHY_STATE               state[2];
 
     /* Keep track of the number of clients that have opened this driver */
     size_t                          nClients;
