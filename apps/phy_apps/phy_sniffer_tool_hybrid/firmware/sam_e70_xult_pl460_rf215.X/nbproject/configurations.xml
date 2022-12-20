@@ -5,159 +5,159 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="sam_e70_pl460_rf215"
-                       displayName="sam_e70_pl460_rf215"
+        <logicalFolder name="sam_e70_xult_pl460_rf215"
+                       displayName="sam_e70_xult_pl460_rf215"
                        projectFiles="true">
           <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
-            <itemPath>../src/config/sam_e70_pl460_rf215/bsp/bsp.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/bsp/bsp.h</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
               <logicalFolder name="common" displayName="common" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/common/drv_plc_hal.h</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/common/drv_plc_boot.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/common/drv_plc_hal.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/common/drv_plc_boot.h</itemPath>
               </logicalFolder>
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/phy/drv_plc_phy_local_comm.h</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/phy/drv_plc_phy.h</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/phy/drv_plc_phy_definitions.h</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.h</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/phy/drv_plc_phy_local.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy_local_comm.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy_definitions.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy_local.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
               <logicalFolder name="hal" displayName="hal" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/hal/rf215_hal.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/hal/rf215_hal.h</itemPath>
               </logicalFolder>
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/phy/rf215_phy.h</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/phy/ieee_15_4_sun_fsk.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/phy/rf215_phy.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/phy/ieee_15_4_sun_fsk.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/drv_rf215_definitions.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/drv_rf215_local.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/drv_rf215.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/drv_rf215_definitions.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/drv_rf215_local.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/drv_rf215.h</itemPath>
             </logicalFolder>
             <logicalFolder name="usb" displayName="usb" projectFiles="true">
               <logicalFolder name="usbhsv1" displayName="usbhsv1" projectFiles="true">
                 <logicalFolder name="src" displayName="src" projectFiles="true">
-                  <itemPath>../src/config/sam_e70_pl460_rf215/driver/usb/usbhsv1/src/drv_usbhsv1_local.h</itemPath>
-                  <itemPath>../src/config/sam_e70_pl460_rf215/driver/usb/usbhsv1/src/drv_usbhsv1_variant_mapping.h</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/usb/usbhsv1/src/drv_usbhsv1_local.h</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/usb/usbhsv1/src/drv_usbhsv1_variant_mapping.h</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/usb/usbhsv1/drv_usbhsv1.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/usb/usbhsv1/drv_usbhsv1.h</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/sam_e70_pl460_rf215/driver/usb/drv_usb.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/driver/usb/drv_usb_external_dependencies.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/usb/drv_usb.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/usb/drv_usb_external_dependencies.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_e70_pl460_rf215/driver/driver.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/driver/driver_common.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/driver.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/driver_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="osal" displayName="osal" projectFiles="true">
-            <itemPath>../src/config/sam_e70_pl460_rf215/osal/osal.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/osal/osal_definitions.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/osal/osal_impl_basic.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/osal/osal.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/osal/osal_definitions.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/clk/plib_clk.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
             <logicalFolder name="efc" displayName="efc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/efc/plib_efc.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/efc/plib_efc.h</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/nvic/plib_nvic.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/nvic/plib_nvic.h</itemPath>
             </logicalFolder>
             <logicalFolder name="pio" displayName="pio" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/pio/plib_pio.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/pio/plib_pio.h</itemPath>
             </logicalFolder>
             <logicalFolder name="spi" displayName="spi" projectFiles="true">
               <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/spi/spi_master/plib_spi_master_common.h</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/spi/spi_master/plib_spi0_master.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/spi/spi_master/plib_spi_master_common.h</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/spi/spi_master/plib_spi0_master.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="tc" displayName="tc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/tc/plib_tc0.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/tc/plib_tc0.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/tc/plib_tc_common.h</itemPath>
             </logicalFolder>
             <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/wdt/plib_wdt.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/wdt/plib_wdt.h</itemPath>
             </logicalFolder>
             <logicalFolder name="xdmac" displayName="xdmac" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/xdmac/plib_xdmac.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/xdmac/plib_xdmac_common.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/xdmac/plib_xdmac.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/xdmac/plib_xdmac_common.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
             <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/pcrc/srv_pcrc.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/pcrc/srv_pcrc.h</itemPath>
             </logicalFolder>
             <logicalFolder name="psniffer" displayName="psniffer" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/psniffer/srv_psniffer.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/psniffer/srv_psniffer.h</itemPath>
             </logicalFolder>
             <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/rsniffer/srv_rsniffer.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/rsniffer/srv_rsniffer.h</itemPath>
             </logicalFolder>
             <logicalFolder name="usi" displayName="usi" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/usi/srv_usi.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/usi/srv_usi_local.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/usi/srv_usi_definitions.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/usi/srv_usi_cdc.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/usi/srv_usi.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/usi/srv_usi_local.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/usi/srv_usi_definitions.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/usi/srv_usi_cdc.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/cache/sys_cache.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/cache/sys_cache.h</itemPath>
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/debug/sys_debug.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/debug/sys_debug.h</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/dma/sys_dma_mapping.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/dma/sys_dma.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/dma/sys_dma_mapping.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/dma/sys_dma.h</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/int/sys_int_mapping.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/int/sys_int.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/int/sys_int_mapping.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/int/sys_int.h</itemPath>
             </logicalFolder>
             <logicalFolder name="ports" displayName="ports" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/ports/sys_ports.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/ports/sys_ports_mapping.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/ports/sys_ports.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/ports/sys_ports_mapping.h</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/time/sys_time.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/time/sys_time_definitions.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/time/src/sys_time_local.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/time/sys_time.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/time/src/sys_time_local.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_e70_pl460_rf215/system/system.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/system/system_module.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/system/system_common.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/system.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/system_module.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/system_common.h</itemPath>
           </logicalFolder>
           <logicalFolder name="usb" displayName="usb" projectFiles="true">
             <logicalFolder name="src" displayName="src" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/usb/src/usb_device_mapping.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/usb/src/usb_device_function_driver.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/usb/src/usb_device_cdc_local.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/usb/src/usb_device_local.h</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/usb/src/usb_external_dependencies.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/src/usb_device_mapping.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/src/usb_device_function_driver.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/src/usb_device_cdc_local.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/src/usb_device_local.h</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/src/usb_external_dependencies.h</itemPath>
             </logicalFolder>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_chapter_9.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_cdc.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_hub.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_host_hub_interface.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_device_cdc.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_common.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_host.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_host_client_driver.h</itemPath>
-            <itemPath>../src/config/sam_e70_pl460_rf215/usb/usb_device.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_chapter_9.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_cdc.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_hub.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_host_hub_interface.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_device_cdc.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_common.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_host.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_host_client_driver.h</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/usb_device.h</itemPath>
           </logicalFolder>
-          <itemPath>../src/config/sam_e70_pl460_rf215/definitions.h</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/toolchain_specifics.h</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/device_vectors.h</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/configuration.h</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/device.h</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/device_cache.h</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/user.h</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/interrupts.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/definitions.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/device_vectors.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/configuration.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/device.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/device_cache.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/user.h</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/interrupts.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
@@ -290,10 +290,10 @@
                    displayName="Linker Files"
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="sam_e70_pl460_rf215"
-                       displayName="sam_e70_pl460_rf215"
+        <logicalFolder name="sam_e70_xult_pl460_rf215"
+                       displayName="sam_e70_xult_pl460_rf215"
                        projectFiles="true">
-          <itemPath>../src/config/sam_e70_pl460_rf215/ATSAME70Q21B.ld</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/ATSAME70Q21B.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -301,122 +301,122 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="sam_e70_pl460_rf215"
-                       displayName="sam_e70_pl460_rf215"
+        <logicalFolder name="sam_e70_xult_pl460_rf215"
+                       displayName="sam_e70_xult_pl460_rf215"
                        projectFiles="true">
           <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
-            <itemPath>../src/config/sam_e70_pl460_rf215/bsp/bsp.c</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/bsp/bsp.c</itemPath>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
               <logicalFolder name="common" displayName="common" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/common/drv_plc_hal.c</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/common/drv_plc_boot.c</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/common/drv_plc_hal.c</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/common/drv_plc_boot.c</itemPath>
               </logicalFolder>
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
-                  <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
                 </logicalFolder>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/phy/drv_plc_phy.c</itemPath>
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy.c</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
               <logicalFolder name="hal" displayName="hal" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/hal/rf215_hal.c</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/hal/rf215_hal.c</itemPath>
               </logicalFolder>
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/phy/rf215_phy.c</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/phy/rf215_phy.c</itemPath>
               </logicalFolder>
-              <itemPath>../src/config/sam_e70_pl460_rf215/driver/rf215/drv_rf215.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/rf215/drv_rf215.c</itemPath>
             </logicalFolder>
             <logicalFolder name="usb" displayName="usb" projectFiles="true">
               <logicalFolder name="usbhsv1" displayName="usbhsv1" projectFiles="true">
                 <logicalFolder name="src" displayName="src" projectFiles="true">
-                  <itemPath>../src/config/sam_e70_pl460_rf215/driver/usb/usbhsv1/src/drv_usbhsv1_device.c</itemPath>
-                  <itemPath>../src/config/sam_e70_pl460_rf215/driver/usb/usbhsv1/src/drv_usbhsv1.c</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/usb/usbhsv1/src/drv_usbhsv1_device.c</itemPath>
+                  <itemPath>../src/config/sam_e70_xult_pl460_rf215/driver/usb/usbhsv1/src/drv_usbhsv1.c</itemPath>
                 </logicalFolder>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/clk/plib_clk.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/clk/plib_clk.c</itemPath>
             </logicalFolder>
             <logicalFolder name="efc" displayName="efc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/efc/plib_efc.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/efc/plib_efc.c</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/nvic/plib_nvic.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/nvic/plib_nvic.c</itemPath>
             </logicalFolder>
             <logicalFolder name="pio" displayName="pio" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/pio/plib_pio.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/pio/plib_pio.c</itemPath>
             </logicalFolder>
             <logicalFolder name="spi" displayName="spi" projectFiles="true">
               <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
-                <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/spi/spi_master/plib_spi0_master.c</itemPath>
+                <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/spi/spi_master/plib_spi0_master.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="tc" displayName="tc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/tc/plib_tc0.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/tc/plib_tc0.c</itemPath>
             </logicalFolder>
             <logicalFolder name="wdt" displayName="wdt" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/wdt/plib_wdt.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/wdt/plib_wdt.c</itemPath>
             </logicalFolder>
             <logicalFolder name="xdmac" displayName="xdmac" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/peripheral/xdmac/plib_xdmac.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/peripheral/xdmac/plib_xdmac.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
             <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/pcrc/srv_pcrc.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/pcrc/srv_pcrc.c</itemPath>
             </logicalFolder>
             <logicalFolder name="psniffer" displayName="psniffer" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/psniffer/srv_psniffer.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/psniffer/srv_psniffer.c</itemPath>
             </logicalFolder>
             <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/rsniffer/srv_rsniffer.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/rsniffer/srv_rsniffer.c</itemPath>
             </logicalFolder>
             <logicalFolder name="usi" displayName="usi" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/usi/srv_usi.c</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/service/usi/srv_usi_cdc.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/usi/srv_usi.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/service/usi/srv_usi_cdc.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
-            <itemPath>../src/config/sam_e70_pl460_rf215/stdio/xc32_monitor.c</itemPath>
+            <itemPath>../src/config/sam_e70_xult_pl460_rf215/stdio/xc32_monitor.c</itemPath>
           </logicalFolder>
           <logicalFolder name="system" displayName="system" projectFiles="true">
             <logicalFolder name="cache" displayName="cache" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/cache/sys_cache.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/cache/sys_cache.c</itemPath>
             </logicalFolder>
             <logicalFolder name="dma" displayName="dma" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/dma/sys_dma.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/dma/sys_dma.c</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/int/src/sys_int.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
             <logicalFolder name="time" displayName="time" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/system/time/src/sys_time.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/system/time/src/sys_time.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="usb" displayName="usb" projectFiles="true">
             <logicalFolder name="src" displayName="src" projectFiles="true">
-              <itemPath>../src/config/sam_e70_pl460_rf215/usb/src/usb_device.c</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/usb/src/usb_device_cdc_acm.c</itemPath>
-              <itemPath>../src/config/sam_e70_pl460_rf215/usb/src/usb_device_cdc.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/src/usb_device.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/src/usb_device_cdc_acm.c</itemPath>
+              <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb/src/usb_device_cdc.c</itemPath>
             </logicalFolder>
           </logicalFolder>
-          <itemPath>../src/config/sam_e70_pl460_rf215/usb_device_init_data.c</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/startup_xc32.c</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/libc_syscalls.c</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/initialization.c</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/exceptions.c</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/tasks.c</itemPath>
-          <itemPath>../src/config/sam_e70_pl460_rf215/interrupts.c</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/usb_device_init_data.c</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/startup_xc32.c</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/initialization.c</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/exceptions.c</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/tasks.c</itemPath>
+          <itemPath>../src/config/sam_e70_xult_pl460_rf215/interrupts.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
-      <itemPath>../src/config/sam_e70_pl460_rf215/pin_configurations.csv</itemPath>
+      <itemPath>../src/config/sam_e70_xult_pl460_rf215/pin_configurations.csv</itemPath>
       <itemPath>../src/app.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -428,7 +428,7 @@
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="sam_e70_pl460_rf215" type="2">
+    <conf name="sam_e70_xult_pl460_rf215" type="2">
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <targetDevice>ATSAME70Q21B</targetDevice>
@@ -436,7 +436,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.10</languageToolchainVersion>
+        <languageToolchainVersion>4.20</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -480,7 +480,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_e70_pl460_rf215;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
+                  value="../src;../src/config/sam_e70_xult_pl460_rf215;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -509,7 +509,7 @@
         <property key="exclude-floating-point-library" value="false"/>
         <property key="expand-macros" value="false"/>
         <property key="extra-include-directories-for-assembler"
-                  value="../src/config/sam_e70_pl460_rf215/driver/plc/phy/bin"/>
+                  value="../src/config/sam_e70_xult_pl460_rf215/driver/plc/phy/bin"/>
         <property key="extra-include-directories-for-preprocessor" value=""/>
         <property key="false-conditionals" value="false"/>
         <property key="generate-16-bit-code" value="false"/>
@@ -582,7 +582,7 @@
         <property key="exceptions" value="true"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/sam_e70_pl460_rf215;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
+                  value="../src;../src/config/sam_e70_xult_pl460_rf215;../src/packs/ATSAME70Q21B_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
