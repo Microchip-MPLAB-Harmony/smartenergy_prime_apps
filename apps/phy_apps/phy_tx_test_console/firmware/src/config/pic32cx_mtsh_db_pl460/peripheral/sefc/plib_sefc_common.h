@@ -1,4 +1,21 @@
 /*******************************************************************************
+ Common definition of ${SEFC_INSTANCE_NAME} PLIB.
+
+ Company:
+    Microchip Technology Inc.
+
+ File Name:
+    plib_sefc_common.h
+
+ Summary:
+    Common definition of ${SEFC_INSTANCE_NAME} Plib.
+
+ Description:
+    This file defines data types and definitions for the ${SEFC_INSTANCE_NAME} Plib.
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
+/*******************************************************************************
 * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
@@ -20,59 +37,51 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
 
-/*******************************************************************************
-  User Configuration Header
+#ifndef SEFC_COMMON_H    // Guards against multiple inclusion
+#define SEFC_COMMON_H
 
-  File Name:
-    user.h
-
-  Summary:
-    Build-time configuration header for the user defined by this project.
-
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
-*******************************************************************************/
-
-#ifndef USER_H
-#define USER_H
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 
 // DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
-
+#ifdef __cplusplus // Provide C++ Compatibility
+    extern "C" {
 #endif
 // DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// Section: Interface
 // *****************************************************************************
 // *****************************************************************************
 
-#define USER_BLINK_LED_On()           LED_On()
-#define USER_BLINK_LED_Off()          LED_Off()
-#define USER_BLINK_LED_Toggle()       LED_Toggle()
-    
-#define USER_PLC_IND_LED_On()         LED_EXT1_Pin4_On()
-#define USER_PLC_IND_LED_Off()        LED_EXT1_Pin4_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_EXT1_Pin4_Toggle()
+#define SEFC_ERROR_NONE              0x1
+/* In-valid command */
+#define SEFC_CMD_ERROR               0x2
+/* Flash region is locked */
+#define SEFC_LOCK_ERROR              0x4
+/* Flash Error */
+#define SEFC_FLERR_ERROR             0x8
+/* Flash Encountered an ECC error */
+#define SEFC_ECC_ERROR               0xF0000
 
-#define CLEAR_WATCHDOG()              WDT_Clear()
+typedef uint32_t SEFC_ERROR;
 
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
+typedef void (*SEFC_CALLBACK)(uintptr_t context);
+
+typedef struct
+{
+    SEFC_CALLBACK callback;
+    uintptr_t     context;
+} SEFC_OBJECT;
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus // Provide C++ Compatibility
 }
 #endif
-//DOM-IGNORE-END
+// DOM-IGNORE-END
 
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/
+#endif //SEFC_COMMON_H

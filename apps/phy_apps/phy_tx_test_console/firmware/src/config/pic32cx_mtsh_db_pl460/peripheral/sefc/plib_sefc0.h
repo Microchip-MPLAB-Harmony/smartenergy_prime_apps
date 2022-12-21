@@ -1,4 +1,22 @@
 /*******************************************************************************
+ Interface definition of SEFC0 PLIB.
+
+ Company:
+    Microchip Technology Inc.
+
+ File Name:
+    plib_sefc0.h
+
+ Summary:
+    Interface definition of SEFC0 Plib.
+
+ Description:
+    This file defines the interface for the SEFC0 Plib.
+    It allows user to Program, Erase and lock the on-chip FLASH memory.
+*******************************************************************************/
+
+// DOM-IGNORE-BEGIN
+/*******************************************************************************
 * Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
@@ -20,59 +38,56 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+// DOM-IGNORE-END
 
-/*******************************************************************************
-  User Configuration Header
+#ifndef SEFC0_H    // Guards against multiple inclusion
+#define SEFC0_H
 
-  File Name:
-    user.h
-
-  Summary:
-    Build-time configuration header for the user defined by this project.
-
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
-*******************************************************************************/
-
-#ifndef USER_H
-#define USER_H
+#include "plib_sefc_common.h"
 
 // DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
-
+#ifdef __cplusplus // Provide C++ Compatibility
+    extern "C" {
 #endif
 // DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// Section: Interface
 // *****************************************************************************
 // *****************************************************************************
 
-#define USER_BLINK_LED_On()           LED_On()
-#define USER_BLINK_LED_Off()          LED_Off()
-#define USER_BLINK_LED_Toggle()       LED_Toggle()
-    
-#define USER_PLC_IND_LED_On()         LED_EXT1_Pin4_On()
-#define USER_PLC_IND_LED_Off()        LED_EXT1_Pin4_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_EXT1_Pin4_Toggle()
+#define SEFC0_SECTORSIZE              8192
+#define SEFC0_PAGESIZE                512
+#define SEFC0_LOCKSIZE                0x4000
 
-#define CLEAR_WATCHDOG()              WDT_Clear()
+void SEFC0_Initialize(void);
 
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
+bool SEFC0_Read( uint32_t *data, uint32_t length, uint32_t address );
+
+bool SEFC0_SectorErase( uint32_t address );
+
+bool SEFC0_PageBufferWrite( uint32_t *data, const uint32_t address);
+
+bool SEFC0_PageBufferCommit( const uint32_t address);
+
+bool SEFC0_PageWrite( uint32_t *data, uint32_t address );
+
+bool SEFC0_QuadWordWrite( uint32_t *data, uint32_t address );
+
+SEFC_ERROR SEFC0_ErrorGet( void );
+
+bool SEFC0_IsBusy(void);
+
+void SEFC0_RegionLock(uint32_t address);
+
+void SEFC0_RegionUnlock(uint32_t address);
+
+
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus // Provide C++ Compatibility
 }
 #endif
-//DOM-IGNORE-END
+// DOM-IGNORE-END
 
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/
+#endif

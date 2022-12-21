@@ -1,5 +1,24 @@
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+  Interrupt System Service Mapping File
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    sys_int_mapping.h
+
+  Summary:
+    Interrupt System Service mapping file.
+
+  Description:
+    This header file contains the mapping of the APIs defined in the API header
+    to either the function implementations or macro implementation or the
+    specific variant implementation.
+*******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/******************************************************************************
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -20,59 +39,22 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
-
-/*******************************************************************************
-  User Configuration Header
-
-  File Name:
-    user.h
-
-  Summary:
-    Build-time configuration header for the user defined by this project.
-
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
-*******************************************************************************/
-
-#ifndef USER_H
-#define USER_H
-
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
-
-#endif
-// DOM-IGNORE-END
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: User Configuration macros
-// *****************************************************************************
-// *****************************************************************************
-
-#define USER_BLINK_LED_On()           LED_On()
-#define USER_BLINK_LED_Off()          LED_Off()
-#define USER_BLINK_LED_Toggle()       LED_Toggle()
-    
-#define USER_PLC_IND_LED_On()         LED_EXT1_Pin4_On()
-#define USER_PLC_IND_LED_Off()        LED_EXT1_Pin4_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_EXT1_Pin4_Toggle()
-
-#define CLEAR_WATCHDOG()              WDT_Clear()
-
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
-}
-#endif
 //DOM-IGNORE-END
 
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/
+#ifndef SYS_INT_MAPPING_H
+#define SYS_INT_MAPPING_H
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interrupt System Service Mapping
+// *****************************************************************************
+// *****************************************************************************
+
+#define SYS_INT_IsEnabled()                 ( __get_PRIMASK() == 0 )
+#define SYS_INT_SourceEnable( source )      NVIC_EnableIRQ( source )
+#define SYS_INT_SourceIsEnabled( source )   NVIC_GetEnableIRQ( source )
+#define SYS_INT_SourceStatusGet( source )   NVIC_GetPendingIRQ( source )
+#define SYS_INT_SourceStatusSet( source )   NVIC_SetPendingIRQ( source )
+#define SYS_INT_SourceStatusClear( source ) NVIC_ClearPendingIRQ( source )
+
+#endif // SYS_INT_MAPPING_H
