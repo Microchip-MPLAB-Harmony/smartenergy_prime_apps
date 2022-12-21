@@ -4,7 +4,7 @@
 
 
 project: phy_sniffer_tool
-creation_date: 2022-10-26T11:35:02.666+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2022-12-21T10:06:31.396+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mhc_mode: Standalone            # [IDE|Standalone|Headless]
 mhc_version: NA
@@ -13,9 +13,9 @@ plugin_version: NA        # if MPLAB X plugin only
 compiler: xc32
 
 modules:
-    - {name: "csp", version: "v3.14.0"}
+    - {name: "csp", version: "unknown"}
     - {name: "core", version: "v3.11.1"}
-    - {name: "dev_packs", version: "v3.14.0"}
+    - {name: "dev_packs", version: "unknown"}
     - {name: "usb", version: "v3.10.0"}
     - {name: "smartenergy", version: "unknown"}
     - {name: "bsp", version: "v3.14.0"}

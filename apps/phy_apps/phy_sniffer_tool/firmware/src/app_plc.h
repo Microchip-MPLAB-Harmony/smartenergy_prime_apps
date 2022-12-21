@@ -37,7 +37,7 @@
     This header file provides function prototypes and data type definitions for
     the application.  Some of these are required by the system (such as the
     "APP_Initialize" and "APP_Tasks" prototypes) and some of them are only used
-    internally by the application (such as the "APP_STATE" definition).  Both
+    internally by the application (such as the "APP_PLC_STATE" definition).  Both
     are defined here for convenience.
 *******************************************************************************/
 
@@ -91,17 +91,14 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_STATE_IDLE=0,
-    APP_STATE_INIT,
-    APP_STATE_REGISTER,
-    APP_STATE_CONFIG_PLC,
-    APP_STATE_CONFIG_USI,
-    APP_STATE_SEND_PLC_MSG,
-    APP_STATE_SEND_USI_MSG,
-    APP_STATE_READY,
-    APP_STATE_ERROR
+    APP_PLC_STATE_IDLE=0,
+    APP_PLC_STATE_REGISTER,
+    APP_PLC_STATE_CONFIG_PLC,
+    APP_PLC_STATE_CONFIG_USI,
+    APP_PLC_STATE_READY,
+    APP_PLC_STATE_ERROR
 
-} APP_STATE;
+} APP_PLC_STATE;
 
 // *****************************************************************************
 /* Application Data
@@ -118,7 +115,7 @@ typedef enum
 
 typedef struct
 {
-    APP_STATE state;
+    APP_PLC_STATE state;
     
     SYS_TIME_HANDLE tmr1Handle;
     
@@ -140,7 +137,7 @@ typedef struct
     
     DRV_PLC_PHY_CHANNEL channel;
 
-} APP_DATA;
+} APP_PLC_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -187,7 +184,7 @@ typedef struct
     This routine must be called from the SYS_Initialize function.
 */
 
-void APP_Initialize ( void );
+void APP_PLC_Initialize ( void );
 
 
 /*******************************************************************************
@@ -220,7 +217,7 @@ void APP_Initialize ( void );
     This routine must be called from SYS_Tasks() routine.
  */
 
-void APP_Tasks( void );
+void APP_PLC_Tasks( void );
 
 
 

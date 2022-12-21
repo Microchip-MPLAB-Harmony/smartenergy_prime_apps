@@ -74,7 +74,7 @@
     Application strings and buffers are be defined outside this structure.
 */
 
-CACHE_ALIGN APP_DATA appData;
+CACHE_ALIGN APP_PLC_DATA appPlcData;
     
 static CACHE_ALIGN uint8_t pPLCDataRxBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_DATA_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t pPLCDataPIBBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_BUFFER_SIZE)];
@@ -87,15 +87,15 @@ static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_D
 // *****************************************************************************
 void Timer1_Callback (uintptr_t context)
 {
-    appData.tmr1Expired = true;
+    appPlcData.tmr1Expired = true;
 }
 
 void Timer2_Callback (uintptr_t context)
 {
-    appData.tmr2Expired = true;
+    appPlcData.tmr2Expired = true;
 }
 
-static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
+static void APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
 {
     /* Avoid warning */
     (void)context;
@@ -105,21 +105,21 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
         size_t length;
         
         /* Report RX Symbols */
-        appData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
-        appData.plcPIB.length = 2;
-        DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &appData.plcPIB);
+        appPlcData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
+        appPlcData.plcPIB.length = 2;
+        DRV_PLC_PHY_PIBGet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
 
-        SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
+        SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appPlcData.plcPIB.pData);
 
         /* Serialize received message */
-        length = SRV_PSNIFFER_SerialRxMessage(appData.pSerialData, indObj);
+        length = SRV_PSNIFFER_SerialRxMessage(appPlcData.pSerialData, indObj);
         /* Send through USI */
-        SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_SNIF_PRIME,
-                appData.pSerialData, length);
+        SRV_USI_Send_Message(appPlcData.srvUSIHandle, SRV_USI_PROT_ID_SNIF_PRIME,
+                appPlcData.pSerialData, length);
 
         /* Start Timer: LED blinking for each received message */
         USER_PLC_IND_LED_On();
-        appData.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0,
+        appPlcData.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0,
                 LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
     }
 }
@@ -129,7 +129,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
+void APP_PLC_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 {
     /* Message received from PLC Tool - USART */
 	uint8_t command;
@@ -150,17 +150,17 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
             
             channel = *(pData + 1);
             
-            if ((appData.channel != channel) && (channel >= CHN1) && (channel <= CHN7_CHN8))
+            if ((appPlcData.channel != channel) && (channel >= CHN1) && (channel <= CHN7_CHN8))
             {
-                appData.channel = channel;
+                appPlcData.channel = channel;
                 
                 /* Set channel configuration */
-                appData.plcPIB.id = PLC_ID_CHANNEL_CFG;
-                appData.plcPIB.length = 1;
-                *appData.plcPIB.pData = channel;
-                DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
+                appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
+                appPlcData.plcPIB.length = 1;
+                *appPlcData.plcPIB.pData = channel;
+                DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
                 /* Update channel in PSniffer */
-                SRV_PSNIFFER_SetPLCChannel(appData.channel);
+                SRV_PSNIFFER_SetPLCChannel(appPlcData.channel);
             }
         }
         break;
@@ -184,26 +184,24 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
     See prototype in app.h.
  */
 
-void APP_Initialize(void)
+void APP_PLC_Initialize(void)
 {
     /* Place the App state machine in its initial state. */
-    appData.state = APP_STATE_IDLE;
+    appPlcData.state = APP_PLC_STATE_IDLE;
 
     /* Init Timer handler */
-    appData.tmr1Handle = SYS_TIME_HANDLE_INVALID;
-    appData.tmr2Handle = SYS_TIME_HANDLE_INVALID;
-    appData.tmr1Expired = false;
-    appData.tmr2Expired = false;
-
-    appData.state = APP_STATE_INIT;
+    appPlcData.tmr1Handle = SYS_TIME_HANDLE_INVALID;
+    appPlcData.tmr2Handle = SYS_TIME_HANDLE_INVALID;
+    appPlcData.tmr1Expired = false;
+    appPlcData.tmr2Expired = false;
 
     /* Initialize PLC objects */
-    appData.plcRxObj.pReceivedData = pPLCDataRxBuffer;
-    appData.plcPIB.pData = pPLCDataPIBBuffer;
-    appData.pSerialData = pSerialDataBuffer;
+    appPlcData.plcRxObj.pReceivedData = pPLCDataRxBuffer;
+    appPlcData.plcPIB.pData = pPLCDataPIBBuffer;
+    appPlcData.pSerialData = pSerialDataBuffer;
     
     /* Init Channel */
-    appData.channel = CHN1;
+    appPlcData.channel = CHN1;
 }
 
 
@@ -214,122 +212,122 @@ void APP_Initialize(void)
   Remarks:
     See prototype in app.h.
  */
-void APP_Tasks(void)
+void APP_PLC_Tasks(void)
 {
     /* Update Watchdog */
-    WDT_Clear();
+    CLEAR_WATCHDOD();
     
     /* Signalling */
-    if (appData.tmr1Expired)
+    if (appPlcData.tmr1Expired)
     {
-        appData.tmr1Expired = false;
+        appPlcData.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
     }
     
-    if (appData.tmr2Expired)
+    if (appPlcData.tmr2Expired)
     {
-        appData.tmr2Expired = false;
+        appPlcData.tmr2Expired = false;
         USER_PLC_IND_LED_Off();
     }
     
     /* Check the application's current state. */
-    switch(appData.state)
+    switch(appPlcData.state)
     {
         /* Application's initial state. */
-        case APP_STATE_INIT:
+        case APP_PLC_STATE_IDLE:
         {
             /* Open PLC driver : Start uploading process */
-            appData.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
+            appPlcData.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
 
-            if (appData.drvPl360Handle != DRV_HANDLE_INVALID)
+            if (appPlcData.drvPl360Handle != DRV_HANDLE_INVALID)
             {
                 /* Set Application to next state */
-                appData.state = APP_STATE_REGISTER;
+                appPlcData.state = APP_PLC_STATE_REGISTER;
             }
             else
             {
                 /* Set Application to ERROR state */
-                appData.state = APP_STATE_ERROR;
+                appPlcData.state = APP_PLC_STATE_ERROR;
             }
             break;
         }
 
         /* Waiting to PLC transceiver be opened and register callback functions */
-        case APP_STATE_REGISTER:
+        case APP_PLC_STATE_REGISTER:
         {
             /* Check PLC transceiver */
             if (DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX) == SYS_STATUS_READY)
             {
                 /* Register PLC callback */
-                DRV_PLC_PHY_DataIndCallbackRegister(appData.drvPl360Handle,
-                        APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
+                DRV_PLC_PHY_DataIndCallbackRegister(appPlcData.drvPl360Handle,
+                        APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
-                appData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);
+                appPlcData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);
 
-                if (appData.srvUSIHandle != DRV_HANDLE_INVALID)
+                if (appPlcData.srvUSIHandle != DRV_HANDLE_INVALID)
                 {
                     /* Set Application to next state */
-                    appData.state = APP_STATE_CONFIG_USI;
+                    appPlcData.state = APP_PLC_STATE_CONFIG_USI;
                 }
                 else
                 {
                     /* Set Application to ERROR state */
-                    appData.state = APP_STATE_ERROR;
+                    appPlcData.state = APP_PLC_STATE_ERROR;
                 }
             }
             break;
         }
 
-        case APP_STATE_CONFIG_USI:
+        case APP_PLC_STATE_CONFIG_USI:
         {
-            if (SRV_USI_Status(appData.srvUSIHandle) == SRV_USI_STATUS_CONFIGURED)
+            if (SRV_USI_Status(appPlcData.srvUSIHandle) == SRV_USI_STATUS_CONFIGURED)
             {
                 /* Register USI callback */
-                SRV_USI_CallbackRegister(appData.srvUSIHandle,
-                        SRV_USI_PROT_ID_SNIF_PRIME, APP_USIPhyProtocolEventHandler);
+                SRV_USI_CallbackRegister(appPlcData.srvUSIHandle,
+                        SRV_USI_PROT_ID_SNIF_PRIME, APP_PLC_USIPhyProtocolEventHandler);
                 
                 /* Set channel configuration */
-                appData.plcPIB.id = PLC_ID_CHANNEL_CFG;
-                appData.plcPIB.length = 1;
-                *appData.plcPIB.pData = appData.channel;
-                DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
+                appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
+                appPlcData.plcPIB.length = 1;
+                *appPlcData.plcPIB.pData = appPlcData.channel;
+                DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
                 /* Update channel in PSniffer */
-                SRV_PSNIFFER_SetPLCChannel(appData.channel);
+                SRV_PSNIFFER_SetPLCChannel(appPlcData.channel);
 
-                if (appData.tmr1Handle == SYS_TIME_HANDLE_INVALID)
+                if (appPlcData.tmr1Handle == SYS_TIME_HANDLE_INVALID)
                 {
                     /* Register Timer Callback */
-                    appData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
+                    appPlcData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
                             Timer1_Callback, 0, LED_BLINK_RATE_MS,
                             SYS_TIME_PERIODIC);
                 }
                 else
                 {
-                    SYS_TIME_TimerStart(appData.tmr1Handle);
+                    SYS_TIME_TimerStart(appPlcData.tmr1Handle);
                 }
                     
                 /* Set Application to next state */
-                appData.state = APP_STATE_READY;
+                appPlcData.state = APP_PLC_STATE_READY;
             }
             break;
         }
 
-        case APP_STATE_READY:
+        case APP_PLC_STATE_READY:
         {
             /* Check USI status in case of USI device has been reset */
-            if (SRV_USI_Status(appData.srvUSIHandle) == SRV_USI_STATUS_NOT_CONFIGURED)
+            if (SRV_USI_Status(appPlcData.srvUSIHandle) == SRV_USI_STATUS_NOT_CONFIGURED)
             {
                 /* Set Application to next state */
-                appData.state = APP_STATE_CONFIG_USI;  
-                SYS_TIME_TimerStop(appData.tmr1Handle);
+                appPlcData.state = APP_PLC_STATE_CONFIG_USI;  
+                SYS_TIME_TimerStop(appPlcData.tmr1Handle);
                 /* Disable Blink Led */
                 USER_BLINK_LED_Off();
             }
             break;
         }
 
-        case APP_STATE_ERROR:
+        case APP_PLC_STATE_ERROR:
         {
             /* Handle error in application's state machine */
             break;

@@ -292,9 +292,9 @@ static void _DRV_PLC_BOOT_DisableBootCmd(void)
     
     /* Configure 16 bits transfer */
     sDrvPlcHalObj->setup(true);
-    
-    /* Wait to PLC startup (2ms) */
-    sDrvPlcHalObj->delay(2000);
+
+    /* Wait to PLC startup (6ms) */
+    sDrvPlcHalObj->delay(6000);
 }
 
 static bool _DRV_PLC_BOOT_CheckFirmware(void)
@@ -316,6 +316,18 @@ static bool _DRV_PLC_BOOT_CheckFirmware(void)
     }
     
     return false;
+}
+
+static void _DRV_PLC_BOOT_Restart(void)
+{  
+    sDrvPlcBootInfo.pendingLength = sDrvPlcBootInfo.binSize;
+    sDrvPlcBootInfo.pSrc = sDrvPlcBootInfo.binStartAddress;  
+    sDrvPlcBootInfo.pDst = DRV_PLC_BOOT_PROGRAM_ADDR;
+    sDrvPlcBootInfo.secNumPackets = 0;
+    
+    _DRV_PLC_BOOT_EnableBootCmd();
+    
+    sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
 }
 
 // *****************************************************************************
@@ -385,7 +397,8 @@ void DRV_PLC_BOOT_Tasks( void )
         }
         else
         {
-            sDrvPlcHalObj->delay(200);
+            /* Restart Boot process */
+            _DRV_PLC_BOOT_Restart();
         }
     }
 }
@@ -408,17 +421,8 @@ void DRV_PLC_BOOT_Restart(DRV_PLC_BOOT_RESTART_MODE mode)
     }
     else if (mode == DRV_PLC_BOOT_RESTART_HARD)
     {
-        /* Restore initial boot parameters */
-        sDrvPlcBootInfo.pendingLength = sDrvPlcBootInfo.binSize;
-        sDrvPlcBootInfo.pSrc = sDrvPlcBootInfo.binStartAddress;
-        sDrvPlcBootInfo.secNumPackets = 0;
-        
-        /* Enable Boot Command Mode */
-        _DRV_PLC_BOOT_EnableBootCmd();
-        
-        sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_PROCESING;
-        
-        _DRV_PLC_BOOT_FirmwareUploadTask();
+        /* Restart Boot process */
+        _DRV_PLC_BOOT_Restart();
     }
     else if (mode == DRV_PLC_BOOT_RESTART_SLEEP)
     {
