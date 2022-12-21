@@ -1,5 +1,22 @@
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+  Console System Service Local Data Structures
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    sys_console_local.h
+
+  Summary:
+    Console System Service local declarations and definitions.
+
+  Description:
+    This file contains the Console System Service local declarations and definitions.
+*******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/*******************************************************************************
+* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -20,27 +37,22 @@
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
+//DOM-IGNORE-END
 
-/*******************************************************************************
-  User Configuration Header
 
-  File Name:
-    user.h
+#ifndef SYS_CONSOLE_LOCAL_H
+#define SYS_CONSOLE_LOCAL_H
 
-  Summary:
-    Build-time configuration header for the user defined by this project.
 
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
+// *****************************************************************************
+// *****************************************************************************
+// Section: File includes
+// *****************************************************************************
+// *****************************************************************************
 
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
-*******************************************************************************/
-
-#ifndef USER_H
-#define USER_H
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -52,19 +64,11 @@ extern "C" {
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// Section: Data Type Definitions
 // *****************************************************************************
 // *****************************************************************************
 
-#define USER_BLINK_LED_On()           LED_On()  
-#define USER_BLINK_LED_Off()          LED_Off()   
-#define USER_BLINK_LED_Toggle()       LED_Toggle()  
-    
-#define USER_PLC_IND_LED_On()         LED_EXT1_Pin4_On()
-#define USER_PLC_IND_LED_Off()        LED_EXT1_Pin4_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_EXT1_Pin4_Toggle()
-
-#define CLEAR_WATCHDOG()              WDT_Clear()
+typedef uintptr_t CONSOLE_DEVICE_INDEX;
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -72,7 +76,8 @@ extern "C" {
 #endif
 //DOM-IGNORE-END
 
-#endif // USER_H
+#endif //#ifndef SYS_CONSOLE_LOCAL_H
+
 /*******************************************************************************
  End of File
 */

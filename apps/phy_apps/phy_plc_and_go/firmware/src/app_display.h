@@ -1,34 +1,11 @@
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-
-/*******************************************************************************
   MPLAB Harmony Application Header File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    app_plc.h
+    app_display.h
 
   Summary:
     This header file provides prototypes and definitions for the application.
@@ -36,13 +13,13 @@
   Description:
     This header file provides function prototypes and data type definitions for
     the application.  Some of these are required by the system (such as the
-    "APP_PLC_Initialize" and "APP_PLC_Tasks" prototypes) and some of them are only used
-    internally by the application (such as the "APP_PLC_STATES" definition).  Both
+    "APP_DISPLAY_Initialize" and "APP_DISPLAY_Tasks" prototypes) and some of them are only used
+    internally by the application (such as the "APP_DISPLAY_STATES" definition).  Both
     are defined here for convenience.
 *******************************************************************************/
 
-#ifndef _APP_PLC_H
-#define _APP_PLC_H
+#ifndef _APP_DISPLAY_H
+#define _APP_DISPLAY_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -50,8 +27,11 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+#include <stdlib.h>
 #include "configuration.h"
-#include "definitions.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -66,12 +46,7 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define LED_BLINK_RATE_MS                         500
-#define LED_PLC_RX_MSG_RATE_MS                    50
-    
-#define APP_PLC_BUFFER_SIZE                       512    
-#define APP_PLC_PIB_BUFFER_SIZE                   256
-    
+
 // *****************************************************************************
 /* Application states
 
@@ -86,33 +61,12 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_PLC_STATE_IDLE=0,
-    APP_PLC_STATE_INIT,
-    APP_PLC_STATE_OPEN,
-    APP_PLC_STATE_CHECK_PVDDMON,
-    APP_PLC_STATE_WAITING,
-    APP_PLC_STATE_WAITING_TX_CFM,
-    APP_PLC_STATE_SLEEP,
-    APP_PLC_STATE_ERROR,
+    APP_DISPLAY_STATE_INIT=0,
+    APP_DISPLAY_STATE_SERVICE_TASKS,
+    APP_DISPLAY_STATE_ERROR,
 
-} APP_PLC_STATES;
+} APP_DISPLAY_STATES;
 
-/* PLC Transmission Status
-
-  Summary:
-    PLC Transmission states enumeration
-
-  Description:
-    This structure holds the PLC transmission's status.
- */
-
-typedef enum
-{
-    APP_PLC_TX_STATE_IDLE=0,
-    APP_PLC_TX_STATE_WAIT_TX_CFM,
-    APP_PLC_TX_STATE_WAIT_TX_CANCEL
-
-} APP_PLC_TX_STATE;
 
 // *****************************************************************************
 /* Application Data
@@ -129,48 +83,12 @@ typedef enum
 
 typedef struct
 {
-    SYS_TIME_HANDLE tmr1Handle;
-    
-    volatile bool tmr1Expired;
-    
-    SYS_TIME_HANDLE tmr2Handle;
-    
-    volatile bool tmr2Expired;
-    
-    APP_PLC_STATES state;
-    
-    DRV_HANDLE drvPl360Handle;
-    
-    DRV_PLC_PHY_TX_RESULT lastTxResult;
-    
-    DRV_PLC_PHY_PIB_OBJ plcPIB;
-    
-    bool pvddMonTxEnable;
-    
-    APP_PLC_TX_STATE plcTxState;
-    
-} APP_PLC_DATA;
+    /* The application's current state */
+    APP_DISPLAY_STATES state;
 
-typedef struct
-{    
-    uint32_t pl360PhyVersion;
-    
-    DRV_PLC_PHY_TRANSMISSION_OBJ pl360Tx;
-    
-    uint8_t *pDataTx;
-    
-	uint8_t txAuto;
-    
-	uint8_t txImpedance;
-    
-    DRV_PLC_PHY_CHANNEL channel;
-    
-    uint16_t maxPsduLen;
+    /* TODO: Define any additional data used by the application. */
 
-} APP_PLC_DATA_TX;
-
-extern APP_PLC_DATA appPlc;
-extern APP_PLC_DATA_TX appPlcTx;
+} APP_DISPLAY_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -180,9 +98,15 @@ extern APP_PLC_DATA_TX appPlcTx;
 /* These routines are called by drivers when certain events occur.
 */
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Initialization and State Machine Functions
+// *****************************************************************************
+// *****************************************************************************
+
 /*******************************************************************************
   Function:
-    void APP_PLC_Initialize ( void )
+    void APP_DISPLAY_Initialize ( void )
 
   Summary:
      MPLAB Harmony application initialization routine.
@@ -190,7 +114,7 @@ extern APP_PLC_DATA_TX appPlcTx;
   Description:
     This function initializes the Harmony application.  It places the
     application in its initial state and prepares it to run so that its
-    APP_PLC_Tasks function can be called.
+    APP_DISPLAY_Tasks function can be called.
 
   Precondition:
     All other system initialization routines should be called before calling
@@ -204,19 +128,19 @@ extern APP_PLC_DATA_TX appPlcTx;
 
   Example:
     <code>
-    APP_PLC_Initialize();
+    APP_DISPLAY_Initialize();
     </code>
 
   Remarks:
     This routine must be called from the SYS_Initialize function.
 */
 
-void APP_PLC_Initialize ( void );
+void APP_DISPLAY_Initialize ( void );
 
 
 /*******************************************************************************
   Function:
-    void APP_PLC_Tasks ( void )
+    void APP_DISPLAY_Tasks ( void )
 
   Summary:
     MPLAB Harmony Demo application tasks function
@@ -237,30 +161,22 @@ void APP_PLC_Initialize ( void );
 
   Example:
     <code>
-    APP_PLC_Tasks();
+    APP_DISPLAY_Tasks();
     </code>
 
   Remarks:
     This routine must be called from SYS_Tasks() routine.
  */
 
-void APP_PLC_Tasks( void );
-
-
-bool APP_PLC_SendData ( uint8_t* pData, uint16_t length );
-void APP_PLC_SetModScheme ( DRV_PLC_PHY_SCH scheme );
-void APP_PLC_SetChannel ( DRV_PLC_PHY_CHANNEL channel );
-bool APP_PLC_SetSleepMode ( bool enable );
-
-
-
-#endif /* _APP_PLC_H */
+void APP_DISPLAY_Tasks( void );
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
 //DOM-IGNORE-END
+
+#endif /* _APP_DISPLAY_H */
 
 /*******************************************************************************
  End of File

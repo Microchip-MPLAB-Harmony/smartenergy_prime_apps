@@ -1,5 +1,21 @@
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+  Interface definition of CMCC PLIB.
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    plib_cmcc.h
+
+  Summary:
+    Interface definition of the CMCC(Cortex M Cache Controller) Peripheral Library
+
+  Description:
+    This file defines the interface for the CMCC Plib.
+*******************************************************************************/
+
+/*******************************************************************************
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -21,58 +37,36 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
-/*******************************************************************************
-  User Configuration Header
+#ifndef PLIB_CMCC_H    // Guards against multiple inclusion
+#define PLIB_CMCC_H
 
-  File Name:
-    user.h
 
-  Summary:
-    Build-time configuration header for the user defined by this project.
+#ifdef __cplusplus // Provide C++ Compatibility
+	extern "C" {
+#endif
 
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
 
-  Remarks:
-    It only provides macro definitions for build-time configuration options
+// *****************************************************************************
+// *****************************************************************************
+// Section: Interface
+// *****************************************************************************
+// *****************************************************************************
 
-*******************************************************************************/
+#define CMCC_NO_OF_WAYS     4
+#define CMCC_LINE_PER_WAY   64
+#define CMCC_LINE_SIZE      16
+#define CMCC_WAY_SIZE       1024
 
-#ifndef USER_H
-#define USER_H
-
-// DOM-IGNORE-BEGIN
+/***************************** CMCC API *******************************/
+void CMCC_Disable (void );
+void CMCC_EnableDCache (void );
+void CMCC_DisableDCache (void );
+void CMCC_EnableICache (void );
+void CMCC_DisableICache (void );
+void CMCC_ICacheInvalidateAll (void);
+void CMCC_DCacheInvalidateAll (void);
 #ifdef __cplusplus  // Provide C++ Compatibility
-
-extern "C" {
+    }
+#endif
 
 #endif
-// DOM-IGNORE-END
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: User Configuration macros
-// *****************************************************************************
-// *****************************************************************************
-
-#define USER_BLINK_LED_On()           LED_On()  
-#define USER_BLINK_LED_Off()          LED_Off()   
-#define USER_BLINK_LED_Toggle()       LED_Toggle()  
-    
-#define USER_PLC_IND_LED_On()         LED_EXT1_Pin4_On()
-#define USER_PLC_IND_LED_Off()        LED_EXT1_Pin4_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_EXT1_Pin4_Toggle()
-
-#define CLEAR_WATCHDOG()              WDT_Clear()
-
-//DOM-IGNORE-BEGIN
-#ifdef __cplusplus
-}
-#endif
-//DOM-IGNORE-END
-
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/

@@ -364,7 +364,7 @@ void APP_CONSOLE_Initialize ( void )
 void APP_CONSOLE_Tasks ( void )
 {
     /* Refresh WDG */
-    WDT_Clear();
+    CLEAR_WATCHDOG();
     
     /* Read console port */
     APP_CONSOLE_ReadSerialChar();

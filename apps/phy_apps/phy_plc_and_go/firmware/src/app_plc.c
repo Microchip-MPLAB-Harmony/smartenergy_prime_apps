@@ -363,10 +363,35 @@ void APP_PLC_Tasks ( void )
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
                 
                 /* Set PLC state */
-                appPlc.state = APP_PLC_STATE_WAITING;
+                appPlc.state = APP_PLC_STATE_CHECK_PVDDMON;
             }
         }
         break;
+        
+        case APP_PLC_STATE_CHECK_PVDDMON:
+        {
+            /* Check PVDD Monitor */
+            if (SRV_PVDDMON_CheckWindow())
+            {
+                // PLC Transmission is permitted again
+                DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, true);
+
+                // Set PVDD Monitor tracking data
+                appPlc.pvddMonTxEnable = true;
+            }
+            else
+            {
+                // PLC Transmission is not permitted
+                DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
+
+                // Set PVDD Monitor tracking data
+                appPlc.pvddMonTxEnable = false;
+            }
+
+            /* Set Application to next state */
+            appPlc.state = APP_PLC_STATE_WAITING;
+            break;
+        }
 
         case APP_PLC_STATE_WAITING:
         {
@@ -379,18 +404,6 @@ void APP_PLC_Tasks ( void )
             {
                 appPlc.state = APP_PLC_STATE_WAITING;
             }
-            break;
-        }
-
-        case APP_PLC_STATE_SET_CHANNEL:
-        {
-            if (appPlc.plcTxState != APP_PLC_TX_STATE_WAIT_TX_CFM)
-            {
-                /* Set channel configuration */
-                APP_PLC_SetChannel(appPlcTx.channel);
-                appPlc.state = APP_PLC_STATE_WAITING;
-            }
-            
             break;
         }
 
