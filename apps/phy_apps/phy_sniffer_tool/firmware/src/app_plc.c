@@ -215,7 +215,7 @@ void APP_PLC_Initialize(void)
 void APP_PLC_Tasks(void)
 {
     /* Update Watchdog */
-    CLEAR_WATCHDOD();
+    CLEAR_WATCHDOG();
     
     /* Signalling */
     if (appPlcData.tmr1Expired)

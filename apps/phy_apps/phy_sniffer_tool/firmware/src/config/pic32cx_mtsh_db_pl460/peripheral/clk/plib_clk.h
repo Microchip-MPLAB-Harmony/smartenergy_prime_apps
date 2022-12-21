@@ -21,58 +21,57 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
-/*******************************************************************************
-  User Configuration Header
+#ifndef PLIB_CLK_H
+#define PLIB_CLK_H
 
-  File Name:
-    user.h
+#include <stddef.h>
 
-  Summary:
-    Build-time configuration header for the user defined by this project.
-
-  Description:
-    An MPLAB Project may have multiple configurations.  This file defines the
-    build-time options for a single configuration.
-
-  Remarks:
-    It only provides macro definitions for build-time configuration options
-
-*******************************************************************************/
-
-#ifndef USER_H
-#define USER_H
-
-// DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
 
-extern "C" {
+    extern "C" {
 
 #endif
-// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: User Configuration macros
+// Section: CLK Module System Interface Routines
 // *****************************************************************************
 // *****************************************************************************
 
-#define USER_BLINK_LED_On()           LED_On()
-#define USER_BLINK_LED_Off()          LED_Off()
-#define USER_BLINK_LED_Toggle()       LED_Toggle()
-    
-#define USER_PLC_IND_LED_On()         LED_EXT1_Pin4_On()
-#define USER_PLC_IND_LED_Off()        LED_EXT1_Pin4_Off()
-#define USER_PLC_IND_LED_Toggle()     LED_EXT1_Pin4_Toggle()
+// *****************************************************************************
+/* Function:
+    void CLK_Initialize ( void )
 
-#define CLEAR_WATCHDOG()              WDT_Clear()
+  Summary:
+    Initializes hardware of the System Clock and Peripheral Clock.
 
-//DOM-IGNORE-BEGIN
+  Description:
+    This function initializes the hardware of System Clock and Peripheral Clocks.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    Example 1: Do not alter the configuration bit settings
+    CLK_Initialize ( );
+
+    </code>
+
+  Remarks:
+    None.
+*/
+
+void CLK_Initialize ( void );
+
 #ifdef __cplusplus
 }
 #endif
-//DOM-IGNORE-END
 
-#endif // USER_H
-/*******************************************************************************
- End of File
-*/
+#endif //PLIB_CLK_H
