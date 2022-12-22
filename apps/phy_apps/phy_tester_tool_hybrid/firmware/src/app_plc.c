@@ -330,7 +330,7 @@ void APP_PLC_Initialize ( void )
 
 void APP_PLC_Tasks ( void )
 {
-    WDT_Clear();
+    CLEAR_WATCHDOG();
 
     /* Signaling: LED Toggle */
     if (app_plcData.tmr1Expired)
@@ -393,11 +393,12 @@ void APP_PLC_Tasks ( void )
                 APP_PLC_SetCouplingConfiguration(app_plcData.channel);
 
                 /* Enable PLC PVDD Monitor Service */
+                DRV_PLC_PHY_EnableTX(app_plcData.drvPl360Handle, true);
                 SRV_PVDDMON_CallbackRegister(_APP_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
 
                 /* Open USI Service */
-                app_plcData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);
+                app_plcData.srvUSIHandle = SRV_USI_Open(USER_PLC_USI_INSTANCE_INDEX);
 
                 if (app_plcData.srvUSIHandle != DRV_HANDLE_INVALID)
                 {
