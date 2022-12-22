@@ -240,8 +240,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;609&quot; canvasWidth=&quot;836&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;607&quot; y=&quot;19&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;319&quot; y=&quot;59&quot;/&gt;
@@ -264,6 +263,7 @@
         &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;usb_device_cdc&quot; x=&quot;467&quot; y=&quot;300&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;609&quot; canvasWidth=&quot;836&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -5016,7 +5016,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\common\drv_plc_boot.h</file>
-         <hash>5f9375beeb3e181ef74dcb74d5909ef9a4c0417d4640ec16792b8ce5dd635b65</hash>
+         <hash>778be73f7ff51791e43a065645bf64a13e3e03113d37ff64f9579c788c381eb2</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\twihs1.h</file>
@@ -5044,7 +5044,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\common\drv_plc_boot.c</file>
-         <hash>a5965465d5042b71e61c14417731b9c14397a4aca0ff133502488d9f159ce984</hash>
+         <hash>b0e837b33818c114ef668093de713d00eab5268f2ed9fe32494346c4b94ce180</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\wdt\plib_wdt.c</file>
@@ -5208,7 +5208,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\configuration.h</file>
-         <hash>92446407a4d894fdcd442d00aa4ad2f99578a189c5837c01743ab5d2a2ccb22d</hash>
+         <hash>144c7773278a81b490adc79d6afe00137e31ccacdf4070e02d16235b23c0f9bf</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\smc.h</file>
@@ -5220,7 +5220,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\common\drv_plc_hal.c</file>
-         <hash>6e897f925b5b9f1222dfb9cd8aa13cc54482d73a6106121200a3db60d1c81bee</hash>
+         <hash>3394cfe12c7590d73e84ee99feae15abce615a963e97a312b1e99882234cd1b6</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\tc.h</file>
@@ -5280,7 +5280,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\initialization.c</file>
-         <hash>4fa232234e635f008c5b98877f17601ee5411d32b3d265a5c4a5c63abedec83c</hash>
+         <hash>a873bd3021fc59672ef87ac446c2586fdc0907db0c77de4f42ebcb98c26b41d1</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\usb_device_init_data.c</file>
@@ -5348,7 +5348,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\definitions.h</file>
-         <hash>0c8d48b1d2504c2ad6f5677a5411289ec21b6ce1b18cc003cee9aae005e6daaf</hash>
+         <hash>7266d101e757e350d07ecc3bd1f9fc27126db1bc54fc8ea78fa275a08c79a744</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy.h</file>
@@ -5560,7 +5560,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\rsniffer\srv_rsniffer.c</file>
-         <hash>9c73707910367b94c2500fe0a8a5b69b78dedaf6a9b766e950b769be451a449d</hash>
+         <hash>70d8f0e97635eda78b2ded025e096daf91c65756b2c80aed73aff8fce23b6f02</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\wdt.h</file>

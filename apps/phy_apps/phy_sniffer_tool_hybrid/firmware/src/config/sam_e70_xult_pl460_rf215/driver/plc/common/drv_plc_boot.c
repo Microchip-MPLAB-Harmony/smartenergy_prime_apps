@@ -385,6 +385,7 @@ void DRV_PLC_BOOT_Tasks( void )
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_SWITCHING)
     {
         _DRV_PLC_BOOT_DisableBootCmd();
+        sDrvPlcBootInfo.validationCounter = 50;
         sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_VALIDATING;
     }
     else if (sDrvPlcBootInfo.status == DRV_PLC_BOOT_STATUS_VALIDATING)
@@ -397,8 +398,14 @@ void DRV_PLC_BOOT_Tasks( void )
         }
         else
         {
-            /* Restart Boot process */
-            _DRV_PLC_BOOT_Restart();
+            if (sDrvPlcBootInfo.validationCounter--)
+            {
+                sDrvPlcHalObj->delay(200);
+            }
+            else
+            {
+                sDrvPlcBootInfo.status = DRV_PLC_BOOT_STATUS_ERROR;
+            }
         }
     }
 }

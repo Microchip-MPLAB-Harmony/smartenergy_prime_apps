@@ -131,7 +131,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI CSR register address. */
     .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
-
+    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
