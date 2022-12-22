@@ -477,33 +477,9 @@ void APP_PLC_Tasks(void)
             DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
             
             /* Enable PLC PVDD Monitor Service: ADC channel 0 */
+            DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, true);
             SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
             SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
-            /* Set Application to next state */
-            appPlcData.state = APP_PLC_STATE_CHECK_PVDDMON;
-            break;
-        }
-        
-        case APP_PLC_STATE_CHECK_PVDDMON:
-        {
-            /* Check PVDD Monitor */
-            if (SRV_PVDDMON_CheckWindow())
-            {
-                // PLC Transmission is permitted again
-                DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, true);
-
-                // Set PVDD Monitor tracking data
-                appPlcData.pvddMonTxEnable = true;
-            }
-            else
-            {
-                // PLC Transmission is not permitted
-                DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, false);
-
-                // Set PVDD Monitor tracking data
-                appPlcData.pvddMonTxEnable = false;
-            }
-
             /* Set Application to next state */
             appPlcData.state = APP_PLC_STATE_READY;
             break;
