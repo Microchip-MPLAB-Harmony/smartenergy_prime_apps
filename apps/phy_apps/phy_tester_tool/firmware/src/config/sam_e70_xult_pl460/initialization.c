@@ -382,7 +382,7 @@ void SYS_Initialize ( void* data )
     sysObj.drvUSBHSV1Object = DRV_USBHSV1_Initialize(DRV_USBHSV1_INDEX_0, (SYS_MODULE_INIT *) &drvUSBInit);	
 
 
-    APP_PLC_Initialize();
+    APP_Initialize();
 
 
     NVIC_Initialize();

@@ -86,17 +86,17 @@ static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_D
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void Timer1_Callback (uintptr_t context)
+static void APP_Timer1_Callback (uintptr_t context)
 {
     appPlcData.tmr1Expired = true;
 }
 
-void Timer2_Callback (uintptr_t context)
+static void APP_Timer2_Callback (uintptr_t context)
 {
     appPlcData.tmr2Expired = true;
 }
 
-static void APP_PLC_SetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
+static void APP_PLCSetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
 {
     SRV_PCOUP_Set_Channel_Config(appPlcData.drvPl360Handle, channel);
     
@@ -114,7 +114,7 @@ static void APP_PLC_SetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
     DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
 }
 
-static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj,
+static void APP_PLCExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj,
         uintptr_t context)
 {
     /* Avoid warning */
@@ -141,7 +141,7 @@ static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj,
 	appPlcData.plc_phy_exception = true;
 }
 
-static void APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
+static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
 {
     /* Avoid warning */
     (void)context;
@@ -151,9 +151,10 @@ static void APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t conte
     {
         size_t length;
 
-        /* Start Timer: LED blinking for each received message */
+        /* Turn on indication LED and start timer to turn it off */
+        SYS_TIME_TimerDestroy(appPlcData.tmr2Handle);
         USER_PLC_IND_LED_On();
-        appPlcData.tmr2Handle = SYS_TIME_CallbackRegisterMS(Timer2_Callback, 0,
+        appPlcData.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_Timer2_Callback, 0,
                 LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
 
         /* Add received message */
@@ -164,7 +165,7 @@ static void APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t conte
     }
 }
 
-static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context)
+static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t context)
 {
     size_t length;
 
@@ -179,7 +180,7 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
 
 }
 
-static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
+static void APP_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
     
@@ -201,12 +202,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     }
 }
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Functions
-// *****************************************************************************
-// *****************************************************************************
-void APP_PLC_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
+void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 {
     /* Message received from PLC Tool - USART */
     SRV_PSERIAL_COMMAND command;
@@ -260,7 +256,7 @@ void APP_PLC_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                             /* Update channel application data */
                             appPlcData.channel = channel;
                             /* Set configuration for PLC */
-                            APP_PLC_SetCouplingConfiguration(appPlcData.channel);
+                            APP_PLCSetCouplingConfiguration(appPlcData.channel);
                             
                             sendUSIResponse = true;
                     }
@@ -301,7 +297,7 @@ void APP_PLC_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 cfmData.time = 0;
                 cfmData.rmsCalc = 0;
                 cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
-                APP_PLC_DataCfmCb(&cfmData, 0);
+                APP_PLCDataCfmCb(&cfmData, 0);
             }
         }
         break;
@@ -330,7 +326,7 @@ void on_reset(void)
     See prototype in app.h.
  */
 
-void APP_PLC_Initialize(void)
+void APP_Initialize(void)
 {
     /* Place the App state machine in its initial state. */
     appPlcData.state = APP_PLC_STATE_IDLE;
@@ -368,7 +364,7 @@ void APP_PLC_Initialize(void)
   Remarks:
     See prototype in app.h.
  */
-void APP_PLC_Tasks(void)
+void APP_Tasks(void)
 {
     CLEAR_WATCHDOG();
     
@@ -416,11 +412,11 @@ void APP_PLC_Tasks(void)
             {
                 /* Register PLC callback */
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlcData.drvPl360Handle,
-                        APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX);
+                        APP_PLCExceptionCb, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlcData.drvPl360Handle,
-                        APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX);
+                        APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_TxCfmCallbackRegister(appPlcData.drvPl360Handle,
-                        APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX);
+                        APP_PLCDataCfmCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
                 appPlcData.srvUSIHandle = SRV_USI_Open(SRV_USI_INDEX_0);
@@ -445,13 +441,13 @@ void APP_PLC_Tasks(void)
             {
                 /* Register USI callback */
                 SRV_USI_CallbackRegister(appPlcData.srvUSIHandle,
-                        SRV_USI_PROT_ID_PHY, APP_PLC_USIPhyProtocolEventHandler);
+                        SRV_USI_PROT_ID_PHY, APP_USIPhyProtocolEventHandler);
 
                 if (appPlcData.tmr1Handle == SYS_TIME_HANDLE_INVALID)
                 {
                     /* Register Timer Callback */
                     appPlcData.tmr1Handle = SYS_TIME_CallbackRegisterMS(
-                            Timer1_Callback, 0, LED_BLINK_RATE_MS,
+                            APP_Timer1_Callback, 0, LED_BLINK_RATE_MS,
                             SYS_TIME_PERIODIC);
                 }
                 else
@@ -468,7 +464,7 @@ void APP_PLC_Tasks(void)
         case APP_PLC_STATE_CONFIG_PLC:
         {
             /* Set configuration for PLC */
-            APP_PLC_SetCouplingConfiguration(appPlcData.channel);
+            APP_PLCSetCouplingConfiguration(appPlcData.channel);
             
             /* Set channel configuration */
             appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
@@ -478,7 +474,7 @@ void APP_PLC_Tasks(void)
             
             /* Enable PLC PVDD Monitor Service: ADC channel 0 */
             DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, true);
-            SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
+            SRV_PVDDMON_CallbackRegister(APP_PVDDMonitorCb, 0);
             SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
             /* Set Application to next state */
             appPlcData.state = APP_PLC_STATE_READY;
