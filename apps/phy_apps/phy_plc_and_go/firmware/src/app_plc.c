@@ -126,12 +126,12 @@ static void APP_PLC_SetInitialConfiguration ( void )
 // Section: Application Callback Functions
 // *****************************************************************************
 // *****************************************************************************
-void Timer1_Callback (uintptr_t context)
+static void APP_PLC_Timer1_Callback (uintptr_t context)
 {
     appPlc.tmr1Expired = true;
 }
 
-void Timer2_Callback (uintptr_t context)
+static void APP_PLC_Timer2_Callback (uintptr_t context)
 {
     appPlc.tmr2Expired = true;
 }
@@ -224,6 +224,11 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
         if (crcCalc == crcReceived)
         {
             /* CRC Ok. */
+            /* Turn on indication LED and start timer to turn it off */
+            SYS_TIME_TimerDestroy(appPlc.tmr2Handle);
+            USER_PLC_IND_LED_On();
+            appPlc.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer2_Callback, 0, LED_PLC_RX_MSG_RATE_MS, SYS_TIME_SINGLE);
+
             /* Ignore CRC bytes */
             indObj->dataLength -= 4;
             /* Show Rx message via Console */
@@ -266,9 +271,6 @@ void APP_PLC_Initialize ( void )
     
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;
-    
-    /* Set PVDD Monitor tracking data */
-    appPlc.pvddMonTxEnable = true;
     
     /* Init PLC TX status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
@@ -354,14 +356,16 @@ void APP_PLC_Tasks ( void )
                 
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
-                
-                /* Enable PLC PVDD Monitor Service: ADC channel 0 */
-                DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, true);
+
+                /* Disable TX Enable at the beginning */
+                DRV_PLC_PHY_EnableTX(appPlc.drvPl360Handle, false);
+                appPlc.pvddMonTxEnable = false;
+                /* Enable PLC PVDD Monitor Service */
                 SRV_PVDDMON_CallbackRegister(APP_PLC_PVDDMonitorCb, 0);
-                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
             
                 /* Init Timer to handle blinking led */
-                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
+                appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(APP_PLC_Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
                 
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
