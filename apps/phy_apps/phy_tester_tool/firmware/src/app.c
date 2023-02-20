@@ -349,9 +349,6 @@ void APP_Initialize(void)
     appPlcData.plcPIB.pData = pPLCDataPIBBuffer;
     appPlcData.pSerialData = pSerialDataBuffer;
     
-    /* Set PVDD Monitor tracking data */
-    appPlcData.pvddMonTxEnable = true;
-    
     /* Init Channel */
     appPlcData.channel = SRV_PCOUP_Get_Default_Channel();
 }
@@ -472,10 +469,12 @@ void APP_Tasks(void)
             *appPlcData.plcPIB.pData = appPlcData.channel;
             DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
             
-            /* Enable PLC PVDD Monitor Service: ADC channel 0 */
-            DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, true);
+            /* Disable TX Enable at the beginning */
+            DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, false);
+            appPlcData.pvddMonTxEnable = false;
+            /* Enable PLC PVDD Monitor Service */
             SRV_PVDDMON_CallbackRegister(APP_PVDDMonitorCb, 0);
-            SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+            SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
             /* Set Application to next state */
             appPlcData.state = APP_PLC_STATE_READY;
             break;
