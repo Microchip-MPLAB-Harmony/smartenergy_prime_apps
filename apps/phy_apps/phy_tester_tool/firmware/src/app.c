@@ -153,6 +153,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
 
         /* Turn on indication LED and start timer to turn it off */
         SYS_TIME_TimerDestroy(appPlcData.tmr2Handle);
+        appPlcData.tmr2Expired = false;
         USER_PLC_IND_LED_On();
         appPlcData.tmr2Handle = SYS_TIME_CallbackRegisterMS(APP_Timer2_Callback, 0,
                 LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
@@ -460,15 +461,15 @@ void APP_Tasks(void)
 
         case APP_PLC_STATE_CONFIG_PLC:
         {
-            /* Set configuration for PLC */
-            APP_PLCSetCouplingConfiguration(appPlcData.channel);
-            
             /* Set channel configuration */
             appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
             appPlcData.plcPIB.length = 1;
             *appPlcData.plcPIB.pData = appPlcData.channel;
             DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
-            
+
+            /* Set configuration for PLC */
+            APP_PLCSetCouplingConfiguration(appPlcData.channel);
+
             /* Disable TX Enable at the beginning */
             DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, false);
             appPlcData.pvddMonTxEnable = false;
