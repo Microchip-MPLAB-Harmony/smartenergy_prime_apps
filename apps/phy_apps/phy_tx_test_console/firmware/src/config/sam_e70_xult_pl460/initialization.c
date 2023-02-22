@@ -85,7 +85,7 @@ DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI CSR register address. */
     .spiCSR  = (void *)&(SPI0_REGS->SPI_CSR[DRV_PLC_CSR_INDEX]),
-
+    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -135,6 +135,9 @@ DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
     
     /* PLC HAL Enable/Disable external interrupt */
     .enableExtInt = (DRV_PLC_HAL_ENABLE_EXT_INT)DRV_PLC_HAL_EnableInterrupts,
+    
+    /* PLC HAL Enable/Disable external interrupt */
+    .getPinLevel = (DRV_PLC_HAL_GET_PIN_LEVEL)DRV_PLC_HAL_GetPinLevel,
 
     /* PLC HAL delay function */
     .delay = (DRV_PLC_HAL_DELAY)DRV_PLC_HAL_Delay,
@@ -339,6 +342,7 @@ void SYS_Initialize ( void* data )
     USART1_Initialize();
 
 
+    /* Initialize PLC Phy Driver Instance */
     sysObj.drvPlcPhy = DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
     PIO_PinInterruptCallbackRegister((PIO_PIN)DRV_PLC_EXT_INT_PIN, DRV_PLC_PHY_ExternalInterruptHandler, sysObj.drvPlcPhy);
 

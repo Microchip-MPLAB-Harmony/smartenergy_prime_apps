@@ -64,7 +64,7 @@ static DRV_PLC_PHY_OBJ *gPlcPhyObj;
 
 /* Buffer definition to communicate with PLC */
 static CACHE_ALIGN uint8_t sDataInfo[CACHE_ALIGNED_SIZE_GET(PLC_STATUS_LENGTH)];
-static CACHE_ALIGN uint8_t sDataTx[CACHE_ALIGNED_SIZE_GET(PLC_TX_PAR_SIZE + PLC_DATA_PKT_SIZE)];
+static CACHE_ALIGN uint8_t sDataTx[CACHE_ALIGNED_SIZE_GET((PLC_TX_PAR_SIZE + PLC_DATA_PKT_SIZE))];
 static CACHE_ALIGN uint8_t sDataRxPar[CACHE_ALIGNED_SIZE_GET(PLC_RX_PAR_SIZE)];
 static CACHE_ALIGN uint8_t sDataRxDat[CACHE_ALIGNED_SIZE_GET(PLC_DATA_PKT_SIZE)];
 static CACHE_ALIGN uint8_t sDataTxCfm[2][CACHE_ALIGNED_SIZE_GET(PLC_CMF_PKT_SIZE)];
@@ -104,7 +104,7 @@ uint16_t _DRV_PLC_PHY_COMM_GetDelayUs(DRV_PLC_PHY_ID id)
         switch (id) 
         {
             case PLC_ID_CHANNEL_CFG:
-            delay = 5000;
+            delay = 5500;
             break;
 
             case PLC_ID_PREDIST_COEF_TABLE_HI:
@@ -261,7 +261,8 @@ static bool _DRV_PLC_PHY_COMM_CheckComm(DRV_PLC_HAL_INFO *info)
         }
 
         /* Check if there is any tx_cfm pending to be reported */
-        if (gPlcPhyObj->state == DRV_PLC_PHY_STATE_WAITING_TX_CFM)
+        if ((gPlcPhyObj->state[0] == DRV_PLC_PHY_STATE_WAITING_TX_CFM) ||
+                (gPlcPhyObj->state[1] == DRV_PLC_PHY_STATE_WAITING_TX_CFM))
         {
             gPlcPhyObj->evResetTxCfm = true;
         }
@@ -442,7 +443,7 @@ void DRV_PLC_PHY_Task(void)
             if (gPlcPhyObj->evResetTxCfm)
             {
 				gPlcPhyObj->evResetTxCfm = false;
-            	gPlcPhyObj->state = DRV_PLC_PHY_STATE_IDLE;
+            	gPlcPhyObj->state[idx] = DRV_PLC_PHY_STATE_IDLE;
 				
                 cfmObj.bufferId = (DRV_PLC_PHY_BUFFER_ID)idx;
                 cfmObj.rmsCalc = 0;
@@ -483,6 +484,22 @@ void DRV_PLC_PHY_Task(void)
 void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj)
 {    
     DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmObj;
+    uint8_t bufIdx = (uint8_t) transmitObj->bufferId;
+
+    if (bufIdx > TX_BUFFER_1)
+    {
+        /* Invalid buffer. */
+        if (gPlcPhyObj->txCfmCallback)
+        {
+            cfmObj.rmsCalc = 0;
+            cfmObj.time = 0;
+            cfmObj.result = DRV_PLC_PHY_TX_RESULT_INV_BUFFER;
+            /* Report to upper layer */
+            gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
+        }
+        
+        return;
+    }
 
     if (gPlcPhyObj->sleep)
     {
@@ -514,7 +531,8 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
         return;
     }
 
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0) && (gPlcPhyObj->state == DRV_PLC_PHY_STATE_IDLE))
+    if((handle != DRV_HANDLE_INVALID) && (handle == 0) &&
+            ((gPlcPhyObj->state[bufIdx] == DRV_PLC_PHY_STATE_IDLE) || ((transmitObj->mode & TX_MODE_CANCEL) != 0)))
     {
         size_t size;
         
@@ -522,11 +540,14 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
         
         if (size)
         {
-            /* Update PLC state: transmitting */
-            gPlcPhyObj->state = DRV_PLC_PHY_STATE_TX;
+            if ((transmitObj->mode & TX_MODE_CANCEL) == 0)
+            {
+                /* Update PLC state: transmitting */
+                gPlcPhyObj->state[bufIdx] = DRV_PLC_PHY_STATE_TX;
+            }
             
             /* Send TX message */
-            if (transmitObj->bufferId == TX_BUFFER_0)
+            if (bufIdx == TX_BUFFER_0)
             {
                 _DRV_PLC_PHY_COMM_SpiWriteCmd(TX0_PAR_ID, sDataTx, size);
             }
@@ -536,7 +557,7 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
             }
             
             /* Update PLC state: waiting confirmation */
-            gPlcPhyObj->state = DRV_PLC_PHY_STATE_WAITING_TX_CFM;
+            gPlcPhyObj->state[bufIdx] = DRV_PLC_PHY_STATE_WAITING_TX_CFM;
         }
         else
         {
@@ -778,7 +799,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             /* update event flag */
             gPlcPhyObj->evTxCfm[0] = true;
             /* Update PLC state: idle */
-            gPlcPhyObj->state = DRV_PLC_PHY_STATE_IDLE;
+            gPlcPhyObj->state[0] = DRV_PLC_PHY_STATE_IDLE;
         }
 
         if (evObj.evCfm[1])
@@ -787,7 +808,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             /* update event flag */
             gPlcPhyObj->evTxCfm[1] = true;
             /* Update PLC state: idle */
-            gPlcPhyObj->state = DRV_PLC_PHY_STATE_IDLE;
+            gPlcPhyObj->state[1] = DRV_PLC_PHY_STATE_IDLE;
         }
         
         /* Check received new parameters event (First event in RX) */

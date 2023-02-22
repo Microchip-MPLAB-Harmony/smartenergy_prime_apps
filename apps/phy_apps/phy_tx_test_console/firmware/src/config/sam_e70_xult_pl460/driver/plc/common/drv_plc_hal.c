@@ -156,6 +156,9 @@ void DRV_PLC_HAL_Reset(void)
 void DRV_PLC_HAL_SetStandBy(bool enable)
 {
     if (enable) {
+        /* Enable Reset pin */
+        SYS_PORT_PinClear(sPlcPlib->resetPin);
+
         /* Enable Stby Pin */
         SYS_PORT_PinSet(sPlcPlib->stByPin);
     } else {
@@ -212,6 +215,11 @@ void DRV_PLC_HAL_EnableInterrupts(bool enable)
     {
         PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
     }
+}
+
+bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin)
+{
+    return (SYS_PORT_PinRead(pin));
 }
 
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd)
