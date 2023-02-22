@@ -63,10 +63,10 @@
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "service/pcrc/srv_pcrc.h"
 #include "peripheral/sefc/plib_sefc0.h"
+#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
 #include "peripheral/sefc/plib_sefc1.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
@@ -202,8 +202,8 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysConsole0;
 
 
