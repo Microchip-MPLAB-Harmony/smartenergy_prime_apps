@@ -142,13 +142,15 @@ typedef enum
   Parameters:
     context - Value identifying the context of the client that registered the
               callback function.
+    status  - SYS_STATUS_READY or SYS_STATUS_ERROR, depending on initialization
+              result.
 
   Returns:
     None.
 
   Example:
     <code>
-    static void APP_ReadyNotCb(uintptr_t ctxt)
+    static void APP_ReadyNotCb(uintptr_t ctxt, SYS_STATUS status)
     {
         DRV_HANDLE drvRf215Handle;
 
@@ -156,8 +158,11 @@ typedef enum
         // It is now retrievable easily in the event handler
         MY_APP_OBJ myAppObj = (MY_APP_OBJ *) ctxt;
 
-        // Driver ready to be opened.
-        drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+        if (status == SYS_STATUS_READY)
+        {
+            // Driver ready to be opened.
+            drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+        }
     }
 
     MY_APP_OBJ myAppObj; // Application specific data object
@@ -174,7 +179,7 @@ typedef enum
     that registered the callback.
 */
 
-typedef void ( *DRV_RF215_READY_STATUS_CALLBACK ) (uintptr_t context);
+typedef void ( *DRV_RF215_READY_STATUS_CALLBACK ) (uintptr_t context, SYS_STATUS status);
 
 // *****************************************************************************
 /* RF215 Driver RX Indication Callback
@@ -484,7 +489,7 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object );
 
   Example:
     <code>
-    static void APP_ReadyNotCb(uintptr_t ctxt)
+    static void APP_ReadyNotCb(uintptr_t ctxt, SYS_STATUS status)
     {
         DRV_HANDLE drvRf215Handle;
 
@@ -492,8 +497,12 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object );
         // It is now retrievable easily in the event handler
         MY_APP_OBJ myAppObj = (MY_APP_OBJ *) ctxt;
 
-        // Driver ready to be opened.
-        drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+
+        if (status == SYS_STATUS_READY)
+        {
+            // Driver ready to be opened.
+            drvRf215Handle = DRV_RF215_Open(DRV_RF215_INDEX_0, RF215_TRX_ID_RF09);
+        }
     }
 
     MY_APP_OBJ myAppObj; // Application specific data object

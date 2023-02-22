@@ -254,7 +254,7 @@ void SRV_RSNIFFER_SetTxMessage (
     pMsgDest = srvRsnifferTxMsg[txBufIndex];
 
     /* Frame modulation */
-    srvRsnifferRxMsg[3] = (uint8_t) pReqObj->modScheme + RSNIFFER_PHY_MESSAGE_MOD_RF_FSK_FEC_OFF;
+    pMsgDest[3] = (uint8_t) pReqObj->modScheme + RSNIFFER_PHY_MESSAGE_MOD_RF_FSK_FEC_OFF;
 
     /* RSSI */
     rssi = 14 - (int16_t) pReqObj->txPwrAtt;
@@ -262,7 +262,7 @@ void SRV_RSNIFFER_SetTxMessage (
     pMsgDest[28] = (uint8_t) (rssi);
 
     /* mac_enable not supported */
-    srvRsnifferRxMsg[29] = 0;
+    pMsgDest[29] = 0;
 
     /* Data PSDU length (including PRIME CRC) */
     psduLen = pReqObj->psduLen;
@@ -310,8 +310,8 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[5] = (uint8_t) (paySymbols);
 
     /* Channel */
-    srvRsnifferRxMsg[6] = (uint8_t) (channel >> 8);
-    srvRsnifferRxMsg[7] = (uint8_t) (channel);
+    pMsgDest[6] = (uint8_t) (channel >> 8);
+    pMsgDest[7] = (uint8_t) (channel);
 
     /* Initial and end time of RX frame */
     timeIni = _SRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);

@@ -240,7 +240,8 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;GraphSettings canvasHeight=&quot;609&quot; canvasWidth=&quot;836&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_SAM_E70_Xplained_Ultra&quot; x=&quot;607&quot; y=&quot;19&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;319&quot; y=&quot;59&quot;/&gt;
@@ -263,7 +264,6 @@
         &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;usb_device_cdc&quot; x=&quot;467&quot; y=&quot;300&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
-    &lt;GraphSettings canvasHeight=&quot;609&quot; canvasWidth=&quot;836&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -5008,7 +5008,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>9be61c8297901cfb374560a65593b3ad019e945629520deb13f07a34a4893d8c</hash>
+         <hash>6ef9c837b4647a3530cfd401a888967075d9159e0138e309b130d509e8d46fd2</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\interrupts.c</file>
@@ -5016,7 +5016,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\common\drv_plc_boot.h</file>
-         <hash>778be73f7ff51791e43a065645bf64a13e3e03113d37ff64f9579c788c381eb2</hash>
+         <hash>f8ce8c632026235f86b98194fcbb4c4d8fb4479c86c892ffbe46fab38cd9df62</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\twihs1.h</file>
@@ -5044,7 +5044,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\common\drv_plc_boot.c</file>
-         <hash>b0e837b33818c114ef668093de713d00eab5268f2ed9fe32494346c4b94ce180</hash>
+         <hash>3a07cdf4f366182e3f0a16faf60a939c6dc88fde00bdd23b96d3764739985295</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\wdt\plib_wdt.c</file>
@@ -5064,7 +5064,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>d34343249eb8fa3bc08ebe6357b4e4a32227d4084a9efe3041751a6f2345e19e</hash>
+         <hash>e8a3ff5dafc746578a4203ea2fbc92817544adcd9c9aa642d5e52a3faabf347d</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\tc3.h</file>
@@ -5092,7 +5092,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215_local.h</file>
-         <hash>7e327e9ab5407d5279a902a322e97054f5be70d67526dd20e5a3d961c6cb3a8e</hash>
+         <hash>bf8d08dc952626bfc931f5b8764ea71ef3a279024a6fd689b57318a0c1145655</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\pcrc\srv_pcrc.c</file>
@@ -5108,7 +5108,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\ieee_15_4_sun_fsk.h</file>
-         <hash>2b67b1b84d7743be2c374952210de772ea4355e8df0e7f95ac2240dd1949d4a2</hash>
+         <hash>a5451a7ceb096b685d0eb30699da550eb84b90776a2e0ab2fdf1d5cfc90d3ef6</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\mpu_armv7.h</file>
@@ -5116,7 +5116,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\toolchain_specifics.h</file>
-         <hash>39d182300448aa01753975284ddc83a9f2e5954215df1fe970920897dcc0f948</hash>
+         <hash>2559d185e92918f61c308a62200cb0cda72726c63111561524dd53afcc635a18</hash>
       </entry>
       <entry>
          <file>..\src\packs\CMSIS\CMSIS\Core\Include\cmsis_armcc.h</file>
@@ -5220,7 +5220,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\common\drv_plc_hal.c</file>
-         <hash>3394cfe12c7590d73e84ee99feae15abce615a963e97a312b1e99882234cd1b6</hash>
+         <hash>de796522035d0443e8585b15427653135426650984b4403270da38cf2932387d</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\tc.h</file>
@@ -5236,7 +5236,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\common\drv_plc_hal.h</file>
-         <hash>e2027eac62baaf206d06d96bce7300da85e5a0f712f26a5630da280c9c94d14a</hash>
+         <hash>0aacb30d911c58ec0a9129262bbf84863d7e689114fd2c0b3d2d14ffd4b3cb40</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\bin\plc_phy_bin.S</file>
@@ -5280,7 +5280,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\initialization.c</file>
-         <hash>a873bd3021fc59672ef87ac446c2586fdc0907db0c77de4f42ebcb98c26b41d1</hash>
+         <hash>ad70400b394401744a5e6437f23071f6a0ffd9e4d888a3378c5718ff4ade7e61</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\usb_device_init_data.c</file>
@@ -5348,7 +5348,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\definitions.h</file>
-         <hash>7266d101e757e350d07ecc3bd1f9fc27126db1bc54fc8ea78fa275a08c79a744</hash>
+         <hash>3dcf52ca6a25ef18524bc18d18fb2fb3db232c2b15782d2846d72791c999dae8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\drv_plc_phy.h</file>
@@ -5380,7 +5380,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\rf215_phy.h</file>
-         <hash>c8a9681b223e306ae5da5ae61a9e9a114ed8ee93340df3b8597dd897a2203298</hash>
+         <hash>a14f476db9bf06a340afd22935ae928d88cca8136d53e57843291ebb3b464ade</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\pwm1.h</file>
@@ -5396,7 +5396,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\phy\rf215_phy.c</file>
-         <hash>108d85fe0fe700f8c0a86dbc627f4f2ffdc844530c8f353e2b980ccf0c573c3a</hash>
+         <hash>f81869d04565444a1ad66bb3824d7ceb2c0a3898957d9eb7a90f506999a6eb6d</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\usb\src\usb_device_cdc_acm.c</file>
@@ -5484,7 +5484,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\spi\spi_master\plib_spi_master_common.h</file>
-         <hash>e9a33a15a5f1458ccee12f902c1c4473038018a855a40614746be6e6e0e81b09</hash>
+         <hash>f6ddb3dab29c28ff6b4a6938d9d9d113a32e4b750a9e9f4698f9599297d102f8</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\usb\src\usb_device_mapping.h</file>
@@ -5560,7 +5560,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\service\rsniffer\srv_rsniffer.c</file>
-         <hash>70d8f0e97635eda78b2ded025e096daf91c65756b2c80aed73aff8fce23b6f02</hash>
+         <hash>78efa964014778ef1d4206712aa66565ededb56185ed7f753a40c3abd574cbb1</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\wdt.h</file>
@@ -5724,7 +5724,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\pio\plib_pio.c</file>
-         <hash>7a8be253cadf38480a4b8c2539528f4b7d6964b9f689b94ac1a5e06b2e87ce9c</hash>
+         <hash>90ef444984a2ec74d4cb4d78c00b87b5efedeb16168cd8cc8a957822be2a9b09</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\efc.h</file>
@@ -5736,7 +5736,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215_definitions.h</file>
-         <hash>482a4bcd33d91f143855540aace26753410f0be68cdd7b9ecc6c7dcbed29b4a6</hash>
+         <hash>c4eb823dd3be9f9c8d3bd7e9846903ca4ca253676b9a069e451ba1be6cd1e952</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\instance\rtc.h</file>
@@ -5744,11 +5744,11 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215.h</file>
-         <hash>169894850ce2be9031b4ab5f093e4d7c286cdf5ff64026d451f53a219b912c00</hash>
+         <hash>dabfdace6efbcd5a2bf77c684040ed54b09e180b916e3fd0598e184ba350ae21</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\rf215\drv_rf215.c</file>
-         <hash>737093656525cd1a4deba12445ab847cf6022c5cd48a47243a628bba93427b00</hash>
+         <hash>00d8d53032c2905e4d7001504430583807f4c6c70252d17866dee2d1c6898c57</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\pio\plib_pio.h</file>
@@ -5816,7 +5816,7 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\xdmac\plib_xdmac.c</file>
-         <hash>421271c3a06dd454475999d9aa40e7c070d7d59911fc58d20fb765bb2ecbda0f</hash>
+         <hash>36c48e3fd977aaa7e6cf1b75f2faf1ebd61f8bfac0aee5a5b9c269c610b55f6b</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\device_cache.h</file>
@@ -5824,15 +5824,15 @@
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\spi\spi_master\plib_spi0_master.c</file>
-         <hash>b175e1a5a65d0b52464f52a17b52135c647dea30ea842325cbf6055c2428362c</hash>
+         <hash>dcf2c8387f7b3e952f9fd705f3de4830590964208d603953e8f1610329abeb57</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\peripheral\spi\spi_master\plib_spi0_master.h</file>
-         <hash>918915692afd6b9c946464651112fed0c2ea96f669bc2d1203d4d8b7c6f8d3c8</hash>
+         <hash>d16eb5ce19cabd0cdb8562aed8e13bfad1d43a1c5ddbb765ebfe79cf95ac57ab</hash>
       </entry>
       <entry>
          <file>..\src\config\sam_e70_xult_pl460_rf215\driver\plc\phy\bin\PLC_PHY_PRIME_2CHN.bin</file>
-         <hash>d542c1371078f7be1f0c76d8fa0cfe0830d9b3992fcece15140ad90df3c48fa9</hash>
+         <hash>fc4eb8fee04424c400a482616a98fe4912e3714b9be0aebcdbbb868b47ea2beb</hash>
       </entry>
       <entry>
          <file>..\src\packs\ATSAME70Q21B_DFP\component\rswdt.h</file>

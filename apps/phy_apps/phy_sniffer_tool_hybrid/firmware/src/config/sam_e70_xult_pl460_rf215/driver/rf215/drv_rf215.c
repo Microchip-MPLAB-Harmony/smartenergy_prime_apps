@@ -94,12 +94,12 @@ const RF215_REG_VALUES_OBJ rf215RegValues = {
 };
 
 static const DRV_RF215_FW_VERSION rf215FwVersion = {
-    .major = 1,
+    .major = 2,
     .minor = 0,
-    .revision = 0,
-    .day = 1,
-    .month = 10,
-    .year = 22
+    .revision = 1,
+    .day = 22,
+    .month = 2,
+    .year = 23
 };
 
 // *****************************************************************************
@@ -235,6 +235,7 @@ static void _DRV_RF215_ReadIRQS(uintptr_t context, void* pData, uint64_t time)
         /* Read Device Part Number and Version Number registers */
         uint8_t* pPN = &dObj->RF_PN;
         RF215_HAL_SpiRead(RF215_RF_PN, pPN, 2, _DRV_RF215_ReadPNVN, context);
+        RF215_PHY_DeviceReset();
         return;
     }
 
@@ -431,7 +432,7 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object )
             /* Ready status notification */
             if ((dObj->readyStatusCallback != NULL) && (dObj->readyStatusNotified == false))
             {
-                dObj->readyStatusCallback(dObj->readyStatusContext);
+                dObj->readyStatusCallback(dObj->readyStatusContext, SYS_STATUS_READY);
                 dObj->readyStatusNotified = true;
             }
 
@@ -475,8 +476,18 @@ void DRV_RF215_Tasks( SYS_MODULE_OBJ object )
             break;
         }
 
-        case SYS_STATUS_UNINITIALIZED:
         case SYS_STATUS_ERROR:
+        {
+            /* Error status notification */
+            if ((dObj->readyStatusCallback != NULL) && (dObj->readyStatusNotified == false))
+            {
+                dObj->readyStatusCallback(dObj->readyStatusContext, SYS_STATUS_ERROR);
+                dObj->readyStatusNotified = true;
+            }
+            break;
+        }
+
+        case SYS_STATUS_UNINITIALIZED:
         default:
         {
             break;
@@ -690,6 +701,7 @@ uint8_t DRV_RF215_GetPibSize(DRV_RF215_PIB_ATTRIBUTE attr)
         case RF215_PIB_DEVICE_RESET:
         case RF215_PIB_TRX_RESET:
         case RF215_PIB_TRX_SLEEP:
+        case RF215_PIB_PHY_TX_CONTINUOUS:
             len = sizeof(uint8_t);
             break;
 

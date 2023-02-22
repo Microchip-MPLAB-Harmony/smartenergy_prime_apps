@@ -349,32 +349,18 @@ static uint64_t _APP_PlcTimeToSysTime(uint32_t plcTime)
 
 static uint32_t _APP_SysTimeToUS(uint64_t sysTime)
 {
-    int64_t sysTimeDiff;
+    uint64_t sysTimeDiff;
+    uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
     uint32_t timeUS = appData.plcSnifferPrevTimeUS;
 
     /* Difference between current and previous system time */
-    sysTimeDiff = (int64_t) sysTime - appData.plcSnifferPrevSysTime;
+    sysTimeDiff = sysTime - appData.plcSnifferPrevSysTime;
+    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000);
+    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000);
 
     /* Convert system time to microseconds and add to previous time */
-    while (sysTimeDiff > 0x10000000)
-    {
-        timeUS += SYS_TIME_CountToUS(0x10000000);
-        sysTimeDiff -= 0x10000000;
-    }
-    while (sysTimeDiff < -0x10000000)
-    {
-        timeUS -= SYS_TIME_CountToUS(0x10000000);
-        sysTimeDiff += 0x10000000;
-    }
-
-    if (sysTimeDiff >= 0)
-    {
-        timeUS += SYS_TIME_CountToUS((uint32_t) sysTimeDiff);
-    }
-    else
-    {
-        timeUS -= SYS_TIME_CountToUS((uint32_t) (-sysTimeDiff));
-    }
+    timeUS += (SYS_TIME_CountToUS(0x10000000) * sysTimeDiffNumHigh);
+    timeUS += SYS_TIME_CountToUS(sysTimeDiffRemaining);
 
     /* Store times for next computation */
     appData.plcSnifferPrevSysTime = sysTime;
