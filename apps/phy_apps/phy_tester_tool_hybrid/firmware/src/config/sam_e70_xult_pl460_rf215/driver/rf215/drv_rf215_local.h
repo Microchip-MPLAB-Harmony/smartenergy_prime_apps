@@ -548,6 +548,26 @@ void DRV_RF215_AbortTxByPhyConfig(uint8_t trxIdx);
 #define RF215_RF_CLKO_DRV_6mA            RF215_RF_CLKO_DRV(2)
 #define RF215_RF_CLKO_DRV_8mA            RF215_RF_CLKO_DRV(3)
 
+/** RF_IQIFC1 - Transceiver I/Q Data Interface Configuration Register 1 */
+/* Bit 1:0 - IQIFC1.SKEWDRV: Skew alignment I/Q IF driver */
+#define RF215_RF_IQIFC1_SKEWDRV_Pos      0
+#define RF215_RF_IQIFC1_SKEWDRV_Msk      (0x3 << RF215_RF_IQIFC1_SKEWDRV_Pos)
+#define RF215_RF_IQIFC1_SKEWDRV(x)       (((x) << RF215_RF_IQIFC1_SKEWDRV_Pos) & RF215_RF_IQIFC1_SKEWDRV_Msk)
+#define RF215_RF_IQIFC1_SKEWDRV_1_906ns  RF215_RF_IQIFC1_SKEWDRV(0)
+#define RF215_RF_IQIFC1_SKEWDRV_2_906ns  RF215_RF_IQIFC1_SKEWDRV(1)
+#define RF215_RF_IQIFC1_SKEWDRV_3_906ns  RF215_RF_IQIFC1_SKEWDRV(2) /* Default */
+#define RF215_RF_IQIFC1_SKEWDRV_4_906ns  RF215_RF_IQIFC1_SKEWDRV(3)
+/* Bit 6:4 - IQIFC1.CHPM: Chip Mode */
+#define RF215_RF_IQIFC1_CHPM_Pos         4
+#define RF215_RF_IQIFC1_CHPM_Msk         (0x7 << RF215_RF_IQIFC1_CHPM_Pos)
+#define RF215_RF_IQIFC1_CHPM(x)          (((x) << RF215_RF_IQIFC1_CHPM_Pos) & RF215_RF_IQIFC1_CHPM_Msk)
+#define RF215_RF_IQIFC1_CHPM_BBRF        RF215_RF_IQIFC1_CHPM(0) /* Default */
+#define RF215_RF_IQIFC1_CHPM_RF          RF215_RF_IQIFC1_CHPM(1)
+#define RF215_RF_IQIFC1_CHPM_BBRF09      RF215_RF_IQIFC1_CHPM(2)
+#define RF215_RF_IQIFC1_CHPM_BBRF24      RF215_RF_IQIFC1_CHPM(3)
+/* Bit 7 - IQIFC1.FAILSF: I/Q IF Receiver Failsafe Status */
+#define RF215_RF_IQIFC1_FAILSF           (1 << 7)
+
 /** RF_PN - Device Part Number */
 #define RF215_RF_PN_AT86RF215            0x34
 #define RF215_RF_PN_AT86RF215Q           0x35
@@ -831,6 +851,22 @@ void DRV_RF215_AbortTxByPhyConfig(uint8_t trxIdx);
 #define RF215_RFn_PLL_LBW_DEF            RF215_RFn_PLL_LBW(0) /* Default */
 #define RF215_RFn_PLL_LBW_SMALLER        RF215_RFn_PLL_LBW(1) /* 15% smaller PLL loopbandwidth */
 #define RF215_RFn_PLL_LBW_LARGER         RF215_RFn_PLL_LBW(2) /* 15% larger PLL loopbandwidth */
+
+/** RFn_TXDACI - In-phase input value for TXDAC */
+/* Bit 6:0 - TXDACI.TXDACID: Input to TXDAC data */
+#define RF215_RFn_TXDACI_TXDACID_Pos     0
+#define RF215_RFn_TXDACI_TXDACID_Msk     (0x7F << RF215_RFn_TXDACI_TXDACID_Pos)
+#define RF215_RFn_TXDACI_TXDACID(x)      (((x) << RF215_RFn_TXDACI_TXDACID_Pos) & RF215_RFn_TXDACI_TXDACID_Msk)
+/* Bit 7 - TXDACI.ENTXDACID: Enable input to TXDAC */
+#define RF215_RFn_TXDACI_ENTXDACID       (1 << 7)
+
+/** RFn_TXDACQ - Quadrature input value for TXDAC */
+/* Bit 6:0 - TXDACQ.TXDACQD: Input to TXDAC data */
+#define RF215_RFn_TXDACQ_TXDACQD_Pos     0
+#define RF215_RFn_TXDACQ_TXDACQD_Msk     (0x7F << RF215_RFn_TXDACQ_TXDACQD_Pos)
+#define RF215_RFn_TXDACQ_TXDACQD(x)      (((x) << RF215_RFn_TXDACQ_TXDACQD_Pos) & RF215_RFn_TXDACQ_TXDACQD_Msk)
+/* Bit 7 - TXDACQ.ENTXDACQD: Enable input to TXDAC */
+#define RF215_RFn_TXDACQ_ENTXDACQD       (1 << 7)
 
 /** BBCn_PC - PHY Control */
 /* Bit 1:0 - PC.PT: PHY Type */
@@ -1245,6 +1281,7 @@ void DRV_RF215_AbortTxByPhyConfig(uint8_t trxIdx);
 #define RF215_BBCn_CNTC_CAPTXS           (1 << 4)
 
 /*** RF215 register reset values definition ***/
+#define RF215_RF_IQIFC1_Rst              (RF215_RF_IQIFC1_SKEWDRV_3_906ns | RF215_RF_IQIFC1_CHPM_BBRF)
 #define RF215_RFn_CS_Rst                 (0x08)
 #define RF215_RFn_CCF0L_Rst              (0xF8)
 #define RF215_RFn_CCF0H_Rst              (0x8C)

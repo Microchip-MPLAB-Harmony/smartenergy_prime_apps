@@ -335,7 +335,7 @@ static size_t _SRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     pNewData = _SRV_USI_EscapeData(pNewData, valueTmp, 2, pEndData);
     if (pNewData == 0)
     {
-        /* Error in Escape Data: can't fit in Destiny buffer */
+        /* Error in Escape Data: can't fit in destination buffer */
         return 0;
     }
     
@@ -345,7 +345,7 @@ static size_t _SRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     pNewData = _SRV_USI_EscapeData(pNewData, pData, length, pEndData);
     if (pNewData == 0)
     {
-        /* Error in Escape Data: can't fit in Destiny buffer */
+        /* Error in Escape Data: can't fit in destination buffer */
         return 0;
     }
     
@@ -369,7 +369,7 @@ static size_t _SRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     
     if (pNewData == 0)
     {
-        /* Error in Escape Data: can't fit in Destiny buffer */
+        /* Error in Escape Data: can't fit in destination buffer */
         return 0;
     }
     

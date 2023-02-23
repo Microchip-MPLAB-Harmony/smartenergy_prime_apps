@@ -128,6 +128,7 @@ static void _APP_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
     /* Start Timer: LED blinking for each received message */
     USER_PLC_IND_LED_On();
     SYS_TIME_TimerDestroy(app_plcData.tmr2Handle);
+    app_plcData.tmr2Expired = false;
     app_plcData.tmr2Handle = SYS_TIME_CallbackRegisterMS(_APP_PLC_TimeExpired,
             (uintptr_t) &app_plcData.tmr2Expired, APP_PLC_LED_BLINK_PLC_MSG_MS, SYS_TIME_SINGLE);
 
@@ -392,10 +393,12 @@ void APP_PLC_Tasks ( void )
                 /* Set PLC coupling configuration */
                 APP_PLC_SetCouplingConfiguration(app_plcData.channel);
 
+                /* Disable TX Enable at the beginning */
+                DRV_PLC_PHY_EnableTX(app_plcData.drvPl360Handle, false);
+                app_plcData.pvddMonTxEnable = false;
                 /* Enable PLC PVDD Monitor Service */
-                DRV_PLC_PHY_EnableTX(app_plcData.drvPl360Handle, true);
                 SRV_PVDDMON_CallbackRegister(_APP_PLC_PVDDMonitorCb, 0);
-                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_OUT);
+                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
 
                 /* Open USI Service */
                 app_plcData.srvUSIHandle = SRV_USI_Open(USER_PLC_USI_INSTANCE_INDEX);
