@@ -72,9 +72,9 @@ extern "C" {
 // Section: Macro definitions
 // *****************************************************************************
 // *****************************************************************************
-
-#define APP_PLC_SNIFFER_BUFFER_SIZE   544
-#define APP_PLC_PIB_BUFFER_SIZE       72
+#define APP_PLC_DATA_BUFFER_SIZE      512
+#define APP_PLC_SNIFFER_BUFFER_SIZE   (APP_PLC_DATA_BUFFER_SIZE + 32)
+#define APP_PLC_PIB_BUFFER_SIZE       2
 
 #define LED_BLINK_RATE_MS             500
 #define LED_BLINK_PLC_MSG_MS          100

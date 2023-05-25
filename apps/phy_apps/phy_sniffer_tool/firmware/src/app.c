@@ -76,7 +76,6 @@
 
 CACHE_ALIGN APP_PLC_DATA appPlcData;
     
-static CACHE_ALIGN uint8_t pPLCDataRxBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_DATA_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t pPLCDataPIBBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t pSerialDataBuffer[CACHE_ALIGNED_SIZE_GET(APP_SERIAL_DATA_BUFFER_SIZE)];
 
@@ -193,7 +192,6 @@ void APP_Initialize(void)
     appPlcData.tmr2Expired = false;
 
     /* Initialize PLC objects */
-    appPlcData.plcRxObj.pReceivedData = pPLCDataRxBuffer;
     appPlcData.plcPIB.pData = pPLCDataPIBBuffer;
     appPlcData.pSerialData = pSerialDataBuffer;
     
