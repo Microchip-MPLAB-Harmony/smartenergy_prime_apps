@@ -3,7 +3,7 @@ folderName: sam_e70_xult_pl460
 format_version: v1.0
 frameworkPath: ..\..\..\..
 processor: ATSAME70Q21B
-projectName: phy_plc_and_go_sam_e70_xult_pl460
+projectName: prime_phy_plc_and_go_sam_e70_xult_pl460
 settings:
   PackageFilter: bsp;core;core_apps_sam_e70_s70_v70_v71;csp;csp_apps_pic32cx_bz24_bz25;csp_apps_sam_e70_s70_v70_v71;csp_apps_sam_g55;dev_packs;mbed_os_rtos;mbed_os_rtos_apps;net;quick_docs;smartenergy;smartenergy_g3;smartenergy_g3_apps;smartenergy_prime;smartenergy_prime_apps;usb;usb_apps_device;wireless;wireless_wifi
   FORCE_OPTIMIZATION: 'false'
