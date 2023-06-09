@@ -336,10 +336,10 @@ static uint64_t _APP_PlcTimeToSysTime(uint32_t plcTime)
     int64_t delayAux, delaySysTime;
     int32_t delayPlc;
 
-    /* Compute PLC delay time since last synchronization */
+    /* Compute PLC PHY delay time since last synchronization */
     delayPlc = (int32_t) (plcTime - appData.syncPlcTimeRef);
 
-    /* Convert PL360 delay to Host delay (frequency deviation) */
+    /* Convert PLC PHY delay to Host delay (frequency deviation) */
     delayAux = (int64_t) delayPlc * appData.syncTimerRelFreq;
     delaySysTime = (delayAux + (1UL << 23)) >> 24;
 

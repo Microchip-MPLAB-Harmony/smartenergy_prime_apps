@@ -97,7 +97,7 @@ static void APP_Timer2_Callback (uintptr_t context)
 
 static void APP_PLCSetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
 {
-    SRV_PCOUP_Set_Channel_Config(appPlcData.drvPl360Handle, channel);
+    SRV_PCOUP_Set_Channel_Config(appPlcData.drvPlcHandle, channel);
     
     /* Optional ***************************************************/
     /* Disable AUTO mode and set VLO behavior by default in order to
@@ -105,12 +105,12 @@ static void APP_PLCSetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
     appPlcData.plcPIB.id = PLC_ID_CFG_AUTODETECT_IMPEDANCE;
     appPlcData.plcPIB.length = 1;
     *appPlcData.plcPIB.pData = 0;
-    DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
+    DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
 
     appPlcData.plcPIB.id = PLC_ID_CFG_IMPEDANCE;
     appPlcData.plcPIB.length = 1;
     *appPlcData.plcPIB.pData = 2;
-    DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
+    DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
 }
 
 static void APP_PLCExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj,
@@ -187,7 +187,7 @@ static void APP_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
     if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
     {
         /* PLC Transmission is not permitted */
-        DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, false);
+        DRV_PLC_PHY_EnableTX(appPlcData.drvPlcHandle, false);
         appPlcData.pvddMonTxEnable = false;
         /* Restart PVDD Monitor to check when VDD is within the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
@@ -195,7 +195,7 @@ static void APP_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
     else
     {
         /* PLC Transmission is permitted again */
-        DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, true);
+        DRV_PLC_PHY_EnableTX(appPlcData.drvPlcHandle, true);
         appPlcData.pvddMonTxEnable = true;
         /* Restart PVDD Monitor to check when VDD is out of the comparison window */
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
@@ -222,7 +222,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
             /* Extract PIB information */
             SRV_PSERIAL_ParseGetPIB(&appPlcData.plcPIB, pData);
 
-            if (DRV_PLC_PHY_PIBGet(appPlcData.drvPl360Handle, &appPlcData.plcPIB))
+            if (DRV_PLC_PHY_PIBGet(appPlcData.drvPlcHandle, &appPlcData.plcPIB))
             {
                 size_t len;
 
@@ -251,7 +251,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 
                 if ((appPlcData.channel != channel) && (SRV_PCOUP_Get_Channel_Config(channel) != NULL))
                 {
-                    if (DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB))
+                    if (DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB))
                     {
                             /* Update channel application data */
                             appPlcData.channel = channel;
@@ -262,7 +262,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                     }
                 }
             } 
-            else if (DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB))
+            else if (DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB))
             {
                 sendUSIResponse = true;
             }
@@ -288,7 +288,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 SRV_PSERIAL_ParseTxMessage(&appPlcData.plcTxObj, pData);
 
                 /* Send Message through PLC */
-                DRV_PLC_PHY_TxRequest(appPlcData.drvPl360Handle, &appPlcData.plcTxObj);
+                DRV_PLC_PHY_TxRequest(appPlcData.drvPlcHandle, &appPlcData.plcTxObj);
             }
             else
             {
@@ -385,9 +385,9 @@ void APP_Tasks(void)
         case APP_PLC_STATE_IDLE:
         {
             /* Open PLC driver : Start uploading process */
-            appPlcData.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
+            appPlcData.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
 
-            if (appPlcData.drvPl360Handle != DRV_HANDLE_INVALID)
+            if (appPlcData.drvPlcHandle != DRV_HANDLE_INVALID)
             {
                 /* Set Application to next state */
                 appPlcData.state = APP_PLC_STATE_REGISTER;
@@ -407,11 +407,11 @@ void APP_Tasks(void)
             if (DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX) == SYS_STATUS_READY)
             {
                 /* Register PLC callback */
-                DRV_PLC_PHY_ExceptionCallbackRegister(appPlcData.drvPl360Handle,
+                DRV_PLC_PHY_ExceptionCallbackRegister(appPlcData.drvPlcHandle,
                         APP_PLCExceptionCb, DRV_PLC_PHY_INDEX);
-                DRV_PLC_PHY_DataIndCallbackRegister(appPlcData.drvPl360Handle,
+                DRV_PLC_PHY_DataIndCallbackRegister(appPlcData.drvPlcHandle,
                         APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
-                DRV_PLC_PHY_TxCfmCallbackRegister(appPlcData.drvPl360Handle,
+                DRV_PLC_PHY_TxCfmCallbackRegister(appPlcData.drvPlcHandle,
                         APP_PLCDataCfmCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
@@ -463,13 +463,13 @@ void APP_Tasks(void)
             appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
             appPlcData.plcPIB.length = 1;
             *appPlcData.plcPIB.pData = appPlcData.channel;
-            DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
+            DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
 
             /* Set configuration for PLC */
             APP_PLCSetCouplingConfiguration(appPlcData.channel);
 
             /* Disable TX Enable at the beginning */
-            DRV_PLC_PHY_EnableTX(appPlcData.drvPl360Handle, false);
+            DRV_PLC_PHY_EnableTX(appPlcData.drvPlcHandle, false);
             appPlcData.pvddMonTxEnable = false;
             /* Enable PLC PVDD Monitor Service */
             SRV_PVDDMON_CallbackRegister(APP_PVDDMonitorCb, 0);

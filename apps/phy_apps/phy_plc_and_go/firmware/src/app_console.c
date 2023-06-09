@@ -245,7 +245,7 @@ static void APP_CONSOLE_ShowSetSchemeMenu( void )
     
     for (index = 0; index < 8; index++)
     {
-        if (schemeList[index] == appPlcTx.pl360Tx.scheme)
+        if (schemeList[index] == appPlcTx.plcPhyTx.scheme)
         {
             APP_CONSOLE_Print("->\t");
         }
@@ -400,9 +400,9 @@ void APP_CONSOLE_Tasks ( void )
                 APP_CONSOLE_Print(STRING_HEADER);
             
                 /* Show PLC PHY version */
-                APP_CONSOLE_Print("PL360 binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
-                        (uint8_t)(appPlcTx.pl360PhyVersion >> 24), (uint8_t)(appPlcTx.pl360PhyVersion >> 16),
-                        (uint8_t)(appPlcTx.pl360PhyVersion >> 8), (uint8_t)(appPlcTx.pl360PhyVersion));
+                APP_CONSOLE_Print("PLC PHY binary loaded correctly\r\nPHY version: %02x.%02x.%02x.%02x", 
+                        (uint8_t)(appPlcTx.plcPhyVersion >> 24), (uint8_t)(appPlcTx.plcPhyVersion >> 16),
+                        (uint8_t)(appPlcTx.plcPhyVersion >> 8), (uint8_t)(appPlcTx.plcPhyVersion));
                 
                 /* Show PLC TX scheme */
                 

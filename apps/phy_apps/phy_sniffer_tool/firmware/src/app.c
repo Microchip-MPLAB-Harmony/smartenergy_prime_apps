@@ -106,7 +106,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
         /* Report RX Symbols */
         appPlcData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
         appPlcData.plcPIB.length = 2;
-        DRV_PLC_PHY_PIBGet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
+        DRV_PLC_PHY_PIBGet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
 
         SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appPlcData.plcPIB.pData);
 
@@ -154,7 +154,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
                 appPlcData.plcPIB.length = 1;
                 *appPlcData.plcPIB.pData = channel;
-                DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
+                DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
                 /* Update channel in PSniffer */
                 SRV_PSNIFFER_SetPLCChannel(appPlcData.channel);
             }
@@ -232,9 +232,9 @@ void APP_Tasks(void)
         case APP_PLC_STATE_IDLE:
         {
             /* Open PLC driver : Start uploading process */
-            appPlcData.drvPl360Handle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
+            appPlcData.drvPlcHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
 
-            if (appPlcData.drvPl360Handle != DRV_HANDLE_INVALID)
+            if (appPlcData.drvPlcHandle != DRV_HANDLE_INVALID)
             {
                 /* Set Application to next state */
                 appPlcData.state = APP_PLC_STATE_REGISTER;
@@ -254,7 +254,7 @@ void APP_Tasks(void)
             if (DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX) == SYS_STATUS_READY)
             {
                 /* Register PLC callback */
-                DRV_PLC_PHY_DataIndCallbackRegister(appPlcData.drvPl360Handle,
+                DRV_PLC_PHY_DataIndCallbackRegister(appPlcData.drvPlcHandle,
                         APP_PLCDataIndCb, DRV_PLC_PHY_INDEX);
 
                 /* Open USI Service */
@@ -286,7 +286,7 @@ void APP_Tasks(void)
                 appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
                 appPlcData.plcPIB.length = 1;
                 *appPlcData.plcPIB.pData = appPlcData.channel;
-                DRV_PLC_PHY_PIBSet(appPlcData.drvPl360Handle, &appPlcData.plcPIB);
+                DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
                 /* Update channel in PSniffer */
                 SRV_PSNIFFER_SetPLCChannel(appPlcData.channel);
 

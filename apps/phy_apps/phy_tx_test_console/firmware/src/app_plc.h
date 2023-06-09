@@ -145,7 +145,7 @@ typedef struct
     
     APP_PLC_STATES state;
     
-    DRV_HANDLE drvPl360Handle;
+    DRV_HANDLE drvPlcHandle;
     
     bool couplingConfig;
     
@@ -163,9 +163,9 @@ typedef struct
 {    
     uint16_t configKey;
     
-    uint32_t pl360PhyVersion;
+    uint32_t plcPhyVersion;
     
-    DRV_PLC_PHY_TRANSMISSION_OBJ pl360Tx;
+    DRV_PLC_PHY_TRANSMISSION_OBJ plcPhyTx;
     
 	uint32_t txEndTime;
     
