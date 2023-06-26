@@ -189,9 +189,6 @@ typedef struct
     /* SPI receive register address used for DMA operation. */
     void                                   *spiAddressRx;
 
-    /* SPI CSR register address. */
-    uint32_t                               *spiCSR;
-
     /* SPI clock frequency */
     uint32_t                               spiClockFrequency;
 
@@ -203,6 +200,9 @@ typedef struct
 
     /* PLC external interrupt pin */
     SYS_PORT_PIN                           extIntPin;
+
+    /* PLC external interrupt pio */
+    SYS_PORT_PIN                           extIntPio;
 
     /* PLC Tx Enable pin */
     SYS_PORT_PIN                           txEnablePin;

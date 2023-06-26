@@ -410,9 +410,9 @@ static void _DRV_PLC_PHY_COMM_GetEventsInfo(DRV_PLC_PHY_EVENTS_OBJ *eventsObj)
 // Section: DRV_PLC_PHY Common Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
-void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *pl360)
+void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *plcPhyObj)
 {
-    gPlcPhyObj = pl360;
+    gPlcPhyObj = plcPhyObj;
     
     /* Clear information about PLC events */
     gPlcPhyObj->evTxCfm[0] = false;
@@ -439,18 +439,21 @@ void DRV_PLC_PHY_Task(void)
         if ((gPlcPhyObj->evTxCfm[idx]) || (gPlcPhyObj->evResetTxCfm))
         {
             DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmObj;
-            
+
+            /* Reset event flag */
+            gPlcPhyObj->evTxCfm[idx] = false;
+
             if (gPlcPhyObj->evResetTxCfm)
             {
-				gPlcPhyObj->evResetTxCfm = false;
-            	gPlcPhyObj->state[idx] = DRV_PLC_PHY_STATE_IDLE;
-				
+                gPlcPhyObj->evResetTxCfm = false;
+                gPlcPhyObj->state[idx] = DRV_PLC_PHY_STATE_IDLE;
+
                 cfmObj.bufferId = (DRV_PLC_PHY_BUFFER_ID)idx;
                 cfmObj.rmsCalc = 0;
                 cfmObj.time = 0;
                 cfmObj.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
             } else {
-                _DRV_PLC_PHY_COMM_TxCfmEvent(&cfmObj, idx);            
+                _DRV_PLC_PHY_COMM_TxCfmEvent(&cfmObj, idx);
             }
             
             if (gPlcPhyObj->txCfmCallback)
@@ -458,26 +461,23 @@ void DRV_PLC_PHY_Task(void)
                 /* Report to upper layer */
                 gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
             }
-            
-            /* Reset event flag */
-            gPlcPhyObj->evTxCfm[idx] = false;
         }
     }
     
     if (gPlcPhyObj->evRxPar && gPlcPhyObj->evRxDat)
     {
         DRV_PLC_PHY_RECEPTION_OBJ rxObj;
-        
+
+        /* Reset event flags */
+        gPlcPhyObj->evRxPar = false;
+        gPlcPhyObj->evRxDat = false;
+
         _DRV_PLC_PHY_COMM_RxEvent(&rxObj);
         if (gPlcPhyObj->dataIndCallback)
         {
             /* Report to upper layer */
             gPlcPhyObj->dataIndCallback(&rxObj, gPlcPhyObj->contextInd);
         }
-        
-        /* Reset event flags */
-        gPlcPhyObj->evRxPar = false;
-        gPlcPhyObj->evRxDat = false;
     }
 }
 
@@ -811,7 +811,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             gPlcPhyObj->state[1] = DRV_PLC_PHY_STATE_IDLE;
         }
         
-        /* Check received new parameters event (First event in RX) */
+        /* Check received new data event (First event in RX) */
         if (evObj.evRxDat)
         {        
             _DRV_PLC_PHY_COMM_SpiReadCmd(RX_DAT_ID, sDataRxDat, evObj.rcvDataLength);
@@ -819,7 +819,7 @@ void DRV_PLC_PHY_ExternalInterruptHandler(PIO_PIN pin, uintptr_t context)
             gPlcPhyObj->evRxDat = true;
         }
         
-        /* Check received new data event (Second event in RX) */
+        /* Check received new parameters event (Second event in RX) */
         if (evObj.evRxPar)
         {
             _DRV_PLC_PHY_COMM_SpiReadCmd(RX_PAR_ID, sDataRxPar, PLC_RX_PAR_SIZE - 4);

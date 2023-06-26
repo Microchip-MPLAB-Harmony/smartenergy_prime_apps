@@ -777,7 +777,7 @@ static inline uint32_t _RF215_OFDM_PpduDuration (
     uint16_t symbolsTotal;
     uint16_t symbolsPay;
     uint16_t bitsSymb;
-    uint8_t mcsIndex = (uint8_t) (modScheme - OFDM_MCS_0);
+    uint8_t mcsIndex = (uint8_t) modScheme;
     const RF215_OFDM_BW_OPT_CONST_OBJ* optConst = &ofdmBwOptConst[ofdmCfg->opt];
     const RF215_OFDM_MCS_CONST_OBJ* mcsConst = &ofdmMcsConst[mcsIndex];
     uint8_t repFactShift = mcsConst->repFactorShift;
@@ -828,7 +828,7 @@ static inline DRV_RF215_PHY_MOD_SCHEME _RF215_OFDM_ReadPHR (
 
     /* Get MCS from PHR */
     phr &= RF215_BBCn_OFDMPHRRX_MCS_Msk;
-    modScheme = (DRV_RF215_PHY_MOD_SCHEME) (phr + OFDM_MCS_0);
+    modScheme = (DRV_RF215_PHY_MOD_SCHEME) phr;
 
     if ((modScheme > OFDM_MCS_6) || (modScheme < ofdmBwOptConst[opt].minMCS))
     {
@@ -987,7 +987,7 @@ static inline uint16_t _RF215_BBC_GetBestFBLI (
     {
         /* OFDM constants depending on bandwidth option and MCS */
         optConst = &ofdmBwOptConst[phyTypeCfg->ofdm.opt];
-        mcsConst = &ofdmMcsConst[(uint8_t) (modScheme - OFDM_MCS_0)];
+        mcsConst = &ofdmMcsConst[(uint8_t) modScheme];
 
         /* Total bits (coded, with repetition) of 1 OFDM symbol */
         bitsSymb = (uint16_t) optConst->dataCarriers << mcsConst->bitsCarrierShift;
@@ -3307,7 +3307,7 @@ static DRV_RF215_TX_RESULT _RF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     else
     {
         /* OFDM: Minimum TX power attenuation to comply with EVM requirements */
-        mcsIndex = (uint8_t) (txBufObj->reqObj.modScheme - OFDM_MCS_0);
+        mcsIndex = (uint8_t) txBufObj->reqObj.modScheme;
         if (txPwrAtt < 31)
         {
             txPwrAtt += ofdmMcsConst[mcsIndex].minTxPwrAttMin;
@@ -3395,10 +3395,11 @@ static SYS_TIME_HANDLE _RF215_TX_TimeSchedule (
 
     if (force == true)
     {
-        if (txIntDelay <= 0)
+        uint32_t minIntDelay = SYS_TIME_USToCount(5);
+        if (txIntDelay < (int64_t) minIntDelay)
         {
             /* We are late. Generate time interrupt "immediately". */
-            txIntDelay = 1;
+            txIntDelay = (int64_t) minIntDelay;
         }
     }
     else
@@ -4206,7 +4207,7 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     if (trxrdy != 0)
     {
         DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
-        RF215_PHY_STATE pendState;
+        RF215_PHY_STATE pendState = pObj->txPendingState;
 
         /* Clear pending TX state */
         pObj->txPendingState = PHY_STATE_RESET;
@@ -4238,7 +4239,6 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
         }
 
         /* Check if there is pending TX configuration */
-        pendState = pObj->txPendingState;
         if ((pObj->txStarted == true) && (pObj->phyState < PHY_STATE_TX_CONFIG) &&
                 (pendState >= PHY_STATE_TX_CONFIG))
         {
@@ -4373,9 +4373,6 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
             /* Timer created and started */
             txBufObj->timeHandle = timeHandle;
         }
-
-        /* Disable again time interrupt (enabled by SYS_TIME) */
-        RF215_HAL_DisableTimeInt();
 
         /* Leave critical region */
         SYS_INT_Restore(intStatus);
@@ -4735,9 +4732,6 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 void RF215_PHY_Reset(uint8_t trxIndex)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIndex];
-    
-    /* Critical region to avoid conflicts in PHY object data */
-    RF215_HAL_EnterCritical();
 
     if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
     {
@@ -4747,9 +4741,6 @@ void RF215_PHY_Reset(uint8_t trxIndex)
 
     pObj->trxResetPending = false;
     pObj->resetInProgress = true;
-    
-    /* Leave critical region */
-    RF215_HAL_LeaveCritical();
 }
 
 void RF215_PHY_DeviceReset()

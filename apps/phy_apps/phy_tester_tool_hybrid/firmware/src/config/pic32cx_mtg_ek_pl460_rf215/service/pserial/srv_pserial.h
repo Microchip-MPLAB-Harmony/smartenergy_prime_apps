@@ -70,6 +70,7 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
+#define PSERIAL_MAX_DATA_LEN     511
 
 /* PLC Phy Tester Tool command
 
@@ -231,7 +232,7 @@ void SRV_PSERIAL_ParseGetPIB(DRV_PLC_PHY_PIB_OBJ* pDataDst, uint8_t* pDataSrc);
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_GET_CFG) {
       SRV_PSERIAL_ParseGetPIB(&pibObj, pData);
-      if (DRV_PLC_PHY_PIBGet(appData.drvPl360Handle, &pibObj))
+      if (DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &pibObj))
       {
         size_t len;
         // Serialize PIB data
@@ -325,7 +326,7 @@ void SRV_PSERIAL_ParseSetPIB(DRV_PLC_PHY_PIB_OBJ* pDataDst, uint8_t* pDataSrc);
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_SET_CFG) {
       SRV_PSERIAL_ParseSetPIB(&pibObj, pData);
-      if (DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &pibObj))
+      if (DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &pibObj))
       {
         size_t len;
         // Serialize PIB data
@@ -379,7 +380,7 @@ size_t SRV_PSERIAL_SerialSetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc
     if (command == SRV_PSERIAL_CMD_PHY_SEND_MSG) {
       SRV_PSERIAL_ParseTxMessage(&plcTxObj, pData);
       // Send Message through PLC
-      DRV_PLC_PHY_Send(appData.drvPl360Handle, &plcTxObj);
+      DRV_PLC_PHY_Send(appData.drvPlcHandle, &plcTxObj);
     }
     </code>
 
