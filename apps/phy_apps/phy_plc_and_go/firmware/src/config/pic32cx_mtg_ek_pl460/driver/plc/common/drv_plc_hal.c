@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -57,11 +57,11 @@
 // *****************************************************************************
 
 /* SPI Header size. */
-#define HAL_SPI_HEADER_SIZE      4
+#define HAL_SPI_HEADER_SIZE      4U
 /* SPI Max Msg_Data size. */
-#define HAL_SPI_MSG_DATA_SIZE    512
+#define HAL_SPI_MSG_DATA_SIZE    512U
 /* SPI Max Msg_Data size. */
-#define HAL_SPI_MSG_PARAMS_SIZE  118   /* Worst case = 118: sizeof(rx_msg_t) [G3] */
+#define HAL_SPI_MSG_PARAMS_SIZE  118U   /* Worst case = 118: sizeof(rx_msg_t) [G3] */
 /* PDC buffer us_size. */
 #define HAL_SPI_BUFFER_SIZE      (HAL_SPI_HEADER_SIZE + HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)
 
@@ -90,9 +90,8 @@ void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
     /* Clear StandBy pin */
     SYS_PORT_PinClear(sPlcPlib->stByPin);
 
-
     /* Disable External Interrupt */
-    PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+    PIO_PinInterruptDisable((PIO_PIN)sPlcPlib->extIntPin);
     /* Enable External Interrupt Source */
     SYS_INT_SourceEnable(DRV_PLC_EXT_INT_SRC);
 }
@@ -101,7 +100,7 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
 {
     DRV_PLC_SPI_TRANSFER_SETUP spiPlibSetup;
 
-    while(sPlcPlib->spiIsBusy());
+    while(sPlcPlib->spiIsBusy()){}
         
     if (set16Bits) 
     {
@@ -115,12 +114,9 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     /* Configure SPI PLIB */
     spiPlibSetup.clockFrequency = sPlcPlib->spiClockFrequency;
     spiPlibSetup.clockPhase = DRV_PLC_SPI_CLOCK_PHASE_LEADING_EDGE;
-    spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;    
-    sPlcPlib->spiPlibTransferSetup((uintptr_t)&spiPlibSetup, 0);
+    spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;
+    (void)sPlcPlib->spiPlibTransferSetup((uintptr_t)&spiPlibSetup, 0);
     
-    /* CS rises if there is no more data to transfer */
-    *(sPlcPlib->spiCSR) &= ~(FLEX_SPI_CSR_CSAAT_Msk | FLEX_SPI_CSR_CSNAAT_Msk);
-
 }
 
 void DRV_PLC_HAL_Reset(void)
@@ -146,13 +142,16 @@ void DRV_PLC_HAL_Reset(void)
 
 void DRV_PLC_HAL_SetStandBy(bool enable)
 {
-    if (enable) {
+    if (enable) 
+    {
         /* Enable Reset pin */
         SYS_PORT_PinClear(sPlcPlib->resetPin);
 
         /* Enable Stby Pin */
         SYS_PORT_PinSet(sPlcPlib->stByPin);
-    } else {
+    } 
+    else 
+    {
         /* Disable Stby Pin */
         SYS_PORT_PinClear(sPlcPlib->stByPin);
 
@@ -166,32 +165,38 @@ void DRV_PLC_HAL_SetStandBy(bool enable)
 
 bool DRV_PLC_HAL_GetThermalMonitor(void)
 {
-    if (SYS_PORT_PinRead(sPlcPlib->thMonPin)) {
+    if (SYS_PORT_PinRead(sPlcPlib->thMonPin)) 
+    {
         return false;
-    } else {
+    } 
+    else 
+    {
         return true;
     }
 }
 
 void DRV_PLC_HAL_SetTxEnable(bool enable)
 {
-    if (enable) {
+    if (enable) 
+    {
         /* Set TX Enable Pin */
         SYS_PORT_PinSet(sPlcPlib->txEnablePin);
-    } else {
+    } 
+    else 
+    {
         /* Clear TX Enable Pin */
         SYS_PORT_PinClear(sPlcPlib->txEnablePin);
     }
 }
 
-void DRV_PLC_HAL_Delay(uint64_t delayUs)
+void DRV_PLC_HAL_Delay(uint32_t delayUs)
 { 
     SYS_TIME_HANDLE tmrHandle = SYS_TIME_HANDLE_INVALID;
 
     if (SYS_TIME_DelayUS(delayUs, &tmrHandle) == SYS_TIME_SUCCESS)
     {
         // Wait till the delay has not expired
-        while (SYS_TIME_DelayIsComplete(tmrHandle) == false);
+        while (SYS_TIME_DelayIsComplete(tmrHandle) == false){}
     }
 }
 
@@ -200,11 +205,11 @@ void DRV_PLC_HAL_EnableInterrupts(bool enable)
     if (enable)
     {
         SYS_INT_SourceStatusClear(DRV_PLC_EXT_INT_SRC);
-        PIO_PinInterruptEnable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+        PIO_PinInterruptEnable((PIO_PIN)sPlcPlib->extIntPin);
     }
     else
     {
-        PIO_PinInterruptDisable((PIO_PIN)DRV_PLC_EXT_INT_PIN);
+        PIO_PinInterruptDisable((PIO_PIN)sPlcPlib->extIntPin);
     }
 }
 
@@ -218,43 +223,44 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
     uint8_t *pTxData;  
     size_t size;
 
-    while(sPlcPlib->spiIsBusy());
+    while(sPlcPlib->spiIsBusy()){}
     
     pTxData = sTxSpiData;
     
     /* Build command */
-    memcpy(pTxData, &addr, 4);
+    (void)memcpy(pTxData, (uint8_t *)&addr, 4);
     pTxData += 4;
-    memcpy(pTxData, &cmd, 2);
+    (void)memcpy(pTxData, (uint8_t *)&cmd, 2);
     pTxData += 2;
-    if (dataLength)
+    if (dataLength > 0U)
     {
-        if (dataLength > HAL_SPI_BUFFER_SIZE - 6)
+        if (dataLength > HAL_SPI_BUFFER_SIZE - 6U)
         {
-            dataLength = HAL_SPI_BUFFER_SIZE - 6;
+            dataLength = HAL_SPI_BUFFER_SIZE - 6U;
         }
         
-        if (pDataWr) {
-            memcpy(pTxData, pDataWr, dataLength);
+        if (pDataWr != NULL) 
+        {
+            (void)memcpy(pTxData, pDataWr, dataLength);
         }
-        else{
+        else
+        {
             /* Insert dummy data */
-            memset(pTxData, 0, dataLength);
+            (void)memset(pTxData, 0, dataLength);
         }
-        
-        pTxData += dataLength;
     }
 
     /* Get length of transaction in bytes */
-    size = pTxData - sTxSpiData;
+    size = 6U + dataLength;
 
-    sPlcPlib->spiWriteRead(sTxSpiData, size, sRxSpiData, size);
+    (void)sPlcPlib->spiWriteRead(sTxSpiData, size, sRxSpiData, size);
 
-    if (pDataRd) {
-        while(sPlcPlib->spiIsBusy());
+    if ((pDataRd != NULL) && (dataLength > 0U))
+    {
+        while(sPlcPlib->spiIsBusy()){}
         
         /* Update data received */
-        memcpy(pDataRd, &sRxSpiData[6], dataLength);
+        (void)memcpy(pDataRd, &sRxSpiData[6], dataLength);
     }
 }
 
@@ -262,16 +268,16 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 {
     uint8_t *pTxData;
     size_t cmdSize;
-    size_t dataLength;
+    uint16_t dataLength, totalLength;
 
-    while(sPlcPlib->spiIsBusy());
+    while(sPlcPlib->spiIsBusy()){}
     
     pTxData = sTxSpiData;
     
-    dataLength = ((pCmd->length + 1) >> 1) & 0x7FFF;
+    dataLength = ((pCmd->length + 1U) >> 1) & 0x7FFFU;
     
     /* Protect length */
-    if ((dataLength == 0) || (dataLength > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
+    if ((dataLength == 0U) || (dataLength > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
     {
         return;
     }
@@ -288,28 +294,29 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 
     if (pCmd->cmd == DRV_PLC_HAL_CMD_WR) {
         /* Fill with transmission data */
-        memcpy(pTxData, pCmd->pData, pCmd->length);
+        (void)memcpy(pTxData, pCmd->pData, pCmd->length);
     } else {
         /* Fill with dummy data */
-        memset(pTxData, 0, pCmd->length);
+        (void)memset(pTxData, 0, pCmd->length);
     }
 
     pTxData += pCmd->length;
 
-    cmdSize = pTxData - sTxSpiData;
+    totalLength = 4U + pCmd->length;
+    cmdSize = totalLength;
     
-    if (cmdSize % 2) {
+    if ((cmdSize % 2U) > 0U) {
         *pTxData++ = 0;
         cmdSize++;
     }
 
-    sPlcPlib->spiWriteRead(sTxSpiData, cmdSize >> 1, sRxSpiData, cmdSize >> 1);    
+    (void)sPlcPlib->spiWriteRead(sTxSpiData, cmdSize >> 1, sRxSpiData, cmdSize >> 1);
 
     if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
-        while(sPlcPlib->spiIsBusy());
+        while(sPlcPlib->spiIsBusy()){}
         
         /* Update data received */
-        memcpy(pCmd->pData, &sRxSpiData[4], pCmd->length);
+        (void)memcpy(pCmd->pData, &sRxSpiData[4], pCmd->length);
     }
     
     /* Get HAL info */
@@ -324,6 +331,6 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     } 
     else 
     {
-        pInfo->flags = 0;
+        pInfo->flags = 0UL;
     }
 }

@@ -93,7 +93,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     
     /* Set PLC TX configuration by default */
     APP_PLC_SetModScheme(SCHEME_DBPSK_C);
-    appPlcTx.plcPhyTx.time = 0;
+    appPlcTx.plcPhyTx.timeIni = 0;
     appPlcTx.plcPhyTx.attenuation = 0;
     appPlcTx.plcPhyTx.forced = 1;
     appPlcTx.plcPhyTx.bufferId = TX_BUFFER_0;
