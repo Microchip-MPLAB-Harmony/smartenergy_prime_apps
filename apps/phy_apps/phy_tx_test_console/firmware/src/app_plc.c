@@ -388,12 +388,10 @@ void APP_PLC_Tasks ( void )
                     appPlcTx.plcPhyVersion = 0;
                     appPlcTx.txImpedance = HI_STATE;
                     appPlcTx.txAuto = 1;
-                    appPlcTx.plcPhyTx.time = 1000000;
-                    appPlcTx.plcPhyTx.attenuation = 0;
                     
                     /* Set PLC TX configuration by default */
                     APP_PLC_SetModScheme(SCHEME_DBPSK_C);
-                    appPlcTx.plcPhyTx.time = 1000000;
+                    appPlcTx.plcPhyTx.timeIni = 1000000;
                     appPlcTx.plcPhyTx.attenuation = 0;
                     appPlcTx.plcPhyTx.forced = 1;
                     appPlcTx.plcPhyTx.bufferId = TX_BUFFER_0;
@@ -553,7 +551,7 @@ void APP_PLC_Tasks ( void )
                     {
                         DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmData;
                         
-                        cfmData.time = 0;
+                        cfmData.timeIni = 0;
                         cfmData.rmsCalc = 0;
                         cfmData.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
                         APP_PLC_DataCfmCb(&cfmData, 0);

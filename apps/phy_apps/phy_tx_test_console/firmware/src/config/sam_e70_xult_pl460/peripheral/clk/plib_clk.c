@@ -42,20 +42,29 @@ static void CLK_MainClockInitialize(void)
     PMC_REGS->CKGR_MOR |= CKGR_MOR_KEY_PASSWD | CKGR_MOR_MOSCSEL_Msk;
 
     /* Wait until MAINCK is switched to External Clock Signal (XIN pin) */
-    while ( (PMC_REGS->PMC_SR & PMC_SR_MOSCSELS_Msk) != PMC_SR_MOSCSELS_Msk);
+    while ( (PMC_REGS->PMC_SR & PMC_SR_MOSCSELS_Msk) != PMC_SR_MOSCSELS_Msk)
+    {
+        /* Nothing to do */
+    }
 
 
     /* Enable the RC Oscillator */
     PMC_REGS->CKGR_MOR|= CKGR_MOR_KEY_PASSWD | CKGR_MOR_MOSCRCEN_Msk;
 
     /* Wait until the RC oscillator clock is ready. */
-    while( (PMC_REGS->PMC_SR & PMC_SR_MOSCRCS_Msk) != PMC_SR_MOSCRCS_Msk);
+    while( (PMC_REGS->PMC_SR & PMC_SR_MOSCRCS_Msk) != PMC_SR_MOSCRCS_Msk)
+    {
+        /* Nothing to do */
+    }
 
     /* Configure the RC Oscillator frequency */
     PMC_REGS->CKGR_MOR = (PMC_REGS->CKGR_MOR & ~CKGR_MOR_MOSCRCF_Msk) | CKGR_MOR_KEY_PASSWD | CKGR_MOR_MOSCRCF_12_MHz;
 
     /* Wait until the RC oscillator clock is ready */
-    while( (PMC_REGS->PMC_SR& PMC_SR_MOSCRCS_Msk) != PMC_SR_MOSCRCS_Msk);
+    while( (PMC_REGS->PMC_SR& PMC_SR_MOSCRCS_Msk) != PMC_SR_MOSCRCS_Msk)
+    {
+        /* Nothing to do */
+    }
 
 
 }
@@ -72,7 +81,7 @@ static void CLK_PLLAInitialize(void)
 
     while ( (PMC_REGS->PMC_SR & PMC_SR_LOCKA_Msk) != PMC_SR_LOCKA_Msk)
     {
-
+        /* Nothing to do */
     }
 
 }
@@ -89,21 +98,21 @@ static void CLK_MasterClockInitialize(void)
     PMC_REGS->PMC_MCKR = (PMC_REGS->PMC_MCKR & ~PMC_MCKR_PRES_Msk) | PMC_MCKR_PRES_CLK_1;
     while ((PMC_REGS->PMC_SR & PMC_SR_MCKRDY_Msk) != PMC_SR_MCKRDY_Msk)
     {
-
+        /* Nothing to do */
     }
 
     /* Program PMC_MCKR.MDIV and Wait for PMC_SR.MCKRDY to be set   */
     PMC_REGS->PMC_MCKR = (PMC_REGS->PMC_MCKR & ~PMC_MCKR_MDIV_Msk) | PMC_MCKR_MDIV_PCK_DIV2;
     while ((PMC_REGS->PMC_SR & PMC_SR_MCKRDY_Msk) != PMC_SR_MCKRDY_Msk)
     {
-
+        /* Nothing to do */
     }
 
     /* Program PMC_MCKR.CSS and Wait for PMC_SR.MCKRDY to be set    */
     PMC_REGS->PMC_MCKR = (PMC_REGS->PMC_MCKR & ~PMC_MCKR_CSS_Msk) | PMC_MCKR_CSS_PLLA_CLK;
     while ((PMC_REGS->PMC_SR & PMC_SR_MCKRDY_Msk) != PMC_SR_MCKRDY_Msk)
     {
-
+        /* Nothing to do */
     }
 
 }
@@ -136,6 +145,6 @@ void CLOCK_Initialize( void )
 
 
     /* Enable Peripheral Clock */
-    PMC_REGS->PMC_PCER0=0xa35c00;
-    PMC_REGS->PMC_PCER1=0x6000100;
+    PMC_REGS->PMC_PCER0=0xa35c00U;
+    PMC_REGS->PMC_PCER1=0x6000100U;
 }

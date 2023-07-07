@@ -86,12 +86,12 @@ extern "C" {
 #define SYS_TIME_HW_COUNTER_PERIOD                  (4294967295U)
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
 #define SYS_TIME_CPU_CLOCK_FREQUENCY                (200000000)
-#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (188)
+#define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (232)
 
-#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			1
-#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			1
-#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		0
-#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		512
+#define SYS_CONSOLE_DEVICE_MAX_INSTANCES   			(1U)
+#define SYS_CONSOLE_UART_MAX_INSTANCES 	   			(1U)
+#define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(0U)
+#define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
 
 
 #define SYS_CONSOLE_INDEX_0                       0
@@ -107,45 +107,44 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* Memory Driver Global Configuration Options */
-#define DRV_MEMORY_INSTANCES_NUMBER          1
+#define DRV_MEMORY_INSTANCES_NUMBER          (1U)
 /* SST26 Driver Instance Configuration */
-#define DRV_SST26_INDEX                 0
-#define DRV_SST26_CLIENTS_NUMBER        1
-#define DRV_SST26_START_ADDRESS         0x0
-#define DRV_SST26_PAGE_SIZE             256
-#define DRV_SST26_ERASE_BUFFER_SIZE     4096
+#define DRV_SST26_INDEX                 (0U)
+#define DRV_SST26_CLIENTS_NUMBER        (1U)
+#define DRV_SST26_START_ADDRESS         (0x0U)
+#define DRV_SST26_PAGE_SIZE             (256U)
+#define DRV_SST26_ERASE_BUFFER_SIZE     (4096U)
 
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
 #define DRV_PLC_EXT_INT_SRC                   PIOA_IRQn
+#define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PA2
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PA2
 #define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PD15
 #define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PD19
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA1
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PB15
 #define DRV_PLC_CSR_INDEX                     0
-
 #define DRV_PLC_SPI_CLK                       8000000
-#define DRV_PLC_PHY_INSTANCES_NUMBER          1
-#define DRV_PLC_PHY_INDEX                     0
-#define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1
 
 /* PLC Driver Identification */
-#define DRV_PLC_PHY_PROFILE                   4
-#define DRV_PLC_PHY_NUM_CARRIERS              97
-#define DRV_PLC_PHY_HOST_PRODUCT              0x3600
-#define DRV_PLC_PHY_HOST_VERSION              0x36000300
-#define DRV_PLC_PHY_HOST_PHY                  0x36000003
+#define DRV_PLC_PHY_INSTANCES_NUMBER          1U
+#define DRV_PLC_PHY_INDEX                     0U
+#define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1U
+#define DRV_PLC_PHY_PROFILE                   4U
+#define DRV_PLC_PHY_NUM_CARRIERS              97U
+#define DRV_PLC_PHY_HOST_PRODUCT              0x3600U
+#define DRV_PLC_PHY_HOST_VERSION              0x36000300UL
+#define DRV_PLC_PHY_HOST_PHY                  0x36000003UL
 #define DRV_PLC_PHY_HOST_DESC                 "PIC32CX2051MTG128"
-#define DRV_PLC_PHY_HOST_MODEL                3
+#define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
 
 /* Memory Driver Instance 0 Configuration */
 #define DRV_MEMORY_INDEX_0                   0
 #define DRV_MEMORY_CLIENTS_NUMBER_IDX0       1
-#define DRV_MEMORY_BUFFER_QUEUE_SIZE_IDX0    1
-
+#define DRV_MEMORY_BUF_Q_SIZE_IDX0    1
 
 
 

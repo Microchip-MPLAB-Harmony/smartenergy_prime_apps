@@ -57,10 +57,10 @@
 #include "driver/memory/drv_memory.h"
 #include "peripheral/efc/plib_efc.h"
 #include "peripheral/tc/plib_tc0.h"
+#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
 #include "bsp/bsp.h"
 #include "driver/memory/drv_memory_efc.h"
 #include "peripheral/afec/plib_afec1.h"
@@ -89,6 +89,12 @@ extern "C" {
 
 #endif
 // DOM-IGNORE-END
+
+/* Device Information */
+#define DEVICE_NAME			 "ATSAME70Q21B"
+#define DEVICE_ARCH			 "CORTEX-M7"
+#define DEVICE_FAMILY		 "SAME"
+#define DEVICE_SERIES		 "SAME70"
 
 /* CPU clock frequency */
 #define CPU_CLOCK_FREQUENCY 300000000
@@ -203,8 +209,8 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ drvPlcPhy;
     SYS_MODULE_OBJ  drvMemory0;
     SYS_MODULE_OBJ  sysConsole0;
 
