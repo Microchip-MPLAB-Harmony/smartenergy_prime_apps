@@ -2780,10 +2780,11 @@ static SYS_TIME_HANDLE _RF215_TX_TimeSchedule (
 
     if (force == true)
     {
-        if (txIntDelay <= 0)
+        uint32_t minIntDelay = SYS_TIME_USToCount(5);
+        if (txIntDelay < (int64_t) minIntDelay)
         {
             /* We are late. Generate time interrupt "immediately". */
-            txIntDelay = 1;
+            txIntDelay = (int64_t) minIntDelay;
         }
     }
     else
@@ -3594,7 +3595,7 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     if (trxrdy != 0)
     {
         DRV_RF215_TX_BUFFER_OBJ* txBufObj = pObj->txBufObj;
-        RF215_PHY_STATE pendState;
+        RF215_PHY_STATE pendState = pObj->txPendingState;
 
         /* Clear pending TX state */
         pObj->txPendingState = PHY_STATE_RESET;
@@ -3615,7 +3616,6 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
         }
 
         /* Check if there is pending TX configuration */
-        pendState = pObj->txPendingState;
         if ((pObj->txStarted == true) && (pObj->phyState < PHY_STATE_TX_CONFIG) &&
                 (pendState >= PHY_STATE_TX_CONFIG))
         {
@@ -3741,9 +3741,6 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
             /* Timer created and started */
             txBufObj->timeHandle = timeHandle;
         }
-
-        /* Disable again time interrupt (enabled by SYS_TIME) */
-        RF215_HAL_DisableTimeInt();
 
         /* Leave critical region */
         SYS_INT_Restore(intStatus);
@@ -4120,9 +4117,6 @@ DRV_RF215_PIB_RESULT RF215_PHY_SetPib (
 void RF215_PHY_Reset(uint8_t trxIndex)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIndex];
-    
-    /* Critical region to avoid conflicts in PHY object data */
-    RF215_HAL_EnterCritical();
 
     if (pObj->phyState == PHY_STATE_TX_CONTINUOUS)
     {
@@ -4132,9 +4126,6 @@ void RF215_PHY_Reset(uint8_t trxIndex)
 
     pObj->trxResetPending = false;
     pObj->resetInProgress = true;
-    
-    /* Leave critical region */
-    RF215_HAL_LeaveCritical();
 }
 
 void RF215_PHY_DeviceReset()

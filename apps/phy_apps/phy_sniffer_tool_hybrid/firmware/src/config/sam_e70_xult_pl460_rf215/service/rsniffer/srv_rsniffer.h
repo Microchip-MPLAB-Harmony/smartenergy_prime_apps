@@ -19,7 +19,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -102,8 +102,8 @@
 
   Example:
     <code>
-    DRV_HANDLE drvRf215Handle; // returned from DRV_RF215_Open
-    SRV_USI_HANDLE srvUSIHandle; // returned from SRV_USI_Open
+    DRV_HANDLE drvRf215Handle;
+    SRV_USI_HANDLE srvUSIHandle;
 
     static void _APP_RfRxIndCb(DRV_RF215_RX_INDICATION_OBJ* ind, uintptr_t ctxt)
     {
@@ -113,19 +113,15 @@
         uint16_t rfPayloadSymbols;
         uint16_t rfChannel;
 
-        // Get payload symbols in the received message
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_RX_PAY_SYMBOLS,
                 &rfPayloadSymbols);
 
-        // Get RF PHY configuration
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_CONFIG, &rfPhyConfig);
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_CHANNEL_NUM, &rfChannel);
 
-        // Serialize received RF message
         pRfSnifferData = SRV_RSNIFFER_SerialRxMessage(ind, &rfPhyConfig,
                 rfPayloadSymbols, rfChannel, &rfSnifferDataSize);
 
-        // Send through USI
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_SNIF_PRIME,
                 pRfSnifferData, rfSnifferDataSize);
     }
@@ -171,7 +167,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
 
   Example:
     <code>
-    DRV_HANDLE drvRf215Handle // returned from DRV_RF215_Open
+    DRV_HANDLE drvRf215Handle;
     DRV_RF215_TX_REQUEST_OBJ txReqObj;
     DRV_RF215_TX_RESULT txReqResult;
     DRV_RF215_TX_HANDLE txReqHandle;
@@ -238,8 +234,8 @@ void SRV_RSNIFFER_SetTxMessage (
 
   Example:
     <code>
-    DRV_HANDLE drvRf215Handle; // returned from DRV_RF215_Open
-    SRV_USI_HANDLE srvUSIHandle; // returned from SRV_USI_Open
+    DRV_HANDLE drvRf215Handle;
+    SRV_USI_HANDLE srvUSIHandle;
 
     static void _APP_RF_TxCfmCb (
         DRV_RF215_TX_HANDLE txHandle,
@@ -253,19 +249,15 @@ void SRV_RSNIFFER_SetTxMessage (
         uint16_t rfPayloadSymbols;
         uint16_t rfChannel;
 
-        // Get payload symbols in the received message
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_TX_PAY_SYMBOLS,
                 &rfPayloadSymbols);
 
-        // Get RF PHY configuration
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_CONFIG, &rfPhyConfig);
         DRV_RF215_GetPib(drvRf215Handle, RF215_PIB_PHY_CHANNEL_NUM, &rfChannel);
 
-        // Serialize received RF message
         pRfSnifferData = SRV_RSNIFFER_SerialCfmMessage(cfmObj, txHandle,
                 &rfPhyConfig, rfPayloadSymbols, rfChannel, &rfSnifferDataSize);
 
-        // Send through USI
         SRV_USI_Send_Message(srvUSIHandle, SRV_USI_PROT_ID_SNIF_PRIME,
                 pRfSnifferData, rfSnifferDataSize);
     }

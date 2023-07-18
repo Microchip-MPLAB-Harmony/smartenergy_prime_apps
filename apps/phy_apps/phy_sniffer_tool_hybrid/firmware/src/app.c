@@ -132,8 +132,8 @@ static void _APP_PlcDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t ctxt)
     SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
 
     /* Convert RX time to SYS_TIME units and convert to 32-bit US counter */
-    rxSysTime = _APP_PlcTimeToSysTime(indObj->time);
-    indObj->time = _APP_SysTimeToUS(rxSysTime);
+    rxSysTime = _APP_PlcTimeToSysTime(indObj->timeIni);
+    indObj->timeIni = _APP_SysTimeToUS(rxSysTime);
 
     /* Serialize received PLC message */
     length = SRV_PSNIFFER_SerialRxMessage(plcSnifferDataBuffer, indObj);
