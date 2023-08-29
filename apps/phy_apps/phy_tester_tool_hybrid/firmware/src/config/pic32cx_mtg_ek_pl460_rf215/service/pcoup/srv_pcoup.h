@@ -25,7 +25,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -75,7 +75,7 @@
 #define SRV_PCOUP_DEFAULT_CHANNEL                CHN1
 
 /* Equalization number of coefficients (number of carriers) */
-#define SRV_PCOUP_EQU_NUM_COEF_CHN               97
+#define SRV_PCOUP_EQU_NUM_COEF_CHN               97U
 #define SRV_PCOUP_EQU_NUM_COEF_2_CHN             (SRV_PCOUP_EQU_NUM_COEF_CHN << 1)
 
 /* Equalization coefficients tables */
@@ -119,17 +119,17 @@
                                                  0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF}
 
 /* DACC configuration tables */
-#define SRV_PCOUP_DACC_CENA_TBL                  {0x0, 0x21200000, 0x73f0000, 0x3f3f0000, 0xccc, 0x0, \
-                                                 0xa92c00ff, 0x1a1a1a1a, 0x20200000, 0x4400, 0xfd20005, 0x3aa, \
-                                                 0xf0000000, 0x1020f0, 0x3aa, 0xf0000000, 0x1020ff}
+#define SRV_PCOUP_DACC_CENA_TBL                  {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
+                                                 0xa92c00ffUL, 0x1a1a1a1aUL, 0x20200000UL, 0x4400UL, 0xfd20005UL, 0x3aaUL, \
+                                                 0xf0000000UL, 0x1020f0UL, 0x3aaUL, 0xf0000000UL, 0x1020ffUL}
 
-#define SRV_PCOUP_DACC_FCC_TBL                   {0x0, 0x0, 0x100, 0x100, 0x0, 0x0, \
-                                                 0xffff00ff, 0x1b1b1b1b, 0x0, 0x0, 0x6, 0x355, \
-                                                 0x0, 0x1020f0, 0x355, 0x0, 0x1020ff}
+#define SRV_PCOUP_DACC_FCC_TBL                   {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
+                                                 0xffff00ffUL, 0x1b1b1b1bUL, 0x0UL, 0x0UL, 0x6UL, 0x355UL, \
+                                                 0x0UL, 0x1020f0UL, 0x355UL, 0x0UL, 0x1020ffUL}
 
-#define SRV_PCOUP_DACC_2CHN_TBL                  {0x0, 0x0, 0x100, 0x100, 0x0, 0x0, \
-                                                 0xffff00ff, 0x17171717, 0x0, 0x0, 0x6, 0x355, \
-                                                 0x0, 0x1020f0, 0x355, 0x0, 0x1020ff}
+#define SRV_PCOUP_DACC_2CHN_TBL                  {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
+                                                 0xffff00ffUL, 0x17171717UL, 0x0UL, 0x0UL, 0x6UL, 0x355UL, \
+                                                 0x0UL, 0x1020f0UL, 0x355UL, 0x0UL, 0x1020ffUL}
 
 
 /* PLC PHY Coupling parameters for each PRIME channel */
@@ -445,7 +445,6 @@ SRV_PLC_PCOUP_CHANNEL_DATA * SRV_PCOUP_Get_Channel_Config(DRV_PLC_PHY_CHANNEL ch
 
   Example:
     <code>
-    // 'handle', returned from DRV_PLC_PHY_Open
     bool result;
 
     result = SRV_PCOUP_Set_Channel_Config(handle, CHN5);

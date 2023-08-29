@@ -144,7 +144,7 @@ static uint8_t SRV_RSNIFFER_FrameType(DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj)
     return frameType;
 }
 
-static uint32_t SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
+static uint32_t lSRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 {
     uint64_t sysTimeDiff;
     uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
@@ -203,7 +203,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     srvRsnifferRxMsg[7] = (uint8_t) channel;
 
     /* Initial and end time of RX frame */
-    timeIni = SRV_RSNIFFER_SysTimeToUS(pIndObj->timeIniCount);
+    timeIni = lSRV_RSNIFFER_SysTimeToUS(pIndObj->timeIniCount);
     srvRsnifferRxMsg[19] = (uint8_t) (timeIni >> 24);
     srvRsnifferRxMsg[20] = (uint8_t) (timeIni >> 16);
     srvRsnifferRxMsg[21] = (uint8_t) (timeIni >> 8);
@@ -314,7 +314,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[7] = (uint8_t) (channel);
 
     /* Initial and end time of RX frame */
-    timeIni = SRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);
+    timeIni = lSRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);
     pMsgDest[19] = (uint8_t) (timeIni >> 24);
     pMsgDest[20] = (uint8_t) (timeIni >> 16);
     pMsgDest[21] = (uint8_t) (timeIni >> 8);

@@ -70,13 +70,9 @@ SYS_MODULE_OBJ DRV_PLC_PHY_Initialize(
     const SYS_MODULE_INIT * const init
 )
 {
-    DRV_PLC_PHY_INIT* plcPhyInit;
-
     /* MISRA C-2012 deviation block start */
     /* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
-
-    plcPhyInit = (DRV_PLC_PHY_INIT *)init;
-
+    const DRV_PLC_PHY_INIT * const plcPhyInit = (const DRV_PLC_PHY_INIT * const)init;
     /* MISRA C-2012 deviation block end */
 
     /* Validate the request */

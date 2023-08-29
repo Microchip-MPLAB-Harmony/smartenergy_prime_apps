@@ -3490,29 +3490,29 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;626&quot; canvasWidth=&quot;666&quot; dnOrder=&quot;0&quot;/&gt;
-    &lt;ComponentGraph dnOrder=&quot;1&quot; id=&quot;__ROOTVIEW&quot;&gt;
+    &lt;ComponentGraph dnOrder=&quot;0&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;33&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;0&quot; y=&quot;72&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;0&quot; y=&quot;64&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;cmsis&quot; x=&quot;183&quot; y=&quot;7&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;core&quot; x=&quot;224&quot; y=&quot;33&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;0&quot; y=&quot;6&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;drvPlcPhy&quot; x=&quot;159&quot; y=&quot;329&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvRf215&quot; x=&quot;160&quot; y=&quot;470&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;flexcom0&quot; x=&quot;321&quot; y=&quot;253&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom3&quot; x=&quot;4&quot; y=&quot;514&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom5&quot; x=&quot;0&quot; y=&quot;373&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;drvPlcPhy&quot; x=&quot;131&quot; y=&quot;223&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvRf215&quot; x=&quot;139&quot; y=&quot;363&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;flexcom0&quot; x=&quot;289&quot; y=&quot;207&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom3&quot; x=&quot;0&quot; y=&quot;431&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom5&quot; x=&quot;0&quot; y=&quot;291&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;sefc0&quot; x=&quot;301&quot; y=&quot;8&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;sefc1&quot; x=&quot;432&quot; y=&quot;9&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;srv_pcrc&quot; x=&quot;318&quot; y=&quot;167&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;srv_psniffer&quot; x=&quot;321&quot; y=&quot;351&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;srv_rsniffer&quot; x=&quot;454&quot; y=&quot;353&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;srv_usi&quot; x=&quot;497&quot; y=&quot;123&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sys_time&quot; x=&quot;159&quot; y=&quot;161&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;tc0&quot; x=&quot;0&quot; y=&quot;207&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;srv_pcrc&quot; x=&quot;307&quot; y=&quot;86&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;srv_psniffer&quot; x=&quot;292&quot; y=&quot;291&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;srv_rsniffer&quot; x=&quot;292&quot; y=&quot;366&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;srv_usi&quot; x=&quot;423&quot; y=&quot;77&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sys_time&quot; x=&quot;151&quot; y=&quot;110&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;tc0&quot; x=&quot;0&quot; y=&quot;156&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
+    &lt;GraphSettings canvasHeight=&quot;626&quot; canvasWidth=&quot;666&quot; dnOrder=&quot;1&quot;/&gt;
   &lt;/UserData&gt;
 &lt;/UserData&gt;
 </value>
@@ -4392,7 +4392,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_22_DIR&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;Out&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4403,7 +4403,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_22_FUNCTION_NAME&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;RF215_RSTN&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4414,7 +4414,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_22_FUNCTION_TYPE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4425,7 +4425,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_22_PERIPHERAL_FUNCTION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4941,6 +4941,50 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_67_DIR"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_67_DIR&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;Out&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_67_FUNCTION_NAME"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_67_FUNCTION_NAME&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;RF215_RSTN&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_67_FUNCTION_TYPE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_67_FUNCTION_TYPE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_67_PERIPHERAL_FUNCTION"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_67_PERIPHERAL_FUNCTION&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_6_DIR"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_6_DIR&quot;&gt;
@@ -5219,6 +5263,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PORT_A_CFGR_Value25"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_A_CFGR_Value25&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x100&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PORT_A_CFGR_Value7"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_A_CFGR_Value7&quot;&gt;
@@ -5344,7 +5399,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_A_MSKR_ValueGPIO&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x387&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x2000387&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -5586,7 +5641,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_D_CFGR_Value17&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x100&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -5718,7 +5773,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_D_MSKR_ValueGPIO&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0xf8008&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0xd8008&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -7038,7 +7093,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
   &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_RESET_PIN&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;99&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;25&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drvRf215&gt;
 &lt;/drvRf215&gt;
@@ -12883,7 +12938,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>9e3fccb9b9637e5e5a5b59b67f173b47ef33d6573ae0f47001af190f97687ac2</hash>
+         <hash>c22c9c052e7e505d65fa2831cf41a2baab7f2c9d03799af1151331c438d1330e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\tc2.h</file>
@@ -12891,7 +12946,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\psniffer\srv_psniffer.c</file>
-         <hash>092f55da08e2be05b8c5a42bcfe831401ec7b98629e7b91b8f2ea767d1e74ae1</hash>
+         <hash>ba715be8a4a5de4a28efad8e8a30f3096d28c38e85fff44003d9b789559a26ae</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\psniffer\srv_psniffer.h</file>
@@ -12899,7 +12954,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\pin_configurations.csv</file>
-         <hash>496bdfbc7c775ab2aa5bbd2e8ff5da42b29f7c7d1d8f3ca6efc2dd1817a7fad3</hash>
+         <hash>58fe960ea9e4d190bca81c9708d17f20daa62f259c1ea00b887a9bbecf3d8bf5</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\bin\plc_phy_bin.S</file>
@@ -12939,7 +12994,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\drv_rf215_definitions.h</file>
-         <hash>950df0b4c7699f5e89b2e08b1eef948769dece349499b35b6c18fa03733e970a</hash>
+         <hash>7c061c7fc769cfe063e84ebe01d7c72a3f7173ac72fafdac06dff86a70a750e8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\time\src\sys_time_local.h</file>
@@ -12947,7 +13002,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>d64e7e055e51f26002118111a766dbdb4eb098ba527a8059f85d290dc191d3e0</hash>
+         <hash>aea27852cf8aee8171b538e597c1b9971221f705cee321ac669d97e48df08ba2</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\aesb.h</file>
@@ -12983,7 +13038,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\rsniffer\srv_rsniffer.c</file>
-         <hash>7a22eee9148cd8921ce58553eabc65764ad3fc5664967d12a80f66096f78568f</hash>
+         <hash>ebb7fc50ad570123400c01e37bf1dff1b26f0dad2039cc9d2a4b336f31ab5dcd</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\pmc.h</file>
@@ -13015,7 +13070,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_boot.c</file>
-         <hash>38858b458f9f87b5d0bb00611bd092a3e9a79e57f345ed7e7c46111b8b7c486e</hash>
+         <hash>1529778341ae69c6d76564981a080f5d76f0ee2229e5987c49232320af3d1e42</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\sfr.h</file>
@@ -13023,7 +13078,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.h</file>
-         <hash>c8aa8cb08424e435981ef35705ce4aa67f2b428bdc2ea559f161574ccf738aec</hash>
+         <hash>50b41b748054d7b6e6a75d2d0906c4269e44596576ccb1c312ca9638a518eb5b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_hal.c</file>
@@ -13031,7 +13086,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\phy\ieee_15_4_sun_fsk.h</file>
-         <hash>a5451a7ceb096b685d0eb30699da550eb84b90776a2e0ab2fdf1d5cfc90d3ef6</hash>
+         <hash>0fdee44822a193fbb30a7ed5bbfff962c556ffb3c068aac14d2f46601ac14aa1</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\matrix1.h</file>
@@ -13043,11 +13098,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.c</file>
-         <hash>f7cae84c54ce392f38cacfb7bdd68332e074a59efb67f9b713858b41852933d4</hash>
+         <hash>8d69faf6b92ee441dade54ca9755cd92d3765f18a637c8efe51c30e4e04385e1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h</file>
-         <hash>90f11d641d8e14702fefd3bd202fa070c81551ec2a4917a56698620ce44e6819</hash>
+         <hash>d3ba2cac317c4850a51017a5396423b5e5a2fd514e4ffdb497a652953502777b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\usart\plib_flexcom_usart_local.h</file>
@@ -13135,7 +13190,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\drv_rf215.h</file>
-         <hash>7c10231f40160b9b5308693faa11654fcce586b3f4fb8861b2925022e8a046ed</hash>
+         <hash>d7c50df498729ba0e6983529b4e18c1908f5870a22d5cb8a8cac0c88cf144ce8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\usart\plib_flexcom0_usart.c</file>
@@ -13143,7 +13198,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>dd1d794237a831ddbddb1aaca9d995853ae9e011bc6d0445a0c13c9a456bd523</hash>
+         <hash>179f9b70f76f9ebde9cb2c23843a1e57a3b00a41f5757a6407a8a5fe5fe2c365</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\user.h</file>
@@ -13203,7 +13258,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\drv_rf215.c</file>
-         <hash>8fd0e9724c0f46dc2158f37adc5ce7540a40726b0df5ff382325cff253a4edff</hash>
+         <hash>ab58ec461b27175d799be6af74034ddcae39e320fa116e75e507a606422820b6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\time\sys_time_definitions.h</file>
@@ -13243,7 +13298,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>67bd04ab4e1c8226e6febe8162d91d970e657d4e27793f6a65e39a38a2244a86</hash>
+         <hash>4b44653eb8abc568cb1fc37a365461fb869f91e4e84f9e87570c848eea669cf1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\cache\sys_cache.c</file>
@@ -13255,7 +13310,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>3b203fabf1b57ce48774f63013440334f15a03fba0ed4105099e8d7dab6eea8e</hash>
+         <hash>d87ce23ef1b64f0d8fac6f1302d30e38a06b9398f225f197b0a0f0e4f1ad17d2</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\instance\flexcom6.h</file>
@@ -13263,7 +13318,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\hal\rf215_hal.h</file>
-         <hash>421c47cd57d1e448b66df881b6913a2167ea05ae7a9e3024f01e6731fc0f3172</hash>
+         <hash>d1d052c33cf6d9620ee29ea7643894256b35a6354b4aaf8fe28f02be22891e7e</hash>
       </entry>
       <entry>
          <file>..\src\packs\PIC32CX2051MTG128_DFP\component\adc.h</file>
@@ -13295,7 +13350,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pcrc\srv_pcrc.c</file>
-         <hash>19b81fef249f420e468a57846e432ad8100938eea8bb589166db1746ee2edb7c</hash>
+         <hash>762e50d75c4fd43d27499c74d00920eed30fc8e835445ca3b3e44484fa270813</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\bsp\bsp.h</file>
@@ -13327,7 +13382,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\hal\rf215_hal.c</file>
-         <hash>6485dd60bf1f072d15a8141372894cf927c9404dd9765727dc6a068c81031e2c</hash>
+         <hash>c4dfc7a15b755fdf222d644b6a73bcbaf75d9ca61515674563758c8c5eb05865</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\system.h</file>
@@ -13363,7 +13418,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\phy\rf215_phy.c</file>
-         <hash>4b340881bb079103d080390fcc51edb4ce59d39786d58148eec848fb02118b6a</hash>
+         <hash>2020a300a83373ed26ba3427b2bb99ad6a2a182b9cb413bba94f0eaa028ad593</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\system_module.h</file>
@@ -13379,7 +13434,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\phy\rf215_phy.h</file>
-         <hash>323202f6843b0ab76358eebcb04405569749d9bce97ec61e98549717e46a6f71</hash>
+         <hash>ec2709c30e487fe6f31f2b1fe28815f7ed3ffc51523337c8a6f073ddf7701f43</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\time\src\sys_time.c</file>
@@ -13415,7 +13470,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\rf215\drv_rf215_local.h</file>
-         <hash>e8703b60df040fa6b5b8e6e97991850a356fbda2761e650dcd33f5c060c02416</hash>
+         <hash>60b1537c1cdfd35a06eaf84c59ef44e08608c8bd8775117a05e43a55748f5868</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\system\ports\sys_ports_mapping.h</file>
@@ -13531,7 +13586,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_usart.h</file>
-         <hash>deb18d857b0f57af7332aa19ff0440f74878d65aaccf92bf235eafc71249414d</hash>
+         <hash>487f0cb90608502bb412bf4149fe61625e504dea01d660267a9524828ddbf782</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\sefc\plib_sefc_common.h</file>
@@ -13555,7 +13610,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_usart.c</file>
-         <hash>aa361cf36314bfae1cfc66077346df3c7307f433adcd4871e4344227ed182683</hash>
+         <hash>90643eef3e52b8291f31c4933399ba7d2364c811ed4a1c07571f5747bf6aa7c6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\tasks.c</file>

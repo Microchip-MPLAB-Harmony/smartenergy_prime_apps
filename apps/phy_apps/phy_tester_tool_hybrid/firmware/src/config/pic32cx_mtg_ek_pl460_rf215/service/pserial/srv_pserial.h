@@ -19,7 +19,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -70,7 +70,7 @@
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-#define PSERIAL_MAX_DATA_LEN     511
+#define PSERIAL_MAX_DATA_LEN     511U
 
 /* PLC Phy Tester Tool command
 
@@ -83,34 +83,25 @@
 */
 typedef enum
 {
-  /* Get data configuration request */
-  SRV_PSERIAL_CMD_PHY_GET_CFG = 0,
-  /* Get data configuration response */
-  SRV_PSERIAL_CMD_PHY_GET_CFG_RSP,
-  /* Set data configuration request */
-  SRV_PSERIAL_CMD_PHY_SET_CFG,
-  /* Set data configuration response */
-  SRV_PSERIAL_CMD_PHY_SET_CFG_RSP,
-  /* Get command request */
-  SRV_PSERIAL_CMD_PHY_CMD_CFG,
-  /* Get command response */
-  SRV_PSERIAL_CMD_PHY_CMD_CFG_RSP,
-  /* Send message data */
-  SRV_PSERIAL_CMD_PHY_SEND_MSG,
-  /* Send message data response */
-  SRV_PSERIAL_CMD_PHY_SEND_MSG_RSP,
-  /* Receive message data */
-  SRV_PSERIAL_CMD_PHY_RECEIVE_MSG,
-  /* Noise capture request */
-  SRV_PSERIAL_CMD_PHY_NOISE_REQ,
-  /* Noise capture response */
-  SRV_PSERIAL_CMD_PHY_NOISE_RSP,
-  /* Get parameter list */
-  SRV_PSERIAL_CMD_PHY_GET_CFG_LIST,
-  /* Parameter list response */
-  SRV_PSERIAL_CMD_PHY_GET_CFG_LIST_RSP,
-  /* Reset PHY layer */
-  SRV_PSERIAL_CMD_PHY_RESET_PHY_LAYER
+    /* Get data configuration request */
+    SRV_PSERIAL_CMD_PHY_GET_CFG = 0,
+    /* Get data configuration response */
+    SRV_PSERIAL_CMD_PHY_GET_CFG_RSP,
+    /* Set data configuration request */
+    SRV_PSERIAL_CMD_PHY_SET_CFG,
+    /* Set data configuration response */
+    SRV_PSERIAL_CMD_PHY_SET_CFG_RSP,
+    /* Get command request */
+    SRV_PSERIAL_CMD_PHY_CMD_CFG,
+    /* Get command response */
+    SRV_PSERIAL_CMD_PHY_CMD_CFG_RSP,
+    /* Send message data */
+    SRV_PSERIAL_CMD_PHY_SEND_MSG,
+    /* Send message data response */
+    SRV_PSERIAL_CMD_PHY_SEND_MSG_RSP,
+    /* Receive message data */
+    SRV_PSERIAL_CMD_PHY_RECEIVE_MSG
+
 } SRV_PSERIAL_COMMAND;
 
 // *****************************************************************************
@@ -146,7 +137,6 @@ typedef enum
     <code>
     SRV_PSERIAL_COMMAND command;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     </code>
 
@@ -185,11 +175,9 @@ SRV_PSERIAL_COMMAND SRV_PSERIAL_GetCommand(uint8_t* pData);
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_PIB_OBJ pibObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_GET_CFG) {
       SRV_PSERIAL_ParseGetPIB(&pibObj, pData);
-      // Get PIB object from PLC Driver
     }
     </code>
 
@@ -228,16 +216,13 @@ void SRV_PSERIAL_ParseGetPIB(DRV_PLC_PHY_PIB_OBJ* pDataDst, uint8_t* pDataSrc);
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_PIB_OBJ pibObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_GET_CFG) {
       SRV_PSERIAL_ParseGetPIB(&pibObj, pData);
       if (DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &pibObj))
       {
         size_t len;
-        // Serialize PIB data
         len = SRV_PSERIAL_SerialGetPIB(appData.pSerialData, &pibObj);
-        // Send through USI
         SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
                 appData.pSerialData, len);
       }
@@ -279,11 +264,9 @@ size_t SRV_PSERIAL_SerialGetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_PIB_OBJ pibObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_SET_CFG) {
       SRV_PSERIAL_ParseSetPIB(&pibObj, pData);
-      // Set PIB object on PLC Driver
     }
     </code>
 
@@ -322,16 +305,13 @@ void SRV_PSERIAL_ParseSetPIB(DRV_PLC_PHY_PIB_OBJ* pDataDst, uint8_t* pDataSrc);
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_PIB_OBJ pibObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_SET_CFG) {
       SRV_PSERIAL_ParseSetPIB(&pibObj, pData);
       if (DRV_PLC_PHY_PIBSet(appData.drvPlcHandle, &pibObj))
       {
         size_t len;
-        // Serialize PIB data
         len = SRV_PSERIAL_SerialSetPIB(appData.pSerialData, &pibObj);
-        // Send through USI
         SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
                 appData.pSerialData, len);
       }
@@ -375,11 +355,9 @@ size_t SRV_PSERIAL_SerialSetPIB(uint8_t* pDataDst, DRV_PLC_PHY_PIB_OBJ* pDataSrc
     SRV_PSERIAL_COMMAND command;
     DRV_PLC_PHY_TRANSMISSION_OBJ plcTxObj;
 
-    // Process received message from USI
     command = SRV_PSERIAL_GetCommand(pData);
     if (command == SRV_PSERIAL_CMD_PHY_SEND_MSG) {
       SRV_PSERIAL_ParseTxMessage(&plcTxObj, pData);
-      // Send Message through PLC
       DRV_PLC_PHY_Send(appData.drvPlcHandle, &plcTxObj);
     }
     </code>
@@ -418,14 +396,11 @@ void SRV_PSERIAL_ParseTxMessage(DRV_PLC_PHY_TRANSMISSION_OBJ* pDataDst, uint8_t*
     <code>
     static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t context)
     {
-      // Send Received PLC message through USI
       if (indObj->dataLength)
       {
           size_t length;
 
-          // Serialize received message
           length = SRV_PSERIAL_SerialRxMessage(appData.pSerialData, indObj);
-          // Send through USI
           SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
                   appData.pSerialData, length);
       }
@@ -469,9 +444,7 @@ size_t SRV_PSERIAL_SerialRxMessage(uint8_t* pDataDst, DRV_PLC_PHY_RECEPTION_OBJ*
     {
       size_t length;
 
-      // Serialize received message
       length = SRV_PSERIAL_SerialCfmMessage(appData.pSerialData, cfmObj);
-      // Send through USI
       SRV_USI_Send_Message(appData.srvUSIHandle, SRV_USI_PROT_ID_PHY,
               appData.pSerialData, length);
     }
