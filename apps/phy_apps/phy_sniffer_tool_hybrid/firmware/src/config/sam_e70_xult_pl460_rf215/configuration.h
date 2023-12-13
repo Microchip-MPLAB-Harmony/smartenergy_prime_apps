@@ -96,22 +96,21 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 /* RF215 Driver Configuration Options */
-#define DRV_RF215_INDEX_0                     0
-#define DRV_RF215_CLIENTS_NUMBER              1
-#define DRV_RF215_TX_BUFFERS_NUMBER           1
-#define DRV_RF215_CSR_INDEX                   3
+#define DRV_RF215_INDEX_0                     0U
+#define DRV_RF215_CLIENTS_NUMBER              1U
+#define DRV_RF215_TX_BUFFERS_NUMBER           1U
 #define DRV_RF215_SPI_CHIP_SELECT             SPI_CHIP_SELECT_NPCS3
 #define DRV_RF215_SPI_TX_DMA_CH               SYS_DMA_CHANNEL_0
 #define DRV_RF215_SPI_RX_DMA_CH               SYS_DMA_CHANNEL_1
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PA2
 #define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PC19
 #define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA6
-#define DRV_RF215_NUM_TRX                     1
-#define DRV_RF215_FCS_LEN                     0
-#define DRV_RF215_MAX_PSDU_LEN                384
-#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000
-#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70
-#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660
+#define DRV_RF215_NUM_TRX                     1U
+#define DRV_RF215_FCS_LEN                     0U
+#define DRV_RF215_MAX_PSDU_LEN                384U
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000U
+#define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  70U
+#define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 660U
 
 /* USI Service Common Configuration Options */
 #define SRV_USI_INSTANCES_NUMBER              1U

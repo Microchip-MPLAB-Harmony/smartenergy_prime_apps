@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -51,7 +51,7 @@
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include "stddef.h"
+#include <stddef.h>
 #include "configuration.h"
 #include "driver/driver_common.h"
 #include "usb/usb_device.h"
@@ -72,7 +72,8 @@ const SRV_USI_DEV_DESC srvUSICDCDevDesc =
     .init                       = USI_CDC_Initialize,
     .open                       = USI_CDC_Open,
     .setReadCallback            = USI_CDC_RegisterCallback,
-    .write                      = USI_CDC_Write,
+    .writeData                  = USI_CDC_Write,
+    .writeIsBusy                = USI_CDC_WriteIsBusy,
     .task                       = USI_CDC_Tasks,
     .close                      = USI_CDC_Close,
     .status                     = USI_CDC_Status,
@@ -80,21 +81,23 @@ const SRV_USI_DEV_DESC srvUSICDCDevDesc =
 
 static USI_CDC_OBJ gUsiCdcOBJ[SRV_USI_CDC_CONNECTIONS] = {0};
 
-#define USI_CDC_GET_INSTANCE(index)    (index >= SRV_USI_CDC_CONNECTIONS)? NULL : &gUsiCdcOBJ[index]
+#define USI_CDC_GET_INSTANCE(index)    (((index) >= SRV_USI_CDC_CONNECTIONS)? NULL : &gUsiCdcOBJ[index])
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
+
+static void lUSI_CDC_TransferReceivedData(USI_CDC_OBJ* dObj)
 {
     uint8_t *pData = dObj->cdcReadBuffer;
-    uint8_t *bookmark = dObj->usiRdInIndex;
-    uint16_t readBytes = (uint16_t)dObj->cdcNumBytesRead;
-    
-    while(readBytes)
+
+    while(dObj->cdcNumBytesRead > 0U)
     {
+        bool store = false;
+        uint8_t charStore = 0;
+
         switch(dObj->devStatus)
         {
             case USI_CDC_IDLE:
@@ -105,29 +108,21 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
                     dObj->usiNumBytesRead = 0;
                     /* New Message, start reception */
                     dObj->devStatus = USI_CDC_RCV;
-                    /* Store the initial position of USI buffer input */
-                    bookmark = dObj->usiRdInIndex;
-                }            
+                }
                 break;
 
             case USI_CDC_RCV:
                 if (*pData == USI_ESC_KEY_7E)
                 {
-                    if (dObj->usiNumBytesRead)
+                    if ((dObj->usiNumBytesRead > 0U) && (dObj->cbFunc != NULL))
                     {
                         /* Report via USI callback */
-                        if (dObj->cbFunc)
-                        {
-                            dObj->cbFunc(dObj->usiRdOutIndex, dObj->usiNumBytesRead, dObj->context);
-                        }
-
-                        /* Update Out Pointer */
-                        dObj->usiRdOutIndex += dObj->usiNumBytesRead;
+                        dObj->cbFunc(dObj->usiReadBuffer, dObj->usiNumBytesRead, dObj->context);
                     }
                     
                     /* End of USI Message */
                     dObj->devStatus = USI_CDC_IDLE;
-                }              
+                }
                 else if (*pData == USI_ESC_KEY_7D)
                 {
                     /* Escape character */
@@ -135,74 +130,63 @@ static void _USI_CDC_Transfer_Received_Data(USI_CDC_OBJ* dObj)
                 } 
                 else
                 {
-                    if (dObj->usiRdInIndex <= dObj->usiEndIndex)
-                    {
-                        /* Store character */
-                        *dObj->usiRdInIndex++ = *pData;
-                        dObj->usiNumBytesRead++;
-                    }
-                    else
-                    {
-                        /* ERROR: Full buffer - restore USI buffer */
-                        dObj->usiRdInIndex = bookmark;
-                        dObj->usiNumBytesRead = 0;
-                        dObj->devStatus = USI_CDC_IDLE;
-                        /* Force exit loop */
-                        readBytes = 0;
-                    }
+                    store = true;
+                    charStore = *pData;
                 }
 
                 break;
 
             case USI_CDC_ESC:
+            default:
                 if (*pData == USI_ESC_KEY_5E)
                 {
                     /* Store character after escape it */
-                    *dObj->usiRdInIndex++ = USI_ESC_KEY_7E;
+                    store = true;
+                    charStore = USI_ESC_KEY_7E;
                     dObj->devStatus = USI_CDC_RCV;
-                    dObj->usiNumBytesRead++;
                 }  
                 else if (*pData == USI_ESC_KEY_5D)
                 {
                     /* Store character after escape it */
-                    *dObj->usiRdInIndex++ = USI_ESC_KEY_7D;
+                    store = true;
+                    charStore = USI_ESC_KEY_7D;
                     dObj->devStatus = USI_CDC_RCV;
-                    dObj->usiNumBytesRead++;
                 }
                 else
                 {
                     /* ERROR: Escape format - restore USI buffer */
-                    dObj->usiRdInIndex = bookmark;
-                    dObj->usiNumBytesRead = 0;
                     dObj->devStatus = USI_CDC_IDLE;
-                    /* Force exit loop */
-                    readBytes = 0;
                 }
 
                 break;
-        }    
-        
-        if (readBytes) 
+        }
+
+        if (store)
         {
-            readBytes--;
+            if (dObj->usiNumBytesRead < dObj->usiBufferSize)
+            {
+                /* Store character */
+                dObj->usiReadBuffer[dObj->usiNumBytesRead++] = charStore;
+            }
+            else
+            {
+                /* ERROR: Full buffer - restore USI buffer */
+                dObj->devStatus = USI_CDC_IDLE;
+            }
+        }
+
+        if (dObj->cdcNumBytesRead > 0U)
+        {
             dObj->cdcNumBytesRead--;
             pData++;
         }
-    }
-    
-    /* Update In/Out Pointers */
-    if (dObj->usiRdOutIndex == dObj->usiRdInIndex) 
-    {
-        /* Restart In/Out Pointers */
-        dObj->usiRdOutIndex = dObj->usiReadBuffer;
-        dObj->usiRdInIndex = dObj->usiReadBuffer;
     }
 }
 
 /*******************************************************
  * USB CDC Device Events - Event Handler
  *******************************************************/
-static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_CDC_INDEX index,
+static USB_DEVICE_CDC_EVENT_RESPONSE lUSB_CDC_DeviceCDCEventHandler(USB_DEVICE_CDC_INDEX index,
     USB_DEVICE_CDC_EVENT event, void * pData, uintptr_t userData)
 {
     USI_CDC_OBJ* dObj;
@@ -220,7 +204,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
              * USB_DEVICE_ControlSend() function to send the data to
              * host.  */
 
-            USB_DEVICE_ControlSend(dObj->devHandle, &dObj->getLineCodingData, sizeof(USB_CDC_LINE_CODING));
+            (void) USB_DEVICE_ControlSend(dObj->devHandle, &dObj->getLineCodingData, sizeof(USB_CDC_LINE_CODING));
 
             break;
 
@@ -231,7 +215,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
              * USB_DEVICE_ControlReceive() function to receive the
              * data from the host */
 
-            USB_DEVICE_ControlReceive(dObj->devHandle, &dObj->setLineCodingData, sizeof(USB_CDC_LINE_CODING));
+            (void) USB_DEVICE_ControlReceive(dObj->devHandle, &dObj->setLineCodingData, sizeof(USB_CDC_LINE_CODING));
 
             break;
 
@@ -245,7 +229,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
             dObj->controlLineStateData.dtr = controlLineStateData->dtr;
             dObj->controlLineStateData.carrier = controlLineStateData->carrier;
 
-            USB_DEVICE_ControlStatus(dObj->devHandle, USB_DEVICE_CONTROL_STATUS_OK);
+            (void) USB_DEVICE_ControlStatus(dObj->devHandle, USB_DEVICE_CONTROL_STATUS_OK);
 
             break;
 
@@ -257,7 +241,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
             dObj->breakData = ((USB_DEVICE_CDC_EVENT_DATA_SEND_BREAK *)pData)->breakDuration;
             
             /* Complete the control transfer by sending a ZLP  */
-            USB_DEVICE_ControlStatus(dObj->devHandle, USB_DEVICE_CONTROL_STATUS_OK);
+            (void) USB_DEVICE_ControlStatus(dObj->devHandle, USB_DEVICE_CONTROL_STATUS_OK);
             
             break;
 
@@ -270,7 +254,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
             {
                 dObj->cdcIsReadComplete = true;
                 
-                dObj->cdcNumBytesRead = eventDataRead->length; 
+                dObj->cdcNumBytesRead = eventDataRead->length;
             }
             break;
 
@@ -278,7 +262,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
 
             /* The data stage of the last control transfer is complete. */
 
-            USB_DEVICE_ControlStatus(dObj->devHandle, USB_DEVICE_CONTROL_STATUS_OK);
+            (void) USB_DEVICE_ControlStatus(dObj->devHandle, USB_DEVICE_CONTROL_STATUS_OK);
             break;
 
         case USB_DEVICE_CDC_EVENT_CONTROL_TRANSFER_DATA_SENT:
@@ -287,12 +271,15 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
             break;
 
         case USB_DEVICE_CDC_EVENT_WRITE_COMPLETE:
-
             /* This means that the data write got completed. */
             break;
 
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
         default:
             break;
+
+        /* MISRA C-2012 deviation block end */
     }
 
     return USB_DEVICE_CDC_EVENT_RESPONSE_NONE;
@@ -301,7 +288,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE _USB_CDC_DeviceCDCEventHandler(USB_DEVICE_C
 /***********************************************
  * USB Device Layer Event Handler.
  ***********************************************/
-static void _USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData, 
+static void lUSI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData,
     uintptr_t context)
 {
     USB_DEVICE_EVENT_DATA_CONFIGURED *configuredEventData;
@@ -324,12 +311,15 @@ static void _USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData
         case USB_DEVICE_EVENT_CONFIGURED:
             /* Check the configuration. We only support configuration 1 */
             configuredEventData = (USB_DEVICE_EVENT_DATA_CONFIGURED*)eventData;
-            if (configuredEventData->configurationValue == 1)
+            if (configuredEventData->configurationValue == 1U)
             {
                 /* Register the CDC Device event handler */
-                USB_DEVICE_CDC_EventHandlerSet(dObj->cdcInstanceIndex, _USB_CDC_DeviceCDCEventHandler, (uintptr_t)dObj);
+                (void) USB_DEVICE_CDC_EventHandlerSet(dObj->cdcInstanceIndex, lUSB_CDC_DeviceCDCEventHandler, (uintptr_t)dObj);
                 /* Mark that the device is now configured */
                 dObj->usiStatus = SRV_USI_STATUS_CONFIGURED;
+                /* Request first read */
+                (void) USB_DEVICE_CDC_Read(dObj->cdcInstanceIndex, &dObj->readTransferHandle,
+                        dObj->cdcReadBuffer, dObj->cdcBufferSize);
             }
             break;
 
@@ -347,9 +337,14 @@ static void _USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData
         case USB_DEVICE_EVENT_SUSPENDED:
         case USB_DEVICE_EVENT_RESUMED:
         case USB_DEVICE_EVENT_ERROR:
-        default:
-            
             break;
+
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+        default:
+            break;
+
+        /* MISRA C-2012 deviation block end */
     }
 }
 
@@ -359,41 +354,29 @@ static void _USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData
 // *****************************************************************************
 // *****************************************************************************
 
-DRV_HANDLE USI_CDC_Initialize(uint32_t index, const void* initData)
+void USI_CDC_Initialize(uint32_t index, const void * const initData)
 {
     USI_CDC_OBJ* dObj = USI_CDC_GET_INSTANCE(index);
-    USI_CDC_INIT_DATA* dObjInit = (USI_CDC_INIT_DATA*)initData;
+    const USI_CDC_INIT_DATA * const dObjInit = (const USI_CDC_INIT_DATA * const)initData;
     
     if (dObj == NULL)
     {
-        return DRV_HANDLE_INVALID;
+        return;
     }
-    
-    if (index >= SRV_USI_CDC_CONNECTIONS)
-    {
-        return DRV_HANDLE_INVALID;
-    }
-    
+
     dObj->cdcInstanceIndex = dObjInit->cdcInstanceIndex;
     dObj->cdcReadBuffer = dObjInit->cdcReadBuffer;
     dObj->usiReadBuffer = dObjInit->usiReadBuffer;
     dObj->cdcBufferSize = dObjInit->cdcBufferSize;
-    
-    dObj->cdcNumBytesRead = 0;
-    dObj->usiNumBytesRead = 0;
-    dObj->usiRdInIndex = dObj->usiReadBuffer;
-    dObj->usiRdOutIndex = dObj->usiReadBuffer;
-    dObj->usiEndIndex = dObj->usiReadBuffer + dObjInit->usiBufferSize;
-    
+    dObj->usiBufferSize = dObjInit->usiBufferSize;
+
     dObj->cbFunc = NULL;
     dObj->devStatus = USI_CDC_IDLE;
     dObj->usiStatus = SRV_USI_STATUS_NOT_CONFIGURED;
 
-    dObj->cdcIsReadComplete = true;
+    dObj->cdcIsReadComplete = false;
     dObj->readTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
     dObj->writeTransferHandle = USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID;
-
-    return (DRV_HANDLE)index;
 }
 
 DRV_HANDLE USI_CDC_Open(uint32_t index)
@@ -404,11 +387,6 @@ DRV_HANDLE USI_CDC_Open(uint32_t index)
     {
         return DRV_HANDLE_INVALID;
     }
-    
-    if (index >= SRV_USI_CDC_CONNECTIONS)
-    {
-        return DRV_HANDLE_INVALID;
-    }
 
     /* Open the USB device layer */
     dObj->devHandle = USB_DEVICE_Open(dObj->cdcInstanceIndex, DRV_IO_INTENT_READWRITE);
@@ -416,7 +394,7 @@ DRV_HANDLE USI_CDC_Open(uint32_t index)
     if(dObj->devHandle != USB_DEVICE_HANDLE_INVALID)
     {
         /* Register a callback with device layer to get event notification (for end point 0) */
-        USB_DEVICE_EventHandlerSet(dObj->devHandle, _USI_CDC_DeviceEventHandler, (uintptr_t)dObj);
+        USB_DEVICE_EventHandlerSet(dObj->devHandle, lUSI_CDC_DeviceEventHandler, (uintptr_t)dObj);
         return (DRV_HANDLE)index;
     }
     else
@@ -425,42 +403,35 @@ DRV_HANDLE USI_CDC_Open(uint32_t index)
     }
 }
 
-size_t USI_CDC_Write(uint32_t index, void* pData, size_t length)
+void USI_CDC_Write(uint32_t index, void* pData, size_t length)
 {
     USI_CDC_OBJ* dObj = USI_CDC_GET_INSTANCE(index);
-    USB_DEVICE_CDC_RESULT result;
     
     /* Check handler */
     if (dObj == NULL)
     {
-        return 0;
+        return;
     }
-    
-    if (index >= SRV_USI_CDC_CONNECTIONS)
+
+    if (length == 0U)
     {
-        return 0;
-    }
-    
-    if (length == 0)
-    {
-        return 0;
+        return;
     }
     
     if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
     {
-        return 0;
+        return;
     }
     
-    result = USB_DEVICE_CDC_Write(dObj->cdcInstanceIndex,
-                &dObj->writeTransferHandle, pData, length,
-                USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
-    
-    if ((result != USB_DEVICE_CDC_RESULT_OK) || (dObj->writeTransferHandle == USB_DEVICE_CDC_TRANSFER_HANDLE_INVALID))
-    {
-        return 0;
-    }
+    (void) USB_DEVICE_CDC_Write(dObj->cdcInstanceIndex,
+            &dObj->writeTransferHandle, pData, length,
+            USB_DEVICE_CDC_TRANSFER_FLAGS_DATA_COMPLETE);
+}
 
-    return length;
+bool USI_CDC_WriteIsBusy(uint32_t index)
+{
+    /* USB CDC is always free for writing */
+    return false;
 }
 
 void USI_CDC_RegisterCallback(uint32_t index, USI_CDC_CALLBACK cbFunc,
@@ -473,12 +444,7 @@ void USI_CDC_RegisterCallback(uint32_t index, USI_CDC_CALLBACK cbFunc,
     {
         return;
     }
-    
-    if (index >= SRV_USI_CDC_CONNECTIONS)
-    {
-        return;
-    }
-    
+
     /* Set callback function */
     dObj->cbFunc = cbFunc;
     
@@ -495,12 +461,10 @@ void USI_CDC_Close(uint32_t index)
     {
         return;
     }
-    
-    if (index >= SRV_USI_CDC_CONNECTIONS)
-    {
-        return;
-    }
-    
+
+    /* Close the USB device layer */
+    USB_DEVICE_Close(dObj->devHandle);
+
     dObj->usiStatus = SRV_USI_STATUS_NOT_CONFIGURED;
 }
 
@@ -510,11 +474,6 @@ SRV_USI_STATUS USI_CDC_Status(uint32_t index)
     
     /* Check handler */    
     if (dObj == NULL)
-    {
-        return SRV_USI_STATUS_ERROR;
-    }
-    
-    if (index >= SRV_USI_CDC_CONNECTIONS)
     {
         return SRV_USI_STATUS_ERROR;
     }
@@ -531,12 +490,7 @@ void USI_CDC_Tasks (uint32_t index)
     {
         return;
     }
-    
-    if (index >= SRV_USI_CDC_CONNECTIONS)
-    {
-        return;
-    }
-    
+
     if (dObj->usiStatus != SRV_USI_STATUS_CONFIGURED)
     {
         return;
@@ -548,13 +502,9 @@ void USI_CDC_Tasks (uint32_t index)
         dObj->cdcIsReadComplete = false;
         
         /* Extract CDC received data to USI buffer */
-        _USI_CDC_Transfer_Received_Data(dObj);
-        
-        if ((dObj->usiEndIndex - dObj->usiRdInIndex) >= dObj->cdcBufferSize)
-        {
-            USB_DEVICE_CDC_Read (dObj->cdcInstanceIndex, &dObj->readTransferHandle, dObj->cdcReadBuffer,
-                    dObj->cdcBufferSize);
-        }
-        
+        lUSI_CDC_TransferReceivedData(dObj);
+
+        /* Request next read */
+        (void) USB_DEVICE_CDC_Read(dObj->cdcInstanceIndex, &dObj->readTransferHandle, dObj->cdcReadBuffer, dObj->cdcBufferSize);
     } 
 }

@@ -100,7 +100,7 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
     (void)context;
 
     /* Send Received PLC message through USI */
-	if (indObj->dataLength) {
+    if (indObj->dataLength) {
         size_t length;
         
         /* Report RX Symbols */
@@ -127,20 +127,20 @@ static void APP_PLCDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t contex
 
 void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 {
-    /* Message received from PLC Tool - USART */
-	uint8_t command;
+    SRV_PSNIFFER_COMMAND command;
 
-	/* Protection for invalid us_length */
-	if (!length)
+    /* Protection for invalid length */
+    if (!length)
     {
-		return;
-	}
+        return;
+    }
 
-	/* Process received message */
-	command = SRV_PSNIFFER_GetCommand(pData);
+    /* Process received command */
+    command = SRV_PSNIFFER_GetCommand(pData);
 
-	switch (command) {
-        case SRV_PSNIFFER_CMD_SET_CHANNEL:
+    switch (command)
+    {
+        case SRV_PSNIFFER_CMD_SET_PLC_CHANNEL:
         {
             DRV_PLC_PHY_CHANNEL channel;
             
@@ -155,11 +155,13 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 appPlcData.plcPIB.length = 1;
                 *appPlcData.plcPIB.pData = channel;
                 DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
+
                 /* Update channel in PSniffer */
                 SRV_PSNIFFER_SetPLCChannel(appPlcData.channel);
             }
+
+            break;
         }
-        break;
 
         default:
             break;

@@ -144,7 +144,7 @@ static uint8_t SRV_RSNIFFER_FrameType(DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj)
     return frameType;
 }
 
-static uint32_t SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
+static uint32_t lSRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 {
     uint64_t sysTimeDiff;
     uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
@@ -171,6 +171,12 @@ static uint32_t SRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
 // Section: RF PHY Sniffer Serialization Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
+
+SRV_RSNIFFER_COMMAND SRV_RSNIFFER_GetCommand(uint8_t* pDataSrc)
+{
+    /* Extract Command */
+    return (SRV_RSNIFFER_COMMAND)*pDataSrc;
+}
 
 uint8_t* SRV_RSNIFFER_SerialRxMessage (
     DRV_RF215_RX_INDICATION_OBJ* pIndObj,
@@ -203,7 +209,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     srvRsnifferRxMsg[7] = (uint8_t) channel;
 
     /* Initial and end time of RX frame */
-    timeIni = SRV_RSNIFFER_SysTimeToUS(pIndObj->timeIniCount);
+    timeIni = lSRV_RSNIFFER_SysTimeToUS(pIndObj->timeIniCount);
     srvRsnifferRxMsg[19] = (uint8_t) (timeIni >> 24);
     srvRsnifferRxMsg[20] = (uint8_t) (timeIni >> 16);
     srvRsnifferRxMsg[21] = (uint8_t) (timeIni >> 8);
@@ -314,7 +320,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[7] = (uint8_t) (channel);
 
     /* Initial and end time of RX frame */
-    timeIni = SRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);
+    timeIni = lSRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);
     pMsgDest[19] = (uint8_t) (timeIni >> 24);
     pMsgDest[20] = (uint8_t) (timeIni >> 16);
     pMsgDest[21] = (uint8_t) (timeIni >> 8);
@@ -329,3 +335,17 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     *pMsgLen = (size_t) psduLen + RSNIFFER_MSG_HEADER_SIZE;
     return pMsgDest;
 }
+
+void SRV_RSNIFFER_ParseConfigCommand (
+    uint8_t* pDataSrc,
+    uint16_t* pBandOpMode,
+    uint16_t* pChannel
+)
+{
+    /* Extract Band and Operating Mode */
+    *pBandOpMode = ((uint16_t) pDataSrc[1] << 8) + pDataSrc[2];
+
+    /* Extract Channel */
+    *pChannel = ((uint16_t) pDataSrc[3] << 8) + pDataSrc[4];
+}
+

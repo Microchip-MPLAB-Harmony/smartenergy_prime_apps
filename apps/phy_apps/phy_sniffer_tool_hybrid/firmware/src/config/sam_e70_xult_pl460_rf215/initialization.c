@@ -72,7 +72,7 @@
 // <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
 
 /* RF215 Driver Initialization Data */
-const DRV_RF215_INIT drvRf215InitData = {
+static const DRV_RF215_INIT drvRf215InitData = {
     /* SPI Transmit Register */
     .spiTransmitAddress = (const void *)&(SPI0_REGS->SPI_TDR),
 
@@ -158,7 +158,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* SPI Receive Register */
     .spiAddressRx  = (void *)&(SPI0_REGS->SPI_RDR),
 
-    
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
     
@@ -230,15 +229,6 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
-
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 8.6 deviated twice. Deviation record ID - H3_MISRAC_2012_R_8_6_DR_1 */
-
-/* PLC Binary file addressing */
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-
-/* MISRA C-2012 deviation block end */
 
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */

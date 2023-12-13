@@ -8,7 +8,7 @@
     drv_plc_phy_comm.h
 
   Summary:
-    PLC Driver PRIME Definitions Header File
+    PLC Driver PRIME Definitions Header File.
 
   Description:
     This file provides implementation-specific definitions for the PLC
@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2021 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -62,26 +62,63 @@
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: External Data
+// *****************************************************************************
+// *****************************************************************************
+
+/* PLC Binary file addressing */
+extern uint8_t plc_phy_bin_start;
+extern uint8_t plc_phy_bin_end;
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Macro Definitions
 // *****************************************************************************
-// ***************************************************************************** 
-/* TX Mode: Absolute transmission */          
-#define TX_MODE_ABSOLUTE                       (0)
-/* TX Mode: Delayed transmission */          
-#define TX_MODE_RELATIVE                       (1 << 0)
+// *****************************************************************************
+
+/* TX Mode: Absolute transmission */
+#define TX_MODE_ABSOLUTE                       (0U)
+/* TX Mode: Delayed transmission */
+#define TX_MODE_RELATIVE                       (1U << 0)
 /* TX Mode: Cancel transmission */
-#define TX_MODE_CANCEL                         (1 << 1)
+#define TX_MODE_CANCEL                         (1U << 1)
 /* TX Mode: SYNCP Continuous transmission */
-#define TX_MODE_PREAMBLE_CONTINUOUS            (1 << 2)
+#define TX_MODE_PREAMBLE_CONTINUOUS            (1U << 2)
 /* TX Mode: Symbols Continuous transmission */
-#define TX_MODE_SYMBOLS_CONTINUOUS             (1 << 3)
+#define TX_MODE_SYMBOLS_CONTINUOUS             (1U << 3)
 
 /* Impedance Configuration: High mode */
-#define HI_STATE                               0x00
-/* Impedance Configuration: Low mode */      
-#define LOW_STATE                              0x01
+#define HI_STATE                               0x00U
+/* Impedance Configuration: Low mode */
+#define LOW_STATE                              0x01U
 /* Impedance Configuration: Very Low mode */
-#define VLO_STATE                              0x02  
+#define VLO_STATE                              0x02U
+
+/* Signal Capture Mode Bit Mask */
+#define DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT 0U
+#define DRV_PLC_SIGNAL_CAPTURE_CHANNEL (0xFU << DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT)
+#define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT 4U
+#define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_MODE (0x1U << DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT)
+#define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_MODE_LOW (0x0U << DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT)  /* Signal mode for low signal level : Only valid in SIGNAL_CAPTURE_BAND_MODE_FCC mode */
+#define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_MODE_HIGH (0x1U << DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT) /* Signal mode for high signal level : Only valid in SIGNAL_CAPTURE_BAND_MODE_FCC mode */
+#define DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_SHIFT 5
+#define DRV_PLC_SIGNAL_CAPTURE_BAND_MODE (0x1U << DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_SHIFT)
+#define DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_CHN (0x0U << DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_SHIFT) /* Frequency in Channel Mode */
+#define DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_FCC (0x1U << DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_SHIFT) /* Frequency in all FCC band Mode */
+#define DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_SHIFT 6U
+#define DRV_PLC_SIGNAL_CAPTURE_TIME_MODE (0x1U << DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_SHIFT)
+#define DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_ABS (0x0U << DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_SHIFT) /* Time in Absolute Mode */
+#define DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_REL (0x1U << DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_SHIFT) /* Time in Relative Mode */
+#define DRV_PLC_SIGNAL_CAPTURE_CHN_1 0x01U
+#define DRV_PLC_SIGNAL_CAPTURE_CHN_2 0x02U
+#define DRV_PLC_SIGNAL_CAPTURE_CHN_3 0x03U
+#define DRV_PLC_SIGNAL_CAPTURE_CHN_4 0x04U
+#define DRV_PLC_SIGNAL_CAPTURE_CHN_5 0x05U
+#define DRV_PLC_SIGNAL_CAPTURE_CHN_6 0x06U
+#define DRV_PLC_SIGNAL_CAPTURE_CHN_7 0x07U
+#define DRV_PLC_SIGNAL_CAPTURE_CHN_8 0x08U
+
+#define SIGNAL_CAPTURE_FRAG_SIZE                  255U
   
 // *****************************************************************************
 // *****************************************************************************
@@ -92,14 +129,16 @@
 // *****************************************************************************
 /* PRIME PHY Information Base (PIBs)
 
-   Summary
+  Summary:
     The list of all available PIB attributes.
 
-   Description
-    The PRIME FW stack supports all the mandatory attributes of the PLC Information 
-    Base (PIB) defined in the PRIME specification. In addition, Microchip has added 
-    several proprietary PIB attributes to support extra functionalities. 
-    The list of all available PIB attributes can be found in this file.
+  Description:
+    The PRIME PHY layer supports all the mandatory attributes of the PHY
+    Information Base (PIB) defined in the PRIME specification. In addition,
+    Microchip has added several proprietary PIB attributes to support extra
+    functionalities.
+ 
+    The list of all available PIB attributes can be found in this data type.
 
    Remarks:
     None
@@ -196,11 +235,11 @@ typedef enum {
 // *****************************************************************************
 /* PRIME Modulation schemes
 
-   Summary
+  Summary:
     The list of all modulation schemes supported by PRIME spec.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 
 typedef enum {
@@ -217,11 +256,11 @@ typedef enum {
 // *****************************************************************************
 /* PRIME Types of PHY frame
 
-   Summary
+  Summary:
     The list of all types of frame supported by PRIME spec.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 
 typedef enum {
@@ -233,11 +272,11 @@ typedef enum {
 // *****************************************************************************
 /* PRIME Header Types
 
-   Summary
+  Summary:
     The list of all header types supported by PRIME spec.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 
 typedef enum {
@@ -249,10 +288,10 @@ typedef enum {
 // *****************************************************************************
 /* PRIME Channel definitions
 
- Summary:
+  Summary:
     List of PRIME PHY channels. The PHY PLC_ID_CHANNEL_CFG uses these values.
 
- Remarks:
+  Remarks:
     8 single channels and 7 double channels.
 */
 
@@ -280,12 +319,12 @@ typedef enum
 // *****************************************************************************
 /* PRIME Internal Buffer identification
 
-   Summary
-    It can be used up to 2 different internal buffer to store information to
-    transmit. These buffers are implemented into PLC transceiver.
+  Summary:
+    Up to 2 different internal buffers can be used to store information to
+    transmit. These buffers are implemented in the PLC transceiver PHY.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 
 typedef enum {
@@ -293,14 +332,18 @@ typedef enum {
   TX_BUFFER_1 = 1,
 } DRV_PLC_PHY_BUFFER_ID;
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+
 // *****************************************************************************
 /* PRIME Result values of a previous transmission
 
-   Summary
-    This list involves all available results from MCHP implementation
+  Summary:
+    This list provides all available transimission results in MCHP
+    implementation.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef enum {
   /* Transmission result: already in process */
@@ -327,35 +370,15 @@ typedef enum {
   DRV_PLC_PHY_TX_RESULT_INV_TX_MODE = 10,
   /* Transmission result: Transmission cancelled */
   DRV_PLC_PHY_TX_RESULT_CANCELLED = 11,
+  /* Transmission result: high temperature error */
+  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120 = 12,
   /* Transmission result: No transmission ongoing */
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 } DRV_PLC_PHY_TX_RESULT;
 
-/* Noise Capture Mode Bit Mask */
-#define DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT      0
-#define DRV_PLC_SIGNAL_CAPTURE_CHANNEL            (0xFu << DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT)
-#define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT       4
-#define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_MODE        (0x1u << DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT)
-#define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_MODE_LOW    (0x0u << DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT)  /* Signal mode for low signal level : Only valid in SIGNAL_CAPTURE_BAND_MODE_FCC mode */
-#define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_MODE_HIGH   (0x1u << DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT) /* Signal mode for high signal level : Only valid in SIGNAL_CAPTURE_BAND_MODE_FCC mode */
-#define DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_SHIFT    5
-#define DRV_PLC_SIGNAL_CAPTURE_BAND_MODE          (0x1u << DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_SHIFT)
-#define DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_CHN      (0x0u << DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_SHIFT) /* Frequency in Channel Mode */
-#define DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_FCC      (0x1u << DRV_PLC_SIGNAL_CAPTURE_BAND_MODE_SHIFT) /* Frequency in all FCC band Mode */
-#define DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_SHIFT    6
-#define DRV_PLC_SIGNAL_CAPTURE_TIME_MODE          (0x1u << DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_SHIFT)
-#define DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_ABS      (0x0u << DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_SHIFT) /* Time in Absolute Mode */
-#define DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_REL      (0x1u << DRV_PLC_SIGNAL_CAPTURE_TIME_MODE_SHIFT) /* Time in Relative Mode */
-#define DRV_PLC_SIGNAL_CAPTURE_CHN_1              0x01
-#define DRV_PLC_SIGNAL_CAPTURE_CHN_2              0x02
-#define DRV_PLC_SIGNAL_CAPTURE_CHN_3              0x03
-#define DRV_PLC_SIGNAL_CAPTURE_CHN_4              0x04
-#define DRV_PLC_SIGNAL_CAPTURE_CHN_5              0x05
-#define DRV_PLC_SIGNAL_CAPTURE_CHN_6              0x06
-#define DRV_PLC_SIGNAL_CAPTURE_CHN_7              0x07
-#define DRV_PLC_SIGNAL_CAPTURE_CHN_8              0x08
+/* MISRA C-2012 deviation block end */
 
-/* Noise Capture States */
+/* Signal Capture States */
 typedef enum {
 	SIGNAL_CAPTURE_IDLE,
 	SIGNAL_CAPTURE_RUNNING,
@@ -364,26 +387,25 @@ typedef enum {
 
 /* Structure defining information about Noise Capture */
 typedef struct {
-	uint8_t uc_num_frags;
-	uint8_t uc_status;
+	uint8_t numFrags;
+	uint8_t status;
 } DRV_PLC_PHY_SIGNAL_CAPTURE_INFO;
-
-#define SIGNAL_CAPTURE_FRAG_SIZE                  255
 
 // *****************************************************************************
 /* PRIME Transmission setup data
 
-   Summary
-    This struct includes all information to describe any transmissions.
+  Summary:
+    This struct includes all the parameters needed to request a PRIME PHY
+    transmission.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef struct __attribute__((packed, aligned(1))) {
   /* Pointer to data buffer to transmit */
   uint8_t *pTransmitData;
   /* Instant when transmission has to start referred to 1us PHY counter */
-  uint32_t time;
+  uint32_t timeIni;
   /* Length of the data to transmit in bytes */
   uint16_t dataLength;
   /* Transmission Mode (absolute, relative, cancel, continuous). Constants above */
@@ -403,16 +425,15 @@ typedef struct __attribute__((packed, aligned(1))) {
 // *****************************************************************************
 /* PRIME Result of a transmission
 
-   Summary
-    This struct includes all information to describe any result of a previous 
-    transmission.
+  Summary:
+    This struct includes all the parameters provided in transmission confirm.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef struct {
   /* Instant when frame transmission started referred to 1us PHY counter */
-  uint32_t time;
+  uint32_t timeIni;
   /* RMS value emitted */
   uint32_t rmsCalc;
   /* PRIME Frame type */
@@ -426,17 +447,17 @@ typedef struct {
 // *****************************************************************************
 /* PRIME Reception parameters
 
-   Summary
-    This struct includes all information to describe any new received message.
+  Summary:
+    This struct includes all the parameters provided for a received message.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef struct __attribute__((packed, aligned(1))) {
   /* Pointer to received data buffer */
   uint8_t *pReceivedData;
   /* Instant when frame was received (start of message) referred to 1us PHY counter */
-  uint32_t time;
+  uint32_t timeIni;
   /* Accumulated Error Vector Magnitude for header */
   uint32_t evmHeaderAcum;
   /* Accumulated Error Vector Magnitude for payload */
@@ -482,36 +503,36 @@ typedef enum {
 // *****************************************************************************
 /* Structure defining PRIME CD information
 
-   Summary
-    This struct includes the Carrier Detect related information for
-    a PLC frame reception.
+  Summary:
+    This struct includes the Carrier Detect related information. It gives
+    information about the current state of PLC reception.
 
-   Remarks:
-    This struct is related to PLC_ID_RX_CD_INFO
+  Remarks:
+    This struct is related to PLC_ID_RX_CD_INFO.
 */
 typedef struct {
   /* Reception time (message end or header end if message length is not known yet) referred to 1us PHY counter */
-  uint32_t rx_time_end;
+  uint32_t rxTimeEnd;
   /* Current time referred to 1us PHY counter */
-  uint32_t current_time;
+  uint32_t currentTime;
   /* Correlation peak value */
-  uint16_t corr_peak_value;
+  uint16_t corrPeakValue;
   /* Average RSSI (Received Signal Strength Indication) in dBuV */
-  uint8_t rssi_avg;
+  uint8_t rssiAvg;
   /* Reception state. Similar to header from PRIME spec, but extra values for preamble */
-  DRV_PLC_PHY_CD_RX_STATE cd_rx_state;
+  DRV_PLC_PHY_CD_RX_STATE cdRxState;
   /* Type A, Type B or Type BC  */
-  DRV_PLC_PHY_FRAME_TYPE frame_type;
+  DRV_PLC_PHY_FRAME_TYPE frameType;
 } DRV_PLC_PHY_CD_INFO;
 
 // *****************************************************************************
 /* PRIME PHY Information Base (PIB)
 
-   Summary
+  Summary:
     This struct includes all information to access any defined PIB.
 
-   Remarks:
-    None
+  Remarks:
+    None.
 */
 typedef struct {
   /* Pointer to PIB data */

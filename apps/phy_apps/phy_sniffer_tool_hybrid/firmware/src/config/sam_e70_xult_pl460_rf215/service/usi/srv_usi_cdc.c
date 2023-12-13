@@ -88,7 +88,8 @@ static USI_CDC_OBJ gUsiCdcOBJ[SRV_USI_CDC_CONNECTIONS] = {0};
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-static void USI_CDC_TransferReceivedData(USI_CDC_OBJ* dObj)
+
+static void lUSI_CDC_TransferReceivedData(USI_CDC_OBJ* dObj)
 {
     uint8_t *pData = dObj->cdcReadBuffer;
 
@@ -185,7 +186,7 @@ static void USI_CDC_TransferReceivedData(USI_CDC_OBJ* dObj)
 /*******************************************************
  * USB CDC Device Events - Event Handler
  *******************************************************/
-static USB_DEVICE_CDC_EVENT_RESPONSE USB_CDC_DeviceCDCEventHandler(USB_DEVICE_CDC_INDEX index,
+static USB_DEVICE_CDC_EVENT_RESPONSE lUSB_CDC_DeviceCDCEventHandler(USB_DEVICE_CDC_INDEX index,
     USB_DEVICE_CDC_EVENT event, void * pData, uintptr_t userData)
 {
     USI_CDC_OBJ* dObj;
@@ -274,7 +275,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE USB_CDC_DeviceCDCEventHandler(USB_DEVICE_CD
             break;
 
         /* MISRA C-2012 deviation block start */
-        /* MISRA C-2012 Rule 16.4 deviated once.  Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
         default:
             break;
 
@@ -287,7 +288,7 @@ static USB_DEVICE_CDC_EVENT_RESPONSE USB_CDC_DeviceCDCEventHandler(USB_DEVICE_CD
 /***********************************************
  * USB Device Layer Event Handler.
  ***********************************************/
-static void USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData,
+static void lUSI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData,
     uintptr_t context)
 {
     USB_DEVICE_EVENT_DATA_CONFIGURED *configuredEventData;
@@ -313,7 +314,7 @@ static void USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData,
             if (configuredEventData->configurationValue == 1U)
             {
                 /* Register the CDC Device event handler */
-                (void) USB_DEVICE_CDC_EventHandlerSet(dObj->cdcInstanceIndex, USB_CDC_DeviceCDCEventHandler, (uintptr_t)dObj);
+                (void) USB_DEVICE_CDC_EventHandlerSet(dObj->cdcInstanceIndex, lUSB_CDC_DeviceCDCEventHandler, (uintptr_t)dObj);
                 /* Mark that the device is now configured */
                 dObj->usiStatus = SRV_USI_STATUS_CONFIGURED;
                 /* Request first read */
@@ -338,6 +339,8 @@ static void USI_CDC_DeviceEventHandler(USB_DEVICE_EVENT event, void * eventData,
         case USB_DEVICE_EVENT_ERROR:
             break;
 
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
         default:
             break;
 
@@ -391,7 +394,7 @@ DRV_HANDLE USI_CDC_Open(uint32_t index)
     if(dObj->devHandle != USB_DEVICE_HANDLE_INVALID)
     {
         /* Register a callback with device layer to get event notification (for end point 0) */
-        USB_DEVICE_EventHandlerSet(dObj->devHandle, USI_CDC_DeviceEventHandler, (uintptr_t)dObj);
+        USB_DEVICE_EventHandlerSet(dObj->devHandle, lUSI_CDC_DeviceEventHandler, (uintptr_t)dObj);
         return (DRV_HANDLE)index;
     }
     else
@@ -499,7 +502,7 @@ void USI_CDC_Tasks (uint32_t index)
         dObj->cdcIsReadComplete = false;
         
         /* Extract CDC received data to USI buffer */
-        USI_CDC_TransferReceivedData(dObj);
+        lUSI_CDC_TransferReceivedData(dObj);
 
         /* Request next read */
         (void) USB_DEVICE_CDC_Read(dObj->cdcInstanceIndex, &dObj->readTransferHandle, dObj->cdcReadBuffer, dObj->cdcBufferSize);

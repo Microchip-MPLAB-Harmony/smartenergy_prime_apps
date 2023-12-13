@@ -172,20 +172,20 @@ static void _APP_RfRxIndCb(DRV_RF215_RX_INDICATION_OBJ* indObj, uintptr_t ctxt)
 
 void _APP_UsiSnifferEventCb(uint8_t *pData, size_t length)
 {
-    /* Message received from PLC Tool - USART */
-	uint8_t command;
+    SRV_PSNIFFER_COMMAND command;
 
-	/* Protection for invalid us_length */
-	if (!length)
+    /* Protection for invalid length */
+    if (!length)
     {
-		return;
-	}
+        return;
+    }
 
-	/* Process received message */
-	command = SRV_PSNIFFER_GetCommand(pData);
+    /* Process received command */
+    command = SRV_PSNIFFER_GetCommand(pData);
 
-	switch (command) {
-        case SRV_PSNIFFER_CMD_SET_CHANNEL:
+    switch (command)
+    {
+        case SRV_PSNIFFER_CMD_SET_PLC_CHANNEL:
         {
             DRV_PLC_PHY_CHANNEL channel;
 
@@ -207,8 +207,22 @@ void _APP_UsiSnifferEventCb(uint8_t *pData, size_t length)
                 /* Update channel in PSniffer */
                 SRV_PSNIFFER_SetPLCChannel(channel);
             }
+
+            break;
         }
-        break;
+
+        case SRV_RSNIFFER_CMD_SET_RF_BAND_OPM_CHANNEL:
+        {
+            uint16_t rfBandOpMode, rfChannel;
+
+            /* Parse Band, Operating Mode and Channel parameters */
+            SRV_RSNIFFER_ParseConfigCommand(pData, &rfBandOpMode, &rfChannel);
+
+            /* Set configuration in RF PHY */
+            DRV_RF215_SetPib(appData.drvRf215Handle, RF215_PIB_PHY_BAND_OPERATING_MODE, &rfBandOpMode);
+            DRV_RF215_SetPib(appData.drvRf215Handle, RF215_PIB_PHY_CHANNEL_NUM, &rfChannel);
+            break;
+        }
 
         default:
             break;
