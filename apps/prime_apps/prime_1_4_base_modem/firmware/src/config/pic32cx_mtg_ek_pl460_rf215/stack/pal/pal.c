@@ -50,6 +50,9 @@ Microchip or any third party.
 #include "pal_types.h"
 #include "pal_local.h"
 #include "pal_plc.h"
+#include "pal_rf.h"
+#include "service/psniffer/srv_psniffer.h"
+#include "service/rsniffer/srv_rsniffer.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -60,6 +63,7 @@ Microchip or any third party.
 static PAL_DATA palData;
 
 extern const PAL_INTERFACE PAL_PLC_Interface;
+extern const PAL_INTERFACE PAL_RF_Interface;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -80,10 +84,84 @@ static void lPAL_PlcDataIndicationCallback(PAL_MSG_INDICATION_DATA *pData)
     }
 }
 
+static void lPAL_RfDataConfirmCallback(PAL_MSG_CONFIRM_DATA *pData)
+{
+    if (palData.dataConfirmCallback) {
+        palData.dataConfirmCallback(pData);
+    }
+}
+
+static void lPAL_RfDataIndicationCallback(PAL_MSG_INDICATION_DATA *pData)
+{
+    if (palData.dataIndicationCallback) {
+        palData.dataIndicationCallback(pData);
+    }
+}
+
+static void lPAL_PhySnifferCallback(uint8_t *pData, uint16_t length)
+{
+    if (palData.snifferEnabled > 0)
+    {
+        SRV_USI_Send_Message(palData.usiHandler, SRV_USI_PROT_ID_SNIF_PRIME, 
+                pData, length);
+    }
+}
+
+static void lPAL_UsiSnifferEventCb(uint8_t *pData, size_t length)
+{
+    uint8_t command;
+
+    /* Protection for invalid length */
+    if (!length)
+    {
+        return;
+    }
+
+    /* Process received command */
+    command = *pData;
+
+    switch (command)
+    {
+        case SRV_PSNIFFER_CMD_SET_PLC_CHANNEL:
+        {
+            uint8_t channel;
+
+            channel = *(pData + 1);
+            PAL_SetConfiguration(1, PLC_ID_CHANNEL_CFG, &channel, 1);
+            break;
+        }
+
+        case SRV_RSNIFFER_CMD_SET_RF_BAND_OPM_CHANNEL:
+        {
+            uint16_t rfBandOpMode, rfChannel;
+
+            /* Parse Band, Operating Mode and Channel parameters */
+            SRV_RSNIFFER_ParseConfigCommand(pData, &rfBandOpMode, &rfChannel);
+
+            /* Set configuration in RF PHY */
+            PAL_SetConfiguration(PRIME_PAL_RF_CHN_MASK, PAL_ID_RF_PHY_BAND_OPERATING_MODE, &rfBandOpMode, 2);
+            PAL_SetChannel(PRIME_PAL_RF_CHN_MASK | rfChannel);
+            break;
+        }
+
+        default:
+            break;
+    }
+}
+
 static PAL_INTERFACE * lPAL_GetInterface(uint16_t pch)
 {
-    (void)pch;
-    return (PAL_INTERFACE *)&PAL_PLC_Interface;
+    if (pch < PRIME_PAL_RF_CHN_MASK)
+    {
+        return (PAL_INTERFACE *)&PAL_PLC_Interface;
+    }
+
+    if (pch < PRIME_PAL_SERIAL_CHN_MASK)
+    {
+        return (PAL_INTERFACE *)&PAL_RF_Interface;
+    }
+
+    return NULL;
 }
 
 // *****************************************************************************
@@ -101,6 +179,18 @@ SYS_MODULE_OBJ PAL_Initialize(const SYS_MODULE_INDEX index)
 
     palData.snifferEnabled = 0;
 
+    /* Open USI */
+    palData.usiHandler = SRV_USI_Open(PRIME_PAL_USI_INSTANCE);
+    if (palData.usiHandler == DRV_HANDLE_INVALID)
+    {
+        return SYS_MODULE_OBJ_INVALID;
+    }
+
+    /* Register USI callback */
+    SRV_USI_CallbackRegister(palData.usiHandler,
+            SRV_USI_PROT_ID_SNIF_PRIME, lPAL_UsiSnifferEventCb);
+
+
     if (PAL_PLC_Initialize() == SYS_MODULE_OBJ_INVALID)
     {
         return SYS_MODULE_OBJ_INVALID;
@@ -109,6 +199,19 @@ SYS_MODULE_OBJ PAL_Initialize(const SYS_MODULE_INDEX index)
     PAL_PLC_DataConfirmCallbackRegister(lPAL_PlcDataConfirmCallback);
     PAL_PLC_DataIndicationCallbackRegister(lPAL_PlcDataIndicationCallback);
 
+    /* Register PLC PHY Sniffer callback */
+    PAL_PLC_USISnifferCallbackRegister(palData.usiHandler, lPAL_PhySnifferCallback);
+
+    if (PAL_RF_Initialize() == SYS_MODULE_OBJ_INVALID)
+    {
+        return SYS_MODULE_OBJ_INVALID;
+    }
+
+    PAL_RF_DataConfirmCallbackRegister(lPAL_RfDataConfirmCallback);
+    PAL_RF_DataIndicationCallbackRegister(lPAL_RfDataIndicationCallback);
+
+    /* Register RF PHY Sniffer callback */
+    PAL_RF_USISnifferCallbackRegister(palData.usiHandler, lPAL_PhySnifferCallback);
 
     return (SYS_MODULE_OBJ)PRIME_PAL_INDEX;
 }
@@ -122,6 +225,8 @@ void PAL_Tasks(SYS_MODULE_OBJ object)
 
     PAL_PLC_Tasks();
 
+    PAL_RF_Tasks();
+
 }
 
 SYS_STATUS PAL_Status(SYS_MODULE_OBJ object)
@@ -132,6 +237,11 @@ SYS_STATUS PAL_Status(SYS_MODULE_OBJ object)
     }
 
     if (PAL_PLC_Status() != SYS_STATUS_READY)
+    {
+        return SYS_STATUS_BUSY;
+    }
+
+    if (PAL_RF_Status() != SYS_STATUS_READY)
     {
         return SYS_STATUS_BUSY;
     }
@@ -229,7 +339,7 @@ uint8_t PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val, uint16_t leng
 
     if (id == PAL_ID_PHY_SNIFFER_EN)
     {
-        *(uint8_t *)val = 0;
+        *(uint8_t *)val = palData.snifferEnabled;
         return(PAL_CFG_SUCCESS);        
     }
 
@@ -242,7 +352,7 @@ uint8_t PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val, uint16_t leng
 
     if (id == PAL_ID_PHY_SNIFFER_EN)
     {
-        palData.snifferEnabled = 0;
+        palData.snifferEnabled = *(uint8_t *)val;
         return(PAL_CFG_SUCCESS);        
     }
 

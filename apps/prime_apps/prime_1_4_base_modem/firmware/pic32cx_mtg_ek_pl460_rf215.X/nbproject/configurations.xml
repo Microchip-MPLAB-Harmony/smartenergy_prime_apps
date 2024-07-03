@@ -40,10 +40,6 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng_Config.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng_WolfcryptWrapper.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng_HwWrapper.h</itemPath>
-            </logicalFolder>
-            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
-              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers/drv_crypto_trng_hw_6334.h</itemPath>
             </logicalFolder>
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
             </logicalFolder>
@@ -142,6 +138,9 @@
             <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pcrc/srv_pcrc.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="psniffer" displayName="psniffer" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/psniffer/srv_psniffer.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/queue/srv_queue.h</itemPath>
             </logicalFolder>
@@ -152,6 +151,9 @@
                            displayName="reset_handler"
                            projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/reset_handler/srv_reset_handler.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/rsniffer/srv_rsniffer.h</itemPath>
             </logicalFolder>
             <logicalFolder name="security" displayName="security" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/aes_wrapper.h</itemPath>
@@ -183,6 +185,9 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc_rm.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf_rm.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf.h</itemPath>
             </logicalFolder>
             <logicalFolder name="prime" displayName="prime" projectFiles="true">
               <logicalFolder name="conv" displayName="conv" projectFiles="true">
@@ -482,7 +487,7 @@
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/app.h</itemPath>
-      <itemPath>../modem.h</itemPath>
+      <itemPath>../src/modem.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -530,13 +535,7 @@
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Kas.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Common_WolfcryptWrapper.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Rng.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Rng_HwWrapper.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Rng_WolfcryptWrapper.c</itemPath>
-              </logicalFolder>
-            </logicalFolder>
-            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
-              <logicalFolder name="src" displayName="src" projectFiles="true">
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers/src/drv_crypto_trng_hw_6334.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>
@@ -619,6 +618,9 @@
             <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pcrc/srv_pcrc.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="psniffer" displayName="psniffer" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/psniffer/srv_psniffer.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/queue/srv_queue.c</itemPath>
             </logicalFolder>
@@ -629,6 +631,9 @@
                            displayName="reset_handler"
                            projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/reset_handler/srv_reset_handler.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/rsniffer/srv_rsniffer.c</itemPath>
             </logicalFolder>
             <logicalFolder name="security" displayName="security" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/aes_wrapper.c</itemPath>
@@ -652,9 +657,11 @@
           </logicalFolder>
           <logicalFolder name="stack" displayName="stack" projectFiles="true">
             <logicalFolder name="pal" displayName="pal" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf_rm.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc_rm.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf.c</itemPath>
             </logicalFolder>
             <logicalFolder name="prime" displayName="prime" projectFiles="true">
               <logicalFolder name="hal_api" displayName="hal_api" projectFiles="true">
@@ -815,7 +822,7 @@
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/pin_configurations.csv</itemPath>
       <itemPath>../src/app.c</itemPath>
-      <itemPath>../modem_base.c</itemPath>
+      <itemPath>../src/modem_base.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -926,7 +933,7 @@
         <property key="stack-guidance" value="false"/>
       </C32-CO>
       <C32-LD>
-        <property key="additional-options-use-response-files" value="false"/>
+        <property key="additional-options-use-response-files" value="true"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
         <property key="appendMe" value=""/>

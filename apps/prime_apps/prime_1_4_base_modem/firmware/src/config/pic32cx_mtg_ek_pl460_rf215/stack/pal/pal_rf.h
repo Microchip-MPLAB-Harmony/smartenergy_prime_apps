@@ -3,14 +3,14 @@
     Microchip Technology Inc.
 
   File Name:
-    pal_plc.h
+    pal_rf.h
 
   Summary:
-    Physical Abstraction Layer (PAL) PLC header file.
+    Physical Abstraction Layer (PAL) RF header file.
 
   Description:
     This module provides the interface between the PRIME MAC layer and the 
-    PLC physical layer.
+    RF physical layer.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -38,8 +38,8 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef  PAL_PLC_H
-#define  PAL_PLC_H
+#ifndef  PAL_RF_H
+#define  PAL_RF_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -49,7 +49,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "pal_types.h"
-#include "pal_plc_local.h"
+#include "pal_rf_local.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -59,33 +59,33 @@
 #endif
 // DOM-IGNORE-END
 
-SYS_MODULE_OBJ PAL_PLC_Initialize(void);
-SYS_STATUS PAL_PLC_Status(void);
-void PAL_PLC_Tasks(void);
-void PAL_PLC_DataConfirmCallbackRegister(PAL_DATA_CONFIRM_CB callback);
-void PAL_PLC_DataIndicationCallbackRegister(PAL_DATA_INDICATION_CB callback);
-uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *requestMsg);
-void PAL_PLC_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode);
-uint8_t PAL_PLC_GetSNR(uint8_t *snr, uint8_t qt);
-uint8_t PAL_PLC_GetZCT(uint32_t *zct);
-uint8_t PAL_PLC_GetTimer(uint32_t *timer);
-uint8_t PAL_PLC_GetTimerExtended(uint64_t *timer);
-uint8_t PAL_PLC_GetCD(uint8_t *pCD, uint8_t *pRSSI, uint32_t *pTime, uint8_t *pHeader);
-uint8_t PAL_PLC_GetNL(uint8_t *noise);
-uint8_t PAL_PLC_GetAGC(uint8_t *mode, uint8_t *gain);
-uint8_t PAL_PLC_SetAGC(uint8_t mode, uint8_t gain);
-uint8_t PAL_PLC_GetCCA(uint8_t *channelState);
-uint8_t PAL_PLC_GetChannel(uint16_t *pPch);
-uint8_t PAL_PLC_SetChannel(uint16_t pch);
-void PAL_PLC_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode);
-uint8_t PAL_PLC_GetConfiguration(uint16_t id, void *val, uint16_t len);
-uint8_t PAL_PLC_SetConfiguration(uint16_t id, void *val, uint16_t len);
-uint16_t PAL_PLC_GetSignalCapture(uint8_t *noiseCapture, PAL_FRAME frameType, uint32_t timeStart, uint32_t duration);
-uint8_t PAL_PLC_GetMsgDuration(uint16_t msgLen, PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration);
-void PAL_PLC_USISnifferCallbackRegister(SRV_USI_HANDLE usiHandler, PAL_USI_SNIFFER_CB callback);
+SYS_MODULE_OBJ PAL_RF_Initialize(void);
+SYS_STATUS PAL_RF_Status(void);
+void PAL_RF_Tasks(void);
+void PAL_RF_DataConfirmCallbackRegister(PAL_DATA_CONFIRM_CB callback);
+void PAL_RF_DataIndicationCallbackRegister(PAL_DATA_INDICATION_CB callback);
+void PAL_RF_ChannelSwitchCallbackRegister(PAL_SWITCH_RF_CH_CB callback);
+uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *requestMsg);
+void PAL_RF_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode);
+uint8_t PAL_RF_GetSNR(uint8_t *snr, uint8_t qt);
+uint8_t PAL_RF_GetZCT(uint32_t *zct);
+uint8_t PAL_RF_GetTimer(uint32_t *timer);
+uint8_t PAL_RF_GetTimerExtended(uint64_t *timer);
+uint8_t PAL_RF_GetCD(uint8_t *pCD, uint8_t *pRSSI, uint32_t *pTime, uint8_t *pHeader);
+uint8_t PAL_RF_GetNL(uint8_t *noise);
+uint8_t PAL_RF_GetAGC(uint8_t *pMode, uint8_t *pGain);
+uint8_t PAL_RF_SetAGC(uint8_t mode, uint8_t gain);
+uint8_t PAL_RF_GetCCA(uint8_t *channelState);
+uint8_t PAL_RF_GetChannel(uint16_t *pPch);
+uint8_t PAL_RF_SetChannel(uint16_t pch);
+uint8_t PAL_RF_GetConfiguration(uint16_t id, void *val, uint16_t len);
+uint8_t PAL_RF_SetConfiguration(uint16_t id, void *val, uint16_t len);
+uint16_t PAL_RF_GetSignalCapture(uint8_t *noiseCapture, PAL_FRAME frameType, uint32_t timeStart, uint32_t duration);
+uint8_t PAL_RF_GetMsgDuration(uint16_t msgLen, PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration);
+void PAL_RF_USISnifferCallbackRegister(SRV_USI_HANDLE usiHandler, PAL_USI_SNIFFER_CB callback);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /*  PAL_PLC_H */
+#endif /*  PAL_RF_H */

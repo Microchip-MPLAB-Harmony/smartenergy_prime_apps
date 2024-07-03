@@ -3,13 +3,13 @@
     Microchip Technology Inc.
 
   File Name:
-    pal_local.h
+    pal_rf_local.h
 
   Summary:
-    Platform Abstraction Layer (PAL) Interface Local header file.
+    Platform Abstraction Layer (PAL) RF Interface Local header file.
 
   Description:
-    Platform Abstraction Layer (PAL) Interface Local header file.
+    Platform Abstraction Layer (PAL) RF Interface Local header file.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -37,8 +37,8 @@ Microchip or any third party.
 */
 //DOM-IGNORE-END
 
-#ifndef PAL_LOCAL_H
-#define PAL_LOCAL_H
+#ifndef PAL_RF_LOCAL_H
+#define PAL_RF_LOCAL_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -48,67 +48,87 @@ Microchip or any third party.
 
 #include <stdbool.h>
 #include <stdint.h>
-#include "pal.h"
+#include "configuration.h"
+#include "driver/driver_common.h"
+#include "driver/rf215/drv_rf215.h"
 #include "pal_types.h"
-#include "service/usi/srv_usi.h"
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
 // *****************************************************************************
-// *****************************************************************************
-#define PRIME_PAL_USI_INSTANCE        SRV_USI_INDEX_0
 
-typedef struct PAL_INTERFACE_TYPE
-{
-    uint8_t   (*PAL_GetSNR)(uint8_t *snr, uint8_t qt);
-    uint8_t   (*PAL_GetZCT)(uint32_t *zct);
-    uint8_t   (*PAL_GetTimer)(uint32_t *timer);
-    uint8_t   (*PAL_GetTimerExtended)(uint64_t *timer);
-    uint8_t   (*PAL_GetCD)(uint8_t *cd, uint8_t *rssi, uint32_t *time, uint8_t *header);
-    uint8_t   (*PAL_GetNL)(uint8_t *noise);
-    uint8_t   (*PAL_GetCCA)(uint8_t *pState);
-    uint8_t   (*PAL_GetAGC)(uint8_t *mode, uint8_t *gain);
-    uint8_t   (*PAL_SetAGC)(uint8_t mode, uint8_t gain);
-    uint8_t   (*PAL_GetChannel)(uint16_t *pPch);
-    uint8_t   (*PAL_SetChannel)(uint16_t pch);
-    uint8_t   (*PAL_DataRequest)(PAL_MSG_REQUEST_DATA *pData);
-    void      (*PAL_ProgramChannelSwitch)(uint32_t timeSync, uint16_t pch, uint8_t timeMode);
-    uint8_t   (*PAL_GetConfiguration)(uint16_t id, void *val, uint16_t len);
-    uint8_t   (*PAL_SetConfiguration)(uint16_t id, void *val, uint16_t len);
-    uint16_t  (*PAL_GetSignalCapture)(uint8_t *noiseCapture, PAL_FRAME frameType, uint32_t timeStart, uint32_t duration);
-    uint8_t   (*PAL_GetMsgDuration)(uint16_t msgLen, PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration);
-    bool      (*PAL_CheckMinimumQuality)(PAL_SCHEME reference, PAL_SCHEME modulation);
-    uint8_t   (*PAL_GetLessRobustModulation)(PAL_SCHEME mod1, PAL_SCHEME mod2);
-
-} PAL_INTERFACE;        // PRIME PAL interface descriptor
+#define PAL_SNIFFER_DATA_MAX_SIZE           512
+typedef void (*PAL_USI_SNIFFER_CB)(uint8_t *pData, uint16_t length);
 
 // *****************************************************************************
-/* PAL Data
+/* RF PAL Module Status
 
   Summary:
-    Holds PAL internal data.
+    Identifies the current status/state of the RF PAL module.
 
   Description:
-    This data type defines all data required to handle the PAL module.
+    This enumeration identifies the current status/state of the RF PAL module.
+
+  Remarks:
+    This enumeration is the return type for the PAL_RF_Status routine. The
+    upper layer must ensure that PAL_RF_Status returns PAL_RF_STATUS_READY
+    before performing RF PAL operations.
+*/
+typedef enum
+{
+    PAL_RF_STATUS_UNINITIALIZED = SYS_STATUS_UNINITIALIZED,
+    PAL_RF_STATUS_BUSY = SYS_STATUS_BUSY,
+    PAL_RF_STATUS_READY = SYS_STATUS_READY,
+    PAL_RF_STATUS_ERROR = SYS_STATUS_ERROR,
+    PAL_RF_STATUS_INVALID_OBJECT = SYS_STATUS_ERROR_EXTENDED - 1,
+} PAL_RF_STATUS;
+
+typedef struct
+{
+    uint8_t *pData;
+    DRV_RF215_TX_HANDLE txHandle;
+} PAL_RF_TX_HANDLERS_DATA;
+
+// *****************************************************************************
+/* PAL RF Data
+
+  Summary:
+    Holds PAL RF internal data.
+
+  Description:
+    This data type defines the data required to handle the PAL RF module.
 
   Remarks:
     None.
 */
 typedef struct
 {
-    PAL_DATA_CONFIRM_CB dataConfirmCallback;
+    PAL_CALLBACKS rfCallbacks;
 
-    PAL_DATA_INDICATION_CB dataIndicationCallback;
+    PAL_RF_STATUS status;
 
-    PAL_SWITCH_RF_CH_CB channelSwitchCallback;
+    SYS_STATUS drvPhyStatus;
+
+    DRV_HANDLE drvRfPhyHandle;
+
+    DRV_RF215_PHY_CFG_OBJ rfPhyConfig;
+    
+    DRV_RF215_TX_REQUEST_OBJ txReqObj[DRV_RF215_TX_BUFFERS_NUMBER];
+
+    PAL_RF_TX_HANDLERS_DATA txHandleData[DRV_RF215_TX_BUFFERS_NUMBER];
+
+    uint16_t pch;
+
+    uint16_t rfChannelsNumber;
+
+    PAL_USI_SNIFFER_CB snifferCallback;
 
     SRV_USI_HANDLE usiHandler;
 
-    uint8_t snifferEnabled;
-} PAL_DATA;
+} PAL_RF_DATA;
 
-#endif // #ifndef PAL_LOCAL_H
+#endif // #ifndef PAL_RF_LOCAL_H
 /*******************************************************************************
  End of File
 */

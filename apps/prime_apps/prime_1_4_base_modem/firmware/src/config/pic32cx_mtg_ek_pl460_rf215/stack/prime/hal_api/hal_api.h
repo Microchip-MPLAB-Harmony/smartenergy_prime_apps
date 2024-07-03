@@ -54,6 +54,7 @@ Microchip or any third party.
 #include "../../../service/storage/srv_storage.h"
 #include "../../../service/user_pib/srv_user_pib.h"
 #include "../../../service/reset_handler/srv_reset_handler.h"
+//#include "../../../service/firmware_upgrade/srv_firmware_upgrade.h"
 #include "../../service/pcrc/srv_pcrc.h"
 #include "../../service/random/srv_random.h"
 #include "../../service/log_report/srv_log_report.h"
@@ -61,7 +62,6 @@ Microchip or any third party.
 #include "../../service/security/aes_wrapper.h"
 #include "../../service/security/cipher_wrapper.h"
 #include "../../service/queue/srv_queue.h"
-//#include "../../../service/firmware_upgrade/srv_firmware_upgrade.h"
 #include "../../pal/pal.h"
 #include "../../pal/pal_types.h"
 

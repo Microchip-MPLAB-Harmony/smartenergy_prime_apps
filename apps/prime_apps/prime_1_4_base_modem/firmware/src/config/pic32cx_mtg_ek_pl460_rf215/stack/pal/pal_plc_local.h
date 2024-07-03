@@ -52,6 +52,9 @@ Microchip or any third party.
 #include "driver/driver_common.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
 
+#define PAL_SNIFFER_DATA_MAX_SIZE      512
+typedef void (*PAL_USI_SNIFFER_CB)(uint8_t *pData, uint16_t length);
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
@@ -206,6 +209,12 @@ typedef struct
     bool syncUpdate;
 
     bool networkDetected;
+
+    PAL_USI_SNIFFER_CB snifferCallback;
+
+    SRV_USI_HANDLE usiHandler;
+
+    uint8_t snifferData[PAL_SNIFFER_DATA_MAX_SIZE];
 
 } PAL_PLC_DATA;
 

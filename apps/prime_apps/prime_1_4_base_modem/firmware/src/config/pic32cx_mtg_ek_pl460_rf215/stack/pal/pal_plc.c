@@ -58,6 +58,7 @@ Microchip or any third party.
 #include "pal_plc.h"
 #include "pal_plc_local.h"
 #include "pal_plc_rm.h"
+#include "service/psniffer/srv_psniffer.h"
 #include "service/log_report/srv_log_report.h"      
 #include "peripheral/trng/plib_trng.h"
 
@@ -394,6 +395,8 @@ static void lPAL_PLC_SetTxRxChannel(DRV_PLC_PHY_CHANNEL channel)
     /* Initialize synchronization of PL360-Host timers when channel updated */
     lPAL_PLC_TimerSyncInitialize();
 
+    SRV_PSNIFFER_SetPLCChannel(channel);
+
 }
 
 // *****************************************************************************
@@ -439,6 +442,23 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
         }
 
         palPlcData.plcCallbacks.dataConfirm(&dataCfm);
+    }
+
+    if (palPlcData.snifferCallback)
+    {
+        size_t dataLength;
+        uint16_t paySymbols;
+
+        palPlcData.plcPIB.id = PLC_ID_TX_PAY_SYMBOLS;
+        palPlcData.plcPIB.length = 2;
+        palPlcData.plcPIB.pData = (uint8_t *)&paySymbols;
+        DRV_PLC_PHY_PIBGet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
+        
+        SRV_PSNIFFER_SetTxPayloadSymbols(*(uint16_t *)palPlcData.plcPIB.pData);
+
+        dataLength = SRV_PSNIFFER_SerialCfmMessage(palPlcData.snifferData, pCfmObj);
+
+        palPlcData.snifferCallback(palPlcData.snifferData, dataLength);
     }
 
 }
@@ -488,6 +508,23 @@ static void lPAL_PLC_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *pIndObj, uintptr_t
     if (palPlcData.plcCallbacks.dataIndication != NULL)
     {
         palPlcData.plcCallbacks.dataIndication(&dataInd);
+    }
+
+    if (palPlcData.snifferCallback)
+    {
+        size_t length;
+        uint16_t paySymbols;
+
+        palPlcData.plcPIB.id = PLC_ID_RX_PAY_SYMBOLS;
+        palPlcData.plcPIB.length = 2;
+        palPlcData.plcPIB.pData = (uint8_t *)&paySymbols;
+        DRV_PLC_PHY_PIBGet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
+
+        SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)palPlcData.plcPIB.pData);
+
+        length = SRV_PSNIFFER_SerialRxMessage(palPlcData.snifferData, pIndObj);
+
+        palPlcData.snifferCallback(palPlcData.snifferData, length);
     }
 
 }
@@ -754,6 +791,8 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
     palPlcData.phyTxObj.scheme = pMessageData->scheme;
     palPlcData.phyTxObj.frameType = pMessageData->frameType;
     palPlcData.phyTxObj.pTransmitData = pMessageData->pData;
+
+    SRV_PSNIFFER_SetTxMessage(&palPlcData.phyTxObj);
 
     DRV_PLC_PHY_TxRequest(palPlcData.drvPhyHandle, &palPlcData.phyTxObj);
 
@@ -1310,5 +1349,11 @@ uint8_t PAL_PLC_GetMsgDuration(uint16_t length, PAL_SCHEME scheme, uint8_t frame
     *pDuration = frameDuration;
 
     return(PAL_CFG_SUCCESS);
+}
+
+void PAL_PLC_USISnifferCallbackRegister(SRV_USI_HANDLE usiHandler, PAL_USI_SNIFFER_CB callback)
+{
+    palPlcData.usiHandler = usiHandler;
+    palPlcData.snifferCallback = callback;
 }
 

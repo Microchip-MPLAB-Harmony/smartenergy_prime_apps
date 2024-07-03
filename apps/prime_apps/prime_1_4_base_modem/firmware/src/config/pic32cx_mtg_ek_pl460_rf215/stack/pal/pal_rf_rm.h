@@ -1,19 +1,17 @@
-/**************************************************************************
-  Crypto Framework Library Source
-
+/*******************************************************************************
   Company:
     Microchip Technology Inc.
 
   File Name:
-    MCHP_Crypto_Trng_HwWrapper.h
+    pal_plc_rm.h
 
   Summary:
-    Crypto Framework Library wrapper file for hardware TRNG.
+    Platform Abstraction Layer (PAL) RF Robust Management header.
 
   Description:
-    This header file contains the wrapper interface to access the TRNG 
-    hardware driver for Microchip microcontrollers.
-**************************************************************************/
+    This module provides handling of the robust management of the
+    RF physical layer.
+*******************************************************************************/
 
 //DOM-IGNORE-BEGIN
 /*
@@ -40,18 +38,16 @@ Microchip or any third party.
 */
 //DOM-IGNORE-END
 
-#ifndef _MCHP_CRYPTO_TRNG_HWWRAPPER_H_
-#define _MCHP_CRYPTO_TRNG_HWWRAPPER_H_
+#ifndef PAL_RF_RM_H
+#define PAL_RF_RM_H
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Included Files
+// Section: File includes
 // *****************************************************************************
 // *****************************************************************************
 
 #include <stdint.h>
-#include "crypto/common_crypto/MCHP_Crypto_Common.h"
-#include "crypto/common_crypto/MCHP_Crypto_Rng.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -63,11 +59,17 @@ Microchip or any third party.
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: TRNG Common Interface 
+// Section: PAL RF Robust Management Interface Functions
 // *****************************************************************************
 // *****************************************************************************
 
-crypto_Rng_Status_E Crypto_Rng_Trng_Generate(uint8_t *rngData, uint32_t rngLen);
+uint8_t PAL_RF_RM_GetLqi(int16_t rssi);
+uint8_t PAL_RF_RM_GetLessRobustModulation(PAL_SCHEME mod1, PAL_SCHEME mod2);
+bool PAL_RF_RM_CheckMinimumQuality(PAL_SCHEME reference, PAL_SCHEME modulation);
+PAL_SCHEME PAL_RF_RM_GetScheme(void);
+void PAL_RF_RM_SetScheme(PAL_SCHEME scheme);
+void PAL_RF_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, 
+                                   PAL_SCHEME *pModulation, uint16_t pch);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -77,4 +79,4 @@ crypto_Rng_Status_E Crypto_Rng_Trng_Generate(uint8_t *rngData, uint32_t rngLen);
 #endif
 // DOM-IGNORE-END
 
-#endif /* _MCHP_CRYPTO_TRNG_HWWRAPPER_H_ */
+#endif //PAL_RF_RM_H

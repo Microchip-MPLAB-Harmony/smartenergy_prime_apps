@@ -892,10 +892,13 @@ void APP_Modem_Initialize(void)
 	/* Initialize TxRx data indicators */
 	rxdata_index = false;
 	txdata_index = false;
-    
-    
 }
 
+void APP_Modem_Process(void)
+{
+    /* Prime task */
+    gPrimeApi->Tasks();
+}
 static void APP_Modem_MacEstablishReuestCmd(uint8_t *recvMsg)
 {
 	uint8_t *lMessage;

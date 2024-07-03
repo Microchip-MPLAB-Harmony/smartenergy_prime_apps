@@ -161,6 +161,7 @@ extern "C" {
 
 /* PRIME PAL Configuration Options */
 #define PRIME_PAL_INDEX                     0U
+#define PRIME_PAL_SNIFFER_USI_INSTANCE      SRV_USI_INDEX_0
 
 
 /* USI Service Instance 0 Configuration Options */
