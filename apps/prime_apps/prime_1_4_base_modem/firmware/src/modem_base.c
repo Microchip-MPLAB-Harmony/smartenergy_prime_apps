@@ -1,5 +1,5 @@
 /*******************************************************************************
-  Modem Application source File
+  Modem Application Source File
 
   Company:
     Microchip Technology Inc.
@@ -11,56 +11,21 @@
     MODEM : Modem Application for PRIME Base Node
 
   Description:
-    The PL460 is a programmable modem for narrow-band Power Line Communication 
-    (PLC), able to run any PLC protocol in the frequency band below 500 kHz.
+    This source file handles the serialization of the PRIME primitives through 
+    the USI for the Base Node.
 *******************************************************************************/
-
-//DOM-IGNORE-BEGIN
-/*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. 
-All rights reserved.
-
-The software and documentation is provided by microchip and its contributors
-"as is" and any express, implied or statutory warranties, including, but not
-limited to, the implied warranties of merchantability, fitness for a particular
-purpose and non-infringement of third party intellectual property rights are
-disclaimed to the fullest extent permitted by law. In no event shall microchip
-or its contributors be liable for any direct, indirect, incidental, special,
-exemplary, or consequential damages (including, but not limited to, procurement
-of substitute goods or services; loss of use, data, or profits; or business
-interruption) however caused and on any theory of liability, whether in contract,
-strict liability, or tort (including negligence or otherwise) arising in any way
-out of the use of the software and documentation, even if advised of the
-possibility of such damage.
-
-Except as expressly permitted hereunder and subject to the applicable license terms
-for any third-party software incorporated in the software and any applicable open
-source software license terms, no license or other rights, whether express or
-implied, are granted under any patent or other intellectual property rights of
-Microchip or any third party.
-*/
-//DOM-IGNORE-END
 
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "definitions.h"
 #include "modem.h"
-#include "stack/prime/prime_api/prime_api.h"
-
-#include "stack/prime/mngp/bmng_defs.h"
-#include "stack/prime/mac/mac_defs.h"
-#include "stack/prime/prime_api/prime_api.h"
-#include "stack/prime/prime_api/prime_api_defs.h"
-#include "stack/prime/hal_api/hal_api.h"
-#include "stack/prime/prime_api/prime_hal_wrapper.h"
 
 #define MAX_NUM_MSG_RCV    (1)
 
-#define MAX_LENGTH_BUFF   CL_432_MAX_LENGTH_DATA
-
-extern HAL_API primeHalAPI;
+#define MAX_LENGTH_BUFF    CL_432_MAX_LENGTH_DATA
 
 /* buffer used to tx serialization */
 static uint8_t appSerialBuf[MAX_LENGTH_BUFF];
@@ -72,18 +37,9 @@ SRV_USI_HANDLE gUsiHandle=0;
 /* Queue of buffers in rx and pointers */
 static struct 
 {
-	uint16_t len;
-	uint8_t dataBuf[MAX_LENGTH_BUFF];
+    uint16_t len;
+    uint8_t dataBuf[MAX_LENGTH_BUFF];
 } APP_MODEM_MSG_RCV[MAX_NUM_MSG_RCV];
-
-/* srvUSIUSARTDevDesc declared in USI USART service implementation (srv_usi_usart.c) */
-
-static const PRIME_API_INIT primeApiInit =
-{
-    .halApi = (HAL_API *)&primeHalAPI,
-    .palIndex = 0,
-    .mngPlaneUsiPort = PRIME_MNG_PLANE_USI_INDEX
-};
 
 static uint8_t outputMsgRecvIndex;
 static uint8_t inputMsgRecvIndex;
@@ -113,7 +69,7 @@ static void APP_Modem_establishIndication(uint16_t conHandle, uint8_t *eui48, ui
 	appSerialBuf[serialLen++] = ae;
 
 	/* Send packet */
-    PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 
@@ -136,7 +92,7 @@ uint8_t *eui48, uint8_t type, uint8_t *data, uint16_t data_len, uint8_t ae)
 	appSerialBuf[serialLen++] = ae;
 
 	/* Send packet */
-    PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_releaseIndication(uint16_t con_handle, MAC_RELEASE_INDICATION_REASON reason)
@@ -149,7 +105,7 @@ static void APP_Modem_releaseIndication(uint16_t con_handle, MAC_RELEASE_INDICAT
 	appSerialBuf[serialLen++] = reason;
 
 	/* Send packet */
-    PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_releaseConfirm(uint16_t con_handle, MAC_RELEASE_CONFIRM_RESULT  result)
@@ -162,7 +118,7 @@ static void APP_Modem_releaseConfirm(uint16_t con_handle, MAC_RELEASE_CONFIRM_RE
 	appSerialBuf[serialLen++] = result;
 
 	/* Send packet */
-    PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_joinIndication(uint16_t con_handle, uint8_t *eui48, uint8_t con_type, uint8_t *data, uint16_t data_len, uint8_t ae)
@@ -182,7 +138,7 @@ static void APP_Modem_joinIndication(uint16_t con_handle, uint8_t *eui48, uint8_
 	appSerialBuf[serialLen++] = ae;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_joinConfirm(uint16_t con_handle, MAC_JOIN_CONFIRM_RESULT result, uint8_t ae)
@@ -196,7 +152,7 @@ static void APP_Modem_joinConfirm(uint16_t con_handle, MAC_JOIN_CONFIRM_RESULT r
 	appSerialBuf[serialLen++] = ae;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_leaveConfirm(uint16_t con_handle, MAC_LEAVE_CONFIRM_RESULT result)
@@ -209,7 +165,7 @@ static void APP_Modem_leaveConfirm(uint16_t con_handle, MAC_LEAVE_CONFIRM_RESULT
 	appSerialBuf[serialLen++] = result;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_leaveIndication(uint16_t con_handle, uint8_t *eui48)
@@ -231,7 +187,7 @@ static void APP_Modem_leaveIndication(uint16_t con_handle, uint8_t *eui48)
 	serialLen += 6;
 	
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_dataConfirm(uint16_t con_handle, uint8_t *data, MAC_DATA_CONFIRM_RESULT result)
@@ -248,7 +204,7 @@ static void APP_Modem_dataConfirm(uint16_t con_handle, uint8_t *data, MAC_DATA_C
 	appSerialBuf[serialLen++] = result;
 
 	/* Send packet */
-    PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_dataIndication(uint16_t con_handle, uint8_t *data, uint16_t data_len, uint32_t time_ref)
@@ -268,7 +224,7 @@ static void APP_Modem_dataIndication(uint16_t con_handle, uint8_t *data, uint16_
 	appSerialBuf[serialLen++] = (uint8_t)(time_ref);
 
 	/* Send packet */
-    PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 
 	/* Rx data indication */
 	rxdata_index = true;
@@ -284,7 +240,7 @@ static void APP_Modem_PLME_resetConfirm(PLME_RESULT result, uint16_t pch)
 	appSerialBuf[serialLen++] = (uint8_t)pch;
 
 	/* Send packet */
-    PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_PLME_SleepConfirm(PLME_RESULT x_result, uint16_t pch)
@@ -297,7 +253,7 @@ static void APP_Modem_PLME_SleepConfirm(PLME_RESULT x_result, uint16_t pch)
 	appSerialBuf[serialLen++] = (uint8_t)pch;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_PLME_ResumeConfirm(PLME_RESULT x_result, uint16_t pch)
@@ -310,7 +266,7 @@ static void APP_Modem_PLME_ResumeConfirm(PLME_RESULT x_result, uint16_t pch)
 	appSerialBuf[serialLen++] = (uint8_t)pch;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_PLME_GetConfirm(PLME_RESULT x_status, uint16_t pib_attrib, void *pib_value, uint8_t pib_size, uint16_t pch)
@@ -356,7 +312,7 @@ static void APP_Modem_PLME_GetConfirm(PLME_RESULT x_status, uint16_t pib_attrib,
 	appSerialBuf[serialLen++] = (uint8_t)pch;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_PLME_SetConfirm(PLME_RESULT x_result, uint16_t pch)
@@ -369,7 +325,7 @@ static void APP_Modem_PLME_SetConfirm(PLME_RESULT x_result, uint16_t pch)
 	appSerialBuf[serialLen++] = (uint8_t)pch;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_MLME_PromteConfirm(MLME_RESULT x_result)
@@ -380,7 +336,7 @@ static void APP_Modem_MLME_PromteConfirm(MLME_RESULT x_result)
 	appSerialBuf[serialLen++] = x_result;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_MLME_MP_PromteConfirm(MLME_RESULT x_result)
@@ -391,7 +347,7 @@ static void APP_Modem_MLME_MP_PromteConfirm(MLME_RESULT x_result)
 	appSerialBuf[serialLen++] = x_result;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_MLME_ResetConfirm(MLME_RESULT x_result)
@@ -410,7 +366,7 @@ static void APP_Modem_MLME_ResetConfirm(MLME_RESULT x_result)
 	appSerialBuf[serialLen++] = x_result;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_MLME_GetConfirm(MLME_RESULT x_status, uint16_t pib_attrib, void *pib_value, uint8_t pib_size)
@@ -453,7 +409,7 @@ static void APP_Modem_MLME_GetConfirm(MLME_RESULT x_status, uint16_t pib_attrib,
 	}
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_MLME_ListGetConfirm(MLME_RESULT x_status, uint16_t pib_attrib, uint8_t *pib_buff, uint16_t pib_len)
@@ -470,7 +426,7 @@ static void APP_Modem_MLME_ListGetConfirm(MLME_RESULT x_status, uint16_t pib_att
 	serialLen += pib_len;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_MLME_SetConfirm(MLME_RESULT x_result)
@@ -481,7 +437,7 @@ static void APP_Modem_MLME_SetConfirm(MLME_RESULT x_result)
 	appSerialBuf[serialLen++] = x_result;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_CL432_DlDataIndication(uint8_t dst_lsap, uint8_t src_lsap, uint16_t dst_address, uint16_t src_address,
@@ -503,7 +459,7 @@ static void APP_Modem_CL432_DlDataIndication(uint8_t dst_lsap, uint8_t src_lsap,
 	appSerialBuf[serialLen++] = link_class;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 
 	/* Rx data indication */
 	rxdata_index = true;
@@ -521,7 +477,7 @@ static void APP_Modem_CL432_DlDataConfirm(uint8_t dst_lsap, uint8_t src_lsap, ui
 	appSerialBuf[serialLen++] = (uint8_t)tx_status;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_CL432_JoinIndication(uint8_t *device_id, uint8_t device_id_len, uint16_t dst_address, uint8_t *puc_mac, uint8_t ae)
@@ -546,7 +502,7 @@ static void APP_Modem_CL432_JoinIndication(uint8_t *device_id, uint8_t device_id
 	appSerialBuf[serialLen++] = ae;
     
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_CL432_LeaveIndiication(uint16_t dst_address)
@@ -558,7 +514,7 @@ static void APP_Modem_CL432_LeaveIndiication(uint16_t dst_address)
 	appSerialBuf[serialLen++] = (uint8_t)(dst_address);
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_FupAck(uint8_t cmd, BMNG_FUP_ACK ack_code, uint16_t extra_info)
@@ -572,7 +528,7 @@ static void APP_Modem_BMNG_FupAck(uint8_t cmd, BMNG_FUP_ACK ack_code, uint16_t e
 	appSerialBuf[serialLen++] = (uint8_t)(extra_info);
 	
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_FupStatusIndication(BMNG_FUP_NODE_STATE fup_node_state, uint16_t pages, uint8_t *eui48)
@@ -587,7 +543,7 @@ static void APP_Modem_BMNG_FupStatusIndication(BMNG_FUP_NODE_STATE fup_node_stat
 	serialLen += 6;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_FupErrorIndication(BMNG_FUP_ERROR error_code, uint8_t *eui48)
@@ -602,7 +558,7 @@ static void APP_Modem_BMNG_FupErrorIndication(BMNG_FUP_ERROR error_code, uint8_t
 	serialLen += 6;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_FupVersionIndication(uint8_t *eui48, uint8_t vendor_len, char *vendor, uint8_t model_len, char *model,
@@ -624,7 +580,7 @@ static void APP_Modem_BMNG_FupVersionIndication(uint8_t *eui48, uint8_t vendor_l
 	serialLen += version_len;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_FupKillIndication(uint8_t *eui48)
@@ -636,7 +592,7 @@ static void APP_Modem_BMNG_FupKillIndication(uint8_t *eui48)
 	serialLen += 6;
 	
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_NetEventIndication(BMNG_NET_EVENT_INFO *net_event)
@@ -660,7 +616,7 @@ static void APP_Modem_BMNG_NetEventIndication(BMNG_NET_EVENT_INFO *net_event)
 	appSerialBuf[serialLen++] = (uint8_t)(net_event->pchLsid);
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 void APP_Modem_MDM_BMNG_NetEventIndication(void *net_event)
@@ -677,7 +633,7 @@ static void APP_Modem_BMNG_PPROFAck(uint8_t cmd, BMNG_PPROF_ACK ack_code)
 	appSerialBuf[serialLen++] = ack_code;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_PPROFGetResponse(uint8_t *eui48, uint16_t data_len, uint8_t *data)
@@ -693,7 +649,7 @@ static void APP_Modem_BMNG_PPROFGetResponse(uint8_t *eui48, uint16_t data_len, u
 	serialLen += data_len;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_PPROFGetEnhancedResponse(uint8_t *eui48, uint16_t data_len, uint8_t *data)
@@ -709,7 +665,7 @@ static void APP_Modem_BMNG_PPROFGetEnhancedResponse(uint8_t *eui48, uint16_t dat
 	serialLen += data_len;
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_PPROFGetZCResponse(uint8_t *eui48, uint8_t zc_status, uint32_t zc_time)
@@ -726,7 +682,7 @@ static void APP_Modem_BMNG_PPROFGetZCResponse(uint8_t *eui48, uint8_t zc_status,
 	appSerialBuf[serialLen++] = (uint8_t)(zc_time);
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_PPROFDiffZCResponse(uint8_t *eui48, uint32_t time_freq, uint32_t time_diff)
@@ -746,7 +702,7 @@ static void APP_Modem_BMNG_PPROFDiffZCResponse(uint8_t *eui48, uint32_t time_fre
 	appSerialBuf[serialLen++] = (uint8_t)(time_diff);
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_BMNG_WhitelistAck(uint8_t cmd, BMNG_WHITELIST_ACK ack_code)
@@ -758,7 +714,7 @@ static void APP_Modem_BMNG_WhitelistAck(uint8_t cmd, BMNG_WHITELIST_ACK ack_code
 	appSerialBuf[serialLen++] = ack_code;
 	
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
 static void APP_Modem_USI_PRIME_ApiHandler(uint8_t *rxMsg, size_t inputLen)
@@ -849,56 +805,6 @@ static void APP_Modem_SetCallbacks(void)
 	gPrimeApi->BmngSetCallbacks(&bmng_callbacks);
 }
 
-void APP_Modem_Initialize(void)
-{
-	uint8_t index=0;
-    
-    
-	/* Initialize the reception queue */
-	inputMsgRecvIndex = 0;
-	outputMsgRecvIndex = 0;
-	for (index = 0; index < MAX_NUM_MSG_RCV; index++) 
-    {
-		APP_MODEM_MSG_RCV[index].len = 0;
-	}
-
-    /* Get PRIME API */
-    PRIME_API_GetPrimeAPI(&gPrimeApi);
-    
-    /* initialize PRIME */
-    gPrimeApi->Initialize((PRIME_API_INIT*)&primeApiInit);
-    
-	/* Set callback functions */
-	APP_Modem_SetCallbacks();
-
-    /* Open USI */
-    gUsiHandle = PRIME_HAL_WRP_UsiOpen(SRV_USI_INDEX_0);
-    
-	/* Configure USI protocol handler */
-	PRIME_HAL_WRP_UsiSetCallback(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME, APP_Modem_USI_PRIME_ApiHandler);
-//	x_usi_msg.uc_protocol_type = PROTOCOL_PRIME_API;
-//	x_usi_msg.ptr_buf = appSerialBuf;
-//
-//	/* Configure PRIME region to store SN firmware */
-//	sx_prime_reg.ul_address = PRIME_FLASH_LOCATION_SN;
-//	sx_prime_reg.ul_size = PRIME_MAX_SIZE_SN;
-//	sx_prime_reg.in_use = false;
-//	hal_fu_config_regions(1, &sx_prime_reg);
-
-#ifdef MODEM_DEBUG_ENABLE
-	printf("MODEM Application: Base Node...\r\n");
-#endif
-
-	/* Initialize TxRx data indicators */
-	rxdata_index = false;
-	txdata_index = false;
-}
-
-void APP_Modem_Process(void)
-{
-    /* Prime task */
-    gPrimeApi->Tasks();
-}
 static void APP_Modem_MacEstablishReuestCmd(uint8_t *recvMsg)
 {
 	uint8_t *lMessage;
@@ -1635,10 +1541,41 @@ void modem_debug_report(uint32_t ul_err_type)
 	appSerialBuf[serialLen++] = (uint8_t)((uint32_t)ul_err_type);
 
 	/* Send packet */
-	PRIME_HAL_WRP_UsiSend(gUsiHandle,SRV_USI_PROT_ID_PHY_SERIAL_PRIME,appSerialBuf,serialLen);
+	SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
 }
 
-void App_Modem_Process(void)
+void APP_Modem_Initialize(void)
+{
+	uint8_t index=0;
+    
+    
+	/* Initialize the reception queue */
+	inputMsgRecvIndex = 0;
+	outputMsgRecvIndex = 0;
+	for (index = 0; index < MAX_NUM_MSG_RCV; index++) 
+    {
+		APP_MODEM_MSG_RCV[index].len = 0;
+	}
+
+    /* Get PRIME API */
+    PRIME_API_GetPrimeAPI(&gPrimeApi);
+    
+    /* Set callback functions */
+    APP_Modem_SetCallbacks();
+
+    /* Open USI */
+    gUsiHandle = SRV_USI_Open(SRV_USI_INDEX_0);
+    
+    /* Configure USI protocol handler */
+    SRV_USI_CallbackRegister(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, 
+                             APP_Modem_USI_PRIME_ApiHandler);
+
+	/* Initialize TxRx data indicators */
+	rxdata_index = false;
+	txdata_index = false;
+} 
+
+void App_Modem_Tasks(void)
 {
 	/* Check data reception */
 	while(APP_MODEM_MSG_RCV[outputMsgRecvIndex].len) 
@@ -1827,7 +1764,8 @@ void App_Modem_Process(void)
 			break;
 
 		default:
-			PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_INFO, APP_MODEM_ERR_UNKNOWN_CMD, "ERROR ,unknown command\r\n" );
+                        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_INFO, 
+                            APP_MODEM_ERR_UNKNOWN_CMD, "ERROR: unknown command\r\n" );
 			break;
 		}
 

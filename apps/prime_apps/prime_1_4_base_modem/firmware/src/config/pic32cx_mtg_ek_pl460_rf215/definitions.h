@@ -58,10 +58,10 @@
 #include "service/usi/srv_usi_usart.h"
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "service/log_report/srv_log_report.h"
-#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
+#include "system/time/sys_time.h"
 #include "service/reset_handler/srv_reset_handler.h"
 #include "peripheral/trng/plib_trng.h"
 #include "service/rsniffer/srv_rsniffer.h"
@@ -86,6 +86,7 @@
 #include "stack/prime/hal_api/hal_api.h"
 #include "stack/prime/prime_api/prime_api.h"
 #include "stack/prime/prime_api/prime_api_defs.h"
+#include "stack/prime/prime_api/prime_api_types.h"
 #include "stack/prime/prime_api/prime_hal_wrapper.h"
 #include "stack/prime/mac/mac.h"
 #include "stack/prime/mac/mac_defs.h"
@@ -238,9 +239,9 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ drvRf215;
-    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
+    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  sysConsole0;
 
     SYS_MODULE_OBJ  sysDebug;

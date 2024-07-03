@@ -101,7 +101,6 @@ void APP_Initialize ( void )
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
 
-
     APP_Modem_Initialize();
     
     /* Initialize application variables */
@@ -128,6 +127,7 @@ void APP_Tasks ( void )
         appData.timerLedExpired = false;
         APP_BLINK_LED_Toggle();
     }
+    
     /* Check the application's current state. */
     switch ( appData.state )
     {
@@ -149,7 +149,7 @@ void APP_Tasks ( void )
 
         case APP_STATE_SERVICE_TASKS:
         {
-            APP_Modem_Process();
+            APP_Modem_Tasks();
             break;
         }
 

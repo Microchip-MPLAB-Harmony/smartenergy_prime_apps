@@ -805,6 +805,7 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asm.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sm3.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms_impl.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
