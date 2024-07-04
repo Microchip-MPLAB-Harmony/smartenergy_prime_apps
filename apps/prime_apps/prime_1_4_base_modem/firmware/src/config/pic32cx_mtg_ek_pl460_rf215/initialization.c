@@ -277,6 +277,19 @@ SYSTEM_OBJECTS sysObj;
 // *****************************************************************************
 // *****************************************************************************
 
+// <editor-fold defaultstate="collapsed" desc="PRIME Initialization Data">
+
+/* PRIME Initialization Data */
+static PRIME_STACK_INIT primeInitData = {
+    /* PAL index */
+    .palIndex = PRIME_PAL_INDEX,
+    
+    /* Management Plane USI port */
+    .mngPlaneUsiPort = PRIME_MNG_PLANE_USI_INDEX
+};
+
+// </editor-fold>
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -439,6 +452,10 @@ void SYS_Initialize ( void* data )
     sysObj.sysDebug = SYS_DEBUG_Initialize(SYS_DEBUG_INDEX_0, (SYS_MODULE_INIT*)&debugInit);
 
     /* MISRAC 2012 deviation block end */
+
+
+    /* Initialize PRIME */
+    sysObj.primeStack = PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&primeInitData);
 
 
     /* MISRAC 2012 deviation block end */

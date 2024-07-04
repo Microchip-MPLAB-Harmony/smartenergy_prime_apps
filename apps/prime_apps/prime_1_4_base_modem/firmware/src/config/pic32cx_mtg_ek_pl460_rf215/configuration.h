@@ -176,6 +176,10 @@ extern "C" {
 // Section: Middleware & Other Library Configuration
 // *****************************************************************************
 // *****************************************************************************
+/* PRIME Identification */
+#define PRIME_INDEX_0                               0U
+#define PRIME_INSTANCES_NUMBER                      1U
+
 /* Management Plane USI port */
 #define PRIME_MNG_PLANE_USI_INDEX                   0U
 

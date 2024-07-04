@@ -83,6 +83,7 @@
 #include "service/pcrc/srv_pcrc.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
+#include "stack/prime/prime_stack.h"
 #include "stack/prime/hal_api/hal_api.h"
 #include "stack/prime/prime_api/prime_api.h"
 #include "stack/prime/prime_api/prime_api_defs.h"
@@ -246,6 +247,7 @@ typedef struct
 
     SYS_MODULE_OBJ  sysDebug;
 
+    SYS_MODULE_OBJ primeStack;
 
     SYS_MODULE_OBJ srvUSI0;
 

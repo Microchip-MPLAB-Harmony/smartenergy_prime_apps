@@ -88,7 +88,10 @@ void SYS_Tasks ( void )
 
 
     /* Maintain Middleware & Other Libraries */
+        /* Maintain PRIME */
+    PRIME_Tasks(sysObj.primeStack);
     
+
     SRV_USI_Tasks(sysObj.srvUSI0);
 
 

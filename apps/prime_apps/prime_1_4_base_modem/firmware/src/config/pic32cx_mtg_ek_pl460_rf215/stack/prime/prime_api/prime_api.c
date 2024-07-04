@@ -66,7 +66,8 @@ Microchip or any third party.
 /* Configuration of the CORTEX-M4 Processor and Core Peripherals */
 /* PIC32CXMT */
 #define __NVIC_PRIO_BITS         4
-//#define NUM_MAX_NODES            25
+
+/* Security profile for PRIME 1.4 */
 #define MAC_SECURITY_PROFILE     0
 
 // *****************************************************************************

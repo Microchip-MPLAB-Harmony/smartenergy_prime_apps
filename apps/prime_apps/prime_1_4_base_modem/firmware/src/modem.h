@@ -145,8 +145,6 @@ typedef enum
 	APP_MODEM_BMNG_WHITELIST_ADD_REQUEST_CMD                    = 0x5B,
 	APP_MODEM_BMNG_WHITELIST_REMOVE_REQUEST_CMD                 = 0x5C,
 	APP_MODEM_BMNG_WHITELIST_ACK_CMD                            = 0x5D,
-
-	APP_MODEM_DEBUG_REPORT_CMD                                  = 0x5E,
             
     /* Modem application IPV6 request and confirm commands */
 	APP_MODEM_IPV6_ESTABLISH_REQUEST_CMD                        = 0x5F,
@@ -166,47 +164,27 @@ typedef enum
 	APP_MODEM_IPV6_MUL_LEAVE_CONFIRM_CMD                        = 0x6D,
             
     /* MLME MultiPhy request and confirm commands */
-	APP_MODEM_MLME_MP_PROMOTE_REQUEST_CMD                       = 0x6E,
-	APP_MODEM_MLME_MP_PROMOTE_CONFIRM_CMD                       = 0x6F,
-	APP_MODEM_MLME_MP_PROMOTE_INDICATION_CMD                    = 0x70,
-	APP_MODEM_MLME_MP_DEMOTE_REQUEST_CMD                        = 0x71,
-	APP_MODEM_MLME_MP_DEMOTE_CONFIRM_CMD                        = 0x72,
-	APP_MODEM_MLME_MP_DEMOTE_INDICATION_CMD                     = 0x73,
+	APP_MODEM_CL_NULL_MLME_MP_PROMOTE_REQUEST_CMD               = 0x6E,
+	APP_MODEM_CL_NULL_MLME_MP_PROMOTE_CONFIRM_CMD               = 0x6F,
+	APP_MODEM_CL_NULL_MLME_MP_PROMOTE_INDICATION_CMD            = 0x70,
+	APP_MODEM_CL_NULL_MLME_MP_DEMOTE_REQUEST_CMD                = 0x71,
+	APP_MODEM_CL_NULL_MLME_MP_DEMOTE_CONFIRM_CMD                = 0x72,
+	APP_MODEM_CL_NULL_MLME_MP_DEMOTE_INDICATION_CMD             = 0x73,
             
 	APP_MODEM_API_ERROR_CMD
 } APP_MODEM_PRIME_API_CMD;
 
-/* PRIME modem node enumeration
-
- Summary:
-    PRIME modem node types
-
- Description:
-    Different application mode node types.
-
- Remarks:
-    None.
-*/
-typedef enum 
-{
-	APP_MODEM_NODE_UNREGISTERED = 0,
-	APP_MODEM_NODE_REGISTERED   = 1,
-	APP_MODEM_NODE_SWITCH       = 2,
-	APP_MODEM_NODE_BASE         = 3
-} APP_MODEM_NODE_STATE;
+/* Errors in the modem application */
 
 #define APP_MODEM_ERR_UNKNOWN_CMD       9500
 #define APP_MODEM_ERR_MSG_TOO_BIG       9501
 #define APP_MODEM_ERR_QUEUE_FULL        9502
 
-/** \brief Modem interface */
+/* Modem interface */
 
 void APP_Modem_Initialize(void);
 void APP_Modem_Tasks(void);
 uint8_t APP_Modem_TxdataIndication(void);
 uint8_t APP_Modem_RxdataIndication(void);
-APP_MODEM_NODE_STATE APP_Modem_NodeState(void);
-void APP_Modem_DebugReport(uint32_t err_type);
-void APP_Modem_NetEventIndication(void *netEvent);
 
 #endif /* MODEM_H_INCLUDED */
