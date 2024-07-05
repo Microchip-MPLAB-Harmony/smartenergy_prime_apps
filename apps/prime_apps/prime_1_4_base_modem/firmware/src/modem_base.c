@@ -1617,7 +1617,7 @@ void APP_Modem_Initialize(void)
     sTxdataIndication = false;
 } 
 
-void App_Modem_Tasks(void)
+void APP_Modem_Tasks(void)
 {
     /* Check data reception */
     while(sAppModemMsgRecv[outputMsgRecvIndex].len) 
