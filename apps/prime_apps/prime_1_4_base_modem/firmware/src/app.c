@@ -142,7 +142,7 @@ void APP_Tasks ( void )
             if (timeHandle != SYS_TIME_HANDLE_INVALID)
             {
                 appData.state = APP_STATE_SERVICE_TASKS;
-                SYS_DEBUG_MESSAGE(SYS_ERROR_INFO, APP_STRING_HEADER);
+                SYS_CONSOLE_MESSAGE(APP_STRING_HEADER);
             }
             break;
         }

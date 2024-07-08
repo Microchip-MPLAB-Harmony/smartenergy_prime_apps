@@ -100,7 +100,6 @@ typedef struct
 #define APP_LED_BLINK_PERIOD_MS     500
 #define APP_STRING_HEADER "\r\n-- MCHP PRIME 1.4 Modem application for Base Node --\r\n" \
 	"-- Compiled: "__DATE__" "__TIME__" --\r\n" \
-	"-- HOST version: "DRV_PLC_PHY_HOST_DESC" --\r\n"
 
 #define APP_BLINK_LED_On()           LED_GREEN_On()
 #define APP_BLINK_LED_Off()          LED_GREEN_Off()
