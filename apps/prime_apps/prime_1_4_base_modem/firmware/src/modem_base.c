@@ -774,12 +774,12 @@ static void APP_Modem_USI_PRIME_ApiHandler(uint8_t *rxMsg, size_t inputLen)
         } 
         else 
         {/* ERROR ,Message too big */
-            PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_INFO, APP_MODEM_ERR_MSG_TOO_BIG, "ERROR: Message too big\r\n"); 
+            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, APP_MODEM_ERR_MSG_TOO_BIG, "ERROR: Message too big\r\n"); 
         }
     } 
     else 
     {/* Error, RX queue is full */
-        PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_INFO, APP_MODEM_ERR_QUEUE_FULL,"ERROR: RX queue full\r\n" );
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, APP_MODEM_ERR_QUEUE_FULL,"ERROR: RX queue full\r\n" );
     }
 
     return;
@@ -1106,28 +1106,29 @@ static void APP_Modem_PLME_SetRequestCmd(uint8_t *recvMsg)
     pib_attrib += *lMessage++;
     pib_size = *lMessage++;
     /* Check PIB size */
-    switch (pib_size) {
-    case 2: /* sizeof(uint16_t) */
-        /* Extract PIB value */
-        tmp_s = ((uint16_t)(*lMessage++)) << 8;
-        tmp_s += *lMessage++;
-        pibValue = (void *)(&tmp_s);
-        break;
+    switch (pib_size) 
+    {
+        case 2: /* sizeof(uint16_t) */
+            /* Extract PIB value */
+            tmp_s = ((uint16_t)(*lMessage++)) << 8;
+            tmp_s += *lMessage++;
+            pibValue = (void *)(&tmp_s);
+            break;
 
-    case 4: /* sizeof(uint32_t) */
-        /* Extract PIB value */
-        tmp_l = ((uint32_t)(*lMessage++) << 24);
-        tmp_l += ((uint32_t)(*lMessage++) << 16);
-        tmp_l += ((uint32_t)(*lMessage++) << 8);
-        tmp_l += (uint32_t)*lMessage++;
-        pibValue = (void *)(&tmp_l);
-        break;
+        case 4: /* sizeof(uint32_t) */
+            /* Extract PIB value */
+            tmp_l = ((uint32_t)(*lMessage++) << 24);
+            tmp_l += ((uint32_t)(*lMessage++) << 16);
+            tmp_l += ((uint32_t)(*lMessage++) << 8);
+            tmp_l += (uint32_t)*lMessage++;
+            pibValue = (void *)(&tmp_l);
+            break;
 
-    case 1: /* sizeof(uint8_t) */
-    default: /* arrays */
-        memcpy(pibValueBuf, lMessage, pib_size);
-        pibValue = (void *)pibValueBuf;
-        break;
+        case 1: /* sizeof(uint8_t) */
+        default: /* arrays */
+            memcpy(pibValueBuf, lMessage, pib_size);
+            pibValue = (void *)pibValueBuf;
+            break;
     }
 
     pch = ((uint16_t)(*lMessage++)) << 8;
@@ -1267,7 +1268,8 @@ static void APP_Modem_CL432DataRequestCmd(uint8_t *recvMsg)
     dst_address += *lMessage++;
     lsdu_len = ((uint16_t)(*lMessage++)) << 8;
     lsdu_len += *lMessage++;
-    if (lsdu_len <= CL_432_MAX_LENGTH_DATA) {
+    if(lsdu_len <= CL_432_MAX_LENGTH_DATA) 
+    {
         memcpy(buff_432.dl.buff, lMessage, lsdu_len);
         lMessage += lsdu_len;
         link_class = *lMessage++;
@@ -1628,189 +1630,190 @@ void APP_Modem_Tasks(void)
         /* Extract command */
         recvBuf = sAppModemMsgRecv[outputMsgRecvIndex].dataBuf;
         apiCmd = (APP_MODEM_PRIME_API_CMD)*recvBuf++;
-        switch (apiCmd) {
-        case APP_MODEM_CL_NULL_ESTABLISH_REQUEST_CMD:
-            APP_Modem_MacEstablishRequestCmd(recvBuf);
-            break;
+        switch (apiCmd) 
+        {
+            case APP_MODEM_CL_NULL_ESTABLISH_REQUEST_CMD:
+                APP_Modem_MacEstablishRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_ESTABLISH_RESPONSE_CMD:
-            APP_Modem_MacEstablishResponseCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_ESTABLISH_RESPONSE_CMD:
+                APP_Modem_MacEstablishResponseCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_RELEASE_REQUEST_CMD:
-            APP_Modem_MacReleaseRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_RELEASE_REQUEST_CMD:
+                APP_Modem_MacReleaseRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_RELEASE_RESPONSE_CMD:
-            APP_Modem_MacReleaseResponseCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_RELEASE_RESPONSE_CMD:
+                APP_Modem_MacReleaseResponseCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_432_REDIRECT_RESPONSE_CMD:
-            APP_Modem_MacRedirectResponseCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_432_REDIRECT_RESPONSE_CMD:
+                APP_Modem_MacRedirectResponseCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_JOIN_REQUEST_CMD:
-            APP_Modem_MacJoinRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_JOIN_REQUEST_CMD:
+                APP_Modem_MacJoinRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_JOIN_RESPONSE_CMD:
-            APP_Modem_MacJoinResponseCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_JOIN_RESPONSE_CMD:
+                APP_Modem_MacJoinResponseCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_LEAVE_REQUEST_CMD:
-            APP_Modem_MacLeaveRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_LEAVE_REQUEST_CMD:
+                APP_Modem_MacLeaveRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_DATA_REQUEST_CMD:
-            APP_Modem_MacDataRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_DATA_REQUEST_CMD:
+                APP_Modem_MacDataRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_PLME_RESET_REQUEST_CMD:
-            APP_Modem_PLME_ResetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_PLME_RESET_REQUEST_CMD:
+                APP_Modem_PLME_ResetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_PLME_SLEEP_REQUEST_CMD:
-            APP_Modem_PLME_SleepRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_PLME_SLEEP_REQUEST_CMD:
+                APP_Modem_PLME_SleepRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_PLME_RESUME_REQUEST_CMD:
-            APP_Modem_PLME_ResumeRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_PLME_RESUME_REQUEST_CMD:
+                APP_Modem_PLME_ResumeRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_PLME_TESTMODE_REQUEST_CMD:
-            /* Not implemented */
-            break;
+            case APP_MODEM_CL_NULL_PLME_TESTMODE_REQUEST_CMD:
+                /* Not implemented */
+                break;
 
-        case APP_MODEM_CL_NULL_PLME_GET_REQUEST_CMD:
-            APP_Modem_PLME_GetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_PLME_GET_REQUEST_CMD:
+                APP_Modem_PLME_GetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_PLME_SET_REQUEST_CMD:
-            APP_Modem_PLME_SetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_PLME_SET_REQUEST_CMD:
+                APP_Modem_PLME_SetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_MLME_PROMOTE_REQUEST_CMD:
-            APP_Modem_MLME_PromoteRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_MLME_PROMOTE_REQUEST_CMD:
+                APP_Modem_MLME_PromoteRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_MLME_MP_PROMOTE_REQUEST_CMD:
-            APP_Modem_MLME_MP_PromoteRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_MLME_MP_PROMOTE_REQUEST_CMD:
+                APP_Modem_MLME_MP_PromoteRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_MLME_RESET_REQUEST_CMD:
-            gPrimeApi->MlmeResetRequest();
-            break;
+            case APP_MODEM_CL_NULL_MLME_RESET_REQUEST_CMD:
+                gPrimeApi->MlmeResetRequest();
+                break;
 
-        case APP_MODEM_CL_NULL_MLME_GET_REQUEST_CMD:
-            APP_Modem_MLME_GetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_MLME_GET_REQUEST_CMD:
+                APP_Modem_MLME_GetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_MLME_LIST_GET_REQUEST_CMD:
-            APP_Modem_MLME_ListGetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_MLME_LIST_GET_REQUEST_CMD:
+                APP_Modem_MLME_ListGetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_NULL_MLME_SET_REQUEST_CMD:
-            APP_Modem_MLME_SetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_NULL_MLME_SET_REQUEST_CMD:
+                APP_Modem_MLME_SetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_432_RELEASE_REQUEST_CMD:
-            APP_Modem_CL432ReleaseRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_432_RELEASE_REQUEST_CMD:
+                APP_Modem_CL432ReleaseRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_CL_432_DL_DATA_REQUEST_CMD:
-            APP_Modem_CL432DataRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_432_DL_DATA_REQUEST_CMD:
+                APP_Modem_CL432DataRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_CLEAR_TARGET_REQUEST_CMD:
-            gPrimeApi->BmngFupClearTargetListRequest(
-                        APP_MODEM_BMNG_FUP_CLEAR_TARGET_REQUEST_CMD);
-            break;
+            case APP_MODEM_BMNG_FUP_CLEAR_TARGET_REQUEST_CMD:
+                gPrimeApi->BmngFupClearTargetListRequest(
+                            APP_MODEM_BMNG_FUP_CLEAR_TARGET_REQUEST_CMD);
+                break;
 
-        case APP_MODEM_BMNG_FUP_ADD_TARGET_REQUEST_CMD:
-            APP_Modem_BMNG_FupAddTargetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_ADD_TARGET_REQUEST_CMD:
+                APP_Modem_BMNG_FupAddTargetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_SET_FW_DATA_REQUEST_CMD:
-            APP_Modem_BMNG_FupSetFwDataRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_SET_FW_DATA_REQUEST_CMD:
+                APP_Modem_BMNG_FupSetFwDataRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_SET_UPGRADE_REQUEST_CMD:
-            APP_Modem_BMNG_FupSetUpgOptionRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_SET_UPGRADE_REQUEST_CMD:
+                APP_Modem_BMNG_FupSetUpgOptionRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_INIT_FILE_TX_REQUEST_CMD:
-            APP_Modem_BMNG_FupInitFileTxRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_INIT_FILE_TX_REQUEST_CMD:
+                APP_Modem_BMNG_FupInitFileTxRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_DATA_FRAME_REQUEST_CMD:
-            APP_Modem_BMNG_FupDataFrameRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_DATA_FRAME_REQUEST_CMD:
+                APP_Modem_BMNG_FupDataFrameRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_CHECK_CRC_REQUEST_CMD:
-            gPrimeApi->BmngFupCheckCrcRequest(
-                    APP_MODEM_BMNG_FUP_CHECK_CRC_REQUEST_CMD);
-            break;
+            case APP_MODEM_BMNG_FUP_CHECK_CRC_REQUEST_CMD:
+                gPrimeApi->BmngFupCheckCrcRequest(
+                        APP_MODEM_BMNG_FUP_CHECK_CRC_REQUEST_CMD);
+                break;
 
-        case APP_MODEM_BMNG_FUP_ABORT_FU_REQUEST_CMD:
-            APP_Modem_BMNG_FupAbortFuRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_ABORT_FU_REQUEST_CMD:
+                APP_Modem_BMNG_FupAbortFuRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_START_FU_REQUEST_CMD:
-            APP_Modem_BMNG_FupStartFuRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_START_FU_REQUEST_CMD:
+                APP_Modem_BMNG_FupStartFuRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_SET_MATCH_RULE_REQUEST_CMD:
-            APP_Modem_BMNG_FupSetMatchRuleRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_SET_MATCH_RULE_REQUEST_CMD:
+                APP_Modem_BMNG_FupSetMatchRuleRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_GET_VERSION_REQUEST_CMD:
-            APP_Modem_BMNG_FupGetVersionRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_GET_VERSION_REQUEST_CMD:
+                APP_Modem_BMNG_FupGetVersionRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_GET_STATE_REQUEST_CMD:
-            APP_Modem_BMNG_FupGetStateRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_GET_STATE_REQUEST_CMD:
+                APP_Modem_BMNG_FupGetStateRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_FUP_SET_SIGNATURE_DATA_REQUEST_CMD:
-            APP_Modem_BMNG_FupSetSigDataRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_FUP_SET_SIGNATURE_DATA_REQUEST_CMD:
+                APP_Modem_BMNG_FupSetSigDataRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_PPROF_GET_REQUEST_CMD:
-            APP_Modem_BMNG_PprofGetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_PPROF_GET_REQUEST_CMD:
+                APP_Modem_BMNG_PprofGetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_PPROF_SET_REQUEST_CMD:
-            APP_Modem_BMNG_PprofSetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_PPROF_SET_REQUEST_CMD:
+                APP_Modem_BMNG_PprofSetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_PPROF_RESET_REQUEST_CMD:
-            APP_Modem_BMNG_PprofResetRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_PPROF_RESET_REQUEST_CMD:
+                APP_Modem_BMNG_PprofResetRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_PPROF_REBOOT_REQUEST_CMD:
-            APP_Modem_BMNG_PprofRebootRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_PPROF_REBOOT_REQUEST_CMD:
+                APP_Modem_BMNG_PprofRebootRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_PPROF_GET_ENHANCED_REQUEST_CMD:
-            APP_Modem_BMNG_PprofGetEnhancedRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_PPROF_GET_ENHANCED_REQUEST_CMD:
+                APP_Modem_BMNG_PprofGetEnhancedRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_PPROF_ZC_DIFF_REQUEST_CMD:
-            APP_Modem_BMNG_PprofZcDiffRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_PPROF_ZC_DIFF_REQUEST_CMD:
+                APP_Modem_BMNG_PprofZcDiffRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_WHITELIST_ADD_REQUEST_CMD:
-            APP_Modem_BMNG_WhitelistAddRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_WHITELIST_ADD_REQUEST_CMD:
+                APP_Modem_BMNG_WhitelistAddRequestCmd(recvBuf);
+                break;
 
-        case APP_MODEM_BMNG_WHITELIST_REMOVE_REQUEST_CMD:
-            APP_Modem_BMNG_WhitelistRemoveRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_BMNG_WHITELIST_REMOVE_REQUEST_CMD:
+                APP_Modem_BMNG_WhitelistRemoveRequestCmd(recvBuf);
+                break;
 
-        default:
-            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_INFO, 
-                APP_MODEM_ERR_UNKNOWN_CMD, "ERROR: unknown command\r\n" );
-            break;
+            default:
+                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, 
+                    APP_MODEM_ERR_UNKNOWN_CMD, "ERROR: unknown command\r\n" );
+                break;
         }
 
         sAppModemMsgRecv[outputMsgRecvIndex].len = 0;
