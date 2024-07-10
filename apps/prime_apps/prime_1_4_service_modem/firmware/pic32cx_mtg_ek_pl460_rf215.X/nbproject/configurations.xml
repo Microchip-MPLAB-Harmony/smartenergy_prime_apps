@@ -1,0 +1,1022 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="65">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_mtg_ek_pl460_rf215"
+                       displayName="pic32cx_mtg_ek_pl460_rf215"
+                       projectFiles="true">
+          <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/bsp/bsp.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
+            <logicalFolder name="common_crypto"
+                           displayName="common_crypto"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Sym_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Hash_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Aead_Cipher.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Aead_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Kas_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_DigSign.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Common_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng_HwWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Hash.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Aead_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Kas_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Common.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_DigSign_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Sym_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Mac_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Mac_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Kas.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Mac_Cipher.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng_WolfcryptWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_DigSign_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Hash_Config.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers/drv_crypto_trng_hw_6334.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/wolfcrypt/config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/wolfcrypt/user_settings.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <logicalFolder name="plc" displayName="plc" projectFiles="true">
+              <logicalFolder name="common" displayName="common" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/common/drv_plc_hal.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/common/drv_plc_boot.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy_local_comm.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy_definitions.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy_local.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
+              <logicalFolder name="hal" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/hal/rf215_hal.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/phy/rf215_phy.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/phy/ieee_15_4_sun_ofdm.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/phy/ieee_15_4_sun_fsk.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/drv_rf215_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/drv_rf215.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/drv_rf215_local.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/driver.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/driver_common.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="osal" displayName="osal" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/osal/osal_definitions.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/osal/osal.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/osal/osal_impl_basic.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="clk" displayName="clk" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/clk/plib_clk.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/cmcc/plib_cmcc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dwdt" displayName="dwdt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/dwdt/plib_dwdt.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="flexcom" displayName="flexcom" projectFiles="true">
+              <logicalFolder name="spi" displayName="spi" projectFiles="true">
+                <logicalFolder name="master" displayName="master" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom_spi_master_common.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h</itemPath>
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="usart" displayName="usart" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom7_usart.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom0_usart.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom_usart_local.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/nvic/plib_nvic.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pio" displayName="pio" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/pio/plib_pio.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rstc" displayName="rstc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/rstc/plib_rstc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/sefc/plib_sefc0.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/sefc/plib_sefc1.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/sefc/plib_sefc_common.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="supc" displayName="supc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/supc/plib_supc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="tc" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/tc/plib_tc_common.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/tc/plib_tc0.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="trng" displayName="trng" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/trng/plib_trng.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/log_report/srv_log_report.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pcoup/srv_pcoup.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pcrc/srv_pcrc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="psniffer" displayName="psniffer" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/psniffer/srv_psniffer.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="queue" displayName="queue" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/queue/srv_queue.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/random/srv_random.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="reset_handler"
+                           displayName="reset_handler"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/reset_handler/srv_reset_handler.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/rsniffer/srv_rsniffer.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="security" displayName="security" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/aes_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/cipher_wrapper.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="storage" displayName="storage" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/storage/srv_storage.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time_management"
+                           displayName="time_management"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/time_management/srv_time_management.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="user_pib" displayName="user_pib" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/user_pib/srv_user_pib.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="usi" displayName="usi" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_usart.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_definitions.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stack" displayName="stack" projectFiles="true">
+            <logicalFolder name="pal" displayName="pal" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf_rm.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_types.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc_rm.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf_local.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="prime" displayName="prime" projectFiles="true">
+              <logicalFolder name="conv" displayName="conv" projectFiles="true">
+                <logicalFolder name="sscs" displayName="sscs" projectFiles="true">
+                  <logicalFolder name="iec_4_32" displayName="iec_4_32" projectFiles="true">
+                    <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/conv/sscs/iec_4_32/cl_432_defs.h</itemPath>
+                  </logicalFolder>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="hal_api" displayName="hal_api" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/hal_api/hal_api.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="mac" displayName="mac" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/mac/mac_defs.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/mac/mac_pib.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="prime_api" displayName="prime_api" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/prime_api/prime_api_types.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/prime_api/prime_api_defs.h</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/prime_api/prime_api.h</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/prime_stack_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/prime_stack.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="system" displayName="system" projectFiles="true">
+            <logicalFolder name="cache" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/cache/sys_cache.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="console" displayName="console" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/sys_console.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="debug" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/src/sys_debug_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/sys_debug.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="int" displayName="int" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/int/sys_int_mapping.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/int/sys_int.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="ports" displayName="ports" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/ports/sys_ports_mapping.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/ports/sys_ports.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time" displayName="time" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/time/sys_time_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/time/src/sys_time_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/time/sys_time.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system_module.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system_common.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system.h</itemPath>
+          </logicalFolder>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/device.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/device_cache.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/sys_tasks.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/device_vectors.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto_config.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/interrupts.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/configuration.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/definitions.h</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/user.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="packs" displayName="packs" projectFiles="true">
+        <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+          <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+            <logicalFolder name="Core" displayName="Core" projectFiles="true">
+              <logicalFolder name="Include" displayName="Include" projectFiles="true">
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="PIC32CX2051MTG128_DFP"
+                       displayName="PIC32CX2051MTG128_DFP"
+                       projectFiles="true">
+          <logicalFolder name="component" displayName="component" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/gpbr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/slcdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/dwdt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/mem2mem.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/matrix.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/chipid.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/sfrbu.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/osc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/qspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/aesb.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/uart.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/rtt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/pwm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/cpkcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/adc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/sha.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/sefc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/acc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/syscwp.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/cmcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/fuses.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/mcspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/pdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/flexcom.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/sfr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/pmc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/aes.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/pio.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="instance" displayName="instance" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/chipid.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/supc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/slcdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sfr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/mem2mem0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/mem2mem1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/cpkcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sha.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/dwdt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/syscwp.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/rstc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sefc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sfrbu.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/rtt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/pio1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sefc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/mcspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/aesb.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/pio0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/pwm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/tc3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/icm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/tc2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/qspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/gpbr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom7.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/tc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/matrix1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/acc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/tc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom6.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/cmcc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/matrix3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/matrix2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom5.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/uart.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/adc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/cmcc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/pmc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom4.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/fuses.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/matrix0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/trng.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/aes.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="pio" displayName="pio" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/pio/pic32cx2051mtg128.h</itemPath>
+          </logicalFolder>
+          <itemPath>../src/packs/PIC32CX2051MTG128_DFP/pic32cx2051mtg128.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="third_party" displayName="third_party" projectFiles="true">
+        <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
+          <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+            <logicalFolder name="port" displayName="port" projectFiles="true">
+              <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+                <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/port/pic32/pic32mz-crypt.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_kyber.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pwdbased.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_lms.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_lms.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/aes.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rsa.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/falcon.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/coding.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/tfm.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn_public.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs7.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/compress.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dilithium.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md4.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/srp.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sp_int.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/poly1305.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md5.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_class.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/lms.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/random.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm3.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/siphash.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hpke.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-int.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/camellia.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/arc4.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cpuid.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm2.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_xmss.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_448.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/asn.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm4.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/eccsi.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sakke.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rc2.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve25519.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha512.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sphincs.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs12.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fe_operations.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-impl.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_operations.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/settings.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cryptocb.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs11.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_xmss.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kyber.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_kyber.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/misc.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/xmss.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/des3.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_pkcs11.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hmac.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/curve448.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mem_track.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha20_poly1305.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
+      <itemPath>../src/app.h</itemPath>
+      <itemPath>../src/modem.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>prime_14_sn_modem_pic32cx_mtg_ek_pl460_rf215.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_mtg_ek_pl460_rf215"
+                       displayName="pic32cx_mtg_ek_pl460_rf215"
+                       projectFiles="true">
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/PIC32CX2051MTG128.ld</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_mtg_ek_pl460_rf215"
+                       displayName="pic32cx_mtg_ek_pl460_rf215"
+                       projectFiles="true">
+          <logicalFolder name="bsp" displayName="bsp" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/bsp/bsp.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
+            <logicalFolder name="common_crypto"
+                           displayName="common_crypto"
+                           projectFiles="true">
+              <logicalFolder name="src" displayName="src" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Rng_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Aead_Cipher.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Mac_Cipher.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_DigSign.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Kas_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Hash.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Mac_WolfCryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Sym_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Rng_HwWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Hash_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Rng.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_DigSign_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Sym_Cipher.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Aead_WolfCryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Common_WolfcryptWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Kas.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+              <logicalFolder name="src" displayName="src" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers/src/drv_crypto_trng_hw_6334.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <logicalFolder name="plc" displayName="plc" projectFiles="true">
+              <logicalFolder name="common" displayName="common" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/common/drv_plc_hal.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/common/drv_plc_boot.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <logicalFolder name="bin" displayName="bin" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
+                </logicalFolder>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="rf215" displayName="rf215" projectFiles="true">
+              <logicalFolder name="hal" displayName="hal" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/hal/rf215_hal.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="phy" displayName="phy" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/phy/rf215_phy.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/drv_rf215.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="clk" displayName="clk" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/clk/plib_clk.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/cmcc/plib_cmcc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dwdt" displayName="dwdt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/dwdt/plib_dwdt.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="flexcom" displayName="flexcom" projectFiles="true">
+              <logicalFolder name="spi" displayName="spi" projectFiles="true">
+                <logicalFolder name="master" displayName="master" projectFiles="true">
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom3_spi_master.c</itemPath>
+                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/spi/master/plib_flexcom5_spi_master.c</itemPath>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="usart" displayName="usart" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom7_usart.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/flexcom/usart/plib_flexcom0_usart.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/nvic/plib_nvic.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pio" displayName="pio" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/pio/plib_pio.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rstc" displayName="rstc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/rstc/plib_rstc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/sefc/plib_sefc1.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/sefc/plib_sefc0.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="supc" displayName="supc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/supc/plib_supc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="tc" displayName="tc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/tc/plib_tc0.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="trng" displayName="trng" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/trng/plib_trng.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/log_report/srv_log_report.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pcoup" displayName="pcoup" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pcoup/srv_pcoup.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pcrc/srv_pcrc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="psniffer" displayName="psniffer" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/psniffer/srv_psniffer.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="queue" displayName="queue" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/queue/srv_queue.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/random/srv_random.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="reset_handler"
+                           displayName="reset_handler"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/reset_handler/srv_reset_handler.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/rsniffer/srv_rsniffer.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="security" displayName="security" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/aes_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/security/cipher_wrapper.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="storage" displayName="storage" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/storage/srv_storage.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time_management"
+                           displayName="time_management"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/time_management/srv_time_management.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="user_pib" displayName="user_pib" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/user_pib/srv_user_pib.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="usi" displayName="usi" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_usart.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stack" displayName="stack" projectFiles="true">
+            <logicalFolder name="pal" displayName="pal" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_rf_rm.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/pal/pal_plc_rm.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="prime" displayName="prime" projectFiles="true">
+              <logicalFolder name="hal_api" displayName="hal_api" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/hal_api/hal_api.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="prime_api" displayName="prime_api" projectFiles="true">
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/prime_api/prime_api.c</itemPath>
+              </logicalFolder>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/prime_stack.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/stdio/xc32_monitor.c</itemPath>
+          </logicalFolder>
+          <logicalFolder name="system" displayName="system" projectFiles="true">
+            <logicalFolder name="cache" displayName="cache" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/cache/sys_cache.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="console" displayName="console" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console_uart.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/console/src/sys_console.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="debug" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/debug/src/sys_debug.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="int" displayName="int" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/int/src/sys_int.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time" displayName="time" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/time/src/sys_time.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/tasks.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/exceptions.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/initialization.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/interrupts.c</itemPath>
+          <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/startup_xc32.c</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="third_party" displayName="third_party" projectFiles="true">
+        <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
+          <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+            <logicalFolder name="port" displayName="port" projectFiles="true">
+              <logicalFolder name="pic32" displayName="pic32" projectFiles="true">
+                <itemPath>../src/third_party/wolfssl/wolfcrypt/src/port/pic32/pic32mz-crypt.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="src" displayName="src" projectFiles="true">
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/dilithium.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ge_low_mem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/cmac.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/rsa.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/cryptocb.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hpke.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/md5.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sm4.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/falcon.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/arc4.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha256.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/coding.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/dsa.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/signature.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_dsp32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ecc_fp.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_xmss.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sm2.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_xmss.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_x86_64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sm3.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/fe_448.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/tfm.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/kdf.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_arm64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_armthumb.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_c64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_armthumb.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sphincs.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pkcs7.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ed448.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/dh.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_cortexm.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ecc.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/md2.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/error.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sakke.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/eccsi.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/logging.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/srp.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/curve448.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/chacha20_poly1305.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/md4.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asn.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pkcs12.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha512.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/chacha.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_xmss_impl.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/fe_low_mem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/des3.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/siphash.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_x86_64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_c64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber_poly.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hmac.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_arm32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/cpuid.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asm.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ge_operations.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ripemd.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/blake2s.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/random.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_c32.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_lms.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/blake2b.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha3.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/compress.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hash.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_port.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/poly1305.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/camellia.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/rc2.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/aes.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/integer.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_kyber.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/memory.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
+            <logicalFolder name="src" displayName="src" projectFiles="true">
+              <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+                <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/misc.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/src/evp.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+      </logicalFolder>
+      <itemPath>../src/app.c</itemPath>
+      <itemPath>../src/main.c</itemPath>
+      <itemPath>../src/modem_service.c</itemPath>
+      <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/pin_configurations.csv</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../src</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="pic32cx_mtg_ek_pl460_rf215" type="2">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>PIC32CX2051MTG128</targetDevice>
+        <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
+        <platformTool>noID</platformTool>
+        <languageToolchain>XC32</languageToolchain>
+        <languageToolchainVersion>4.40</languageToolchainVersion>
+        <platform>3</platform>
+      </toolsSet>
+      <packs>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.3.132"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+      </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+          </linkerLibItems>
+        </linkerTool>
+        <archiverTool>
+        </archiverTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <parseOnProdLoad>false</parseOnProdLoad>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
+        <subordinates>
+        </subordinates>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeUseCleanTarget>false</makeUseCleanTarget>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
+      </makeCustomizationType>
+      <C32>
+        <property key="additional-warnings" value="true"/>
+        <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215;../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers;../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/wolfcrypt;../src/config/pic32cx_mtg_ek_pl460_rf215_X;../src/config/pic32cx_mtg_ek_pl460_rf215_X/crypto/drivers;../src/config/pic32cx_mtg_ek_pl460_rf215_X/crypto/wolfcrypt;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="true"/>
+        <property key="make-warnings-into-errors" value="true"/>
+        <property key="optimization-level" value="-O1"/>
+        <property key="place-data-into-section" value="true"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros"
+                  value="HAVE_CONFIG_H;WOLFSSL_IGNORE_FILE_WARN;WOLFSSL_USER_SETTINGS"/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="tentative-definitions" value="-fno-common"/>
+        <property key="toplevel-reordering" value=""/>
+        <property key="unaligned-access" value=""/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32>
+      <C32-AR>
+        <property key="additional-options-chop-files" value="false"/>
+      </C32-AR>
+      <C32-AS>
+        <property key="appendMe" value=""/>
+        <property key="assembler-symbols" value=""/>
+        <property key="enable-symbols" value="true"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="expand-macros" value="false"/>
+        <property key="extra-include-directories-for-assembler"
+                  value="../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/bin;../src/config/pic32cx_mtg_ek_pl460_rf215_X/driver/plc/phy/bin"/>
+        <property key="extra-include-directories-for-preprocessor" value=""/>
+        <property key="false-conditionals" value="false"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="oXC32asm-list-to-file" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="warning-level" value=""/>
+      </C32-AS>
+      <C32-CO>
+        <property key="coverage-enable" value=""/>
+        <property key="stack-guidance" value="false"/>
+      </C32-CO>
+      <C32-LD>
+        <property key="additional-options-use-response-files" value="false"/>
+        <property key="additional-options-write-sla" value="false"/>
+        <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
+        <property key="code-dinit" value="false"/>
+        <property key="ebase-addr" value=""/>
+        <property key="enable-check-sections" value="false"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="exclude-standard-libraries" value="false"/>
+        <property key="extra-lib-directories" value=""/>
+        <property key="fill-flash-options-addr" value=""/>
+        <property key="fill-flash-options-const" value=""/>
+        <property key="fill-flash-options-how" value="0"/>
+        <property key="fill-flash-options-inc-const" value="1"/>
+        <property key="fill-flash-options-increment" value=""/>
+        <property key="fill-flash-options-seq" value=""/>
+        <property key="fill-flash-options-what" value="0"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="heap-size" value="512"/>
+        <property key="input-libraries" value=""/>
+        <property key="kseg-length" value=""/>
+        <property key="kseg-origin" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
+        <property key="no-device-startup-code" value="true"/>
+        <property key="no-startup-files" value="false"/>
+        <property key="oXC32ld-extra-opts" value=""/>
+        <property key="optimization-level" value=""/>
+        <property key="preprocessor-macros"
+                  value="RAM_LENGTH=0x75000;RAM_ORIGIN=0x20000000;ROM_LENGTH=0xf0000;ROM_ORIGIN=0x1010000"/>
+        <property key="remove-unused-sections" value="true"/>
+        <property key="report-memory-usage" value="false"/>
+        <property key="serial-length" value=""/>
+        <property key="serial-origin" value=""/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value=""/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
+      </C32-LD>
+      <C32CPP>
+        <property key="additional-warnings" value="false"/>
+        <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
+        <property key="check-new" value="false"/>
+        <property key="eh-specs" value="true"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exceptions" value="true"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215;../src/config/pic32cx_mtg_ek_pl460_rf215_X;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="true"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value="-O1"/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="rtti" value="true"/>
+        <property key="strict-ansi" value="false"/>
+        <property key="toplevel-reordering" value=""/>
+        <property key="unaligned-access" value=""/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32CPP>
+      <C32Global>
+        <property key="appendMe" value=""/>
+        <property key="common-include-directories" value=""/>
+        <property key="gp-relative-option" value=""/>
+        <property key="legacy-libc" value="false"/>
+        <property key="mdtcm" value=""/>
+        <property key="mitcm" value=""/>
+        <property key="mstacktcm" value="false"/>
+        <property key="omit-pack-options" value="1"/>
+        <property key="relaxed-math" value="false"/>
+        <property key="save-temps" value="false"/>
+        <property key="stack-smashing" value=""/>
+        <property key="wpo-lto" value="false"/>
+      </C32Global>
+    </conf>
+  </confs>
+</configurationDescriptor>
