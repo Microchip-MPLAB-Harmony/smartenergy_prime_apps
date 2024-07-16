@@ -211,7 +211,7 @@ typedef enum APP_MODEM_NODE_STATE_tag
 /* Modem interface */
 
 void APP_Modem_Initialize(void);
-void APP_Modem_Process(void);
+void APP_Modem_Tasks(void);
 uint8_t APP_Modem_TxdataIndication(void);
 uint8_t APP_Modem_RxdataIndication(void);
 APP_MODEM_NODE_STATE APP_Modem_NodeState(void);

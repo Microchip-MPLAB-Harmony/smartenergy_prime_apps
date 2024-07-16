@@ -28,6 +28,9 @@
 // *****************************************************************************
 
 #include "app.h"
+#include "definitions.h"
+#include "user.h"
+#include "modem.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -51,6 +54,20 @@
 */
 
 APP_DATA appData;
+
+/* Pointer to the PRIME stack in internal flash */
+//uint32_t gPrimeApiLocation;
+/* New stack pointer */
+//static uint32_t sNewPrimeApiLocation;
+
+/* Enable swapping of stack location */
+//static uint32_t volatile sFuSwapEn;
+//static uint32_t volatile sStackSwapEn;
+
+/* PRIME regions configuration */
+//x_fu_region_cfg_t sx_prime_reg[PRIME_NUM_REGIONS];
+
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -78,6 +95,13 @@ APP_DATA appData;
 // *****************************************************************************
 // *****************************************************************************
 
+static void _APP_TimeExpiredSetFlag(uintptr_t context)
+{
+    /* Context holds the flag's address */
+    *((bool *) context) = true;
+}
+
+
 /*******************************************************************************
   Function:
     void APP_Initialize ( void )
@@ -91,11 +115,10 @@ void APP_Initialize ( void )
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
 
-
-
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+    APP_Modem_Initialize();
+    
+    /* Initialize application variables */
+    appData.timerLedExpired = false;
 }
 
 
@@ -109,37 +132,44 @@ void APP_Initialize ( void )
 
 void APP_Tasks ( void )
 {
+    /* Refresh Watchdog */
+    CLEAR_WATCHDOG();
 
+    /* Signaling: LED Toggle */
+    if (appData.timerLedExpired == true)
+    {
+        appData.timerLedExpired = false;
+        APP_BLINK_LED_Toggle();
+    }
+    
     /* Check the application's current state. */
     switch ( appData.state )
     {
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
-            bool appInitialized = true;
+            /* Register timer callback to blink LED */
+            SYS_TIME_HANDLE timeHandle = SYS_TIME_CallbackRegisterMS(
+                    _APP_TimeExpiredSetFlag, (uintptr_t) &appData.timerLedExpired,
+                    APP_LED_BLINK_PERIOD_MS, SYS_TIME_PERIODIC);
 
-
-            if (appInitialized)
+            if (timeHandle != SYS_TIME_HANDLE_INVALID)
             {
-
                 appData.state = APP_STATE_SERVICE_TASKS;
+                SYS_CONSOLE_MESSAGE(APP_STRING_HEADER);
             }
             break;
         }
 
         case APP_STATE_SERVICE_TASKS:
         {
-
+            APP_Modem_Tasks();
             break;
         }
-
-        /* TODO: implement your application state machine.*/
-
 
         /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }

@@ -797,36 +797,6 @@ static void APP_Modem_SetCallbacks(void)
     gPrimeApi->Cl432SetCallbacks(&cl432_callbacks);
 }
 
-void APP_Modem_Initialize(void)
-{
-	/* Initialize the reception queue */
-    inputMsgRecvIndex = 0;
-    outputMsgRecvIndex = 0;
-
-    memset(sAppModemMsgRecv,0,sizeof(sAppModemMsgRecv));
-    
-    /* Get PRIME API */
-    PRIME_API_GetPrime14API(&gPrimeApi);
-
-    /* Set callback functions */
-    APP_Modem_SetCallbacks();
-
-    /* Open USI */
-    gUsiHandle = SRV_USI_Open(SRV_USI_INDEX_0);
-
-    /* Configure USI protocol handler */
-    SRV_USI_CallbackRegister(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, 
-                                APP_Modem_USI_PRIME_ApiHandler);
-
-    /* Initialize TxRx data indicators */
-    sRxdataIndication = false;
-    sTxdataIndication = false;
-
-	/* Reset node state */
-	sAppNodeState = APP_MODEM_NODE_UNREGISTERED;
-
-}
-
 static void APP_Modem_MacEstablishRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
@@ -930,13 +900,6 @@ static void APP_Modem_MacJoinRequestCmd(uint8_t *recvMsg)
 	gPrimeApi->MacJoinRequest((MAC_JOIN_REQUEST_MODE)broadcast, 0, NULL, (MAC_CONNECTION_TYPE)con_type, dataBuf, data_len, ae);
 }
 
-/**
- * MAC Join Response
- * - conHandle:        Unique identifier of the connection
- * - puc_eui48:            Address of the node which requested the multicast group join (only valid for base node)
- * - uc_answer:            Action to be taken for this join request
- * - ae (v1.4):         Flag to indicate that authentication and encryption is requested
- */
 static void APP_Modem_MacJoinResponseCmd(uint8_t *recvMsg)
 {
 	uint8_t *lMessage;
@@ -1302,6 +1265,51 @@ static void APP_Modem_CL432DLDataRequestCmd(uint8_t *recvMsg)
 
     /* Tx data indication */
     sTxdataIndication = true;
+}
+
+void APP_Modem_Initialize(void)
+{
+     /* Get the PRIME version */
+    SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
+    /* Initialize the reception queue */
+    inputMsgRecvIndex = 0;
+    outputMsgRecvIndex = 0;
+
+    SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, sizeof(boardInfo), 
+                              (void *)&boardInfo);
+    
+    /* Get PRIME API pointer */
+    switch (boardInfo.primeVersion) 
+    {
+        case PRIME_VERSION_1_3:
+            PRIME_API_GetPrime13API(&gPrimeApi);
+            break;
+
+        case PRIME_VERSION_1_4:
+        default:
+            PRIME_API_GetPrime14API(&gPrimeApi);
+            break;
+    }
+
+    memset(sAppModemMsgRecv,0,sizeof(sAppModemMsgRecv));
+    
+    /* Set callback functions */
+    APP_Modem_SetCallbacks();
+
+    /* Open USI */
+    gUsiHandle = SRV_USI_Open(SRV_USI_INDEX_0);
+
+    /* Configure USI protocol handler */
+    SRV_USI_CallbackRegister(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, 
+                                APP_Modem_USI_PRIME_ApiHandler);
+
+    /* Initialize TxRx data indicators */
+    sRxdataIndication = false;
+    sTxdataIndication = false;
+
+	/* Reset node state */
+	sAppNodeState = APP_MODEM_NODE_UNREGISTERED;
+
 }
 
 void APP_Modem_Tasks(void)

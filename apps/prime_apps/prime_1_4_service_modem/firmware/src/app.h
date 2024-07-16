@@ -46,7 +46,14 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+/** Enable swapping of FU location */
+# define APP_FU_ENABLE_SWAP         0XFE45EC48
+/** Enable swapping of stack */
+# define APP_STACK_ENABLE_SWAP      0XEF54CE84
 
+/* time to show messages in display */
+# define APP_SHOW_MESSAGE_TIME   (500)
+    
 // *****************************************************************************
 /* Application states
 
@@ -63,7 +70,6 @@ typedef enum
     /* Application's state machine's initial state. */
     APP_STATE_INIT=0,
     APP_STATE_SERVICE_TASKS,
-    /* TODO: Define states used by the application state machine. */
 
 } APP_STATES;
 
@@ -86,9 +92,26 @@ typedef struct
     /* The application's current state */
     APP_STATES state;
 
-    /* TODO: Define any additional data used by the application. */
+    /* Flag to indicate if LED blinking time has expired */
+    bool timerLedExpired;
 
 } APP_DATA;
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: User Configuration macros
+// *****************************************************************************
+// *****************************************************************************
+/* Period to blink LED in milliseconds */
+#define APP_LED_BLINK_PERIOD_MS     500
+#define APP_STRING_HEADER "\r\n-- MCHP PRIME 1.4 Modem application for Service Node --\r\n" \
+	"-- Compiled: "__DATE__" "__TIME__" --\r\n" \
+
+#define APP_BLINK_LED_On()           LED_GREEN_On()
+#define APP_BLINK_LED_Off()          LED_GREEN_Off()
+#define APP_BLINK_LED_Toggle()       LED_GREEN_Toggle()
+    
+#define CLEAR_WATCHDOG()             DWDT_WDT0_Clear()
 
 // *****************************************************************************
 // *****************************************************************************
