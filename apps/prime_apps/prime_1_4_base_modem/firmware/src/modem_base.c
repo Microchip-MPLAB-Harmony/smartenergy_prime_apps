@@ -27,7 +27,7 @@
 
 #define MAX_LENGTH_BUFF    CL_432_MAX_LENGTH_DATA
 
-/* buffer used to tx serialization */
+/* Buffer used to tx serialization */
 static uint8_t appSerialBuf[MAX_LENGTH_BUFF];
 
 PRIME_API *gPrimeApi;
@@ -52,34 +52,6 @@ static uint8_t sRxdataIndication;
 static uint8_t sTxdataIndication;
 
 static void APP_Modem_SetCallbacks(void);
-
-/* Data transmission indication function */
-uint8_t APP_Modem_TxdataIndication(void)
-{
-    if (sTxdataIndication) 
-    {
-        sTxdataIndication = false;
-        return true;
-    } 
-    else 
-    {
-        return false;
-    }
-}
-
-/* Data reception indication function */
-uint8_t APP_Modem_RxdataIndication(void)
-{
-    if(sRxdataIndication) 
-    {
-        sRxdataIndication = false;
-        return true;
-    } 
-    else
-    {
-        return false;
-    }
-}
 
 static void APP_Modem_EstablishIndication(uint16_t conHandle, uint8_t *eui48, 
         uint8_t type, uint8_t *data, uint16_t dataLen, uint8_t cfbytes, 
@@ -427,15 +399,15 @@ static void APP_Modem_MLME_ResetConfirm(MLME_RESULT result)
                          serialLen);
 }
 
-static void APP_Modem_MLME_GetConfirm(MLME_RESULT x_status, 
-        uint16_t pibAttrib, void *pibValue, uint8_t pibSize)
+static void APP_Modem_MLME_GetConfirm(MLME_RESULT status, uint16_t pibAttrib, 
+                                      void *pibValue, uint8_t pibSize)
 {
     uint16_t serialLen = 0U;
-    uint16_t temp_s;
-    uint32_t temp_h;
+    uint16_t temp16;
+    uint32_t temp32;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_MLME_GET_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_status;
+    appSerialBuf[serialLen++] = status;
     appSerialBuf[serialLen++] = (uint8_t)(pibAttrib >> 8);
     appSerialBuf[serialLen++] = (uint8_t)(pibAttrib);
     appSerialBuf[serialLen++] = pibSize;
@@ -445,19 +417,19 @@ static void APP_Modem_MLME_GetConfirm(MLME_RESULT x_status,
     {
         case 2:
             /* Extract value */
-            temp_s = *((uint16_t *)pibValue);
+            temp16 = *((uint16_t *)pibValue);
             /* Copy value into buffer with MSB in MSB */
-            appSerialBuf[serialLen++] = (uint8_t)(temp_s >> 8);
-            appSerialBuf[serialLen++] = (uint8_t)temp_s;
+            appSerialBuf[serialLen++] = (uint8_t)(temp16 >> 8);
+            appSerialBuf[serialLen++] = (uint8_t)temp16;
             break;
 
         case 4:
-            temp_h = *((uint32_t *)pibValue);
+            temp32 = *((uint32_t *)pibValue);
             /* Copy value into buffer with MSB in MSB */
-            appSerialBuf[serialLen++] = (uint8_t)(temp_h >> 24);
-            appSerialBuf[serialLen++] = (uint8_t)(temp_h >> 16);
-            appSerialBuf[serialLen++] = (uint8_t)(temp_h >> 8);
-            appSerialBuf[serialLen++] = (uint8_t)temp_h;
+            appSerialBuf[serialLen++] = (uint8_t)(temp32 >> 24);
+            appSerialBuf[serialLen++] = (uint8_t)(temp32 >> 16);
+            appSerialBuf[serialLen++] = (uint8_t)(temp32 >> 8);
+            appSerialBuf[serialLen++] = (uint8_t)temp32;
             break;
 
         default:
@@ -472,19 +444,19 @@ static void APP_Modem_MLME_GetConfirm(MLME_RESULT x_status,
                          serialLen);
 }
 
-static void APP_Modem_MLME_ListGetConfirm(MLME_RESULT x_status, 
-        uint16_t pibAttrib, uint8_t *pib_buff, uint16_t pib_len)
+static void APP_Modem_MLME_ListGetConfirm(MLME_RESULT status, uint16_t pibAttrib, 
+                                          uint8_t *pibBuff, uint16_t pibLen)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_MLME_LIST_GET_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_status;
+    appSerialBuf[serialLen++] = status;
     appSerialBuf[serialLen++] = (uint8_t)(pibAttrib >> 8);
     appSerialBuf[serialLen++] = (uint8_t)(pibAttrib);
-    appSerialBuf[serialLen++] = (uint8_t)(pib_len >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(pib_len);
-    memcpy(&appSerialBuf[serialLen], (uint8_t *)pib_buff, pib_len);
-    serialLen += pib_len;
+    appSerialBuf[serialLen++] = (uint8_t)(pibLen >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(pibLen);
+    memcpy(&appSerialBuf[serialLen], (uint8_t *)pibBuff, pibLen);
+    serialLen += pibLen;
 
     /* Send packet */
     SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
@@ -504,8 +476,8 @@ static void APP_Modem_MLME_SetConfirm(MLME_RESULT result)
 }
 
 static void APP_Modem_CL432_DlDataIndication(uint8_t dstLsap, uint8_t srcLsap,
-        uint16_t dstAddress, uint16_t srcAddress,
-        uint8_t *data, uint16_t lsduLen, uint8_t linkClass)
+        uint16_t dstAddress, uint16_t srcAddress, uint8_t *data, 
+        uint16_t lsduLen, uint8_t linkClass)
 {
     uint16_t serialLen = 0U;
 
@@ -1649,7 +1621,7 @@ void APP_Modem_Initialize(void)
     inputMsgRecvIndex = 0;
     outputMsgRecvIndex = 0;
 
-    memset(sAppModemMsgRecv,0,sizeof(sAppModemMsgRecv));
+    (void) memset(sAppModemMsgRecv, 0, sizeof(sAppModemMsgRecv));
     
     /* Get PRIME API */
     PRIME_API_GetPrimeAPI(&gPrimeApi);
@@ -1766,9 +1738,9 @@ void APP_Modem_Tasks(void)
                 APP_Modem_MLME_SetRequestCmd(recvBuf);
                 break;
 
-        case APP_MODEM_CL_432_RELEASE_REQUEST_CMD:
-            APP_Modem_CL432ReleaseRequestCmd(recvBuf);
-            break;
+            case APP_MODEM_CL_432_RELEASE_REQUEST_CMD:
+                APP_Modem_CL432ReleaseRequestCmd(recvBuf);
+                break;
 
             case APP_MODEM_CL_432_DL_DATA_REQUEST_CMD:
                 APP_Modem_CL432DataRequestCmd(recvBuf);
@@ -1871,5 +1843,33 @@ void APP_Modem_Tasks(void)
         {
             outputMsgRecvIndex = 0;
         }
+    }
+}
+
+/* Data transmission indication function */
+uint8_t APP_Modem_TxdataIndication(void)
+{
+    if (sTxdataIndication) 
+    {
+        sTxdataIndication = false;
+        return true;
+    } 
+    else 
+    {
+        return false;
+    }
+}
+
+/* Data reception indication function */
+uint8_t APP_Modem_RxdataIndication(void)
+{
+    if(sRxdataIndication) 
+    {
+        sRxdataIndication = false;
+        return true;
+    } 
+    else
+    {
+        return false;
     }
 }
