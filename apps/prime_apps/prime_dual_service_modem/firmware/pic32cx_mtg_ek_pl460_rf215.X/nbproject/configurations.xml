@@ -487,6 +487,7 @@
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
       <itemPath>prime_14_sn_modem_pic32cx_mtg_ek_pl460_rf215.mc3</itemPath>
+      <itemPath>prime_dual_sn_modem_pic32cx_mtg_ek_pl460_rf215.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -804,6 +805,7 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_kyber.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/memory.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_int.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms_impl.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
