@@ -8,11 +8,11 @@
     modem.h
 
   Summary:
-    MODEM : Modem Application for PRIME Base Node
+    MODEM : Modem Application for PRIME Service Node
 
   Description:
     This header file defines the serialization interface of the PRIME primitives 
-    through the USI for the Base Node.
+    through the USI for the Service Node.
 *******************************************************************************/
 
 #ifndef MODEM_H_INCLUDED
@@ -45,29 +45,24 @@ typedef enum
     APP_MODEM_CL_NULL_ESTABLISH_INDICATION_CMD                  = 0x02,
     APP_MODEM_CL_NULL_ESTABLISH_CONFIRM_CMD                     = 0x03,
     APP_MODEM_CL_NULL_ESTABLISH_RESPONSE_CMD                    = 0x04,
-
-   /* Null Convergence Layer release request and indication commands */            
+    /* Null Convergence Layer release request and indication commands */            
     APP_MODEM_CL_NULL_RELEASE_REQUEST_CMD                       = 0x05,
     APP_MODEM_CL_NULL_RELEASE_INDICATION_CMD                    = 0x06,
     APP_MODEM_CL_NULL_RELEASE_CONFIRM_CMD                       = 0x07,
-    APP_MODEM_CL_NULL_RELEASE_RESPONSE_CMD                      = 0x08,            
-
-  /* Null Convergence Layer join request and indication commands */               
+    APP_MODEM_CL_NULL_RELEASE_RESPONSE_CMD                      = 0x08,
+    /* Null Convergence Layer join request and indication commands */               
     APP_MODEM_CL_NULL_JOIN_REQUEST_CMD                          = 0x09,
     APP_MODEM_CL_NULL_JOIN_INDICATION_CMD                       = 0x0A,
     APP_MODEM_CL_NULL_JOIN_RESPONSE_CMD                         = 0x0B,
     APP_MODEM_CL_NULL_JOIN_CONFIRM_CMD                          = 0x0C,
-
- /* Null Convergence Layer leave request and indication commands */               
+    /* Null Convergence Layer leave request and indication commands */               
     APP_MODEM_CL_NULL_LEAVE_REQUEST_CMD                         = 0x0D,
     APP_MODEM_CL_NULL_LEAVE_CONFIRM_CMD                         = 0x0E,
     APP_MODEM_CL_NULL_LEAVE_INDICATION_CMD                      = 0x0F,
-
-/* Null Convergence Layer data request and indication commands */            
+    /* Null Convergence Layer data request and indication commands */            
     APP_MODEM_CL_NULL_DATA_REQUEST_CMD                          = 0x10,
     APP_MODEM_CL_NULL_DATA_CONFIRM_CMD                          = 0x11,
     APP_MODEM_CL_NULL_DATA_INDICATION_CMD                       = 0x12,
-
     /* PLME request and confirm commands */            
     APP_MODEM_CL_NULL_PLME_RESET_REQUEST_CMD                    = 0x13,
     APP_MODEM_CL_NULL_PLME_RESET_CONFIRM_CMD                    = 0x14,
@@ -81,7 +76,6 @@ typedef enum
     APP_MODEM_CL_NULL_PLME_GET_CONFIRM_CMD                      = 0x1C,
     APP_MODEM_CL_NULL_PLME_SET_REQUEST_CMD                      = 0x1D,
     APP_MODEM_CL_NULL_PLME_SET_CONFIRM_CMD                      = 0x1E,
-
     /* MLME request and confirm commands */             
     APP_MODEM_CL_NULL_MLME_REGISTER_REQUEST_CMD                 = 0x1F,
     APP_MODEM_CL_NULL_MLME_REGISTER_CONFIRM_CMD                 = 0x20,
@@ -103,7 +97,6 @@ typedef enum
     APP_MODEM_CL_NULL_MLME_LIST_GET_CONFIRM_CMD                 = 0x30,
     APP_MODEM_CL_NULL_MLME_SET_REQUEST_CMD                      = 0x31,
     APP_MODEM_CL_NULL_MLME_SET_CONFIRM_CMD                      = 0x32,
-
     /* 4-32 Convergence Layer request and indication commands */  
     APP_MODEM_CL_432_ESTABLISH_REQUEST_CMD                      = 0x33,
     APP_MODEM_CL_432_ESTABLISH_CONFIRM_CMD                      = 0x34,
@@ -136,7 +129,6 @@ typedef enum
     APP_MODEM_BMNG_FUP_KILL_INDICATION_CMD                      = 0x4D,
     APP_MODEM_BMNG_FUP_SET_SIGNATURE_DATA_REQUEST_CMD           = 0x4E,
     APP_MODEM_BMNG_NETWORK_EVENT_CMD                            = 0x4F,
-
     /* Base Management PRIME profile primitives request commands */
     APP_MODEM_BMNG_PPROF_GET_REQUEST_CMD                        = 0x50,
     APP_MODEM_BMNG_PPROF_SET_REQUEST_CMD                        = 0x51,
@@ -149,13 +141,10 @@ typedef enum
     APP_MODEM_BMNG_PPROF_GET_ZC_RESPONSE_CMD                    = 0x58,
     APP_MODEM_BMNG_PPROF_ZC_DIFF_REQUEST_CMD                    = 0x59,
     APP_MODEM_BMNG_PPROF_ZC_DIFF_RESPONSE_CMD                   = 0x5A,
-
     /* Base Management whitelist request commands */
     APP_MODEM_BMNG_WHITELIST_ADD_REQUEST_CMD                    = 0x5B,
     APP_MODEM_BMNG_WHITELIST_REMOVE_REQUEST_CMD                 = 0x5C,
     APP_MODEM_BMNG_WHITELIST_ACK_CMD                            = 0x5D,
-            
-    APP_MODEM_DEBUG_REPORT_CMD                                  = 0x5E,          
             
     /* Modem application IPV6 request and confirm commands */
     APP_MODEM_IPV6_ESTABLISH_REQUEST_CMD                        = 0x5F,
@@ -214,13 +203,5 @@ void APP_Modem_Initialize(void);
 void APP_Modem_Tasks(void);
 uint8_t APP_Modem_TxdataIndication(void);
 uint8_t APP_Modem_RxdataIndication(void);
-APP_MODEM_NODE_STATE APP_Modem_NodeState(void);
-void APP_Modem_DebugReport(uint32_t err_type);
-
-#ifdef PRIME_API_BN
-void APP_Modem_MDM_BMNG_NetEventIndication(void *netEvent);
-#endif
-
-
 
 #endif /* MODEM_H_INCLUDED */
