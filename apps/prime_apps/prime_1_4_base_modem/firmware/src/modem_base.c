@@ -82,7 +82,8 @@ uint8_t APP_Modem_RxdataIndication(void)
 }
 
 static void APP_Modem_EstablishIndication(uint16_t conHandle, uint8_t *eui48, 
-        uint8_t type, uint8_t *data, uint16_t data_len, uint8_t cfbytes, uint8_t ae)
+        uint8_t type, uint8_t *data, uint16_t dataLen, uint8_t cfbytes, 
+        uint8_t ae)
 {
     uint16_t serialLen = 0U; 
 
@@ -92,122 +93,133 @@ static void APP_Modem_EstablishIndication(uint16_t conHandle, uint8_t *eui48,
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
     appSerialBuf[serialLen++] = type;
-    appSerialBuf[serialLen++] = (uint8_t)(data_len >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(data_len);
-    memcpy(&appSerialBuf[serialLen], data, data_len);
-    serialLen += data_len;
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen);
+    memcpy(&appSerialBuf[serialLen], data, dataLen);
+    serialLen += dataLen;
     appSerialBuf[serialLen++] = cfbytes;
     appSerialBuf[serialLen++] = ae;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-
-static void APP_Modem_EstablishConfirm(uint16_t con_handle, MAC_ESTABLISH_CONFIRM_RESULT result,
-uint8_t *eui48, uint8_t type, uint8_t *data, uint16_t data_len, uint8_t ae)
+static void APP_Modem_EstablishConfirm(uint16_t conHandle, 
+            MAC_ESTABLISH_CONFIRM_RESULT result, uint8_t *eui48, uint8_t type, 
+            uint8_t *data, uint16_t dataLen, uint8_t ae)
 {
     uint16_t serialLen = 0U; 
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_ESTABLISH_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
     appSerialBuf[serialLen++] = result;
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
     appSerialBuf[serialLen++] = type;
-    appSerialBuf[serialLen++] = (uint8_t)(data_len >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(data_len);
-    memcpy(&appSerialBuf[serialLen], data, data_len);
-    serialLen += data_len;
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen);
+    memcpy(&appSerialBuf[serialLen], data, dataLen);
+    serialLen += dataLen;
     appSerialBuf[serialLen++] = ae;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_ReleaseIndication(uint16_t con_handle, MAC_RELEASE_INDICATION_REASON reason)
+static void APP_Modem_ReleaseIndication(uint16_t conHandle, 
+                        MAC_RELEASE_INDICATION_REASON reason)
 {
     uint16_t serialLen = 0U; 
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_RELEASE_INDICATION_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
     appSerialBuf[serialLen++] = reason;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_ReleaseConfirm(uint16_t con_handle, MAC_RELEASE_CONFIRM_RESULT  result)
+static void APP_Modem_ReleaseConfirm(uint16_t conHandle, 
+                                     MAC_RELEASE_CONFIRM_RESULT result)
 {
     uint16_t serialLen = 0U; 
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_RELEASE_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
     appSerialBuf[serialLen++] = result;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_JoinIndication(uint16_t con_handle, 
-        uint8_t *eui48, uint8_t con_type, uint8_t *data, uint16_t data_len, uint8_t ae)
+static void APP_Modem_JoinIndication(uint16_t conHandle, 
+        uint8_t *eui48, uint8_t conType, uint8_t *data, uint16_t dataLen, 
+        uint8_t ae)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_JOIN_INDICATION_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
-    appSerialBuf[serialLen++] = con_type;
-    appSerialBuf[serialLen++] = (uint8_t)(data_len >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(data_len);
-    memcpy(&appSerialBuf[serialLen], data, data_len);
-    serialLen += data_len;
+    appSerialBuf[serialLen++] = conType;
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen);
+    memcpy(&appSerialBuf[serialLen], data, dataLen);
+    serialLen += dataLen;
     appSerialBuf[serialLen++] = ae;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_JoinConfirm(uint16_t con_handle, 
+static void APP_Modem_JoinConfirm(uint16_t conHandle, 
         MAC_JOIN_CONFIRM_RESULT result, uint8_t ae)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_JOIN_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
     appSerialBuf[serialLen++] = result;
     appSerialBuf[serialLen++] = ae;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_LeaveConfirm(uint16_t con_handle, MAC_LEAVE_CONFIRM_RESULT result)
+static void APP_Modem_LeaveConfirm(uint16_t conHandle, 
+                                   MAC_LEAVE_CONFIRM_RESULT result)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_LEAVE_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
     appSerialBuf[serialLen++] = result;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_LeaveIndication(uint16_t con_handle, uint8_t *eui48)
+static void APP_Modem_LeaveIndication(uint16_t conHandle, uint8_t *eui48)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_LEAVE_INDICATION_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
     if(eui48 != NULL) 
     {
         memcpy(&appSerialBuf[serialLen], eui48, 6);
@@ -220,46 +232,49 @@ static void APP_Modem_LeaveIndication(uint16_t con_handle, uint8_t *eui48)
     serialLen += 6;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_DataConfirm(uint16_t con_handle, 
-        uint8_t *data, MAC_DATA_CONFIRM_RESULT result)
+static void APP_Modem_DataConfirm(uint16_t conHandle, uint8_t *dataBuf, 
+            MAC_DATA_CONFIRM_RESULT result)
 {
     uint8_t serialLen = 0U; 
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_DATA_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
-    appSerialBuf[serialLen++] = (uint8_t)((uint32_t)data >> 24);
-    appSerialBuf[serialLen++] = (uint8_t)((uint32_t)data >> 16);
-    appSerialBuf[serialLen++] = (uint8_t)((uint32_t)data >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)((uint32_t)data);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
+    appSerialBuf[serialLen++] = (uint8_t)((uint32_t)dataBuf >> 24);
+    appSerialBuf[serialLen++] = (uint8_t)((uint32_t)dataBuf >> 16);
+    appSerialBuf[serialLen++] = (uint8_t)((uint32_t)dataBuf >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)((uint32_t)dataBuf);
     appSerialBuf[serialLen++] = result;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_DataIndication(uint16_t con_handle, 
-        uint8_t *data, uint16_t data_len, uint32_t time_ref)
+static void APP_Modem_DataIndication(uint16_t conHandle, 
+        uint8_t *data, uint16_t dataLen, uint32_t timeRef)
 {
     uint16_t serialLen = 0U; 
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_DATA_INDICATION_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(con_handle);
-    appSerialBuf[serialLen++] = (uint8_t)(data_len >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(data_len);
-    memcpy(&appSerialBuf[serialLen], data, data_len);
-    serialLen += data_len;
-    appSerialBuf[serialLen++] = (uint8_t)(time_ref >> 24);
-    appSerialBuf[serialLen++] = (uint8_t)(time_ref >> 16);
-    appSerialBuf[serialLen++] = (uint8_t)(time_ref >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(time_ref);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(conHandle);
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen);
+    memcpy(&appSerialBuf[serialLen], data, dataLen);
+    serialLen += dataLen;
+    appSerialBuf[serialLen++] = (uint8_t)(timeRef >> 24);
+    appSerialBuf[serialLen++] = (uint8_t)(timeRef >> 16);
+    appSerialBuf[serialLen++] = (uint8_t)(timeRef >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(timeRef);
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 
     /* Rx data indication */
     sRxdataIndication = true;
@@ -275,138 +290,145 @@ static void APP_Modem_PLME_ResetConfirm(PLME_RESULT result, uint16_t pch)
     appSerialBuf[serialLen++] = (uint8_t)pch;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_PLME_SleepConfirm(PLME_RESULT x_result, uint16_t pch)
+static void APP_Modem_PLME_SleepConfirm(PLME_RESULT result, uint16_t pch)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_PLME_SLEEP_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_result;
+    appSerialBuf[serialLen++] = result;
     appSerialBuf[serialLen++] = (uint8_t)(pch >> 8);
     appSerialBuf[serialLen++] = (uint8_t)pch;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_PLME_ResumeConfirm(PLME_RESULT x_result, uint16_t pch)
+static void APP_Modem_PLME_ResumeConfirm(PLME_RESULT result, uint16_t pch)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_PLME_RESUME_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_result;
+    appSerialBuf[serialLen++] = result;
     appSerialBuf[serialLen++] = (uint8_t)(pch >> 8);
     appSerialBuf[serialLen++] = (uint8_t)pch;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_PLME_GetConfirm(PLME_RESULT x_status, 
-        uint16_t pib_attrib, void *pib_value, uint8_t pib_size, uint16_t pch)
+static void APP_Modem_PLME_GetConfirm(PLME_RESULT status, 
+        uint16_t pibAttrib, void *pibValue, uint8_t pibSize, uint16_t pch)
 {
     uint16_t serialLen = 0U;
-    uint16_t temp_s;
-    uint32_t temp_l;
+    uint16_t temp16;
+    uint32_t temp32;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_PLME_GET_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_status;
-    appSerialBuf[serialLen++] = (uint8_t)(pib_attrib >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(pib_attrib);
-    appSerialBuf[serialLen++] = pib_size;
+    appSerialBuf[serialLen++] = status;
+    appSerialBuf[serialLen++] = (uint8_t)(pibAttrib >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(pibAttrib);
+    appSerialBuf[serialLen++] = pibSize;
 
     /* Check size */
-    switch (pib_size) 
+    switch (pibSize) 
     {
         case 2:
             /* Extract value */
-            temp_s = *((uint16_t *)pib_value);
+            temp16 = *((uint16_t *)pibValue);
             /* Copy value into buffer with MSB in MSB */
-            appSerialBuf[serialLen++] = (uint8_t)(temp_s >> 8);
-            appSerialBuf[serialLen++] = (uint8_t)temp_s;
+            appSerialBuf[serialLen++] = (uint8_t)(temp16 >> 8);
+            appSerialBuf[serialLen++] = (uint8_t)temp16;
             break;
 
         case 4:
-            temp_l = *((uint32_t *)pib_value);
+            temp32 = *((uint32_t *)pibValue);
             /* Copy value into buffer with MSB in MSB */
-            appSerialBuf[serialLen++] = (uint8_t)(temp_l >> 24);
-            appSerialBuf[serialLen++] = (uint8_t)(temp_l >> 16);
-            appSerialBuf[serialLen++] = (uint8_t)(temp_l >> 8);
-            appSerialBuf[serialLen++] = (uint8_t)temp_l;
+            appSerialBuf[serialLen++] = (uint8_t)(temp32 >> 24);
+            appSerialBuf[serialLen++] = (uint8_t)(temp32 >> 16);
+            appSerialBuf[serialLen++] = (uint8_t)(temp32 >> 8);
+            appSerialBuf[serialLen++] = (uint8_t)temp32;
             break;
 
         default:
             /* Copy value into buffer */
-            memcpy(&appSerialBuf[serialLen], (uint8_t *)pib_value, pib_size);
+            memcpy(&appSerialBuf[serialLen], (uint8_t *)pibValue, pibSize);
             /* Increase pointer */
-            serialLen += pib_size;
+            serialLen += pibSize;
     }
 
     appSerialBuf[serialLen++] = (uint8_t)(pch >> 8);
     appSerialBuf[serialLen++] = (uint8_t)pch;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_PLME_SetConfirm(PLME_RESULT x_result, uint16_t pch)
+static void APP_Modem_PLME_SetConfirm(PLME_RESULT result, uint16_t pch)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_PLME_SET_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_result;
+    appSerialBuf[serialLen++] = result;
     appSerialBuf[serialLen++] = (uint8_t)(pch >> 8);
     appSerialBuf[serialLen++] = (uint8_t)pch;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_MLME_PromoteConfirm(MLME_RESULT x_result)
+static void APP_Modem_MLME_PromoteConfirm(MLME_RESULT result)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_MLME_PROMOTE_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_result;
+    appSerialBuf[serialLen++] = result;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_MLME_MP_PromoteConfirm(MLME_RESULT x_result)
+static void APP_Modem_MLME_MP_PromoteConfirm(MLME_RESULT result)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_MLME_MP_PROMOTE_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_result;
+    appSerialBuf[serialLen++] = result;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_MLME_ResetConfirm(MLME_RESULT x_result)
+static void APP_Modem_MLME_ResetConfirm(MLME_RESULT result)
 {
     uint16_t serialLen = 0U;
 
     /* Check result */
-    if (x_result == MLME_RESULT_DONE)
+    if (result == MLME_RESULT_DONE)
     {
         /* Set callback functions */
         APP_Modem_SetCallbacks();
     }
 
-
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_MLME_RESET_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_result;
+    appSerialBuf[serialLen++] = result;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
 static void APP_Modem_MLME_GetConfirm(MLME_RESULT x_status, 
-        uint16_t pib_attrib, void *pib_value, uint8_t pib_size)
+        uint16_t pibAttrib, void *pibValue, uint8_t pibSize)
 {
     uint16_t serialLen = 0U;
     uint16_t temp_s;
@@ -414,23 +436,23 @@ static void APP_Modem_MLME_GetConfirm(MLME_RESULT x_status,
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_MLME_GET_CONFIRM_CMD;
     appSerialBuf[serialLen++] = x_status;
-    appSerialBuf[serialLen++] = (uint8_t)(pib_attrib >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(pib_attrib);
-    appSerialBuf[serialLen++] = pib_size;
+    appSerialBuf[serialLen++] = (uint8_t)(pibAttrib >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(pibAttrib);
+    appSerialBuf[serialLen++] = pibSize;
 
     /* Check size */
-    switch (pib_size) 
+    switch (pibSize) 
     {
         case 2:
             /* Extract value */
-            temp_s = *((uint16_t *)pib_value);
+            temp_s = *((uint16_t *)pibValue);
             /* Copy value into buffer with MSB in MSB */
             appSerialBuf[serialLen++] = (uint8_t)(temp_s >> 8);
             appSerialBuf[serialLen++] = (uint8_t)temp_s;
             break;
 
         case 4:
-            temp_h = *((uint32_t *)pib_value);
+            temp_h = *((uint32_t *)pibValue);
             /* Copy value into buffer with MSB in MSB */
             appSerialBuf[serialLen++] = (uint8_t)(temp_h >> 24);
             appSerialBuf[serialLen++] = (uint8_t)(temp_h >> 16);
@@ -440,190 +462,202 @@ static void APP_Modem_MLME_GetConfirm(MLME_RESULT x_status,
 
         default:
             /* Copy value into buffer */
-            memcpy(&appSerialBuf[serialLen], (uint8_t *)pib_value, pib_size);
+            memcpy(&appSerialBuf[serialLen], (uint8_t *)pibValue, pibSize);
             /* Increase pointer */
-            serialLen += pib_size;
+            serialLen += pibSize;
     }
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
 static void APP_Modem_MLME_ListGetConfirm(MLME_RESULT x_status, 
-        uint16_t pib_attrib, uint8_t *pib_buff, uint16_t pib_len)
+        uint16_t pibAttrib, uint8_t *pib_buff, uint16_t pib_len)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_MLME_LIST_GET_CONFIRM_CMD;
     appSerialBuf[serialLen++] = x_status;
-    appSerialBuf[serialLen++] = (uint8_t)(pib_attrib >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(pib_attrib);
+    appSerialBuf[serialLen++] = (uint8_t)(pibAttrib >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(pibAttrib);
     appSerialBuf[serialLen++] = (uint8_t)(pib_len >> 8);
     appSerialBuf[serialLen++] = (uint8_t)(pib_len);
     memcpy(&appSerialBuf[serialLen], (uint8_t *)pib_buff, pib_len);
     serialLen += pib_len;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_MLME_SetConfirm(MLME_RESULT x_result)
+static void APP_Modem_MLME_SetConfirm(MLME_RESULT result)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_MLME_SET_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = x_result;
+    appSerialBuf[serialLen++] = result;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_CL432_DlDataIndication(uint8_t dst_lsap, uint8_t src_lsap,
-        uint16_t dst_address, uint16_t src_address,
-        uint8_t *data, uint16_t lsdu_len, uint8_t link_class)
+static void APP_Modem_CL432_DlDataIndication(uint8_t dstLsap, uint8_t srcLsap,
+        uint16_t dstAddress, uint16_t srcAddress,
+        uint8_t *data, uint16_t lsduLen, uint8_t linkClass)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_432_DL_DATA_INDICATION_CMD;
-    appSerialBuf[serialLen++] = dst_lsap;
-    appSerialBuf[serialLen++] = src_lsap;
-    appSerialBuf[serialLen++] = (uint8_t)(dst_address >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(dst_address);
-    appSerialBuf[serialLen++] = (uint8_t)(src_address >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(src_address);
-    appSerialBuf[serialLen++] = (uint8_t)(lsdu_len >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(lsdu_len);
-    memcpy(&appSerialBuf[serialLen], data, lsdu_len);
-    serialLen += lsdu_len;
-    appSerialBuf[serialLen++] = link_class;
+    appSerialBuf[serialLen++] = dstLsap;
+    appSerialBuf[serialLen++] = srcLsap;
+    appSerialBuf[serialLen++] = (uint8_t)(dstAddress >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dstAddress);
+    appSerialBuf[serialLen++] = (uint8_t)(srcAddress >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(srcAddress);
+    appSerialBuf[serialLen++] = (uint8_t)(lsduLen >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(lsduLen);
+    memcpy(&appSerialBuf[serialLen], data, lsduLen);
+    serialLen += lsduLen;
+    appSerialBuf[serialLen++] = linkClass;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 
     /* Rx data indication */
     sRxdataIndication = true;
 }
 
-static void APP_Modem_CL432_DlDataConfirm(uint8_t dst_lsap, uint8_t src_lsap, 
-        uint16_t dst_address, DL_432_TX_STATUS tx_status)
+static void APP_Modem_CL432_DlDataConfirm(uint8_t dstLsap, uint8_t srcLsap, 
+        uint16_t dstAddress, DL_432_TX_STATUS txStatus)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_432_DL_DATA_CONFIRM_CMD;
-    appSerialBuf[serialLen++] = dst_lsap;
-    appSerialBuf[serialLen++] = src_lsap;
-    appSerialBuf[serialLen++] = (uint8_t)(dst_address >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(dst_address);
-    appSerialBuf[serialLen++] = (uint8_t)tx_status;
+    appSerialBuf[serialLen++] = dstLsap;
+    appSerialBuf[serialLen++] = srcLsap;
+    appSerialBuf[serialLen++] = (uint8_t)(dstAddress >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dstAddress);
+    appSerialBuf[serialLen++] = (uint8_t)txStatus;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_CL432_JoinIndication(uint8_t *device_id, 
-        uint8_t device_id_len, uint16_t dst_address, uint8_t *puc_mac, uint8_t ae)
+static void APP_Modem_CL432_JoinIndication(uint8_t *deviceId, 
+        uint8_t deviceIdLen, uint16_t dstAddress, uint8_t *mac, uint8_t ae)
 {
     uint16_t serialLen = 0U;
-    uint8_t tmp_c;
+    uint8_t temp;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_432_DL_JOIN_INDICATION_CMD;
-    appSerialBuf[serialLen++] = device_id_len;
-    for (tmp_c = 0; tmp_c < device_id_len; tmp_c++) 
+    appSerialBuf[serialLen++] = deviceIdLen;
+    for (temp = 0; temp < deviceIdLen; temp++) 
     {
-        appSerialBuf[serialLen++] = *device_id++;
+        appSerialBuf[serialLen++] = *deviceId++;
     }
 
-    appSerialBuf[serialLen++] = (uint8_t)(dst_address >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(dst_address);
-    for (tmp_c = 0; tmp_c < 8; tmp_c++) 
+    appSerialBuf[serialLen++] = (uint8_t)(dstAddress >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dstAddress);
+    for (temp = 0; temp < 8; temp++) 
     {
-        appSerialBuf[serialLen++] = *puc_mac++;
+        appSerialBuf[serialLen++] = *mac++;
     }
 
     appSerialBuf[serialLen++] = ae;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_CL432_LeaveIndication(uint16_t dst_address)
+static void APP_Modem_CL432_LeaveIndication(uint16_t dstAddress)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_432_DL_LEAVE_INDICATION_CMD;
-    appSerialBuf[serialLen++] = (uint8_t)(dst_address >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(dst_address);
+    appSerialBuf[serialLen++] = (uint8_t)(dstAddress >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dstAddress);
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_FupAck(uint8_t cmd, BMNG_FUP_ACK ack_code, 
-        uint16_t extra_info)
+static void APP_Modem_BMNG_FupAck(uint8_t cmd, BMNG_FUP_ACK ackCode, 
+        uint16_t extraInfo)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_FUP_ACK_CMD;
     appSerialBuf[serialLen++] = cmd;
-    appSerialBuf[serialLen++] = ack_code;
-    appSerialBuf[serialLen++] = (uint8_t)(extra_info >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(extra_info);
+    appSerialBuf[serialLen++] = ackCode;
+    appSerialBuf[serialLen++] = (uint8_t)(extraInfo >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(extraInfo);
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_FupStatusIndication(BMNG_FUP_NODE_STATE fup_node_state,
+static void APP_Modem_BMNG_FupStatusIndication(BMNG_FUP_NODE_STATE fupNodeState,
         uint16_t pages, uint8_t *eui48)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_FUP_STATUS_INDICATION_CMD;
-    appSerialBuf[serialLen++] = fup_node_state;
+    appSerialBuf[serialLen++] = fupNodeState;
     appSerialBuf[serialLen++] = (uint8_t)(pages >> 8);
     appSerialBuf[serialLen++] = (uint8_t)(pages);
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_FupErrorIndication(BMNG_FUP_ERROR error_code, uint8_t *eui48)
+static void APP_Modem_BMNG_FupErrorIndication(BMNG_FUP_ERROR errorCode, 
+                                              uint8_t *eui48)
 {
     uint16_t serialLen = 0U;
 
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_FUP_STATUS_ERROR_INDICATION_CMD;
-    appSerialBuf[serialLen++] = error_code;
+    appSerialBuf[serialLen++] = errorCode;
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
 static void APP_Modem_BMNG_FupVersionIndication(uint8_t *eui48, 
-        uint8_t vendor_len, char *vendor, uint8_t model_len, char *model,
-		uint8_t version_len, char *version)
+        uint8_t vendorLen, char *vendor, uint8_t modelLen, char *model,
+		uint8_t versionlLen, char *version)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_FUP_VERSION_INDICATION_CMD;
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
-    appSerialBuf[serialLen++] = vendor_len;
-    memcpy(&appSerialBuf[serialLen], vendor, vendor_len);
-    serialLen += vendor_len;
-    appSerialBuf[serialLen++] = model_len;
-    memcpy(&appSerialBuf[serialLen], model, model_len);
-    serialLen += model_len;
-    appSerialBuf[serialLen++] = version_len;
-    memcpy(&appSerialBuf[serialLen], version, version_len);
-    serialLen += version_len;
+    appSerialBuf[serialLen++] = vendorLen;
+    memcpy(&appSerialBuf[serialLen], vendor, vendorLen);
+    serialLen += vendorLen;
+    appSerialBuf[serialLen++] = modelLen;
+    memcpy(&appSerialBuf[serialLen], model, modelLen);
+    serialLen += modelLen;
+    appSerialBuf[serialLen++] = versionlLen;
+    memcpy(&appSerialBuf[serialLen], version, versionlLen);
+    serialLen += versionlLen;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
 static void APP_Modem_BMNG_FupKillIndication(uint8_t *eui48)
@@ -635,125 +669,136 @@ static void APP_Modem_BMNG_FupKillIndication(uint8_t *eui48)
     serialLen += 6;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_NetEventIndication(BMNG_NET_EVENT_INFO *net_event)
+static void APP_Modem_BMNG_NetEventIndication(BMNG_NET_EVENT_INFO *netEvent)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_NETWORK_EVENT_CMD;
-    appSerialBuf[serialLen++] = net_event->netEvent;
-    memcpy(&appSerialBuf[serialLen], net_event->eui48, 6);
+    appSerialBuf[serialLen++] = netEvent->netEvent;
+    memcpy(&appSerialBuf[serialLen], netEvent->eui48, 6);
     serialLen += 6;
-    appSerialBuf[serialLen++] = net_event->sid;
-    appSerialBuf[serialLen++] = (uint8_t)(net_event->lnid >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(net_event->lnid);
-    appSerialBuf[serialLen++] = net_event->lsid;
-    appSerialBuf[serialLen++] = net_event->alvRxCnt;
-    appSerialBuf[serialLen++] = net_event->alvTxCnt;
-    appSerialBuf[serialLen++] = net_event->alvTime;
-    appSerialBuf[serialLen++] = (uint8_t)(net_event->pch >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(net_event->pch);
-    appSerialBuf[serialLen++] = (uint8_t)(net_event->pchLsid >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(net_event->pchLsid);
+    appSerialBuf[serialLen++] = netEvent->sid;
+    appSerialBuf[serialLen++] = (uint8_t)(netEvent->lnid >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(netEvent->lnid);
+    appSerialBuf[serialLen++] = netEvent->lsid;
+    appSerialBuf[serialLen++] = netEvent->alvRxCnt;
+    appSerialBuf[serialLen++] = netEvent->alvTxCnt;
+    appSerialBuf[serialLen++] = netEvent->alvTime;
+    appSerialBuf[serialLen++] = (uint8_t)(netEvent->pch >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(netEvent->pch);
+    appSerialBuf[serialLen++] = (uint8_t)(netEvent->pchLsid >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(netEvent->pchLsid);
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_PprofAck(uint8_t cmd, BMNG_PPROF_ACK ack_code)
+static void APP_Modem_BMNG_PprofAck(uint8_t cmd, BMNG_PPROF_ACK ackCode)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_PPROF_ACK_CMD;
     appSerialBuf[serialLen++] = cmd;
-    appSerialBuf[serialLen++] = ack_code;
+    appSerialBuf[serialLen++] = ackCode;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_PprofGetResponse(uint8_t *eui48, uint16_t data_len, uint8_t *data)
+static void APP_Modem_BMNG_PprofGetResponse(uint8_t *eui48, uint16_t dataLen, 
+                                            uint8_t *data)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_PPROF_GET_RESPONSE_CMD;
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
-    appSerialBuf[serialLen++] = (uint8_t)(data_len >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(data_len);
-    memcpy(&appSerialBuf[serialLen], data, data_len);
-    serialLen += data_len;
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen);
+    memcpy(&appSerialBuf[serialLen], data, dataLen);
+    serialLen += dataLen;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_PprofGetEnhancedResponse(uint8_t *eui48, uint16_t data_len, uint8_t *data)
+static void APP_Modem_BMNG_PprofGetEnhancedResponse(uint8_t *eui48, 
+            uint16_t dataLen, uint8_t *data)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_PPROF_GET_ENHANCED_RESPONSE_CMD;
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
-    appSerialBuf[serialLen++] = (uint8_t)(data_len >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(data_len);
-    memcpy(&appSerialBuf[serialLen], data, data_len);
-    serialLen += data_len;
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(dataLen);
+    memcpy(&appSerialBuf[serialLen], data, dataLen);
+    serialLen += dataLen;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_PprofGetZCResponse(uint8_t *eui48, uint8_t zc_status, uint32_t zc_time)
+static void APP_Modem_BMNG_PprofGetZCResponse(uint8_t *eui48, uint8_t zcStatus, 
+                                              uint32_t zcTime)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_PPROF_GET_ZC_RESPONSE_CMD;
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
-    appSerialBuf[serialLen++] = zc_status;
-    appSerialBuf[serialLen++] = (uint8_t)(zc_time >> 24);
-    appSerialBuf[serialLen++] = (uint8_t)(zc_time >> 16);
-    appSerialBuf[serialLen++] = (uint8_t)(zc_time >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(zc_time);
+    appSerialBuf[serialLen++] = zcStatus;
+    appSerialBuf[serialLen++] = (uint8_t)(zcTime >> 24);
+    appSerialBuf[serialLen++] = (uint8_t)(zcTime >> 16);
+    appSerialBuf[serialLen++] = (uint8_t)(zcTime >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(zcTime);
 
     /* Send packet */
     SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf, 
             serialLen);
 }
 
-static void APP_Modem_BMNG_PprofDiffZCResponse(uint8_t *eui48, uint32_t time_freq, uint32_t time_diff)
+static void APP_Modem_BMNG_PprofDiffZCResponse(uint8_t *eui48, 
+            uint32_t timeFreq, uint32_t timeDiff)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_PPROF_ZC_DIFF_RESPONSE_CMD;
     memcpy(&appSerialBuf[serialLen], eui48, 6);
     serialLen += 6;
-    appSerialBuf[serialLen++] = (uint8_t)(time_freq >> 24);
-    appSerialBuf[serialLen++] = (uint8_t)(time_freq >> 16);
-    appSerialBuf[serialLen++] = (uint8_t)(time_freq >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(time_freq);
-    appSerialBuf[serialLen++] = (uint8_t)(time_diff >> 24);
-    appSerialBuf[serialLen++] = (uint8_t)(time_diff >> 16);
-    appSerialBuf[serialLen++] = (uint8_t)(time_diff >> 8);
-    appSerialBuf[serialLen++] = (uint8_t)(time_diff);
+    appSerialBuf[serialLen++] = (uint8_t)(timeFreq >> 24);
+    appSerialBuf[serialLen++] = (uint8_t)(timeFreq >> 16);
+    appSerialBuf[serialLen++] = (uint8_t)(timeFreq >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(timeFreq);
+    appSerialBuf[serialLen++] = (uint8_t)(timeDiff >> 24);
+    appSerialBuf[serialLen++] = (uint8_t)(timeDiff >> 16);
+    appSerialBuf[serialLen++] = (uint8_t)(timeDiff >> 8);
+    appSerialBuf[serialLen++] = (uint8_t)(timeDiff);
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf,
+                         serialLen);
 }
 
-static void APP_Modem_BMNG_WhitelistAck(uint8_t cmd, BMNG_WHITELIST_ACK ack_code)
+static void APP_Modem_BMNG_WhitelistAck(uint8_t cmd, BMNG_WHITELIST_ACK ackCode)
 {
     uint16_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_BMNG_WHITELIST_ACK_CMD;
     appSerialBuf[serialLen++] = cmd;
-    appSerialBuf[serialLen++] = ack_code;
+    appSerialBuf[serialLen++] = ackCode;
 
     /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle,SRV_USI_PROT_ID_PRIME_API,appSerialBuf,serialLen);
+    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf,
+                         serialLen);
 }
 
 static void APP_Modem_USI_PRIME_ApiHandler(uint8_t *rxMsg, size_t inputLen)
@@ -773,13 +818,17 @@ static void APP_Modem_USI_PRIME_ApiHandler(uint8_t *rxMsg, size_t inputLen)
             return;
         } 
         else 
-        {/* ERROR ,Message too big */
-            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, APP_MODEM_ERR_MSG_TOO_BIG, "ERROR: Message too big\r\n"); 
+        {   
+            /* ERROR ,Message too big */
+            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, 
+                    APP_MODEM_ERR_MSG_TOO_BIG, "ERROR: Message too big\r\n");
         }
     } 
     else 
-    {/* Error, RX queue is full */
-        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, APP_MODEM_ERR_QUEUE_FULL,"ERROR: RX queue full\r\n" );
+    {   
+        /* Error, RX queue is full */
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, 
+                       APP_MODEM_ERR_QUEUE_FULL, "ERROR: RX queue full\r\n");
     }
 
     return;
@@ -787,58 +836,59 @@ static void APP_Modem_USI_PRIME_ApiHandler(uint8_t *rxMsg, size_t inputLen)
 
 static void APP_Modem_SetCallbacks(void)
 {
-    MAC_CALLBACKS mac_callbacks;
-    CL_432_CALLBACKS cl432_callbacks;
-    BMNG_CALLBACKS bmng_callbacks;
+    MAC_CALLBACKS macCallbacks;
+    CL_432_CALLBACKS cl432Callbacks;
+    BMNG_CALLBACKS bmngCallbacks;
 
-    mac_callbacks.mac_data_cfm = APP_Modem_DataConfirm;
-    mac_callbacks.mac_data_ind = APP_Modem_DataIndication;
-    mac_callbacks.mac_establish_cfm = APP_Modem_EstablishConfirm;
-    mac_callbacks.mac_establish_ind = APP_Modem_EstablishIndication;
-    mac_callbacks.mac_join_cfm = APP_Modem_JoinConfirm;
-    mac_callbacks.mac_join_ind = APP_Modem_JoinIndication;
-    mac_callbacks.mac_leave_cfm = APP_Modem_LeaveConfirm;
-    mac_callbacks.mac_leave_ind = APP_Modem_LeaveIndication;
-    mac_callbacks.mac_release_cfm = APP_Modem_ReleaseConfirm;
-    mac_callbacks.mac_release_ind = APP_Modem_ReleaseIndication;
+    macCallbacks.mac_data_cfm = APP_Modem_DataConfirm;
+    macCallbacks.mac_data_ind = APP_Modem_DataIndication;
+    macCallbacks.mac_establish_cfm = APP_Modem_EstablishConfirm;
+    macCallbacks.mac_establish_ind = APP_Modem_EstablishIndication;
+    macCallbacks.mac_join_cfm = APP_Modem_JoinConfirm;
+    macCallbacks.mac_join_ind = APP_Modem_JoinIndication;
+    macCallbacks.mac_leave_cfm = APP_Modem_LeaveConfirm;
+    macCallbacks.mac_leave_ind = APP_Modem_LeaveIndication;
+    macCallbacks.mac_release_cfm = APP_Modem_ReleaseConfirm;
+    macCallbacks.mac_release_ind = APP_Modem_ReleaseIndication;
 
-    mac_callbacks.mlme_get_cfm = APP_Modem_MLME_GetConfirm;
-    mac_callbacks.mlme_list_get_cfm = APP_Modem_MLME_ListGetConfirm;
-    mac_callbacks.mlme_promote_cfm = APP_Modem_MLME_PromoteConfirm;
-    mac_callbacks.mlme_mp_promote_cfm = APP_Modem_MLME_MP_PromoteConfirm;
-    mac_callbacks.mlme_reset_cfm = APP_Modem_MLME_ResetConfirm;
-    mac_callbacks.mlme_set_cfm = APP_Modem_MLME_SetConfirm;
+    macCallbacks.mlme_get_cfm = APP_Modem_MLME_GetConfirm;
+    macCallbacks.mlme_list_get_cfm = APP_Modem_MLME_ListGetConfirm;
+    macCallbacks.mlme_promote_cfm = APP_Modem_MLME_PromoteConfirm;
+    macCallbacks.mlme_mp_promote_cfm = APP_Modem_MLME_MP_PromoteConfirm;
+    macCallbacks.mlme_reset_cfm = APP_Modem_MLME_ResetConfirm;
+    macCallbacks.mlme_set_cfm = APP_Modem_MLME_SetConfirm;
 
-    mac_callbacks.plme_get_cfm = APP_Modem_PLME_GetConfirm;
-    mac_callbacks.plme_reset_cfm = APP_Modem_PLME_ResetConfirm;
-    mac_callbacks.plme_resume_cfm = APP_Modem_PLME_ResumeConfirm;
-    mac_callbacks.plme_set_cfm = APP_Modem_PLME_SetConfirm;
-    mac_callbacks.plme_sleep_cfm = APP_Modem_PLME_SleepConfirm;
-    mac_callbacks.plme_testmode_cfm = NULL;
+    macCallbacks.plme_get_cfm = APP_Modem_PLME_GetConfirm;
+    macCallbacks.plme_reset_cfm = APP_Modem_PLME_ResetConfirm;
+    macCallbacks.plme_resume_cfm = APP_Modem_PLME_ResumeConfirm;
+    macCallbacks.plme_set_cfm = APP_Modem_PLME_SetConfirm;
+    macCallbacks.plme_sleep_cfm = APP_Modem_PLME_SleepConfirm;
+    macCallbacks.plme_testmode_cfm = NULL;
 
-    gPrimeApi->MacSetCallbacks(&mac_callbacks);
+    gPrimeApi->MacSetCallbacks(&macCallbacks);
 
-    cl432_callbacks.cl_432_dl_data_cfm = APP_Modem_CL432_DlDataConfirm;
-    cl432_callbacks.cl_432_dl_data_ind = APP_Modem_CL432_DlDataIndication;
-    cl432_callbacks.cl_432_join_ind = APP_Modem_CL432_JoinIndication;
-    cl432_callbacks.cl_432_leave_ind = APP_Modem_CL432_LeaveIndication;
+    cl432Callbacks.cl_432_dl_data_cfm = APP_Modem_CL432_DlDataConfirm;
+    cl432Callbacks.cl_432_dl_data_ind = APP_Modem_CL432_DlDataIndication;
+    cl432Callbacks.cl_432_join_ind = APP_Modem_CL432_JoinIndication;
+    cl432Callbacks.cl_432_leave_ind = APP_Modem_CL432_LeaveIndication;
 
-    gPrimeApi->Cl432SetCallbacks(&cl432_callbacks);
+    gPrimeApi->Cl432SetCallbacks(&cl432Callbacks);
 
-    bmng_callbacks.fup_ack = APP_Modem_BMNG_FupAck;
-    bmng_callbacks.fup_error_ind = APP_Modem_BMNG_FupErrorIndication;
-    bmng_callbacks.fup_kill_ind = APP_Modem_BMNG_FupKillIndication;
-    bmng_callbacks.fup_status_ind = APP_Modem_BMNG_FupStatusIndication;
-    bmng_callbacks.fup_version_ind = APP_Modem_BMNG_FupVersionIndication;
-    bmng_callbacks.network_event_ind = APP_Modem_BMNG_NetEventIndication;
-    bmng_callbacks.pprof_ack = APP_Modem_BMNG_PprofAck;
-    bmng_callbacks.pprof_get_response = APP_Modem_BMNG_PprofGetResponse;
-    bmng_callbacks.pprof_get_enhanced_response = APP_Modem_BMNG_PprofGetEnhancedResponse;
-    bmng_callbacks.pprof_get_zc_response = APP_Modem_BMNG_PprofGetZCResponse;
-    bmng_callbacks.pprof_zc_diff_response = APP_Modem_BMNG_PprofDiffZCResponse;
-    bmng_callbacks.whitelist_ack = APP_Modem_BMNG_WhitelistAck;
+    bmngCallbacks.fup_ack = APP_Modem_BMNG_FupAck;
+    bmngCallbacks.fup_error_ind = APP_Modem_BMNG_FupErrorIndication;
+    bmngCallbacks.fup_kill_ind = APP_Modem_BMNG_FupKillIndication;
+    bmngCallbacks.fup_status_ind = APP_Modem_BMNG_FupStatusIndication;
+    bmngCallbacks.fup_version_ind = APP_Modem_BMNG_FupVersionIndication;
+    bmngCallbacks.network_event_ind = APP_Modem_BMNG_NetEventIndication;
+    bmngCallbacks.pprof_ack = APP_Modem_BMNG_PprofAck;
+    bmngCallbacks.pprof_get_response = APP_Modem_BMNG_PprofGetResponse;
+    bmngCallbacks.pprof_get_enhanced_response = 
+                                     APP_Modem_BMNG_PprofGetEnhancedResponse;
+    bmngCallbacks.pprof_get_zc_response = APP_Modem_BMNG_PprofGetZCResponse;
+    bmngCallbacks.pprof_zc_diff_response = APP_Modem_BMNG_PprofDiffZCResponse;
+    bmngCallbacks.whitelist_ack = APP_Modem_BMNG_WhitelistAck;
 
-    gPrimeApi->BmngSetCallbacks(&bmng_callbacks);
+    gPrimeApi->BmngSetCallbacks(&bmngCallbacks);
 }
 
 static void APP_Modem_MacEstablishRequestCmd(uint8_t *recvMsg)
@@ -846,7 +896,7 @@ static void APP_Modem_MacEstablishRequestCmd(uint8_t *recvMsg)
     uint8_t *lMessage;
     uint8_t eui48[6];
     uint8_t lType;
-    uint16_t data_len;
+    uint16_t dataLen;
     uint8_t *data;
     uint8_t lArq;
     uint8_t lCfbytes;
@@ -857,96 +907,96 @@ static void APP_Modem_MacEstablishRequestCmd(uint8_t *recvMsg)
     memcpy(eui48, lMessage, 6);
     lMessage += 6;
     lType = *lMessage++;
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
     data = lMessage;
-    lMessage += data_len;
+    lMessage += dataLen;
     lArq = *lMessage++;
     lCfbytes = *lMessage++;
     ae = *lMessage++;
 
-    gPrimeApi->MacEstablishRequest(eui48, lType, data, data_len, lArq, lCfbytes, ae);
+    gPrimeApi->MacEstablishRequest(eui48, lType, data, dataLen, lArq, 
+                                   lCfbytes, ae);
 }
 
 static void APP_Modem_MacEstablishResponseCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t con_handle;
+    uint16_t conHandle;
     uint8_t answer;
-    uint16_t data_len;
+    uint16_t dataLen;
     uint8_t *data;
     uint8_t ae;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    con_handle = ((uint16_t)(*lMessage++)) << 8;
-    con_handle += *lMessage++;
+    conHandle = ((uint16_t)(*lMessage++)) << 8;
+    conHandle += *lMessage++;
     answer = *lMessage++;
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
     data = lMessage;
-    lMessage += data_len;
+    lMessage += dataLen;
     ae = *lMessage++;
 
-    gPrimeApi->MacEstablishResponse(con_handle, 
-            (MAC_ESTABLISH_RESPONSE_ANSWER)answer, data, data_len, ae);
-
+    gPrimeApi->MacEstablishResponse(conHandle, 
+            (MAC_ESTABLISH_RESPONSE_ANSWER)answer, data, dataLen, ae);
 }
 
 static void APP_Modem_MacRedirectResponseCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t con_handle;
+    uint16_t conHandle;
     uint8_t eui48[6];
     uint8_t *data;
-    uint16_t data_len;
+    uint16_t dataLen;
 
     lMessage = recvMsg;
-    con_handle = ((uint16_t)(*lMessage++)) << 8;
-    con_handle += *lMessage++;
+    conHandle = ((uint16_t)(*lMessage++)) << 8;
+    conHandle += *lMessage++;
     memcpy(eui48, lMessage, 6);
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
     data = lMessage;
 
-    gPrimeApi->MacRedirectResponse(con_handle, eui48, data, data_len);
+    gPrimeApi->MacRedirectResponse(conHandle, eui48, data, dataLen);
 }
 
 static void APP_Modem_MacReleaseRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t con_handle;
+    uint16_t conHandle;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    con_handle = ((uint16_t)(*lMessage++)) << 8;
-    con_handle += *lMessage++;
+    conHandle = ((uint16_t)(*lMessage++)) << 8;
+    conHandle += *lMessage++;
 
-    gPrimeApi->MacReleaseRequest(con_handle);
+    gPrimeApi->MacReleaseRequest(conHandle);
 }
 
 static void APP_Modem_MacReleaseResponseCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t con_handle;
+    uint16_t conHandle;
     uint8_t answer;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    con_handle = ((uint16_t)(*lMessage++)) << 8;
-    con_handle += *lMessage++;
+    conHandle = ((uint16_t)(*lMessage++)) << 8;
+    conHandle += *lMessage++;
     answer = *lMessage++;
 
-    gPrimeApi->MacReleaseResponse(con_handle, (MAC_RELEASE_RESPONSE_ANSWER)answer);
+    gPrimeApi->MacReleaseResponse(conHandle, (MAC_RELEASE_RESPONSE_ANSWER)answer);
 }
 
 static void APP_Modem_MacJoinRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
     uint8_t  broadcast;
-    uint8_t con_type;
-    uint16_t data_len;
-    uint16_t con_handle;
+    uint8_t conType;
+    uint16_t dataLen;
+    uint16_t conHandle;
     uint8_t data[256];
     uint8_t eui48[6];
     uint8_t ae;
@@ -954,81 +1004,82 @@ static void APP_Modem_MacJoinRequestCmd(uint8_t *recvMsg)
     /* Extract parameters */
     lMessage = recvMsg;
     broadcast = *lMessage++;
-    con_handle = ((uint16_t)(*lMessage++)) << 8;
-    con_handle += *lMessage++;
+    conHandle = ((uint16_t)(*lMessage++)) << 8;
+    conHandle += *lMessage++;
     memcpy(eui48, lMessage, 6);
     lMessage += 6;
-    con_type = *lMessage++;
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
-    memcpy(data, lMessage, data_len);
-    lMessage += data_len;
+    conType = *lMessage++;
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
+    memcpy(data, lMessage, dataLen);
+    lMessage += dataLen;
     ae = *lMessage++;
 
-    gPrimeApi->MacJoinRequest((MAC_JOIN_REQUEST_MODE)broadcast, con_handle, 
-                                eui48, con_type, data, data_len, ae);
+    gPrimeApi->MacJoinRequest((MAC_JOIN_REQUEST_MODE)broadcast, conHandle, 
+                                eui48, conType, data, dataLen, ae);
 }
 
 static void APP_Modem_MacJoinResponseCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t con_handle;
+    uint16_t conHandle;
     uint8_t answer;
     uint8_t eui48[6];
     uint8_t ae;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    con_handle = ((uint16_t)(*lMessage++)) << 8;
-    con_handle += *lMessage++;
+    conHandle = ((uint16_t)(*lMessage++)) << 8;
+    conHandle += *lMessage++;
     memcpy(eui48, lMessage, 6);
     lMessage += 6;
     answer = *lMessage++;
     ae = *lMessage++;
 
-    gPrimeApi->MacJoinResponse(con_handle, eui48, (MAC_JOIN_RESPONSE_ANSWER)answer, ae);
+    gPrimeApi->MacJoinResponse(conHandle, eui48, 
+                               (MAC_JOIN_RESPONSE_ANSWER)answer, ae);
 }
 
 static void APP_Modem_MacLeaveRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t con_handle;
+    uint16_t conHandle;
     uint8_t eui48[6];
 
     /* Extract parameters */
     lMessage = recvMsg;
-    con_handle = ((uint16_t)(*lMessage++)) << 8;
-    con_handle += *lMessage++;
+    conHandle = ((uint16_t)(*lMessage++)) << 8;
+    conHandle += *lMessage++;
     memcpy(eui48, lMessage, 6);
 
-    gPrimeApi->MacLeaveRequest(con_handle, eui48);
+    gPrimeApi->MacLeaveRequest(conHandle, eui48);
 }
 
 
 static void APP_Modem_MacDataRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t con_handle;
-    uint16_t data_len;
+    uint16_t conHandle;
+    uint16_t dataLen;
     uint8_t *data;
     uint8_t prio;
     uint32_t time_ref;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    con_handle = ((uint16_t)(*lMessage++)) << 8;
-    con_handle += *lMessage++;
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
+    conHandle = ((uint16_t)(*lMessage++)) << 8;
+    conHandle += *lMessage++;
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
     data = lMessage;
-    lMessage += data_len;
+    lMessage += dataLen;
     prio = *lMessage++;
     time_ref = ((uint32_t)(*lMessage++)) << 24;
     time_ref += ((uint32_t)(*lMessage++)) << 16;
     time_ref += ((uint32_t)(*lMessage++)) << 8;
     time_ref += *lMessage++;
 
-    gPrimeApi->MacDataRequest(con_handle, data, data_len, prio, time_ref);
+    gPrimeApi->MacDataRequest(conHandle, data, dataLen, prio, time_ref);
 
     /* Tx data indication */
     sTxdataIndication = true;
@@ -1076,57 +1127,57 @@ static void APP_Modem_PLME_ResumeRequestCmd(uint8_t *recvMsg)
 static void APP_Modem_PLME_GetRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t pib_attrib;
+    uint16_t pibAttrib;
     uint16_t pch;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    pib_attrib = ((uint16_t)(*lMessage++)) << 8;
-    pib_attrib += *lMessage++;
+    pibAttrib = ((uint16_t)(*lMessage++)) << 8;
+    pibAttrib += *lMessage++;
     pch = ((uint16_t)(*lMessage++)) << 8;
     pch += *lMessage++;
 
-    gPrimeApi->PlmeGetRequest(pib_attrib, pch);
+    gPrimeApi->PlmeGetRequest(pibAttrib, pch);
 }
 
 static void APP_Modem_PLME_SetRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t pib_attrib;
+    uint16_t pibAttrib;
     uint8_t  pibValueBuf[256];
-    uint8_t pib_size;
+    uint8_t pibSize;
     void *pibValue;
-    uint16_t tmp_s;
-    uint32_t tmp_l;
+    uint16_t temp16;
+    uint32_t temp32;
     uint16_t pch;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    pib_attrib = ((uint16_t)(*lMessage++)) << 8;
-    pib_attrib += *lMessage++;
-    pib_size = *lMessage++;
+    pibAttrib = ((uint16_t)(*lMessage++)) << 8;
+    pibAttrib += *lMessage++;
+    pibSize = *lMessage++;
     /* Check PIB size */
-    switch (pib_size) 
+    switch (pibSize) 
     {
         case 2: /* sizeof(uint16_t) */
             /* Extract PIB value */
-            tmp_s = ((uint16_t)(*lMessage++)) << 8;
-            tmp_s += *lMessage++;
-            pibValue = (void *)(&tmp_s);
+            temp16 = ((uint16_t)(*lMessage++)) << 8;
+            temp16 += *lMessage++;
+            pibValue = (void *)(&temp16);
             break;
 
         case 4: /* sizeof(uint32_t) */
             /* Extract PIB value */
-            tmp_l = ((uint32_t)(*lMessage++) << 24);
-            tmp_l += ((uint32_t)(*lMessage++) << 16);
-            tmp_l += ((uint32_t)(*lMessage++) << 8);
-            tmp_l += (uint32_t)*lMessage++;
-            pibValue = (void *)(&tmp_l);
+            temp32 = ((uint32_t)(*lMessage++) << 24);
+            temp32 += ((uint32_t)(*lMessage++) << 16);
+            temp32 += ((uint32_t)(*lMessage++) << 8);
+            temp32 += (uint32_t)*lMessage++;
+            pibValue = (void *)(&temp32);
             break;
 
         case 1: /* sizeof(uint8_t) */
         default: /* arrays */
-            memcpy(pibValueBuf, lMessage, pib_size);
+            memcpy(pibValueBuf, lMessage, pibSize);
             pibValue = (void *)pibValueBuf;
             break;
     }
@@ -1134,22 +1185,22 @@ static void APP_Modem_PLME_SetRequestCmd(uint8_t *recvMsg)
     pch = ((uint16_t)(*lMessage++)) << 8;
     pch += *lMessage++;
 
-    gPrimeApi->PlmeSetRequest(pib_attrib, pibValue, pib_size, pch);
+    gPrimeApi->PlmeSetRequest(pibAttrib, pibValue, pibSize, pch);
 }
 
 static void APP_Modem_MLME_PromoteRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
     uint8_t eui48[6];
-    uint8_t bcn_mode;
+    uint8_t bcnMode;
 
     /* Extract parameters */
     lMessage = recvMsg;
     memcpy(eui48, lMessage, 6);
     lMessage += 6;
-    bcn_mode = *lMessage++;
+	bcnMode = *lMessage++;
 
-    gPrimeApi->MlmePromoteRequest(eui48, bcn_mode);
+    gPrimeApi->MlmePromoteRequest(eui48, bcnMode);
 }
 
 static void APP_Modem_MLME_MP_PromoteRequestCmd(uint8_t *recvMsg)
@@ -1157,125 +1208,125 @@ static void APP_Modem_MLME_MP_PromoteRequestCmd(uint8_t *recvMsg)
     uint8_t *lMessage;
     uint8_t eui48[6];
     uint16_t pch;
-    uint8_t bcn_mode;
+    uint8_t bcnMode;
 
     /* Extract parameters */
     lMessage = recvMsg;
     memcpy(eui48, lMessage, 6);
     lMessage += 6;
-    bcn_mode = *lMessage++;
+    bcnMode = *lMessage++;
     pch = ((uint16_t)(*lMessage++)) << 8;
     pch += *lMessage++;
 
-    gPrimeApi->MlmeMpPromoteRequest(eui48, bcn_mode, pch);
+    gPrimeApi->MlmeMpPromoteRequest(eui48, bcnMode, pch);
 }
 
 static void APP_Modem_MLME_GetRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t pib_attrib;
+    uint16_t pibAttrib;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    pib_attrib = ((uint16_t)(*lMessage++)) << 8;
-    pib_attrib += *lMessage++;
+    pibAttrib = ((uint16_t)(*lMessage++)) << 8;
+    pibAttrib += *lMessage++;
 
-    gPrimeApi->MlmeGetRequest(pib_attrib);
+    gPrimeApi->MlmeGetRequest(pibAttrib);
 }
 
 static void APP_Modem_MLME_ListGetRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t pib_attrib;
+    uint16_t pibAttrib;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    pib_attrib = ((uint16_t)(*lMessage++)) << 8;
-    pib_attrib += *lMessage++;
+    pibAttrib = ((uint16_t)(*lMessage++)) << 8;
+    pibAttrib += *lMessage++;
 
-    gPrimeApi->MlmeListGetRequest(pib_attrib);
+    gPrimeApi->MlmeListGetRequest(pibAttrib);
 }
 
 static void APP_Modem_MLME_SetRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
     void *pibValue;
-    uint16_t pib_attrib;
+    uint16_t pibAttrib;
     uint8_t pibValueBuf[256];
-    uint8_t pib_size;
-    uint16_t us_tmp;
-    uint32_t ul_tmp;
+    uint8_t pibSize;
+    uint16_t temp16;
+    uint32_t temp32;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    pib_attrib = ((uint16_t)(*lMessage++)) << 8;
-    pib_attrib += *lMessage++;
-    pib_size = *lMessage++;
+    pibAttrib = ((uint16_t)(*lMessage++)) << 8;
+    pibAttrib += *lMessage++;
+    pibSize = *lMessage++;
     /* Check PIB size */
-    switch (pib_size) 
+    switch (pibSize) 
     {
         case 2: /* sizeof(uint16_t) */
             /* Extract PIB value */
-            us_tmp = ((uint16_t)(*lMessage++)) << 8;
-            us_tmp += *lMessage++;
-            pibValue = (void *)(&us_tmp);
+            temp16 = ((uint16_t)(*lMessage++)) << 8;
+            temp16 += *lMessage++;
+            pibValue = (void *)(&temp16);
             break;
 
         case 4: /* sizeof(uint32_t) */
             /* Extract PIB value */
-            ul_tmp = ((uint32_t)(*lMessage++)) << 24;
-            ul_tmp += ((uint32_t)(*lMessage++)) << 16;
-            ul_tmp += ((uint32_t)(*lMessage++)) << 8;
-            ul_tmp += *lMessage++;
-            pibValue = (void *)(&ul_tmp);
+            temp32 = ((uint32_t)(*lMessage++)) << 24;
+            temp32 += ((uint32_t)(*lMessage++)) << 16;
+            temp32 += ((uint32_t)(*lMessage++)) << 8;
+            temp32 += *lMessage++;
+            pibValue = (void *)(&temp32);
             break;
 
         case 1: /* sizeof(uint8_t) */
         default: /* arrays */
-            memcpy(pibValueBuf, lMessage, pib_size);
+            memcpy(pibValueBuf, lMessage, pibSize);
             pibValue = (void *)pibValueBuf;
             break;
     }
 
-    gPrimeApi->MlmeSetRequest(pib_attrib, pibValue, pib_size);
+    gPrimeApi->MlmeSetRequest(pibAttrib, pibValue, pibSize);
 }
 
 static void APP_Modem_CL432ReleaseRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t dst_address;
+    uint16_t dstAddress;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    dst_address = ((uint16_t)(*lMessage++)) << 8;
-    dst_address += *lMessage++;
+    dstAddress = ((uint16_t)(*lMessage++)) << 8;
+    dstAddress += *lMessage++;
 
-    gPrimeApi->Cl432ReleaseRequest(dst_address);
+    gPrimeApi->Cl432ReleaseRequest(dstAddress);
 }
 
 static void APP_Modem_CL432DataRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
-    uint16_t dst_address, lsdu_len;
-    DL_432_BUFFER buff_432;
-    uint8_t link_class, dst_lsap, src_lsap;
+    uint16_t dstAddress, lsduLen;
+    DL_432_BUFFER buff432;
+    uint8_t linkClass, dstLsap, srcLsap;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    dst_lsap = *lMessage++;
-    src_lsap = *lMessage++;
-    dst_address = ((uint16_t)(*lMessage++)) << 8;
-    dst_address += *lMessage++;
-    lsdu_len = ((uint16_t)(*lMessage++)) << 8;
-    lsdu_len += *lMessage++;
-    if(lsdu_len <= CL_432_MAX_LENGTH_DATA) 
+    dstLsap = *lMessage++;
+    srcLsap = *lMessage++;
+    dstAddress = ((uint16_t)(*lMessage++)) << 8;
+    dstAddress += *lMessage++;
+    lsduLen = ((uint16_t)(*lMessage++)) << 8;
+    lsduLen += *lMessage++;
+    if(lsduLen <= CL_432_MAX_LENGTH_DATA) 
     {
-        memcpy(buff_432.dl.buff, lMessage, lsdu_len);
-        lMessage += lsdu_len;
-        link_class = *lMessage++;
+        memcpy(buff432.dl.buff, lMessage, lsduLen);
+        lMessage += lsduLen;
+        linkClass = *lMessage++;
 
-        gPrimeApi->Cl432DlDataRequest(dst_lsap, src_lsap, dst_address, 
-                &buff_432, lsdu_len, link_class);
+        gPrimeApi->Cl432DlDataRequest(dstLsap, srcLsap, dstAddress, 
+                &buff432, lsduLen, linkClass);
     }
 
     /* Tx data indication */
@@ -1299,22 +1350,22 @@ static void APP_Modem_BMNG_FupSetFwDataRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
     char vendor[32], model[32], version[32];
-    uint8_t vendor_len, model_len, version_len;
+    uint8_t vendorLen, modelLen, versionlLen;
 
     /* Extract parameters */
     lMessage = recvMsg;
-    vendor_len = *lMessage++;
-    memcpy(vendor, lMessage, vendor_len);
-    lMessage += vendor_len;
-    model_len = *lMessage++;
-    memcpy(model, lMessage, model_len);
-    lMessage += model_len;
-    version_len = *lMessage++;
-    memcpy(version, lMessage, version_len);
+    vendorLen = *lMessage++;
+    memcpy(vendor, lMessage, vendorLen);
+    lMessage += vendorLen;
+    modelLen = *lMessage++;
+    memcpy(model, lMessage, modelLen);
+    lMessage += modelLen;
+    versionlLen = *lMessage++;
+    memcpy(version, lMessage, versionlLen);
 
     gPrimeApi->BmngFupSetFwDataRequest(
-    APP_MODEM_BMNG_FUP_SET_FW_DATA_REQUEST_CMD, vendor_len, vendor, model_len, 
-            model, version_len, version);
+    APP_MODEM_BMNG_FUP_SET_FW_DATA_REQUEST_CMD, vendorLen, vendor, modelLen, 
+            model, versionlLen, version);
 }
 
 static void APP_Modem_BMNG_FupSetUpgOptionRequestCmd(uint8_t *recvMsg)
@@ -1322,14 +1373,14 @@ static void APP_Modem_BMNG_FupSetUpgOptionRequestCmd(uint8_t *recvMsg)
     uint8_t *lMessage;
     uint32_t delayRestart;
     uint32_t safetyTimer;
-    BMNG_FUP_PAGE_SIZE page_size;
+    BMNG_FUP_PAGE_SIZE pageSize;
     uint8_t arqEn;
     uint8_t multicastEn;
 
     /* Extract parameters */
     lMessage = recvMsg;
     arqEn = *lMessage++;
-    page_size = (BMNG_FUP_PAGE_SIZE)*lMessage++;
+    pageSize = (BMNG_FUP_PAGE_SIZE)*lMessage++;
     multicastEn = *lMessage++;
     delayRestart = ((uint32_t)(*lMessage++)) << 24;
     delayRestart += ((uint32_t)(*lMessage++)) << 16;
@@ -1341,7 +1392,7 @@ static void APP_Modem_BMNG_FupSetUpgOptionRequestCmd(uint8_t *recvMsg)
     safetyTimer += *lMessage++;
 
     gPrimeApi->BmngFupSetUpgradeOptionsRequest(
-    APP_MODEM_BMNG_FUP_SET_UPGRADE_REQUEST_CMD, arqEn, page_size, multicastEn, 
+    APP_MODEM_BMNG_FUP_SET_UPGRADE_REQUEST_CMD, arqEn, pageSize, multicastEn, 
             delayRestart, safetyTimer);
 }
 
@@ -1375,18 +1426,18 @@ static void APP_Modem_BMNG_FupDataFrameRequestCmd(uint8_t *recvMsg)
 {
     uint8_t *lMessage;
     uint8_t data[1000];
-    uint16_t frameNumber, data_len;
+    uint16_t frameNumber, dataLen;
 
     /* Extract parameters */
     lMessage = recvMsg;
     frameNumber = ((uint16_t)(*lMessage++)) << 8;
     frameNumber += *lMessage++;
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
-    memcpy(data, lMessage, data_len);
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
+    memcpy(data, lMessage, dataLen);
 
     gPrimeApi->BmngFupDataFrameRequest(APP_MODEM_BMNG_FUP_DATA_FRAME_REQUEST_CMD,
-                                                frameNumber, data_len, data);
+                                                frameNumber, dataLen, data);
 }
 
 static void APP_Modem_BMNG_FupAbortFuRequestCmd(uint8_t *recvMsg)
@@ -1475,18 +1526,18 @@ static void APP_Modem_BMNG_PprofGetRequestCmd(uint8_t *recvMsg)
     uint8_t *lMessage;
     uint8_t data[1024];
     uint8_t eui48[6];
-    uint16_t data_len;
+    uint16_t dataLen;
 
     /* Extract parameters */
     lMessage = recvMsg;
     memcpy(eui48, lMessage, 6);
     lMessage += 6;
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
-    memcpy(data, lMessage, data_len);
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
+    memcpy(data, lMessage, dataLen);
 
     gPrimeApi->BmngPprofGetRequest(APP_MODEM_BMNG_PPROF_GET_REQUEST_CMD, eui48,
-                                   data_len, data);
+                                   dataLen, data);
 }
 
 static void APP_Modem_BMNG_PprofSetRequestCmd(uint8_t *recvMsg)
@@ -1494,18 +1545,18 @@ static void APP_Modem_BMNG_PprofSetRequestCmd(uint8_t *recvMsg)
     uint8_t *lMessage;
     uint8_t data[1024];
     uint8_t eui48[6];
-    uint16_t data_len;
+    uint16_t dataLen;
 
     /* Extract parameters */
     lMessage = recvMsg;
     memcpy(eui48, lMessage, 6);
     lMessage += 6;
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
-    memcpy(data, lMessage, data_len);
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
+    memcpy(data, lMessage, dataLen);
 
     gPrimeApi->BmngPprofSetRequest(APP_MODEM_BMNG_PPROF_SET_REQUEST_CMD, eui48, 
-                                   data_len, data);
+                                   dataLen, data);
 }
 
 static void APP_Modem_BMNG_PprofResetRequestCmd(uint8_t *recvMsg)
@@ -1539,18 +1590,18 @@ static void APP_Modem_BMNG_PprofGetEnhancedRequestCmd(uint8_t *recvMsg)
     uint8_t *lMessage;
     uint8_t data[1024];
     uint8_t eui48[6];
-    uint16_t data_len;
+    uint16_t dataLen;
 
     /* Extract parameters */
     lMessage = recvMsg;
     memcpy(eui48, lMessage, 6);
     lMessage += 6;
-    data_len = ((uint16_t)(*lMessage++)) << 8;
-    data_len += *lMessage++;
-    memcpy(data, lMessage, data_len);
+    dataLen = ((uint16_t)(*lMessage++)) << 8;
+    dataLen += *lMessage++;
+    memcpy(data, lMessage, dataLen);
 
     gPrimeApi->BmngPprofGetEnhancedRequest(
-        APP_MODEM_BMNG_PPROF_GET_ENHANCED_RESPONSE_CMD, eui48, data_len, data);
+        APP_MODEM_BMNG_PPROF_GET_ENHANCED_RESPONSE_CMD, eui48, dataLen, data);
 }
 
 static void APP_Modem_BMNG_PprofZcDiffRequestCmd(uint8_t *recvMsg)
@@ -1594,7 +1645,6 @@ static void APP_Modem_BMNG_WhitelistRemoveRequestCmd(uint8_t *recvMsg)
 
 void APP_Modem_Initialize(void)
 {
-
     /* Initialize the reception queue */
     inputMsgRecvIndex = 0;
     outputMsgRecvIndex = 0;
@@ -1630,7 +1680,7 @@ void APP_Modem_Tasks(void)
         /* Extract command */
         recvBuf = sAppModemMsgRecv[outputMsgRecvIndex].dataBuf;
         apiCmd = (APP_MODEM_PRIME_API_CMD)*recvBuf++;
-        switch (apiCmd) 
+        switch (apiCmd)
         {
             case APP_MODEM_CL_NULL_ESTABLISH_REQUEST_CMD:
                 APP_Modem_MacEstablishRequestCmd(recvBuf);
@@ -1716,9 +1766,9 @@ void APP_Modem_Tasks(void)
                 APP_Modem_MLME_SetRequestCmd(recvBuf);
                 break;
 
-            case APP_MODEM_CL_432_RELEASE_REQUEST_CMD:
-                APP_Modem_CL432ReleaseRequestCmd(recvBuf);
-                break;
+        case APP_MODEM_CL_432_RELEASE_REQUEST_CMD:
+            APP_Modem_CL432ReleaseRequestCmd(recvBuf);
+            break;
 
             case APP_MODEM_CL_432_DL_DATA_REQUEST_CMD:
                 APP_Modem_CL432DataRequestCmd(recvBuf);
@@ -1811,7 +1861,7 @@ void APP_Modem_Tasks(void)
                 break;
 
             default:
-                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_WARNING, 
+                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_INFO, 
                     APP_MODEM_ERR_UNKNOWN_CMD, "ERROR: unknown command\r\n" );
                 break;
         }
