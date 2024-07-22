@@ -281,9 +281,9 @@ static void lPAL_RF_DataIndCb(DRV_RF215_RX_INDICATION_OBJ* pIndObj, uintptr_t ct
 
     if (palRfData.snifferCallback)
     {
-        uint8_t* pRfSnifferData;
-        uint16_t paySymbols;
-        size_t dataLength;
+        uint8_t* pRfSnifferData=NULL;
+        uint16_t paySymbols=0;
+        size_t dataLength=0;
 
         DRV_RF215_GetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_RX_PAY_SYMBOLS,
                     &paySymbols);

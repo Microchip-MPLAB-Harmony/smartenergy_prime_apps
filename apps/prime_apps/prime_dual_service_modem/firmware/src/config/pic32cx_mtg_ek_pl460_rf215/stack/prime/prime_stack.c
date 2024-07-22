@@ -94,6 +94,9 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     
     /* Get the PRIME version */
     SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
+    /* Initialize boardInfo */
+    memset(&boardInfo,0,sizeof(boardInfo));
+    
     SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, sizeof(boardInfo), 
                               (void *)&boardInfo);
     
