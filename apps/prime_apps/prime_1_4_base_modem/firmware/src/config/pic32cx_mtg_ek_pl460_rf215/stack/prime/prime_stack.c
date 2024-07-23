@@ -67,6 +67,7 @@ extern HAL_API primeHalAPI;
 // *****************************************************************************
 
 static PRIME_OBJ primeObj;
+static PRIME_API_INIT primeApiInit;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -77,8 +78,7 @@ static PRIME_OBJ primeObj;
 SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index, 
     const SYS_MODULE_INIT * const init)
 {
-    const PRIME_STACK_INIT* primeInit = (PRIME_STACK_INIT *)init;
-    PRIME_API_INIT primeApiInit;
+    const PRIME_STACK_INIT* primeInit = (const PRIME_STACK_INIT * const)init;
 
     /* Validate the request */
     if (index >= PRIME_INSTANCES_NUMBER)
@@ -110,4 +110,12 @@ void PRIME_Tasks(SYS_MODULE_OBJ object)
     }
     
     primeObj.primeApi->Tasks();
+}
+
+void PRIME_Restart(uint32_t *primePtr)
+{
+    primeObj.primeApi = (PRIME_API *)primePtr;
+
+    /* Initialize PRIME */
+    primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit);
 }

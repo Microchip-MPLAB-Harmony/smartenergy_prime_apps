@@ -46,14 +46,23 @@ extern "C" {
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-/** Enable swapping of FU location */
-# define APP_FU_ENABLE_SWAP         0XFE45EC48
-/** Enable swapping of stack */
-# define APP_STACK_ENABLE_SWAP      0XEF54CE84
 
-/* time to show messages in display */
-# define APP_SHOW_MESSAGE_TIME   (500)
+/* Enable swapping of FU location */
+# define APP_FU_ENABLE_SWAP         0XFE45EC48
     
+/* Enable swapping of stack */
+# define APP_VERSION_ENABLE_SWAP    0XEF54CE84
+    
+/* Register definition for NVIC */
+/* (NVIC) Interrupt Set-enable register */
+#define NVIC_ISER0        (0xE000E100U)
+/* (NVIC) Interrupt Clear-enable register */
+#define NVIC_ICER0        (0xE000E180U)
+/* (NVIC) Interrupt Set-pending register */
+#define NVIC_ISPR0        (0xE000E200U)
+/* (NVIC) Interrupt Clear-pending register */
+#define NVIC_ICPR0        (0xE000E280U)
+
 // *****************************************************************************
 /* Application states
 
@@ -104,7 +113,7 @@ typedef struct
 // *****************************************************************************
 /* Period to blink LED in milliseconds */
 #define APP_LED_BLINK_PERIOD_MS     500
-#define APP_STRING_HEADER "\r\n-- MCHP PRIME 1.4 Modem application for Service Node --\r\n" \
+#define APP_STRING_HEADER "\r\n-- MCHP PRIME Dual Modem application for Service Node --\r\n" \
 	"-- Compiled: "__DATE__" "__TIME__" --\r\n" \
 
 #define APP_BLINK_LED_On()           LED_GREEN_On()

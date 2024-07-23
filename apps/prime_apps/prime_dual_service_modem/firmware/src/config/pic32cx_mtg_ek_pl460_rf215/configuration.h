@@ -117,12 +117,14 @@ extern "C" {
 #define DRV_RF215_INDEX_0                     0U
 #define DRV_RF215_CLIENTS_NUMBER              1U
 #define DRV_RF215_TX_BUFFERS_NUMBER           1U
-#define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PA0
-#define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PA0
+#define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PC7
+#define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PA25
+#define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PA8
+#define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA9
 #define DRV_RF215_NUM_TRX                     1U
 #define DRV_RF215_FCS_LEN                     4U
-#define DRV_RF215_MAX_PSDU_LEN                576U
-#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  9000U
+#define DRV_RF215_MAX_PSDU_LEN                571U
+#define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  1000U
 #define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180U
 #define DRV_RF215_TX_COMMAND_EXECUTION_CYCLES 1400U
 
@@ -137,11 +139,12 @@ extern "C" {
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
 #define DRV_PLC_EXT_INT_SRC                   PIOA_IRQn
-#define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PA0
-#define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PA0
-#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA0
-#define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PA0
-#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA0
+#define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PA2
+#define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PA2
+#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PD15
+#define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PD19
+#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA1
+#define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PB15
 #define DRV_PLC_CSR_INDEX                     0
 #define DRV_PLC_SPI_CLK                       8000000
 
@@ -158,6 +161,8 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
 
+#define DRV_PLC_BIN_START_ADDRESS             0x10b8000
+#define DRV_PLC_BIN_SIZE                      98304
 
 /* PRIME PAL Configuration Options */
 #define PRIME_PAL_INDEX                     0U

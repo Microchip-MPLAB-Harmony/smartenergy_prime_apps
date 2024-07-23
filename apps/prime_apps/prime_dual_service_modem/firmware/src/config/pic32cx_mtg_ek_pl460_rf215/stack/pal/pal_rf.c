@@ -236,9 +236,9 @@ static void lPAL_RF_DataCfmCb(DRV_RF215_TX_HANDLE txHandle,
 
     if (palRfData.snifferCallback)
     {
-        uint8_t* pRfSnifferData;
-        uint16_t paySymbols;
-        size_t dataLength;
+        uint8_t* pRfSnifferData=NULL;
+        uint16_t paySymbols=0;
+        size_t dataLength=0;
 
         DRV_RF215_GetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_TX_PAY_SYMBOLS,
                     &paySymbols);

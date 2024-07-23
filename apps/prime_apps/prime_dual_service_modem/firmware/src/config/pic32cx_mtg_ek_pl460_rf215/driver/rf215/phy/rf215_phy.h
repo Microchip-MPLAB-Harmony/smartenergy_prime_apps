@@ -561,12 +561,6 @@ typedef struct
     uint8_t                         BBCn_FBLIL;
     uint8_t                         BBCn_FBLIH;
 
-    /* OFDM configuration registers */
-    uint8_t                         BBCn_OFDMPHRTX;
-    uint8_t                         BBCn_OFDMPHRRX;
-    uint8_t                         BBCn_OFDMC;
-    uint8_t                         BBCn_OFDMSW;
-
     /* IEEE MAC Support Registers */
     uint8_t                         BBCn_AMCS;
     uint8_t                         BBCn_AMEDT;
@@ -713,6 +707,9 @@ typedef struct
 
     /* Flag to indicate that TXFE interrupt is pending to be processed */
     bool                            txfePending;
+
+    /* RX LED status */
+    bool                            ledRxStatus;
 
     /* Flag to indicate that TX parameters have been configured */
     bool                            txStarted;

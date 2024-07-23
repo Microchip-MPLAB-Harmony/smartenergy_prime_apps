@@ -131,21 +131,14 @@ static uint8_t SRV_RSNIFFER_FrameType(DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj)
 {
     uint8_t frameType;
 
-    if (pPhyCfgObj->phyType == PHY_TYPE_FSK)
+    frameType = (uint8_t) pPhyCfgObj->phyTypeCfg.fsk.symRate;
+    if (pPhyCfgObj->phyTypeCfg.fsk.modOrd == FSK_MOD_ORD_2FSK)
     {
-        frameType = (uint8_t) pPhyCfgObj->phyTypeCfg.fsk.symRate;
-        if (pPhyCfgObj->phyTypeCfg.fsk.modOrd == FSK_MOD_ORD_2FSK)
-        {
-            frameType += RSNIFFER_TYPE_RF_FSK50;
-        }
-        else /* FSK_MOD_ORD_4FSK */
-        {
-            frameType += RSNIFFER_TYPE_RF_4FSK50;
-        }
+        frameType += RSNIFFER_TYPE_RF_FSK50;
     }
-    else /* PHY_TYPE_OFDM */
+    else /* FSK_MOD_ORD_4FSK */
     {
-        frameType = (uint8_t) pPhyCfgObj->phyTypeCfg.ofdm.opt + RSNIFFER_TYPE_RF_OFDM1;
+        frameType += RSNIFFER_TYPE_RF_4FSK50;
     }
 
     return frameType;
@@ -205,14 +198,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     srvRsnifferRxMsg[2] = RSNIFFER_RF215_PRIME;
 
     /* Frame modulation */
-    if (pPhyCfgObj->phyType == PHY_TYPE_FSK)
-    {
-        srvRsnifferRxMsg[3] = (uint8_t) pIndObj->modScheme + RSNIFFER_MOD_RF_FSK_FEC_OFF;
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        srvRsnifferRxMsg[3] = (uint8_t) pIndObj->modScheme + RSNIFFER_MOD_RF_OFDM_MCS0;
-    }
+    srvRsnifferRxMsg[3] = (uint8_t) pIndObj->modScheme + RSNIFFER_MOD_RF_FSK_FEC_OFF;
 
     /* Number of payload symbols */
     srvRsnifferRxMsg[4] = (uint8_t) (paySymbols >> 8);
@@ -275,14 +261,8 @@ void SRV_RSNIFFER_SetTxMessage (
     pMsgDest = srvRsnifferTxMsg[txBufIndex];
 
     /* Frame modulation */
-    if (pPhyCfgObj->phyType == PHY_TYPE_FSK)
-    {
-        pMsgDest[3] = (uint8_t) pReqObj->modScheme + RSNIFFER_MOD_RF_FSK_FEC_OFF;
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        pMsgDest[3] = (uint8_t) pReqObj->modScheme + RSNIFFER_MOD_RF_OFDM_MCS0;
-    }
+    (void)pPhyCfgObj;
+    pMsgDest[3] = (uint8_t) pReqObj->modScheme + RSNIFFER_MOD_RF_FSK_FEC_OFF;
 
     /* RSSI */
     rssi = 14 - (int16_t) pReqObj->txPwrAtt;

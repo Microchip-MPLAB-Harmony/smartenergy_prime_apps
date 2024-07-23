@@ -486,7 +486,6 @@
                    displayName="Important Files"
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
-      <itemPath>prime_14_sn_modem_pic32cx_mtg_ek_pl460_rf215.mc3</itemPath>
       <itemPath>prime_dual_sn_modem_pic32cx_mtg_ek_pl460_rf215.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"

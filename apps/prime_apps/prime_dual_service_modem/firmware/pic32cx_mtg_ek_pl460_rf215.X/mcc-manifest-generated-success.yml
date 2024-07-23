@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_dual_sn_modem_pic32cx_mtg_ek_pl460_rf215
-creation_date: 2024-07-19T23:19:45.449+05:30[Asia/Calcutta]
+creation_date: 2024-07-23T14:50:10.914+02:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -18,11 +18,11 @@ device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name:
     V3, version: 1.5.2}
 packs: {name: PIC32CX-MT_DFP, version: 1.3.132}
 modules:
-- {name: csp, type: HARMONY, version: hs_csp_v3.19.1}
-- {name: core, type: HARMONY, version: hs_core_v3.13.5}
+- {name: csp, type: HARMONY, version: v3.19.1}
+- {name: core, type: HARMONY, version: v3.13.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: hs_dev_SMS-3845}
-- {name: wolfssl, type: HARMONY, version: hs_wolfssl_v5.6.7-E1}
-- {name: smartenergy, type: HARMONY, version: hs_smartenergy_dev_v130}
-- {name: bsp, type: HARMONY, version: hs_bsp_v3.20.1}
-- {name: crypto, type: HARMONY, version: hs_crypto_v4.0.0-E1}
+- {name: smartenergy_prime, type: HARMONY, version: SMS-3999-prime-sn-modem-app}
+- {name: wolfssl, type: HARMONY, version: v5.7.0}
+- {name: smartenergy, type: HARMONY, version: dev_v130}
+- {name: bsp, type: HARMONY, version: v3.20.1}
+- {name: crypto, type: HARMONY, version: dev}

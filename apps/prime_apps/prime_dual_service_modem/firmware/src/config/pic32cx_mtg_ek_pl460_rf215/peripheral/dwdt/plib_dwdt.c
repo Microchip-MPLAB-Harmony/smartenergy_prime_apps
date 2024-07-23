@@ -56,20 +56,25 @@ typedef struct
 }dwdtCallback_t;
 
 
+volatile static dwdtCallback_t dwdt0CallbackObj;
+
 
 static void WDT0_Initialize(void)
 {
     /* Configure Period  */
-    DWDT_REGS->DWDT_WDT0_WL = DWDT_WDT0_WL_PERIOD(1000U);
+    DWDT_REGS->DWDT_WDT0_WL = DWDT_WDT0_WL_PERIOD(1250U);
 
     /* Configure prescaler  */
     DWDT_REGS->DWDT_WDT0_IL = DWDT_WDT0_IL_PRESC_RATIO128;
 
     /* Configure WDT0 modes */
-    DWDT_REGS->DWDT_WDT0_MR = DWDT_WDT0_MR_PERIODRST_Msk;
+    DWDT_REGS->DWDT_WDT0_MR = DWDT_WDT0_MR_WDDBG1HLT_Msk | DWDT_WDT0_MR_WDDBG0HLT_Msk | DWDT_WDT0_MR_WDIDLEHLT_Msk;
 
-    /* Disable all interrupts */
-    DWDT_REGS->DWDT_WDT0_IDR = DWDT_WDT0_IDR_Msk;
+    /*Enable configured interrupts */
+    DWDT_REGS->DWDT_WDT0_IER = DWDT_WDT0_IER_PERINT_Msk;
+
+    /*Disable interrupts that are not enabled */
+    DWDT_REGS->DWDT_WDT0_IDR = DWDT_WDT0_IDR_LVLINT_Msk | DWDT_WDT0_IDR_RPTHINT_Msk | DWDT_WDT0_IDR_RLDERR_Msk | DWDT_WDT0_IDR_W1PERINT_Msk | DWDT_WDT0_IDR_W1RPTHINT_Msk;
 }
 
 
@@ -84,6 +89,25 @@ void DWDT_WDT0_Disable(void)
 {
     /* Disable WDT0 */
     DWDT_REGS->DWDT_WDT0_MR |= DWDT_WDT0_MR_WDDIS_Msk;
+}
+
+
+void DWDT_WDT0_RegisterCallback(DWDT_CALLBACK pCallback, uintptr_t context)
+{
+    dwdt0CallbackObj.pCallback = pCallback;
+    dwdt0CallbackObj.context = context;
+}
+
+
+void __attribute__((used)) DWDT0_InterruptHandler(void)
+{
+    uint32_t interruptStatus = DWDT_REGS->DWDT_WDT0_ISR;
+    if (dwdt0CallbackObj.pCallback != NULL)
+    {
+        uintptr_t context = dwdt0CallbackObj.context;
+
+        dwdt0CallbackObj.pCallback(interruptStatus, context);
+    }
 }
 
 

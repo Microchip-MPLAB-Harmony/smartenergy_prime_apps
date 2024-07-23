@@ -179,6 +179,12 @@ typedef struct
     /* External interrupt disable counter */
     uint8_t                         extIntDisableCount;
 
+    /* LED RX counter ON */
+    uint8_t                         ledRxOnCount;
+
+    /* LED TX counter ON */
+    uint8_t                         ledTxOnCount;
+
 } RF215_HAL_OBJ;
 
 // *****************************************************************************
@@ -233,6 +239,10 @@ void RF215_HAL_SpiWriteUpdate (
 );
 
 size_t RF215_HAL_GetSpiQueueSize(void);
+
+void RF215_HAL_LedRx(bool on);
+
+void RF215_HAL_LedTx(bool on);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

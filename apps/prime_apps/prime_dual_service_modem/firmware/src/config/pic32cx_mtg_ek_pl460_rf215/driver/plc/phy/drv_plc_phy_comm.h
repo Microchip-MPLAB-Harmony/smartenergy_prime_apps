@@ -62,16 +62,6 @@ Microchip or any third party.
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: External Data
-// *****************************************************************************
-// *****************************************************************************
-
-/* PLC Binary file addressing */
-extern uint8_t plc_phy_bin_start;
-extern uint8_t plc_phy_bin_end;
-
-// *****************************************************************************
-// *****************************************************************************
 // Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
@@ -372,6 +362,8 @@ typedef enum {
   DRV_PLC_PHY_TX_RESULT_CANCELLED = 11,
   /* Transmission result: high temperature error */
   DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_120 = 12,
+  /* Transmission result: high temperature warning */
+  DRV_PLC_PHY_TX_RESULT_HIGH_TEMP_110 = 13,
   /* Transmission result: No transmission ongoing */
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 } DRV_PLC_PHY_TX_RESULT;

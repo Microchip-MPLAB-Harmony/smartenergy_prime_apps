@@ -158,6 +158,9 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
 
+    /* PLC External Interrupt Pin */
+    .thMonPin = DRV_PLC_THMON_PIN,
+
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -174,6 +177,9 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC transceiver reset */
     .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
+
+    /* PLC Get Thermal Monitor value */
+    .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
 
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
@@ -214,10 +220,10 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .plcProfile = DRV_PLC_PHY_PROFILE,
  
     /* PLC Binary start address */
-    .binStartAddress = (uint32_t)&plc_phy_bin_start,
+    .binStartAddress = DRV_PLC_BIN_START_ADDRESS,
     
     /* PLC Binary end address */
-    .binEndAddress = (uint32_t)&plc_phy_bin_end,
+    .binEndAddress = DRV_PLC_BIN_START_ADDRESS + DRV_PLC_BIN_SIZE - 1,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
@@ -234,16 +240,16 @@ static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
 static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
 
-static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM7 = {
-    .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM7_USART_ReadCallbackRegister,
-    .readData = (USI_USART_PLIB_WRRD)FLEXCOM7_USART_Read,
-    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM7_USART_Write,
-    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM7_USART_WriteIsBusy,
-    .intSource = FLEXCOM7_IRQn,
+static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
+    .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM0_USART_ReadCallbackRegister,
+    .readData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
+    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
+    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM0_USART_WriteIsBusy,
+    .intSource = FLEXCOM0_IRQn,
 };
 
 static const USI_USART_INIT_DATA srvUsi0InitData = {
-    .plib = (void*)&srvUsi0InitDataFLEXCOM7,
+    .plib = (void*)&srvUsi0InitDataFLEXCOM0,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
 };
@@ -320,12 +326,12 @@ static const SYS_TIME_INIT sysTimeInitData =
 
 static const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
 {
-    .read_t = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM0_USART_Read,
-    .readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM0_USART_ReadCountGet,
-    .readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM0_USART_ReadFreeBufferCountGet,
-    .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM0_USART_Write,
-    .writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM0_USART_WriteCountGet,
-    .writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM0_USART_WriteFreeBufferCountGet,
+    .read_t = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM7_USART_Read,
+    .readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM7_USART_ReadCountGet,
+    .readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM7_USART_ReadFreeBufferCountGet,
+    .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM7_USART_Write,
+    .writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM7_USART_WriteCountGet,
+    .writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM7_USART_WriteFreeBufferCountGet,
 };
 
 static const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =

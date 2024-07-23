@@ -180,6 +180,39 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
 */
 void PRIME_Tasks(SYS_MODULE_OBJ object);
 
+// *****************************************************************************
+/* Function:
+    void PRIME_Restart
+    (
+      uint32_t *primePtr
+    )
+
+  Summary:
+    Restart PRIME Stack from a different location.
+
+  Description:
+    Restards the PRIME Stack from a different location.
+
+  Precondition:
+    PRIME_Initialize routine must have been called before.
+
+  Parameters:
+    primePtr - Pointer to the PRIME API
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    PRIME_API *primeApiPtr = PRIME_SN_FWSTACK13_ADDRESS;
+    PRIME_Restart((uint32_t *)primeApiPtr);
+    </code>
+
+  Remarks:
+    None.
+*/
+void PRIME_Restart(uint32_t *primePtr);
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
