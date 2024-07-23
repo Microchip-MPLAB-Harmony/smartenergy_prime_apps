@@ -50,7 +50,6 @@ Microchip or any third party.
 #include <string.h>
 #include "driver/rf215/phy/rf215_phy.h"
 #include "driver/rf215/phy/ieee_15_4_sun_fsk.h"
-#include "driver/rf215/phy/ieee_15_4_sun_ofdm.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -193,119 +192,6 @@ static const RF215_FSK_SYM_RATE_CONST_OBJ fskSymRateConst[6] = {
         .BBCn_FSKPE1 = 0x29U,
         .BBCn_FSKPE2 = 0xC7U,
         .sensitivityDBm = -82
-    }
-};
-
-/* RF215 OFDM constants for each bandwidth option */
-static const RF215_OFDM_BW_OPT_CONST_OBJ ofdmBwOptConst[4] = {
-    /* Option 1 */
-    {
-        .bwHz = 1094000UL,
-        .txBaseBandDelayUSq5 = 16U, /* 0.5 us */
-        .rxBaseBandDelayUSq5 = {2936U, 3112U}, /* 91.75, 97.25 us */
-        .phrSymbols = {3U, 4U},
-        .dataCarriers = 96U,
-        .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_1333kHz,
-        .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_1333kHz,
-        /* Higher threshold than in Table 6-93 to avoid false detections */
-        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(6U),
-        .minMCS = OFDM_MCS_0,
-        .sensitivityDBm = -85
-    },
-
-    /* Option 2 */
-    {
-        .bwHz = 552000UL,
-        .txBaseBandDelayUSq5 = 16U, /* 0.5 us */
-        .rxBaseBandDelayUSq5 = {1988U, 2030U}, /* 62.125, 63.44 us */
-        .phrSymbols = {6U, 8U},
-        .dataCarriers = 48U,
-        .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_1333kHz,
-        .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_1333kHz,
-        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(5U),
-        .minMCS = OFDM_MCS_0,
-        .sensitivityDBm = -88
-    },
-
-    /* Option 3 */
-    {
-        .bwHz = 281000UL,
-        .txBaseBandDelayUSq5 = 32U, /* 1 us */
-        .rxBaseBandDelayUSq5 = {1677U, 1720U}, /* 52.41, 53.75 us */
-        .phrSymbols = {6U, 6U},
-        .dataCarriers = 24U,
-        .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_667kHz,
-        .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_667kHz,
-        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4U),
-        .minMCS = OFDM_MCS_1, /* MCS0 not available in option 3 */
-        .sensitivityDBm = -91
-    },
-
-    /* Option 4 */
-    {
-        .bwHz = 156000UL,
-        .txBaseBandDelayUSq5 = 72U, /* 2.25 us */
-        .rxBaseBandDelayUSq5 = {1596U, 1640U}, /* 49.875, 51.25 us */
-        .phrSymbols = {6U, 6U},
-        .dataCarriers = 12U,
-        .RFn_RXDFE_SR = RF215_RFn_RXDFE_SR_667kHz,
-        .RFn_TXDFE_SR = RF215_RFn_TXDFE_SR_667kHz,
-        /* Higher threshold than in Table 6-93 to avoid false detections */
-        .BBCn_OFDMSW_PDT = RF215_BBCn_OFDMSW_PDT(4U),
-        .minMCS = OFDM_MCS_2, /* MCS0 and MCS1 not available in option 4 */
-        .sensitivityDBm = -94
-    }
-};
-
-/* RF215 OFDM constants for each MCS */
-static const RF215_OFDM_MCS_CONST_OBJ ofdmMcsConst[7] = {
-    /* MCS0 */
-    {
-        .repFactorShift = 2U,
-        .bitsCarrierShift = 0U,
-        .minTxPwrAttMin = 0U
-    },
-
-    /* MCS1 */
-    {
-        .repFactorShift = 1U,
-        .bitsCarrierShift = 0U,
-        .minTxPwrAttMin = 0U
-    },
-
-    /* MCS2 */
-    {
-        .repFactorShift = 1U,
-        .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 0U
-    },
-
-    /* MCS3 */
-    {
-        .repFactorShift = 0U,
-        .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 0U
-    },
-
-    /* MCS4 */
-    {
-        .repFactorShift = 0U,
-        .bitsCarrierShift = 1U,
-        .minTxPwrAttMin = 1U
-    },
-
-    /* MCS5 */
-    {
-        .repFactorShift = 0U,
-        .bitsCarrierShift = 2U,
-        .minTxPwrAttMin = 3U
-    },
-
-    /* MCS6 */
-    {
-        .repFactorShift = 0U,
-        .bitsCarrierShift = 2U,
-        .minTxPwrAttMin = 5U
     }
 };
 
@@ -665,179 +551,6 @@ static inline uint32_t lRF215_FSK_RxStartDelayUSq5 (
     return (delayUSq5 + DIV_ROUND(delayAux, (uint32_t) fskConst->kHz));
 }
 
-static inline bool lRF215_OFDM_CheckConfig(DRV_RF215_OFDM_CFG_OBJ* ofdmConfig)
-{
-    DRV_RF215_OFDM_BW_OPT opt = ofdmConfig->opt;
-    DRV_RF215_OFDM_ITLV_MODE itlv = ofdmConfig->itlv;
-
-    if ((opt > OFDM_BW_OPT_4) || (opt < OFDM_BW_OPT_1) ||
-            (itlv > OFDM_INTERLEAVING_1) || (itlv < OFDM_INTERLEAVING_0))
-    {
-        /* Invalid bandwidth option or interleaving mode */
-        return false;
-    }
-
-    /* Valid configuration */
-    return true;
-}
-
-static inline void lRF215_OFDM_Regs (
-    RF215_PHY_OBJ* phyObj,
-    RF215_PHY_REGS_OBJ* phyRegs
-)
-{
-    uint32_t freqLow, freqMid, freqHigh, bwHalf;
-    uint8_t ofdmphrrx, ofdmc, ofdmsw, freqDiv;
-    DRV_RF215_OFDM_CFG_OBJ *ofdmCfg = &phyObj->phyConfig.phyTypeCfg.ofdm;
-    DRV_RF215_OFDM_BW_OPT opt = ofdmCfg->opt;
-    const RF215_OFDM_BW_OPT_CONST_OBJ* ofdmConst = &ofdmBwOptConst[opt];
-
-    /* OFDMPHRRX.SPC: RX Spurious Compensation. Recommended to activate if
-     * the receive channel is a multiple of 26MHz or 32MHz.
-     * If activated, the AGC target level (AGCS.TGT) should be set to 0 */
-    freqMid = phyObj->pllParams.chnFreq;
-    bwHalf = ofdmConst->bwHz >> 1;
-    freqLow = freqMid - bwHalf;
-    freqHigh = freqMid + bwHalf;
-    ofdmphrrx = phyObj->phyRegs.BBCn_OFDMPHRRX & ((uint8_t) ~RF215_BBCn_OFDMPHRRX_SPC_EN);
-    freqDiv = (uint8_t) (freqHigh / 26000000UL);
-    if ((26000000UL * freqDiv) >= freqLow)
-    {
-        /* Multiple of 26MHz falls in receive bandwidth */
-        ofdmphrrx |= RF215_BBCn_OFDMPHRRX_SPC_EN;
-    }
-    else
-    {
-        freqDiv = (uint8_t) (freqHigh / 32000000UL);
-        if ((32000000UL * freqDiv) >= freqLow)
-        {
-            /* Multiple of 32MHz falls in receive bandwidth */
-            ofdmphrrx |= RF215_BBCn_OFDMPHRRX_SPC_EN;
-        }
-    }
-
-    /* BBCn_OFDMPHRRX */
-    phyRegs->BBCn_OFDMPHRRX = ofdmphrrx;
-
-    /* OFDMC.OPT: MR-OFDM Bandwidth Option
-     * OFDMC.POI: PIB Attribute phyOFDMInterleaving
-     * OFDMC.SSTX: Transmitter Scrambler Seed Configuration (0) */
-    ofdmc = RF215_BBCn_OFDMC_OPT((uint8_t) opt) | RF215_BBCn_OFDMC_POI((uint8_t) ofdmCfg->itlv);
-
-    /* OFDMC.LFO: Reception with Low Frequency Offset.
-     * Enable if it is guaranteed that the absolute frequency offset of the
-     * received OFDM signal is less than 57.3kHz.
-     * Get maximum frequency offset due to tolerance, depending on PHY and
-     * channel configuration. Multiply by 2 because offset is given for
-     * single-sided clock */
-    if ((phyObj->pllParams.freqDelta << 1) < 57300U)
-    {
-        ofdmc |= RF215_BBCn_OFDMC_LFO_EN;
-    }
-
-    /* BBCn_OFDMC */
-    phyRegs->BBCn_OFDMC = ofdmc;
-
-    /* OFDMSW.PDT: Preamble Detection Threshold
-     * OFDMSW.RXO = 1: Receiver restarted by >12dB stronger frame */
-    ofdmsw = ofdmConst->BBCn_OFDMSW_PDT | RF215_BBCn_OFDMSW_RXO_12dB;
-
-    /* BBCn_OFDMSW */
-    phyRegs->BBCn_OFDMSW = ofdmsw;
-}
-
-static inline uint32_t lRF215_OFDM_PpduDuration (
-    DRV_RF215_OFDM_CFG_OBJ* ofdmCfg,
-    DRV_RF215_PHY_MOD_SCHEME modScheme,
-    uint16_t psduLen,
-    uint16_t* pSymbolsPayload
-)
-{
-    uint32_t bitsPayTotal, durationUS;
-    uint16_t symbolsTotal;
-    uint16_t symbolsPay;
-    uint16_t bitsSymb;
-    uint8_t mcsIndex = (uint8_t) modScheme;
-    const RF215_OFDM_BW_OPT_CONST_OBJ* optConst = &ofdmBwOptConst[ofdmCfg->opt];
-    const RF215_OFDM_MCS_CONST_OBJ* mcsConst = &ofdmMcsConst[mcsIndex];
-    uint8_t repFactShift = mcsConst->repFactorShift;
-
-    /* Payload: PSDU bits + PPDU Tail (6 bits for convolutional encoder) */
-    bitsPayTotal = ((uint32_t) psduLen << 3) + 6U;
-
-    /* Payload: Convolutional encoder (rate depends on MCS) */
-    if ((modScheme == OFDM_MCS_4) || (modScheme == OFDM_MCS_6))
-    {
-        /* Rate 3/4: Multiply by 4/3 */
-        bitsPayTotal = DIV_CEIL(bitsPayTotal << 2, 3U);
-    }
-    else
-    {
-        /* Rate 1/2: Multiply by 2 */
-        bitsPayTotal <<= 1;
-    }
-
-    /* Frequency spreading repetition factor depending on MCS */
-    bitsPayTotal <<= repFactShift;
-
-    /* Compute number of OFDM payload symbols */
-    bitsSymb = (uint16_t) optConst->dataCarriers << mcsConst->bitsCarrierShift;
-    symbolsPay = (uint16_t) DIV_CEIL(bitsPayTotal, bitsSymb);
-
-    /* If phyOfdmInterleaving=1, symbols multiple of repetition factor */
-    if (ofdmCfg->itlv == OFDM_INTERLEAVING_1)
-    {
-        symbolsPay = DIV_CEIL(symbolsPay, (uint16_t) 1U << repFactShift) << repFactShift;
-    }
-
-    /* Compute frame duration in microseconds
-     * SHR (STF + LTF): 6 OFDM symbols (not affected by any parameter)
-     * PHR: Number of symbols depending on option and phyOfdmInterleaving */
-    symbolsTotal = 6U + (uint16_t) optConst->phrSymbols[ofdmCfg->itlv] + symbolsPay;
-    *pSymbolsPayload = symbolsPay;
-    durationUS = (uint32_t) symbolsTotal * 120U;
-    return SYS_TIME_USToCount(durationUS);
-}
-
-static inline DRV_RF215_PHY_MOD_SCHEME lRF215_OFDM_ReadPHR (
-    uint8_t phr,
-    DRV_RF215_OFDM_BW_OPT opt
-)
-{
-    DRV_RF215_PHY_MOD_SCHEME modScheme;
-
-    /* Get MCS from PHR */
-    phr &= RF215_BBCn_OFDMPHRRX_MCS_Msk;
-    modScheme = (DRV_RF215_PHY_MOD_SCHEME) phr;
-
-    if ((modScheme > OFDM_MCS_6) || (modScheme < ofdmBwOptConst[opt].minMCS))
-    {
-        return MOD_SCHEME_INVALID;
-    }
-
-    /* Valid MCS */
-    return modScheme;
-}
-
-static inline uint32_t lRF215_OFDM_RxStartDelayUSq5 (
-    DRV_RF215_OFDM_CFG_OBJ* ofdmCfg
-)
-{
-    uint32_t delayUSq5;
-    uint8_t symbolsDelay;
-    DRV_RF215_OFDM_ITLV_MODE itlv = ofdmCfg->itlv;
-    const RF215_OFDM_BW_OPT_CONST_OBJ* optConst = &ofdmBwOptConst[ofdmCfg->opt];
-
-    /* Receiver baseband delay */
-    delayUSq5 = optConst->rxBaseBandDelayUSq5[itlv];
-
-    /* Compute RXFS delay in microseconds [uQ14.5]
-     * SHR (STF + LTF): 6 OFDM symbols (not affected by any parameter)
-     * PHR: Number of symbols depending on option and phyOfdmInterleaving */
-    symbolsDelay = 6U + optConst->phrSymbols[itlv];
-    return (delayUSq5 + ((uint32_t) symbolsDelay * (120U << 5)));
-}
-
 static void lRF215_BBC_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* phyRegs)
 {
     /* Get BBC registers for the specific PHY type.
@@ -848,16 +561,8 @@ static void lRF215_BBC_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* phyRegs)
      * the ceiling() function.
      * For all FSK symbol rates it is 1 ms exact.
      * For all OFDM options it is 1.08 ms (9 symbols of 120 us). */
-    if (phyObj->phyConfig.phyType == PHY_TYPE_FSK)
-    {
-        lRF215_FSK_Regs(&phyObj->phyConfig.phyTypeCfg.fsk, phyRegs);
-        phyObj->turnaroundTimeUS = 1000;
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        lRF215_OFDM_Regs(phyObj, phyRegs);
-        phyObj->turnaroundTimeUS = 1080;
-    }
+    lRF215_FSK_Regs(&phyObj->phyConfig.phyTypeCfg.fsk, phyRegs);
+    phyObj->turnaroundTimeUS = 1000;
 }
 
 static void lRF215_BBC_WriteRegs(uint8_t trxIdx, RF215_PHY_REGS_OBJ* phyRegsNew)
@@ -865,25 +570,15 @@ static void lRF215_BBC_WriteRegs(uint8_t trxIdx, RF215_PHY_REGS_OBJ* phyRegsNew)
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
 
     /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 18.1 deviated 6 times. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
+    /* MISRA C-2012 Rule 18.1 deviated 4 times. Deviation record ID - H3_MISRAC_2012_R_18_1_DR_1 */
 
-    /* Write BBC configuration, depending on PHY type */
-    if (pObj->phyConfig.phyType == PHY_TYPE_FSK)
-    {
-        /* Write up to 4 registers: BBCn_FSKC0 to BBCn_FSKC3 */
-        RF215_HAL_SpiWriteUpdate(RF215_BBCn_FSKC0(trxIdx),
-                &phyRegsNew->BBCn_FSKC0, &pObj->phyRegs.BBCn_FSKC0, 4);
+    /* Write up to 4 registers: BBCn_FSKC0 to BBCn_FSKC3 */
+    RF215_HAL_SpiWriteUpdate(RF215_BBCn_FSKC0(trxIdx),
+            &phyRegsNew->BBCn_FSKC0, &pObj->phyRegs.BBCn_FSKC0, 4);
 
-        /* Write up to 4 registers: BBCn_FSKDM to BBCn_FSKPE2 */
-        RF215_HAL_SpiWriteUpdate(RF215_BBCn_FSKDM(trxIdx),
-                &phyRegsNew->BBCn_FSKDM, &pObj->phyRegs.BBCn_FSKDM, 4);
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        /* Write up to 3 registers: BBCn_OFDMPHRRX to RF215_BBCn_OFDMSW */
-        RF215_HAL_SpiWriteUpdate(RF215_BBCn_OFDMPHRRX(trxIdx),
-                &phyRegsNew->BBCn_OFDMPHRRX, &pObj->phyRegs.BBCn_OFDMPHRRX, 3);
-    }
+    /* Write up to 4 registers: BBCn_FSKDM to BBCn_FSKPE2 */
+    RF215_HAL_SpiWriteUpdate(RF215_BBCn_FSKDM(trxIdx),
+            &phyRegsNew->BBCn_FSKDM, &pObj->phyRegs.BBCn_FSKDM, 4);
 
     /* MISRA C-2012 deviation block end */
 }
@@ -942,9 +637,7 @@ static inline uint16_t lRF215_BBC_GetBestFBLI (
 )
 {
     uint32_t bitsPayTotal, octetsPayTotal, payloadUSq5, octetUSq5;
-    uint16_t marginUSq5, bitsSymb;
-    const RF215_OFDM_BW_OPT_CONST_OBJ* optConst;
-    const RF215_OFDM_MCS_CONST_OBJ* mcsConst;
+    uint16_t marginUSq5;
     uint8_t symbolsOctet;
     uint32_t numAux = 0U;
     uint32_t denAux = 1U;
@@ -955,60 +648,20 @@ static inline uint16_t lRF215_BBC_GetBestFBLI (
     uint8_t fecDelayBits = 0U;
     DRV_RF215_PHY_TYPE_CFG_OBJ* phyTypeCfg = &phyCfg->phyTypeCfg;
 
-    if (phyCfg->phyType == PHY_TYPE_FSK)
+    /* Compute number of FSK symbols per octet */
+    symbolsOctet = lRF215_FSK_SymbolsPerOctet(&phyTypeCfg->fsk, modScheme);
+
+    /* Compute octet duration in us [uQ9.5] */
+    numAux = (uint32_t) symbolsOctet * (1000U << 5);
+    denAux = fskSymRateConst[phyTypeCfg->fsk.symRate].kHz;
+
+    if (modScheme == FSK_FEC_ON)
     {
-        /* Compute number of FSK symbols per octet */
-        symbolsOctet = lRF215_FSK_SymbolsPerOctet(&phyTypeCfg->fsk, modScheme);
-
-        /* Compute octet duration in us [uQ9.5] */
-        numAux = (uint32_t) symbolsOctet * (1000U << 5);
-        denAux = fskSymRateConst[phyTypeCfg->fsk.symRate].kHz;
-
-        if (modScheme == FSK_FEC_ON)
-        {
-            /* FEC (and interleaver) enabled (K = 4). Interleaver works with
-             * blocks of 16 code-symbols, so Frame Buffer is updated every
-             * 2 octets */
-            bitsBlock = 16U;
-            fecK = 4U;
-        }
-    }
-    else
-    {
-        /* OFDM constants depending on bandwidth option and MCS */
-        optConst = &ofdmBwOptConst[phyTypeCfg->ofdm.opt];
-        mcsConst = &ofdmMcsConst[(uint8_t) modScheme];
-
-        /* Total bits (coded, with repetition) of 1 OFDM symbol */
-        bitsSymb = (uint16_t) optConst->dataCarriers << mcsConst->bitsCarrierShift;
-
-        /* OctectDuration = (8*Rep*SymbDur)/(CC_rate*DataCarr*BitsCarr) */
-        numAux = 120UL << (mcsConst->repFactorShift + 8U);
-        denAux = bitsSymb;
-
-        /* Number of bits (uncoded, with repetition) of 1 OFDM symbol */
-        if ((modScheme == OFDM_MCS_4) || (modScheme == OFDM_MCS_6))
-        {
-            /* FEC rate 3/4: Multiply by 3/4 */
-            bitsBlock = (bitsSymb * 3U) >> 2;
-            numAux <<= 2;
-            denAux *= 3U;
-        }
-        else
-        {
-            /* FEC rate 1/2: Divide by 2 */
-            bitsBlock = bitsSymb >> 1;
-            numAux <<= 1;
-        }
-
-        /* FEC (and interleaver) always enabled in OFDM (K = 7). Interleaver
-         * works with blocks of 1 OFDM symbol (phyOfdmInterleaving=0) or FreqRep
-         * OFDM symbols (phyOfdmInterleaving=1) */
-        fecK = 7U;
-        if (phyTypeCfg->ofdm.itlv == OFDM_INTERLEAVING_0)
-        {
-            bitsBlock >>= mcsConst->repFactorShift;
-        }
+        /* FEC (and interleaver) enabled (K = 4). Interleaver works with
+         * blocks of 16 code-symbols, so Frame Buffer is updated every
+         * 2 octets */
+        bitsBlock = 16U;
+        fecK = 4U;
     }
 
     /* Compute RF octet duration in us [uQ9.5] */
@@ -1132,14 +785,7 @@ static void lRF215_PLL_Params (
     pllParams->chnMode = chnMode;
 
     /* Compute maximum frequency offset due to tolerance (single-sided clock) */
-    if (phyCfg->phyType == PHY_TYPE_FSK)
-    {
-        freqTolQ45 = lRF215_FSK_FreqTolQ45(pllConst, pllParams, &phyCfg->phyTypeCfg.fsk);
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        freqTolQ45 = PLL_DELTA_OFDM_TMAX_Q45;
-    }
+    freqTolQ45 = lRF215_FSK_FreqTolQ45(pllConst, pllParams, &phyCfg->phyTypeCfg.fsk);
 
     /* Compute fDelta = T * F; T is in uQ0.45 */
     chnFreqAux = (uint64_t) chnFreq * freqTolQ45;
@@ -1399,8 +1045,7 @@ static inline uint8_t lRF215_DFE_CutOff(uint32_t cutoffFreq, uint8_t sr)
 
 static void lRF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNew)
 {
-    uint32_t freqDelta, freqDev, freqDevAux, bwFreqDelta, bwHz;
-    const RF215_OFDM_BW_OPT_CONST_OBJ* ofdmConst;
+    uint32_t freqDelta, freqDev, freqDevAux;
     const RF215_FSK_SYM_RATE_CONST_OBJ* fskConst;
     uint8_t rxbwc, bwVal, lpfcutVal, rcutRxVal, rcutTxVal;
     uint32_t rxbwcBwHz = 0U;
@@ -1421,115 +1066,55 @@ static void lRF215_TXRXFE_Regs(RF215_PHY_OBJ* phyObj, RF215_PHY_REGS_OBJ* regsNe
      * single-sided clock */
     freqDelta = phyObj->pllParams.freqDelta << 1;
 
-    if (phyObj->phyConfig.phyType == PHY_TYPE_FSK)
+    /* Transmitter/Receiver front-end configuration for FSK */
+    fskConst = &fskSymRateConst[phyTypeCfg->fsk.symRate];
+
+    /* Frequency deviation, depending on modulation index:
+     * fDev = (SymbRate * modIdx) / 2 */
+    freqDev = fskConst->Hz >> 1;
+    if (phyTypeCfg->fsk.modIdx == FSK_MOD_IDX_0_5)
     {
-        /* Transmitter/Receiver front-end configuration for FSK */
-        fskConst = &fskSymRateConst[phyTypeCfg->fsk.symRate];
-
-        /* Frequency deviation, depending on modulation index:
-         * fDev = (SymbRate * modIdx) / 2 */
-        freqDev = fskConst->Hz >> 1;
-        if (phyTypeCfg->fsk.modIdx == FSK_MOD_IDX_0_5)
-        {
-            freqDev >>= 1;
-        }
-
-        /* Reduce as much noise / interference as possible, but making sure that
-         * in the worst case (frequency tolerance) the received signal is
-         * attenuated <=3dB and in the best case (perfect frequency alignment)
-         * the received signal is not attenuated.
-         * fBW >= 2*(max(2.5*fDev, fDev + fDelta))
-         * fCUT >= max(2.5*fDev, fDev + fDelta) */
-        rxbwcBwHz = (freqDev * 5U) >> 1;
-        freqDevAux = freqDev + freqDelta;
-        if (freqDevAux > rxbwcBwHz)
-        {
-            rxbwcBwHz = freqDevAux;
-        }
-
-        rcutRxFreqHz = rxbwcBwHz;
-
-        /* RXDFE.SR: RX DFE sampling rate, depending on FSK symbol rate */
-        rxdfe = fskConst->RFn_RXDFE_SR;
-        srRxVal = rxdfe >> RF215_RFn_RXDFE_SR_Pos;
-
-        /* AGCS.TGT: AGC target level -24dB [Tables 6-60 to 6-63]
-         * AGCS.GCW: keep initial reset value 23 */
-        agcs = RF215_RFn_AGCS_GCW(23U) | RF215_RFn_AGCS_TGT_24dB;
-
-        /* TXCUTC.PARAMP: Power Amplifier ramp time
-         * TXDFE.SR: Transmitter digital front-end sampling rate
-         * Depending on FSK symbol rate */
-        txcutc = fskConst->RFn_TXCUT_PARAMP;
-        txdfe = fskConst->RFn_TXDFE_SR;
-        srTxVal = txdfe >> RF215_RFn_TXDFE_SR_Pos;
-
-        /* TXDFE.DM: Direct modulation. It must be enabled for FSK (also in
-         * FSKDM.EN). It improves the modulation quality */
-        txdfe |= RF215_RFn_TXDFE_DM_EN;
-
-        /* Reduce spurious transmissions as much as possible without attenuating
-         * transmitted carrier (fdev). fLPFCUT >= 3*fdev; fCUT >= 5*fdev */
-        lpfcutFreq = freqDev * 3U;
-        rcutTxFreqHz = freqDev * 5U;
+        freqDev >>= 1;
     }
-    else /* PHY_TYPE_OFDM */
+
+    /* Reduce as much noise / interference as possible, but making sure that
+     * in the worst case (frequency tolerance) the received signal is
+     * attenuated <=3dB and in the best case (perfect frequency alignment)
+     * the received signal is not attenuated.
+     * fBW >= 2*(max(2.5*fDev, fDev + fDelta))
+     * fCUT >= max(2.5*fDev, fDev + fDelta) */
+    rxbwcBwHz = (freqDev * 5U) >> 1;
+    freqDevAux = freqDev + freqDelta;
+    if (freqDevAux > rxbwcBwHz)
     {
-        /* Transmitter/Receiver front-end configuration for OFDM */
-        ofdmConst = &ofdmBwOptConst[phyTypeCfg->ofdm.opt];
-        bwHz = ofdmConst->bwHz;
-
-        /* Reduce as much noise / interference as possible, but making sure that
-         * in the worst case (frequency tolerance) the received signal is
-         * attenuated <=3dB and in the best case (perfect frequency alignment)
-         * the received signal is not attenuated (BW / 2).
-         * fBW >= 2*(max(0.5625*BW, (BW/2) + fdelta))
-         * fCUT >= max(0.8125*BW, (BW/2) + fdelta) */
-        bwFreqDelta = (bwHz >> 1) + freqDelta;
-        rxbwcBwHz = (bwHz * 9U) >> 4;
-        if (bwFreqDelta > rxbwcBwHz)
-        {
-            rxbwcBwHz = bwFreqDelta;
-        }
-
-        rcutRxFreqHz = (bwHz * 13U) >> 4;
-        if (bwFreqDelta > rcutRxFreqHz)
-        {
-            rcutRxFreqHz = bwFreqDelta;
-        }
-
-        /* RXDFE.SR: RX DFE sampling rate, depending on FSK symbol rate */
-        rxdfe = ofdmConst->RFn_RXDFE_SR;
-        srRxVal = rxdfe >> RF215_RFn_RXDFE_SR_Pos;
-
-        /* AGCS.GCW: keep initial reset value 23 */
-        agcs = RF215_RFn_AGCS_GCW(23U);
-
-        /* AGCS.TGT: AGC target level, depending on OFDMPHRRX.SPC */
-        if ((regsNew->BBCn_OFDMPHRRX & RF215_BBCn_OFDMPHRRX_SPC_EN) != 0U)
-        {
-            /* Spurious compensation disabled: -21dB */
-            agcs |= RF215_RFn_AGCS_TGT_21dB;
-        }
-        else
-        {
-            /* Spurious compensation disabled: -30dB [Table 6-92] */
-            agcs |= RF215_RFn_AGCS_TGT_30dB;
-        }
-
-        /* TXCUTC.PARAMP: Power Amplifier ramp time
-         * TXDFE.SR: Transmitter digital front-end sampling rate
-         * Depending on OFDM bandwidth option */
-        txcutc = RF215_RFn_TXCUTC_PARAMP_4us;
-        txdfe = ofdmConst->RFn_TXDFE_SR;
-        srTxVal = txdfe >> RF215_RFn_TXDFE_SR_Pos;
-
-        /* Reduce spurious transmissions as much as possible without
-         * attenuating transmitted signal (BW / 2).
-         * fLPFCUT >= 0.875*BW; fCUT >= 0.875*BW */
-        lpfcutFreq = (ofdmConst->bwHz * 7U) >> 3;
-        rcutTxFreqHz = lpfcutFreq;
+        rxbwcBwHz = freqDevAux;
     }
+
+    rcutRxFreqHz = rxbwcBwHz;
+
+    /* RXDFE.SR: RX DFE sampling rate, depending on FSK symbol rate */
+    rxdfe = fskConst->RFn_RXDFE_SR;
+    srRxVal = rxdfe >> RF215_RFn_RXDFE_SR_Pos;
+
+    /* AGCS.TGT: AGC target level -24dB [Tables 6-60 to 6-63]
+     * AGCS.GCW: keep initial reset value 23 */
+    agcs = RF215_RFn_AGCS_GCW(23U) | RF215_RFn_AGCS_TGT_24dB;
+
+    /* TXCUTC.PARAMP: Power Amplifier ramp time
+     * TXDFE.SR: Transmitter digital front-end sampling rate
+     * Depending on FSK symbol rate */
+    txcutc = fskConst->RFn_TXCUT_PARAMP;
+    txdfe = fskConst->RFn_TXDFE_SR;
+    srTxVal = txdfe >> RF215_RFn_TXDFE_SR_Pos;
+
+    /* TXDFE.DM: Direct modulation. It must be enabled for FSK (also in
+     * FSKDM.EN). It improves the modulation quality */
+    txdfe |= RF215_RFn_TXDFE_DM_EN;
+
+    /* Reduce spurious transmissions as much as possible without attenuating
+     * transmitted carrier (fdev). fLPFCUT >= 3*fdev; fCUT >= 5*fdev */
+    lpfcutFreq = freqDev * 3U;
+    rcutTxFreqHz = freqDev * 5U;
 
     /* RXBWC.BW: Receiver analog front-end band pass filter bandwidth */
     bwVal = lRF215_AFE_CutOff(rxbwcBwHz);
@@ -1602,10 +1187,6 @@ static bool lRF215_PHY_CheckPhyCfg(DRV_RF215_PHY_CFG_OBJ* phyConfig)
             result = lRF215_FSK_CheckConfig(&phyConfig->phyTypeCfg.fsk);
             break;
 
-        case PHY_TYPE_OFDM:
-            result = lRF215_OFDM_CheckConfig(&phyConfig->phyTypeCfg.ofdm);
-            break;
-
         default:
             /* PHY type not supported */
             result = false;
@@ -1622,48 +1203,26 @@ static uint32_t lRF215_PHY_PpduDuration (
     uint16_t* pSymbolsPayload
 )
 {
-    if (phyConfig->phyType == PHY_TYPE_FSK)
-    {
-        return lRF215_FSK_PpduDuration(&phyConfig->phyTypeCfg.fsk, modScheme,
-                psduLen, pSymbolsPayload);
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        return lRF215_OFDM_PpduDuration(&phyConfig->phyTypeCfg.ofdm, modScheme,
-                psduLen, pSymbolsPayload);
-    }
+    return lRF215_FSK_PpduDuration(&phyConfig->phyTypeCfg.fsk, modScheme,
+            psduLen, pSymbolsPayload);
 }
 
 static uint16_t lRF215_PHY_SymbolDurationUSq5(uint8_t trxIdx)
 {
     DRV_RF215_PHY_CFG_OBJ* phyCfg = &rf215PhyObj[trxIdx].phyConfig;
 
-    if (phyCfg->phyType == PHY_TYPE_FSK)
-    {
-        /* Symbol rate in kHz */
-        uint16_t symbRateKHz = fskSymRateConst[phyCfg->phyTypeCfg.fsk.symRate].kHz;
+    /* Symbol rate in kHz */
+    uint16_t symbRateKHz = fskSymRateConst[phyCfg->phyTypeCfg.fsk.symRate].kHz;
 
-        /* Compute symbol duration in us [uQ14.5] */
-        return DIV_ROUND(1000U << 5, symbRateKHz);
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        return 120U << 5;
-    }
+    /* Compute symbol duration in us [uQ14.5] */
+    return DIV_ROUND(1000U << 5, symbRateKHz);
 }
 
 static int8_t lRF215_PHY_SensitivityDBm(uint8_t trxIdx)
 {
     DRV_RF215_PHY_CFG_OBJ* phyCfg = &rf215PhyObj[trxIdx].phyConfig;
 
-    if (phyCfg->phyType == PHY_TYPE_FSK)
-    {
-        return fskSymRateConst[phyCfg->phyTypeCfg.fsk.symRate].sensitivityDBm;
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        return ofdmBwOptConst[phyCfg->phyTypeCfg.ofdm.opt].sensitivityDBm;
-    }
+    return fskSymRateConst[phyCfg->phyTypeCfg.fsk.symRate].sensitivityDBm;
 }
 
 static bool lRF215_PHY_BandOpModeToPhyCfg (
@@ -1863,130 +1422,6 @@ static bool lRF215_PHY_BandOpModeToPhyCfg (
             *phyConfig = SUN_FSK_BAND_920_923_OPM5;
             break;
 
-        case SUN_OFDM_BAND_863_OPT4:
-            *phyConfig = SUN_OFDM_BAND_863_870_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_866_OPT4:
-            *phyConfig = SUN_OFDM_BAND_865_867_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_870_OPT4:
-            *phyConfig = SUN_OFDM_BAND_870_876_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_915_OPT4:
-            *phyConfig = SUN_OFDM_BAND_902_928_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_915_OPT3:
-            *phyConfig = SUN_OFDM_BAND_902_928_OPT3;
-            break;
-
-        case SUN_OFDM_BAND_915_OPT2:
-            *phyConfig = SUN_OFDM_BAND_902_928_OPT2;
-            break;
-
-        case SUN_OFDM_BAND_915_OPT1:
-            *phyConfig = SUN_OFDM_BAND_902_928_OPT1;
-            break;
-
-        case SUN_OFDM_BAND_915A_OPT4:
-            *phyConfig = SUN_OFDM_BAND_902_928_ALT_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_915A_OPT3:
-            *phyConfig = SUN_OFDM_BAND_902_928_ALT_OPT3;
-            break;
-
-        case SUN_OFDM_BAND_915A_OPT2:
-            *phyConfig = SUN_OFDM_BAND_902_928_ALT_OPT2;
-            break;
-
-        case SUN_OFDM_BAND_915A_OPT1:
-            *phyConfig = SUN_OFDM_BAND_902_928_ALT_OPT1;
-            break;
-
-        case SUN_OFDM_BAND_915B_OPT4:
-            *phyConfig = SUN_OFDM_BAND_902_907_915_928_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_915B_OPT3:
-            *phyConfig = SUN_OFDM_BAND_902_907_915_928_OPT3;
-            break;
-
-        case SUN_OFDM_BAND_915B_OPT2:
-            *phyConfig = SUN_OFDM_BAND_902_907_915_928_OPT2;
-            break;
-
-        case SUN_OFDM_BAND_915B_OPT1:
-            *phyConfig = SUN_OFDM_BAND_902_907_915_928_OPT1;
-            break;
-
-        case SUN_OFDM_BAND_915C_OPT4:
-            *phyConfig = SUN_OFDM_BAND_915_928_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_915C_OPT3:
-            *phyConfig = SUN_OFDM_BAND_915_928_OPT3;
-            break;
-
-        case SUN_OFDM_BAND_915C_OPT2:
-            *phyConfig = SUN_OFDM_BAND_915_928_OPT2;
-            break;
-
-        case SUN_OFDM_BAND_915C_OPT1:
-            *phyConfig = SUN_OFDM_BAND_915_928_OPT1;
-            break;
-
-        case SUN_OFDM_BAND_919_OPT4:
-            *phyConfig = SUN_OFDM_BAND_919_923_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_919_OPT3:
-            *phyConfig = SUN_OFDM_BAND_919_923_OPT3;
-            break;
-
-        case SUN_OFDM_BAND_919_OPT2:
-            *phyConfig = SUN_OFDM_BAND_919_923_OPT2;
-            break;
-
-        case SUN_OFDM_BAND_919_OPT1:
-            *phyConfig = SUN_OFDM_BAND_919_923_OPT1;
-            break;
-
-        case SUN_OFDM_BAND_920_OPT4:
-            *phyConfig = SUN_OFDM_BAND_920_928_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_920_OPT3:
-            *phyConfig = SUN_OFDM_BAND_920_928_OPT3;
-            break;
-
-        case SUN_OFDM_BAND_920_OPT2:
-            *phyConfig = SUN_OFDM_BAND_920_928_OPT2;
-            break;
-
-        case SUN_OFDM_BAND_920_OPT1:
-            *phyConfig = SUN_OFDM_BAND_920_928_OPT1;
-            break;
-
-        case SUN_OFDM_BAND_920B_IND_OPT4:
-            *phyConfig = SUN_OFDM_BAND_920_923_OPT4;
-            break;
-
-        case SUN_OFDM_BAND_920B_IND_OPT3:
-            *phyConfig = SUN_OFDM_BAND_920_923_OPT3;
-            break;
-
-        case SUN_OFDM_BAND_920B_IND_OPT2:
-            *phyConfig = SUN_OFDM_BAND_920_923_OPT2;
-            break;
-
-        case SUN_OFDM_BAND_920B_IND_OPT1:
-            *phyConfig = SUN_OFDM_BAND_920_923_OPT1;
-            break;
-
         default:
             result = false;
             break;
@@ -2038,9 +1473,18 @@ static void lRF215_PHY_CheckAborts(uint8_t trxIdx, bool reset)
                 pObj->rxAbortState = pObj->phyState;
             }
 
+            if (pObj->ledRxStatus == true)
+            {
+                /* Turn off RX LED */
+                RF215_HAL_LedRx(false);
+                pObj->ledRxStatus = false;
+            }
             break;
 
         case PHY_STATE_TX:
+            /* Turn off TX LED */
+            RF215_HAL_LedTx(false);
+
             /* Transmission in progress aborted. Set pending TX confirm. */
             RF215_PHY_SetTxCfm(pObj->txBufObj, RF215_TX_ABORTED);
             break;
@@ -2131,7 +1575,8 @@ static inline void lRF215_TRX_CommandTx(uint8_t trxIdx)
     /* TX command */
     lRF215_TRX_Command(trxIdx, &rf215RegValues.RFn_CMD.tx);
 
-    /* Update TRX and PHY state */
+    /* Turn on TX LED. Update TRX and PHY state */
+    RF215_HAL_LedTx(true);
     pObj->trxState = RF215_RFn_STATE_RF_TX;
     pObj->phyState = PHY_STATE_TX;
 }
@@ -2389,6 +1834,9 @@ static void lRF215_TRX_DisableTxContinuousMode(uint8_t trxIdx)
 
     /* Start listening again */
     lRF215_TRX_RxListen(trxIdx);
+
+    /* Turn off TX LED */
+    RF215_HAL_LedTx(false);
 }
 
 static void lRF215_TRX_Reset(uint8_t trxIdx)
@@ -2514,10 +1962,6 @@ static inline void lRF215_TRX_ResetEvent(uint8_t trxIdx)
     regsOld->BBCn_TXFLH = RF215_BBCn_TXFLH_Rst;
     regsOld->BBCn_FBLIL = RF215_BBCn_FBLIL_Rst;
     regsOld->BBCn_FBLIH = RF215_BBCn_FBLIH_Rst;
-    regsOld->BBCn_OFDMPHRTX = RF215_BBCn_OFDMPHRTX_Rst;
-    regsOld->BBCn_OFDMPHRRX = RF215_BBCn_OFDMPHRRX_Rst;
-    regsOld->BBCn_OFDMC = RF215_BBCn_OFDMC_Rst;
-    regsOld->BBCn_OFDMSW = RF215_BBCn_OFDMSW_Rst;
     regsOld->BBCn_AMCS = RF215_BBCn_AMCS_Rst;
     regsOld->BBCn_AMEDT = RF215_BBCn_AMEDT_Rst;
     regsOld->BBCn_FSKC0 = RF215_BBCn_FSKC0_Rst;
@@ -2615,27 +2059,12 @@ static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
     }
 
     /* Check if PHY configuration changes */
-    if (phyCfgNew->phyType == phyCfg->phyType)
+    /* Check if FSK configuration changes */
+    if ((phyCfgNew->phyTypeCfg.fsk.symRate == phyCfg->phyTypeCfg.fsk.symRate) &&
+        (phyCfgNew->phyTypeCfg.fsk.modIdx == phyCfg->phyTypeCfg.fsk.modIdx) &&
+        (phyCfgNew->phyTypeCfg.fsk.modOrd == phyCfg->phyTypeCfg.fsk.modOrd))
     {
-        if (phyCfg->phyType == PHY_TYPE_FSK)
-        {
-            /* Check if FSK configuration changes */
-            if ((phyCfgNew->phyTypeCfg.fsk.symRate == phyCfg->phyTypeCfg.fsk.symRate) &&
-                (phyCfgNew->phyTypeCfg.fsk.modIdx == phyCfg->phyTypeCfg.fsk.modIdx) &&
-                (phyCfgNew->phyTypeCfg.fsk.modOrd == phyCfg->phyTypeCfg.fsk.modOrd))
-            {
-                phyCfgSame = true;
-            }
-        }
-        else
-        {
-            /* Check if OFDM configuration changes */
-            if ((phyCfgNew->phyTypeCfg.ofdm.opt == phyCfg->phyTypeCfg.ofdm.opt) &&
-                (phyCfgNew->phyTypeCfg.ofdm.itlv == phyCfg->phyTypeCfg.ofdm.itlv))
-            {
-                phyCfgSame = true;
-            }
-        }
+        phyCfgSame = true;
     }
 
 
@@ -2678,15 +2107,6 @@ static DRV_RF215_PIB_RESULT lRF215_PHY_SetPhyConfig (
         pObj->phyConfigPending = *phyCfgNew;
         pObj->channelNumPhyCfgPending = chnNumNew;
         return RF215_PIB_RESULT_SUCCESS;
-    }
-
-    /* Update BBCn_PC if PHY type changes */
-    if (phyCfgNew->phyType != phyCfg->phyType)
-    {
-        lRF215_BBC_SetPhyControl(trxIdx, BBC_PC_CFG_BBEN(phyCfgNew->phyType));
-
-        /* Abort scheduled transmissions because of PHY type change */
-        DRV_RF215_AbortTxByPhyConfig(trxIdx);
     }
 
     /* Store new PHY configuration */
@@ -2762,7 +2182,6 @@ static uint32_t lRF215_TX_ContentionWindowUS (DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 static uint32_t lRF215_TX_CommandDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
 {
     const RF215_FSK_SYM_RATE_CONST_OBJ* fskConst;
-    DRV_RF215_OFDM_BW_OPT opt;
     uint8_t txdfe, sr;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[txBufObj->clientObj->trxIndex];
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
@@ -2799,28 +2218,19 @@ static uint32_t lRF215_TX_CommandDelayUSq5(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     /* No contention window: Next command is TX or CCATX.
      * Add front-end and baseband processing delays.
      * Baseband processing delay depends on PHY type. */
-    if (pObj->phyConfig.phyType == PHY_TYPE_FSK)
-    {
-        /* Baseband processing delay for FSK */
-        fskConst = &fskSymRateConst[pObj->phyConfig.phyTypeCfg.fsk.symRate];
-        txCmdDelayUSq5 += fskConst->txBaseBandDelayUSq5;
+    /* Baseband processing delay for FSK */
+    fskConst = &fskSymRateConst[pObj->phyConfig.phyTypeCfg.fsk.symRate];
+    txCmdDelayUSq5 += fskConst->txBaseBandDelayUSq5;
 
-        /* FSK pre-emphasis processing delay in us [uQ5.5] (not in data-sheet).
-         * If pre-emphasis is enabled (FSKDM.PE=1), tx_bb_delay is reduced
-         * because FSKC0.BT has no effect (GFSK modulator disabled). Delay1 and
-         * Delay2 reduce tx_bb_delay. Delay2 has to be compensated in TX confirm
-         * time. */
-        if ((pObj->phyRegs.BBCn_FSKDM & RF215_BBCn_FSKDM_PE) != 0U)
-        {
-            txCmdDelayUSq5 -= fskConst->txPreEmphasisDelay1USq5;
-            txCmdDelayUSq5 -= fskConst->txPreEmphasisDelay2USq5;
-        }
-    }
-    else
+    /* FSK pre-emphasis processing delay in us [uQ5.5] (not in data-sheet).
+     * If pre-emphasis is enabled (FSKDM.PE=1), tx_bb_delay is reduced
+     * because FSKC0.BT has no effect (GFSK modulator disabled). Delay1 and
+     * Delay2 reduce tx_bb_delay. Delay2 has to be compensated in TX confirm
+     * time. */
+    if ((pObj->phyRegs.BBCn_FSKDM & RF215_BBCn_FSKDM_PE) != 0U)
     {
-        /* Baseband processing delay for OFDM */
-        opt = pObj->phyConfig.phyTypeCfg.ofdm.opt;
-        txCmdDelayUSq5 += ofdmBwOptConst[opt].txBaseBandDelayUSq5;
+        txCmdDelayUSq5 -= fskConst->txPreEmphasisDelay1USq5;
+        txCmdDelayUSq5 -= fskConst->txPreEmphasisDelay2USq5;
     }
 
     /* Transmitter front-end delay in us [uQ6.5] [Figure 6-3].
@@ -3017,6 +2427,9 @@ static void lRF215_TX_FrameEnd(uint8_t trxIdx)
                 (void) lRF215_PHY_SetPhyConfig(trxIdx, &pObj->phyConfigPending, pObj->channelNumPhyCfgPending, true);
             }
         }
+
+        /* Turn off TX LED */
+        RF215_HAL_LedTx(false);
     }
     else
     {
@@ -3076,18 +2489,15 @@ static void lRF215_TX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t timeRead)
         trxCountDiff -= (int32_t) rf215TxDfeProcRcutDelay[sr];
     }
 
-    if (pObj->phyConfig.phyType == PHY_TYPE_FSK)
+    /* FSK pre-emphasis processing delay in us [uQ5.5] (not in data-sheet).
+     * If pre-emphasis is enabled (FSKDM.PE=1), tx_bb_delay is reduced
+     * because FSKC0.BT has no effect (GFSK modulator disabled). Delay1 and
+     * Delay2 reduce tx_bb_delay. Delay2 has to be compensated in TX confirm
+     * time. */
+    if ((pObj->phyRegs.BBCn_FSKDM & RF215_BBCn_FSKDM_PE) != 0U)
     {
-        /* FSK pre-emphasis processing delay in us [uQ5.5] (not in data-sheet).
-         * If pre-emphasis is enabled (FSKDM.PE=1), tx_bb_delay is reduced
-         * because FSKC0.BT has no effect (GFSK modulator disabled). Delay1 and
-         * Delay2 reduce tx_bb_delay. Delay2 has to be compensated in TX confirm
-         * time. */
-        if ((pObj->phyRegs.BBCn_FSKDM & RF215_BBCn_FSKDM_PE) != 0U)
-        {
-            fskConst = &fskSymRateConst[pObj->phyConfig.phyTypeCfg.fsk.symRate];
-            trxCountDiff += (int32_t) fskConst->txPreEmphasisDelay2USq5;
-        }
+        fskConst = &fskSymRateConst[pObj->phyConfig.phyTypeCfg.fsk.symRate];
+        trxCountDiff += (int32_t) fskConst->txPreEmphasisDelay2USq5;
     }
 
     /* Compute SYS_TIME counter associated to TX event */
@@ -3165,7 +2575,8 @@ static void lRF215_TX_ReadAMCS(uintptr_t context, void* pData, uint64_t timeRead
     if ((amcs & RF215_BBCn_AMCS_CCAED) == 0U)
     {
         /* Clear channel. CCATX enables baseband automatically.
-         * TRX state is automatically updated to TX. */
+         * TRX state is automatically updated to TX. Turn on TX LED. */
+        RF215_HAL_LedTx(true);
         pObj->phyRegs.BBCn_PC |= RF215_BBCn_PC_BBEN_Msk;
         pObj->trxState = RF215_RFn_STATE_RF_TX;
         pObj->phyState = PHY_STATE_TX;
@@ -3406,11 +2817,17 @@ static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     RF215_PHY_REGS_OBJ* phyRegs;
     uint8_t* pPHR;
     uint16_t addrPHR;
-    uint8_t pac, phrtx, txPwrAtt, mcsIndex;
+    uint8_t pac, phrtx, txPwrAtt;
     uint8_t trxIdx = txBufObj->clientObj->trxIndex;
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
     DRV_RF215_TX_RESULT result = RF215_TX_SUCCESS;
+
+    if ((pObj->txStarted == true) && (txBufObj != pObj->txBufObj))
+    {
+        /* Another TX in progress: Busy TX error */
+        return RF215_TX_BUSY_TX;
+    }
 
     if (RF215_PHY_CheckTxContentionWindow(txBufObj) == true)
     {
@@ -3479,29 +2896,10 @@ static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     pPHR = &phyRegs->BBCn_FSKPHRTX;
     addrPHR = RF215_BBCn_FSKPHRTX(trxIdx);
 
-    if (pObj->phyConfig.phyType == PHY_TYPE_FSK)
+    /* BBCn_FSKPHRTX depending on FEC mode */
+    if (txBufObj->reqObj.modScheme == FSK_FEC_ON)
     {
-        /* BBCn_FSKPHRTX depending on FEC mode */
-        if (txBufObj->reqObj.modScheme == FSK_FEC_ON)
-        {
-            phrtx = BBC_FSKPHRTX_FEC_ON;
-        }
-    }
-    else
-    {
-        /* OFDM: Minimum TX power attenuation to comply with EVM requirements */
-        mcsIndex = (uint8_t) txBufObj->reqObj.modScheme;
-        if (txPwrAtt < 31U)
-        {
-            txPwrAtt += ofdmMcsConst[mcsIndex].minTxPwrAttMin;
-        }
-
-        /* BBCn_OFDMPHRTX register value, depending on MCS
-         * RB5/17/RB18/RB21: Reserved bits set to 0
-         * MCS: Modulation and coding scheme */
-        phrtx = RF215_BBCn_OFDMPHRTX_MCS(mcsIndex);
-        pPHR = &phyRegs->BBCn_OFDMPHRTX;
-        addrPHR = RF215_BBCn_OFDMPHRTX(trxIdx);
+        phrtx = BBC_FSKPHRTX_FEC_ON;
     }
 
     /* Maximum TX power attenuation is 31 dB */
@@ -4066,14 +3464,7 @@ static void lRF215_RX_ReadCNT(uintptr_t ctxt, void* pDat, uint64_t timeRead)
     trxCountDiff = lRF215_PHY_EventTrxCountDiff(pDat);
 
     /* Compensate RXFS interrupt and RX baseband delays */
-    if (phyCfg->phyType == PHY_TYPE_FSK)
-    {
-        trxCountDiff += (int32_t) lRF215_FSK_RxStartDelayUSq5(&phyCfg->phyTypeCfg.fsk, pObj->rxInd.modScheme);
-    }
-    else /* PHY_TYPE_OFDM */
-    {
-        trxCountDiff += (int32_t) lRF215_OFDM_RxStartDelayUSq5(&phyCfg->phyTypeCfg.ofdm);
-    }
+    trxCountDiff += (int32_t) lRF215_FSK_RxStartDelayUSq5(&phyCfg->phyTypeCfg.fsk, pObj->rxInd.modScheme);
 
     /* Compensate RX processing delay */
     if ((rxdfe & RF215_RFn_RXDFE_RCUT_Msk) != RF215_RFn_RXDFE_RCUT_1_00)
@@ -4120,14 +3511,7 @@ static void lRF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t timeRead)
     else
     {
         /* Check received PHR */
-        if (phyCfg->phyType == PHY_TYPE_FSK)
-        {
-            modScheme = lRF215_FSK_ReadPHR(phr);
-        }
-        else /* PHY_TYPE_OFDM */
-        {
-            modScheme = lRF215_OFDM_ReadPHR(phr, phyCfg->phyTypeCfg.ofdm.opt);
-        }
+        modScheme = lRF215_FSK_ReadPHR(phr);
 
         if (modScheme == MOD_SCHEME_INVALID)
         {
@@ -4182,6 +3566,12 @@ static void lRF215_RX_ReadPHR(uintptr_t context, void* pData, uint64_t timeRead)
             {
                 lRF215_RX_AgcRelease(trxIdx);
             }
+            else
+            {
+                /* Turn on RX LED */
+                RF215_HAL_LedRx(true);
+                pObj->ledRxStatus = true;
+            }
         }
     }
     else
@@ -4203,13 +3593,6 @@ static inline void lRF215_RX_FrameStart(uint8_t trxIdx)
 
     /* Get frame length: Read 2 registers (BBCn_RXFLL, BBCn_RXFLH) */
     RF215_HAL_SpiRead(RF215_BBCn_RXFLL(trxIdx), &regs->BBCn_RXFLL, 2, NULL, 0);
-
-    if (pObj->phyConfig.phyType == PHY_TYPE_OFDM)
-    {
-        /* PHRRX register for OFDM */
-        pPHR = &regs->BBCn_OFDMPHRRX;
-        addrPHR = RF215_BBCn_OFDMPHRRX(trxIdx);
-    }
 
     /* Get PHRRX register */
     RF215_HAL_SpiRead(addrPHR, pPHR, 1, lRF215_RX_ReadPHR, (uintptr_t) trxIdx);
@@ -4274,6 +3657,7 @@ bool RF215_PHY_Initialize (
     pObj->trxRdy = false;
     pObj->rxIndPending = false;
     pObj->txfePending = false;
+    pObj->ledRxStatus = false;
     pObj->txStarted = false;
     pObj->txAutoInProgress = false;
     pObj->rxTimeValid = false;
@@ -4463,12 +3847,21 @@ void RF215_PHY_ExtIntEvent(uint8_t trxIdx, uint8_t rfIRQS, uint8_t bbcIRQS)
     {
         lRF215_RX_FrameEnd(trxIdx);
 
+        /* Turn off RX LED */
+        RF215_HAL_LedRx(false);
+        pObj->ledRxStatus = false;
     }
 
     /* Check AGC Release interrupt */
     if (agcr != 0U)
     {
         lRF215_RX_AgcRelease(trxIdx);
+        if (pObj->ledRxStatus == true)
+        {
+            /* Turn off RX LED */
+            RF215_HAL_LedRx(false);
+            pObj->ledRxStatus = false;
+        }
     }
 
     /* Check FBLI interrupt */
@@ -4568,20 +3961,11 @@ DRV_RF215_TX_RESULT RF215_PHY_TxRequest(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         /* Error: invalid TX time mode */
         result = RF215_TX_INVALID_PARAM;
     }
-    else if (pObj->phyConfig.phyType == PHY_TYPE_FSK)
+    else
     {
         if ((modScheme > FSK_FEC_ON) || (modScheme < FSK_FEC_OFF))
         {
             /* Error: invalid FSK FEC mode */
-            result = RF215_TX_INVALID_PARAM;
-        }
-    }
-    else
-    {
-        DRV_RF215_OFDM_BW_OPT opt = pObj->phyConfig.phyTypeCfg.ofdm.opt;
-        if ((modScheme > OFDM_MCS_6) || (modScheme < ofdmBwOptConst[opt].minMCS))
-        {
-            /* Error: invalid OFDM MCS */
             result = RF215_TX_INVALID_PARAM;
         }
     }
@@ -4673,6 +4057,12 @@ void RF215_PHY_TxCancel(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
         }
         else
         {
+            if (pObj->phyState == PHY_STATE_TX)
+            {
+                /* Turn off TX LED */
+                RF215_HAL_LedTx(false);
+            }
+
             /* Abort TX in progress or in preparation. Start listening. */
             lRF215_TRX_RxListen(trxIdx);
         }

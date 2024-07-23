@@ -199,6 +199,9 @@ typedef struct
     /* PLC Tx Enable pin */
     SYS_PORT_PIN                           txEnablePin;
 
+    /* PLC Thermal Monitor pin */
+    SYS_PORT_PIN                           thMonPin;
+
 } DRV_PLC_PLIB_INTERFACE;
 
 // *****************************************************************************
@@ -208,6 +211,8 @@ typedef void (* DRV_PLC_HAL_INIT)(DRV_PLC_PLIB_INTERFACE *plcPlib);
 typedef void (* DRV_PLC_HAL_SETUP)(bool set16Bits);
 
 typedef void (* DRV_PLC_HAL_RESET)(void);
+
+typedef bool (* DRV_PLC_HAL_GET_THMON)(void);
 
 typedef void (* DRV_PLC_HAL_SET_TXENABLE)(bool enable);
 
@@ -248,6 +253,9 @@ typedef struct
 
     /* PLC HAL reset device */
     DRV_PLC_HAL_RESET                        reset;
+
+    /* PLC Temperature Monitor */
+    DRV_PLC_HAL_GET_THMON                    getThermalMonitor;
 
     /* PLC HAL Set Tx Enable pin */
     DRV_PLC_HAL_SET_TXENABLE                 setTxEnable;
@@ -317,6 +325,7 @@ typedef struct
 
 void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib);
 void DRV_PLC_HAL_Reset(void);
+bool DRV_PLC_HAL_GetThermalMonitor(void);
 void DRV_PLC_HAL_Setup(bool set16Bits);
 void DRV_PLC_HAL_SetTxEnable(bool enable);
 void DRV_PLC_HAL_EnableInterrupts(bool enable);

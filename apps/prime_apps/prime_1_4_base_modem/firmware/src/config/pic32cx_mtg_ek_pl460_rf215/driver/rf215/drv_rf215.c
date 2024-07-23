@@ -310,19 +310,6 @@ void DRV_RF215_AbortTxByRx(uint8_t trxIdx)
     }
 }
 
-void DRV_RF215_AbortTxByPhyConfig(uint8_t trxIdx)
-{
-    /* Look for scheduled TX to cancel by PHY configuration */
-    for (uint8_t bufIdx = 0; bufIdx < DRV_RF215_TX_BUFFERS_NUMBER; bufIdx++)
-    {
-        DRV_RF215_TX_BUFFER_OBJ* txBufObj = &drvRf215TxBufPool[bufIdx];
-        if ((txBufObj->inUse == true) && (txBufObj->cfmPending == false) && (txBufObj->clientObj->trxIndex == trxIdx))
-        {
-            RF215_PHY_SetTxCfm(txBufObj, RF215_TX_ABORTED);
-        }
-    }
-}
-
 DRV_RF215_TX_BUFFER_OBJ* DRV_RF215_TxHandleValidate(DRV_RF215_TX_HANDLE txHandle)
 {
     DRV_RF215_TX_BUFFER_OBJ* txBufObj;

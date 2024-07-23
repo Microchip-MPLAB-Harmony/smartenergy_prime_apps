@@ -357,6 +357,8 @@ void RF215_HAL_Initialize(const DRV_RF215_INIT * const init)
     rf215HalObj.spiQueueFirst = NULL;
     rf215HalObj.spiQueueLast = NULL;
     rf215HalObj.spiTransferFromTasks = false;
+    rf215HalObj.ledRxOnCount = 0;
+    rf215HalObj.ledTxOnCount = 0;
     for (uint8_t idx = 0; idx < RF215_SPI_TRANSFER_POOL_SIZE; idx++)
     {
         halSpiTransferPool[idx].inUse = false;
@@ -609,5 +611,47 @@ size_t RF215_HAL_GetSpiQueueSize(void)
     }
 
     return queueSize;
+}
+
+void RF215_HAL_LedRx(bool on)
+{
+    if (on == true)
+    {
+        SYS_PORT_PinSet(DRV_RF215_LED_RX_PIN);
+        rf215HalObj.ledRxOnCount++;
+    }
+    else
+    {
+        if (rf215HalObj.ledRxOnCount > 0U)
+        {
+            rf215HalObj.ledRxOnCount--;
+        }
+
+        if (rf215HalObj.ledRxOnCount == 0U)
+        {
+            SYS_PORT_PinClear(DRV_RF215_LED_RX_PIN);
+        }
+    }
+}
+
+void RF215_HAL_LedTx(bool on)
+{
+    if (on == true)
+    {
+        SYS_PORT_PinSet(DRV_RF215_LED_TX_PIN);
+        rf215HalObj.ledTxOnCount++;
+    }
+    else
+    {
+        if (rf215HalObj.ledTxOnCount > 0U)
+        {
+            rf215HalObj.ledTxOnCount--;
+        }
+
+        if (rf215HalObj.ledTxOnCount == 0U)
+        {
+            SYS_PORT_PinClear(DRV_RF215_LED_TX_PIN);
+        }
+    }
 }
 

@@ -62,10 +62,13 @@ volatile static dwdtCallback_t dwdt0CallbackObj;
 static void WDT0_Initialize(void)
 {
     /* Configure Period  */
-    DWDT_REGS->DWDT_WDT0_WL = DWDT_WDT0_WL_PERIOD(1000U);
+    DWDT_REGS->DWDT_WDT0_WL = DWDT_WDT0_WL_PERIOD(1250U);
 
     /* Configure prescaler  */
     DWDT_REGS->DWDT_WDT0_IL = DWDT_WDT0_IL_PRESC_RATIO128;
+
+    /* Configure WDT0 modes */
+    DWDT_REGS->DWDT_WDT0_MR = DWDT_WDT0_MR_WDDBG1HLT_Msk | DWDT_WDT0_MR_WDDBG0HLT_Msk | DWDT_WDT0_MR_WDIDLEHLT_Msk;
 
     /*Enable configured interrupts */
     DWDT_REGS->DWDT_WDT0_IER = DWDT_WDT0_IER_PERINT_Msk;
