@@ -29,4 +29,4 @@ package:
       version: "dev_v130"
     - name: "smartenergy_prime"
       type: "package"
-      version: "hs_dev_SMS-3845"
+      version: "dev"
