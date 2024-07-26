@@ -32,10 +32,15 @@ The following applications are provided to demonstrate the typical or interestin
 
 | Name               | Description |
 | ----               | ----------- |
-| [PLC PHY and Go](apps/phy_apps/phy_plc_and_go/readme.md) | This example is intended to show a simple application running on top of the PRIME PHY layer. |
-| [PHY Tester Tool](apps/phy_apps/phy_tester_tool/readme.md) | The PHY Tester tool is an application example that allows checking of the complete performance of the Microchip PRIME PHY Layer on PLC boards |
-| [PHY Sniffer Tool](apps/phy_apps/phy_sniffer_tool/readme.md) | The PHY Sniffer is an application example that uses the PHY layer to monitor PLC frames in the PRIME network and send them via USI serialization. |
-| [PHY Tx Test Console](apps/phy_apps/phy_tx_test_console/readme.md) | The PHY Tx Test Console is an application example that demonstrates the complete performance of the Microchip PRIME PHY Layer avoiding timing limitations in the PC host |
+| [PLC PHY and Go] | This example is intended to show a simple application running on top of the PRIME PHY layer. |
+| [PHY Tester Tool] | The PHY Tester tool is an application example that allows checking of the complete performance of the Microchip PRIME PHY Layer on PLC boards. |
+| [PHY Tester Tool - Hybrid] | The PHY Tester tool is an application example that allows checking of the complete performance of the Microchip PRIME PHY Layer on PLC+RF boards. |
+| [PHY Sniffer Tool] | The PHY Sniffer is an application example that uses the PHY layer to monitor PLC frames in the PRIME network and send them via USI serialization. |
+| [PHY Sniffer Tool - Hybrid] | The PHY Sniffer is an application example that uses the PHY layer to monitor PLC and RF frames in the PRIME network and send them via USI serialization. |
+| [PHY Tx Test Console] | The PHY Tx Test Console is an application example that demonstrates the complete performance of the Microchip PRIME PHY Layer avoiding timing limitations in the PC host. |
+| [PRIME 1.4 Base Modem] | The PRIME 1.4 Base Modem is an application example that demonstrates how to configure the PRIME stack and its serial interface as a Base Node with modem capabilies. |
+| [PRIME Dual Service Modem] | The PRIME Dual Service Modem is an application example that demonstrates how to configure the PRIME stack and its serial interface as a dual Service Node with modem capabilies. |
+| [PRIME Bootloader] | The PRIME Bootloader is an application example that demonstrates how to use the bootloader in a Service Node for firmware upgrade. |
 
 ____
 
