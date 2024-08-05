@@ -63,19 +63,19 @@ void NVIC_Initialize( void )
     NVIC_EnableIRQ(SUPC_IRQn);
     NVIC_SetPriority(DWDT0_IRQn, 9);
     NVIC_EnableIRQ(DWDT0_IRQn);
-    NVIC_SetPriority(FLEXCOM0_IRQn, 9);
+    NVIC_SetPriority(FLEXCOM0_IRQn, 3);
     NVIC_EnableIRQ(FLEXCOM0_IRQn);
-    NVIC_SetPriority(FLEXCOM3_IRQn, 9);
+    NVIC_SetPriority(FLEXCOM3_IRQn, 7);
     NVIC_EnableIRQ(FLEXCOM3_IRQn);
-    NVIC_SetPriority(FLEXCOM5_IRQn, 9);
+    NVIC_SetPriority(FLEXCOM5_IRQn, 8);
     NVIC_EnableIRQ(FLEXCOM5_IRQn);
     NVIC_SetPriority(FLEXCOM7_IRQn, 9);
     NVIC_EnableIRQ(FLEXCOM7_IRQn);
     NVIC_SetPriority(PIOA_IRQn, 9);
     NVIC_EnableIRQ(PIOA_IRQn);
-    NVIC_SetPriority(PIOC_IRQn, 9);
+    NVIC_SetPriority(PIOC_IRQn, 6);
     NVIC_EnableIRQ(PIOC_IRQn);
-    NVIC_SetPriority(TC0_CH0_IRQn, 9);
+    NVIC_SetPriority(TC0_CH0_IRQn, 5);
     NVIC_EnableIRQ(TC0_CH0_IRQn);
 
     /* Enable Usage fault */

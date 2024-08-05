@@ -204,7 +204,7 @@ void PRIME_Tasks(SYS_MODULE_OBJ object);
 
   Example:
     <code>
-    PRIME_API primeApiPtr = PRIME_SN_FWSTACK13_ADDRESS;
+    PRIME_API *primeApiPtr = PRIME_SN_FWSTACK13_ADDRESS;
     PRIME_Restart((uint32_t *)primeApiPtr);
     </code>
 

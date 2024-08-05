@@ -97,6 +97,8 @@ extern "C" {
 //#define CRYPTO_SYM_CHACHA20_ENABLE      //ChaCha20 algorithm is selected in MCC-GUI
 //***************************************
 
+//HW Acceleration Enable
+#define CRYPTO_SYM_HW_ALGO_EN
     
 //*****SYM OPERATION MODE ENABLE MACROS************
 //AES Algorithms Operational Mode Macros

@@ -239,7 +239,7 @@ void APP_Tasks ( void )
     if (appData.timerLedExpired == true)
     {
         appData.timerLedExpired = false;
-        APP_BLINK_LED_Toggle();
+        USER_BLINK_LED_Toggle();
     }
     
     /* Check the application's current state. */

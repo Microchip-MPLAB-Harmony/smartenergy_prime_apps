@@ -3602,7 +3602,7 @@
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drvRf215&quot; x=&quot;457&quot; y=&quot;178&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom0&quot; x=&quot;10&quot; y=&quot;300&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom3&quot; x=&quot;316&quot; y=&quot;230&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom5&quot; x=&quot;616&quot; y=&quot;262&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom5&quot; x=&quot;617&quot; y=&quot;262&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;flexcom7&quot; x=&quot;198&quot; y=&quot;388&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;lib_crypto&quot; x=&quot;379&quot; y=&quot;92&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;209&quot; y=&quot;48&quot;/&gt;
@@ -4182,6 +4182,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_12_0_PRIORITY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_12_0_PRIORITY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;7&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_14_0_ENABLE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_14_0_ENABLE&quot;&gt;
@@ -4209,6 +4220,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_14_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_14_0_PRIORITY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_14_0_PRIORITY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;8&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4314,6 +4336,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_21_0_PRIORITY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_21_0_PRIORITY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_31_0_ENABLE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_31_0_ENABLE&quot;&gt;
@@ -4341,6 +4374,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_31_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_31_0_PRIORITY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_31_0_PRIORITY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;5&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4462,6 +4506,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_9_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_9_0_PRIORITY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_9_0_PRIORITY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;3&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6055,7 +6110,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;TC0_CH0_CLOCK_FREQUENCY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;100000000&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;1562500&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -13638,6 +13693,32 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="MCHP_Crypto_Aead_HwWrapper_c"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
+  &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;MCHP_Crypto_Aead_HwWrapper_c&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/lib_crypto&gt;
+&lt;/lib_crypto&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="MCHP_Crypto_Aead_HwWrapper_h"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
+  &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;MCHP_Crypto_Aead_HwWrapper_h&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/lib_crypto&gt;
+&lt;/lib_crypto&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="MCHP_Crypto_Rng_HwWrapper_c"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;MCHP_Crypto_Rng_HwWrapper_c&quot;&gt;
@@ -13664,11 +13745,37 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="MCHP_Crypto_Sym_HwWrapper_c"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
+  &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;MCHP_Crypto_Sym_HwWrapper_c&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/lib_crypto&gt;
+&lt;/lib_crypto&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="MCHP_Crypto_Sym_HwWrapper_h"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
+  &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;MCHP_Crypto_Sym_HwWrapper_h&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/lib_crypto&gt;
+&lt;/lib_crypto&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="config_use_aes_hw"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;config_use_aes_hw&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
@@ -13780,7 +13887,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_aead_aes_gcm_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_aead_aes_gcm_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-GCM&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -13801,7 +13913,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_aead_aes_hw_en&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
@@ -14363,7 +14475,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_cbc_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_cbc_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-CBC&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -14372,7 +14489,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_cfb128_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_cfb128_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-CFB128&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -14381,7 +14503,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_cfb1_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_cfb1_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-CFB1&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -14390,7 +14517,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_cfb64_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_cfb64_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-CFB64&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -14399,7 +14531,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_cfb8_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_cfb8_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-CFB8&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -14408,7 +14545,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_ctr_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_ctr_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-CTR&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -14417,7 +14559,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_ecb_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_ecb_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-ECB&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_crypto&gt;
@@ -14437,7 +14584,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_hw_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_hw_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -14457,7 +14606,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="crypto_sym_aes_ofb_en"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_sym_aes_ofb_en&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;String dnOrder=&quot;0&quot; id=&quot;label&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;AES-OFB&amp;amp;#160;(HW)?&lt;/Value&gt;
+      &lt;/String&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -14476,6 +14630,32 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_trustzone&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/lib_crypto&gt;
+&lt;/lib_crypto&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="drv_crypto_aes_hw_6149_c"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
+  &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;drv_crypto_aes_hw_6149_c&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/lib_crypto&gt;
+&lt;/lib_crypto&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="drv_crypto_aes_hw_6149_h"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
+  &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;drv_crypto_aes_hw_6149_h&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -27248,7 +27428,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tc0&gt;
   &lt;tc0 dnOrder=&quot;0&quot; id=&quot;TC0_CLOCK_FREQ&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc0&quot; value=&quot;100000000&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc0&quot; value=&quot;1562500&quot;/&gt;
     &lt;/Values&gt;
   &lt;/tc0&gt;
 &lt;/tc0&gt;
@@ -27375,7 +27555,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tc0" name="TC0_CMR_TCCLKS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tc0&gt;
   &lt;tc0 dnOrder=&quot;0&quot; id=&quot;TC0_CMR_TCCLKS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;4&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tc0&gt;
 &lt;/tc0&gt;
 </value>
@@ -27494,7 +27676,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="tc0" name="TC0_PCK7"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;tc0&gt;
   &lt;tc0 dnOrder=&quot;0&quot; id=&quot;TC0_PCK7&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc0&quot; value=&quot;false&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/tc0&gt;
 &lt;/tc0&gt;
 </value>
@@ -27527,8 +27711,11 @@
   &lt;tc0 dnOrder=&quot;0&quot; id=&quot;TC0_TIMER_PERIOD_MS&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Float dnOrder=&quot;0&quot; id=&quot;max&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;42949.67&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;2748779.0&lt;/Value&gt;
       &lt;/Float&gt;
+      &lt;Boolean dnOrder=&quot;1&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;tc0&quot; value=&quot;0.0&quot;/&gt;
@@ -28513,6 +28700,10 @@
          <hash>af9fbccaf3da2d34193d77f07ac043f262ce7c023f84d5a09b607cdbae323c82</hash>
       </entry>
       <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Aead_HwWrapper.h</file>
+         <hash>c64dd88e6a6e4b002416d9e0773f85d2dd95b1f42cfb54e34af2c6b77db84638</hash>
+      </entry>
+      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Aead_WolfcryptWrapper.h</file>
          <hash>3feb9a6c8df9436fb818d0603313e26e727324b166457fb5b17f2ce08b9abb55</hash>
       </entry>
@@ -28594,7 +28785,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Sym_Config.h</file>
-         <hash>5e7b5590c6485b4a294c8472bc9d4291a8f03e7a752c81407fd9f2956d5eade6</hash>
+         <hash>a28bcf2153ac641f45ec45c71de767904655e541a5c348d8cab63a6687ed9044</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Sym_HwWrapper.h</file>
+         <hash>8a260107f9fb44a4fdd12ffbbd295a3ee0472e5719654b0f5575533a49e4c087</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Sym_WolfcryptWrapper.h</file>
@@ -28603,6 +28798,10 @@
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Aead_Cipher.c</file>
          <hash>84770cc59810da16c2aff6eebeb18f7eb3361638f98bac0e2dccac6c0a75ac25</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Aead_HwWrapper.c</file>
+         <hash>948bb09af9256a509f4e3562c3c4cd060d71698a80bf4be620c7021d9aa98294</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Aead_WolfCryptWrapper.c</file>
@@ -28661,12 +28860,24 @@
          <hash>b36c092536b37aa9da5159e0da4aaf3ffff7005f1fe1743fb1ee2c8109e58ff3</hash>
       </entry>
       <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Sym_HwWrapper.c</file>
+         <hash>cfe691df2e2309db271326df6e859a9ad1f23446b51f0177b51cad1624bce0f0</hash>
+      </entry>
+      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Sym_WolfcryptWrapper.c</file>
          <hash>db5ba07d85c3879720b532966b814a93f3e94e9b9f8a92cbdce22aface8813b3</hash>
       </entry>
       <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\drivers\drv_crypto_aes_hw_6149.h</file>
+         <hash>924d9ef83fce4210e4c7d5c3150d6cf5e330cd909963a0b269f917e850ac0d26</hash>
+      </entry>
+      <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\drivers\drv_crypto_trng_hw_6334.h</file>
          <hash>7800de97da2e8354b3396806e0bc9e15aa6036a614bc063fe304cfb5c6e96707</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\drivers\src\drv_crypto_aes_hw_6149.c</file>
+         <hash>04adc8168013ff0c2ea1e44f1f00f826f448bc14986739e88fa1c2d8c5b812e5</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\drivers\src\drv_crypto_trng_hw_6334.c</file>
@@ -28886,7 +29097,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\nvic\plib_nvic.c</file>
-         <hash>b575afb97525f85271ca513d130a551c40417bb273b4ee7c50737ffdbb72786a</hash>
+         <hash>f64b8b343770fcb9dc309edd9c42389b567b6d07b99dd58b89dfa2ca5128677a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\nvic\plib_nvic.h</file>
@@ -28938,7 +29149,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\tc\plib_tc0.c</file>
-         <hash>32d89006f46cdb1f1f9480a8cc7e808a94ecc874b9329bc2098e1b7abc9ce8eb</hash>
+         <hash>2e048e51e8f232c18be629afa5e1b195bd04e3caf826f9c0587a1b0766032913</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\tc\plib_tc0.h</file>
@@ -29186,7 +29397,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack.h</file>
-         <hash>e6997598ddd1f4e734ef92fcac23aa1eeb744f76aea0fc7c7c7dc058528e2b6c</hash>
+         <hash>783034fa51fc16557d3fd168683ce48b97f12f7863c8d7a57141673a9d296de7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack_local.h</file>

@@ -39,9 +39,12 @@
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Rng_WolfcryptWrapper.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_DigSign_Config.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Hash_Config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Aead_HwWrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/MCHP_Crypto_Sym_HwWrapper.h</itemPath>
             </logicalFolder>
             <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers/drv_crypto_trng_hw_6334.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers/drv_crypto_aes_hw_6149.h</itemPath>
             </logicalFolder>
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/wolfcrypt/config.h</itemPath>
@@ -530,11 +533,14 @@
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Aead_WolfCryptWrapper.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Common_WolfcryptWrapper.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Kas.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Sym_HwWrapper.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/common_crypto/src/MCHP_Crypto_Aead_HwWrapper.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
               <logicalFolder name="src" displayName="src" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers/src/drv_crypto_trng_hw_6334.c</itemPath>
+                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers/src/drv_crypto_aes_hw_6149.c</itemPath>
               </logicalFolder>
             </logicalFolder>
           </logicalFolder>

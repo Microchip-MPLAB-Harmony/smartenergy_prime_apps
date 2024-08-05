@@ -23,5 +23,6 @@
 #define CRYPTO_RNG_SESSION_MAX (1)
 
 
+#define CRYPTO_RNG_HW_TRNG_EN
 
 #endif /* MCHP_CRYPTO_RNG_CONFIG_H */

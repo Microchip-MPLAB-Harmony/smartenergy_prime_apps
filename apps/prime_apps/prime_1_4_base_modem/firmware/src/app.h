@@ -98,14 +98,9 @@ typedef struct
 // *****************************************************************************
 /* Period to blink LED in milliseconds */
 #define APP_LED_BLINK_PERIOD_MS     500
+
 #define APP_STRING_HEADER "\r\n-- MCHP PRIME 1.4 Modem application for Base Node --\r\n" \
 	"-- Compiled: "__DATE__" "__TIME__" --\r\n" \
-
-#define APP_BLINK_LED_On()           LED_GREEN_On()
-#define APP_BLINK_LED_Off()          LED_GREEN_Off()
-#define APP_BLINK_LED_Toggle()       LED_GREEN_Toggle()
-    
-#define CLEAR_WATCHDOG()             DWDT_WDT0_Clear()
 
 // *****************************************************************************
 // *****************************************************************************
