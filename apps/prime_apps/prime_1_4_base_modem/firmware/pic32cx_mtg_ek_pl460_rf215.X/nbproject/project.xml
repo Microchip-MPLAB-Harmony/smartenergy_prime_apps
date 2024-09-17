@@ -7,7 +7,9 @@
             <creation-uuid>0f7f03b6-5ad2-43c8-94d3-f92a2ac0a624</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <make-dep-projects/>
+            <make-dep-projects>
+                <make-dep-project>../../../../../../smartenergy_prime_libs/libs/prime14_lib_bn_m.X</make-dep-project>
+            </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>..</sourceRootElem>
             </sourceRootList>

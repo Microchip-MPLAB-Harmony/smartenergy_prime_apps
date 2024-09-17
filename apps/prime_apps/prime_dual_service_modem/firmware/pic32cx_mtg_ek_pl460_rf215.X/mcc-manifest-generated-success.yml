@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_dual_sn_modem_pic32cx_mtg_ek_pl460_rf215
-creation_date: 2024-08-05T11:48:37.495+02:00[Europe/Paris]
+creation_date: 2024-09-16T14:25:55.274+02:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -10,7 +10,7 @@ device_name: PIC32CX2051MTG128
 compiler: XC32 4.40
 mcc_version: 5.5.1
 mcc_core_version: 5.7.1
-content_manager_version: 5.0.0
+content_manager_version: 5.0.1
 is_mcc_offline: false
 is_using_prerelease_versions: false
 mcc_content_registries: https://registry.npmjs.org/
@@ -21,8 +21,8 @@ modules:
 - {name: csp, type: HARMONY, version: v3.19.1}
 - {name: core, type: HARMONY, version: v3.13.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: dev}
+- {name: smartenergy_prime, type: HARMONY, version: SMS-3993-test-bn-1.4-modem-app}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
-- {name: smartenergy, type: HARMONY, version: dev_v130}
+- {name: smartenergy, type: HARMONY, version: SMS-3993-test-bn-1.4-modem-app}
 - {name: bsp, type: HARMONY, version: v3.20.1}
 - {name: crypto, type: HARMONY, version: dev}

@@ -50,7 +50,6 @@ Microchip or any third party.
 #include "pal_types.h"
 #include "pal_local.h"
 #include "pal_plc.h"
-#include "pal_rf.h"
 #include "service/psniffer/srv_psniffer.h"
 #include "service/rsniffer/srv_rsniffer.h"
 
@@ -63,7 +62,6 @@ Microchip or any third party.
 static PAL_DATA palData;
 
 extern const PAL_INTERFACE PAL_PLC_Interface;
-extern const PAL_INTERFACE PAL_RF_Interface;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -78,20 +76,6 @@ static void lPAL_PlcDataConfirmCallback(PAL_MSG_CONFIRM_DATA *pData)
 }
 
 static void lPAL_PlcDataIndicationCallback(PAL_MSG_INDICATION_DATA *pData)
-{
-    if (palData.dataIndicationCallback) {
-        palData.dataIndicationCallback(pData);
-    }
-}
-
-static void lPAL_RfDataConfirmCallback(PAL_MSG_CONFIRM_DATA *pData)
-{
-    if (palData.dataConfirmCallback) {
-        palData.dataConfirmCallback(pData);
-    }
-}
-
-static void lPAL_RfDataIndicationCallback(PAL_MSG_INDICATION_DATA *pData)
 {
     if (palData.dataIndicationCallback) {
         palData.dataIndicationCallback(pData);
@@ -151,17 +135,8 @@ static void lPAL_UsiSnifferEventCb(uint8_t *pData, size_t length)
 
 static PAL_INTERFACE * lPAL_GetInterface(uint16_t pch)
 {
-    if (pch < PRIME_PAL_RF_CHN_MASK)
-    {
-        return (PAL_INTERFACE *)&PAL_PLC_Interface;
-    }
-
-    if (pch < PRIME_PAL_SERIAL_CHN_MASK)
-    {
-        return (PAL_INTERFACE *)&PAL_RF_Interface;
-    }
-
-    return NULL;
+    (void)pch;
+    return (PAL_INTERFACE *)&PAL_PLC_Interface;
 }
 
 // *****************************************************************************
@@ -202,17 +177,6 @@ SYS_MODULE_OBJ PAL_Initialize(const SYS_MODULE_INDEX index)
     /* Register PLC PHY Sniffer callback */
     PAL_PLC_USISnifferCallbackRegister(palData.usiHandler, lPAL_PhySnifferCallback);
 
-    if (PAL_RF_Initialize() == SYS_MODULE_OBJ_INVALID)
-    {
-        return SYS_MODULE_OBJ_INVALID;
-    }
-
-    PAL_RF_DataConfirmCallbackRegister(lPAL_RfDataConfirmCallback);
-    PAL_RF_DataIndicationCallbackRegister(lPAL_RfDataIndicationCallback);
-
-    /* Register RF PHY Sniffer callback */
-    PAL_RF_USISnifferCallbackRegister(palData.usiHandler, lPAL_PhySnifferCallback);
-
     return (SYS_MODULE_OBJ)PRIME_PAL_INDEX;
 }
 
@@ -225,8 +189,6 @@ void PAL_Tasks(SYS_MODULE_OBJ object)
 
     PAL_PLC_Tasks();
 
-    PAL_RF_Tasks();
-
 }
 
 SYS_STATUS PAL_Status(SYS_MODULE_OBJ object)
@@ -237,11 +199,6 @@ SYS_STATUS PAL_Status(SYS_MODULE_OBJ object)
     }
 
     if (PAL_PLC_Status() != SYS_STATUS_READY)
-    {
-        return SYS_STATUS_BUSY;
-    }
-
-    if (PAL_RF_Status() != SYS_STATUS_READY)
     {
         return SYS_STATUS_BUSY;
     }

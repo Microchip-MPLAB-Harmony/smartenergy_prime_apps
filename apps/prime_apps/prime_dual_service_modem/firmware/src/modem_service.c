@@ -34,6 +34,8 @@ PRIME_API *gPrimeApi;
 
 SRV_USI_HANDLE gUsiHandle=0;
 
+APP_MODEM_STATES modemState;
+
 /* Queue of buffers in rx */
 typedef struct APP_MODEM_MSG_RCV_tag
 {
@@ -1277,16 +1279,26 @@ static void APP_Modem_CL432DataRequestCmd(uint8_t *recvMsg)
 void APP_Modem_Initialize(void)
 {
     SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
-    (void) memset(&boardInfo, 0, sizeof(boardInfo));
-    
+
     /* Initialize the reception queue */
     inputMsgRecvIndex = 0;
     outputMsgRecvIndex = 0;
 
+    (void) memset(sAppModemMsgRecv, 0, sizeof(sAppModemMsgRecv));
+
+    /* Initialize TxRx data indicators */
+    sRxdataIndication = false;
+    sTxdataIndication = false;
+
+    /* Reset node state */
+    sAppNodeState = APP_MODEM_NODE_UNREGISTERED;
+    
+    (void) memset(&boardInfo, 0, sizeof(boardInfo));
+        
     /* Get the PRIME version */
     SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, sizeof(boardInfo), 
                               (void *)&boardInfo);
-    
+
     /* Get PRIME API pointer */
     switch (boardInfo.primeVersion) 
     {
@@ -1299,159 +1311,171 @@ void APP_Modem_Initialize(void)
             PRIME_API_GetPrime14API(&gPrimeApi);
             break;
     }
-
-    (void) memset(sAppModemMsgRecv, 0, sizeof(sAppModemMsgRecv));
-    
-    /* Set callback functions */
-    APP_Modem_SetCallbacks();
-
-    /* Open USI */
-    gUsiHandle = SRV_USI_Open(SRV_USI_INDEX_0);
-
-    /* Configure USI protocol handler */
-    SRV_USI_CallbackRegister(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, 
-                                APP_Modem_USI_PRIME_ApiHandler);
-
-    /* Initialize TxRx data indicators */
-    sRxdataIndication = false;
-    sTxdataIndication = false;
-
-    /* Reset node state */
-    sAppNodeState = APP_MODEM_NODE_UNREGISTERED;
+            
+    /* Set state */
+    modemState = APP_MODEM_STATE_CONFIGURE;
 }
 
 void APP_Modem_Tasks(void)
 {
-    /* Check data reception */
-    while(sAppModemMsgRecv[outputMsgRecvIndex].len) 
+    switch (modemState)
     {
-        APP_MODEM_PRIME_API_CMD apiCmd;
-        uint8_t *recvBuf;
+        case APP_MODEM_STATE_CONFIGURE:
+            /* Check if PRIME stack is ready */
+            if (gPrimeApi->Status() == SYS_STATUS_READY)
+            {
+                /* Set callback functions */
+                APP_Modem_SetCallbacks();
 
-        /* Extract command */
-        recvBuf = sAppModemMsgRecv[outputMsgRecvIndex].dataBuf;
-        apiCmd = (APP_MODEM_PRIME_API_CMD)*recvBuf++;
-        switch (apiCmd)
-        {
-            case APP_MODEM_CL_NULL_ESTABLISH_REQUEST_CMD:
-                APP_Modem_MacEstablishRequestCmd(recvBuf);
-                break;
+                /* Open USI */
+                gUsiHandle = SRV_USI_Open(SRV_USI_INDEX_0);
 
-            case APP_MODEM_CL_NULL_ESTABLISH_RESPONSE_CMD:
-                APP_Modem_MacEstablishResponseCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_RELEASE_REQUEST_CMD:
-                APP_Modem_MacReleaseRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_RELEASE_RESPONSE_CMD:
-                APP_Modem_MacReleaseResponseCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_JOIN_REQUEST_CMD:
-                APP_Modem_MacJoinRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_JOIN_RESPONSE_CMD:
-                APP_Modem_MacJoinResponseCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_LEAVE_REQUEST_CMD:
-                APP_Modem_MacLeaveRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_DATA_REQUEST_CMD:
-                APP_Modem_MacDataRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_PLME_RESET_REQUEST_CMD:
-                APP_Modem_PLME_ResetRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_PLME_SLEEP_REQUEST_CMD:
-                APP_Modem_PLME_SleepRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_PLME_RESUME_REQUEST_CMD:
-                APP_Modem_PLME_ResumeRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_PLME_TESTMODE_REQUEST_CMD:
-                /* Not implemented */
-                break;
-
-            case APP_MODEM_CL_NULL_PLME_GET_REQUEST_CMD:
-                APP_Modem_PLME_GetRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_PLME_SET_REQUEST_CMD:
-                APP_Modem_PLME_SetRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_REGISTER_REQUEST_CMD:
-                APP_Modem_MLME_RegisterRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_UNREGISTER_REQUEST_CMD:
-                gPrimeApi->MlmeUnregisterRequest();
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_PROMOTE_REQUEST_CMD:
-                APP_Modem_MLME_PromoteRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_DEMOTE_REQUEST_CMD:
-                gPrimeApi->MlmeDemoteRequest();
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_MP_PROMOTE_REQUEST_CMD:
-                APP_Modem_MLME_MP_PromoteRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_MP_DEMOTE_REQUEST_CMD:
-                APP_Modem_MLME_MP_DemoteRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_RESET_REQUEST_CMD:
-                gPrimeApi->MlmeResetRequest();
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_GET_REQUEST_CMD:
-                APP_Modem_MLME_GetRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_LIST_GET_REQUEST_CMD:
-                APP_Modem_MLME_ListGetRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_NULL_MLME_SET_REQUEST_CMD:
-                APP_Modem_MLME_SetRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_432_ESTABLISH_REQUEST_CMD:
-                APP_Modem_CL432EstablishRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_432_RELEASE_REQUEST_CMD:
-                APP_Modem_CL432ReleaseRequestCmd(recvBuf);
-                break;
-
-            case APP_MODEM_CL_432_DL_DATA_REQUEST_CMD:
-                APP_Modem_CL432DataRequestCmd(recvBuf);
-                break;
-
-            default:
-                SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_INFO, 
-                    APP_MODEM_ERR_UNKNOWN_CMD, "ERROR: unknown command\r\n" );
+                /* Configure USI protocol handler */
+                SRV_USI_CallbackRegister(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, 
+                                     APP_Modem_USI_PRIME_ApiHandler);
+            
+                modemState = APP_MODEM_STATE_TASKS;
+            }
+        
             break;
-	}
+            
+        case APP_MODEM_STATE_TASKS:
+            /* Check data reception */
+            while(sAppModemMsgRecv[outputMsgRecvIndex].len) 
+            {
+                APP_MODEM_PRIME_API_CMD apiCmd;
+                uint8_t *recvBuf;
 
-        sAppModemMsgRecv[outputMsgRecvIndex].len = 0;
-        if(++outputMsgRecvIndex == MAX_NUM_MSG_RCV) 
-        {
-            outputMsgRecvIndex = 0;
-        }	
+                /* Extract command */
+                recvBuf = sAppModemMsgRecv[outputMsgRecvIndex].dataBuf;
+                apiCmd = (APP_MODEM_PRIME_API_CMD)*recvBuf++;
+                switch (apiCmd)
+                {
+                    case APP_MODEM_CL_NULL_ESTABLISH_REQUEST_CMD:
+                        APP_Modem_MacEstablishRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_ESTABLISH_RESPONSE_CMD:
+                        APP_Modem_MacEstablishResponseCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_RELEASE_REQUEST_CMD:
+                        APP_Modem_MacReleaseRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_RELEASE_RESPONSE_CMD:
+                        APP_Modem_MacReleaseResponseCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_JOIN_REQUEST_CMD:
+                        APP_Modem_MacJoinRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_JOIN_RESPONSE_CMD:
+                        APP_Modem_MacJoinResponseCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_LEAVE_REQUEST_CMD:
+                        APP_Modem_MacLeaveRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_DATA_REQUEST_CMD:
+                        APP_Modem_MacDataRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_PLME_RESET_REQUEST_CMD:
+                        APP_Modem_PLME_ResetRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_PLME_SLEEP_REQUEST_CMD:
+                        APP_Modem_PLME_SleepRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_PLME_RESUME_REQUEST_CMD:
+                        APP_Modem_PLME_ResumeRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_PLME_TESTMODE_REQUEST_CMD:
+                        /* Not implemented */
+                        break;
+
+                    case APP_MODEM_CL_NULL_PLME_GET_REQUEST_CMD:
+                        APP_Modem_PLME_GetRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_PLME_SET_REQUEST_CMD:
+                        APP_Modem_PLME_SetRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_REGISTER_REQUEST_CMD:
+                        APP_Modem_MLME_RegisterRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_UNREGISTER_REQUEST_CMD:
+                        gPrimeApi->MlmeUnregisterRequest();
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_PROMOTE_REQUEST_CMD:
+                        APP_Modem_MLME_PromoteRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_DEMOTE_REQUEST_CMD:
+                        gPrimeApi->MlmeDemoteRequest();
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_MP_PROMOTE_REQUEST_CMD:
+                        APP_Modem_MLME_MP_PromoteRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_MP_DEMOTE_REQUEST_CMD:
+                        APP_Modem_MLME_MP_DemoteRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_RESET_REQUEST_CMD:
+                        gPrimeApi->MlmeResetRequest();
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_GET_REQUEST_CMD:
+                        APP_Modem_MLME_GetRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_LIST_GET_REQUEST_CMD:
+                        APP_Modem_MLME_ListGetRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_NULL_MLME_SET_REQUEST_CMD:
+                        APP_Modem_MLME_SetRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_432_ESTABLISH_REQUEST_CMD:
+                        APP_Modem_CL432EstablishRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_432_RELEASE_REQUEST_CMD:
+                        APP_Modem_CL432ReleaseRequestCmd(recvBuf);
+                        break;
+
+                    case APP_MODEM_CL_432_DL_DATA_REQUEST_CMD:
+                        APP_Modem_CL432DataRequestCmd(recvBuf);
+                        break;
+
+                    default:
+                        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_INFO, 
+                            APP_MODEM_ERR_UNKNOWN_CMD, "ERROR: unknown command\r\n" );
+                    break;
+                }
+            }
+
+            sAppModemMsgRecv[outputMsgRecvIndex].len = 0;
+            if(++outputMsgRecvIndex == MAX_NUM_MSG_RCV) 
+            {
+                outputMsgRecvIndex = 0;
+            }
+
+            break;
+            
+        default:
+            break;
     }
 }
 

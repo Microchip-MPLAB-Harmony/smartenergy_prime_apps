@@ -174,14 +174,20 @@ typedef enum
     APP_MODEM_API_ERROR_CMD
 } APP_MODEM_PRIME_API_CMD;
 
-/* Errors in the modem application */
+typedef enum
+{
+    APP_MODEM_STATE_INIT=0,
+    APP_MODEM_STATE_CONFIGURE,
+    APP_MODEM_STATE_TASKS,
+            
+} APP_MODEM_STATES;
 
+/* Errors in the modem application */
 #define APP_MODEM_ERR_UNKNOWN_CMD       9500
 #define APP_MODEM_ERR_MSG_TOO_BIG       9501
 #define APP_MODEM_ERR_QUEUE_FULL        9502
 
 /* Modem interface */
-
 void APP_Modem_Initialize(void);
 void APP_Modem_Tasks(void);
 uint8_t APP_Modem_TxdataIndication(void);

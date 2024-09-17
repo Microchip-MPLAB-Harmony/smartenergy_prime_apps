@@ -48,6 +48,7 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
+#include "system/system.h"
 #include "stack/prime/prime_api/prime_api_types.h"
 
 // *****************************************************************************
@@ -55,6 +56,48 @@ Microchip or any third party.
 // Section: Data Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+
+// *****************************************************************************
+/* PRIME Initialization Data
+    
+   Summary:
+    Defines the data required to initialize the PRIME stack.
+
+  Description:
+    This data type defines the data required to initialize the PRIME stack and
+    all of its components.
+
+   Remarks:
+    None.
+*/
+typedef struct
+{
+    /* PAL index from configuration */
+    uint8_t palIndex;
+    /* USI port for Management Plane */
+    uint8_t mngPlaneUsiPort;
+} PRIME_STACK_INIT;
+
+/* PRIME Status
+
+  Summary:
+    Identifies the current status/state of the PRIME stack.
+
+  Description:
+    This enumeration identifies the current status/state of the PRIME stack.
+
+  Remarks:
+    This enumeration is the return type for the PRIME_Status routine. The
+    upper layer must ensure that PRIME_Status returns PRIME_STATUS_READY
+    before performing PRIME operations.
+*/
+typedef enum {
+    PRIME_STATUS_UNINITIALIZED = SYS_STATUS_UNINITIALIZED,
+    PRIME_STATUS_INITIALIZING = SYS_STATUS_BUSY,
+    PRIME_STATUS_RUNNING = SYS_STATUS_READY,
+    PRIME_STATUS_ERROR = SYS_STATUS_ERROR,
+    PRIME_STATUS_POINTER_READY = SYS_STATUS_ERROR_EXTENDED - 1,
+} PRIME_STATUS;
 
 // *****************************************************************************
 /* PRIME Stack Instance Object
@@ -71,6 +114,9 @@ Microchip or any third party.
 
 typedef struct
 {
+    /* State of this instance */
+    PRIME_STATUS status;
+    
     /* Pointer to the PRIME API */
     PRIME_API *primeApi;
 

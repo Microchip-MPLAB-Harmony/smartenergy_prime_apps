@@ -82,6 +82,7 @@ const PRIME_API PRIME_API_Interface =
     .version = PRIME_FW_VERSION,
     .Initialize = PRIME_API_Initialize,
     .Tasks = PRIME_API_Tasks,
+    .Status = PRIME_API_Status,
     .MacSetCallbacks = CL_NULL_SetCallbacks,     
     .MacEstablishRequest = CL_NULL_EstablishRequest, 
     .MacEstablishResponse = CL_NULL_EstablishResponse,
@@ -133,6 +134,15 @@ const PRIME_API PRIME_API_Interface =
 
 /* Object obtained from PAL Initialize */
 static SYS_MODULE_OBJ palSysObj;
+
+/* State of the PRIME API */
+static PRIME_API_STATE primeApiState;
+
+/* MAC version information */
+static MAC_VERSION_INFO primeApiMacInfo;
+
+/* Port for the Management Plane */
+static uint8_t primeApiMngPlanePort;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -192,49 +202,86 @@ static void lPRIME_API_SetPrimeVersion(MAC_VERSION_INFO *macInfo)
 // *****************************************************************************
 void PRIME_API_Initialize(PRIME_API_INIT *init)
 {
-    MAC_VERSION_INFO macInfo;
-
-    /* Set critical region */
-    __set_BASEPRI( 2 << (8 - __NVIC_PRIO_BITS));
-
 
     /* Set PRIME HAL wrapper */
     PRIME_HAL_WRP_Configure(init->halApi);
 
     /* Set PRIME version from configuration */
-    lPRIME_API_SetPrimeVersion(&macInfo);
+    lPRIME_API_SetPrimeVersion(&primeApiMacInfo);
+    
+    /* Store port for PRIME initialization */
+    primeApiMngPlanePort = init->mngPlaneUsiPort;
     
     /* Initialize PAL layer */
     palSysObj = PRIME_HAL_WRP_PAL_Initialize(init->palIndex);
-
-    /* Initialize MAC layer */
-    MAC_Initialize(&macInfo, (uint8_t)MAC_SECURITY_PROFILE);
-
-    /* Initialize Convergence layers */
-    CL_NULL_Initialize();
-    CL_432_Initialize();
-
-    /* Initialize Management Plane */
-    MNGP_Initialize(&macInfo, init->mngPlaneUsiPort);
-
-    /* Set critical region */
-    __set_BASEPRI(0);
+    
+    primeApiState = PRIME_API_STATE_PAL_INITIALIZING;
 }
 
 void PRIME_API_Tasks(void)
 {
-    /* Set critical region */
-    __set_BASEPRI( 3 << (8 - __NVIC_PRIO_BITS));
+    switch (primeApiState)
+    {
+        case PRIME_API_STATE_PAL_INITIALIZING:
+        
+            /* Process PAL layer */
+            PRIME_HAL_WRP_PAL_Tasks(palSysObj);
+        
+            if (PRIME_HAL_WRP_PAL_Status(palSysObj) == SYS_STATUS_READY) 
+            {
+                /* Initialize MAC layer */
+                MAC_Initialize(&primeApiMacInfo, (uint8_t)MAC_SECURITY_PROFILE);
+
+                /* Initialize Convergence layers */
+                CL_NULL_Initialize();
+                CL_432_Initialize();
+
+                /* Initialize Management Plane */
+                MNGP_Initialize(&primeApiMacInfo, primeApiMngPlanePort);
+                
+                primeApiState = PRIME_API_STATE_PRIME_RUNNING;
+            }
+        
+            break;
+            
+        case PRIME_API_STATE_PRIME_RUNNING:
+                
+            /* Process PAL layer */
+            PRIME_HAL_WRP_PAL_Tasks(palSysObj);
+                
+            /* Process MAC layer */
+            MAC_Tasks();
+
+  
+            break;
+            
+        default:
+            break;
+    }
     
-    /* Proccess PAL layer */
-    PRIME_HAL_WRP_PAL_Tasks(palSysObj);
+}
 
-	/* Process MAC layer */
-	MAC_Tasks();
-
-
-    /* Set critical region */
-    __set_BASEPRI(0);
+SYS_STATUS PRIME_API_Status(void)
+{
+    SYS_STATUS status;
+    
+    /* Return the PRIME API status */
+    switch (primeApiState)
+    {
+        case PRIME_API_STATE_PAL_INITIALIZING:
+            status = SYS_STATUS_BUSY;
+            break;
+            
+        case PRIME_API_STATE_PRIME_RUNNING:
+            status = SYS_STATUS_READY;
+            break;
+            
+        default:
+            status = SYS_STATUS_UNINITIALIZED;
+            break;
+    }
+    
+    return status;
 }
 
 void PRIME_API_GetPrimeAPI(PRIME_API **pPrimeApi)

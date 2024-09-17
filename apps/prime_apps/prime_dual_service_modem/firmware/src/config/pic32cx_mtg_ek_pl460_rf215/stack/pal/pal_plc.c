@@ -622,7 +622,7 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(void)
     {
         SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, 
                 (SRV_LOG_REPORT_CODE)PHY_LAYER_PLC_NOT_AVAILABLE,
-                "PRIME_PAL_PLC: PLC PHY layer not vailable\r\n");
+                "PRIME_PAL_PLC: PLC PHY layer not available\r\n");
         palPlcData.status = PAL_PLC_STATUS_ERROR;
         return SYS_MODULE_OBJ_INVALID;
     }
@@ -768,7 +768,7 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
 {
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
-        return PAL_CFG_INVALID_INPUT;
+        return PAL_TX_RESULT_PHY_ERROR;
     }
 
     /* Adapt Timer mode */
@@ -796,7 +796,7 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
 
     DRV_PLC_PHY_TxRequest(palPlcData.drvPhyHandle, &palPlcData.phyTxObj);
 
-    return PAL_CFG_SUCCESS;
+    return PAL_TX_RESULT_PROCESS;
 }
 
 void PAL_PLC_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode)
@@ -1037,7 +1037,7 @@ uint8_t PAL_PLC_GetConfiguration(uint16_t id, void *pValue, uint16_t length)
             break;
 
         case PAL_ID_INFO_DEVICE:
-            plcID = PLC_ID_HOST_MODEL_ID;
+            plcID = PLC_ID_HOST_PRODUCT_ID;
             break;
 
         case PAL_ID_REMAINING_FRAME_DURATION:

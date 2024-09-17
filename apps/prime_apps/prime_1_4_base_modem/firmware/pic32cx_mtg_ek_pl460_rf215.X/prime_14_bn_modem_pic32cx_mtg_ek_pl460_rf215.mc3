@@ -3564,7 +3564,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;519&quot; canvasWidth=&quot;867&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;152&quot; canvasWidth=&quot;683&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
       &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
     &lt;/PowerProfiles&gt;
@@ -3586,7 +3586,7 @@
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;PRIME SERVICES&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;primePal&quot; x=&quot;180&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;prime_config&quot; x=&quot;360&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srv_psniffer&quot; x=&quot;530&quot; y=&quot;40&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srv_psniffer&quot; x=&quot;540&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srv_rsniffer&quot; x=&quot;30&quot; y=&quot;80&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
@@ -3604,7 +3604,7 @@
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom3&quot; x=&quot;21&quot; y=&quot;258&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom5&quot; x=&quot;322&quot; y=&quot;202&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;flexcom7&quot; x=&quot;552&quot; y=&quot;251&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;lib_crypto&quot; x=&quot;643&quot; y=&quot;381&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;lib_crypto&quot; x=&quot;644&quot; y=&quot;382&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;472&quot; y=&quot;337&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sefc0&quot; x=&quot;455&quot; y=&quot;12&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sefc1&quot; x=&quot;585&quot; y=&quot;9&quot;/&gt;
@@ -3612,7 +3612,7 @@
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;srv_usi&quot; x=&quot;698&quot; y=&quot;121&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;sys_console&quot; x=&quot;171&quot; y=&quot;343&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;sys_debug&quot; x=&quot;320&quot; y=&quot;379&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_time&quot; x=&quot;158&quot; y=&quot;66&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_time&quot; x=&quot;154&quot; y=&quot;66&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;tc0&quot; x=&quot;12&quot; y=&quot;112&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;trng&quot; x=&quot;14&quot; y=&quot;63&quot;/&gt;
       &lt;/ElementPositions&gt;
@@ -14582,7 +14582,7 @@
       &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;primePalRf&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
           &lt;/Boolean&gt;
         &lt;/Attributes&gt;
       &lt;/GenericDependency&gt;
@@ -14644,9 +14644,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_RF_EN"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
   &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_RF_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/primePal&gt;
 &lt;/primePal&gt;
 </value>
@@ -14692,71 +14690,6 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
   &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_RF_FREQ_HOPPING_RANGE_VALUES&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_RF_HEADER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_RF_HEADER&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_RF_HEADER_RM"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_RF_HEADER_RM&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_RF_LOCAL_HEADER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_RF_LOCAL_HEADER&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_RF_SOURCE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_RF_SOURCE&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_RF_SOURCE_RM"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_RF_SOURCE_RM&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
   &lt;/primePal&gt;
 &lt;/primePal&gt;
 </value>
@@ -28618,7 +28551,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>aabb7e7995927d3d558f0948a62c5dffb2ceb0a11fbdd7ebcb04d8ccc654cb90</hash>
+         <hash>8a7640ca977c353a5932a1eb5e801abb76476f55eb74b50ea5cf18f6116bfb55</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -28918,7 +28851,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pcrc\srv_pcrc.c</file>
-         <hash>c67d4b060da6eb511e938a3d08c578f54ce16d20653dfca832556f81fede4e58</hash>
+         <hash>96cf5d9508bc6938fa03ff423abde9092be234023cfc9f65b44477ca01cd8832</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pcrc\srv_pcrc.h</file>
@@ -29030,7 +28963,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal.c</file>
-         <hash>f29805f3a075f1bb757871718974c824726e990e8ae2c0238af30568fc4157f8</hash>
+         <hash>bc56089177aee10943730d24af6a60465fb06d1843d2c7c76cdccca8c52abd3b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal.h</file>
@@ -29042,7 +28975,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc.c</file>
-         <hash>e0806ea2ea50d4d543167d6f84e47ff7175a05ae18387b0b11f0f91cdf48a98c</hash>
+         <hash>ff15daa975de11027869243edb8cba1e2d37f5dd9376b13e25870d745041318b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc.h</file>
@@ -29059,26 +28992,6 @@
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc_rm.h</file>
          <hash>9cb92936ef2d0cf254155b624bb74a7740ff9b92956cf85c0f672998dfec6574</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf.c</file>
-         <hash>7fbb755d5cb31008bfa7fb67895e35aa49ea1f0c3c4cf291b54ef0d56e6d1f68</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf.h</file>
-         <hash>f21a8f691041869a6aefad31893136ba4dab56a588e57997d1dd0175f3bd2b67</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf_local.h</file>
-         <hash>11f9187d46ff1ab89d1ede8442b0181ba8d4ae4e3ce5aa6ff9d9f1598c0189f0</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf_rm.c</file>
-         <hash>bab03814038eaf21457fc07fcf776948c52f5fe3bef0524c179849d4418ea6b2</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf_rm.h</file>
-         <hash>ee54886b46021dacac9c2c18e834bda32cb5a9c63a1f003f45045e2cd64760dc</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_types.h</file>
@@ -29142,19 +29055,19 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_api.c</file>
-         <hash>59acaecd5445bc358c9c30ec182a12c4864191922ad29c6a424cb71356b79a91</hash>
+         <hash>3f266dc7f649ef7e48ddda96dee5fdb339e228d677b07bded535a8b1e0c9f8c4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_api.h</file>
-         <hash>2ac5dd413e304538c5a656e82b43474860637020c97d97a1d095c36bf90be8f3</hash>
+         <hash>ab57013af3ba577560436b469d3b7d5e825396fe1981c991553f72e832692a20</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_api_defs.h</file>
-         <hash>a1d6508f663d2147c255f5b990e4c22b5425ac7b3550ae6c7624eddd48a3c2de</hash>
+         <hash>628d3385c628e0c4dd51f532398c3fa3533e9f56b52d6074c953655c52574ce3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_api_types.h</file>
-         <hash>a804ed8a50f92817bbc6e5ce4bf0665f74d4546dca112515177f8948a1d14f15</hash>
+         <hash>7f0c36aea13a927d14c1fb45d4de83c2286481c44ad51081032459a8c75fc383</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_hal_wrapper.c</file>
@@ -29166,15 +29079,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack.c</file>
-         <hash>a1b5281a460b8f95b962db46fab51b0906d34551313ccfc193137aa393f94018</hash>
+         <hash>9349164f607d4ffb0e277ec255f9ef63ddedf0437eb958fb3293a687790671f0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack.h</file>
-         <hash>783034fa51fc16557d3fd168683ce48b97f12f7863c8d7a57141673a9d296de7</hash>
+         <hash>e538240f297aade3ae9d0cae024d0b3c8945e0301017ac3663c6d62d7031e734</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack_local.h</file>
-         <hash>a72cac327ffc192ba5a72c760c0ff746196da877fbf40b0f5bb3967a5ff6150a</hash>
+         <hash>04f6a10dfb03e8a902f4acd7536a1434f46e411747b62b0cbe4e5de17411d4ad</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\startup_xc32.c</file>

@@ -118,6 +118,20 @@ typedef void (*PRIME_API_INITIALIZE)(PRIME_API_INIT *init);
 */
 typedef void (*PRIME_API_TASKS)(void);
 
+// *****************************************************************************
+/* PRIME stack status
+
+  Summary:
+    Function pointer to get the current status of the PRIME stack.
+
+  Description:
+    This function pointer is used to get the current status of the PRIME stack.
+
+  Remarks:
+    None.
+*/
+typedef SYS_STATUS (*PRIME_API_STATUS)(void);
+
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }

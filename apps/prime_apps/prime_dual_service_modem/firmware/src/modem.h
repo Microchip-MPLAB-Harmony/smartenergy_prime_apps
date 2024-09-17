@@ -174,18 +174,18 @@ typedef enum
     APP_MODEM_API_ERROR_CMD
 } APP_MODEM_PRIME_API_CMD;
 
-/* PRIME modem node enumeration
+/* PRIME node state
 
  Summary:
-    PRIME modem node types
+    PRIME node state
 
  Description:
-    Different application mode node types.
+    Enumeration of the different PRIME node states.
 
  Remarks:
     None.
 */
-typedef enum APP_MODEM_NODE_STATE_tag
+typedef enum
 {
 	APP_MODEM_NODE_UNREGISTERED = 0,
 	APP_MODEM_NODE_REGISTERED   = 1,
@@ -193,12 +193,20 @@ typedef enum APP_MODEM_NODE_STATE_tag
 	APP_MODEM_NODE_BASE         = 3
 } APP_MODEM_NODE_STATE;
 
+typedef enum
+{
+    APP_MODEM_STATE_INIT=0,
+    APP_MODEM_STATE_CONFIGURE,
+    APP_MODEM_STATE_TASKS,
+            
+} APP_MODEM_STATES;
+
+/* Errors in the modem application */
 #define APP_MODEM_ERR_UNKNOWN_CMD       9500
 #define APP_MODEM_ERR_MSG_TOO_BIG       9501
 #define APP_MODEM_ERR_QUEUE_FULL        9502
 
 /* Modem interface */
-
 void APP_Modem_Initialize(void);
 void APP_Modem_Tasks(void);
 uint8_t APP_Modem_TxdataIndication(void);
