@@ -98,8 +98,7 @@ Microchip or any third party.
     PRIME_STACK_INIT initData;
     SYS_MODULE_OBJ sysObjPrime;
 
-    sysObjPrime = PRIME_Initialize(PRIME_INDEX_0, 
-                                   (SYS_MODULE_INIT *)&initData);
+    sysObjPrime = PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&initData);
     if (sysObjPrime == SYS_MODULE_OBJ_INVALID)
     {
 
@@ -140,8 +139,7 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     PRIME_STACK_INIT initData;
     SYS_MODULE_OBJ sysObjPrime;
 
-    sysObjPrime = PRIME_Initialize(PRIME_INDEX_0, 
-                                   (SYS_MODULE_INIT *)&initData);
+    sysObjPrime = PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&initData);
 
     while (true)
     {

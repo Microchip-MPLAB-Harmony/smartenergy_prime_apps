@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2024 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -52,6 +52,7 @@
 #include "driver/driver_common.h"
 #include "service/usi/srv_usi.h"
 #include "service/pcrc/srv_pcrc.h"
+#include "service/log_report/srv_log_report.h"
 #include "srv_usi_local.h"
 
 // *****************************************************************************
@@ -132,6 +133,8 @@ static SRV_USI_CALLBACK_INDEX lSRV_USI_GetCallbackIndexFromProtocol(SRV_USI_PROT
 
         case SRV_USI_PROT_ID_INVALID:
         default:
+            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_BAD_PROTOCOL,
+                                             "Bad protocol to get callback\r\n");
             callbackIndex = SRV_USI_CALLBACK_INDEX_INVALID;
             break;
     }
@@ -245,6 +248,8 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
         if (dataLength != (lengthWithoutCrc - 2U))
         {
             /* Discard message */
+            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_BAD_LENGTH, 
+                                             "Received bad length\r\n");
             return;
         }
         
@@ -272,6 +277,8 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
         if (crcGetValue != crcRcvValue) 
         {
             /* Discard message */
+            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_BAD_CRC,
+                                             "Received wrong CRC\r\n");
             return;
         }
     
@@ -279,7 +286,24 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
         cbIndex = lSRV_USI_GetCallbackIndexFromProtocol(protocol);
         if (dObj->callback[cbIndex] != NULL)
         {
-            dObj->callback[cbIndex](pData + 2, dataLength);
+            switch(protocol)
+            {
+                case SRV_USI_PROT_ID_MNGP_PRIME_GETQRY:
+                case SRV_USI_PROT_ID_MNGP_PRIME_GETRSP:
+                case SRV_USI_PROT_ID_MNGP_PRIME_SET:
+                case SRV_USI_PROT_ID_MNGP_PRIME_RESET:
+                case SRV_USI_PROT_ID_MNGP_PRIME_REBOOT:
+                case SRV_USI_PROT_ID_MNGP_PRIME_FU:
+                case SRV_USI_PROT_ID_MNGP_PRIME_GETQRY_EN:
+                case SRV_USI_PROT_ID_MNGP_PRIME_GETRSP_EN:
+                    /* MNGL spec. including header (2 bytes) */
+                    dObj->callback[cbIndex](pData, dataLength + 2);
+                    break;
+                     
+                default:
+                    dObj->callback[cbIndex](pData + 2, dataLength);
+                    break;
+            }
         }
     }
 }
@@ -348,6 +372,8 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     if (pNewData == NULL)
     {
         /* Error in Escape Data: can't fit in destination buffer */
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_ERROR_ESCAPE, 
+            "Error in Escape Data: can't fit in destination buffer\r\n");
         return 0;
     }
 
@@ -367,6 +393,8 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     if (pNewData == NULL)
     {
         /* Error in Escape Data: can't fit in destination buffer */
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_ERROR_ESCAPE,
+            "Error in Escape Data: can't fit in destination buffer\r\n");
         return 0;
     }
     
@@ -391,6 +419,8 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     if (pNewData == NULL)
     {
         /* Error in Escape Data: can't fit in destination buffer */
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_ERROR_ESCAPE,
+            "Error in Escape Data: can't fit in destination buffer\r\n");
         return 0;
     }
     
@@ -587,6 +617,8 @@ size_t SRV_USI_Send_Message( SRV_USI_HANDLE handle,
     /* Check length */
     if ((length == 0U) || (length > dObj->wrBufferSize))
     {
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_INVALID_LENGTH, 
+                                         "Invalid length\r\n");
         return 0;
     }
 

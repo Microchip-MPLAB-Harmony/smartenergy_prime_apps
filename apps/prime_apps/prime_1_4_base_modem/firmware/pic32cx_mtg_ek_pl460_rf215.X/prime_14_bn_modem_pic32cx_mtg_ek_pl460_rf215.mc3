@@ -26148,7 +26148,17 @@
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_usi" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_usi&gt;
-  &lt;srv_usi dnOrder=&quot;0&quot;/&gt;
+  &lt;srv_usi dnOrder=&quot;0&quot;&gt;
+    &lt;Attachments dnOrder=&quot;0&quot;&gt;
+      &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;srv_usi_logreport_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+    &lt;/Attachments&gt;
+  &lt;/srv_usi&gt;
 &lt;/srv_usi&gt;
 </value>
       </entry>
@@ -26171,7 +26181,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_usi" name="SRV_USI_ERROR_LOG_REPORT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_usi&gt;
   &lt;srv_usi dnOrder=&quot;0&quot; id=&quot;SRV_USI_ERROR_LOG_REPORT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/srv_usi&gt;
 &lt;/srv_usi&gt;
 </value>
@@ -28551,7 +28563,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>8a7640ca977c353a5932a1eb5e801abb76476f55eb74b50ea5cf18f6116bfb55</hash>
+         <hash>aabb7e7995927d3d558f0948a62c5dffb2ceb0a11fbdd7ebcb04d8ccc654cb90</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -28939,7 +28951,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>8eb487da4c3d4017bb1fb83fd1c8b456651b803609db7e29a6b0cbda25dae1c5</hash>
+         <hash>c298f481a2a3cbeb9673bdd0fb47bd06c162c2f13e2eebc24544b9065e3784c8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.h</file>
@@ -29059,7 +29071,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_api.h</file>
-         <hash>ab57013af3ba577560436b469d3b7d5e825396fe1981c991553f72e832692a20</hash>
+         <hash>6096540a9e3e4fc73ec777ed987441d51cb06c430ae5f6fb3600d63505efdb72</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_api_defs.h</file>
@@ -29083,7 +29095,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack.h</file>
-         <hash>e538240f297aade3ae9d0cae024d0b3c8945e0301017ac3663c6d62d7031e734</hash>
+         <hash>81f5cf68eed13c5b4adbd91172279215732b1ddfd484d9bef73d51e51cb0ffbf</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack_local.h</file>

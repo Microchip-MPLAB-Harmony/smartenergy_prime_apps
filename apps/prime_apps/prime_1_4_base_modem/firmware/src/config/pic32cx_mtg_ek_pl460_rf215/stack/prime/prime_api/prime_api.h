@@ -206,9 +206,18 @@ void PRIME_API_Tasks(void);
 
   Example:
     <code>
-    SYS_STATUS status;
+    PRIME_API_INIT init;
+    
+    init.palIndex = PRIME_PAL_INDEX;
+    init.halApi = (HAL_API*)&halApi;
+    init.mngPlaneUsiPort = PRIME_MNG_PLANE_USI_INDEX;
+    
+    PRIME_API_Initialize((&init);
 
-    status = PRIME_API_Status();
+    if (PRIME_API_Status() == SYS_STATUS_READY)
+    {
+
+    }
     </code>
 
   Remarks:

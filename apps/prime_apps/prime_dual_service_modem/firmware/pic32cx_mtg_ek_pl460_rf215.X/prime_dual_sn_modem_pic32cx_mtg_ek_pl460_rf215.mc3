@@ -3600,18 +3600,18 @@
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;17&quot; y=&quot;42&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvPlcPhy&quot; x=&quot;758&quot; y=&quot;194&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drvRf215&quot; x=&quot;457&quot; y=&quot;178&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom0&quot; x=&quot;10&quot; y=&quot;300&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom3&quot; x=&quot;316&quot; y=&quot;230&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom0&quot; x=&quot;8&quot; y=&quot;322&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom3&quot; x=&quot;320&quot; y=&quot;246&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom5&quot; x=&quot;617&quot; y=&quot;262&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;flexcom7&quot; x=&quot;198&quot; y=&quot;388&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;flexcom7&quot; x=&quot;207&quot; y=&quot;420&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;lib_crypto&quot; x=&quot;379&quot; y=&quot;92&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;209&quot; y=&quot;48&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sefc0&quot; x=&quot;410&quot; y=&quot;5&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sefc1&quot; x=&quot;531&quot; y=&quot;2&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;srv_pcoup&quot; x=&quot;762&quot; y=&quot;6&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;srv_usi&quot; x=&quot;151&quot; y=&quot;170&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;sys_console&quot; x=&quot;342&quot; y=&quot;324&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;sys_debug&quot; x=&quot;502&quot; y=&quot;361&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;sys_console&quot; x=&quot;346&quot; y=&quot;356&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;sys_debug&quot; x=&quot;496&quot; y=&quot;394&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_time&quot; x=&quot;769&quot; y=&quot;75&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;tc0&quot; x=&quot;628&quot; y=&quot;121&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;trng&quot; x=&quot;11&quot; y=&quot;167&quot;/&gt;
@@ -26457,7 +26457,17 @@
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_usi" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_usi&gt;
-  &lt;srv_usi dnOrder=&quot;0&quot;/&gt;
+  &lt;srv_usi dnOrder=&quot;0&quot;&gt;
+    &lt;Attachments dnOrder=&quot;0&quot;&gt;
+      &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;srv_usi_logreport_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+    &lt;/Attachments&gt;
+  &lt;/srv_usi&gt;
 &lt;/srv_usi&gt;
 </value>
       </entry>
@@ -26480,7 +26490,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_usi" name="SRV_USI_ERROR_LOG_REPORT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_usi&gt;
   &lt;srv_usi dnOrder=&quot;0&quot; id=&quot;SRV_USI_ERROR_LOG_REPORT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/srv_usi&gt;
 &lt;/srv_usi&gt;
 </value>
@@ -28897,7 +28909,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>04d947e7c4d8b816f83bdc09a49b52dc7984eab5fc05d145f4983d833b99c10b</hash>
+         <hash>c3fc58d1fbce73a9513dffb62f8bc51249440e9bb80787a41fc604a1a141f603</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -29277,7 +29289,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>8eb487da4c3d4017bb1fb83fd1c8b456651b803609db7e29a6b0cbda25dae1c5</hash>
+         <hash>f7993725cae83f48ba3343ebd2dceb0d270671e3b25d3e32e5c38f4e1a80da3e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.h</file>
@@ -29397,7 +29409,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack.h</file>
-         <hash>e538240f297aade3ae9d0cae024d0b3c8945e0301017ac3663c6d62d7031e734</hash>
+         <hash>81f5cf68eed13c5b4adbd91172279215732b1ddfd484d9bef73d51e51cb0ffbf</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack_local.h</file>
