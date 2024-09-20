@@ -119,7 +119,7 @@ typedef struct
 
     PAL_RF_TX_HANDLERS_DATA txHandleData[DRV_RF215_TX_BUFFERS_NUMBER];
 
-    uint16_t pch;
+    uint16_t currentChannel;
 
     uint16_t rfChannelsNumber;
 
