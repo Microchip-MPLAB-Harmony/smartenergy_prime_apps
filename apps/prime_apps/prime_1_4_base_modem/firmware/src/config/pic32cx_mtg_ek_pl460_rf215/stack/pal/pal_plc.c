@@ -768,7 +768,7 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
 {
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
-        return PAL_TX_RESULT_PHY_ERROR;
+        return ((uint8_t)PAL_TX_RESULT_PHY_ERROR);
     }
 
     /* Adapt Timer mode */
@@ -796,7 +796,7 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
 
     DRV_PLC_PHY_TxRequest(palPlcData.drvPhyHandle, &palPlcData.phyTxObj);
 
-    return PAL_TX_RESULT_PROCESS;
+    return ((uint8_t)PAL_TX_RESULT_PROCESS);
 }
 
 void PAL_PLC_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode)

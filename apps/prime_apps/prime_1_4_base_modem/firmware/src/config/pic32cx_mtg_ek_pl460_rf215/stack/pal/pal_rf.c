@@ -111,16 +111,18 @@ static PAL_RF_CFM_DATA palRfCfmData = {0};
 // Section: File Scope Functions
 // *****************************************************************************
 // *****************************************************************************
-static PAL_CFG_RESULT lPAL_RF_SetTxHandler(DRV_RF215_TX_HANDLE txHandle, uint8_t *pData)
+static PAL_CFG_RESULT lPAL_RF_SetTxData(DRV_RF215_TX_HANDLE txHandle, 
+                                        uint8_t *pData, uint8_t buffId)
 {
     uint8_t index;
 
     for (index = 0; index < DRV_RF215_TX_BUFFERS_NUMBER; index++)
     {
-        if (palRfData.txHandleData[index].pData == NULL)
+        if (palRfData.txData[index].pData == NULL)
         {
-            palRfData.txHandleData[index].pData = pData;
-            palRfData.txHandleData[index].txHandle = txHandle;
+            palRfData.txData[index].pData = pData;
+            palRfData.txData[index].buffId = buffId;
+            palRfData.txData[index].txHandle = txHandle;
             return PAL_CFG_SUCCESS;
         }
     }
@@ -136,12 +138,12 @@ static PAL_CFG_RESULT lPAL_RF_GetTxHandler(DRV_RF215_TX_HANDLE *txHandle, uint8_
 
     for (index = 0; index < DRV_RF215_TX_BUFFERS_NUMBER; index++)
     {
-        if (palRfData.txHandleData[index].pData == pData)
+        if (palRfData.txData[index].pData == pData)
         {
-            *txHandle = palRfData.txHandleData[index].txHandle;
+            *txHandle = palRfData.txData[index].txHandle;
 
-            palRfData.txHandleData[index].pData = NULL;
-            palRfData.txHandleData[index].txHandle = DRV_RF215_TX_HANDLE_INVALID;
+            palRfData.txData[index].pData = NULL;
+            palRfData.txData[index].txHandle = DRV_RF215_TX_HANDLE_INVALID;
             return PAL_CFG_SUCCESS;
         }
     }
@@ -155,9 +157,9 @@ static uint8_t lPAL_RF_GetTxBuffId(DRV_RF215_TX_HANDLE txHandle)
 
     for (index = 0; index < DRV_RF215_TX_BUFFERS_NUMBER; index++)
     {
-        if (palRfData.txHandleData[index].txHandle == txHandle)
+        if (palRfData.txData[index].txHandle == txHandle)
         {
-            return index;
+            return palRfData.txData[index].buffId;
         }
     }
 
@@ -276,7 +278,6 @@ static void lPAL_RF_DataIndCb(DRV_RF215_RX_INDICATION_OBJ* pIndObj, uintptr_t ct
     if (palRfData.rfCallbacks.dataIndication != NULL)
     {
         PAL_MSG_INDICATION_DATA dataInd;
-        DRV_RF215_TX_HANDLE txHandle;
 
         /* Avoid warning */
         (void)ctxt;
@@ -293,9 +294,7 @@ static void lPAL_RF_DataIndCb(DRV_RF215_RX_INDICATION_OBJ* pIndObj, uintptr_t ct
         dataInd.frameType = (uint8_t)PAL_FRAME_TYPE_RF;
         dataInd.headerType = (dataInd.pData[0] >> 4) & 0x03;
         dataInd.lqi = PAL_RF_RM_GetLqi(dataInd.rssi);
-
-        lPAL_RF_GetTxHandler(&txHandle, dataInd.pData);
-        dataInd.bufId = lPAL_RF_GetTxBuffId(txHandle);
+        dataInd.bufId = 0;
 
         palRfData.rfCallbacks.dataIndication(&dataInd);
     }
@@ -399,7 +398,7 @@ uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
 
     if (palRfData.status != PAL_RF_STATUS_READY)
     {
-        return PAL_TX_RESULT_PHY_ERROR;
+        return ((uint8_t)PAL_TX_RESULT_PHY_ERROR);
     }
 
     if (pMessageData->timeMode == PAL_TX_MODE_CANCEL)
@@ -409,7 +408,7 @@ uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
             DRV_RF215_TxCancel(palRfData.drvRfPhyHandle, rfPhyTxReqHandle);
         }
 
-        return PAL_TX_RESULT_PROCESS;
+        return ((uint8_t)PAL_TX_RESULT_PROCESS);
     }
 
     txReqObj->psdu = pMessageData->pData;
@@ -451,23 +450,23 @@ uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
         palRfCfmData.pCfmObj.ppduDurationCount = 0;
         palRfCfmData.buffId = pMessageData->buffId;
         
-        return PAL_TX_RESULT_PROCESS;
+        return ((uint8_t)PAL_TX_RESULT_PROCESS);
     }
     
     if (txResult != RF215_TX_SUCCESS)
     {
-        return PAL_TX_RESULT_PHY_ERROR;
+        return ((uint8_t)PAL_TX_RESULT_PHY_ERROR);
     }
     
     /* Message accepted */
-    (void)lPAL_RF_SetTxHandler(rfPhyTxReqHandle, pMessageData->pData);
+    (void)lPAL_RF_SetTxData(rfPhyTxReqHandle, pMessageData->pData, pMessageData->buffId);
 
     if (palRfData.snifferCallback)
     {
         SRV_RSNIFFER_SetTxMessage(txReqObj, &palRfData.rfPhyConfig, rfPhyTxReqHandle);
     }
     
-    return PAL_TX_RESULT_PROCESS;
+    return ((uint8_t)PAL_TX_RESULT_PROCESS);
 }
 
 void PAL_RF_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode)
