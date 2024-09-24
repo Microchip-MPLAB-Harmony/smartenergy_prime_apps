@@ -277,11 +277,8 @@ void SRV_RSNIFFER_SetTxMessage (
     pMsgDest[30] = (uint8_t) (psduLen >> 8);
     pMsgDest[31] = (uint8_t) psduLen;
 
-    /* Copy PHY data message (without FCS) */
-    (void) memcpy(pMsgDest + RSNIFFER_MSG_HEADER_SIZE, pReqObj->psdu, (size_t) psduLen - DRV_RF215_FCS_LEN);
-
-    /* FCS set to 0 (automatically computed) */
-    (void) memset(pMsgDest + RSNIFFER_MSG_HEADER_SIZE + psduLen, 0, DRV_RF215_FCS_LEN);
+    /* Copy PHY data message */
+    (void) memcpy(pMsgDest + RSNIFFER_MSG_HEADER_SIZE, pReqObj->psdu, psduLen);
 }
 
 uint8_t* SRV_RSNIFFER_SerialCfmMessage (
