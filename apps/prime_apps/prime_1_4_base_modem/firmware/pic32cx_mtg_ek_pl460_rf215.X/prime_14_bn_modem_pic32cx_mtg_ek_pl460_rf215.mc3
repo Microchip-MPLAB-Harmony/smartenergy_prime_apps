@@ -14579,14 +14579,21 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
   &lt;primePal dnOrder=&quot;0&quot;&gt;
     &lt;Attachments dnOrder=&quot;0&quot;&gt;
-      &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;primePalRf&quot;&gt;
+      &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;primePalPlc&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
             &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
           &lt;/Boolean&gt;
         &lt;/Attributes&gt;
       &lt;/GenericDependency&gt;
-      &lt;GenericDependency dnOrder=&quot;1&quot; id=&quot;primePalUSI&quot;&gt;
+      &lt;GenericDependency dnOrder=&quot;1&quot; id=&quot;primePalRf&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+      &lt;GenericDependency dnOrder=&quot;2&quot; id=&quot;primePalUSI&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
             &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
@@ -14626,7 +14633,48 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_EN"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
   &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/primePal&gt;
+&lt;/primePal&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
+  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/primePal&gt;
+&lt;/primePal&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_HEADER_RM"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
+  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_HEADER_RM&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/primePal&gt;
+&lt;/primePal&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_LOCAL_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
+  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_LOCAL_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
   &lt;/primePal&gt;
 &lt;/primePal&gt;
 </value>
@@ -14636,6 +14684,32 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
   &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_PVDD_MONITOR&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/primePal&gt;
+&lt;/primePal&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_SOURCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
+  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_SOURCE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/primePal&gt;
+&lt;/primePal&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_SOURCE_RM"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
+  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_SOURCE_RM&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
   &lt;/primePal&gt;
 &lt;/primePal&gt;
 </value>
@@ -29081,7 +29155,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf.c</file>
-         <hash>70f26c26e112bcceaad6a8b5ce2926d0ca1937872270d99c94225bd905ff53b7</hash>
+         <hash>9b1d9876c9c9584e85c58bcc2b4129f1939de3a4d35d21c1c167b12b8eaaa3b3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf.h</file>
