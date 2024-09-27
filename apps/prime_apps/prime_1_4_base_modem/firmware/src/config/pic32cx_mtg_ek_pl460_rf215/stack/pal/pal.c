@@ -236,17 +236,22 @@ SYS_STATUS PAL_Status(SYS_MODULE_OBJ object)
         return SYS_STATUS_ERROR;
     }
 
-    if (PAL_PLC_Status() != SYS_STATUS_READY)
-    {
-        return SYS_STATUS_BUSY;
-    }
+    SYS_STATUS plcStatus = PAL_PLC_Status();
+    SYS_STATUS rfStatus = PAL_RF_Status();
 
-    if (PAL_RF_Status() != SYS_STATUS_READY)
+    if (((plcStatus == SYS_STATUS_READY) && (rfStatus == SYS_STATUS_READY)) ||
+        ((plcStatus == SYS_STATUS_READY) && (rfStatus == SYS_STATUS_ERROR)) ||
+        ((plcStatus == SYS_STATUS_ERROR) && (rfStatus == SYS_STATUS_READY)))
     {
-        return SYS_STATUS_BUSY;
+        return SYS_STATUS_READY;
     }
-
-    return SYS_STATUS_READY;
+    
+    if ((plcStatus == SYS_STATUS_ERROR) && (rfStatus == SYS_STATUS_ERROR))
+    {
+        return SYS_STATUS_ERROR;
+    }
+    
+    return SYS_STATUS_BUSY;
 }
 
 void PAL_CallbackRegister(PAL_CALLBACKS *pCallbacks)

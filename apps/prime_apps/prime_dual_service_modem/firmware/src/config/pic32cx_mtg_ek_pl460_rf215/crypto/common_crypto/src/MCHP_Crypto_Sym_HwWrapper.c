@@ -61,7 +61,7 @@ static crypto_Sym_Status_E lCrypto_Sym_Hw_Aes_GetOperationMode
      CRYPTO_AES_CFB_SIZE* cfbSize)
 {
     *cfbSize = CRYPTO_AES_CFB_SIZE_128BIT; // Default if not used
-    
+    crypto_Sym_Status_E retStat = CRYPTO_SYM_CIPHER_SUCCESS;
     switch (opMode) 
     {
 #ifdef CRYPTO_SYM_AESECB_EN
@@ -84,7 +84,8 @@ static crypto_Sym_Status_E lCrypto_Sym_Hw_Aes_GetOperationMode
             
 #ifdef CRYPTO_SYM_AESCFB1_EN
         case CRYPTO_SYM_OPMODE_CFB1:
-            return CRYPTO_SYM_ERROR_OPMODE; 
+            retStat = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
+            break;
 #endif
             
 #ifdef CRYPTO_SYM_AESCFB8_EN
@@ -128,11 +129,16 @@ static crypto_Sym_Status_E lCrypto_Sym_Hw_Aes_GetOperationMode
             break;
 #endif
             
+        case CRYPTO_SYM_OPMODE_INVALID:
+            retStat = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
+            break;
+        
         default:
-            return CRYPTO_SYM_ERROR_OPMODE;
+            retStat = CRYPTO_SYM_ERROR_CIPNOTSUPPTD;
+            break;
     }
     
-    return CRYPTO_SYM_CIPHER_SUCCESS;
+    return retStat;
 }
     
 // *****************************************************************************
@@ -146,7 +152,7 @@ crypto_Sym_Status_E Crypto_Sym_Hw_Aes_Init(crypto_CipherOper_E cipherOpType_en,
     uint8_t *initVect)
 { 
     CRYPTO_AES_CONFIG aesCfg;
-    CRYPTO_AES_OPERATION_MODE opMode;
+    CRYPTO_AES_OPERATION_MODE opMode = CRYPTO_AES_MODE_ECB;
     CRYPTO_AES_CFB_SIZE cfbSize;
     crypto_Sym_Status_E result;
         
@@ -164,7 +170,7 @@ crypto_Sym_Status_E Crypto_Sym_Hw_Aes_Init(crypto_CipherOper_E cipherOpType_en,
     DRV_CRYPTO_AES_Init();
     
     /* Set the configuration for the driver */
-    aesCfg.keySize = DRV_CRYPTO_AES_GetKeySize(keyLen / 4);
+    aesCfg.keySize = DRV_CRYPTO_AES_GetKeySize(keyLen / 4UL);
     aesCfg.startMode = CRYPTO_AES_AUTO_START;
     aesCfg.opMode = opMode;
     aesCfg.cfbSize = cfbSize;
@@ -179,13 +185,19 @@ crypto_Sym_Status_E Crypto_Sym_Hw_Aes_Init(crypto_CipherOper_E cipherOpType_en,
     
     DRV_CRYPTO_AES_SetConfig(&aesCfg);
     
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* Write the key */
     DRV_CRYPTO_AES_WriteKey((uint32_t *)key);
+    /* MISRA C-2012 deviation block end */
     
     /* Write the initialization vector */
     if (initVect != NULL)
     {
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 11.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
         DRV_CRYPTO_AES_WriteInitVector((uint32_t *) initVect);
+        /* MISRA C-2012 deviation block end */
     }
     
     return CRYPTO_SYM_CIPHER_SUCCESS;
@@ -196,11 +208,14 @@ crypto_Sym_Status_E Crypto_Sym_Hw_Aes_Cipher(uint8_t *inputData,
 {
     DRV_CRYPTO_AES_WritePCTextLen(dataLen);
     
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated: 2. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     uint32_t *iData = (uint32_t *)inputData;
     uint32_t *oData = (uint32_t *)outData;
-    uint32_t blockLen = dataLen / 4;
+    /* MISRA C-2012 deviation block end */
+    uint32_t blockLen = dataLen / 4UL;
     uint32_t block;   /* 4 32bit block size */
-    for (block = 0; block < blockLen; block += 4)
+    for (block = 0; block < blockLen; block += 4UL)
     {
         /* Write the data to be ciphered to the input data registers */
         DRV_CRYPTO_AES_WriteInputData(iData);

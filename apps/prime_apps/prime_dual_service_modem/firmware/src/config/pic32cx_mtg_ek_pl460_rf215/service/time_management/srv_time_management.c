@@ -70,6 +70,7 @@ static uint64_t srvTimeMngCurrentTimeUs = 0;
 uint64_t SRV_TIME_MANAGEMENT_GetTimeUS64(void)
 {
     uint64_t counter;
+    uint64_t currentTimeUs;
     uint32_t diffCounter;
     uint32_t elapsedUs;
 
@@ -79,12 +80,20 @@ uint64_t SRV_TIME_MANAGEMENT_GetTimeUS64(void)
     diffCounter = (counter - srvTimeMngPreviousCounter);
     // Convert to Us
     elapsedUs = SYS_TIME_CountToUS(diffCounter);
-    // Update counter Us
-    srvTimeMngCurrentTimeUs += elapsedUs;    
-    // Update previous counter for next computation
-    srvTimeMngPreviousCounter += SYS_TIME_USToCount(elapsedUs);
+    // Current time in Us
+    currentTimeUs = srvTimeMngCurrentTimeUs + elapsedUs;
 
-    return srvTimeMngCurrentTimeUs;
+    // Every time we update counters, there may be up to 1 us error
+    // Only update if at least 10 seconds elapsed
+    if (elapsedUs >= 10000000U)
+    {
+        // Update counter Us
+        srvTimeMngCurrentTimeUs = currentTimeUs;
+        // Update previous counter for next computation
+        srvTimeMngPreviousCounter += SYS_TIME_USToCount(elapsedUs);
+    }
+
+    return currentTimeUs;
 }
 
 
@@ -105,21 +114,24 @@ uint64_t SRV_TIME_MANAGEMENT_USToCount(uint32_t timeUs)
     uint32_t currentUs;
     int32_t diffUs;
 
-    // Get the low part of the current timer counter    
-    currentUs = SRV_TIME_MANAGEMENT_GetTimeUS();
- 
+    // Update reference counters, just in case  is not called periodically
+    (void) SRV_TIME_MANAGEMENT_GetTimeUS64();
+
+    // Get the low part of the current timer counter
+    currentUs = (uint32_t)srvTimeMngCurrentTimeUs;
+
     diffUs = (int32_t)timeUs - (int32_t)currentUs;
 
-    if (diffUs < 0) 
+    if (diffUs < 0)
     {
-      counter = srvTimeMngPreviousCounter - SYS_TIME_USToCount(-diffUs);
+      counter = srvTimeMngPreviousCounter - SYS_TIME_USToCount((uint32_t)(-diffUs));
     }
     else
     {
-      counter = srvTimeMngPreviousCounter + SYS_TIME_USToCount(diffUs);
+      counter = srvTimeMngPreviousCounter + SYS_TIME_USToCount((uint32_t)diffUs);
     }
 
-  return counter;
+    return counter;
 }
 
 
@@ -128,21 +140,24 @@ uint32_t SRV_TIME_MANAGEMENT_CountToUS(uint64_t counter)
     uint32_t timeUs;
     int64_t diffCount;
 
-    // Get the low part of the current timer counter    
-    timeUs = SRV_TIME_MANAGEMENT_GetTimeUS();
- 
+    // Update reference counters, just in case it is not called periodically
+    (void) SRV_TIME_MANAGEMENT_GetTimeUS64();
+
+    // Get the low part of the current timer counter
+    timeUs = (uint32_t)srvTimeMngCurrentTimeUs;
+
     diffCount = (int64_t)counter - (int64_t)srvTimeMngPreviousCounter;
 
-    if (diffCount < 0) 
+    if (diffCount < 0)
     {
-      timeUs -= SYS_TIME_CountToUS((uint32_t)-diffCount);
+      timeUs -= SYS_TIME_CountToUS((uint32_t)(-diffCount));
     }
     else
     {
       timeUs += SYS_TIME_CountToUS((uint32_t)diffCount);
     }
 
-  return timeUs;
+    return timeUs;
 }
 
 SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterUS ( SYS_TIME_CALLBACK callback, 

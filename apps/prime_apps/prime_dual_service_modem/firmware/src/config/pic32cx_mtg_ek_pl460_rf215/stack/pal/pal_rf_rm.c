@@ -96,7 +96,8 @@ bool PAL_RF_RM_CheckMinimumQuality(PAL_SCHEME reference, PAL_SCHEME modulation)
         return false;
     }
     
-    if ((reference == PAL_SCHEME_RF_FSK_FEC_OFF) && (modulation == PAL_SCHEME_RF_FSK_FEC_ON))
+    if ((reference == PAL_SCHEME_RF_FSK_FEC_OFF) && 
+        (modulation == PAL_SCHEME_RF_FSK_FEC_ON))
     {
         return false;
     } 
@@ -133,7 +134,8 @@ void PAL_RF_RM_SetScheme(PAL_SCHEME scheme)
     }
 }
 
-void PAL_RF_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, PAL_SCHEME *pModulation, uint16_t pch)
+void PAL_RF_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, 
+                                   PAL_SCHEME *pModulation, uint16_t pch)
 {
     DRV_RF215_RX_INDICATION_OBJ *pIndObj;
     PAL_SCHEME bestScheme = PAL_SCHEME_RF;

@@ -654,10 +654,10 @@ crypto_Hash_Status_E Crypto_Hash_Wc_ShakeDigest(uint8_t *ptr_data, uint32_t data
 #if (defined(WOLFSSL_SHAKE128) && defined(CRYPTO_HASH_WC_SHA3_SHAKE128_EN))        
             case CRYPTO_HASH_SHA3_SHAKE128:
                 ret_shakeStat_en = Crypto_Hash_Wc_ShakeInit(ptr_shakeCtx_st, CRYPTO_HASH_SHA3_SHAKE128);
-                if(ret_shakeStat_en == 0)
+                if(ret_shakeStat_en == CRYPTO_HASH_SUCCESS)
                 {
                     ret_shakeStat_en = Crypto_Hash_Wc_ShakeUpdate(ptr_shakeCtx_st, ptr_data, dataLen, CRYPTO_HASH_SHA3_SHAKE128);
-                    if(ret_shakeStat_en == 0)
+                    if(ret_shakeStat_en == CRYPTO_HASH_SUCCESS)
                     {
                         ret_shakeStat_en = Crypto_Hash_Wc_ShakeFinal(ptr_shakeCtx_st, ptr_digest, digestLen, CRYPTO_HASH_SHA3_SHAKE128);
                     }

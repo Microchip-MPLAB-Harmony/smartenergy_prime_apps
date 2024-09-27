@@ -52,7 +52,10 @@ crypto_Aead_Status_E Crypto_Aead_AesCcm_Init(st_Crypto_Aead_AesCcm_ctx *ptr_aesC
     {
         ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || 
+                ( (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_128)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_192)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_256) ) ) 
     {
        ret_aesCcmStat_en =  CRYPTO_AEAD_ERROR_KEY;
     }
@@ -97,25 +100,36 @@ crypto_Aead_Status_E Crypto_Aead_AesCcm_Cipher(st_Crypto_Aead_AesCcm_ctx *ptr_ae
     {
         ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if(ptr_inputData == NULL)
+    else if( ((ptr_inputData == NULL)&& (dataLen != 0u))
+                || ((ptr_inputData != NULL)&& (dataLen == 0u)) )
     {
         ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_INPUTDATA;
     }
-    else if(ptr_outData == NULL)
+    else if( ((ptr_inputData != NULL) && (ptr_outData == NULL))
+                || ((ptr_inputData == NULL) && (ptr_outData != NULL)) )
     {
         ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_OUTPUTDATA;
     }
-    else if(ptr_nonce == NULL || nonceLen < 7u || nonceLen > 13u)
+    else if( (ptr_nonce == NULL) || (nonceLen < 7u) || (nonceLen > 13u) )
     {
         ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_NONCE;
     }
-    else if(ptr_authTag == NULL || authTagLen < 4u || authTagLen > 16u)
+    else if( (ptr_authTag == NULL) || (authTagLen < 4u) || (authTagLen > 16u) )
     {
         ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
     }
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
+    else if( ((ptr_aad == NULL) && (aadLen != 0u))
+                || ((ptr_aad != NULL) && (aadLen == 0u)))
     {
         ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_AAD;
+    }
+    else if((ptr_inputData == NULL) && (ptr_aad == NULL))
+    {
+        ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_ARG;
+    }
+    else if((cipherOper_en != CRYPTO_CIOP_ENCRYPT) && (cipherOper_en != CRYPTO_CIOP_DECRYPT))
+    {
+        ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_CIPOPER;
     }
     else
     {
@@ -148,22 +162,30 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_Init(st_Crypto_Aead_AesEax_ctx *ptr_aesE
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || 
+                ( (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_128)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_192)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_256) ) ) 
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_KEY;
+    }
+    else if((ptr_nonce == NULL) || (nonceLen == 0u))
+    {
+        ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_NONCE;
+    }
+    else if( (ptr_aad == NULL) && (aadLen > 0u) 
+                || ((ptr_aad != NULL) && (aadLen == 0u)) )
+    {
+        ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_AAD;
+    }
+    else if((cipherOper_en != CRYPTO_CIOP_ENCRYPT) && (cipherOper_en != CRYPTO_CIOP_DECRYPT))
+    {
+        ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_CIPOPER;
     }
     else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_AEAD_SESSION_MAX) )
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_SID; 
     }    
-    else if(ptr_nonce == NULL)
-    {
-        ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_NONCE;
-    }
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
-    {
-        ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_AAD;
-    }
     else
     {
         ptr_aesEaxCtx_st->cryptoSessionID =  sessionID;
@@ -202,7 +224,7 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_Cipher(st_Crypto_Aead_AesEax_ctx *ptr_ae
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if(ptr_inputData == NULL || dataLen == 0u)
+    else if((ptr_inputData == NULL) || (dataLen == 0u))
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_INPUTDATA;
     }
@@ -210,7 +232,8 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_Cipher(st_Crypto_Aead_AesEax_ctx *ptr_ae
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_OUTPUTDATA; 
     }  
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
+    else if( (ptr_aad == NULL) && (aadLen > 0u) 
+                || ((ptr_aad != NULL) && (aadLen == 0u)) )
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_AAD;
     }
@@ -272,7 +295,7 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_AddAadData(st_Crypto_Aead_AesEax_ctx *pt
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
+    else if( (aadLen == 0u) || (ptr_aad == NULL) )
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_AAD;
     }
@@ -301,7 +324,7 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_EncryptAuthDirect(crypto_HandlerType_E h
                                                             uint32_t nonceLen, uint8_t *ptr_aad, uint32_t aadLen, uint8_t *ptr_authTag, uint32_t authTagLen, uint32_t sessionID)
 {
     crypto_Aead_Status_E ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_CIPNOTSUPPTD;
-    if(ptr_inputData == NULL || dataLen == 0u)
+    if((ptr_inputData == NULL) || (dataLen == 0u))
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_INPUTDATA;
     }
@@ -309,7 +332,10 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_EncryptAuthDirect(crypto_HandlerType_E h
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_OUTPUTDATA; 
     }
-    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || 
+                ( (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_128)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_192)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_256) ) ) 
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_KEY;
     }
@@ -317,15 +343,16 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_EncryptAuthDirect(crypto_HandlerType_E h
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_SID; 
     } 
-    else if(ptr_nonce == NULL)
+    else if((ptr_nonce == NULL) || (nonceLen == 0u))
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_NONCE;
     }
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
+    else if( ((aadLen > 0u) && (ptr_aad == NULL))
+               || ((aadLen == 0u) && (ptr_aad != NULL)) )
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_AAD;
     }
-    else if(ptr_authTag == NULL || authTagLen == 0u)
+    else if((ptr_authTag == NULL) || (authTagLen == 0u))
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
     }
@@ -355,7 +382,7 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_DecryptAuthDirect(crypto_HandlerType_E h
                                                             uint32_t nonceLen, uint8_t *ptr_aad, uint32_t aadLen, uint8_t *ptr_authTag, uint32_t authTagLen, uint32_t sessionID)
 {
     crypto_Aead_Status_E ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_CIPNOTSUPPTD;
-    if(ptr_inputData == NULL || dataLen == 0u)
+    if((ptr_inputData == NULL) || (dataLen == 0u))
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_INPUTDATA;
     }
@@ -363,7 +390,10 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_DecryptAuthDirect(crypto_HandlerType_E h
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_OUTPUTDATA; 
     }
-    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || 
+                ( (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_128)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_192)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_256) ) ) 
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_KEY;
     }
@@ -371,15 +401,16 @@ crypto_Aead_Status_E Crypto_Aead_AesEax_DecryptAuthDirect(crypto_HandlerType_E h
     {
        ret_aesEaxStat_en =  CRYPTO_AEAD_ERROR_SID; 
     } 
-    else if(ptr_nonce == NULL)
+    else if((ptr_nonce == NULL) || (nonceLen == 0u))
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_NONCE;
     }
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
+    else if( ((aadLen > 0u) && (ptr_aad == NULL))
+               || ((aadLen == 0u) && (ptr_aad != NULL)) )
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_AAD;
     }
-    else if(ptr_authTag == NULL || authTagLen == 0u)
+    else if((ptr_authTag == NULL) || (authTagLen == 0u))
     {
         ret_aesEaxStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
     }
@@ -415,13 +446,20 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_Init(st_Crypto_Aead_AesGcm_ctx *ptr_aesG
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || 
+                    ( (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_128)
+                        && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_192)
+                        && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_256) ) ) 
     {
        ret_aesGcmStat_en =  CRYPTO_AEAD_ERROR_KEY;
     }
     else if(ptr_initVect == NULL || initVectLen == 0u)
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_NONCE;
+    }
+    else if((cipherOper_en != CRYPTO_CIOP_ENCRYPT) && (cipherOper_en != CRYPTO_CIOP_DECRYPT))
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CIPOPER;
     }
     else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_AEAD_SESSION_MAX) )
     {
@@ -449,7 +487,7 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_Init(st_Crypto_Aead_AesGcm_ctx *ptr_aesG
             case CRYPTO_HANDLER_HW_INTERNAL:
                 ptr_aesGcmCtx_st->ptr_initVect = ptr_initVect;
                 ptr_aesGcmCtx_st->initVectLen = initVectLen;
-                ret_aesGcmStat_en = Crypto_Aead_Hw_AesGcm_Init((CRYPTO_GCM_HW_CONTEXT*)ptr_aesGcmCtx_st->arr_aeadDataCtx,cipherOper_en, ptr_aesGcmCtx_st->ptr_key, ptr_aesGcmCtx_st->aeadKeySize);    
+                ret_aesGcmStat_en = Crypto_Aead_Hw_AesGcm_Init((void*)ptr_aesGcmCtx_st->arr_aeadDataCtx,cipherOper_en, ptr_aesGcmCtx_st->ptr_key, ptr_aesGcmCtx_st->aeadKeySize);    
                 break;
 #endif /* CRYPTO_AEAD_HW_AESGCM_EN */                
             default:
@@ -468,7 +506,7 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_AddAadData(st_Crypto_Aead_AesGcm_ctx *pt
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
+    else if((ptr_aad == NULL) || (aadLen == 0u))
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AAD;
     }
@@ -484,7 +522,7 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_AddAadData(st_Crypto_Aead_AesGcm_ctx *pt
             
 #ifdef CRYPTO_AEAD_HW_AESGCM_EN                
             case CRYPTO_HANDLER_HW_INTERNAL:
-                ret_aesGcmStat_en = Crypto_Aead_Hw_AesGcm_Cipher((CRYPTO_GCM_HW_CONTEXT*)ptr_aesGcmCtx_st->arr_aeadDataCtx, NULL, 0, NULL, 0, NULL, ptr_aad, aadLen, NULL, 0);    
+                ret_aesGcmStat_en = Crypto_Aead_Hw_AesGcm_Cipher((void*)ptr_aesGcmCtx_st->arr_aeadDataCtx, NULL, 0, NULL, 0, NULL, ptr_aad, aadLen, NULL, 0);    
             break;
 #endif /* CRYPTO_AEAD_HW_AESGCM_EN */
                 
@@ -504,7 +542,7 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_Cipher(st_Crypto_Aead_AesGcm_ctx *ptr_ae
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if(ptr_inputData == NULL || dataLen == 0u)
+    else if((ptr_inputData == NULL) || (dataLen == 0u))
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_INPUTDATA;
     }
@@ -525,7 +563,7 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_Cipher(st_Crypto_Aead_AesGcm_ctx *ptr_ae
             
 #ifdef CRYPTO_AEAD_HW_AESGCM_EN                
             case CRYPTO_HANDLER_HW_INTERNAL:
-                ret_aesGcmStat_en = Crypto_Aead_Hw_AesGcm_Cipher((CRYPTO_GCM_HW_CONTEXT*)ptr_aesGcmCtx_st->arr_aeadDataCtx, ptr_aesGcmCtx_st->ptr_initVect, ptr_aesGcmCtx_st->initVectLen,
+                ret_aesGcmStat_en = Crypto_Aead_Hw_AesGcm_Cipher((void*)ptr_aesGcmCtx_st->arr_aeadDataCtx, ptr_aesGcmCtx_st->ptr_initVect, ptr_aesGcmCtx_st->initVectLen,
                                                                                                              ptr_inputData, dataLen, ptr_outData, NULL, 0, NULL, 0);     
             break;
 #endif /* CRYPTO_AEAD_HW_AESGCM_EN */
@@ -544,7 +582,7 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_Final(st_Crypto_Aead_AesGcm_ctx *ptr_aes
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CTX;
     }
-    else if(ptr_authTag == NULL || authTagLen == 0u)
+    else if((ptr_authTag == NULL) || (authTagLen > 16u) || (authTagLen < 4u))
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
     }
@@ -561,7 +599,7 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_Final(st_Crypto_Aead_AesGcm_ctx *ptr_aes
             
 #ifdef CRYPTO_AEAD_HW_AESGCM_EN                
             case CRYPTO_HANDLER_HW_INTERNAL:
-                ret_aesGcmStat_en = Crypto_Aead_Hw_AesGcm_Cipher((CRYPTO_GCM_HW_CONTEXT*)ptr_aesGcmCtx_st->arr_aeadDataCtx, NULL, 0,NULL, 0, NULL, NULL, 0, ptr_authTag, authTagLen);     
+                ret_aesGcmStat_en = Crypto_Aead_Hw_AesGcm_Cipher((void*)ptr_aesGcmCtx_st->arr_aeadDataCtx, NULL, 0,NULL, 0, NULL, NULL, 0, ptr_authTag, authTagLen);     
             break;
 #endif /* CRYPTO_AEAD_HW_AESGCM_EN */
             
@@ -578,34 +616,44 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_EncryptAuthDirect(crypto_HandlerType_E h
                                                             uint32_t initVectLen, uint8_t *ptr_aad, uint32_t aadLen, uint8_t *ptr_authTag, uint32_t authTagLen, uint32_t sessionID)
 {
     crypto_Aead_Status_E ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CIPNOTSUPPTD;
-    if(ptr_inputData == NULL || dataLen == 0u)
+    if( ((ptr_inputData == NULL) && (dataLen > 0u))
+                || ((ptr_inputData != NULL) && (dataLen == 0u)) )
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_INPUTDATA;
     }
-    else if(ptr_outData == NULL)
+    else if( ((ptr_inputData != NULL) && (ptr_outData == NULL))
+                || ((ptr_inputData == NULL) && (ptr_outData != NULL)) )
     {
        ret_aesGcmStat_en =  CRYPTO_AEAD_ERROR_OUTPUTDATA; 
     }
-    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || 
+                ( (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_128)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_192)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_256) ) ) 
     {
        ret_aesGcmStat_en =  CRYPTO_AEAD_ERROR_KEY;
+    }
+    else if(ptr_initVect == NULL || initVectLen == 0u)
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_NONCE;
+    }
+    else if( ((ptr_aad == NULL) && (aadLen > 0u))
+                || ((ptr_aad != NULL) && (aadLen == 0u)) )
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AAD;
+    }
+    else if((ptr_authTag == NULL) || (authTagLen > 16u) || (authTagLen < 4u))
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
+    }
+    else if((ptr_aad == NULL) && (ptr_inputData == NULL))
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_ARG;
     }
     else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_AEAD_SESSION_MAX) )
     {
        ret_aesGcmStat_en =  CRYPTO_AEAD_ERROR_SID; 
     } 
-    else if(ptr_initVect == NULL)
-    {
-        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_NONCE;
-    }
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
-    {
-        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AAD;
-    }
-    else if(ptr_authTag == NULL || authTagLen == 0u)
-    {
-        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
-    }
     else
     {
         switch(handlerType_en)
@@ -637,34 +685,44 @@ crypto_Aead_Status_E Crypto_Aead_AesGcm_DecryptAuthDirect(crypto_HandlerType_E h
                                                             uint32_t initVectLen, uint8_t *ptr_aad, uint32_t aadLen, uint8_t *ptr_authTag, uint32_t authTagLen, uint32_t sessionID)
 {
     crypto_Aead_Status_E ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CIPNOTSUPPTD;
-    if(ptr_inputData == NULL || dataLen == 0u)
+    if( ((ptr_inputData == NULL) && (dataLen > 0u))
+        || ((ptr_inputData != NULL) && (dataLen == 0u)) )
     {
         ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_INPUTDATA;
     }
-    else if(ptr_outData == NULL)
+    else if( ((ptr_inputData != NULL) && (ptr_outData == NULL))
+                || ((ptr_inputData == NULL) && (ptr_outData != NULL)) )
     {
        ret_aesGcmStat_en =  CRYPTO_AEAD_ERROR_OUTPUTDATA; 
     }
-    else if( (ptr_key == NULL) || (keyLen < (uint32_t)CRYPTO_AESKEYSIZE_128) || (keyLen > (uint32_t)CRYPTO_AESKEYSIZE_256)  ) 
+    else if( (ptr_key == NULL) || 
+                ( (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_128)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_192)
+                    && (keyLen != (uint32_t)CRYPTO_AESKEYSIZE_256) ) ) 
     {
        ret_aesGcmStat_en =  CRYPTO_AEAD_ERROR_KEY;
+    }
+        else if(ptr_initVect == NULL || initVectLen == 0u)
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_NONCE;
+    }
+    else if( ((ptr_aad == NULL) && (aadLen > 0u))
+                || ((ptr_aad != NULL) && (aadLen == 0u)) )
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AAD;
+    }
+    else if((ptr_authTag == NULL) || (authTagLen > 16u) || (authTagLen < 4u))
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
+    }
+    else if((ptr_aad == NULL) && (ptr_inputData == NULL))
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_ARG;
     }
     else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_AEAD_SESSION_MAX) )
     {
        ret_aesGcmStat_en =  CRYPTO_AEAD_ERROR_SID; 
     } 
-    else if(ptr_initVect == NULL)
-    {
-        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_NONCE;
-    }
-    else if( (aadLen > 0u) && (ptr_aad == NULL) )
-    {
-        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AAD;
-    }
-    else if(ptr_authTag == NULL || authTagLen == 0u)
-    {
-        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
-    }
     else
     {
         switch(handlerType_en)

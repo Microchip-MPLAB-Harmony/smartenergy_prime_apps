@@ -71,7 +71,7 @@ typedef struct
     uint8_t *ptr_key;
     uint32_t aeadKeySize;
     uint8_t *ptr_initVect;
-    uint16_t initVectLen;    
+    uint32_t initVectLen;    
     uint8_t arr_aeadDataCtx[512]__attribute__((aligned (4)));
 }st_Crypto_Aead_AesGcm_ctx;
 

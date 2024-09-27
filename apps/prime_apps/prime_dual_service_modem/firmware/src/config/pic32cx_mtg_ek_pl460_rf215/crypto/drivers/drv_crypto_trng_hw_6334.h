@@ -41,8 +41,8 @@ Microchip or any third party.
 */
 //DOM-IGNORE-END
 
-#ifndef _DRV_CRYPTO_TRNG_HW_6334_H_
-#define _DRV_CRYPTO_TRNG_HW_6334_H_
+#ifndef DRV_CRYPTO_TRNG_HW_6334_H_
+#define DRV_CRYPTO_TRNG_HW_6334_H_
 
 // *****************************************************************************
 // *****************************************************************************
@@ -76,4 +76,4 @@ void DRV_CRYPTO_TRNG_Generate(uint8_t *rngData, uint32_t rngLen);
 #endif
 // DOM-IGNORE-END
 
-#endif /* _DRV_CRYPTO_TRNG_HW_6334_H_ */
+#endif /* DRV_CRYPTO_TRNG_HW_6334_H_ */

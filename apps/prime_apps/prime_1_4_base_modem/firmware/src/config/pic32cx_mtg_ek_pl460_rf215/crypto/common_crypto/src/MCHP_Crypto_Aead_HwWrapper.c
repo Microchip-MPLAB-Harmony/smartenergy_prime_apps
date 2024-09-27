@@ -81,7 +81,7 @@ static void lCrypto_Aead_Hw_Gcm_WriteGeneratedIv(CRYPTO_GCM_HW_CONTEXT *gcmCtx)
     uint32_t ivBuffer[4];
     uint8_t x;
     
-    for (x = 0; x < 3; x++)
+    for (x = 0; x < 3UL; x++)
     {
         ivBuffer[x] = gcmCtx->calculatedIv[x];        
     }    
@@ -92,16 +92,16 @@ static void lCrypto_Aead_Hw_Gcm_WriteGeneratedIv(CRYPTO_GCM_HW_CONTEXT *gcmCtx)
 }
 
 static void lCrypto_Aead_Hw_Gcm_GenerateJ0(CRYPTO_GCM_HW_CONTEXT *gcmCtx, 
-                                       uint8_t *iv, 
-                                       uint32_t ivLen)
+                                           uint8_t *iv, 
+                                           uint32_t ivLen)
 {
     uint8_t *ivSaved = (uint8_t*)gcmCtx->calculatedIv;
     
-    /* Check if IV lenght is 96 bits */
-    if (ivLen == 12)    
+    /* Check if IV length is 96 bits */
+    if (ivLen == 12UL)    
     {
-        memcpy(ivSaved, iv, ivLen);
-        ivSaved[(sizeof(gcmCtx->calculatedIv) - 1)] = 0x1;
+        (void) memcpy(ivSaved, iv, ivLen);
+        ivSaved[(sizeof(gcmCtx->calculatedIv) - 1UL)] = 0x1;
         return;
     }
     
@@ -109,23 +109,26 @@ static void lCrypto_Aead_Hw_Gcm_GenerateJ0(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     lCrypto_Aead_Hw_Gcm_WriteKey(gcmCtx->key);
 
     /* Configure AADLEN with: len(IV || 0s+64 || [len(IV)]64) */
-    uint32_t numFullBlocks = ivLen / 16;
-    if (ivLen % 16 > 0)
+    uint32_t numFullBlocks = ivLen / 16UL;
+    if (ivLen % 16UL > 0UL)
     {
         // This is questionable. The formula says to use the bit size.
         // But the register description is byte size.
-        DRV_CRYPTO_AES_WriteAuthDataLen((numFullBlocks + 2) * 128);
+        DRV_CRYPTO_AES_WriteAuthDataLen((numFullBlocks + 2UL) * 128UL);
     }
     else
     {   
-        DRV_CRYPTO_AES_WriteAuthDataLen((numFullBlocks + 1) * 128);        
+        DRV_CRYPTO_AES_WriteAuthDataLen((numFullBlocks + 1UL) * 128UL);        
     }
     
     /* Configure CLEN to 0. This will allow running a GHASHH only. */
     DRV_CRYPTO_AES_WritePCTextLen(0);
     
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* Write message to process (IV || 0s+64 || [len(IV)]64) */
     uint32_t *inPtr = (uint32_t *)iv;
+    /* MISRA C-2012 deviation block end */
     uint32_t block;   /* 4 32bit block size */
     for (block = 0; block < numFullBlocks; block++)
     {
@@ -140,11 +143,11 @@ static void lCrypto_Aead_Hw_Gcm_GenerateJ0(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
         }        
     }    
     
-    uint32_t numPartialBytes = ivLen % 16;
-    if (numPartialBytes > 0)
+    uint32_t numPartialBytes = ivLen % 16UL;
+    if (numPartialBytes > 0UL)
     {
         uint32_t partialPlusPad[4] = {0};
-        memcpy(partialPlusPad, inPtr, numPartialBytes);
+        (void) memcpy(partialPlusPad, inPtr, numPartialBytes);
         
         /* Write the data to be ciphered to the input data registers */
         DRV_CRYPTO_AES_WriteInputData(partialPlusPad);
@@ -157,13 +160,13 @@ static void lCrypto_Aead_Hw_Gcm_GenerateJ0(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     }
     
     uint8_t finalBlock[16] = {0};
-    uint32_t bits = ivLen * 8;
+    uint32_t bits = ivLen * 8UL;
     // This may be wrong, but we have to change it to big endian format.
     // Per NIST AES GCM is big endian.
-    finalBlock[15] = (uint8_t)(bits & 0xFF);
-    finalBlock[14] = (uint8_t)((bits >> 8) & 0xFF);
-    finalBlock[13] = (uint8_t)((bits >> 16)& 0xFF);
-    finalBlock[12] = (uint8_t)((bits >> 24)& 0xFF);
+    finalBlock[15] = (uint8_t)(bits & (uint32_t)0xFFUL);
+    finalBlock[14] = (uint8_t)((bits >> 8) & (uint32_t)0xFFUL);
+    finalBlock[13] = (uint8_t)((bits >> 16)& (uint32_t)0xFFUL);
+    finalBlock[12] = (uint8_t)((bits >> 24)& (uint32_t)0xFFUL);
     
     /* The lines below are subject to a type-punning warning because 
     * the (uint8_t*) is cast to a (uint32_t*) which might typically suffer 
@@ -178,8 +181,11 @@ static void lCrypto_Aead_Hw_Gcm_GenerateJ0(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
 #include <assert.h> // prove we have 4-byte alignment
     __conditional_software_breakpoint(0 == ((uint32_t)finalBlock) % 4);
 #endif
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* Write the data to be ciphered to the input data registers */
     DRV_CRYPTO_AES_WriteInputData((uint32_t *)finalBlock);
+    /* MISRA C-2012 deviation block end */
 #if defined(__GNUC__)
 #pragma GCC diagnostic push
 #endif
@@ -193,29 +199,30 @@ static void lCrypto_Aead_Hw_Gcm_GenerateJ0(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     /* Read hash to obtain the J0 value */
     DRV_CRYPTO_AES_ReadGcmHash(gcmCtx->intermediateHash);
     DRV_CRYPTO_AES_ReadGcmH(gcmCtx->H);
-    memcpy(ivSaved, (uint8_t *)gcmCtx->intermediateHash, 16);
+    (void) memcpy(ivSaved, (uint8_t *)gcmCtx->intermediateHash, 16);
     
-    uint32_t tmp = (ivSaved[15] & 0xFF) |
-                   ((ivSaved[14] & 0xFF) << 8) |
-                   ((ivSaved[13] & 0xFF) << 16) |
-                   ((ivSaved[12] & 0xFF) << 24);
+    uint32_t tmp = (ivSaved[15] & 0xFFUL) |
+                   ((ivSaved[14] & 0xFFUL) << 8U) |
+                   ((ivSaved[13] & 0xFFUL) << 16U) |
+                   ((ivSaved[12] & 0xFFUL) << 24U);
     tmp++;
-    gcmCtx->invokeCtr[0] = ((tmp & 0x000000FF) << 24) |
-                           ((tmp & 0x0000FF00) << 8) |
-                           ((tmp & 0x00FF0000) >> 8) |
-                           ((tmp & 0xFF000000) >> 24);
+    gcmCtx->invokeCtr[0] = (uint32_t)((tmp & 0x000000FFUL) << 24U) |
+                           ((tmp & 0x0000FF00UL) << 8U) |
+                           ((tmp & 0x00FF0000UL) >> 8U) |
+                           ((tmp & 0xFF000000UL) >> 24U);
 }
 
-static void lCrypto_Aead_Hw_Gcm_RunBlocks(uint32_t *in, uint32_t byteLen, uint32_t* out)
+static void lCrypto_Aead_Hw_Gcm_RunBlocks(uint32_t *in, uint32_t byteLen, 
+                                          uint32_t* out)
 {
-    if (byteLen == 0)
+    if (byteLen == 0UL)
     {
         return;
     }
     
-    uint32_t blockLen = byteLen / 4;
+    uint32_t blockLen = byteLen / 4UL;
     uint32_t block;   /* 4 32bit block size */
-    for (block = 0; block < blockLen; block += 4)
+    for (block = 0; block < blockLen; block += 4UL)
     {
         /* Write the data to be ciphered to the input data registers. */
         DRV_CRYPTO_AES_WriteInputData(in);
@@ -235,11 +242,11 @@ static void lCrypto_Aead_Hw_Gcm_RunBlocks(uint32_t *in, uint32_t byteLen, uint32
         }
     }
     
-    uint32_t numBytes = byteLen % 16;
-    if (numBytes > 0)
+    uint32_t numBytes = byteLen % 16UL;
+    if (numBytes > 0UL)
     {
         uint32_t partialPlusPad[4] = {0};
-        memcpy(partialPlusPad, in, numBytes);
+        (void) memcpy(partialPlusPad, in, numBytes);
         
         /* Write the data to be ciphered to the input data registers. */
         DRV_CRYPTO_AES_WriteInputData(partialPlusPad);
@@ -257,37 +264,37 @@ static void lCrypto_Aead_Hw_Gcm_RunBlocks(uint32_t *in, uint32_t byteLen, uint32
             /* Cipher complete - read out the data */
             DRV_CRYPTO_AES_ReadOutputData(completeOut);
             
-            if (numBytes >= 4)
+            if (numBytes >= 4UL)
             {
                 *out++ = completeOut[0];
-                if (numBytes >= 8)
+                if (numBytes >= 8UL)
                 {
                     *out++ = completeOut[1];
-                    if (numBytes >= 12)
+                    if (numBytes >= 12UL)
                     {
                         *out++ = completeOut[2];
-                        if (numBytes > 12)
+                        if (numBytes > 12UL)
                         {
                             uint32_t tmp = completeOut[3];
-                            memcpy(out, &tmp, (numBytes - 12));                                                
+                            (void) memcpy(out, &tmp, (numBytes - 12UL));                                                
                         }
                     }
                     else
                     {
                         uint32_t tmp = completeOut[2];
-                        memcpy(out, &tmp, (numBytes - 8));                    
+                        (void) memcpy(out, &tmp, (numBytes - 8UL));                    
                     }
                 }
                 else
                 {
                     uint32_t tmp = completeOut[1];
-                    memcpy(out, &tmp, (numBytes - 4));                    
+                    (void) memcpy(out, &tmp, (numBytes - 4UL));                    
                 }
             }
             else
             {
                 uint32_t tmp = completeOut[0];
-                memcpy(out, &tmp, numBytes);
+                (void) memcpy(out, &tmp, numBytes);
             }
         }
     }
@@ -316,11 +323,14 @@ static void lCrypto_Aead_Hw_Gcm_CmpMsgWithTag(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     DRV_CRYPTO_AES_WriteAuthDataLen(aadLen);
     DRV_CRYPTO_AES_WritePCTextLen(dataLen);
     
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated: 3. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     lCrypto_Aead_Hw_Gcm_RunBlocks((uint32_t *)aad, aadLen, NULL);
     lCrypto_Aead_Hw_Gcm_RunBlocks((uint32_t *)inData, dataLen, 
                                   (uint32_t *)outData);
+    /* MISRA C-2012 deviation block end */
     
-    if ((aadLen != 0) || (dataLen != 0))
+    if ((aadLen != 0UL) || (dataLen != 0UL))
     {
         /* Wait for the tag to generate */
         while (!DRV_CRYPTO_AES_TagIsReady())
@@ -329,8 +339,11 @@ static void lCrypto_Aead_Hw_Gcm_CmpMsgWithTag(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
         }   
     }  
     
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     /* Read the tag */
     DRV_CRYPTO_AES_ReadTag((uint32_t *)tag);
+    /* MISRA C-2012 deviation block end */
     
     /* Read hash */
     DRV_CRYPTO_AES_ReadGcmHash(gcmCtx->intermediateHash);
@@ -359,9 +372,12 @@ static void lCrypto_Aead_Hw_Gcm_1stMsgFrag(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     DRV_CRYPTO_AES_WriteAuthDataLen(aadLen);
     DRV_CRYPTO_AES_WritePCTextLen(dataLen);
     
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     lCrypto_Aead_Hw_Gcm_RunBlocks((uint32_t *)aad, aadLen, NULL);
     lCrypto_Aead_Hw_Gcm_RunBlocks((uint32_t *)inData, dataLen, 
                                   (uint32_t *)outData);
+    /* MISRA C-2012 deviation block end */
    
     /* Read hash */
     DRV_CRYPTO_AES_ReadGcmHash(gcmCtx->intermediateHash);
@@ -388,8 +404,11 @@ static void lCrypto_Aead_Hw_Gcm_MoreMsgFrag(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     /* Load hash */
     DRV_CRYPTO_AES_WriteGcmHash(gcmCtx->intermediateHash);
     
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.3 deviated: 2. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     lCrypto_Aead_Hw_Gcm_RunBlocks((uint32_t *)inData, dataLen, 
                                   (uint32_t *)outData);
+    /* MISRA C-2012 deviation block end */
    
     /* Read hash */
     DRV_CRYPTO_AES_ReadGcmHash(gcmCtx->intermediateHash);
@@ -415,17 +434,17 @@ static void lCrypto_Aead_Hw_Gcm_GenerateTag(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     DRV_CRYPTO_AES_WriteGcmHash(gcmCtx->intermediateHash);
     
     /* Fill input data with lengths in bits */
-    aadLen = aadLen * 8;
-    dataLen = dataLen * 8;
+    aadLen = aadLen * 8UL;
+    dataLen = dataLen * 8UL;
     uint32_t lenIn[4] = {0};
-    lenIn[1] = (((aadLen << 24) & 0xFF000000) | 
-                ((aadLen << 8) & 0x00FF0000) |
-                ((aadLen >> 8) & 0x0000FF00) |
-                ((aadLen >> 24) & 0x000000FF));
-    lenIn[3] = (((dataLen << 24) & 0xFF000000) | 
-                ((dataLen << 8) & 0x00FF0000) |
-                ((dataLen >> 8) & 0x0000FF00) |
-                ((dataLen >> 24) & 0x000000FF));
+    lenIn[1] = (((aadLen << 24U) & 0xFF000000UL) | 
+                ((aadLen << 8U) & 0x00FF0000UL) |
+                ((aadLen >> 8U) & 0x0000FF00UL) |
+                ((aadLen >> 24U) & 0x000000FFUL));
+    lenIn[3] = (((dataLen << 24U) & 0xFF000000UL) | 
+                ((dataLen << 8U) & 0x00FF0000UL) |
+                ((dataLen >> 8U) & 0x0000FF00UL) |
+                ((dataLen >> 24U) & 0x000000FFUL));
     
     /* Write the data to be ciphered to the input data registers. */
     DRV_CRYPTO_AES_WriteInputData(lenIn);
@@ -470,7 +489,7 @@ static void lCrypto_Aead_Hw_Gcm_GenerateTag(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     uint32_t gcmTag[4];
     DRV_CRYPTO_AES_ReadOutputData(gcmTag);
    
-    memcpy(tag, gcmTag, tagLen);
+    (void) memcpy(tag, (uint8_t*)gcmTag, tagLen);
 }
 
 // *****************************************************************************
@@ -479,11 +498,13 @@ static void lCrypto_Aead_Hw_Gcm_GenerateTag(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
 // *****************************************************************************
 // *****************************************************************************
 
-crypto_Aead_Status_E Crypto_Aead_Hw_AesGcm_Init(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
+crypto_Aead_Status_E Crypto_Aead_Hw_AesGcm_Init(void *gcmInitCtx,
     crypto_CipherOper_E cipherOper_en, uint8_t *key, uint32_t keyLen)
 {
+    CRYPTO_GCM_HW_CONTEXT *gcmCtx = (CRYPTO_GCM_HW_CONTEXT*)gcmInitCtx;
+    
     /* Initialize the context */
-    memset(gcmCtx, 0, sizeof(CRYPTO_GCM_HW_CONTEXT));
+    (void) memset(gcmCtx, 0, sizeof(CRYPTO_GCM_HW_CONTEXT));
     
     /* Get the default configuration from the driver */
     DRV_CRYPTO_AES_GetConfigDefault(&aesGcmCfg);
@@ -492,7 +513,7 @@ crypto_Aead_Status_E Crypto_Aead_Hw_AesGcm_Init(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     DRV_CRYPTO_AES_Init();
     
     /* Set configuration in the driver */
-    aesGcmCfg.keySize = DRV_CRYPTO_AES_GetKeySize(keyLen / 4);
+    aesGcmCfg.keySize = DRV_CRYPTO_AES_GetKeySize(keyLen / 4UL);
     aesGcmCfg.startMode = CRYPTO_AES_AUTO_START;
     aesGcmCfg.opMode = CRYPTO_AES_MODE_GCM;
     aesGcmCfg.gtagEn = 0;
@@ -508,19 +529,28 @@ crypto_Aead_Status_E Crypto_Aead_Hw_AesGcm_Init(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     DRV_CRYPTO_AES_SetConfig(&aesGcmCfg);
 
     /* Store the key */
-    memcpy(gcmCtx->key, (uint32_t *)key, (keyLen / 4));
+    uint32_t i;
+    for (i = 0; i < (keyLen / 4UL); i++)
+    {
+        gcmCtx->key[i]  = ((uint32_t) *key++) << 24UL;
+        gcmCtx->key[i] += ((uint32_t) *key++) << 16UL;
+        gcmCtx->key[i] += ((uint32_t) *key++) << 8UL;
+        gcmCtx->key[i] += ((uint32_t) *key++);
+    }
     
     return CRYPTO_AEAD_CIPHER_SUCCESS;
 }
 
-crypto_Aead_Status_E Crypto_Aead_Hw_AesGcm_Cipher(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
+crypto_Aead_Status_E Crypto_Aead_Hw_AesGcm_Cipher(void *gcmCipherCtx,
     uint8_t *initVect, uint32_t initVectLen, uint8_t *inputData,
     uint32_t dataLen, uint8_t *outData, uint8_t *aad, uint32_t aadLen,
     uint8_t *authTag, uint32_t authTagLen)
 {
-    if (dataLen != 0 || aadLen != 0)
+    CRYPTO_GCM_HW_CONTEXT *gcmCtx = (CRYPTO_GCM_HW_CONTEXT*)gcmCipherCtx;
+    
+    if (dataLen != 0U || aadLen != 0U)
     {
-        if (gcmCtx->invokeCtr[0] == 0)
+        if (gcmCtx->invokeCtr[0] == 0UL)
         {
             if (authTag != NULL)
             {
@@ -544,7 +574,7 @@ crypto_Aead_Status_E Crypto_Aead_Hw_AesGcm_Cipher(CRYPTO_GCM_HW_CONTEXT *gcmCtx,
     
     if (authTag != NULL)
     {
-        if (gcmCtx->invokeCtr[0] == 0)
+        if (gcmCtx->invokeCtr[0] == 0UL)
         {
             /* Calculate the J0 value */
             lCrypto_Aead_Hw_Gcm_GenerateJ0(gcmCtx, initVect, initVectLen);

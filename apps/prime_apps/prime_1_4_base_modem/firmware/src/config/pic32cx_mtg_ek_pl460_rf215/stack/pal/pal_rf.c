@@ -159,6 +159,8 @@ static uint8_t lPAL_RF_GetTxBuffId(DRV_RF215_TX_HANDLE txHandle)
     {
         if (palRfData.txData[index].txHandle == txHandle)
         {
+            palRfData.txData[index].pData = NULL;
+            palRfData.txData[index].txHandle = DRV_RF215_TX_HANDLE_INVALID;
             return palRfData.txData[index].buffId;
         }
     }
@@ -189,23 +191,23 @@ static void lPAL_RF_UpdatePhyConfiguration(void)
 static void lPAL_RF_DataCfmCb(DRV_RF215_TX_HANDLE txHandle, 
                               DRV_RF215_TX_CONFIRM_OBJ *pCfmObj, uintptr_t ctxt)
 {
+    PAL_MSG_CONFIRM_DATA dataCfm;
+
+    if (txHandle == DRV_RF215_TX_HANDLE_INVALID)
+    {
+        dataCfm.bufId = (uint8_t)ctxt;
+    }
+    else
+    {
+        dataCfm.bufId = lPAL_RF_GetTxBuffId(txHandle);
+    }
+
     if (palRfData.rfCallbacks.dataConfirm != NULL)
     {
-        PAL_MSG_CONFIRM_DATA dataCfm;
-
         dataCfm.txTime = SRV_TIME_MANAGEMENT_CountToUS(pCfmObj->timeIniCount);
         dataCfm.pch = (uint16_t)(palRfData.currentChannel | PRIME_PAL_RF_CHN_MASK);
         dataCfm.rmsCalc = 255;
         dataCfm.frameType = PAL_FRAME_TYPE_RF;
-        
-        if (txHandle == DRV_RF215_TX_HANDLE_INVALID) 
-        {
-            dataCfm.bufId = (uint8_t)ctxt;
-        } 
-        else 
-        {
-            dataCfm.bufId = lPAL_RF_GetTxBuffId(txHandle);
-        }
 
         switch(pCfmObj->txResult)
         {
@@ -392,7 +394,7 @@ void PAL_RF_DataIndicationCallbackRegister(PAL_DATA_INDICATION_CB callback)
 
 uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
 {
-    DRV_RF215_TX_REQUEST_OBJ *txReqObj = &palRfData.txReqObj[pMessageData->buffId];
+    DRV_RF215_TX_REQUEST_OBJ txReqObj;
     DRV_RF215_TX_HANDLE rfPhyTxReqHandle;
     DRV_RF215_TX_RESULT txResult;
 
@@ -411,37 +413,37 @@ uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
         return ((uint8_t)PAL_TX_RESULT_PROCESS);
     }
 
-    txReqObj->psdu = pMessageData->pData;
-    txReqObj->psduLen = pMessageData->dataLength;
-    txReqObj->timeMode = (DRV_RF215_TX_TIME_MODE)pMessageData->timeMode;
-    txReqObj->txPwrAtt = pMessageData->attLevel;
-    txReqObj->modScheme = (DRV_RF215_PHY_MOD_SCHEME)
+    txReqObj.psdu = pMessageData->pData;
+    txReqObj.psduLen = pMessageData->dataLength;
+    txReqObj.timeMode = (DRV_RF215_TX_TIME_MODE)pMessageData->timeMode;
+    txReqObj.txPwrAtt = pMessageData->attLevel;
+    txReqObj.modScheme = (DRV_RF215_PHY_MOD_SCHEME)
                           ((uint8_t)pMessageData->scheme - PAL_SCHEME_RF - 1);
-    txReqObj->timeCount = SRV_TIME_MANAGEMENT_USToCount(pMessageData->timeDelay);
+    txReqObj.timeCount = SRV_TIME_MANAGEMENT_USToCount(pMessageData->timeDelay);
 
     if (pMessageData->disableRx == false)
     {
         /* CSMA used: Energy above threshold and carrier sense CCA Mode */
-        txReqObj->ccaMode = PHY_CCA_MODE_3;
+        txReqObj.ccaMode = PHY_CCA_MODE_3;
         /* Programmed TX canceled once RX frame detected */
-        txReqObj->cancelByRx = true;
+        txReqObj.cancelByRx = true;
         /* Set number of CCA */
-        txReqObj->ccaContentionWindow = pMessageData->numSenses;
+        txReqObj.ccaContentionWindow = pMessageData->numSenses;
     }
     else
     {
         /* Forced mode: At least Energy above threshold CCA Mode is
          * needed to comply with RF regulations */
-        txReqObj->ccaMode = PHY_CCA_MODE_1;
+        txReqObj.ccaMode = PHY_CCA_MODE_1;
         /* Programmed TX canceled once RX frame detected */
-        txReqObj->cancelByRx = false;
+        txReqObj.cancelByRx = false;
         /* Set number of CCA */
-        txReqObj->ccaContentionWindow = pMessageData->numSenses;
+        txReqObj.ccaContentionWindow = pMessageData->numSenses;
     }
 
-    rfPhyTxReqHandle = DRV_RF215_TxRequest(palRfData.drvRfPhyHandle, txReqObj, &txResult);
+    rfPhyTxReqHandle = DRV_RF215_TxRequest(palRfData.drvRfPhyHandle, &txReqObj, &txResult);
 
-    if (rfPhyTxReqHandle == DRV_RF215_TX_HANDLE_INVALID)
+    if ((rfPhyTxReqHandle == DRV_RF215_TX_HANDLE_INVALID) || (txResult != RF215_TX_SUCCESS))
     {
         /* Store data to send confirm in Tasks */
         palRfCfmData.needsCfm = true;
@@ -453,19 +455,14 @@ uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
         return ((uint8_t)PAL_TX_RESULT_PROCESS);
     }
     
-    if (txResult != RF215_TX_SUCCESS)
-    {
-        return ((uint8_t)PAL_TX_RESULT_PHY_ERROR);
-    }
-    
     /* Message accepted */
     (void)lPAL_RF_SetTxData(rfPhyTxReqHandle, pMessageData->pData, pMessageData->buffId);
 
     if (palRfData.snifferCallback)
     {
-        SRV_RSNIFFER_SetTxMessage(txReqObj, &palRfData.rfPhyConfig, rfPhyTxReqHandle);
+        SRV_RSNIFFER_SetTxMessage(&txReqObj, &palRfData.rfPhyConfig, rfPhyTxReqHandle);
     }
-    
+
     return ((uint8_t)PAL_TX_RESULT_PROCESS);
 }
 

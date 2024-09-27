@@ -35,7 +35,8 @@ typedef enum
     CRYPTO_RNG_SUCCESS = 0,   
 }crypto_Rng_Status_E;
 
-
+#ifdef CRYPTO_RNG_PRNG_EN
 crypto_Rng_Status_E Crypto_Rng_Prng_Generate(crypto_HandlerType_E rngHandlerType_en, uint8_t* ptr_rngData, uint32_t rngLen, uint8_t* ptr_nonce, uint32_t nonceLen, uint32_t sessionID);
+#endif /*CRYPTO_RNG_PRNG_EN*/
 
 #endif /* MCHP_CRYPTO_RNG_H */

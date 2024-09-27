@@ -408,7 +408,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_EncryptDirect(crypto_Sym_OpModes_E symAlgo
             wcAesStatus = wc_AesXtsEncrypt(aesXtsCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, (const byte*)ptr_initVect, AES_BLOCK_SIZE);
         }
 #else  /* WOLFSSL_AES_XTS */
-        ret_aesDecryptStatus = CRYPTO_SYM_ERROR_OPMODE;            
+        ret_aesStat_en = CRYPTO_SYM_ERROR_OPMODE;            
 #endif /* WOLFSSL_AES_XTS */  
     }
     else
@@ -511,7 +511,7 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_DecryptDirect(crypto_Sym_OpModes_E symAlgo
                 wcAesStatus = wc_AesXtsDecrypt(aesXtsCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, (const byte*)ptr_initVect, AES_BLOCK_SIZE);
             }
 #else  /* WOLFSSL_AES_XTS */
-            ret_aesDecryptStatus = CRYPTO_SYM_ERROR_OPMODE;            
+            ret_aesStat_en = CRYPTO_SYM_ERROR_OPMODE;            
 #endif /* WOLFSSL_AES_XTS */  
         }
         else

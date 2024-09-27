@@ -105,11 +105,31 @@
 #define CRYPTO_HASH_BLAKE2_EN
 #endif
 
+#if (defined(CRYPTO_HASH_BLAKE2B_384_EN) || \
+     defined(CRYPTO_HASH_BLAKE2B_512_EN))
+#define CRYPTO_HASH_BLAKE2B_EN
+#endif
+
+#if (defined(CRYPTO_HASH_BLAKE2S_224_EN) || \
+     defined(CRYPTO_HASH_BLAKE2S_256_EN))
+#define CRYPTO_HASH_BLAKE2S_EN
+#endif
+
 #if (defined(CRYPTO_HASH_WC_BLAKE2S_224_EN) || \
      defined(CRYPTO_HASH_WC_BLAKE2S_256_EN) || \
      defined(CRYPTO_HASH_WC_BLAKE2B_384_EN) || \
      defined(CRYPTO_HASH_WC_BLAKE2B_512_EN))
 #define CRYPTO_HASH_WC_BLAKE2_EN
+#endif
+
+#if (defined(CRYPTO_HASH_WC_BLAKE2S_224_EN) || \
+     defined(CRYPTO_HASH_WC_BLAKE2S_256_EN))
+#define CRYPTO_HASH_WC_BLAKE2S_EN
+#endif
+
+#if (defined(CRYPTO_HASH_WC_BLAKE2B_384_EN) || \
+     defined(CRYPTO_HASH_WC_BLAKE2B_512_EN))
+#define CRYPTO_HASH_WC_BLAKE2B_EN
 #endif
 
 #if (defined(CRYPTO_HASH_HW_BLAKE2S_224_EN) || \

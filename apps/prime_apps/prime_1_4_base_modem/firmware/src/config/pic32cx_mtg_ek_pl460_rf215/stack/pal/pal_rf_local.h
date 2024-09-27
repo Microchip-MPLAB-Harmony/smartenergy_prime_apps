@@ -115,8 +115,6 @@ typedef struct
     DRV_HANDLE drvRfPhyHandle;
 
     DRV_RF215_PHY_CFG_OBJ rfPhyConfig;
-    
-    DRV_RF215_TX_REQUEST_OBJ txReqObj[DRV_RF215_TX_BUFFERS_NUMBER];
 
     PAL_RF_TX_DATA txData[DRV_RF215_TX_BUFFERS_NUMBER];
 

@@ -44,7 +44,7 @@
 // *****************************************************************************
 
 #if (!defined(NO_AES))
-#if (defined(HAVE_AESCCM))
+#if (defined(HAVE_AESCCM) && defined(CRYPTO_AEAD_WC_AESCCM_EN))
 crypto_Aead_Status_E Crypto_Aead_Wc_AesCcm_Init(void *ptr_aesCcmCtx, uint8_t *ptr_key, uint32_t keySize)
 {
     crypto_Aead_Status_E ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_CIPNOTSUPPTD;
@@ -84,55 +84,45 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesCcm_Cipher(crypto_CipherOper_E cipherOper
 {
     crypto_Aead_Status_E ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_CIPNOTSUPPTD;
     int wcAesCcmStatus = BAD_FUNC_ARG;
-  
-    if( (ptr_aesCcmCtx != NULL ) && (ptr_inputData != NULL) && (ptr_outData != NULL)
-            &&(ptr_nonce != NULL) && (nonceLen >= 7u) && (nonceLen <= 13u)
-            && (ptr_authTag != NULL) && (authTagLen >= 4u) && (authTagLen <= 16u) ) //aad may be empty as per NIST 800-38C and also AAD is optional
+
+    if(cipherOper_en == CRYPTO_CIOP_ENCRYPT)
     {
-        if( cipherOper_en == CRYPTO_CIOP_ENCRYPT)
-        {
-            wcAesCcmStatus = wc_AesCcmEncrypt(ptr_aesCcmCtx, ptr_outData, (const byte*)ptr_inputData, dataLen, 
-                                                (const byte*)ptr_nonce, nonceLen, ptr_authTag, authTagLen, (const byte*)ptr_aad, aadLen);
-        }
-        else if(cipherOper_en == CRYPTO_CIOP_DECRYPT)
-        {
-            wcAesCcmStatus = wc_AesCcmDecrypt(ptr_aesCcmCtx, ptr_outData, (const byte*)ptr_inputData, dataLen, 
-                                                (const byte*)ptr_nonce, nonceLen, (const byte*)ptr_authTag, authTagLen, (const byte*)ptr_aad, aadLen);
-        }
-        else
-        {
-            ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_CIPOPER;
-        }
-        if(wcAesCcmStatus == 0)
-        {
-            ret_aesCcmStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
-        }
-        else if(ret_aesCcmStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
-        {
-            //do nothing
-        }
-        else
-        {
-            if(wcAesCcmStatus == BAD_FUNC_ARG)
-            {
-                ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_ARG;
-            }
-            else
-            {
-                ret_aesCcmStat_en  = CRYPTO_AEAD_ERROR_CIPFAIL;
-            }
-        }
-    } //end of if of argument checking
+        wcAesCcmStatus = wc_AesCcmEncrypt(ptr_aesCcmCtx, ptr_outData, (const byte*)ptr_inputData, dataLen, 
+                                            (const byte*)ptr_nonce, nonceLen, ptr_authTag, authTagLen, (const byte*)ptr_aad, aadLen);
+    }
+    else if(cipherOper_en == CRYPTO_CIOP_DECRYPT)
+    {
+        wcAesCcmStatus = wc_AesCcmDecrypt(ptr_aesCcmCtx, ptr_outData, (const byte*)ptr_inputData, dataLen, 
+                                            (const byte*)ptr_nonce, nonceLen, (const byte*)ptr_authTag, authTagLen, (const byte*)ptr_aad, aadLen);
+    }
     else
     {
-        ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_ARG;
+        ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_CIPOPER;
+    }
+    if(wcAesCcmStatus == 0)
+    {
+        ret_aesCcmStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
+    }
+    else if(ret_aesCcmStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
+    {
+        //do nothing
+    }
+    else
+    {
+        if(wcAesCcmStatus == BAD_FUNC_ARG)
+        {
+            ret_aesCcmStat_en = CRYPTO_AEAD_ERROR_ARG;
+        }
+        else
+        {
+            ret_aesCcmStat_en  = CRYPTO_AEAD_ERROR_CIPFAIL;
+        }
     }
     return ret_aesCcmStat_en;
 }
+#endif /* HAVE_AESCCM && CRYPTO_AEAD_AESCCM_EN */
 
-#endif /* HAVE_AESCCM */
-
-#if (defined(WOLFSSL_AES_EAX))
+#if (defined(WOLFSSL_AES_EAX) && defined(CRYPTO_AEAD_WC_AESEAX_EN))
 crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_Init(void *ptr_aesEaxCtx, uint8_t *ptr_key, uint32_t keySize, 
                                                 uint8_t *ptr_nonce, uint32_t nonceLen, uint8_t *ptr_aad, uint32_t aadLen)
 {
@@ -344,10 +334,9 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesEax_EncDecAuthDirect(crypto_CipherOper_E 
     
     return ret_aesEaxStat_en;
 }        
-#endif /* WOLFSSL_AES_EAX */
+#endif /* WOLFSSL_AES_EAX && CRYPTO_AEAD_WC_AESEAX_EN */
 
-#if (defined(HAVE_AESGCM))
-
+#if (defined(HAVE_AESGCM) && defined(CRYPTO_AEAD_WC_AESGCM_EN))
 #ifdef WOLFSSL_AESGCM_STREAM
 crypto_Aead_Status_E Crypto_Aead_Wc_AesGcm_Init(void *ptr_aesGcmCtx, uint8_t *ptr_key, uint32_t keySize, 
                                                 uint8_t *ptr_initVect, uint32_t initVectLen)
@@ -534,59 +523,52 @@ crypto_Aead_Status_E Crypto_Aead_Wc_AesGcm_EncDecAuthDirect(crypto_CipherOper_E 
     int wcAesGcmStatus = BAD_FUNC_ARG;
     Aes arr_aesGcmCtx[1];
     
-    if((ptr_inputData != NULL) && (ptr_outData != NULL) )
+    wcAesGcmStatus = wc_AesGcmInit (arr_aesGcmCtx, (const byte*)ptr_key, (word32)keySize, (const byte*)ptr_initVect,(word32)initVectLen);
+
+    if(wcAesGcmStatus == 0)
     {
-        wcAesGcmStatus = wc_AesGcmInit (arr_aesGcmCtx, (const byte*)ptr_key, (word32)keySize, (const byte*)ptr_initVect,(word32)initVectLen);
-        
-        if(wcAesGcmStatus == 0)
+        if( cipherOper_en == CRYPTO_CIOP_ENCRYPT)
         {
-            if( cipherOper_en == CRYPTO_CIOP_ENCRYPT)
-            {
-                wcAesGcmStatus = wc_AesGcmEncrypt(arr_aesGcmCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, ptr_initVect, initVectLen, 
-                                ptr_authTag, authTagLen, ptr_aad, aadLen);
-            }
-            else if(cipherOper_en == CRYPTO_CIOP_DECRYPT)
-            {
-                wcAesGcmStatus = wc_AesGcmDecrypt(arr_aesGcmCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, ptr_initVect, initVectLen, 
-                                ptr_authTag, authTagLen, ptr_aad, aadLen);
-            }
-            else
-            {
-                ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CIPOPER;
-            }
+            wcAesGcmStatus = wc_AesGcmEncrypt(arr_aesGcmCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, ptr_initVect, initVectLen, 
+                            ptr_authTag, authTagLen, ptr_aad, aadLen);
         }
-        if(wcAesGcmStatus == 0)
+        else if(cipherOper_en == CRYPTO_CIOP_DECRYPT)
         {
-            ret_aesGcmStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
-        }
-        else if(ret_aesGcmStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
-        {
-            //do nothing
+            wcAesGcmStatus = wc_AesGcmDecrypt(arr_aesGcmCtx, (byte*)ptr_outData, (const byte*)ptr_inputData, (word32)dataLen, ptr_initVect, initVectLen, 
+                            ptr_authTag, authTagLen, ptr_aad, aadLen);
         }
         else
         {
-            if(wcAesGcmStatus == BAD_FUNC_ARG)
-            {
-                ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_ARG;
-            }
-            else if(wcAesGcmStatus == AES_GCM_AUTH_E)
-            {
-                ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
-            }
-            else
-            {
-                ret_aesGcmStat_en  = CRYPTO_AEAD_ERROR_CIPFAIL;
-            }
+            ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_CIPOPER;
         }
-    } //end of if of argument checking
+    }
+    if(wcAesGcmStatus == 0)
+    {
+        ret_aesGcmStat_en = CRYPTO_AEAD_CIPHER_SUCCESS;
+    }
+    else if(ret_aesGcmStat_en == CRYPTO_AEAD_ERROR_CIPOPER)
+    {
+        //do nothing
+    }
     else
     {
-        ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_ARG;
+        if(wcAesGcmStatus == BAD_FUNC_ARG)
+        {
+            ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_ARG;
+        }
+        else if(wcAesGcmStatus == AES_GCM_AUTH_E)
+        {
+            ret_aesGcmStat_en = CRYPTO_AEAD_ERROR_AUTHTAG;
+        }
+        else
+        {
+            ret_aesGcmStat_en  = CRYPTO_AEAD_ERROR_CIPFAIL;
+        }
     }
     return ret_aesGcmStat_en;
 }
 
-#endif /* WOLFSSL_AES_GCM */
+#endif /* HAVE_AESGCM && CRYPTO_AEAD_WC_AESGCM_EN*/
 
 #endif /* !NO_AES  */
 // *****************************************************************************

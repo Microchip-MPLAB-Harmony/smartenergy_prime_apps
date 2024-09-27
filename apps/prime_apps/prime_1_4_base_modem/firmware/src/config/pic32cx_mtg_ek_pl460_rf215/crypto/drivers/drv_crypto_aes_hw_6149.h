@@ -41,8 +41,8 @@ Microchip or any third party.
 */
 //DOM-IGNORE-END
 
-#ifndef _DRV_CRYPTO_AES_HW_6149_H_
-#define _DRV_CRYPTO_AES_HW_6149_H_
+#ifndef DRV_CRYPTO_AES_HW_6149_H
+#define DRV_CRYPTO_AES_HW_6149_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -126,6 +126,9 @@ typedef enum {
     CRYPTO_AES_PLIP_DECIPHER,    /* Protocol layer improved performance is in deciphering mode */
 } CRYPTO_AES_PLIP;
 
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 6.1 deviated: 43. Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+
 typedef union {
     struct {
         uint8_t START : 1;
@@ -197,6 +200,8 @@ typedef union {
     uint32_t v;
 } CRYPTO_AES_IER;
 
+/* MISRAC 2012 deviation block end */
+
 typedef CRYPTO_AES_IER CRYPTO_AES_IDR;
 typedef CRYPTO_AES_IER CRYPTO_AES_IMR;
 
@@ -209,6 +214,9 @@ typedef enum
     CRYPTO_AES_MR_WR_SUBKGEN,
     CRYPTO_AES_WOR_RD_ACCESS,
 } CRYPTO_AES_URAT;
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 6.1 deviated: 14. Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
 
 typedef union {    
     struct {
@@ -229,6 +237,8 @@ typedef union {
     }s;
     uint32_t v;
 } CRYPTO_AES_ISR;
+
+/* MISRAC 2012 deviation block end */
 
 /* AES Configuration structure */
 typedef struct {
@@ -310,4 +320,4 @@ void DRV_CRYPTO_AES_ReadGcmH(uint32_t *hBuffer);
 #endif
 // DOM-IGNORE-END
 
-#endif /* _DRV_CRYPTO_AES_HW_6149_H_ */
+#endif /* DRV_CRYPTO_AES_HW_6149_H */

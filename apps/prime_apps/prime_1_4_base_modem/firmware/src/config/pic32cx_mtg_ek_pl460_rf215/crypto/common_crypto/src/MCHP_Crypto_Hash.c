@@ -361,7 +361,7 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Digest(crypto_HandlerType_E shaHandler_en, 
 
 #ifdef CRYPTO_HASH_HW_ALGO_EN           
             case CRYPTO_HANDLER_HW_INTERNAL:
-                ret_shaStat_en = Crypto_Hash_Hw_Sha_Digest((CRYPTO_HASH_HW_CONTEXT*)ptr_data, dataLen, ptr_digest, shaAlgorithm_en);
+                ret_shaStat_en = Crypto_Hash_Hw_Sha_Digest((void*)ptr_data, dataLen, ptr_digest, shaAlgorithm_en);
                 break;
 #endif /* CRYPTO_HASH_HW_ALGO_EN */
                 
@@ -405,7 +405,7 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Init(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st,
                 
 #ifdef CRYPTO_HASH_HW_ALGO_EN           
             case CRYPTO_HANDLER_HW_INTERNAL:
-                ret_shaStat_en = Crypto_Hash_Hw_Sha_Init((CRYPTO_HASH_HW_CONTEXT*)ptr_shaCtx_st->arr_shaDataCtx, ptr_shaCtx_st->shaAlgo_en);
+                ret_shaStat_en = Crypto_Hash_Hw_Sha_Init((void*)ptr_shaCtx_st->arr_shaDataCtx, ptr_shaCtx_st->shaAlgo_en);
                 break;
 #endif /* CRYPTO_HASH_HW_ALGO_EN */
                 
@@ -425,7 +425,7 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Update(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_s
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_CTX;
     }
-    if( (ptr_data == NULL) || (dataLen == 0u) )
+    else if( (ptr_data == NULL) || (dataLen == 0u) )
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_INPUTDATA;
     }
@@ -441,7 +441,7 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Update(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_s
                 
 #ifdef CRYPTO_HASH_HW_ALGO_EN           
             case CRYPTO_HANDLER_HW_INTERNAL:
-                ret_shaStat_en = Crypto_Hash_Hw_Sha_Update((CRYPTO_HASH_HW_CONTEXT*)ptr_shaCtx_st->arr_shaDataCtx, ptr_data, dataLen);
+                ret_shaStat_en = Crypto_Hash_Hw_Sha_Update((void*)ptr_shaCtx_st->arr_shaDataCtx, ptr_data, dataLen);
                 break;
 #endif /* CRYPTO_HASH_HW_ALGO_EN */
 
@@ -477,7 +477,7 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Final(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st
                 
 #ifdef CRYPTO_HASH_HW_ALGO_EN           
             case CRYPTO_HANDLER_HW_INTERNAL:
-                ret_shaStat_en = Crypto_Hash_Hw_Sha_Final((CRYPTO_HASH_HW_CONTEXT*)ptr_shaCtx_st->arr_shaDataCtx, ptr_digest);
+                ret_shaStat_en = Crypto_Hash_Hw_Sha_Final((void*)ptr_shaCtx_st->arr_shaDataCtx, ptr_digest);
                 break;
 #endif /* CRYPTO_HASH_HW_ALGO_EN */
 

@@ -258,10 +258,12 @@ __STATIC_INLINE void lPAL_PLC_TimerSyncInitialize(void)
         palPlcData.syncTimerRelFreq = 1UL << 24;
 
         /* Program first interrupt after 50 ms (5 us deviation with 100 PPM) */
-        if (SRV_TIME_MANAGEMENT_CallbackRegisterUS(lPAL_PLC_SysTimeCB, 0, 
-                palPlcData.syncDelay, SYS_TIME_SINGLE) != SYS_TIME_HANDLE_INVALID)
+        palPlcData.syncDelay = 50000;
+        SYS_TIME_TimerDestroy(palPlcData.syncHandle);
+        palPlcData.syncHandle = SRV_TIME_MANAGEMENT_CallbackRegisterUS(
+                lPAL_PLC_SysTimeCB, 0, palPlcData.syncDelay, SYS_TIME_SINGLE);
+        if (palPlcData.syncHandle != SYS_TIME_HANDLE_INVALID)
         {
-            palPlcData.syncDelay = 50000;
             palPlcData.syncUpdate = false;
         }
         else
@@ -322,8 +324,9 @@ __STATIC_INLINE void lPAL_PLC_TimerSyncUpdate(void)
         }
 
         /* Program next interrupt */
-        if (SRV_TIME_MANAGEMENT_CallbackRegisterUS(lPAL_PLC_SysTimeCB, 0, 
-                palPlcData.syncDelay, SYS_TIME_SINGLE) != SYS_TIME_HANDLE_INVALID)
+        palPlcData.syncHandle = SRV_TIME_MANAGEMENT_CallbackRegisterUS(
+                lPAL_PLC_SysTimeCB, 0, palPlcData.syncDelay, SYS_TIME_SINGLE);
+        if (palPlcData.syncHandle != SYS_TIME_HANDLE_INVALID)
         {
             palPlcData.syncUpdate = false;
         }
@@ -425,6 +428,7 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
         PAL_MSG_CONFIRM_DATA dataCfm;
 
         dataCfm.txTime = lPAL_PLC_GetHostTime(pCfmObj->timeIni);
+        pCfmObj->timeIni = dataCfm.txTime;  /* For sniffer */
         dataCfm.rmsCalc = (uint16_t)pCfmObj->rmsCalc;
         dataCfm.pch = lPAL_PLC_GetPCH(palPlcData.channel);
         dataCfm.frameType = (uint8_t)pCfmObj->frameType;
@@ -491,6 +495,7 @@ static void lPAL_PLC_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *pIndObj, uintptr_t
     /* Fill dataInd */
     dataInd.pData = pIndObj->pReceivedData;
     dataInd.rxTime = lPAL_PLC_GetHostTime(pIndObj->timeIni);
+    pIndObj->timeIni = dataInd.rxTime;   /* For sniffer */
     dataInd.dataLength = pIndObj->dataLength;
     dataInd.pch = lPAL_PLC_GetPCH(palPlcData.channel);
     PAL_PLC_RM_GetRobustModulation(pIndObj, &dataInd.estimatedBitrate, &dataInd.lessRobustMod, dataInd.pch);
@@ -598,6 +603,7 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(void)
     palPlcData.errorInfo = 0;
     palPlcData.palAttenuation = 0;
     palPlcData.syncEnable = false;
+    palPlcData.syncHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Read Default Channel */
     palPlcData.channel = SRV_PCOUP_GetDefaultChannel();

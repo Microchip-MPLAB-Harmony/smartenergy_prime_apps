@@ -58,7 +58,7 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-#define RNG_BYTES_AT_A_TIME 4
+#define RNG_BYTES_AT_A_TIME (uint32_t)4
 
 // *****************************************************************************
 // *****************************************************************************
@@ -69,19 +69,19 @@ Microchip or any third party.
 void DRV_CRYPTO_TRNG_Generate(uint8_t *rngData, uint32_t rngLen)
 {
     /* rngLen is number of bytes */
-    while (rngLen)
+    while (rngLen != 0U)
     {
         uint32_t result = TRNG_ReadData();
 
         /* Stuff the data into the output buffer. Watch for buffer overrun. */
         if (rngLen < RNG_BYTES_AT_A_TIME)
         {
-            memcpy((void *)rngData, (void*)&result, rngLen);
+            (void) memcpy((void *)rngData, (void*)&result, rngLen);
             rngLen = 0;
         }
         else
         {
-            memcpy((void *)rngData, (void*)&result, RNG_BYTES_AT_A_TIME);
+            (void) memcpy((void *)rngData, (void*)&result, RNG_BYTES_AT_A_TIME);
             rngLen -= RNG_BYTES_AT_A_TIME;
 
             /* Bump the byte buffer by 4 since we are doing 32 bit randoms */

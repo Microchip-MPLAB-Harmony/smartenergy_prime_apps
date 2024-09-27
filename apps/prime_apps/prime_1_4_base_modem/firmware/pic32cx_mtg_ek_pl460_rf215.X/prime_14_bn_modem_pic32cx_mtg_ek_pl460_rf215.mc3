@@ -3564,7 +3564,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;174&quot; canvasWidth=&quot;837&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;519&quot; canvasWidth=&quot;867&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
       &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
     &lt;/PowerProfiles&gt;
@@ -3593,7 +3593,7 @@
     &lt;ComponentGraph dnOrder=&quot;4&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;8&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;733&quot; y=&quot;0&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;732&quot; y=&quot;7&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;PRIME STACK&quot; x=&quot;327&quot; y=&quot;65&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
@@ -3604,14 +3604,14 @@
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom3&quot; x=&quot;21&quot; y=&quot;258&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom5&quot; x=&quot;322&quot; y=&quot;202&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;flexcom7&quot; x=&quot;556&quot; y=&quot;273&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;lib_crypto&quot; x=&quot;640&quot; y=&quot;420&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;465&quot; y=&quot;376&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;lib_crypto&quot; x=&quot;663&quot; y=&quot;404&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;490&quot; y=&quot;360&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;sefc0&quot; x=&quot;455&quot; y=&quot;12&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sefc1&quot; x=&quot;585&quot; y=&quot;9&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;srv_pcoup&quot; x=&quot;313&quot; y=&quot;124&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;srv_usi&quot; x=&quot;698&quot; y=&quot;121&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;sys_console&quot; x=&quot;171&quot; y=&quot;343&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;sys_debug&quot; x=&quot;320&quot; y=&quot;379&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;sys_debug&quot; x=&quot;319&quot; y=&quot;381&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;sys_time&quot; x=&quot;154&quot; y=&quot;66&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;tc0&quot; x=&quot;12&quot; y=&quot;112&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;trng&quot; x=&quot;14&quot; y=&quot;63&quot;/&gt;
@@ -13208,7 +13208,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_crypto" name="CONFIG_USE_AEAD"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;CONFIG_USE_AEAD&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
 </value>
@@ -28509,7 +28511,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Aead_Cipher.h</file>
-         <hash>fe483b085d9c4195defc8c98d97452a0f40d7a4a7b3b6fc3897c7b1da6196820</hash>
+         <hash>a5c435a38ae2332bd7c66b04f22680ab5ae9996b6850b423d89c0132425761dd</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Aead_Config.h</file>
@@ -28517,7 +28519,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Aead_HwWrapper.h</file>
-         <hash>c64dd88e6a6e4b002416d9e0773f85d2dd95b1f42cfb54e34af2c6b77db84638</hash>
+         <hash>e8ea9ff0334af6a284108f6447cf759c7f48a415332d699595dfb15a39164392</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Aead_WolfcryptWrapper.h</file>
@@ -28549,7 +28551,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Hash_Config.h</file>
-         <hash>174fcae95f40607c4f941a97a216064f97588a0ffb5e1197e4777cdd786fb2dc</hash>
+         <hash>5ba12532e8b4382f3f07506c062c841a4f0f2205a1bc68fcf912d3f654cd6e05</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Hash_WolfcryptWrapper.h</file>
@@ -28581,15 +28583,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Rng.h</file>
-         <hash>9da3185efaf48ec5854c36efec3e41549059aa9fb02c31abaf852cea759b8956</hash>
+         <hash>a256d11b534e48e09494a03b59652f27836d5e5e2b37867affce4c032b19248f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Rng_Config.h</file>
-         <hash>6c86f08be53da82324c4e43fba8abe65f91c15eecef7ebc41593578a13bc1494</hash>
+         <hash>a9ea1339dd4d050051b656675e67f6b5d021ce49df670f5728e1371402f8eb68</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Rng_HwWrapper.h</file>
-         <hash>4477b1d7801d3f85db03872914b51f6c5e9819e24ffa82d7d40286eb214eb893</hash>
+         <hash>827c48a9ff8354fc311e85e1fee002d6c00f8654ae17530786b1d787a1401cb8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Rng_WolfcryptWrapper.h</file>
@@ -28601,27 +28603,27 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Sym_Config.h</file>
-         <hash>a28bcf2153ac641f45ec45c71de767904655e541a5c348d8cab63a6687ed9044</hash>
+         <hash>8762eae0a16c3407138c359a4b82d44b4499dd3f4512adcbfe7739f5dc58ca01</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Sym_HwWrapper.h</file>
-         <hash>8a260107f9fb44a4fdd12ffbbd295a3ee0472e5719654b0f5575533a49e4c087</hash>
+         <hash>ad521d037e56dcfbfb98647246d898378128be3692844c13bc7cb86760a0ec85</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\MCHP_Crypto_Sym_WolfcryptWrapper.h</file>
-         <hash>ba011837ab5f3643b4f618f9bc78e86738274bf2afc24b1e2423b4bfa8c2d567</hash>
+         <hash>42c7d5ec0731f7e2c09c3dab6a6412f52357308776fb7542f70ef8bf933fa360</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Aead_Cipher.c</file>
-         <hash>84770cc59810da16c2aff6eebeb18f7eb3361638f98bac0e2dccac6c0a75ac25</hash>
+         <hash>1d96e4c052c66275e9de2421a3c39107ec2ba5cc5826c9dd78268e86bd8239d7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Aead_HwWrapper.c</file>
-         <hash>948bb09af9256a509f4e3562c3c4cd060d71698a80bf4be620c7021d9aa98294</hash>
+         <hash>c8611bfd452f8d6fcb94cdf9f1a8fd3cee16e613c5d9af41ab9ddcf11e908b36</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Aead_WolfCryptWrapper.c</file>
-         <hash>59be77af3e7cefbeb1715557081c25d7435b6c04141a80d8c3db1cb6d7f62fe6</hash>
+         <hash>d06c4acb84bc2af306d68eebecc29f132e0588e8340d1eea1fee7bcf41565d42</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Common_WolfcryptWrapper.c</file>
@@ -28629,7 +28631,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_DigSign.c</file>
-         <hash>bbd09bbb6f3a3b200c8b335933659ad81f6a58de67a5fa1a47093e38fe9bde2d</hash>
+         <hash>8ed0d5948a0fedfca89fe1480641a6f44f80bd5d392d815ad8948d0933a1494a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_DigSign_WolfcryptWrapper.c</file>
@@ -28637,11 +28639,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Hash.c</file>
-         <hash>83fc100759542902c946cc721df74ad7ab32cff5cff4502170a5e918154c1c2d</hash>
+         <hash>c0a30c75fbcbbc72a332a760d2088cb0adc0bac65455829407ada487b670c195</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Hash_WolfcryptWrapper.c</file>
-         <hash>fe60a8a6eb4eb6061d13973e9ce2bf108f4dbc3b5870af625ca146206c5081a3</hash>
+         <hash>4dd71e8524d1181077ab1ca91a665cda7e5357ffbdae2fec7afe6d2d31b46e2c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Kas.c</file>
@@ -28661,7 +28663,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Rng.c</file>
-         <hash>db65df8b439a667555736da312be614e894a6e55c8f78a7cd6c369d0191ae746</hash>
+         <hash>b902b4db3e475503aed5a8a90f3ebc9e63d9fdeda5912ae6b0c64f01dd8cafb7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Rng_HwWrapper.c</file>
@@ -28673,39 +28675,39 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Sym_Cipher.c</file>
-         <hash>b36c092536b37aa9da5159e0da4aaf3ffff7005f1fe1743fb1ee2c8109e58ff3</hash>
+         <hash>ca9f0d15235800abeb0834e28001c94d6d887053c31ab357e9652517a2a2bbb6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Sym_HwWrapper.c</file>
-         <hash>cfe691df2e2309db271326df6e859a9ad1f23446b51f0177b51cad1624bce0f0</hash>
+         <hash>bd133e990b88b4007b96a9f16c10c2c4b3675d338163e5f19f4ece50ccdf82a6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\common_crypto\src\MCHP_Crypto_Sym_WolfcryptWrapper.c</file>
-         <hash>db5ba07d85c3879720b532966b814a93f3e94e9b9f8a92cbdce22aface8813b3</hash>
+         <hash>47408b82cf709297a25932caa64ef634bf38202756ec1c9e2f4d776acec87b2f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\drivers\drv_crypto_aes_hw_6149.h</file>
-         <hash>924d9ef83fce4210e4c7d5c3150d6cf5e330cd909963a0b269f917e850ac0d26</hash>
+         <hash>dafcf6dd7a3a7261305cb68111f510de6047eb3af3db86437f7337e6e35f3f09</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\drivers\drv_crypto_trng_hw_6334.h</file>
-         <hash>7800de97da2e8354b3396806e0bc9e15aa6036a614bc063fe304cfb5c6e96707</hash>
+         <hash>3fe635d5d8f781d06a5bf8f0570129dede707f02bd2c26ff51aad5f5e91a55a3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\drivers\src\drv_crypto_aes_hw_6149.c</file>
-         <hash>04adc8168013ff0c2ea1e44f1f00f826f448bc14986739e88fa1c2d8c5b812e5</hash>
+         <hash>6ecd89a74722a52252d21875c42fee4c5f4447bd79c2188905bbb427dcd50811</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\drivers\src\drv_crypto_trng_hw_6334.c</file>
-         <hash>36ea3ac22c49e084057650a39c8e5db75cdd0263584b06e2571a5405268fb2dc</hash>
+         <hash>5bd55c95cb61cdb5fe9281a6c8a933d14e361ec5d2970f99f2537d780eb7ce1a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\wolfcrypt\config.h</file>
-         <hash>5aa1b67bed1ebf991bfdf964b94e14198be0ab0487eb401dd9ac2f769d71286f</hash>
+         <hash>d97050f0168189e47eefde1bbe410ada4fa2399d5582b7d4589047967c2c18ca</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto\wolfcrypt\user_settings.h</file>
-         <hash>58bda502fe652a190c7dc7f46cf4cef89fc3d61b5feebe762a5781b5c248783c</hash>
+         <hash>c4b88fbf573bc01433a4098e4a9314a0442fc088c1b0dbe6d658827d98a7f2c2</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\crypto_config.h</file>
@@ -29085,7 +29087,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\time_management\srv_time_management.c</file>
-         <hash>883d5518ca44f28dd39e571d42b9393c800b8b8a0db5f7c7aa5068d7488f4de6</hash>
+         <hash>7213140206b36c385701673d44796effae18fcf838f01abf2e5987d2e2a5d5e4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\time_management\srv_time_management.h</file>
@@ -29125,7 +29127,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal.c</file>
-         <hash>f29805f3a075f1bb757871718974c824726e990e8ae2c0238af30568fc4157f8</hash>
+         <hash>1f5dbb775146823e53b54e3efd9b942b9d2bccb5782af4410772014d7e5a7915</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal.h</file>
@@ -29137,7 +29139,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc.c</file>
-         <hash>41a0ca3fbf389eca6be49fc6ad055600b928fb3ffeaccf996e4178292b22ed56</hash>
+         <hash>62b50a48e20daec20d4b0bd4daf1db05da326fb51c5efe4e32d1158b90dbb149</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc.h</file>
@@ -29145,7 +29147,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc_local.h</file>
-         <hash>75e5e40b4dd372a252a2a041b7126d040dcc83e794b1fa93498ddc4d48b031d2</hash>
+         <hash>5cb5034998aaa9d6a3362ab0fd0fff7c13cfabe4f432328921f7d9859ba8d0c3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc_rm.c</file>
@@ -29157,7 +29159,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf.c</file>
-         <hash>9b1d9876c9c9584e85c58bcc2b4129f1939de3a4d35d21c1c167b12b8eaaa3b3</hash>
+         <hash>64f4ae9acd0c34ea5c2be0535f545539a9e90e0c96482bd969c9b489e05ebd06</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf.h</file>
@@ -29165,7 +29167,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf_local.h</file>
-         <hash>986ce6eb29ecd01f93457d1792070e2feb8568d86e435ee06f4abf0f7cc219f7</hash>
+         <hash>6ceccfa908cdf2c37130f4c68d590f54ed8bd6ada6a2cd9634accbf6fb9c3dc3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf_rm.c</file>

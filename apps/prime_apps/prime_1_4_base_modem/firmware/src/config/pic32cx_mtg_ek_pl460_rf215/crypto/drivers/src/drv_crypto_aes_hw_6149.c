@@ -97,12 +97,18 @@ void DRV_CRYPTO_AES_SetConfig(CRYPTO_AES_CONFIG *aesCfg)
     aesMR.s.KEYSIZE = aesCfg->keySize;
     aesMR.s.OPMODE = aesCfg->opMode;
     aesMR.s.CFBS = aesCfg->cfbSize;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 10.3 deviated: 2. Deviation record ID - H3_MISRAC_2012_R_10_3_DR_1 */
     aesMR.s.LOD = aesCfg->lod;
     aesMR.s.PROCDLY = aesCfg->processingDelay;
+    /* MISRA C-2012 deviation block end */
     
     if ((aesCfg->opMode == CRYPTO_AES_MODE_GCM) && (aesCfg->gtagEn == true))
     {
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 10.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_10_3_DR_1 */
         aesMR.s.GTAGEN = true;
+        /* MISRA C-2012 deviation block end */
     }
     
     /* Activate dual buffer in DMA mode */
@@ -111,12 +117,18 @@ void DRV_CRYPTO_AES_SetConfig(CRYPTO_AES_CONFIG *aesCfg)
         aesMR.s.DUALBUFF = 0;
     }
     
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 10.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_10_3_DR_1 */
     aesMR.s.TAMPCLR = aesCfg->tampclr;
+    /* MISRA C-2012 deviation block end */
 
     /* EMR fields */
     aesEMR.s.ALGO = aesCfg->algo;
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 10.3 deviated: 2. Deviation record ID - H3_MISRAC_2012_R_10_3_DR_1 */
     aesEMR.s.BPE = aesCfg->bpe; 
     aesEMR.s.APEN = aesCfg->apen;
+    /* MISRA C-2012 deviation block end */
     aesEMR.s.APM = aesCfg->apm;
     aesEMR.s.PADLEN = aesCfg->padLen;
     aesEMR.s.NHEAD = aesCfg->nhead;
@@ -132,26 +144,38 @@ void DRV_CRYPTO_AES_SetConfig(CRYPTO_AES_CONFIG *aesCfg)
 
 CRYPTO_AES_KEY_SIZE DRV_CRYPTO_AES_GetKeySize(uint32_t keyLen)
 {
+    CRYPTO_AES_KEY_SIZE keySize;
+    
     switch (keyLen)
     {
         case 4:
-            return CRYPTO_AES_KEY_SIZE_128;
+            keySize = CRYPTO_AES_KEY_SIZE_128;
+            break;
 
         case 6:
-            return CRYPTO_AES_KEY_SIZE_192;
+            keySize = CRYPTO_AES_KEY_SIZE_192;
+            break;
 
         case 8:
-            return CRYPTO_AES_KEY_SIZE_256;
+            keySize = CRYPTO_AES_KEY_SIZE_256;
+            break;
+            
+        default:
+            keySize = CRYPTO_AES_KEY_SIZE_128;
+            break;
     }
 
-    return CRYPTO_AES_KEY_SIZE_128;
+    return keySize;
 }
 
 void DRV_CRYPTO_AES_WriteKey(const uint32_t *key)
 {
     uint8_t i, keyLen;
+    uint32_t keySize;
+            
+    keySize = (AES_REGS->AES_MR & AES_MR_KEYSIZE_Msk) >> AES_MR_KEYSIZE_Pos;
     
-    switch ((AES_REGS->AES_MR & AES_MR_KEYSIZE_Msk) >> AES_MR_KEYSIZE_Pos) 
+    switch ((CRYPTO_AES_KEY_SIZE)keySize) 
     {
         case CRYPTO_AES_KEY_SIZE_128: 
             keyLen = 4;
@@ -167,6 +191,7 @@ void DRV_CRYPTO_AES_WriteKey(const uint32_t *key)
         
         default:
             keyLen = 0;
+            break;
     }
 
     for (i = 0; i < keyLen; i++) 
@@ -180,7 +205,7 @@ void DRV_CRYPTO_AES_WriteInitVector(const uint32_t *iv)
 {
     uint8_t i;
     
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < 4U; i++)
     {
         AES_REGS->AES_IVR[i] = *iv;
         iv++;        
@@ -191,7 +216,7 @@ void DRV_CRYPTO_AES_WriteInputData(const uint32_t *inputDataBuffer)
 {
     uint8_t i;
 
-    for (i = 0; i < 4; i++) 
+    for (i = 0; i < 4U; i++) 
     {
         AES_REGS->AES_IDATAR[i] = *inputDataBuffer;
         inputDataBuffer++;
@@ -202,7 +227,7 @@ void DRV_CRYPTO_AES_ReadOutputData(uint32_t *outputDataBuffer)
 {
     uint8_t i;
 	
-    for (i = 0; i < 4; i++) 
+    for (i = 0; i < 4U; i++) 
     {
         *outputDataBuffer = AES_REGS->AES_ODATAR[i];
         outputDataBuffer++;
@@ -213,7 +238,7 @@ void DRV_CRYPTO_AES_ReadTag(uint32_t *tagBuffer)
 {
     uint8_t i;
 	
-    for (i = 0; i < 4; i++) 
+    for (i = 0; i < 4U; i++) 
     {
         *tagBuffer = AES_REGS->AES_TAGR[i];
         tagBuffer++;
@@ -232,19 +257,31 @@ void DRV_CRYPTO_AES_WritePCTextLen(uint32_t length)
 
 bool DRV_CRYPTO_AES_CipherIsReady(void)
 {
-    return (AES_REGS->AES_ISR & AES_ISR_DATRDY_Msk);
+    uint32_t datRdy = AES_REGS->AES_ISR & AES_ISR_DATRDY_Msk;
+    if (datRdy != 0U)
+    { 
+        return true;
+    }
+    
+    return false;
 }
 
 bool DRV_CRYPTO_AES_TagIsReady(void)
 {
-    return (AES_REGS->AES_ISR & AES_ISR_TAGRDY_Msk);
+    uint32_t tagRdy = AES_REGS->AES_ISR & AES_ISR_TAGRDY_Msk;
+    if (tagRdy != 0U)
+    { 
+        return true;
+    }
+    
+    return false;
 }
 
 void DRV_CRYPTO_AES_ReadGcmHash(uint32_t *ghashBuffer)
 {
     uint8_t i;
 
-    for (i = 0; i < 4; i++) 
+    for (i = 0; i < 4U; i++) 
     {
         *ghashBuffer = AES_REGS->AES_GHASHR[i];
         ghashBuffer++;
@@ -255,7 +292,7 @@ void DRV_CRYPTO_AES_WriteGcmHash(uint32_t *ghashBuffer)
 {
     uint8_t i;
 
-    for (i = 0; i < 4; i++) 
+    for (i = 0; i < 4U; i++) 
     {
         AES_REGS->AES_GHASHR[i] = ghashBuffer[i];
     }
@@ -265,7 +302,7 @@ void DRV_CRYPTO_AES_ReadGcmH(uint32_t *hBuffer)
 {
     uint8_t i;
 
-    for (i = 0; i < 4; i++) 
+    for (i = 0; i < 4U; i++) 
     {
         *hBuffer = AES_REGS->AES_GCMHR[i];
         hBuffer++;
