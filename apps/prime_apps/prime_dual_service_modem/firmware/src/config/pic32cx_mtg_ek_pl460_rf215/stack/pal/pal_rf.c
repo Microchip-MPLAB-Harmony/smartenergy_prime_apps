@@ -420,25 +420,19 @@ uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
     txReqObj.modScheme = (DRV_RF215_PHY_MOD_SCHEME)
                           ((uint8_t)pMessageData->scheme - PAL_SCHEME_RF - 1);
     txReqObj.timeCount = SRV_TIME_MANAGEMENT_USToCount(pMessageData->timeDelay);
+    txReqObj.cancelByRx = false;
+    txReqObj.ccaContentionWindow = pMessageData->numSenses;
 
     if (pMessageData->disableRx == false)
     {
         /* CSMA used: Energy above threshold and carrier sense CCA Mode */
         txReqObj.ccaMode = PHY_CCA_MODE_3;
-        /* Programmed TX canceled once RX frame detected */
-        txReqObj.cancelByRx = true;
-        /* Set number of CCA */
-        txReqObj.ccaContentionWindow = pMessageData->numSenses;
     }
     else
     {
         /* Forced mode: At least Energy above threshold CCA Mode is
          * needed to comply with RF regulations */
         txReqObj.ccaMode = PHY_CCA_MODE_1;
-        /* Programmed TX canceled once RX frame detected */
-        txReqObj.cancelByRx = false;
-        /* Set number of CCA */
-        txReqObj.ccaContentionWindow = pMessageData->numSenses;
     }
 
     rfPhyTxReqHandle = DRV_RF215_TxRequest(palRfData.drvRfPhyHandle, &txReqObj, &txResult);

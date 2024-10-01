@@ -74,11 +74,9 @@ void PRIME_HAL_WRP_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
 }
 
 uint32_t PRIME_HAL_WRAPPER_PcrcCalculate(uint8_t *pData, size_t length,
-    PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue, 
-    bool v14Mode)
+    PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue)
 {
-    return pPrimeHalApi->pcrc_calc(pData, length, hdrType, crcType, initValue, 
-                                   v14Mode);
+    return pPrimeHalApi->pcrc_calc(pData, length, hdrType, crcType, initValue);
 }
     
 void PRIME_HAL_WRP_PcrcConfigureSNA(uint8_t *sna)

@@ -129,13 +129,8 @@ void PRIME_HAL_WRP_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
       size_t length,
       PCRC_HEADER_TYPE hdrType, 
       PCRC_CRC_TYPE crcType,
-      uint32_t initValue,
-      bool v14Mode
+      uint32_t initValue
     );
-    
-    (uint8_t *pData, size_t length,
-    PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue, 
-    bool v14Mode);
 
   Summary:
     Obtains the CRC for a data stream.
@@ -153,7 +148,6 @@ void PRIME_HAL_WRP_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
     hdrType     - Header type to determine the method to obtain CRC
     crcType     - CRC type(8, 16 or 32 bits)
     initValue   - Initialization value for CRC computation 
-    v14Mode     - True for PRIME v1.4 mode and otherwise false
  
   Returns:
     If successful, the routine returns a valid CRC value.
@@ -167,15 +161,14 @@ void PRIME_HAL_WRP_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
     uint32_t valueCrc32;
     
     valueCrc32 = PRIME_HAL_WRAPPER_PcrcCalculate(pData, length, 
-                    PCRC_HT_BEACON, PCRC_CRC32);
+                    PCRC_HT_BEACON, PCRC_CRC32, 0);
     </code>
 
   Remarks:
     Related to PCRC service.
 */        
 uint32_t PRIME_HAL_WRAPPER_PcrcCalculate(uint8_t *pData, size_t length,
-    PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue, 
-    bool v14Mode);
+    PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue);
     
 // *****************************************************************************
 /* Function:

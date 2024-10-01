@@ -106,8 +106,7 @@ typedef void (*HAL_RESTART_SYSTEM)(SRV_RESET_HANDLER_RESET_CAUSE resetType);
     Related to PCRC service.
 */
 typedef uint32_t (*HAL_PCRC_CALCULATE)(uint8_t *pData, size_t length,
-    PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue,
-    bool v14Mode);
+    PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue);
 
 // *****************************************************************************
 /* Configure subnetwork address for CRC calculation
