@@ -50,6 +50,7 @@
 #include <stdbool.h>
 #include "service/pcoup/srv_pcoup.h"
 #include "peripheral/flexcom/usart/plib_flexcom7_usart.h"
+#include "peripheral/adc/plib_adc.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
@@ -101,6 +102,7 @@
 #include "stack/prime/conv/sscs/iec_4_32/cl_432_api.h"
 #include "stack/prime/conv/sscs/iec_4_32/cl_432_defs.h"
 #include "service/user_pib/srv_user_pib.h"
+#include "service/pvddmon/srv_pvddmon.h"
 #include "service/storage/srv_storage.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"

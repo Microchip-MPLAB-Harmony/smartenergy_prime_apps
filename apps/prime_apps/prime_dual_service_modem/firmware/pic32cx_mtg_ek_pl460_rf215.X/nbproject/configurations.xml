@@ -87,6 +87,10 @@
             <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/osal/osal_impl_basic.h</itemPath>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="adc" displayName="adc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/adc/plib_adc_common.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/adc/plib_adc.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/clk/plib_clk.h</itemPath>
             </logicalFolder>
@@ -147,6 +151,9 @@
             </logicalFolder>
             <logicalFolder name="psniffer" displayName="psniffer" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/psniffer/srv_psniffer.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pvddmon/srv_pvddmon.h</itemPath>
             </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/queue/srv_queue.h</itemPath>
@@ -569,6 +576,9 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="adc" displayName="adc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/adc/plib_adc.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="clk" displayName="clk" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/peripheral/clk/plib_clk.c</itemPath>
             </logicalFolder>
@@ -625,6 +635,9 @@
             </logicalFolder>
             <logicalFolder name="psniffer" displayName="psniffer" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/psniffer/srv_psniffer.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pvddmon" displayName="pvddmon" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/pvddmon/srv_pvddmon.c</itemPath>
             </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/queue/srv_queue.c</itemPath>

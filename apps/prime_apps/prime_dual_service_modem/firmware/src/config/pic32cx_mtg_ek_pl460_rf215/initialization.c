@@ -405,6 +405,7 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM3_SPI_Initialize();
 
+    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  
@@ -432,6 +433,9 @@ void SYS_Initialize ( void* data )
     SRV_RESET_HANDLER_Initialize();
     /* Initialize PRIME User PIBs service */
     SRV_USER_PIB_Initialize();
+
+    /* Initialize PVDD Monitor Service */
+    SRV_PVDDMON_Initialize();
     /* Initialize PRIME Storage service */
     SRV_STORAGE_Initialize();
 

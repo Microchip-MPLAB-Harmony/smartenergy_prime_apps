@@ -53,6 +53,7 @@ Microchip or any third party.
 #include "driver/plc/phy/drv_plc_phy_comm.h"
 #include "service/pcoup/srv_pcoup.h"
 #include "service/time_management/srv_time_management.h"
+#include "service/pvddmon/srv_pvddmon.h"
 #include "pal_types.h"
 #include "pal_local.h"
 #include "pal_plc.h"
@@ -534,6 +535,29 @@ static void lPAL_PLC_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *pIndObj, uintptr_t
 
 }
 
+static void lPAL_PLC_PLC_PVDDMonitorCb(SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context)
+{
+    /* Avoid warning */
+    (void)context;
+
+    if (cmpMode == SRV_PVDDMON_CMP_MODE_OUT)
+    {
+        /* PLC Transmission is not permitted */
+        DRV_PLC_PHY_EnableTX(palPlcData.drvPhyHandle, false);
+        palPlcData.pvddMonTxEnable = false;
+        /* Restart PVDD Monitor to check when VDD is within the comparison window */
+        SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_IN);
+    }
+    else
+    {
+        /* PLC Transmission is permitted again */
+        DRV_PLC_PHY_EnableTX(palPlcData.drvPhyHandle, true);
+        palPlcData.pvddMonTxEnable = true;
+        /* Restart PVDD Monitor to check when VDD is out of the comparison window */
+        SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
+    }
+}
+
 static void lPAL_PLC_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exception, uintptr_t context)
 {
     uint8_t numErrors;
@@ -663,9 +687,12 @@ void PAL_PLC_Tasks(void)
                 /* Update Channel list */
                 palPlcData.channelList = SRV_PCOUP_GetChannelList();
 
-                /* Enable TX */
-                DRV_PLC_PHY_EnableTX(palPlcData.drvPhyHandle, true);
-                palPlcData.pvddMonTxEnable = true;
+                /* Disable TX Enable at the beginning */
+                DRV_PLC_PHY_EnableTX(palPlcData.drvPhyHandle, false);
+                palPlcData.pvddMonTxEnable = false;
+                /* Enable PLC PVDD Monitor Service */
+                SRV_PVDDMON_CallbackRegister(lPAL_PLC_PLC_PVDDMonitorCb, 0);
+                SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
 
                 /* Set Channel for impedance detection */
                 palPlcData.channel = SRV_PCOUP_GetChannelImpedanceDetection();
