@@ -869,37 +869,20 @@
         <targetDevice>PIC32CX2051MTG128</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.45</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
         <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.3.132"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../../../../../smartenergy_prime_libs/libs/prime14_lib_bn_m.X"
-                            CT="3"
-                            CN="debug_m"
-                            AC="true"
-                            BL="true"
-                            WD="../../../../../../smartenergy_prime_libs/libs/prime14_lib_bn_m.X"
-                            BC="${MAKE}  -f Makefile CONF=debug_m"
-                            DBC="${MAKE}  -f Makefile CONF=debug_m TYPE_IMAGE=DEBUG_RUN"
-                            CC="rm -rf &quot;build/debug_m&quot; &quot;dist/debug_m&quot;"
-                            OP="dist/debug_m/production/prime14_lib_bn_m.X.a"
-                            DOP="dist/debug_m/debug/prime14_lib_bn_m.X.a"
-                            FL="dist/debug_m/production/prime14_lib_bn_m.X.a"
-                            PD="dist/debug_m/production/prime14_lib_bn_m.X."
-                            DD="dist/debug_m/debug/prime14_lib_bn_m.X.">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibFileItem>../src/config/pic32cx_mtg_ek_pl460_rf215/stack/prime/libs/prime14_lib_bn_m.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
@@ -938,7 +921,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value=""/>
+        <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
