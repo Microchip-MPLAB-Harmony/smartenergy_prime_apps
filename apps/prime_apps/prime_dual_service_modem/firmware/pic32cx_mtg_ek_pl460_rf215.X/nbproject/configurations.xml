@@ -71,7 +71,6 @@
               </logicalFolder>
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/phy/rf215_phy.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/phy/ieee_15_4_sun_ofdm.h</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/phy/ieee_15_4_sun_fsk.h</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/rf215/drv_rf215_definitions.h</itemPath>
@@ -558,9 +557,6 @@
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/common/drv_plc_boot.c</itemPath>
               </logicalFolder>
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
-                <logicalFolder name="bin" displayName="bin" projectFiles="true">
-                  <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
-                </logicalFolder>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
               </logicalFolder>

@@ -4,7 +4,7 @@
 
 
 project: prime_dual_service_modem
-creation_date: 2024-10-03T14:32:14.182+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-10-15T13:11:30.383+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1
@@ -14,10 +14,10 @@ harmony_version: v1.5.2
 compiler: XC32 4.45
 
 modules:
-    - {name: "csp", version: "v3.19.1"}
+    - {name: "csp", version: "master"}
     - {name: "core", version: "v3.13.5"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_prime", version: "SMS-3993-test-bn-1.4-modem-app"}
+    - {name: "smartenergy_prime", version: "SMS-4052-adapt-prime-to-new-pcrc-header-types"}
     - {name: "wolfssl", version: "v5.7.0"}
     - {name: "smartenergy", version: "dev"}
     - {name: "bsp", version: "v3.20.1"}

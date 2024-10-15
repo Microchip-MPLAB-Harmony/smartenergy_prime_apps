@@ -83,13 +83,10 @@ Microchip or any third party.
 
 typedef enum
 {
-    PCRC_HT_GENERIC   = 0, /* PRIME Generic Packet type */
-    PCRC_HT_PROMOTION = 1, /* PRIME Promotion Packet type */
-    PCRC_HT_BEACON    = 2, /* PRIME Beacon Packet type */
-    PCRC_HT_USI       = 3, /* USI Packet type */
-    PCRC_HT_SAR       = 4, /* PRIME SAR Packet type  */
-    PCRC_HT_FU        = 5, /* PRIME FU Packet type */
-    PCRC_HT_BEACON14  = 6, /* PRIME 1.4 Beacon Packet type */
+    PCRC_HT_GENERIC = 0, /* GENERIC Packet type */
+    PCRC_HT_PRIME_GENERIC, /* PRIME Generic Packet type */
+    PCRC_HT_PRIME_BEACON14, /* PRIME 1.4 Beacon Packet type */
+    PCRC_HT_USI /* USI Packet type */
 }PCRC_HEADER_TYPE;
 
 // *****************************************************************************
@@ -105,9 +102,9 @@ typedef enum
 typedef enum
 {
     PCRC_CRC8 = 0, /* 8-bit CRC */
-    PCRC_CRC16 = 1, /* 16-bit CRC */
-    PCRC_CRC32 = 2, /* 32-bit CRC */
-    PCRC_NOCRC = 3 /* No CRC */
+    PCRC_CRC16, /* 16-bit CRC */
+    PCRC_CRC32, /* 32-bit CRC */
+    PCRC_NOCRC  /* No CRC */
 }PCRC_CRC_TYPE;
 
 /* SRV_PCRC Handle Macro: Invalid CRC */
@@ -152,14 +149,10 @@ typedef enum
     length -    Length of the data stream.
 
     hdrType -   Header type to determine the method to obtain CRC.
-                It is different for USI and PRIME
-                packets (GENERIC, PROMOTION and BEACON).
 
-    crcType -   CRC type(8, 16 or 32 bits). Valid only in case of
-                header type PCRC_HT_USI.
+    crcType -   CRC type(8, 16 or 32 bits).
 
-    initValue - Initialization value for CRC computation. Valid only in case
-                of header type PCRC_HT_USI.
+    initValue - Initialization value for CRC computation.
  
   Returns:
     If successful, the routine returns a valid CRC value.

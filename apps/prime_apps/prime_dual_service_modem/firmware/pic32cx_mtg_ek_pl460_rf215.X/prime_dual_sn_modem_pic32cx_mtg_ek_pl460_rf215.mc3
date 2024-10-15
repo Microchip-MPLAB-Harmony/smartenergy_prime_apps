@@ -4234,11 +4234,33 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="AES_CLOCK_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;AES_CLOCK_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="APP_START_ADDRESS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;APP_START_ADDRESS&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x1010000&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="CPKCC_CLOCK_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;CPKCC_CLOCK_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6696,6 +6718,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_D_MSKR_ValueGPIO&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x98008&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="SHA_CLOCK_ENABLE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;SHA_CLOCK_ENABLE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -29740,7 +29773,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>164f9fc1f19c2cb3ff3b94bebde46d65ad1610744f1a7a26dd8b6f9192401b0e</hash>
+         <hash>533595e4650427a02a49064e4d9346d1c96b6a19c01b4aae7098df1ad5d084d1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -29848,7 +29881,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>2b62e19b6c06fa86a81aad37de2074f8ebed1945341129b84508dfd0a062c517</hash>
+         <hash>8c05abfb32ad314fc8f529304336461e5f8fc9f04a32ef7e3db93ef0a831f7d3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c</file>
@@ -29888,7 +29921,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\clk\plib_clk.c</file>
-         <hash>1d0ca33ca1c0966ec6df0e854166e037363f77ece41e3f39e45868331b0eb5be</hash>
+         <hash>6aafa1866aa0d6e61fd999ba6e7f100b7cc0c29f46775a9e236799121b222f65</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\clk\plib_clk.h</file>
@@ -30044,11 +30077,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pcrc\srv_pcrc.c</file>
-         <hash>602dcf3a0ddf3121620e8e61e221381b1bd38166c8288a5c05ff1a4669108c47</hash>
+         <hash>e93b1bf75d6ff42cc3abaf04b63167381a53869988d5263d0fa8512c8fb96551</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pcrc\srv_pcrc.h</file>
-         <hash>eedd01a238c0159ec7c2403765d7c5a84bd98c15ae4edfb4d02ef77e98fe7f1d</hash>
+         <hash>535eb2229d5b9e79b3f59ff109b47aacea50bd5253f56428b83a1d9078f93d2e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\psniffer\srv_psniffer.c</file>
@@ -30176,7 +30209,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc.c</file>
-         <hash>9eebdaa155e7a9832d911bd09f826c97b86d7a1c5177d3de9d35afe2b931bf87</hash>
+         <hash>2a6755438ee192c8b7ff98fa48ff0b5428b7623fb6d24c4723da45ec26462b05</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc.h</file>
