@@ -161,7 +161,7 @@ void PRIME_HAL_WRP_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
     uint32_t valueCrc32;
     
     valueCrc32 = PRIME_HAL_WRAPPER_PcrcCalculate(pData, length, 
-                    PCRC_HT_BEACON, PCRC_CRC32, 0);
+                    PCRC_HT_PRIME_GENERIC, PCRC_CRC32, 0);
     </code>
 
   Remarks:
