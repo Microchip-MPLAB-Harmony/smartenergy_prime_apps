@@ -29563,7 +29563,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>e615cd95d988b64ccb947ccf3ae887a814103933a88e4490604bed23296df807</hash>
+         <hash>14c5ebe322e93bd4bb245e4ece83fb6dd5009ca739fd72dc63735079db0cb2f1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -29679,7 +29679,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>55f7ae507feae5fb09bce426a909960843d5520c34ff5ae7f96cad74c6a90cfa</hash>
+         <hash>a75234931eb265e23d0580ca331954270f54931562b93edd02dd266ee4e72eec</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c</file>

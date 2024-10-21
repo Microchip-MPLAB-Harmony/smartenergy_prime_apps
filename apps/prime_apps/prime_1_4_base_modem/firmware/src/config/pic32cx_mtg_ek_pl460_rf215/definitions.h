@@ -50,8 +50,8 @@
 #include <stdbool.h>
 #include "service/pcoup/srv_pcoup.h"
 #include "peripheral/flexcom/usart/plib_flexcom7_usart.h"
-#include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
 #include "peripheral/adc/plib_adc.h"
+#include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
 #include "peripheral/tc/plib_tc0.h"
