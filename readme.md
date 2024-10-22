@@ -1,9 +1,9 @@
 ﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
-# Harmony 3 Smart Energy PRIME application examples
+# MPLAB® Harmony 3 Smart Energy PRIME application examples
 
-MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded firmware solutions for Microchip 32-bit SAM and PIC® microcontroller and microprocessor devices.  Refer to the following links for more information.
+MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded firmware solutions for Microchip 32-bit SAM and PIC® microcontroller and microprocessor devices. Refer to the following links for more information.
 
 - [Microchip 32-bit MCUs](https://www.microchip.com/design-centers/32-bit)
 - [Microchip 32-bit MPUs](https://www.microchip.com/design-centers/32-bit-mpus)
@@ -11,40 +11,42 @@ MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded
 - [Microchip MPLAB® Harmony](https://www.microchip.com/mplab/mplab-harmony)
 - [Microchip MPLAB® Harmony Pages](https://microchip-mplab-harmony.github.io/)
 
-This repository contains the MPLAB® Harmony 3 Smart Energy PRIME application examples
+This repository contains the MPLAB® Harmony 3 Smart Energy PRIME-PLC and PRIME-Hybrid application examples.
 
-- [Release Notes](release_notes.md)
-- [MPLAB® Harmony License](mplab_harmony_license.md)
+- [Release Notes](./release_notes.md)
+- [MPLAB® Harmony License](Microchip_SLA001.md)
+- [MPLAB® Harmony 3 Smart Energy Examples Help]
+
 
 To clone or download these applications from Github, go to the [main page of this repository](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps) and then click **Clone** button to clone this repository or download as zip file.
 This content can also be downloaded using content manager by following these [instructions](https://github.com/Microchip-MPLAB-Harmony/contentmanager/wiki).
 
-## Contents Summary
+# Contents Summary
 
 | Folder     | Description                             |
 | ---        | ---                                     |
-| apps       | Contains peripheral library example applications |
-| docs       | Contains documentation in html format for offline viewing (to be used only after cloning this repository onto a local machine). Use [github pages](https://microchip-mplab-harmony.github.io/smartenergy_prime_apps/) of this repository for viewing it online. |
+| apps       | Contains PRIME PHY, bootloader and full-stack example applications. |
+| docs       | Contains documentation in html format for offline viewing (to be used only after cloning this repository onto a local machine). Use [onlinedocs] of this repository for viewing it online. |
 
-## Code Examples
+# Code Examples
 
-The following applications are provided to demonstrate the typical or interesting usage models of one or more peripheral libraries.
+The following applications are provided to demonstrate the typical use cases of PRIME at both PHY and full stack levels.
 
 | Name               | Description |
 | ----               | ----------- |
-| [PLC PHY and Go] | This example is intended to show a simple application running on top of the PRIME PHY layer. |
-| [PHY Tester Tool] | The PHY Tester tool is an application example that allows checking of the complete performance of the Microchip PRIME PHY Layer on PLC boards. |
-| [PHY Tester Tool - Hybrid] | The PHY Tester tool is an application example that allows checking of the complete performance of the Microchip PRIME PHY Layer on PLC+RF boards. |
-| [PHY Sniffer Tool] | The PHY Sniffer is an application example that uses the PHY layer to monitor PLC frames in the PRIME network and send them via USI serialization. |
-| [PHY Sniffer Tool - Hybrid] | The PHY Sniffer is an application example that uses the PHY layer to monitor PLC and RF frames in the PRIME network and send them via USI serialization. |
-| [PHY Tx Test Console] | The PHY Tx Test Console is an application example that demonstrates the complete performance of the Microchip PRIME PHY Layer avoiding timing limitations in the PC host. |
+| [PHY PLC and Go] | This example is intended to show a simple application running on top of the PRIME-PLC PHY layer. |
+| [PHY Tester Tool] | The PHY Tester tool is an application example that allows checking the complete performance of the Microchip PRIME-PLC PHY Layer on PLC boards. |
+| [Hybrid PHY Tester Tool] | The Hybrid PHY Tester tool is an application example that allows checking the complete performance of the Microchip PRIME-PLC and IEEE 802.15.4 PHY Layers on Hybrid PLC-RF boards. |
+| [PHY Sniffer Tool] | The PHY Sniffer is an application example that uses the PHY layer to monitor PLC frames in the PRIME-PLC network and send them via USI serialization. |
+| [Hybrid PHY Sniffer Tool] | The Hybrid PHY Sniffer is an application example that uses the PHY layers to monitor PLC and RF frames in the PRIME-Hybrid network and send them via USI serialization. |
+| [PLC PHY Tx Test Console] | The PLC PHY Tx Test Console is an application example that demonstrates the complete transmission performance of the Microchip PRIME-PLC PHY Layer, avoiding timing limitations in the PC host. |
 | [PRIME 1.4 Base Modem] | The PRIME 1.4 Base Modem is an application example that demonstrates how to configure the PRIME stack and its serial interface as a Base Node with modem capabilies. |
 | [PRIME Dual Service Modem] | The PRIME Dual Service Modem is an application example that demonstrates how to configure the PRIME stack and its serial interface as a dual Service Node with modem capabilies. |
 | [PRIME Bootloader] | The PRIME Bootloader is an application example that demonstrates how to use the bootloader in a Service Node for firmware upgrade. |
 
 ____
 
-[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/blob/master/mplab_harmony_license.md)
+[![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/blob/master/Microchip_SLA001.md)
 [![Latest release](https://img.shields.io/github/release/Microchip-MPLAB-Harmony/smartenergy_prime_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/releases/latest)
 [![Latest release date](https://img.shields.io/github/release-date/Microchip-MPLAB-Harmony/smartenergy_prime_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/releases/latest)
 [![Commit activity](https://img.shields.io/github/commit-activity/y/Microchip-MPLAB-Harmony/smartenergy_prime_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/graphs/commit-activity)

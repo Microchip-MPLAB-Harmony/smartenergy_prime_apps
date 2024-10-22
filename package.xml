@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Package name="smartenergy_prime_apps">
     <Dependencies>
-        <Dependency name="smartenergy" version="dev_v130"/>
-        <Dependency name="core" version="v3.13.5"/>
-        <Dependency name="csp" version="v3.19.1"/>
-        <Dependency name="bsp" version="v3.20.1"/>
-        <Dependency name="crypto" version="dev"/>
-        <Dependency name="wolfssl" version="v5.7.0"/>
-        <Dependency name="CMSIS-FreeRTOS" version="v10.5.1"/>
-        <Dependency name="smartenergy_prime" version="dev"/>
+        <Dependency name="smartenergy_prime" version="v1.0.0"/>
     </Dependencies>
 </Package>
