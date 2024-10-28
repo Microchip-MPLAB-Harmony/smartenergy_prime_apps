@@ -90,7 +90,7 @@ static void APP_PLC_SetInitialConfiguration ( void )
     appPlc.plcPIB.length = 11;
     DRV_PLC_PHY_PIBGet(appPlc.drvPl360Handle, &appPlc.plcPIB);
     appPlcTx.pl360PhyVersion = *(uint32_t *)appPlc.plcPIB.pData;
-    
+
     /* Set PLC TX configuration by default */
     APP_PLC_PL360_SetModScheme(SCHEME_DBPSK_C);
     appPlcTx.pl360Tx.time = 0;
@@ -100,9 +100,9 @@ static void APP_PLC_SetInitialConfiguration ( void )
     appPlcTx.pl360Tx.mode = TX_MODE_RELATIVE;
     appPlcTx.pl360Tx.pTransmitData = appPlcTx.pDataTx;
     appPlcTx.pl360Tx.dataLength = 0;
-    
+
     /* Set channel configuration by default */
-    APP_PLC_PL360_SetChannel(SRV_PCOUP_Get_Default_Channel());
+    APP_PLC_PL360_SetChannel(SRV_PCOUP_GetDefaultChannel());
 
     /* Force Transmission to VLO mode by default in order to maximize signal level in anycase */
     /* Disable autodetect mode */
@@ -155,7 +155,7 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
 
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
-    
+
     /* Capture TX result of the last transmission */
     appPlc.lastTxResult = cfmObj->result;
 }
@@ -165,27 +165,27 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
     uint32_t crcCalc;
     uint32_t crcReceived;
     uint16_t dataLength;
-    
+
     /* Avoid warning */
     (void)context;
-    
+
     dataLength = indObj->dataLength;
     /* Check if data length is at least 5 bytes (1 data byte + 4 CRC bytes) */
     if ((dataLength > 4) && (dataLength < 512))
     {
         /* Discount 4 bytes corresponding to 32-bit CRC */
         dataLength -= 4;
-        
+
         /* Compute PRIME 32-bit CRC. Use PCRC service */
-        crcCalc = SRV_PCRC_GetValue(indObj->pReceivedData, dataLength, 
+        crcCalc = SRV_PCRC_GetValue(indObj->pReceivedData, dataLength,
                 PCRC_HT_USI, PCRC_CRC32, 0);
-        
+
         /* Get CRC from last 4 bytes of the message */
         crcReceived = indObj->pReceivedData[dataLength + 3];
         crcReceived += (uint32_t)indObj->pReceivedData[dataLength + 2] << 8;
         crcReceived += (uint32_t)indObj->pReceivedData[dataLength + 1] << 16;
         crcReceived += (uint32_t)indObj->pReceivedData[dataLength] << 24;
-        
+
         /* Check integrity of received message comparing the computed CRC with the received CRC in last 4 bytes */
         if (crcCalc == crcReceived)
         {
@@ -205,7 +205,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
         /* Length error: length in message content should never be more than total data length from PHY */
         APP_CONSOLE_PL360_Print("\rReceived message: Length error\r\n");
     }
-    
+
     APP_CONSOLE_PL360_Print(MENU_CMD_PROMPT);
 }
 
@@ -229,10 +229,10 @@ void APP_PLC_PL360_Initialize ( void )
     /* Init PLC objects */
     appPlcTx.pDataTx = appPlcTxDataBuffer;
     appPlcTx.pl360Tx.pTransmitData = appPlcTx.pDataTx;
-    
+
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_IDLE;
-    
+
     /* Init PLC TX status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
 
@@ -241,10 +241,10 @@ void APP_PLC_PL360_Initialize ( void )
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
-    
+
     /* Init Channel */
-    appPlcTx.channel = SRV_PCOUP_Get_Default_Channel();
-    
+    appPlcTx.channel = SRV_PCOUP_GetDefaultChannel();
+
 }
 
 /******************************************************************************
@@ -263,22 +263,22 @@ void APP_PLC_PL360_Tasks ( void )
         appPlc.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
     }
-    
+
     if (appPlc.tmr2Expired)
     {
         appPlc.tmr2Expired = false;
         USER_PLC_IND_LED_Off();
     }
-    
+
     /* Check the application's current state. */
     switch ( appPlc.state )
     {
         case APP_PLC_STATE_IDLE:
         {
             SYS_STATUS ret;
-            
+
             ret = SYS_CONSOLE_Status(SYS_CONSOLE_INDEX_0);
-            
+
             /* Wait Console initialization */
             if (ret == SYS_STATUS_READY)
             {
@@ -313,13 +313,13 @@ void APP_PLC_PL360_Tasks ( void )
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
-                
+
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
-                
+
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
-                
+
                 /* Set PLC state */
                 appPlc.state = APP_PLC_STATE_WAITING;
             }
@@ -348,7 +348,7 @@ void APP_PLC_PL360_Tasks ( void )
                 APP_PLC_PL360_SetChannel(appPlcTx.channel);
                 appPlc.state = APP_PLC_STATE_WAITING;
             }
-            
+
             break;
         }
 
@@ -402,7 +402,7 @@ bool APP_PLC_PL360_SendData ( uint8_t* pData, uint16_t length )
             }
         }
     }
-    
+
     return false;
 }
 
@@ -447,7 +447,7 @@ void APP_PLC_PL360_SetModScheme ( DRV_PLC_PHY_SCH scheme )
             appPlcTx.maxPsduLen = 755;
             break;
     }
-    
+
     /* Saturate to maximum data length allowed by PLC PHY (511) */
     if (appPlcTx.maxPsduLen > 511)
     {
@@ -458,15 +458,15 @@ void APP_PLC_PL360_SetModScheme ( DRV_PLC_PHY_SCH scheme )
 void APP_PLC_PL360_SetChannel ( DRV_PLC_PHY_CHANNEL channel )
 {
     appPlcTx.channel = channel;
-    
+
     /* Set channel configuration */
     appPlc.plcPIB.id = PLC_ID_CHANNEL_CFG;
     appPlc.plcPIB.length = 1;
     *appPlc.plcPIB.pData = appPlcTx.channel;
     DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
-                
+
     /* Apply PLC coupling configuration for the selected channel */
-    SRV_PCOUP_Set_Channel_Config(appPlc.drvPl360Handle, channel);
+    SRV_PCOUP_SetChannelConfig(appPlc.drvPl360Handle, channel);
 }
 
 /*******************************************************************************

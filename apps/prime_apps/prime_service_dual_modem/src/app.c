@@ -56,7 +56,7 @@
 APP_DATA appData;
 
 /* New PRIME stack pointer */
-static PRIME_API *newPrimeApi;
+static const PRIME_API *newPrimeApi;
 
 /* Enable swapping of stack location */
 static uint32_t volatile fuSwapEn;
@@ -83,7 +83,7 @@ static uint32_t volatile versionSwapEn;
 static void lAPP_SwapFirmware(void)
 {
     /* Swap firmware */
-//    if (SRV_FU_SwapFirmware() == true) 
+//    if (SRV_FU_SwapFirmware() == true)
     {
         /* Trigger reset to launch bootloader */
         SRV_RESET_HANDLER_RestartSystem(RESET_HANDLER_FU_RESET);
@@ -92,7 +92,7 @@ static void lAPP_SwapFirmware(void)
 
 //static void lAPP_PrimeFuResultHandler(SRV_FU_RESULT fuResult)
 //{
-//    switch (fuResult) 
+//    switch (fuResult)
 //    {
 //        case SRV_FU_SUCCESS:
 //            /* Update FU pointer */
@@ -136,13 +136,13 @@ static void lAPP_SwapFirmware(void)
 //static void lAPP_PrimeVersionSwapRequest(SRV_FU_TRAFFIC_VERSION traffic)
 //{
 //    /* Compare current PRIME pointer with detected traffic */
-//    if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_4) 
+//    if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_4)
 //    {
 //        newPrimeApi = PRIME_SN_FWSTACK14_ADDRESS;
 //        versionSwapEn = APP_VERSION_ENABLE_SWAP;
 //
-//    } 
-//    else if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_3) 
+//    }
+//    else if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_3)
 //    {
 //        newPrimeApi = PRIME_SN_FWSTACK13_ADDRESS;
 //        versionSwapEn = APP_VERSION_ENABLE_SWAP;
@@ -216,7 +216,7 @@ void APP_Initialize ( void )
 
     /* Initialize modem application */
     APP_Modem_Initialize();
-    
+
     /* Initialize application variables */
     appData.timerLedExpired = false;
 }
@@ -241,7 +241,7 @@ void APP_Tasks ( void )
         appData.timerLedExpired = false;
         USER_BLINK_LED_Toggle();
     }
-    
+
     /* Check the application's current state. */
     switch ( appData.state )
     {
@@ -258,39 +258,39 @@ void APP_Tasks ( void )
                 appData.state = APP_STATE_SERVICE_TASKS;
                 SYS_CONSOLE_MESSAGE(APP_STRING_HEADER);
             }
-            
+
             /* Initialize result callback for version swap request */
 //            SRV_FU_RegisterCallbackSwap(lAPP_PrimeVersionSwapRequest);
 
             /* Initialize FU result callback */
 //            SRV_FU_RegisterCallbackFuResult(lAPP_PrimeFuResultHandler);
-            
+
             /* Configure PRIME firmware upgrade region */
             //fuRegion.address = PRIME_IMAGE_FLASH_LOCATION;
             //fuRegion.size = PRIME_IMAGE_SIZE;
             //SRV_FU_ConfigRegions(&fuRegion);
-            
+
             break;
         }
 
         case APP_STATE_SERVICE_TASKS:
         {
             APP_Modem_Tasks();
-            
+
             /* Check if FU location must be swapped */
-            if (fuSwapEn == APP_FU_ENABLE_SWAP) 
+            if (fuSwapEn == APP_FU_ENABLE_SWAP)
             {
                 fuSwapEn = 0;
                 lAPP_SwapFirmware();
             }
 
             /* Check if stack must be swapped */
-            if (versionSwapEn == APP_VERSION_ENABLE_SWAP) 
+            if (versionSwapEn == APP_VERSION_ENABLE_SWAP)
             {
                 versionSwapEn = 0;
                 lAPP_SwapStackVersion();
             }
-            
+
             break;
         }
 

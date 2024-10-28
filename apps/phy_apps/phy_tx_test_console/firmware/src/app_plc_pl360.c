@@ -115,7 +115,7 @@ static void APP_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_
 {
     /* Avoid warning */
     (void)context;
-    
+
     /* Update PLC TX Status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
 
@@ -168,7 +168,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
 {
     /* Avoid warning */
     (void)context;
-    
+
     if (indObj->dataLength)
     {
         USER_PLC_IND_LED_On();
@@ -185,7 +185,7 @@ static void APP_PLC_DataIndCb( DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t cont
 void APP_PLC_PL360_SetChannel ( SRV_PLC_PCOUP_CHANNEL channel )
 {
     appPlcTx.channel = channel;
-    
+
     /* Set channel configuration */
     appPlc.plcPIB.id = PLC_ID_CHANNEL_CFG;
     appPlc.plcPIB.length = 1;
@@ -193,7 +193,7 @@ void APP_PLC_PL360_SetChannel ( SRV_PLC_PCOUP_CHANNEL channel )
     DRV_PLC_PHY_PIBSet(appPlc.drvPl360Handle, &appPlc.plcPIB);
 
     /* Apply PLC coupling configuration for the selected channel */
-    SRV_PCOUP_Set_Channel_Config(appPlc.drvPl360Handle, channel);
+    SRV_PCOUP_SetChannelConfig(appPlc.drvPl360Handle, channel);
 
 }
 
@@ -238,7 +238,7 @@ void APP_PLC_PL360_SetModScheme ( DRV_PLC_PHY_SCH scheme )
             appPlcTx.maxPsduLen = 755;
             break;
     }
-    
+
     /* Saturate to maximum data length allowed by PLC PHY (511) */
     if (appPlcTx.maxPsduLen > 511)
     {
@@ -263,16 +263,16 @@ void APP_PLC_PL360_Initialize ( void )
 
     /* Init PLC TX Buffer */
     appPlcTx.pl360Tx.pTransmitData = appPlcTxDataBuffer;
-    
+
     /* Init Timer handler */
     appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr2Handle = SYS_TIME_HANDLE_INVALID;
     appPlc.tmr1Expired = false;
     appPlc.tmr2Expired = false;
-    
+
     /* Init signalling */
     appPlc.signalResetCounter = LED_RESET_BLINK_COUNTER;
-    
+
     /* Init PLC TX status */
     appPlc.plcTxState = APP_PLC_TX_STATE_IDLE;
 }
@@ -292,13 +292,13 @@ void APP_PLC_PL360_Tasks ( void )
     {
         appPlc.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
-        
+
         if (appPlc.signalResetCounter)
         {
             appPlc.signalResetCounter--;
         }
     }
-    
+
     /* Signalling: PLC RX */
     if (appPlc.tmr2Expired)
     {
@@ -324,13 +324,13 @@ void APP_PLC_PL360_Tasks ( void )
             {
                 SYS_TIME_TimerDestroy(appPlc.tmr1Handle);
                 appPlc.tmr1Handle = SYS_TIME_HANDLE_INVALID;
-                
+
                 /* Read configuration from NVM memory */
                 appPlc.state = APP_PLC_STATE_READ_CONFIG;
             }
             break;
         }
-        
+
         case APP_PLC_STATE_READ_CONFIG:
         {
             if (appNvm.state == APP_NVM_STATE_CMD_WAIT)
@@ -360,7 +360,7 @@ void APP_PLC_PL360_Tasks ( void )
                     appPlcTx.txAuto = 1;
                     appPlcTx.pl360Tx.time = 1000000;
                     appPlcTx.pl360Tx.attenuation = 0;
-                    
+
                     /* Set PLC TX configuration by default */
                     APP_PLC_PL360_SetModScheme(SCHEME_DBPSK_C);
                     appPlcTx.pl360Tx.time = 1000000;
@@ -375,9 +375,9 @@ void APP_PLC_PL360_Tasks ( void )
                     {
                         *pData++ = index;
                     }
-    
+
                     /* Init Channel */
-                    appPlcTx.channel = SRV_PCOUP_Get_Default_Channel();
+                    appPlcTx.channel = SRV_PCOUP_GetDefaultChannel();
 
                     /* Clear Transmission flag */
                     appPlcTx.inTx = false;
@@ -443,13 +443,13 @@ void APP_PLC_PL360_Tasks ( void )
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPl360Handle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataCfmCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPl360Handle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
-                
+
                 /* Set channel and apply PLC coupling configuration */
                 APP_PLC_PL360_SetChannel(appPlcTx.channel);
-                
+
                 /* Init Timer to handle blinking led */
                 appPlc.tmr1Handle = SYS_TIME_CallbackRegisterMS(Timer1_Callback, 0, LED_BLINK_RATE_MS, SYS_TIME_PERIODIC);
-                
+
                 /* Get PLC PHY version */
                 appPlc.plcPIB.id = PLC_ID_VERSION_NUM;
                 appPlc.plcPIB.length = 4;

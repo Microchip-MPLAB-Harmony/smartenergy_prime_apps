@@ -75,7 +75,7 @@
 */
 
 CACHE_ALIGN APP_DATA appData;
-    
+
 static CACHE_ALIGN uint8_t pPLCDataTxBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_DATA_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t pPLCDataRxBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_DATA_BUFFER_SIZE)];
 static CACHE_ALIGN uint8_t pPLCDataPIBBuffer[CACHE_ALIGNED_SIZE_GET(APP_PLC_PIB_BUFFER_SIZE)];
@@ -98,8 +98,8 @@ void Timer2_Callback (uintptr_t context)
 
 static void APP_PLC_SetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
 {
-    SRV_PCOUP_Set_Channel_Config(appData.drvPl360Handle, channel);
-    
+    SRV_PCOUP_SetChannelConfig(appData.drvPl360Handle, channel);
+
     /* Optional ***************************************************/
     /* Disable AUTO mode and set VLO behavior by default in order to
         * maximize signal level in any case */
@@ -170,7 +170,7 @@ static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t
 
     /* Avoid warning */
     (void)context;
-    
+
     /* Add received message */
     length = SRV_PSERIAL_SerialCfmMessage(appData.pSerialData, cfmObj);
     /* Send through USI */
@@ -220,18 +220,18 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
         case SRV_PSERIAL_CMD_PHY_SET_CFG:
         {
             bool sendUSIResponse = false;
-            
+
             /* Extract PIB information */
             SRV_PSERIAL_ParseSetPIB(&appData.plcPIB, pData);
-            
+
             /* Manage Channels configuration */
             if (appData.plcPIB.id == PLC_ID_CHANNEL_CFG)
             {
                 DRV_PLC_PHY_CHANNEL channel;
-                
+
                 channel = *appData.plcPIB.pData;
-                
-                if ((appData.channel != channel) && (SRV_PCOUP_Get_Channel_Config(channel) != NULL))
+
+                if ((appData.channel != channel) && (SRV_PCOUP_GetChannelConfig(channel) != NULL))
                 {
                     if (DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB))
                     {
@@ -239,16 +239,16 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                             appData.channel = channel;
                             /* Set configuration for PLC */
                             APP_PLC_SetCouplingConfiguration(appData.channel);
-                            
+
                             sendUSIResponse = true;
                     }
                 }
-            } 
+            }
             else if (DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB))
             {
                 sendUSIResponse = true;
             }
-            
+
             if (sendUSIResponse)
             {
                 size_t len;
@@ -323,12 +323,12 @@ void APP_PL360_Initialize(void)
     appData.plcRxObj.pReceivedData = pPLCDataRxBuffer;
     appData.plcPIB.pData = pPLCDataPIBBuffer;
     appData.pSerialData = pSerialDataBuffer;
-    
+
     /* Init PLC TX status */
     appData.plcTxState = APP_PLC_TX_STATE_IDLE;
-    
+
     /* Init Channel */
-    appData.channel = SRV_PCOUP_Get_Default_Channel();
+    appData.channel = SRV_PCOUP_GetDefaultChannel();
 }
 
 
@@ -342,21 +342,21 @@ void APP_PL360_Initialize(void)
 void APP_PL360_Tasks(void)
 {
     WDT_Clear();
-    
+
     /* Signalling: LED Toggle */
     if (appData.tmr1Expired)
     {
         appData.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
     }
-    
+
     /* Signalling: PLC RX */
     if (appData.tmr2Expired)
     {
         appData.tmr2Expired = false;
         USER_PLC_IND_LED_Off();
     }
-    
+
     /* Check the application's current state. */
     switch(appData.state)
     {
@@ -440,13 +440,13 @@ void APP_PL360_Tasks(void)
         {
             /* Set configuration for PLC */
             APP_PLC_SetCouplingConfiguration(appData.channel);
-            
+
             /* Set channel configuration */
             appData.plcPIB.id = PLC_ID_CHANNEL_CFG;
             appData.plcPIB.length = 1;
             *appData.plcPIB.pData = appData.channel;
             DRV_PLC_PHY_PIBSet(appData.drvPl360Handle, &appData.plcPIB);
-            
+
             /* Set Application to next state */
             appData.state = APP_STATE_READY;
             break;
@@ -458,7 +458,7 @@ void APP_PL360_Tasks(void)
             if (SRV_USI_Status(appData.srvUSIHandle) == SRV_USI_STATUS_NOT_CONFIGURED)
             {
                 /* Set Application to next state */
-                appData.state = APP_STATE_CONFIG_USI;  
+                appData.state = APP_STATE_CONFIG_USI;
                 SYS_TIME_TimerStop(appData.tmr1Handle);
                 /* Disable Blink Led */
                 USER_BLINK_LED_Off();
