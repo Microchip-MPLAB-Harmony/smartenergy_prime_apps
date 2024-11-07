@@ -269,8 +269,11 @@ static void lPAL_RF_DataCfmCb(DRV_RF215_TX_HANDLE txHandle,
         pRfSnifferData = SRV_RSNIFFER_SerialCfmMessage(pCfmObj, txHandle,
                          &palRfData.rfPhyConfig, paySymbols, palRfData.currentChannel, 
                          &dataLength);
-
-        palRfData.snifferCallback(pRfSnifferData, dataLength);
+                         
+        if (dataLength != 0U)
+        {
+            palRfData.snifferCallback(pRfSnifferData, dataLength);
+        }
     }
 
 }
@@ -312,8 +315,11 @@ static void lPAL_RF_DataIndCb(DRV_RF215_RX_INDICATION_OBJ* pIndObj, uintptr_t ct
         
         pRfSnifferData = SRV_RSNIFFER_SerialRxMessage(pIndObj, &palRfData.rfPhyConfig, 
                     paySymbols, palRfData.currentChannel, &dataLength);
-                    
-        palRfData.snifferCallback(pRfSnifferData, dataLength);
+        
+        if (dataLength != 0U)
+        {
+            palRfData.snifferCallback(pRfSnifferData, dataLength);
+        }
     }
 
 }

@@ -52,6 +52,7 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 #include <stddef.h>
+#include <string.h>
 #include "configuration.h"
 #include "driver/driver_common.h"
 #include "system/int/sys_int.h"
@@ -84,6 +85,9 @@ static USI_USART_MSG_QUEUE gUsiUsartMsgQueue[SRV_USI_USART_CONNECTIONS] = {NULL}
 #define USI_USART_GET_INSTANCE(index)    (((index) >= SRV_USI_USART_CONNECTIONS)? NULL : &gUsiUsartOBJ[index])
 
 static uint32_t usiUsartCounterDiscardMsg;
+
+static uint8_t recChar[1024];
+static uint32_t recCharIdx = 0;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -163,6 +167,11 @@ static void lUSI_USART_AbortMsgInQueue( USI_USART_OBJ* dObj )
     /* Get first element in queue */
     pMsgTmp = dObjQueue->front;
 
+    if (pMsgTmp == NULL)
+    {   /* Queue is empty */
+        return;
+    }
+    
     if (pMsgTmp == dObj->pRcvMsg)
     {
         /* Empty queue */
@@ -210,6 +219,12 @@ static void lUSI_USART_PlibCallback( uintptr_t context)
     pMsg = dObj->pRcvMsg;
     store = false;
     charStore = 0;
+    
+    recChar[recCharIdx++] = dObj->rcvChar;
+    if (recCharIdx >= sizeof(recChar))
+    {   
+        recCharIdx = 0;
+    }
 
     switch(dObj->devStatus)
     {
@@ -244,7 +259,7 @@ static void lUSI_USART_PlibCallback( uintptr_t context)
                 /* New Message, start reception */
                 dObj->devStatus = USI_USART_RCV;
                 /* Start Counter to discard uncompleted Message */
-                usiUsartCounterDiscardMsg = 0x10000;
+                usiUsartCounterDiscardMsg = 0x4000;
             }
             break;
 
@@ -280,7 +295,7 @@ static void lUSI_USART_PlibCallback( uintptr_t context)
                 store = true;
                 charStore = dObj->rcvChar;
             }
-
+            
             break;
 
         case USI_USART_ESC:
@@ -324,6 +339,7 @@ static void lUSI_USART_PlibCallback( uintptr_t context)
         else
         {
             *pMsg->pDataRd++ = charStore;
+            usiUsartCounterDiscardMsg = 0x4000;
         }
     }
 
@@ -357,6 +373,8 @@ void USI_USART_Initialize(uint32_t index, const void * const initData)
     dObj->cbFunc = NULL;
     dObj->devStatus = USI_USART_IDLE;
     dObj->usiStatus = SRV_USI_STATUS_NOT_CONFIGURED;
+    
+    memset(recChar, 0x00, sizeof(recChar));
 }
 
 DRV_HANDLE USI_USART_Open(uint32_t index)
@@ -487,6 +505,11 @@ void USI_USART_Tasks (uint32_t index)
         return;
     }
 
+    /* Critical Section */
+    /* Save global interrupt state and disable interrupt */
+    aSrcId = (INT_SOURCE)dObj->plib->intSource;
+    interruptState = SYS_INT_SourceDisable(aSrcId);
+        
     if (usiUsartCounterDiscardMsg > 0U)
     {
         if (--usiUsartCounterDiscardMsg == 0U)
@@ -507,15 +530,10 @@ void USI_USART_Tasks (uint32_t index)
             dObj->cbFunc(pMsg->pMessage, pMsg->length, dObj->context);
         }
 
-        /* Critical Section */
-        /* Save global interrupt state and disable interrupt */
-        aSrcId = (INT_SOURCE)dObj->plib->intSource;
-        interruptState = SYS_INT_SourceDisable(aSrcId);
-
         /* Remove Message from Queue */
         lUSI_USART_GetMsgFromQueue(dObj);
-
-        /* Restore interrupt state */
-        SYS_INT_SourceRestore(aSrcId, interruptState);
     }
+    
+    /* Restore interrupt state */
+    SYS_INT_SourceRestore(aSrcId, interruptState);
 }

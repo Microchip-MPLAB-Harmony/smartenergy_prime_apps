@@ -462,8 +462,11 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
         SRV_PSNIFFER_SetTxPayloadSymbols(*(uint16_t *)palPlcData.plcPIB.pData);
 
         dataLength = SRV_PSNIFFER_SerialCfmMessage(palPlcData.snifferData, pCfmObj);
-
-        palPlcData.snifferCallback(palPlcData.snifferData, dataLength);
+        
+        if (dataLength != 0U) 
+        {
+            palPlcData.snifferCallback(palPlcData.snifferData, dataLength);
+        }
     }
 
 }
@@ -529,8 +532,11 @@ static void lPAL_PLC_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *pIndObj, uintptr_t
         SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)palPlcData.plcPIB.pData);
 
         length = SRV_PSNIFFER_SerialRxMessage(palPlcData.snifferData, pIndObj);
-
-        palPlcData.snifferCallback(palPlcData.snifferData, length);
+        
+        if (length != 0U)
+        {
+            palPlcData.snifferCallback(palPlcData.snifferData, length);
+        }
     }
 
 }
