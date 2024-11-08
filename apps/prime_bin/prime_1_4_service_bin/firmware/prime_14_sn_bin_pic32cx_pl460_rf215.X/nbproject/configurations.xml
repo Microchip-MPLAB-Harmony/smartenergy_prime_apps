@@ -1,0 +1,2879 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="65">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_pl460_rf215"
+                       displayName="pic32cx_pl460_rf215"
+                       projectFiles="true">
+          <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <itemPath>../src/config/pic32cx_pl460_rf215/driver/driver.h</itemPath>
+            <itemPath>../src/config/pic32cx_pl460_rf215/driver/driver_common.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="clk" displayName="clk" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/clk/plib_clk.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/cmcc/plib_cmcc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dwdt" displayName="dwdt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/dwdt/plib_dwdt.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/nvic/plib_nvic.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pio" displayName="pio" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/pio/plib_pio.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rstc" displayName="rstc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/rstc/plib_rstc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc_common.h</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc1.h</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc0.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="supc" displayName="supc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/supc/plib_supc.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="firmware_upgrade"
+                           displayName="firmware_upgrade"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/firmware_upgrade/srv_firmware_upgrade.h</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/firmware_upgrade/srv_firmware_upgrade_local.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/log_report/srv_log_report.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/pcrc/srv_pcrc.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="queue" displayName="queue" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/queue/srv_queue.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/random/srv_random.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="reset_handler"
+                           displayName="reset_handler"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/reset_handler/srv_reset_handler.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="security" displayName="security" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/security/aes_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/security/cipher_wrapper.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="storage" displayName="storage" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/storage/srv_storage.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time_management"
+                           displayName="time_management"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/time_management/srv_time_management.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="user_pib" displayName="user_pib" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/user_pib/srv_user_pib.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="usi" displayName="usi" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/usi/srv_usi_local.h</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/usi/srv_usi.h</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/usi/srv_usi_definitions.h</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stack" displayName="stack" projectFiles="true">
+            <logicalFolder name="pal" displayName="pal" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/stack/pal/pal_types.h</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/stack/pal/pal.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="prime" displayName="prime" projectFiles="true">
+              <logicalFolder name="conv" displayName="conv" projectFiles="true">
+                <logicalFolder name="sscs" displayName="sscs" projectFiles="true">
+                  <logicalFolder name="iec_4_32" displayName="iec_4_32" projectFiles="true">
+                    <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/conv/sscs/iec_4_32/cl_432_api.h</itemPath>
+                    <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/conv/sscs/iec_4_32/cl_432_defs.h</itemPath>
+                    <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/conv/sscs/iec_4_32/cl_432.h</itemPath>
+                  </logicalFolder>
+                  <logicalFolder name="null" displayName="null" projectFiles="true">
+                    <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/conv/sscs/null/cl_null.h</itemPath>
+                    <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/conv/sscs/null/cl_null_api.h</itemPath>
+                  </logicalFolder>
+                </logicalFolder>
+              </logicalFolder>
+              <logicalFolder name="hal_api" displayName="hal_api" projectFiles="true">
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/hal_api/hal_api.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="mac" displayName="mac" projectFiles="true">
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/mac/mac_defs.h</itemPath>
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/mac/mac_pib.h</itemPath>
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/mac/mac.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="mngp" displayName="mngp" projectFiles="true">
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/mngp/mngp.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="prime_api" displayName="prime_api" projectFiles="true">
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/prime_api/prime_api.h</itemPath>
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/prime_api/prime_hal_wrapper.h</itemPath>
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/prime_api/prime_api_defs.h</itemPath>
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/prime_api/prime_api_types.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="system" displayName="system" projectFiles="true">
+            <logicalFolder name="debug" displayName="debug" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/system/debug/sys_debug.h</itemPath>
+            </logicalFolder>
+            <itemPath>../src/config/pic32cx_pl460_rf215/system/system_module.h</itemPath>
+            <itemPath>../src/config/pic32cx_pl460_rf215/system/system.h</itemPath>
+            <itemPath>../src/config/pic32cx_pl460_rf215/system/system_common.h</itemPath>
+          </logicalFolder>
+          <itemPath>../src/config/pic32cx_pl460_rf215/user.h</itemPath>
+          <itemPath>../src/config/pic32cx_pl460_rf215/sys_tasks.h</itemPath>
+          <itemPath>../src/config/pic32cx_pl460_rf215/toolchain_specifics.h</itemPath>
+          <itemPath>../src/config/pic32cx_pl460_rf215/device_vectors.h</itemPath>
+          <itemPath>../src/config/pic32cx_pl460_rf215/device_cache.h</itemPath>
+          <itemPath>../src/config/pic32cx_pl460_rf215/device.h</itemPath>
+          <itemPath>../src/config/pic32cx_pl460_rf215/configuration.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="packs" displayName="packs" projectFiles="true">
+        <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+          <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+            <logicalFolder name="Core" displayName="Core" projectFiles="true">
+              <logicalFolder name="Include" displayName="Include" projectFiles="true">
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
+        <logicalFolder name="PIC32CX2051MTG128_DFP"
+                       displayName="PIC32CX2051MTG128_DFP"
+                       projectFiles="true">
+          <logicalFolder name="component" displayName="component" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/adc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/pmc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/sha.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/osc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/dwdt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/rstc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/uart.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/chipid.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/icm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/mem2mem.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/tc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/acc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/flexcom.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/qspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/syscwp.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/cpkcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/mcspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/slcdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/cmcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/gpbr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/rtc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/pio.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/trng.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/fuses.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/supc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/aes.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/pdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/sfrbu.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/aesb.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/pwm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/matrix.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/rtt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/sfr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/component/sefc.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="instance" displayName="instance" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/pio0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/tc3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sha.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/supc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom7.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sfr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/matrix3.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/gpbr.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/trng.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/mem2mem1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/adc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/tc2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/pio1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom6.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/matrix2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom2.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/rstc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/uart.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/rtt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sefc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/matrix1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/dwdt.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/tc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sfrbu.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/slcdc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom5.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/cmcc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/sefc1.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/cpkcc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/aes.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/fuses.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/pwm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/rtc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/matrix0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/icm.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/tc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/mcspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/aesb.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom4.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/qspi.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/acc.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/syscwp.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/cmcc0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/chipid.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/mem2mem0.h</itemPath>
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/instance/pmc.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="pio" displayName="pio" projectFiles="true">
+            <itemPath>../src/packs/PIC32CX2051MTG128_DFP/pio/pic32cx2051mtg128.h</itemPath>
+          </logicalFolder>
+          <itemPath>../src/packs/PIC32CX2051MTG128_DFP/pic32cx2051mtg128.h</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>prime_14_sn_bin_pic32cx_pl460_rf215.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LinkerScript"
+                   displayName="Linker Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_pl460_rf215"
+                       displayName="pic32cx_pl460_rf215"
+                       projectFiles="true">
+          <itemPath>../src/config/pic32cx_pl460_rf215/PIC32CX2051MTG128.ld</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="config" displayName="config" projectFiles="true">
+        <logicalFolder name="pic32cx_pl460_rf215"
+                       displayName="pic32cx_pl460_rf215"
+                       projectFiles="true">
+          <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
+            <logicalFolder name="clk" displayName="clk" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/clk/plib_clk.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="cmcc" displayName="cmcc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/cmcc/plib_cmcc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="dwdt" displayName="dwdt" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/dwdt/plib_dwdt.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/nvic/plib_nvic.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pio" displayName="pio" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/pio/plib_pio.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="rstc" displayName="rstc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/rstc/plib_rstc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc1.c</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc0.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="supc" displayName="supc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/peripheral/supc/plib_supc.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="firmware_upgrade"
+                           displayName="firmware_upgrade"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/firmware_upgrade/srv_firmware_upgrade.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/log_report/srv_log_report.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="pcrc" displayName="pcrc" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/pcrc/srv_pcrc.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="queue" displayName="queue" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/queue/srv_queue.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="random" displayName="random" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/random/srv_random.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="reset_handler"
+                           displayName="reset_handler"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/reset_handler/srv_reset_handler.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="security" displayName="security" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/security/aes_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/security/cipher_wrapper.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="storage" displayName="storage" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/storage/srv_storage.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time_management"
+                           displayName="time_management"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/time_management/srv_time_management.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="user_pib" displayName="user_pib" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/user_pib/srv_user_pib.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="usi" displayName="usi" projectFiles="true">
+              <itemPath>../src/config/pic32cx_pl460_rf215/service/usi/srv_usi.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stack" displayName="stack" projectFiles="true">
+            <logicalFolder name="prime" displayName="prime" projectFiles="true">
+              <logicalFolder name="prime_api" displayName="prime_api" projectFiles="true">
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/prime_api/prime_api.c</itemPath>
+                <itemPath>../src/config/pic32cx_pl460_rf215/stack/prime/prime_api/prime_hal_wrapper.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+          <logicalFolder name="stdio" displayName="stdio" projectFiles="true">
+            <itemPath>../src/config/pic32cx_pl460_rf215/stdio/xc32_monitor.c</itemPath>
+          </logicalFolder>
+          <itemPath>../src/config/pic32cx_pl460_rf215/tasks.c</itemPath>
+          <itemPath>../src/config/pic32cx_pl460_rf215/libc_syscalls.c</itemPath>
+          <itemPath>../src/config/pic32cx_pl460_rf215/startup_xc32.c</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <itemPath>../src/config/pic32cx_pl460_rf215/pin_configurations.csv</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="pic32cx_pl460_rf215" type="2">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <targetDevice>PIC32CX2051MTG128</targetDevice>
+        <targetHeader></targetHeader>
+        <targetPluginBoard></targetPluginBoard>
+        <platformTool>noID</platformTool>
+        <languageToolchain>XC32</languageToolchain>
+        <languageToolchainVersion>4.45</languageToolchainVersion>
+        <platform>3</platform>
+      </toolsSet>
+      <packs>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.3.132"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+      </packs>
+      <ScriptingSettings>
+      </ScriptingSettings>
+      <compileType>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibFileItem>../src/config/pic32cx_pl460_rf215/stack/prime/libs/prime14_lib_sn.a</linkerLibFileItem>
+          </linkerLibItems>
+        </linkerTool>
+        <archiverTool>
+        </archiverTool>
+        <loading>
+          <useAlternateLoadableFile>false</useAlternateLoadableFile>
+          <parseOnProdLoad>false</parseOnProdLoad>
+          <alternateLoadableFile></alternateLoadableFile>
+        </loading>
+        <subordinates>
+        </subordinates>
+      </compileType>
+      <makeCustomizationType>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
+        <makeUseCleanTarget>false</makeUseCleanTarget>
+        <makeCustomizationPreStep></makeCustomizationPreStep>
+        <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
+        <makeCustomizationPostStep></makeCustomizationPostStep>
+        <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
+        <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
+        <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
+      </makeCustomizationType>
+      <item path="../src/config/pic32cx_pl460_rf215/configuration.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/device.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/device_cache.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/device_vectors.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/libc_syscalls.c"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/clk/plib_clk.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/clk/plib_clk.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/cmcc/plib_cmcc.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/cmcc/plib_cmcc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/dwdt/plib_dwdt.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/dwdt/plib_dwdt.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/nvic/plib_nvic.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/nvic/plib_nvic.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/pio/plib_pio.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/pio/plib_pio.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/rstc/plib_rstc.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/rstc/plib_rstc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc0.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc0.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc1.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc1.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/sefc/plib_sefc_common.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/supc/plib_supc.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/peripheral/supc/plib_supc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/firmware_upgrade/srv_firmware_upgrade.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/firmware_upgrade/srv_firmware_upgrade_local.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/log_report/srv_log_report.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/pcrc/srv_pcrc.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/queue/srv_queue.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/random/srv_random.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/reset_handler/srv_reset_handler.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/security/aes_wrapper.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/security/cipher_wrapper.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/storage/srv_storage.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/time_management/srv_time_management.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/user_pib/srv_user_pib.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/usi/srv_usi.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/service/usi/srv_usi_local.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/startup_xc32.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/sys_tasks.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/system/debug/sys_debug.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/system/system_common.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/tasks.c"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/config/pic32cx_pl460_rf215/user.h"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/acc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/adc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/aes.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/aesb.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/chipid.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/cmcc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/cpkcc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/dwdt.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/flexcom.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/fuses.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/gpbr.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/icm.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/matrix.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/mcspi.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/mem2mem.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/osc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/pdc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/pio.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/pmc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/pwm.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/qspi.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/rstc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/rtc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/rtt.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/sefc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/sfr.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/sfrbu.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/sha.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/slcdc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/supc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/syscwp.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/tc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/trng.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/component/uart.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/acc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/adc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/aes.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/aesb.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/chipid.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/cmcc0.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/cmcc1.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/cpkcc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/dwdt.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom0.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom1.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom2.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom3.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom4.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom5.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom6.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/flexcom7.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/fuses.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/gpbr.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/icm.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/matrix0.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/matrix1.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/matrix2.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/matrix3.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/mcspi.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/mem2mem0.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/mem2mem1.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/pio0.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/pio1.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/pmc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/pwm.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/qspi.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/rstc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/rtc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/rtt.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/sefc0.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/sefc1.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/sfr.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/sfrbu.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/sha.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/slcdc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/supc.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/syscwp.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/tc0.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/tc1.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/tc2.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/tc3.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/trng.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/instance/uart.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/pic32cx2051mtg128.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="../src/packs/PIC32CX2051MTG128_DFP/pio/pic32cx2051mtg128.h"
+            ex="false"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <C32>
+        <property key="additional-warnings" value="true"/>
+        <property key="addresss-attribute-use" value="false"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/pic32cx_pl460_rf215;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="true"/>
+        <property key="make-warnings-into-errors" value="true"/>
+        <property key="optimization-level" value="-Os"/>
+        <property key="place-data-into-section" value="true"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="strict-ansi" value="false"/>
+        <property key="support-ansi" value="false"/>
+        <property key="tentative-definitions" value="-fno-common"/>
+        <property key="toplevel-reordering" value=""/>
+        <property key="unaligned-access" value=""/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32>
+      <C32-AR>
+        <property key="additional-options-chop-files" value="false"/>
+      </C32-AR>
+      <C32-AS>
+        <property key="assembler-symbols" value=""/>
+        <property key="enable-symbols" value="true"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="expand-macros" value="false"/>
+        <property key="extra-include-directories-for-assembler" value=""/>
+        <property key="extra-include-directories-for-preprocessor" value=""/>
+        <property key="false-conditionals" value="false"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="keep-locals" value="false"/>
+        <property key="list-assembly" value="false"/>
+        <property key="list-source" value="false"/>
+        <property key="list-symbols" value="false"/>
+        <property key="oXC32asm-list-to-file" value="false"/>
+        <property key="omit-debug-dirs" value="false"/>
+        <property key="omit-forms" value="false"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="warning-level" value=""/>
+      </C32-AS>
+      <C32-CO>
+        <property key="coverage-enable" value=""/>
+        <property key="stack-guidance" value="false"/>
+      </C32-CO>
+      <C32-LD>
+        <property key="additional-options-use-response-files" value="false"/>
+        <property key="additional-options-write-sla" value="false"/>
+        <property key="allocate-dinit" value="false"/>
+        <property key="code-dinit" value="false"/>
+        <property key="ebase-addr" value=""/>
+        <property key="enable-check-sections" value="false"/>
+        <property key="exclude-floating-point-library" value="false"/>
+        <property key="exclude-standard-libraries" value="false"/>
+        <property key="extra-lib-directories" value=""/>
+        <property key="fill-flash-options-addr" value=""/>
+        <property key="fill-flash-options-const" value=""/>
+        <property key="fill-flash-options-how" value="0"/>
+        <property key="fill-flash-options-inc-const" value="1"/>
+        <property key="fill-flash-options-increment" value=""/>
+        <property key="fill-flash-options-seq" value=""/>
+        <property key="fill-flash-options-what" value="0"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-cross-reference-file" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="heap-size" value="512"/>
+        <property key="input-libraries" value=""/>
+        <property key="kseg-length" value=""/>
+        <property key="kseg-origin" value=""/>
+        <property key="linker-symbols" value=""/>
+        <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
+        <property key="no-device-startup-code" value="true"/>
+        <property key="no-startup-files" value="false"/>
+        <property key="oXC32ld-extra-opts" value=""/>
+        <property key="optimization-level" value=""/>
+        <property key="preprocessor-macros"
+                  value="RAM_LENGTH=0x0000B000;RAM_ORIGIN=0x20075000;ROM_LENGTH=0x70000;ROM_ORIGIN=0x1090000"/>
+        <property key="remove-unused-sections" value="true"/>
+        <property key="report-memory-usage" value="false"/>
+        <property key="serial-length" value=""/>
+        <property key="serial-origin" value=""/>
+        <property key="stack-size" value=""/>
+        <property key="symbol-stripping" value=""/>
+        <property key="trace-symbols" value=""/>
+        <property key="warn-section-align" value="false"/>
+      </C32-LD>
+      <C32CPP>
+        <property key="additional-warnings" value="false"/>
+        <property key="addresss-attribute-use" value="false"/>
+        <property key="check-new" value="false"/>
+        <property key="eh-specs" value="true"/>
+        <property key="enable-app-io" value="false"/>
+        <property key="enable-omit-frame-pointer" value="false"/>
+        <property key="enable-symbols" value="true"/>
+        <property key="enable-unroll-loops" value="false"/>
+        <property key="exceptions" value="true"/>
+        <property key="exclude-floating-point" value="false"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/pic32cx_pl460_rf215;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP"/>
+        <property key="generate-16-bit-code" value="false"/>
+        <property key="generate-micro-compressed-code" value="false"/>
+        <property key="isolate-each-function" value="true"/>
+        <property key="make-warnings-into-errors" value="false"/>
+        <property key="optimization-level" value="-O1"/>
+        <property key="place-data-into-section" value="false"/>
+        <property key="post-instruction-scheduling" value="default"/>
+        <property key="pre-instruction-scheduling" value="default"/>
+        <property key="preprocessor-macros" value=""/>
+        <property key="rtti" value="true"/>
+        <property key="strict-ansi" value="false"/>
+        <property key="toplevel-reordering" value=""/>
+        <property key="unaligned-access" value=""/>
+        <property key="use-cci" value="false"/>
+        <property key="use-iar" value="false"/>
+        <property key="use-indirect-calls" value="false"/>
+      </C32CPP>
+      <C32Global>
+        <property key="common-include-directories" value=""/>
+        <property key="gp-relative-option" value=""/>
+        <property key="legacy-libc" value="false"/>
+        <property key="mdtcm" value=""/>
+        <property key="mitcm" value=""/>
+        <property key="mstacktcm" value="false"/>
+        <property key="omit-pack-options" value="1"/>
+        <property key="relaxed-math" value="false"/>
+        <property key="save-temps" value="false"/>
+        <property key="stack-smashing" value=""/>
+        <property key="wpo-lto" value="false"/>
+      </C32Global>
+    </conf>
+  </confs>
+</configurationDescriptor>
