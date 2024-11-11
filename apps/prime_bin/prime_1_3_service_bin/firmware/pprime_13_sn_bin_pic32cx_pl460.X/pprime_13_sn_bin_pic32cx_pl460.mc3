@@ -4904,7 +4904,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>b0a4fbfd06bfe63205acfc3594e97ec250bf2ac4a876fa213b40f92a7e4e8849</hash>
+         <hash>6b351a5b0037434a079c5ae2cee08193df335ecc55a3a19a1e4b16cbee643dfd</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\service\firmware_upgrade\srv_firmware_upgrade.h</file>
