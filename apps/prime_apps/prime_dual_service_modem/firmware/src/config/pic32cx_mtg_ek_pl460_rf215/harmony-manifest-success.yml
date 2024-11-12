@@ -4,7 +4,7 @@
 
 
 project: prime_dual_service_modem
-creation_date: 2024-11-12T11:08:44.935+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-11-12T11:39:00.306+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1

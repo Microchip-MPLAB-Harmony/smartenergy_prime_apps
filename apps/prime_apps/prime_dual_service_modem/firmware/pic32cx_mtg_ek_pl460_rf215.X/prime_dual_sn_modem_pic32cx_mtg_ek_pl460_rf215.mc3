@@ -29280,7 +29280,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>51254fa8b0c995901a29686ead97ae8e05225e09f44a2ce79abe3376c29ac25c</hash>
+         <hash>e666a554664e3e40648df4c7a3f4da41a726da6dc331a800bab1b99a1d9823fa</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -29412,7 +29412,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>03fb928e7386e2b1ba3bf39a8e8f7eacae66895d021ae692f71d47024bc7c841</hash>
+         <hash>bdc22548a5e6b320e95feef762e71d15c33523f9750f3dab6706c5585c83eab0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c</file>
@@ -29716,7 +29716,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>4073f8739b0145e71617230cc520449aaf9d257a73f196e81dbbe02ace04d173</hash>
+         <hash>2ccb7191c328f69d63b40afc33999819b1d0b7f026b505ac674b8683946c6a6b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.h</file>
@@ -29732,7 +29732,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_usart.c</file>
-         <hash>fa697b6e16fc5428856e1166762e89057b09680143e20885bf7711fa3eba4240</hash>
+         <hash>1892219411f05a2f67760a7a6c88df40c7d7f9b084c44e8abdf49ce0ef6e1223</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_usart.h</file>
@@ -29752,7 +29752,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc.c</file>
-         <hash>2a6755438ee192c8b7ff98fa48ff0b5428b7623fb6d24c4723da45ec26462b05</hash>
+         <hash>1fba1d8b8832305e23a6e6efe0699bddb86ce650ec49394a92e98b0910fa32e7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_plc.h</file>
@@ -29772,7 +29772,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf.c</file>
-         <hash>924cc24428e67090a4f6b5e5ea94256303e951460d1989f9cfb553cf96e73266</hash>
+         <hash>a115fd4cd6fcdb523b1479d3bef76e7ec6894cbbbdabe031da733bdeab2003d6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\pal\pal_rf.h</file>

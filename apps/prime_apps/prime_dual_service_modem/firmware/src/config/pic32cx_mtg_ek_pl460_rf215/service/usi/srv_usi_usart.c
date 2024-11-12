@@ -163,6 +163,11 @@ static void lUSI_USART_AbortMsgInQueue( USI_USART_OBJ* dObj )
     /* Get first element in queue */
     pMsgTmp = dObjQueue->front;
 
+    if (pMsgTmp == NULL)
+    {   /* Queue is empty */
+        return;
+    }
+    
     if (pMsgTmp == dObj->pRcvMsg)
     {
         /* Empty queue */
@@ -244,7 +249,7 @@ static void lUSI_USART_PlibCallback( uintptr_t context)
                 /* New Message, start reception */
                 dObj->devStatus = USI_USART_RCV;
                 /* Start Counter to discard uncompleted Message */
-                usiUsartCounterDiscardMsg = 0x10000;
+                usiUsartCounterDiscardMsg = 0x4000;
             }
             break;
 
@@ -324,6 +329,7 @@ static void lUSI_USART_PlibCallback( uintptr_t context)
         else
         {
             *pMsg->pDataRd++ = charStore;
+            usiUsartCounterDiscardMsg = 0x4000;
         }
     }
 
@@ -487,6 +493,11 @@ void USI_USART_Tasks (uint32_t index)
         return;
     }
 
+    /* Critical Section */
+    /* Save global interrupt state and disable interrupt */
+    aSrcId = (INT_SOURCE)dObj->plib->intSource;
+    interruptState = SYS_INT_SourceDisable(aSrcId);
+        
     if (usiUsartCounterDiscardMsg > 0U)
     {
         if (--usiUsartCounterDiscardMsg == 0U)
@@ -507,15 +518,10 @@ void USI_USART_Tasks (uint32_t index)
             dObj->cbFunc(pMsg->pMessage, pMsg->length, dObj->context);
         }
 
-        /* Critical Section */
-        /* Save global interrupt state and disable interrupt */
-        aSrcId = (INT_SOURCE)dObj->plib->intSource;
-        interruptState = SYS_INT_SourceDisable(aSrcId);
-
         /* Remove Message from Queue */
         lUSI_USART_GetMsgFromQueue(dObj);
-
-        /* Restore interrupt state */
-        SYS_INT_SourceRestore(aSrcId, interruptState);
     }
+    
+    /* Restore interrupt state */
+    SYS_INT_SourceRestore(aSrcId, interruptState);
 }
