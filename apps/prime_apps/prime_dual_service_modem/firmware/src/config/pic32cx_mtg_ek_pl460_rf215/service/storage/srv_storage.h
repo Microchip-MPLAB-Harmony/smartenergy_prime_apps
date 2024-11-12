@@ -261,7 +261,7 @@ typedef struct {
 	uint32_t destAddr;
 	uint8_t pagesCounter;
 	uint8_t bootState;
-} x_boot_info_cfg_t;
+} SRV_STORAGE_BOOT_CONFIG;
 
 // *****************************************************************************
 // *****************************************************************************

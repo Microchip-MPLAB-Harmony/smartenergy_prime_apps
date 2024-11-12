@@ -85,10 +85,16 @@ void SYS_Tasks ( void )
     /* Maintain PLC PHY Driver */
     DRV_PLC_PHY_Tasks(sysObj.drvPlcPhy);
 
+DRV_MEMORY_Tasks(sysObj.drvMemory0);
+
 
 
     /* Maintain Middleware & Other Libraries */
-        /* Maintain PRIME */
+        
+    /* Maintain Firwmare Upgrade */
+    SRV_FU_Tasks();
+    
+    /* Maintain PRIME */
     PRIME_Tasks(sysObj.primeStack);
     
 

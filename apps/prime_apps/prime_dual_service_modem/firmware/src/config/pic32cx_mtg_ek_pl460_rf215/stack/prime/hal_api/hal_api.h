@@ -51,19 +51,19 @@ Microchip or any third party.
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "../../../service/storage/srv_storage.h"
-#include "../../../service/user_pib/srv_user_pib.h"
-#include "../../../service/reset_handler/srv_reset_handler.h"
-//#include "../../../service/firmware_upgrade/srv_firmware_upgrade.h"
-#include "../../service/pcrc/srv_pcrc.h"
-#include "../../service/random/srv_random.h"
-#include "../../service/log_report/srv_log_report.h"
-#include "../../service/usi/srv_usi.h"
-#include "../../service/security/aes_wrapper.h"
-#include "../../service/security/cipher_wrapper.h"
-#include "../../service/queue/srv_queue.h"
-#include "../../pal/pal.h"
-#include "../../pal/pal_types.h"
+#include "service/storage/srv_storage.h"
+#include "service/user_pib/srv_user_pib.h"
+#include "service/reset_handler/srv_reset_handler.h"
+#include "service/firmware_upgrade/srv_firmware_upgrade.h"
+#include "service/pcrc/srv_pcrc.h"
+#include "service/random/srv_random.h"
+#include "service/log_report/srv_log_report.h"
+#include "service/usi/srv_usi.h"
+#include "service/security/aes_wrapper.h"
+#include "service/security/cipher_wrapper.h"
+#include "service/queue/srv_queue.h"
+#include "stack/pal/pal.h"
+#include "stack/pal/pal_types.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -550,7 +550,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_START)(SRV_FU_INFO *fuInfo);
+typedef void (*HAL_FU_START)(SRV_FU_INFO *fuInfo);
 
 // ****************************************************************************
 /* End FU
@@ -565,7 +565,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_END)(SRV_FU_RESULT fuResult);
+typedef void (*HAL_FU_END)(SRV_FU_RESULT fuResult);
 
 // ****************************************************************************
 /* Read FU information
@@ -580,7 +580,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_CFG_READ)(void *dst, uint16_t size);
+typedef void (*HAL_FU_CFG_READ)(void *dst, uint16_t size);
 
 // ****************************************************************************
 /* Write FU information
@@ -595,7 +595,23 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef uint8_t (*HAL_FU_CFG_WRITE)(void *src, uint16_t size);
+typedef void (*HAL_FU_CFG_WRITE)(void *src, uint16_t size);
+
+// ****************************************************************************
+/* Callback for Memory transfer
+
+  Summary:
+    Function pointer to register a function to be called back when a memory
+    transaction finishes
+    
+  Description:
+    This function pointer allows the PRIME stack to register a function to be 
+    called back when a memory transaction finishes.
+
+  Remarks:
+    Related to Firmware Upgrade service.
+*/
+typedef void (*HAL_FU_REGISTER_MEM_TRANSFER_CB)(SRV_FU_MEM_TRANSFER_CB callback);
 
 // ****************************************************************************
 /* Read image
@@ -609,7 +625,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_DATA_READ)(uint32_t addr, uint8_t *buf, uint16_t size);
+typedef void (*HAL_FU_DATA_READ)(uint32_t addr, uint8_t *buf, uint16_t size);
 
 // ****************************************************************************
 /* Write image
@@ -623,7 +639,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef uint8_t (*HAL_FU_DATA_WRITE)(uint32_t addr, uint8_t *buf, uint16_t size);
+typedef void (*HAL_FU_DATA_WRITE)(uint32_t addr, uint8_t *buf, uint16_t size);
 
 // ****************************************************************************
 /* Callback for CRC
@@ -639,7 +655,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_REGISTER_CRC_CB)(SRV_FU_CRC_CB callback);
+typedef void (*HAL_FU_REGISTER_CRC_CB)(SRV_FU_CRC_CB callback);
 
 // ****************************************************************************
 /* Calculate CRC
@@ -653,7 +669,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_CALCULATE_CRC)(void);
+typedef void (*HAL_FU_CALCULATE_CRC)(void);
 
 // ****************************************************************************
 /* Callback for verification
@@ -669,7 +685,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_REGISTER_VERIFY_CB)(SRV_FU_IMAGE_VERIFY_CB callback);
+typedef void (*HAL_FU_REGISTER_VERIFY_CB)(SRV_FU_IMAGE_VERIFY_CB callback);
 
 // ****************************************************************************
 /* Verify image
@@ -684,7 +700,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_VERIFY_IMAGE)(void);
+typedef void (*HAL_FU_VERIFY_IMAGE)(void);
 
 // ****************************************************************************
 /* Get bitmap
@@ -700,10 +716,10 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef uint16_t (*HAL_FU_GET_BITMAP)(uint8_t *bitmap, uint32_t *numRxPages);
+typedef uint16_t (*HAL_FU_GET_BITMAP)(uint8_t *bitmap, uint32_t *numRxPages);
 
 // ****************************************************************************
-/* Swap stack
+/* Request Swap stack
 
   Summary:
     Function pointer to request to swap the PRIME stack version.
@@ -714,7 +730,7 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//typedef void (*HAL_FU_SWAP)(SRV_FU_TRAFFIC_VERSION trafficVersion);
+typedef void (*HAL_FU_REQUEST_SWAP)(SRV_FU_TRAFFIC_VERSION trafficVersion);
 
 // *****************************************************************************
 /*  Initializes PAL 
@@ -1120,18 +1136,19 @@ typedef struct {
     HAL_QUEUE_FLUSH queue_flush;
     HAL_QUEUE_SET_CAPACITY queue_set_capacity;
     
-//    HAL_FU_START fu_start;
-//    HAL_FU_END fu_end;
-//    HAL_FU_CFG_READ fu_cfg_read;
-//    HAL_FU_CFG_WRITE fu_cfg_write; 
-//    HAL_FU_DATA_READ fu_data_read;
-//    HAL_FU_DATA_WRITE fu_data_write;
-//    HAL_FU_REGISTER_CRC_CB fu_register_callback_crc;
-//    HAL_FU_CALCULATE_CRC fu_calculate_crc;
-//    HAL_FU_REGISTER_VERIFY_CB fu_register_callback_verify;
-//    HAL_FU_VERIFY_IMAGE fu_verify_image;
-//    HAL_FU_GET_BITMAP fu_get_bitmap;
-//    HAL_FU_SWAP fu_swap;
+    HAL_FU_START fu_start;
+    HAL_FU_END fu_end;
+    HAL_FU_CFG_READ fu_cfg_read;
+    HAL_FU_CFG_WRITE fu_cfg_write; 
+    HAL_FU_REGISTER_MEM_TRANSFER_CB fu_register_callback_mem_transfer;
+    HAL_FU_DATA_READ fu_data_read;
+    HAL_FU_DATA_WRITE fu_data_write;
+    HAL_FU_REGISTER_CRC_CB fu_register_callback_crc;
+    HAL_FU_CALCULATE_CRC fu_calculate_crc;
+    HAL_FU_REGISTER_VERIFY_CB fu_register_callback_verify;
+    HAL_FU_VERIFY_IMAGE fu_verify_image;
+    HAL_FU_GET_BITMAP fu_get_bitmap;
+    HAL_FU_REQUEST_SWAP fu_request_swap;
 
     HAL_PAL_INITIALIZE hal_pal_initialize;
     HAL_PAL_TASKS hal_pal_tasks;

@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_14_bn_modem_pic32cx_mtg_ek_pl460_rf215
-creation_date: 2024-11-07T09:59:39.704+01:00[Europe/Paris]
+creation_date: 2024-11-12T10:58:28.861+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -21,8 +21,8 @@ modules:
 - {name: csp, type: HARMONY, version: master}
 - {name: core, type: HARMONY, version: v3.13.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: SMS-4056-validation-of-bn-1.4-modem-app}
+- {name: smartenergy_prime, type: HARMONY, version: SMS-4058-addapt-prime-api-to-fu}
 - {name: crypto_v4, type: HARMONY, version: master}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
-- {name: smartenergy, type: HARMONY, version: SMS-4056-validation-of-bn-1.4-modem-app}
-- {name: bsp, type: HARMONY, version: v3.20.1}
+- {name: smartenergy, type: HARMONY, version: dev}
+- {name: bsp, type: HARMONY, version: v3.21.0}

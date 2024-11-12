@@ -113,6 +113,8 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
+/* Memory Driver Global Configuration Options */
+#define DRV_MEMORY_INSTANCES_NUMBER          (1U)
 /* RF215 Driver Configuration Options */
 #define DRV_RF215_INDEX_0                     0U
 #define DRV_RF215_CLIENTS_NUMBER              1U
@@ -161,6 +163,17 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
 
+
+
+/* Memory Driver Instance 0 Configuration */
+#define DRV_MEMORY_INDEX_0                   0
+#define DRV_MEMORY_CLIENTS_NUMBER_IDX0       1
+#define DRV_MEMORY_BUF_Q_SIZE_IDX0    1
+#define DRV_MEMORY_DEVICE_START_ADDRESS      0x1080000U
+#define DRV_MEMORY_DEVICE_MEDIA_SIZE         512UL
+#define DRV_MEMORY_DEVICE_MEDIA_SIZE_BYTES   (DRV_MEMORY_DEVICE_MEDIA_SIZE * 1024U)
+#define DRV_MEMORY_DEVICE_PROGRAM_SIZE       512U
+#define DRV_MEMORY_DEVICE_ERASE_SIZE         8192U
 
 /* PRIME PAL Configuration Options */
 #define PRIME_PAL_INDEX                     0U

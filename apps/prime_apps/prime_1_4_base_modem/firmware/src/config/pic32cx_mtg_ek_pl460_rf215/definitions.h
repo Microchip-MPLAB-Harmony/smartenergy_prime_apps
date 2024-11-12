@@ -50,8 +50,9 @@
 #include <stdbool.h>
 #include "service/pcoup/srv_pcoup.h"
 #include "peripheral/flexcom/usart/plib_flexcom7_usart.h"
-#include "peripheral/adc/plib_adc.h"
+#include "driver/memory/drv_memory.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom3_spi_master.h"
+#include "peripheral/adc/plib_adc.h"
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
 #include "peripheral/tc/plib_tc0.h"
@@ -59,10 +60,11 @@
 #include "service/usi/srv_usi_usart.h"
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "service/log_report/srv_log_report.h"
-#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
+#include "system/time/sys_time.h"
+#include "driver/memory/drv_memory_sefc0.h"
 #include "service/reset_handler/srv_reset_handler.h"
 #include "peripheral/trng/plib_trng.h"
 #include "service/rsniffer/srv_rsniffer.h"
@@ -84,6 +86,7 @@
 #include "service/pcrc/srv_pcrc.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
+#include "service/firmware_upgrade/srv_firmware_upgrade.h"
 #include "stack/prime/prime_stack.h"
 #include "stack/prime/hal_api/hal_api.h"
 #include "stack/prime/prime_api/prime_api.h"
@@ -242,9 +245,10 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ drvRf215;
-    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
+    SYS_MODULE_OBJ  sysTime;
+    SYS_MODULE_OBJ  drvMemory0;
     SYS_MODULE_OBJ  sysConsole0;
 
     SYS_MODULE_OBJ  sysDebug;

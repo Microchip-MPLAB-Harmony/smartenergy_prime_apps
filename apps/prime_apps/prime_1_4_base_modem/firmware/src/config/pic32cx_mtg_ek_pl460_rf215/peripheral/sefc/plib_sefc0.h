@@ -61,6 +61,9 @@
 #define SEFC0_SECTORSIZE              8192U
 #define SEFC0_PAGESIZE                512U
 #define SEFC0_LOCKSIZE                0x4000
+#define SEFC0_START_ADDRESS           0x1080000
+#define SEFC0_MEDIA_SIZE              512
+#define SEFC0_ERASE_BUFFER_SIZE       8192
 
 void SEFC0_Initialize(void);
 

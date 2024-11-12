@@ -52,6 +52,12 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <logicalFolder name="memory" displayName="memory" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/memory/drv_memory.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/memory/drv_memory_sefc0.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/memory/drv_memory_definitions.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/memory/src/drv_memory_local.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
               <logicalFolder name="common" displayName="common" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/common/drv_plc_boot.h</itemPath>
@@ -139,6 +145,12 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="firmware_upgrade"
+                           displayName="firmware_upgrade"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/firmware_upgrade/srv_firmware_upgrade.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/firmware_upgrade/srv_firmware_upgrade_local.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/log_report/srv_log_report.h</itemPath>
             </logicalFolder>
@@ -269,6 +281,7 @@
             <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system.h</itemPath>
             <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system_common.h</itemPath>
             <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system_module.h</itemPath>
+            <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/system/system_media.h</itemPath>
           </logicalFolder>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/device_cache.h</itemPath>
           <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/definitions.h</itemPath>
@@ -564,6 +577,10 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
+            <logicalFolder name="memory" displayName="memory" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/memory/src/drv_memory.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/memory/src/drv_memory_sefc0.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
               <logicalFolder name="common" displayName="common" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/driver/plc/common/drv_plc_boot.c</itemPath>
@@ -636,6 +653,11 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="service" displayName="service" projectFiles="true">
+            <logicalFolder name="firmware_upgrade"
+                           displayName="firmware_upgrade"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/firmware_upgrade/srv_firmware_upgrade.c</itemPath>
+            </logicalFolder>
             <logicalFolder name="log_report" displayName="log_report" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/log_report/srv_log_report.c</itemPath>
             </logicalFolder>
