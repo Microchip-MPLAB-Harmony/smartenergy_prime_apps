@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_14_bn_modem_pic32cx_mtg_ek_pl460_rf215
-creation_date: 2024-11-12T15:23:12.475+01:00[Europe/Paris]
+creation_date: 2024-11-13T13:31:44.744+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -25,4 +25,4 @@ modules:
 - {name: crypto_v4, type: HARMONY, version: master}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
 - {name: smartenergy, type: HARMONY, version: dev}
-- {name: bsp, type: HARMONY, version: v3.20.1}
+- {name: bsp, type: HARMONY, version: v3.21.0}

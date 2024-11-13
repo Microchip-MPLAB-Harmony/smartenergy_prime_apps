@@ -1470,7 +1470,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuStart(SRV_FU_INFO *fuInfo);
+void PRIME_HAL_WRP_FuStart(SRV_FU_INFO *fuInfo);
 
 // ****************************************************************************
 /* Function:
@@ -1500,7 +1500,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuEnd(SRV_FU_RESULT fuResult);
+void PRIME_HAL_WRP_FuEnd(SRV_FU_RESULT fuResult);
 
 // ****************************************************************************
 /* Function:
@@ -1532,7 +1532,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuCfgRead(void *dst, uint16_t size);
+void PRIME_HAL_WRP_FuCfgRead(void *dst, uint16_t size);
 
 // ****************************************************************************
 /* Function:
@@ -1553,7 +1553,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
     size   - Number of bytes to write
 
   Returns:
-    1 if there is no error, otherwise returns 0.
+    None.
 
   Example:
     <code>
@@ -1564,7 +1564,48 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//uint8_t PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size);
+void PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size);
+
+// ****************************************************************************
+/* Function:
+  void PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
+
+  Summary:
+    Registers a function to be called back when a memory transaction finishes.
+
+  Description:
+    This function allows the PRIME stack to register a function to be called 
+    back when a memory transaction finishes.
+
+  Precondition:
+   None.
+
+  Parameters:
+    callback       - Pointer to the callback function
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    void _endMemoryTransaction(SRV_FU_MEM_TRANSFER_CMD command, 
+                      SRV_FU_MEM_TRANSFER_RESULT result)
+    {
+        ...
+    }
+
+    void main(void)
+    {
+        SRV_FU_Initialize();
+
+        PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(_endMemoryTransaction);
+    }
+    </code>
+
+  Remarks:
+    Related to Firmware Upgrade service.
+*/
+void PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
 
 // ****************************************************************************
 /* Function:
@@ -1581,7 +1622,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
 
   Parameters:
     addr   - Image address to read
-    dst    - Pointer to the buffer to store the information
+    buf    - Pointer to the buffer to store the information
     size   - Number of bytes to read
 
   Returns:
@@ -1590,17 +1631,17 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Example:
     <code>
     uint32_t image[100];
-    PRIME_HAL_WRP_FuDataRead(x0100, &image, sizeof(image));
+    PRIME_HAL_WRP_FuDataRead(0x100, &image, sizeof(image));
     </code>
 
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuDataRead(uint32_t addr, uint8_t *buf, uint16_t size);
+void PRIME_HAL_WRP_FuDataRead(uint32_t addr, uint8_t *buf, uint16_t size);
 
 // ****************************************************************************
 /* Function:
-   uint8_t PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size)
+   void PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size)
 
   Summary:
     Writes image in memory.
@@ -1613,22 +1654,22 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
 
   Parameters:
     addr   - Image address to write
-    dst    - Pointer to the buffer with the information
+    buf    - Pointer to the buffer with the information
     size   - Number of bytes to write
 
   Returns:
-    1 if there is no error, otherwise returns 0.
+    None
 
   Example:
     <code>
     uint32_t image[100];
-    PRIME_HAL_WRP_FuDataWrite(x0100, &image, sizeof(image));
+    PRIME_HAL_WRP_FuDataWrite(0x100, &image, sizeof(image));
     </code>
 
   Remarks:
     Related to Firmware Upgrade service.
 */
-//uint8_t PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size);
+void PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size);
 
 // ****************************************************************************
 /* Function:
@@ -1669,7 +1710,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuRegisterCallbackCrc(SRV_FU_CRC_CB callback);
+void PRIME_HAL_WRP_FuRegisterCallbackCrc(SRV_FU_CRC_CB callback);
 
 // ****************************************************************************
 /* Function:
@@ -1698,7 +1739,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuCalculateCrc(void);
+void PRIME_HAL_WRP_FuCalculateCrc(void);
 
 // ****************************************************************************
 /* Function:
@@ -1739,7 +1780,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuRegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback);
+void PRIME_HAL_WRP_FuRegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback);
 
 // ****************************************************************************
 /* Function:
@@ -1769,7 +1810,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuVerifyImage(void);
+void PRIME_HAL_WRP_FuVerifyImage(void);
 
 // ****************************************************************************
 /* Function:
@@ -1805,11 +1846,11 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//uint16_t PRIME_HAL_WRP_FuGetBitmap(uint8_t *bitmap, uint32_t *numRxPages);
+uint16_t PRIME_HAL_WRP_FuGetBitmap(uint8_t *bitmap, uint32_t *numRxPages);
 
 // ****************************************************************************
 /* Function:
-   void PRIME_HAL_WRP_FuSwap(SRV_FU_TRAFFIC_VERSION trafficVersion)
+   void PRIME_HAL_WRP_FuRequestSwap(SRV_FU_TRAFFIC_VERSION trafficVersion)
 
   Summary:
     Requests to swap the PRIME stack version.
@@ -1821,7 +1862,8 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
     None.
 
   Parameters:
-    None.
+    trafficVersion  - Type of traffic PRIME 1.3 or 1.4 detected
+
 
   Returns:
     None.
@@ -1834,7 +1876,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Remarks:
     Related to Firmware Upgrade service.
 */
-//void PRIME_HAL_WRP_FuSwap(SRV_FU_TRAFFIC_VERSION trafficVersion);
+void PRIME_HAL_WRP_FuRequestSwap(SRV_FU_TRAFFIC_VERSION trafficVersion);
 
 // ****************************************************************************
 /* Function:

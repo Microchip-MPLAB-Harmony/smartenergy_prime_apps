@@ -561,6 +561,49 @@ void SRV_FU_CfgWrite(void *src, uint16_t size);
 
 // ****************************************************************************
 /* Function:
+  void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
+
+  Summary:
+    Registers a function to be called back when a memory operation finishes.
+
+  Description:
+    This function allows the PRIME stack to register a function to be called 
+    back when when a memory operation finishes.
+
+  Precondition:
+    The SRV_FU_Initialize function should have been called before calling this
+    function.
+
+  Parameters:
+    callback       - Pointer to the callback function
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    
+    void _endMemoryTransaction(SRV_FU_MEM_TRANSFER_CMD command,
+                   SRV_FU_MEM_TRANSFER_RESULT result)
+    {
+        ...
+    }
+
+    void main(void)
+    {
+        SRV_FU_Initialize();
+
+        SRV_FU_RegisterCallbackMemTransfer(_endMemoryTransaction);
+    }
+    </code>
+
+  Remarks:
+    This function is called by the PRIME stack.
+*/
+void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
+
+// ****************************************************************************
+/* Function:
    void SRV_FU_DataRead(uint32_t addr, uint8_t *buf, uint16_t size)
 
   Summary:
@@ -575,16 +618,16 @@ void SRV_FU_CfgWrite(void *src, uint16_t size);
 
   Parameters:
     addr   - Image address to read
-    dst    - Pointer to the buffer to store the information
+    buf    - Pointer to the buffer to store the information
     size   - Number of bytes to read
 
   Returns:
-    None
+    None.
 
   Example:
     <code>
     uint32_t image[100];
-    SRV_FU_DataRead(x0100, &image, sizeof(image));
+    SRV_FU_DataRead(0x100, &image, sizeof(image));
     </code>
 
   Remarks:
@@ -608,7 +651,7 @@ void SRV_FU_DataRead(uint32_t addr, uint8_t *buf, uint16_t size);
 
   Parameters:
     addr   - Image address to write
-    dst    - Pointer to the buffer with the information
+    buf    - Pointer to the buffer with the information
     size   - Number of bytes to write
 
   Returns:
@@ -617,7 +660,7 @@ void SRV_FU_DataRead(uint32_t addr, uint8_t *buf, uint16_t size);
   Example:
     <code>
     uint32_t image[100];
-    SRV_FU_DataWrite(x0100, &image, sizeof(image));
+    SRV_FU_DataWrite(0x100, &image, sizeof(image));
     </code>
 
   Remarks:
@@ -741,49 +784,6 @@ void SRV_FU_RegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback);
 
 // ****************************************************************************
 /* Function:
-  void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
-
-  Summary:
-    Registers a function to be called back when a memory operation finishes.
-
-  Description:
-    This function allows the PRIME stack to register a function to be called 
-    back when when a memory operation finishes.
-
-  Precondition:
-    The SRV_FU_Initialize function should have been called before calling this
-    function.
-
-  Parameters:
-    callback       - Pointer to the callback function
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    
-    void _endMemoryTransaction(SRV_FU_MEM_TRANSFER_CMD command,
-                   SRV_FU_MEM_TRANSFER_RESULT result)
-    {
-        ...
-    }
-
-    void main(void)
-    {
-        SRV_FU_Initialize();
-
-        SRV_FU_RegisterCallbackMemTransfer(_endMemoryTransaction);
-    }
-    </code>
-
-  Remarks:
-    This function is called by the PRIME stack.
-*/
-void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
-
-// ****************************************************************************
-/* Function:
    void SRV_FU_VerifyImage(void)
 
   Summary:
@@ -893,7 +893,7 @@ void SRV_FU_RegisterCallbackSwapVersion(SRV_FU_VERSION_SWAP_CB callback);
 
 // ****************************************************************************
 /* Function:
-   void SRV_FU_SwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion)
+   void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion)
 
   Summary:
     Requests to swap the PRIME stack version.
@@ -905,20 +905,20 @@ void SRV_FU_RegisterCallbackSwapVersion(SRV_FU_VERSION_SWAP_CB callback);
     None.
 
   Parameters:
-    None.
+    trafficVersion  - Type of traffic PRIME 1.3 or 1.4 detected
 
   Returns:
     None
 
   Example:
     <code>
-    SRV_FU_SwapVersion(SRV_FU_TRAFFIC_VERSION_PRIME_1_3);
+    SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION_PRIME_1_3);
     </code>
 
   Remarks:
     This function is called by the PRIME stack.
 */
-void SRV_FU_SwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion);
+void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

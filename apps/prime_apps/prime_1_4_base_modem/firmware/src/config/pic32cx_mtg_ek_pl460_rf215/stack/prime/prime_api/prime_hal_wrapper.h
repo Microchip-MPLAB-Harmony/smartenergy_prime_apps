@@ -1553,7 +1553,7 @@ void PRIME_HAL_WRP_FuCfgRead(void *dst, uint16_t size);
     size   - Number of bytes to write
 
   Returns:
-    1 if there is no error, otherwise returns 0.
+    None.
 
   Example:
     <code>
@@ -1588,7 +1588,8 @@ void PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size);
 
   Example:
     <code>
-    void _endMemoryTransaction(SRV_FU_MEM_TRANSFER_CMD command, SRV_FU_MEM_TRANSFER_RESULT result)
+    void _endMemoryTransaction(SRV_FU_MEM_TRANSFER_CMD command, 
+                      SRV_FU_MEM_TRANSFER_RESULT result)
     {
         ...
     }
@@ -1621,7 +1622,7 @@ void PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback
 
   Parameters:
     addr   - Image address to read
-    dst    - Pointer to the buffer to store the information
+    buf    - Pointer to the buffer to store the information
     size   - Number of bytes to read
 
   Returns:
@@ -1630,7 +1631,7 @@ void PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback
   Example:
     <code>
     uint32_t image[100];
-    PRIME_HAL_WRP_FuDataRead(x0100, &image, sizeof(image));
+    PRIME_HAL_WRP_FuDataRead(0x100, &image, sizeof(image));
     </code>
 
   Remarks:
@@ -1653,16 +1654,16 @@ void PRIME_HAL_WRP_FuDataRead(uint32_t addr, uint8_t *buf, uint16_t size);
 
   Parameters:
     addr   - Image address to write
-    dst    - Pointer to the buffer with the information
+    buf    - Pointer to the buffer with the information
     size   - Number of bytes to write
 
   Returns:
-    1 if there is no error, otherwise returns 0.
+    None
 
   Example:
     <code>
     uint32_t image[100];
-    PRIME_HAL_WRP_FuDataWrite(x0100, &image, sizeof(image));
+    PRIME_HAL_WRP_FuDataWrite(0x100, &image, sizeof(image));
     </code>
 
   Remarks:
@@ -1849,7 +1850,7 @@ uint16_t PRIME_HAL_WRP_FuGetBitmap(uint8_t *bitmap, uint32_t *numRxPages);
 
 // ****************************************************************************
 /* Function:
-   void PRIME_HAL_WRP_FuSwap(SRV_FU_TRAFFIC_VERSION trafficVersion)
+   void PRIME_HAL_WRP_FuRequestSwap(SRV_FU_TRAFFIC_VERSION trafficVersion)
 
   Summary:
     Requests to swap the PRIME stack version.
@@ -1861,7 +1862,8 @@ uint16_t PRIME_HAL_WRP_FuGetBitmap(uint8_t *bitmap, uint32_t *numRxPages);
     None.
 
   Parameters:
-    None.
+    trafficVersion  - Type of traffic PRIME 1.3 or 1.4 detected
+
 
   Returns:
     None.

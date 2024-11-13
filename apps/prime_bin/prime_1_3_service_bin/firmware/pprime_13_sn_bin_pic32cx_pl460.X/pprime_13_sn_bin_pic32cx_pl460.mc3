@@ -4904,11 +4904,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>b0a4fbfd06bfe63205acfc3594e97ec250bf2ac4a876fa213b40f92a7e4e8849</hash>
+         <hash>696e960f39deb0d2c8829a82c05c22ab8e8c22eed117ac14f63841b975372cb7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\service\firmware_upgrade\srv_firmware_upgrade.h</file>
-         <hash>55bb4733d8f3b7927854ac53f3ebd1300b8d3d3b37fe23ffd3c7f063ab41644d</hash>
+         <hash>01804bcd2f73501f8621827bc421208794c7f557c01f0c6f9537f1e6a5b7578c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\service\firmware_upgrade\srv_firmware_upgrade_local.h</file>
@@ -5040,7 +5040,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\stack\prime\hal_api\hal_api.h</file>
-         <hash>b0bcbab5152ed6135719c22941f4ee7fd14e0acd7d17f7fcfacbbe6d1d71c56b</hash>
+         <hash>ff96f1af9566fdf999ea5fef77593f77d665efe39f1a7b6a8d6e8a1d6af377ee</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\stack\prime\libs\prime13_lib_sn.a</file>
@@ -5080,11 +5080,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\stack\prime\prime_api\prime_hal_wrapper.c</file>
-         <hash>f772ac1ac4e6b9461591454c2be17fabb10aa1fc0a73a8a15510adb15d01e0a7</hash>
+         <hash>d216946bd17253a41bee2e30b1af491ac0d942f2f7f8af094984f2b35b2a63ed</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\stack\prime\prime_api\prime_hal_wrapper.h</file>
-         <hash>02dee09bcc235ffe22c34d6a100bb329a113b56e9b62274df84a30074d24988c</hash>
+         <hash>2b8b4e49944fbdd36d85f7201480ef5594d0f240e6616fc1fe919ee61dce327d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460\startup_xc32.c</file>

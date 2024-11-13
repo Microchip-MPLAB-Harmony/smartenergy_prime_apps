@@ -243,65 +243,70 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity)
     pPrimeHalApi->queue_set_capacity(queue, capacity);
 }
 
-//void PRIME_HAL_WRP_FuStart(SRV_FU_INFO *fuInfo)
-//{
-//    pPrimeHalApi->fu_start(fuInfo);
-//}
-//
-//void PRIME_HAL_WRP_FuEnd(SRV_FU_RESULT fuResult)
-//{
-//    pPrimeHalApi->fu_end(fuResult);
-//}
-//
-//void PRIME_HAL_WRP_FuCfgRead(void *dst, uint16_t size)
-//{
-//    pPrimeHalApi->fu_cfg_read(dst, size);
-//}
-//
-//uint8_t PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size)
-//{
-//    return pPrimeHalApi->fu_cfg_write(src, size);
-//}
-//
-//void PRIME_HAL_WRP_FuDataRead(uint32_t addr, uint8_t *buf, uint16_t size)
-//{
-//    pPrimeHalApi->fu_data_read(addr, buf, size);
-//}
-//
-//uint8_t PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size)
-//{
-//    return pPrimeHalApi->fu_data_write(addr, buf, size);
-//}
-//
-//void PRIME_HAL_WRP_FuRegisterCallbackCrc(SRV_FU_CRC_CB callback)
-//{
-//    pPrimeHalApi->fu_register_callback_crc(callback);
-//}
-//
-//void PRIME_HAL_WRP_FuCalculateCrc(void)
-//{
-//    pPrimeHalApi->fu_calculate_crc();
-//}
-//
-//void PRIME_HAL_WRP_FuRegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback)
-//{
-//    pPrimeHalApi->fu_register_callback_verify(callback);
-//}
-//
-//void PRIME_HAL_WRP_FuVerifyImage(void)
-//{
-//    pPrimeHalApi->fu_verify_image();
-//}
-//
-//uint16_t PRIME_HAL_WRP_FuGetBitmap(uint8_t *bitmap, uint32_t *numRxPages)
-//{
-//    return pPrimeHalApi->fu_get_bitmap(bitmap, numRxPages);
-//}
-//
-//void PRIME_HAL_WRP_FuSwap(SRV_FU_TRAFFIC_VERSION trafficVersion)
-//{
-//    pPrimeHalApi->fu_swap(trafficVersion);
-//}
+void PRIME_HAL_WRP_FuStart(SRV_FU_INFO *fuInfo)
+{
+    pPrimeHalApi->fu_start(fuInfo);
+}
+
+void PRIME_HAL_WRP_FuEnd(SRV_FU_RESULT fuResult)
+{
+    pPrimeHalApi->fu_end(fuResult);
+}
+
+void PRIME_HAL_WRP_FuCfgRead(void *dst, uint16_t size)
+{
+    pPrimeHalApi->fu_cfg_read(dst, size);
+}
+
+void PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size)
+{
+    pPrimeHalApi->fu_cfg_write(src, size);
+}
+
+void PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
+{
+    pPrimeHalApi->fu_register_callback_mem_transfer(callback);
+}
+
+void PRIME_HAL_WRP_FuDataRead(uint32_t addr, uint8_t *buf, uint16_t size)
+{
+    pPrimeHalApi->fu_data_read(addr, buf, size);
+}
+
+void PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size)
+{
+    pPrimeHalApi->fu_data_write(addr, buf, size);
+}
+
+void PRIME_HAL_WRP_FuRegisterCallbackCrc(SRV_FU_CRC_CB callback)
+{
+    pPrimeHalApi->fu_register_callback_crc(callback);
+}
+
+void PRIME_HAL_WRP_FuCalculateCrc(void)
+{
+    pPrimeHalApi->fu_calculate_crc();
+}
+
+void PRIME_HAL_WRP_FuRegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback)
+{
+    pPrimeHalApi->fu_register_callback_verify(callback);
+}
+
+void PRIME_HAL_WRP_FuVerifyImage(void)
+{
+    pPrimeHalApi->fu_verify_image();
+}
+
+uint16_t PRIME_HAL_WRP_FuGetBitmap(uint8_t *bitmap, uint32_t *numRxPages)
+{
+    return pPrimeHalApi->fu_get_bitmap(bitmap, numRxPages);
+}
+
+void PRIME_HAL_WRP_FuRequestSwap(SRV_FU_TRAFFIC_VERSION trafficVersion)
+{
+    pPrimeHalApi->fu_request_swap(trafficVersion);
+}
 
 SYS_MODULE_OBJ PRIME_HAL_WRP_PAL_Initialize(const SYS_MODULE_INDEX index)
 {

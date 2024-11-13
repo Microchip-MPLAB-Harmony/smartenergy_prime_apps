@@ -66,8 +66,8 @@ Microchip or any third party.
 
 #define PRIME_FU_MEM_DRV        ""
 #define PRIME_FU_MEM_INSTANCE   0
-#define PRIME_FU_MEM_OFFSET     
-#define PRIME_FU_MEM_SIZE       
+#define PRIME_FU_MEM_OFFSET     0x50000
+#define PRIME_FU_MEM_SIZE       0x40000
 
 #define MEMORY_WRITE_SIZE       256
 #define MAX_BUFFER_READ_SIZE    256
@@ -600,7 +600,7 @@ uint16_t SRV_FU_GetBitmap(uint8_t *bitmap, uint32_t *numRxPages)
 	return 0;
 }
 
-void SRV_FU_SwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion)
+void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion)
 {
 	/* Check callback is initialized */
 	if (SRV_FU_SwapCallback != NULL)

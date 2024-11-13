@@ -4147,21 +4147,21 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;642&quot; canvasWidth=&quot;867&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;174&quot; canvasWidth=&quot;857&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
       &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
     &lt;/PowerProfiles&gt;
     &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;PRIME SERVICES&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;primeResetHandler&quot; x=&quot;160&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;primeStorage&quot; x=&quot;660&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;primeTimeManagement&quot; x=&quot;30&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;primeUserPib&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvLogReport&quot; x=&quot;410&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvQueue&quot; x=&quot;250&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;670&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;srvSecurity&quot; x=&quot;500&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;srv_pcrc&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;primeResetHandler&quot; x=&quot;350&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;primeStorage&quot; x=&quot;200&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;primeTimeManagement&quot; x=&quot;700&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;primeUserPib&quot; x=&quot;30&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvLogReport&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvQueue&quot; x=&quot;530&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;380&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;srvSecurity&quot; x=&quot;540&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;srv_pcrc&quot; x=&quot;210&quot; y=&quot;100&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;PRIME STACK&quot;&gt;
@@ -4169,8 +4169,8 @@
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;PRIME SERVICES&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;primePal&quot; x=&quot;180&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;prime_config&quot; x=&quot;360&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srv_psniffer&quot; x=&quot;540&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srv_rsniffer&quot; x=&quot;700&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;srv_psniffer&quot; x=&quot;560&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srv_rsniffer&quot; x=&quot;720&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;4&quot; id=&quot;__ROOTVIEW&quot;&gt;
@@ -4191,7 +4191,7 @@
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;flexcom7&quot; x=&quot;556&quot; y=&quot;273&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;lib_crypto&quot; x=&quot;657&quot; y=&quot;404&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;490&quot; y=&quot;360&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;688&quot; y=&quot;512&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;690&quot; y=&quot;500&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;sefc0&quot; x=&quot;389&quot; y=&quot;559&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;sefc1&quot; x=&quot;585&quot; y=&quot;9&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;srv_pcoup&quot; x=&quot;313&quot; y=&quot;124&quot;/&gt;
@@ -15651,7 +15651,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primeFirmwareUpgrade" name="PRIME_FU_MEM_OFFSET"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primeFirmwareUpgrade&gt;
   &lt;primeFirmwareUpgrade dnOrder=&quot;0&quot; id=&quot;PRIME_FU_MEM_OFFSET&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;primeFirmwareUpgrade&quot; value=&quot;0x40000&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/primeFirmwareUpgrade&gt;
 &lt;/primeFirmwareUpgrade&gt;
 </value>
@@ -15660,7 +15662,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primeFirmwareUpgrade" name="PRIME_FU_MEM_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primeFirmwareUpgrade&gt;
   &lt;primeFirmwareUpgrade dnOrder=&quot;0&quot; id=&quot;PRIME_FU_MEM_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;primeFirmwareUpgrade&quot; value=&quot;0x60000&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/primeFirmwareUpgrade&gt;
 &lt;/primeFirmwareUpgrade&gt;
 </value>
@@ -30043,7 +30047,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>8dd4d60dce63e960391c7a574f3173613e424cf47760eda8519857314613031a</hash>
+         <hash>45a42c743aa3c83cde30006d0d6e34c1c4e41a424a2efa933ca726fe420c84ef</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -30183,7 +30187,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>ae907e281109c1958a69b9976feec3df1605908f417288d0366d9ddb0b9afbd4</hash>
+         <hash>69d49f0820b61888aef937f6cfb6dfad6575a9a0bb6b54941fcaa8125b4891a8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c</file>
@@ -30363,11 +30367,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>27a4c98ea73c6d7502f4eff25cfc3088b6eeb16cb04789686113a9b48ea7b267</hash>
+         <hash>32867c5d561810c08f407d6167306dc06ceb146cde22f5a9a86a17b278570e69</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.h</file>
-         <hash>55bb4733d8f3b7927854ac53f3ebd1300b8d3d3b37fe23ffd3c7f063ab41644d</hash>
+         <hash>01804bcd2f73501f8621827bc421208794c7f557c01f0c6f9537f1e6a5b7578c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade_local.h</file>
@@ -30587,11 +30591,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\hal_api\hal_api.c</file>
-         <hash>9c8ad9edf85bf8e82fb95f1405e6508ca2e8cf6d2869e6a8bae75ae6884ca517</hash>
+         <hash>db43ad35c04a025ed0767180da81918a2ca6e6a2657648923d37c209626541c7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\hal_api\hal_api.h</file>
-         <hash>b0bcbab5152ed6135719c22941f4ee7fd14e0acd7d17f7fcfacbbe6d1d71c56b</hash>
+         <hash>ff96f1af9566fdf999ea5fef77593f77d665efe39f1a7b6a8d6e8a1d6af377ee</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\libs\prime14_lib_bn_m.a</file>
@@ -30639,11 +30643,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_hal_wrapper.c</file>
-         <hash>f772ac1ac4e6b9461591454c2be17fabb10aa1fc0a73a8a15510adb15d01e0a7</hash>
+         <hash>d216946bd17253a41bee2e30b1af491ac0d942f2f7f8af094984f2b35b2a63ed</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_hal_wrapper.h</file>
-         <hash>02dee09bcc235ffe22c34d6a100bb329a113b56e9b62274df84a30074d24988c</hash>
+         <hash>2b8b4e49944fbdd36d85f7201480ef5594d0f240e6616fc1fe919ee61dce327d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack.c</file>
