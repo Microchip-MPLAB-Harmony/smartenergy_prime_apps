@@ -53,17 +53,8 @@ void RSTC_Initialize (void)
     if(RSTC_PMCResetStatusGet())
     {
         RSTC_REGS->RSTC_MR = ( RSTC_MR_KEY_PASSWD | RSTC_MR_ERSTL(0U) | RSTC_MR_PWRSW(0x0U)
-                                | RSTC_MR_CPEREN_Msk
-                                | RSTC_MR_URSTASYNC_Msk
-                                | RSTC_MR_SFTPMCRS_Msk
-                                | RSTC_MR_WDTPMC0_Msk
-                                | RSTC_MR_WDTPMC1_Msk
                                 | RSTC_MR_URSTEN_Msk
                             );
-        for(uint32_t i = 0U; i < RESET_WAIT_COUNT; i++)
-        {
-            /* Wait for 2 MD_SLCK cycles after deasserting reset */
-        }
     }
 }
 
