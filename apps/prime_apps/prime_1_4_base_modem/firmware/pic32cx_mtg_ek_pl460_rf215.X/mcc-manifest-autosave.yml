@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_14_bn_modem_pic32cx_mtg_ek_pl460_rf215
-creation_date: 2024-11-12T11:42:50.667+01:00[Europe/Paris]
+creation_date: 2024-11-12T15:23:12.475+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -21,8 +21,8 @@ modules:
 - {name: csp, type: HARMONY, version: master}
 - {name: core, type: HARMONY, version: v3.13.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: SMS-4058-addapt-prime-api-to-fu}
+- {name: smartenergy_prime, type: HARMONY, version: SMS-4063-add-correct-rom-length-to-linker-scripts}
 - {name: crypto_v4, type: HARMONY, version: master}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
 - {name: smartenergy, type: HARMONY, version: dev}
-- {name: bsp, type: HARMONY, version: v3.21.0}
+- {name: bsp, type: HARMONY, version: v3.20.1}

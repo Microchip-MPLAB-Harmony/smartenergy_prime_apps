@@ -4153,15 +4153,15 @@
     &lt;/PowerProfiles&gt;
     &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;PRIME SERVICES&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;primeResetHandler&quot; x=&quot;180&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;primeStorage&quot; x=&quot;510&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;primeTimeManagement&quot; x=&quot;520&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;primeUserPib&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvLogReport&quot; x=&quot;30&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvQueue&quot; x=&quot;30&quot; y=&quot;200&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;210&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;srvSecurity&quot; x=&quot;360&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;srv_pcrc&quot; x=&quot;370&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;primeResetHandler&quot; x=&quot;160&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;primeStorage&quot; x=&quot;660&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;primeTimeManagement&quot; x=&quot;30&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;primeUserPib&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvLogReport&quot; x=&quot;410&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvQueue&quot; x=&quot;250&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;670&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;srvSecurity&quot; x=&quot;500&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;srv_pcrc&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;PRIME STACK&quot;&gt;
@@ -4177,22 +4177,22 @@
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;BSP_PIC32CXMTG_Evaluation_Kit&quot; x=&quot;0&quot; y=&quot;8&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;HarmonyCore&quot; x=&quot;732&quot; y=&quot;7&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;PRIME STACK&quot; x=&quot;327&quot; y=&quot;65&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;PRIME STACK&quot; x=&quot;310&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;adc&quot; x=&quot;31&quot; y=&quot;530&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;dfp&quot; x=&quot;14&quot; y=&quot;34&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drvPlcPhy&quot; x=&quot;464&quot; y=&quot;134&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;drvRf215&quot; x=&quot;159&quot; y=&quot;190&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;drv_memory&quot; x=&quot;491&quot; y=&quot;492&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;drv_memory&quot; x=&quot;532&quot; y=&quot;495&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom0&quot; x=&quot;26&quot; y=&quot;407&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;flexcom3&quot; x=&quot;18&quot; y=&quot;258&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;flexcom5&quot; x=&quot;322&quot; y=&quot;202&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;flexcom7&quot; x=&quot;556&quot; y=&quot;273&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;lib_crypto&quot; x=&quot;657&quot; y=&quot;404&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;490&quot; y=&quot;360&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;660&quot; y=&quot;530&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;sefc0&quot; x=&quot;338&quot; y=&quot;556&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;688&quot; y=&quot;512&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;sefc0&quot; x=&quot;389&quot; y=&quot;559&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;sefc1&quot; x=&quot;585&quot; y=&quot;9&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;srv_pcoup&quot; x=&quot;313&quot; y=&quot;124&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;srv_pvddmon&quot; x=&quot;171&quot; y=&quot;530&quot;/&gt;
@@ -15670,21 +15670,14 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
   &lt;primePal dnOrder=&quot;0&quot;&gt;
     &lt;Attachments dnOrder=&quot;0&quot;&gt;
-      &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;primePalPlc&quot;&gt;
+      &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;primePalRf&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
             &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
           &lt;/Boolean&gt;
         &lt;/Attributes&gt;
       &lt;/GenericDependency&gt;
-      &lt;GenericDependency dnOrder=&quot;1&quot; id=&quot;primePalRf&quot;&gt;
-        &lt;Attributes dnOrder=&quot;0&quot;&gt;
-          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-          &lt;/Boolean&gt;
-        &lt;/Attributes&gt;
-      &lt;/GenericDependency&gt;
-      &lt;GenericDependency dnOrder=&quot;2&quot; id=&quot;primePalUSI&quot;&gt;
+      &lt;GenericDependency dnOrder=&quot;1&quot; id=&quot;primePalUSI&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
             &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
@@ -15724,48 +15717,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_EN"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
   &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_EN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_HEADER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_HEADER&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_HEADER_RM"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_HEADER_RM&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_LOCAL_HEADER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_LOCAL_HEADER&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/primePal&gt;
 &lt;/primePal&gt;
 </value>
@@ -15777,32 +15729,6 @@
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_SOURCE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_SOURCE&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/primePal&gt;
-&lt;/primePal&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primePal" name="PRIME_PAL_PLC_SOURCE_RM"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primePal&gt;
-  &lt;primePal dnOrder=&quot;0&quot; id=&quot;PRIME_PAL_PLC_SOURCE_RM&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
   &lt;/primePal&gt;
 &lt;/primePal&gt;
 </value>
@@ -16232,6 +16158,41 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
+  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/prime_config&gt;
+&lt;/prime_config&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_LOCAL_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
+  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_LOCAL_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/prime_config&gt;
+&lt;/prime_config&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_METADATA_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
+  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_METADATA_SIZE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/prime_config&gt;
+&lt;/prime_config&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_MODE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
   &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_MODE&quot;&gt;
@@ -16279,6 +16240,15 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SN_APP_METADATA"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
+  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SN_APP_METADATA&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/prime_config&gt;
+&lt;/prime_config&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SN_APP_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
   &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SN_APP_SIZE&quot;&gt;
@@ -16291,6 +16261,15 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SN_FWSTACK13_ADDRESS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
   &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SN_FWSTACK13_ADDRESS&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/prime_config&gt;
+&lt;/prime_config&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SN_FWSTACK13_METADATA"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
+  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SN_FWSTACK13_METADATA&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/prime_config&gt;
 &lt;/prime_config&gt;
@@ -16315,6 +16294,15 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SN_FWSTACK14_METADATA"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
+  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SN_FWSTACK14_METADATA&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/prime_config&gt;
+&lt;/prime_config&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SN_FWSTACK14_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
   &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SN_FWSTACK14_SIZE&quot;&gt;
@@ -16333,10 +16321,32 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SN_PHY_METADATA"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
+  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SN_PHY_METADATA&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/prime_config&gt;
+&lt;/prime_config&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SN_PHY_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
   &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SN_PHY_SIZE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/prime_config&gt;
+&lt;/prime_config&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_SOURCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
+  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_SOURCE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
   &lt;/prime_config&gt;
 &lt;/prime_config&gt;
 </value>
@@ -18526,6 +18536,32 @@
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;srv_pcoup&quot; value=&quot;6881&quot;/&gt;
     &lt;/Values&gt;
+  &lt;/srv_pcoup&gt;
+&lt;/srv_pcoup&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_MM_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
+  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_MM_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/srv_pcoup&gt;
+&lt;/srv_pcoup&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_pcoup" name="SRV_PCOUP_MM_SOURCE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_pcoup&gt;
+  &lt;srv_pcoup dnOrder=&quot;0&quot; id=&quot;SRV_PCOUP_MM_SOURCE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
   &lt;/srv_pcoup&gt;
 &lt;/srv_pcoup&gt;
 </value>
@@ -30007,7 +30043,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>45a42c743aa3c83cde30006d0d6e34c1c4e41a424a2efa933ca726fe420c84ef</hash>
+         <hash>8dd4d60dce63e960391c7a574f3173613e424cf47760eda8519857314613031a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -30147,7 +30183,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>69d49f0820b61888aef937f6cfb6dfad6575a9a0bb6b54941fcaa8125b4891a8</hash>
+         <hash>ae907e281109c1958a69b9976feec3df1605908f417288d0366d9ddb0b9afbd4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c</file>
@@ -30327,11 +30363,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>72029da512b039faad918ec5decfe33f10458af6f38dfcc4e6b844008572a3d2</hash>
+         <hash>27a4c98ea73c6d7502f4eff25cfc3088b6eeb16cb04789686113a9b48ea7b267</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.h</file>
-         <hash>ae06beb79c76545b8405b01177e1bad8153abda21ccb7d2ef67f113ad786b79d</hash>
+         <hash>55bb4733d8f3b7927854ac53f3ebd1300b8d3d3b37fe23ffd3c7f063ab41644d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade_local.h</file>
@@ -30551,11 +30587,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\hal_api\hal_api.c</file>
-         <hash>db43ad35c04a025ed0767180da81918a2ca6e6a2657648923d37c209626541c7</hash>
+         <hash>9c8ad9edf85bf8e82fb95f1405e6508ca2e8cf6d2869e6a8bae75ae6884ca517</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\hal_api\hal_api.h</file>
-         <hash>ff96f1af9566fdf999ea5fef77593f77d665efe39f1a7b6a8d6e8a1d6af377ee</hash>
+         <hash>b0bcbab5152ed6135719c22941f4ee7fd14e0acd7d17f7fcfacbbe6d1d71c56b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\libs\prime14_lib_bn_m.a</file>
@@ -30603,11 +30639,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_hal_wrapper.c</file>
-         <hash>d216946bd17253a41bee2e30b1af491ac0d942f2f7f8af094984f2b35b2a63ed</hash>
+         <hash>f772ac1ac4e6b9461591454c2be17fabb10aa1fc0a73a8a15510adb15d01e0a7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_api\prime_hal_wrapper.h</file>
-         <hash>c18e5c4621ad3a54f22f15656e8719dab86948a60d97265c3e4d62037f5e04aa</hash>
+         <hash>02dee09bcc235ffe22c34d6a100bb329a113b56e9b62274df84a30074d24988c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\stack\prime\prime_stack.c</file>

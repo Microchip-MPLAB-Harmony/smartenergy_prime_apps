@@ -2965,21 +2965,21 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;258&quot; canvasWidth=&quot;713&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;110&quot; canvasWidth=&quot;513&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
       &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
     &lt;/PowerProfiles&gt;
     &lt;ComponentGraph dnOrder=&quot;2&quot; id=&quot;PRIME SERVICES&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;primeResetHandler&quot; x=&quot;250&quot; y=&quot;200&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;primeStorage&quot; x=&quot;550&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;primeTimeManagement&quot; x=&quot;30&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;primeUserPib&quot; x=&quot;250&quot; y=&quot;120&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvLogReport&quot; x=&quot;500&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvQueue&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;srvSecurity&quot; x=&quot;180&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;srv_pcrc&quot; x=&quot;410&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;primeResetHandler&quot; x=&quot;320&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;primeStorage&quot; x=&quot;190&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;primeTimeManagement&quot; x=&quot;660&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;primeUserPib&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;srvLogReport&quot; x=&quot;370&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;srvQueue&quot; x=&quot;550&quot; y=&quot;120&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;srvRandom&quot; x=&quot;500&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;srvSecurity&quot; x=&quot;30&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;srv_pcrc&quot; x=&quot;180&quot; y=&quot;20&quot;/&gt;
       &lt;/ElementPositions&gt;
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;3&quot; id=&quot;PRIME STACK&quot;&gt;
@@ -2991,11 +2991,11 @@
     &lt;ComponentGraph dnOrder=&quot;4&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
         &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; x=&quot;550&quot; y=&quot;100&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;PRIME STACK&quot; x=&quot;190&quot; y=&quot;60&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;PRIME STACK&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;330&quot; y=&quot;100&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;210&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;sefc0&quot; x=&quot;480&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;sefc1&quot; x=&quot;30&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;srv_usi&quot; x=&quot;30&quot; y=&quot;140&quot;/&gt;
@@ -4079,7 +4079,7 @@
       &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;primeFu_dep&quot;&gt;
         &lt;Attributes dnOrder=&quot;0&quot;&gt;
           &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-            &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
           &lt;/Boolean&gt;
         &lt;/Attributes&gt;
       &lt;/GenericDependency&gt;
@@ -4942,7 +4942,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>6b351a5b0037434a079c5ae2cee08193df335ecc55a3a19a1e4b16cbee643dfd</hash>
+         <hash>b0a4fbfd06bfe63205acfc3594e97ec250bf2ac4a876fa213b40f92a7e4e8849</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.h</file>
@@ -5034,7 +5034,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>f68da160daefae72d9e6148c654d151ad262b98bb745ec38083e72a89217553c</hash>
+         <hash>6bc441c1a676a6399fa5d91d221790c81ee2a1fa9d6dc9c36299f1ab701a1a06</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_pl460_rf215\service\usi\srv_usi.h</file>

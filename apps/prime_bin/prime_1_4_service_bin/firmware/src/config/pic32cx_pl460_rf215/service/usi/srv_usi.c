@@ -290,11 +290,11 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
                 case SRV_USI_PROT_ID_MNGP_PRIME_GETQRY_EN:
                 case SRV_USI_PROT_ID_MNGP_PRIME_GETRSP_EN:
                     /* MNGL spec. including header (2 bytes) */
-                    dObj->callback[cbIndex](pData, dataLength + 2);
+                    dObj->callback[cbIndex](pData, dataLength + 2U);
                     break;
                      
                 default:
-                    dObj->callback[cbIndex](pData + 2, dataLength);
+                    dObj->callback[cbIndex](pData + 2U, dataLength);
                     break;
             }
         }

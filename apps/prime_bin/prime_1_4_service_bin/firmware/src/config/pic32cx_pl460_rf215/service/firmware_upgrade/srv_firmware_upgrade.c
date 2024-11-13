@@ -66,8 +66,8 @@ Microchip or any third party.
 
 #define PRIME_FU_MEM_DRV        ""
 #define PRIME_FU_MEM_INSTANCE   0
-#define PRIME_FU_MEM_OFFSET     0x50000
-#define PRIME_FU_MEM_SIZE       0x40000
+#define PRIME_FU_MEM_OFFSET     
+#define PRIME_FU_MEM_SIZE       
 
 #define MEMORY_WRITE_SIZE       256
 #define MAX_BUFFER_READ_SIZE    256

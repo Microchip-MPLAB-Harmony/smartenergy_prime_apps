@@ -4,7 +4,7 @@
 
 
 project: prime_1_3_service_bin
-creation_date: 2024-11-11T11:26:51.278+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-11-12T14:11:15.290+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1
@@ -17,7 +17,7 @@ modules:
     - {name: "csp", version: "master"}
     - {name: "core", version: "v3.13.5"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_prime", version: "dev"}
+    - {name: "smartenergy_prime", version: "SMS-4063-add-correct-rom-length-to-linker-scripts"}
     - {name: "smartenergy", version: "dev"}
 
 packs:
