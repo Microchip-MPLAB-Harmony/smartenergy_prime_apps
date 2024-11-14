@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_14_sn_bin_pic32cx_pl460_rf215
-creation_date: 2024-11-13T13:43:25.376+01:00[Europe/Paris]
+creation_date: 2024-11-14T11:43:26.163+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -21,5 +21,5 @@ modules:
 - {name: csp, type: HARMONY, version: master}
 - {name: core, type: HARMONY, version: v3.13.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: SMS-4063-add-correct-rom-length-to-linker-scripts}
+- {name: smartenergy_prime, type: HARMONY, version: dev}
 - {name: smartenergy, type: HARMONY, version: dev}

@@ -290,7 +290,7 @@ void SRV_FU_Tasks(void)
             {
                 if (SRV_FU_MemTransferCallback != NULL) 
                 {
-                    SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_READ, SRV_FU_MEM_TRANSFER_OK);
+                    SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_OK);
                 }   
                 
                 memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
@@ -319,7 +319,7 @@ void SRV_FU_Tasks(void)
 			{
                 if (SRV_FU_MemTransferCallback != NULL) 
                 {
-                    SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_READ, SRV_FU_MEM_TRANSFER_ERROR);
+                    SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_ERROR);
                 }   
                 
                 memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
