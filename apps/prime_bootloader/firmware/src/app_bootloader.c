@@ -141,11 +141,21 @@ static uint8_t lAPP_BOOTLOADER_DeletePage(uint32_t addr)
 {
     SEFC0_RegionUnlock(addr);
     
+    while(SEFC0_IsBusy())
+    {
+        ;
+    }
+    
     if (SEFC0_SectorErase(addr) == false)  // Function erases 16 pages
     {
         return 0;
     }
 
+    while(SEFC0_IsBusy())
+    {
+        ;
+    }
+    
     return 1;
 }
 
@@ -162,6 +172,11 @@ static uint8_t lAPP_BOOTLOADER_CopyPage(uint32_t srcAddr, uint32_t dstAddr)
         if (SEFC0_PageWrite((uint32_t *)page, dstAddr) == false)
         {
             return 0;
+        }
+        
+        while(SEFC0_IsBusy())
+        {
+            ;
         }
         
         page += BOOT_FLASH_PAGE_SIZE;
