@@ -29333,7 +29333,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\definitions.h</file>
-         <hash>802c6740f4d07ab0f83f30ee3a1995d967602ce080c4c49ee5ad9992e5d08ac8</hash>
+         <hash>51254fa8b0c995901a29686ead97ae8e05225e09f44a2ce79abe3376c29ac25c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\device.h</file>
@@ -29465,7 +29465,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\initialization.c</file>
-         <hash>bdc22548a5e6b320e95feef762e71d15c33523f9750f3dab6706c5585c83eab0</hash>
+         <hash>03fb928e7386e2b1ba3bf39a8e8f7eacae66895d021ae692f71d47024bc7c841</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\interrupts.c</file>

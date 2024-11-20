@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>prime_13_sn_bin_pic32cx_pl460</name>
+            <name>prime_sn_13_bin_pic32cxmt_pl460</name>
             <creation-uuid>3f28f934-68c4-40b6-9c48-933620d4932f</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

@@ -189,7 +189,7 @@
                    displayName="Important Files"
                    projectFiles="true">
       <itemPath>Makefile</itemPath>
-      <itemPath>bootloader_pic32cx_mtg_ek.mc3</itemPath>
+      <itemPath>prime_sn_bootloader_pic32cxmtg.mc3</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -286,12 +286,12 @@
         <archiverTool>
         </archiverTool>
         <loading>
-          <makeArtifact PL="../../prime_dual_service_modem/pic32cxmtg_pl460_rf215.X"
+          <makeArtifact PL="../../prime_service_dual_modem/pic32cxmtg_pl460_rf215.X"
                         CT="1"
                         CN="pic32cxmtg_pl460_rf215"
                         AC="true"
                         BL="true"
-                        WD="../../prime_dual_service_modem/pic32cxmtg_pl460_rf215.X"
+                        WD="../../prime_service_dual_modem/pic32cxmtg_pl460_rf215.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmtg_pl460_rf215"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmtg_pl460_rf215 TYPE_IMAGE=DEBUG_RUN"
                         CC="rm -rf &quot;build/pic32cxmtg_pl460_rf215&quot; &quot;dist/pic32cxmtg_pl460_rf215&quot;"
@@ -301,12 +301,12 @@
                         PD="dist/pic32cxmtg_pl460_rf215/production/pic32cxmtg_pl460_rf215.X.production.elf"
                         DD="dist/pic32cxmtg_pl460_rf215/debug/pic32cxmtg_pl460_rf215.X.debug.elf">
           </makeArtifact>
-          <makeArtifact PL="../../prime_1_4_service_bin/pic32cxmt_pl460_rf215.X"
+          <makeArtifact PL="../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X"
                         CT="1"
                         CN="pic32cxmt_pl460_rf215"
                         AC="true"
                         BL="true"
-                        WD="../../prime_1_4_service_bin/pic32cxmt_pl460_rf215.X"
+                        WD="../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215 TYPE_IMAGE=DEBUG_RUN"
                         CC="rm -rf &quot;build/pic32cxmt_pl460_rf215&quot; &quot;dist/pic32cxmt_pl460_rf215&quot;"
@@ -316,12 +316,12 @@
                         PD="dist/pic32cxmt_pl460_rf215/production/pic32cxmt_pl460_rf215.X.production.elf"
                         DD="dist/pic32cxmt_pl460_rf215/debug/pic32cxmt_pl460_rf215.X.debug.elf">
           </makeArtifact>
-          <makeArtifact PL="../../prime_1_3_service_bin/pic32cxmt_pl460.X"
+          <makeArtifact PL="../../prime_service_1_3_bin/pic32cxmt_pl460.X"
                         CT="1"
                         CN="pic32cxmt_pl460"
                         AC="true"
                         BL="true"
-                        WD="../../prime_1_3_service_bin/pic32cxmt_pl460.X"
+                        WD="../../prime_service_1_3_bin/pic32cxmt_pl460.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460 TYPE_IMAGE=DEBUG_RUN"
                         CC="rm -rf &quot;build/pic32cxmt_pl460&quot; &quot;dist/pic32cxmt_pl460&quot;"
