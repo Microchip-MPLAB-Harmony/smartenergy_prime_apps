@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <executable name=".ca/dist/Config_2/production/pic32cx_mtg_ek_pl460_rf215.X.production.elf">
+    <memory name="program">
+      <units>bytes</units>
+      <length>1048576</length>
+      <used>269927</used>
+      <free>778649</free>
+    </memory>
+    <memory name="data">
+      <units>bytes</units>
+      <length>524288</length>
+      <used>428224</used>
+      <free>96064</free>
+    </memory>
+  </executable>
+</project>
