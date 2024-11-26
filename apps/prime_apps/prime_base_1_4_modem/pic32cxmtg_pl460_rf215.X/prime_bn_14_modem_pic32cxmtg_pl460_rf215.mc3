@@ -4746,7 +4746,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_16_0_PRIORITY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;2&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -14122,7 +14122,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom7" name="USART_RX_RING_BUFFER_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom7&gt;
   &lt;flexcom7 dnOrder=&quot;0&quot; id=&quot;USART_RX_RING_BUFFER_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1024&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/flexcom7&gt;
 &lt;/flexcom7&gt;
 </value>
@@ -14158,7 +14165,14 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="flexcom7" name="USART_TX_RING_BUFFER_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;flexcom7&gt;
   &lt;flexcom7 dnOrder=&quot;0&quot; id=&quot;USART_TX_RING_BUFFER_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1024&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/flexcom7&gt;
 &lt;/flexcom7&gt;
 </value>
@@ -30049,7 +30063,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\definitions.h</file>
-         <hash>8dd4d60dce63e960391c7a574f3173613e424cf47760eda8519857314613031a</hash>
+         <hash>f525474154ee4963305ff12f59bf0b12cfbbb8dc4c253e40996db9790122d77d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\device.h</file>
@@ -30189,7 +30203,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\initialization.c</file>
-         <hash>ae907e281109c1958a69b9976feec3df1605908f417288d0366d9ddb0b9afbd4</hash>
+         <hash>9ce28e1384b6c67dbe73c65b7c03036faa6e7d6c51136c49b5f634de46094fe3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\interrupts.c</file>
@@ -30281,11 +30295,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\flexcom\usart\plib_flexcom7_usart.c</file>
-         <hash>cf8470e9d52a443a9afb5a2b063a4652bf3c54a81ba9c768e9298d7f9722825a</hash>
+         <hash>99dad358e52e88052368da2015f9460a835af22a60c76cdb70520f0ce0c2f8f8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\flexcom\usart\plib_flexcom7_usart.h</file>
-         <hash>501e7d94e13c27113b64d7bc744db62a3fddfd03fd6759d1f767204cccc17d93</hash>
+         <hash>ef21a606fb0e6a6e6b778afcb7f760c93d04ddc3221be653605da5460eeb4234</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\flexcom\usart\plib_flexcom_usart_local.h</file>
@@ -30293,7 +30307,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\nvic\plib_nvic.c</file>
-         <hash>1a3f66bb558cb3073fee48e7a66143c8722aeaccaf5d4fa15a8ca894cfc67a83</hash>
+         <hash>f4307c6d944822017ff25b36e470ef7a9dc4227e26c0b91f8515712bb5ed964c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\nvic\plib_nvic.h</file>
@@ -30493,11 +30507,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>2ccb7191c328f69d63b40afc33999819b1d0b7f026b505ac674b8683946c6a6b</hash>
+         <hash>9a96059f214d562595532f5c5859cd5386f7ee8602dc7211928e407660da906a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi.h</file>
-         <hash>a6675a2a6bda97bd2c58a06754a5acfa6d59a9092b0f825fc5e9ead650a63d34</hash>
+         <hash>359880eb5e3d9f3ff227b4bdbffc92f3331df46c0eb789d2df1de7b488a3bb68</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi_definitions.h</file>
@@ -30509,11 +30523,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi_usart.c</file>
-         <hash>1892219411f05a2f67760a7a6c88df40c7d7f9b084c44e8abdf49ce0ef6e1223</hash>
+         <hash>d09cfba6f1f9a6742c7820b5843ebd6c6c69dd34eae753d1fd374d307b9a9c77</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi_usart.h</file>
-         <hash>45cb9174e8b10bd9fd4e2ceca0823bf18cd7da49f3573609961022c834c1cded</hash>
+         <hash>e0cd398bc5f45624aaff463231c099566d2a73de9a5e6fe3c106a6742bf0109f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal.c</file>

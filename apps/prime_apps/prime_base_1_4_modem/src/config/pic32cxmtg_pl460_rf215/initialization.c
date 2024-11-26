@@ -275,14 +275,17 @@ static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM7 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM7_USART_ReadCallbackRegister,
     .readData = (USI_USART_PLIB_WRRD)FLEXCOM7_USART_Read,
     .writeData = (USI_USART_PLIB_WRRD)FLEXCOM7_USART_Write,
-    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM7_USART_WriteIsBusy,
     .intSource = FLEXCOM7_IRQn,
 };
+
+static uint8_t CACHE_ALIGN srvUSI0USARTReadBuffer[128] = {0};
 
 static const USI_USART_INIT_DATA srvUsi0InitData = {
     .plib = (void*)&srvUsi0InitDataFLEXCOM7,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
+    .usartReadBuffer = (void *)srvUSI0USARTReadBuffer,
+    .usartBufferSize = 128,
 };
 
 /* srvUSIUSARTDevDesc declared in USI USART service implementation (srv_usi_usart.c) */
@@ -434,9 +437,9 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM7_USART_Initialize();
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  
