@@ -97,7 +97,7 @@ static void APP_Timer2_Callback (uintptr_t context)
 
 static void APP_PLCSetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
 {
-    SRV_PCOUP_Set_Channel_Config(appPlcData.drvPlcHandle, channel);
+    SRV_PCOUP_SetChannelConfig(appPlcData.drvPlcHandle, channel);
     
     /* Optional ***************************************************/
     /* Disable AUTO mode and set VLO behavior by default in order to
@@ -249,7 +249,7 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                 
                 channel = *appPlcData.plcPIB.pData;
                 
-                if ((appPlcData.channel != channel) && (SRV_PCOUP_Get_Channel_Config(channel) != NULL))
+                if ((appPlcData.channel != channel) && (SRV_PCOUP_GetChannelConfig(channel) != NULL))
                 {
                     if (DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB))
                     {
@@ -349,7 +349,7 @@ void APP_Initialize(void)
     appPlcData.pSerialData = pSerialDataBuffer;
     
     /* Init Channel */
-    appPlcData.channel = SRV_PCOUP_Get_Default_Channel();
+    appPlcData.channel = SRV_PCOUP_GetDefaultChannel();
 }
 
 
