@@ -11,33 +11,33 @@
     PLC Driver Hardware Abstraction Layer
 
   Description:
-    This file contains the source code for the implementation of the Hardware 
+    This file contains the source code for the implementation of the Hardware
     Abstraction Layer.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -75,20 +75,21 @@ static DRV_PLC_PLIB_INTERFACE *sPlcPlib;
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File scope functions
-// *****************************************************************************
-// *****************************************************************************
-// *****************************************************************************
-// *****************************************************************************
 // Section: DRV_PLC_HAL Common Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
 void DRV_PLC_HAL_Init(DRV_PLC_PLIB_INTERFACE *plcPlib)
 {
-    sPlcPlib = plcPlib;   
-    
+    sPlcPlib = plcPlib;
+
     /* Clear StandBy pin */
     SYS_PORT_PinClear(sPlcPlib->stByPin);
+
+    /* Enable LDO_EN pin */
+    SYS_PORT_PinSet(sPlcPlib->ldoPin);
+
+    /* Push NRST pin */
+    SYS_PORT_PinClear(sPlcPlib->resetPin);
 
     /* Disable External Interrupt */
     PIO_PinInterruptDisable((PIO_PIN)sPlcPlib->extIntPin);
@@ -101,8 +102,8 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     DRV_PLC_SPI_TRANSFER_SETUP spiPlibSetup;
 
     while(sPlcPlib->spiIsBusy()){}
-        
-    if (set16Bits) 
+
+    if (set16Bits)
     {
         spiPlibSetup.dataBits = DRV_PLC_SPI_DATA_BITS_16;
     }
@@ -110,54 +111,44 @@ void DRV_PLC_HAL_Setup(bool set16Bits)
     {
         spiPlibSetup.dataBits = DRV_PLC_SPI_DATA_BITS_8;
     }
-    
+
     /* Configure SPI PLIB */
     spiPlibSetup.clockFrequency = sPlcPlib->spiClockFrequency;
     spiPlibSetup.clockPhase = DRV_PLC_SPI_CLOCK_PHASE_LEADING_EDGE;
     spiPlibSetup.clockPolarity = DRV_PLC_SPI_CLOCK_POLARITY_IDLE_LOW;
     (void)sPlcPlib->spiPlibTransferSetup((uintptr_t)&spiPlibSetup, 0);
-    
+
 }
 
 void DRV_PLC_HAL_Reset(void)
 {
-    /* Disable LDO pin */
-    SYS_PORT_PinClear(sPlcPlib->ldoPin);
-
-    /* Enable Reset Pin */
+    /* Pulse of 50 us in NRST pin of PLC modem */
     SYS_PORT_PinClear(sPlcPlib->resetPin);
-
-    /* Wait to PLC startup (50us) */
     DRV_PLC_HAL_Delay(50);
-
-    /* Enable LDO pin */
-    SYS_PORT_PinSet(sPlcPlib->ldoPin);
-
-    /* Disable Reset pin */
     SYS_PORT_PinSet(sPlcPlib->resetPin);
 
-    /* Wait to PLC startup (1000us) */
-    DRV_PLC_HAL_Delay(1000);
+    /* 1.2 ms is needed after releasing NRST for the System to be up */
+    DRV_PLC_HAL_Delay(1500);
 }
 
 void DRV_PLC_HAL_SetStandBy(bool enable)
 {
-    if (enable) 
+    if (enable)
     {
         /* Enable Reset pin */
         SYS_PORT_PinClear(sPlcPlib->resetPin);
 
         /* Enable Stby Pin */
         SYS_PORT_PinSet(sPlcPlib->stByPin);
-    } 
-    else 
+    }
+    else
     {
         /* Disable Stby Pin */
         SYS_PORT_PinClear(sPlcPlib->stByPin);
 
         /* Disable Reset pin */
         SYS_PORT_PinSet(sPlcPlib->resetPin);
-        
+
         /* Wait to PLC startup (700us) */
         DRV_PLC_HAL_Delay(700);
     }
@@ -165,11 +156,11 @@ void DRV_PLC_HAL_SetStandBy(bool enable)
 
 bool DRV_PLC_HAL_GetThermalMonitor(void)
 {
-    if (SYS_PORT_PinRead(sPlcPlib->thMonPin)) 
+    if (SYS_PORT_PinRead(sPlcPlib->thMonPin))
     {
         return false;
-    } 
-    else 
+    }
+    else
     {
         return true;
     }
@@ -177,12 +168,12 @@ bool DRV_PLC_HAL_GetThermalMonitor(void)
 
 void DRV_PLC_HAL_SetTxEnable(bool enable)
 {
-    if (enable) 
+    if (enable)
     {
         /* Set TX Enable Pin */
         SYS_PORT_PinSet(sPlcPlib->txEnablePin);
-    } 
-    else 
+    }
+    else
     {
         /* Clear TX Enable Pin */
         SYS_PORT_PinClear(sPlcPlib->txEnablePin);
@@ -190,7 +181,7 @@ void DRV_PLC_HAL_SetTxEnable(bool enable)
 }
 
 void DRV_PLC_HAL_Delay(uint32_t delayUs)
-{ 
+{
     SYS_TIME_HANDLE tmrHandle = SYS_TIME_HANDLE_INVALID;
 
     if (SYS_TIME_DelayUS(delayUs, &tmrHandle) == SYS_TIME_SUCCESS)
@@ -220,17 +211,17 @@ bool DRV_PLC_HAL_GetPinLevel(SYS_PORT_PIN pin)
 
 void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, uint8_t *pDataWr, uint8_t *pDataRd)
 {
-    uint8_t *pTxData;  
+    uint8_t *pTxData;
     size_t size;
 
     while(sPlcPlib->spiIsBusy()){}
-    
+
     pTxData = sTxSpiData;
-    
+
     /* Build command */
-    (void)memcpy(pTxData, (uint8_t *)&addr, 4);
+    (void) memcpy(pTxData, (uint8_t *)&addr, 4);
     pTxData += 4;
-    (void)memcpy(pTxData, (uint8_t *)&cmd, 2);
+    (void) memcpy(pTxData, (uint8_t *)&cmd, 2);
     pTxData += 2;
     if (dataLength > 0U)
     {
@@ -238,29 +229,29 @@ void DRV_PLC_HAL_SendBootCmd(uint16_t cmd, uint32_t addr, uint32_t dataLength, u
         {
             dataLength = HAL_SPI_BUFFER_SIZE - 6U;
         }
-        
-        if (pDataWr != NULL) 
+
+        if (pDataWr != NULL)
         {
-            (void)memcpy(pTxData, pDataWr, dataLength);
+            (void) memcpy(pTxData, pDataWr, dataLength);
         }
         else
         {
             /* Insert dummy data */
-            (void)memset(pTxData, 0, dataLength);
+            (void) memset(pTxData, 0, dataLength);
         }
     }
 
     /* Get length of transaction in bytes */
     size = 6U + dataLength;
 
-    (void)sPlcPlib->spiWriteRead(sTxSpiData, size, sRxSpiData, size);
+    (void) sPlcPlib->spiWriteRead(sTxSpiData, size, sRxSpiData, size);
 
     if ((pDataRd != NULL) && (dataLength > 0U))
     {
         while(sPlcPlib->spiIsBusy()){}
-        
+
         /* Update data received */
-        (void)memcpy(pDataRd, &sRxSpiData[6], dataLength);
+        (void) memcpy(pDataRd, &sRxSpiData[6], dataLength);
     }
 }
 
@@ -271,20 +262,20 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     uint16_t dataLength, totalLength;
 
     while(sPlcPlib->spiIsBusy()){}
-    
+
     pTxData = sTxSpiData;
-    
+
     dataLength = ((pCmd->length + 1U) >> 1) & 0x7FFFU;
-    
+
     /* Protect length */
-    if ((dataLength == 0U) || (dataLength > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
+    if ((dataLength == 0U) || (pCmd->length > (HAL_SPI_MSG_DATA_SIZE + HAL_SPI_MSG_PARAMS_SIZE)))
     {
         return;
     }
-    
+
     /* Join CMD and Length */
     dataLength |= pCmd->cmd;
-    
+
     /* Build command */
     /* Address */
     *pTxData++ = (uint8_t)(pCmd->memId);
@@ -294,42 +285,42 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 
     if (pCmd->cmd == DRV_PLC_HAL_CMD_WR) {
         /* Fill with transmission data */
-        (void)memcpy(pTxData, pCmd->pData, pCmd->length);
+        (void) memcpy(pTxData, pCmd->pData, pCmd->length);
     } else {
         /* Fill with dummy data */
-        (void)memset(pTxData, 0, pCmd->length);
+        (void) memset(pTxData, 0, pCmd->length);
     }
 
     pTxData += pCmd->length;
 
-    totalLength = 4U + pCmd->length;
+    totalLength = HAL_SPI_HEADER_SIZE + pCmd->length;
     cmdSize = totalLength;
-    
+
     if ((cmdSize % 2U) > 0U) {
         *pTxData++ = 0;
         cmdSize++;
     }
 
-    (void)sPlcPlib->spiWriteRead(sTxSpiData, cmdSize >> 1, sRxSpiData, cmdSize >> 1);
+    (void) sPlcPlib->spiWriteRead(sTxSpiData, cmdSize >> 1, sRxSpiData, cmdSize >> 1);
 
     if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
         while(sPlcPlib->spiIsBusy()){}
-        
+
         /* Update data received */
-        (void)memcpy(pCmd->pData, &sRxSpiData[4], pCmd->length);
+        (void) memcpy(pCmd->pData, &sRxSpiData[4], pCmd->length);
     }
-    
+
     /* Get HAL info */
     pInfo->key = DRV_PLC_HAL_KEY(sRxSpiData[0], sRxSpiData[1]);
     if (pInfo->key == DRV_PLC_HAL_KEY_CORTEX)
     {
         pInfo->flags = DRV_PLC_HAL_FLAGS_CORTEX(sRxSpiData[2], sRxSpiData[3]);
-    } 
+    }
     else if (pInfo->key == DRV_PLC_HAL_KEY_BOOT)
     {
         pInfo->flags = DRV_PLC_HAL_FLAGS_BOOT(sRxSpiData[0], sRxSpiData[2], sRxSpiData[3]);
-    } 
-    else 
+    }
+    else
     {
         pInfo->flags = 0UL;
     }

@@ -106,6 +106,7 @@ extern "C" {
 // Section: Driver Configuration
 // *****************************************************************************
 // *****************************************************************************
+
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
@@ -132,6 +133,8 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_DESC                 "PIC32CX2051MTG128"
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
+
+
 
 
 // *****************************************************************************
