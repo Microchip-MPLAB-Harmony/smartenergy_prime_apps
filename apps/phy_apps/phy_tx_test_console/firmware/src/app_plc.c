@@ -223,7 +223,7 @@ void APP_PLC_SetChannel ( DRV_PLC_PHY_CHANNEL channel )
     DRV_PLC_PHY_PIBSet(appPlc.drvPlcHandle, &appPlc.plcPIB);
                 
     /* Apply PLC coupling configuration for the selected channel */
-    SRV_PCOUP_Set_Channel_Config(appPlc.drvPlcHandle, appPlcTx.channel);
+    SRV_PCOUP_SetChannelConfig(appPlc.drvPlcHandle, appPlcTx.channel);
 }
 
 void APP_PLC_SetModScheme ( DRV_PLC_PHY_SCH scheme )
@@ -393,7 +393,9 @@ void APP_PLC_Tasks ( void )
                     APP_PLC_SetModScheme(SCHEME_DBPSK_C);
                     appPlcTx.plcPhyTx.timeIni = 1000000;
                     appPlcTx.plcPhyTx.attenuation = 0;
-                    appPlcTx.plcPhyTx.forced = 1;
+                    appPlcTx.plcPhyTx.csma.disableRx = 1;
+                    appPlcTx.plcPhyTx.csma.senseCount = 0;
+                    appPlcTx.plcPhyTx.csma.senseDelayMs = 0;
                     appPlcTx.plcPhyTx.bufferId = TX_BUFFER_0;
                     appPlcTx.plcPhyTx.mode = TX_MODE_RELATIVE;
                     appPlcTx.plcPhyTx.dataLength = 64;
@@ -405,7 +407,7 @@ void APP_PLC_Tasks ( void )
                     }
     
                     /* Init Channel */
-                    appPlcTx.channel = SRV_PCOUP_Get_Default_Channel();
+                    appPlcTx.channel = SRV_PCOUP_GetDefaultChannel();
 
                     /* Clear Transmission flag */
                     appPlcTx.inTx = false;

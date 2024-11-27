@@ -115,6 +115,7 @@ extern "C" {
 #define DRV_SST26_PAGE_SIZE             (256U)
 #define DRV_SST26_ERASE_BUFFER_SIZE     (4096U)
 
+
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
 #define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_A
@@ -140,6 +141,8 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_DESC                 "PIC32CX2051MTG128"
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
+
+
 
 /* Memory Driver Instance 0 Configuration */
 #define DRV_MEMORY_INDEX_0                   0

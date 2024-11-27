@@ -267,6 +267,12 @@
       <itemPath>../src/app_nvm.h</itemPath>
       <itemPath>../src/app_plc.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <itemPath>Makefile</itemPath>
+      <itemPath>prime_phy_tx_test_console_pic32cx_mtg_ek_pl460.mc3</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -347,6 +353,7 @@
             <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460/peripheral/sefc/plib_sefc0.c</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460/peripheral/sefc/plib_sefc1.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460/peripheral/sefc/plib_sefc_common.c</itemPath>
             </logicalFolder>
             <logicalFolder name="supc" displayName="supc" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460/peripheral/supc/plib_supc.c</itemPath>
@@ -398,12 +405,6 @@
       <itemPath>../src/app_console.c</itemPath>
       <itemPath>../src/app_nvm.c</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <itemPath>Makefile</itemPath>
-      <itemPath>prime_phy_tx_test_console_pic32cx_mtg_ek_pl460.mc3</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -413,9 +414,9 @@
         <targetDevice>PIC32CX2051MTG128</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>jlink</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.21</languageToolchainVersion>
+        <languageToolchainVersion>4.45</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

@@ -314,16 +314,20 @@ static uint8_t APP_CONSOLE_SetScheme(char *scheme)
 
 static uint8_t APP_CONSOLE_SetDisableRX(char *disable)
 {
+    appPlcTx.plcPhyTx.csma.senseCount = 0;
+    appPlcTx.plcPhyTx.csma.senseDelayMs = 0;
+
     switch (*disable)
     {
 		case 'Y':
         case 'y':
-            appPlcTx.plcPhyTx.forced = 1;
+            appPlcTx.plcPhyTx.csma.disableRx = 1;
+
             break;
             
         case 'N':
         case 'n':
-            appPlcTx.plcPhyTx.forced = 0;
+            appPlcTx.plcPhyTx.csma.disableRx = 0;
             break;
             
         default:
@@ -466,7 +470,7 @@ static bool APP_CONSOLE_SetChannel(char *channel)
     SRV_PLC_PCOUP_CHANNEL_DATA *chnData;
     
     chn = (DRV_PLC_PHY_CHANNEL)(*channel - 0x30);
-    chnData = SRV_PCOUP_Get_Channel_Config(chn);
+    chnData = SRV_PCOUP_GetChannelConfig(chn);
     
     /* Check if channel is available via MCC configuration */
     if (chnData != NULL)
@@ -523,7 +527,7 @@ static void APP_CONSOLE_ShowConfiguration(void)
     }
     
     APP_CONSOLE_Print("-I- Modulation Scheme: %s\n\r", schemeDescription[appPlcTx.plcPhyTx.scheme]);
-    APP_CONSOLE_Print("-I- Disable RX: %u\n\r", appPlcTx.plcPhyTx.forced);
+    APP_CONSOLE_Print("-I- Disable RX: %u\n\r", appPlcTx.plcPhyTx.csma.disableRx);
     APP_CONSOLE_Print("-I- PRIME mode: %s\n\r", frameDescription[appPlcTx.plcPhyTx.frameType]);
     APP_CONSOLE_Print("-I- Time Period: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.timeIni);
 	APP_CONSOLE_Print("-I- Data Len: %u\n\r", (unsigned int)appPlcTx.plcPhyTx.dataLength);
@@ -824,7 +828,7 @@ void APP_CONSOLE_Tasks ( void )
             {
                 if (APP_CONSOLE_SetDisableRX(appConsole.pReceivedChar))
                 {
-                    if (appPlcTx.plcPhyTx.forced)
+                    if (appPlcTx.plcPhyTx.csma.disableRx)
                     {
                         APP_CONSOLE_Print("\r\nDisable RX in TX\r\n");
                     }
