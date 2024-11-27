@@ -271,16 +271,16 @@ static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
 static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
 
-static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM0 = {
-    .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM0_USART_ReadCallbackRegister,
-    .readData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Read,
-    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM0_USART_Write,
-    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM0_USART_WriteIsBusy,
-    .intSource = FLEXCOM0_IRQn,
+static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM7 = {
+    .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM7_USART_ReadCallbackRegister,
+    .readData = (USI_USART_PLIB_WRRD)FLEXCOM7_USART_Read,
+    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM7_USART_Write,
+    .writeIsBusy = (USI_USART_PLIB_WRITE_ISBUSY)FLEXCOM7_USART_WriteIsBusy,
+    .intSource = FLEXCOM7_IRQn,
 };
 
 static const USI_USART_INIT_DATA srvUsi0InitData = {
-    .plib = (void*)&srvUsi0InitDataFLEXCOM0,
+    .plib = (void*)&srvUsi0InitDataFLEXCOM7,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
 };
@@ -357,12 +357,12 @@ static const SYS_TIME_INIT sysTimeInitData =
 
 static const SYS_CONSOLE_UART_PLIB_INTERFACE sysConsole0UARTPlibAPI =
 {
-    .read_t = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM7_USART_Read,
-    .readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM7_USART_ReadCountGet,
-    .readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM7_USART_ReadFreeBufferCountGet,
-    .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM7_USART_Write,
-    .writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM7_USART_WriteCountGet,
-    .writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM7_USART_WriteFreeBufferCountGet,
+    .read_t = (SYS_CONSOLE_UART_PLIB_READ)FLEXCOM0_USART_Read,
+    .readCountGet = (SYS_CONSOLE_UART_PLIB_READ_COUNT_GET)FLEXCOM0_USART_ReadCountGet,
+    .readFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_READ_FREE_BUFFFER_COUNT_GET)FLEXCOM0_USART_ReadFreeBufferCountGet,
+    .write_t = (SYS_CONSOLE_UART_PLIB_WRITE)FLEXCOM0_USART_Write,
+    .writeCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_COUNT_GET)FLEXCOM0_USART_WriteCountGet,
+    .writeFreeBufferCountGet = (SYS_CONSOLE_UART_PLIB_WRITE_FREE_BUFFER_COUNT_GET)FLEXCOM0_USART_WriteFreeBufferCountGet,
 };
 
 static const SYS_CONSOLE_UART_INIT_DATA sysConsole0UARTInitData =
@@ -434,9 +434,9 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM7_USART_Initialize();
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  

@@ -387,7 +387,23 @@
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibFileItem>../src/config/pic32cxmt_pl460_rf215/stack/prime/libs/prime14_lib_sn.a</linkerLibFileItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../../../../../smartenergy_prime_libs/libs/prime14_lib_sn.X"
+                            CT="3"
+                            CN="release"
+                            AC="false"
+                            BL="true"
+                            WD="../../../../../smartenergy_prime_libs/libs/prime14_lib_sn.X"
+                            BC="${MAKE}  -f Makefile CONF=release"
+                            DBC="${MAKE}  -f Makefile CONF=release TYPE_IMAGE=DEBUG_RUN"
+                            CC="rm -rf &quot;build/release&quot; &quot;dist/release&quot;"
+                            OP="dist/release/production/prime14_lib_sn.X.a"
+                            DOP="dist/release/debug/prime14_lib_sn.X.a"
+                            FL="dist/release/production/prime14_lib_sn.X.a"
+                            PD="dist/release/production/prime14_lib_sn.X."
+                            DD="dist/release/debug/prime14_lib_sn.X.">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -2375,7 +2391,6 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
         <property key="enable-symbols" value="true"/>
@@ -2432,7 +2447,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -2473,7 +2487,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -2502,7 +2515,6 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="appendMe" value=""/>
         <property key="common-include-directories" value=""/>
         <property key="gp-relative-option" value=""/>
         <property key="legacy-libc" value="false"/>
