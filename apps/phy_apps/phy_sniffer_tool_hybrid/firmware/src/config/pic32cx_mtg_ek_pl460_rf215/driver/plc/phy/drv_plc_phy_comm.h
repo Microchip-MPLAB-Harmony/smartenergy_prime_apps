@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 #ifndef DRV_PLC_PHY_COMM_H
@@ -95,6 +95,8 @@ extern uint8_t plc_phy_bin_end;
 #define VLO_STATE                              0x02U
 
 /* Signal Capture Mode Bit Mask */
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.4 deviated 22 times. Deviation record ID - H3_MISRAC_2012_R_5_4_DR_1 */
 #define DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT 0U
 #define DRV_PLC_SIGNAL_CAPTURE_CHANNEL (0xFU << DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT)
 #define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT 4U
@@ -117,9 +119,10 @@ extern uint8_t plc_phy_bin_end;
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_6 0x06U
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_7 0x07U
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_8 0x08U
+    /* MISRA C-2012 deviation block end */
 
 #define SIGNAL_CAPTURE_FRAG_SIZE                  255U
-  
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
@@ -137,7 +140,7 @@ extern uint8_t plc_phy_bin_end;
     Information Base (PIB) defined in the PRIME specification. In addition,
     Microchip has added several proprietary PIB attributes to support extra
     functionalities.
- 
+
     The list of all available PIB attributes can be found in this data type.
 
    Remarks:
@@ -230,7 +233,7 @@ typedef enum {
   PLC_ID_RX_CD_INFO,
   PLC_ID_SFO_ESTIMATION_LAST_RX,
   PLC_ID_END_ID,
-} DRV_PLC_PHY_ID;    
+} DRV_PLC_PHY_ID;
 
 // *****************************************************************************
 /* PRIME Modulation schemes
@@ -333,7 +336,7 @@ typedef enum {
 } DRV_PLC_PHY_BUFFER_ID;
 
 /* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2012 Rule 5.2 deviated 5 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* PRIME Result values of a previous transmission
@@ -389,7 +392,18 @@ typedef enum {
 typedef struct {
 	uint8_t numFrags;
 	uint8_t status;
-} DRV_PLC_PHY_SIGNAL_CAPTURE_INFO;
+} DRV_PLC_PHY_SIGNAL_CAPTURE;
+
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 6.1 deviated 3 times. Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+/* Structure defining information about CSMA algorithm */
+typedef struct {
+	uint8_t disableRx : 1;
+	uint8_t senseCount : 3;
+	uint8_t senseDelayMs : 4;
+} DRV_PLC_PHY_CSMA;
+    /* MISRA C-2012 deviation block end */
+
 
 // *****************************************************************************
 /* PRIME Transmission setup data
@@ -412,8 +426,8 @@ typedef struct __attribute__((packed, aligned(1))) {
   uint8_t mode;
   /* Attenuation level with which the message will be transmitted */
   uint8_t attenuation;
-  /* Forced transmission */
-  uint8_t forced;
+  /* CSMA algorithm parameters */
+  DRV_PLC_PHY_CSMA csma;
   /* Buffer Id used for transmission */
   DRV_PLC_PHY_BUFFER_ID bufferId;
   /* Scheme of Modulation */
