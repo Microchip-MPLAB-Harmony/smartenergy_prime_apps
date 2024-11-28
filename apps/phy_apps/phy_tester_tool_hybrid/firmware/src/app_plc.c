@@ -64,7 +64,7 @@ static uint8_t serialDataBuffer[APP_PLC_SERIAL_DATA_BUFFER_SIZE];
 
 static void APP_PLC_SetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
 {
-    SRV_PCOUP_Set_Channel_Config(app_plcData.drvPlcHandle, channel);
+    SRV_PCOUP_SetChannelConfig(app_plcData.drvPlcHandle, channel);
 
     /* Optional ***************************************************/
     /* Disable AUTO mode and set VLO behavior by default in order to
@@ -220,7 +220,7 @@ void _APP_PLC_UsiPhyProtocolEventCb(uint8_t *pData, size_t length)
 
                 channel = *app_plcData.plcPIB.pData;
 
-                if ((app_plcData.channel != channel) && (SRV_PCOUP_Get_Channel_Config(channel) != NULL))
+                if ((app_plcData.channel != channel) && (SRV_PCOUP_GetChannelConfig(channel) != NULL))
                 {
                     if (DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB))
                     {
@@ -317,7 +317,7 @@ void APP_PLC_Initialize ( void )
     app_plcData.pvddMonTxEnable = true;
 
     /* Init Channel */
-    app_plcData.channel = SRV_PCOUP_Get_Default_Channel();
+    app_plcData.channel = SRV_PCOUP_GetDefaultChannel();
 }
 
 
