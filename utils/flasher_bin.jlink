@@ -1,0 +1,17 @@
+si 1
+speed auto
+r
+
+h
+
+loadbin C:/WORK/Harmony_Workspace/smartenergy/driver/plcPhy/src/bin/PLC_PHY_PRIME_2CHN.bin,0x10B8000
+
+W4 460E0004,5a00050B
+W4 460E0004,5a00060B
+
+r
+
+g
+
+qc
+

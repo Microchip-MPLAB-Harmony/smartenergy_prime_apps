@@ -60,10 +60,10 @@
 #include "service/usi/srv_usi_usart.h"
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "service/log_report/srv_log_report.h"
+#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
 #include "driver/memory/drv_memory_sefc0.h"
 #include "service/reset_handler/srv_reset_handler.h"
 #include "peripheral/trng/plib_trng.h"
@@ -100,9 +100,6 @@
 #include "service/storage/srv_storage.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-//KEEP THIS - Not used for now
-//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-//#include "crypto/crypto.h"
 #include "service/time_management/srv_time_management.h"
 #include "app.h"
 
@@ -236,9 +233,9 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ drvRf215;
+    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
-    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvMemory0;
     SYS_MODULE_OBJ  sysConsole0;
 

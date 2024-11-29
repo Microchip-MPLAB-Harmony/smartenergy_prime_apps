@@ -509,10 +509,6 @@ void SYS_Initialize ( void* data )
     /* Initialize USI Service Instance 0 */
     sysObj.srvUSI0 = SRV_USI_Initialize(SRV_USI_INDEX_0, (SYS_MODULE_INIT *)&srvUSI0Init);
 
-    /* Crypto Callback initialize */
-    //CRYPT_WCCB_Initialize();
-
-
     /* MISRA C-2012 Rule 11.3, 11.8 deviated below. Deviation record ID -  
     H3_MISRAC_2012_R_11_3_DR_1 & H3_MISRAC_2012_R_11_8_DR_1*/
         

@@ -46,7 +46,7 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include "aes_wrapper.h"
-#include "crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h"
+//#include "crypto/common_crypto/MCHP_Crypto_Sym_Cipher.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -55,7 +55,7 @@ Microchip or any third party.
 // *****************************************************************************
 
 /* AES context used in this wrapper */
-static st_Crypto_Sym_BlockCtx aesWrapperContext;
+//static st_Crypto_Sym_BlockCtx aesWrapperContext;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -65,35 +65,22 @@ static st_Crypto_Sym_BlockCtx aesWrapperContext;
 
 void AES_Wrapper_SetEncryptEcbKey(uint8_t *key)
 {
-    (void) Crypto_Sym_Aes_Init(&aesWrapperContext, CRYPTO_HANDLER_SW_WOLFCRYPT,
-            CRYPTO_CIOP_ENCRYPT, CRYPTO_SYM_OPMODE_ECB,
-            key, CRYPTO_AESKEYSIZE_128, NULL, 1);
+    ;
 }
 
 void AES_Wrapper_EncryptEcb(uint8_t *in, uint8_t *out)
 {
-    (void) Crypto_Sym_Aes_Cipher(&aesWrapperContext, in, 16, out);
+    ;
 }
 
 void AES_Wrapper_WrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in, 
     uint32_t inLen, uint8_t *out)
 {
-    (void) Crypto_Sym_AesKeyWrapDirect(CRYPTO_HANDLER_SW_WOLFCRYPT, in, inLen, 
-        out, key, keyLen, NULL, 1);
+    ;
 }
 
 bool AES_Wrapper_UnwrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in, 
     uint32_t inLen, uint8_t *out)
 {
-    crypto_Sym_Status_E unwrapResult;
-    
-    unwrapResult = Crypto_Sym_AesKeyUnWrapDirect(CRYPTO_HANDLER_SW_WOLFCRYPT, 
-        in, inLen, out, key, keyLen, NULL, 1);
-        
-    if (unwrapResult == CRYPTO_SYM_CIPHER_SUCCESS) 
-    {
-        return true;
-    }
-
     return false;
 }

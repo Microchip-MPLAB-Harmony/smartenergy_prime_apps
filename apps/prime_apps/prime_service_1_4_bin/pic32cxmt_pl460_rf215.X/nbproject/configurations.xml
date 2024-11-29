@@ -387,23 +387,7 @@
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../../../../smartenergy_prime_libs/libs/prime14_lib_sn.X"
-                            CT="3"
-                            CN="release"
-                            AC="false"
-                            BL="true"
-                            WD="../../../../../smartenergy_prime_libs/libs/prime14_lib_sn.X"
-                            BC="${MAKE}  -f Makefile CONF=release"
-                            DBC="${MAKE}  -f Makefile CONF=release TYPE_IMAGE=DEBUG_RUN"
-                            CC="rm -rf &quot;build/release&quot; &quot;dist/release&quot;"
-                            OP="dist/release/production/prime14_lib_sn.X.a"
-                            DOP="dist/release/debug/prime14_lib_sn.X.a"
-                            FL="dist/release/production/prime14_lib_sn.X.a"
-                            PD="dist/release/production/prime14_lib_sn.X."
-                            DD="dist/release/debug/prime14_lib_sn.X.">
-              </makeArtifact>
-            </linkerLibProjectItem>
+            <linkerLibFileItem>../src/config/pic32cxmt_pl460_rf215/stack/prime/libs/prime14_lib_sn.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>

@@ -17,9 +17,7 @@ modules:
     - {name: "csp", version: "master"}
     - {name: "core", version: "master"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_prime", version: "dev"}
-    - {name: "crypto_v4", version: "master"}
-    - {name: "wolfssl", version: "v5.7.0"}
+    - {name: "smartenergy_prime", version: "SMS-4080-test-sn-1.4-app"}
     - {name: "smartenergy", version: "dev"}
     - {name: "bsp", version: "v3.21.0"}
 

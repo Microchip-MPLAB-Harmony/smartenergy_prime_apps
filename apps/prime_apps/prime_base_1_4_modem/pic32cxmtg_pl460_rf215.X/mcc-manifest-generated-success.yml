@@ -21,8 +21,6 @@ modules:
 - {name: csp, type: HARMONY, version: master}
 - {name: core, type: HARMONY, version: master}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: dev}
-- {name: crypto_v4, type: HARMONY, version: master}
-- {name: wolfssl, type: HARMONY, version: v5.7.0}
+- {name: smartenergy_prime, type: HARMONY, version: SMS-4080-test-sn-1.4-app}
 - {name: smartenergy, type: HARMONY, version: dev}
 - {name: bsp, type: HARMONY, version: v3.21.0}

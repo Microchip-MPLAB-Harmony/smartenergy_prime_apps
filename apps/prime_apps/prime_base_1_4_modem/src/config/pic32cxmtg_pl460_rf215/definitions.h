@@ -109,9 +109,6 @@
 #include "service/storage/srv_storage.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-//KEEP THIS - Not used for now
-//#include "wolfssl/wolfcrypt/port/pic32/crypt_wolfcryptcb.h"
-//#include "crypto/crypto.h"
 #include "service/time_management/srv_time_management.h"
 #include "app.h"
 
