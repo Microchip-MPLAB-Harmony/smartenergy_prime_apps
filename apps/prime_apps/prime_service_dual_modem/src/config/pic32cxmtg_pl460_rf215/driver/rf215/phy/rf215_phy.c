@@ -3318,7 +3318,7 @@ static void lRF215_TX_PrepareTimeExpired(uintptr_t context)
     RF215_HAL_LeaveCritical();
 }
 
-static void lRF215_RX_PsduEnd(uint8_t trxIdx, bool fcsOk)
+static void lRF215_RX_PsduEnd(uint8_t trxIdx)
 {
     RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
     uint16_t psduLen = pObj->rxInd.psduLen;
@@ -3346,9 +3346,6 @@ static void lRF215_RX_PsduEnd(uint8_t trxIdx, bool fcsOk)
         RF215_HAL_SpiRead(addrEDV, pRSSI, 1, lRF215_PHY_SetFlag, ctxt);
     }
 
-    /* FCS correct flag */
-    pObj->rxInd.fcsOk = fcsOk;
-
     /* Check if there are programmed TX to cancel */
     DRV_RF215_AbortTxByRx(trxIdx);
 }
@@ -3365,42 +3362,11 @@ static void lRF215_RX_FrameEnd(uint8_t trxIdx)
         lRF215_TRX_RxListen(trxIdx);
     }
 
-    /* If automatic FCS is enabled, RXFE interrupt means that FCS is valid
-     * (FCS Filter is enabled: BBCn_PC.FCSFE).
-     * Process the end of completed PSDU reception. Read pending bytes from
+    /* Process the end of completed PSDU reception. Read pending bytes from
      * RX Frame Buffer and Energy Detection Value (RRSI) */
-    lRF215_RX_PsduEnd(trxIdx, true);
+    lRF215_RX_PsduEnd(trxIdx);
     pObj->phyStatistics.rxTotal++;
     pObj->phyStatistics.rxTotalBytes += pObj->rxInd.psduLen;
-}
-
-static void lRF215_RX_AgcReleaseReadFBL(uintptr_t context, void* pData, uint64_t timeRead)
-{
-    uint16_t bufLevel;
-    uint8_t trxIdx = (uint8_t) context;
-    RF215_PHY_OBJ* pObj = &rf215PhyObj[trxIdx];
-    uint8_t* pFBL = (uint8_t *) pData;
-
-    /* Get frame buffer level from BBCn_FBLL and BBCn_FBLH */
-    pFBL[1] &= RF215_BBCn_FBLH_FBLH_Msk;
-    bufLevel = pFBL[0];
-    bufLevel += ((uint16_t)pFBL[1] << 8);
-
-    if (bufLevel == pObj->rxInd.psduLen)
-    {
-        /* PSDU received completely, but no RXFE interrupt. It
-         * means that the FCS is not valid.
-         * Process the end of completed PSDU reception. Read pending bytes from
-         * RX Frame Buffer and Energy Detection Value (RRSI). */
-        lRF215_RX_PsduEnd(trxIdx, false);
-        pObj->phyStatistics.rxErrBadFcsPay++;
-        pObj->phyStatistics.rxErrTotal++;
-    }
-    else
-    {
-        /* AGC released before PSDU completion (overridden by higher RSSI) */
-        pObj->phyStatistics.rxOverride++;
-    }
 }
 
 static void lRF215_RX_AgcRelease(uint8_t trxIdx)
@@ -3421,9 +3387,8 @@ static void lRF215_RX_AgcRelease(uint8_t trxIdx)
     {
         if (phyState == PHY_STATE_RX_PAYLOAD)
         {
-            /* Get Frame Buffer Level: Read 2 registers (BBCn_FBLL, BBCn_FBLH) */
-            RF215_HAL_SpiRead(RF215_BBCn_FBLL(trxIdx), &pObj->phyRegs.BBCn_FBLL, 2,
-                    lRF215_RX_AgcReleaseReadFBL, (uintptr_t) trxIdx);
+            /* AGC released before PSDU completion (overridden by higher RSSI) */
+            pObj->phyStatistics.rxOverride++;
             listen = true;
         }
     }

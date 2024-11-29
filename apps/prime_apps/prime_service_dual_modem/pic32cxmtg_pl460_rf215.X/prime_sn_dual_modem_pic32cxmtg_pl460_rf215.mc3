@@ -8082,7 +8082,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_FCS_MODE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
   &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_FCS_MODE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;0&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/drvRf215&gt;
 &lt;/drvRf215&gt;
 </value>
@@ -28620,7 +28622,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\configuration.h</file>
-         <hash>d10a1e4ba3197f781f07daa30a10d5b56bc11c277888f249084de3dbc898154e</hash>
+         <hash>d6fb006ccf7e7343a1a05b79f61aaacc681755a954f688549b263502de31d15f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\definitions.h</file>
@@ -28724,7 +28726,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\driver\rf215\drv_rf215_definitions.h</file>
-         <hash>06fac8ebd1575515d4300bcf0280f95b5ffd60f1d191417e5aebb2302dd38029</hash>
+         <hash>1828d487b950004cb70d8578b928b55bb1682e36bbb4360beb921c7cbb110a0b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\driver\rf215\drv_rf215_local.h</file>
@@ -28744,11 +28746,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\driver\rf215\phy\rf215_phy.c</file>
-         <hash>f7409551b45c2044d84ad8d4a2a4ff9a0ec70fb72779844895435e495f43ca67</hash>
+         <hash>074e6090376e7fba55bb45d60c9d66494ee7a5682e49934aa4f92f2d6a78269e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\driver\rf215\phy\rf215_phy.h</file>
-         <hash>9d3b9fc154749b325d9b825d0db0f187ff73917616afe6ad034633d8bb4017bf</hash>
+         <hash>1b6db110a830a0a84185d5d5186f85902a11061ce01398c058efef75eb071e74</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\exceptions.c</file>
@@ -29012,7 +29014,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\rsniffer\srv_rsniffer.c</file>
-         <hash>c4ae5a24d746049cf4cc135c90098862fd813b7404d8e73c276af53c8f59e13b</hash>
+         <hash>a879568e33b28900c617f94bb9ee45ba4eb3d3891e1738893333d526f5cb78f3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\rsniffer\srv_rsniffer.h</file>

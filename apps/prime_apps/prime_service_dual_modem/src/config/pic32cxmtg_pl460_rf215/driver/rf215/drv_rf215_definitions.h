@@ -855,9 +855,6 @@ typedef struct
     /* Modulation scheme for the specific PHY type (FSK or OFDM) */
     DRV_RF215_PHY_MOD_SCHEME     modScheme;
 
-    /* Correct FCS flag */
-    bool                         fcsOk;
-
 } DRV_RF215_RX_INDICATION_OBJ;
 
 // *****************************************************************************

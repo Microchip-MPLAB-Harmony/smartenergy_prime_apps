@@ -124,7 +124,7 @@ extern "C" {
 #define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PA8
 #define DRV_RF215_LED_RX_PIN                  SYS_PORT_PIN_PA9
 #define DRV_RF215_NUM_TRX                     1U
-#define DRV_RF215_FCS_LEN                     4U
+#define DRV_RF215_FCS_LEN                     0U
 #define DRV_RF215_MAX_PSDU_LEN                571U
 #define DRV_RF215_MAX_TX_TIME_DELAY_ERROR_US  1000U
 #define DRV_RF215_TIME_SYNC_EXECUTION_CYCLES  180U

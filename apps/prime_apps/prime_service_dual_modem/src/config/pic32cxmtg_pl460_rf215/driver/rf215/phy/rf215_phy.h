@@ -235,11 +235,9 @@ Microchip or any third party.
 
 /* BBCn_PC register value (common for baseband enabled/disabled)
  * PT: PHY Type (pt enum DRV_RF215_PHY_TYPE)
- * PC.TXAFCS: Enable Transmitter Auto Frame Check Sequence
- * PC.FCSFE: Enable Frame Check Sequence Filter
- * PC.FCST: 32-bit FCS */
-#define BBC_PC_COMMON(pt)        (RF215_BBCn_PC_PT((uint8_t) (pt) + 1U) | \
-    RF215_BBCn_PC_FCST_32 | RF215_BBCn_PC_TXAFCS_EN | RF215_BBCn_PC_FCSFE_EN)
+ * PC.TXAFCS: Disable Transmitter Auto Frame Check Sequence
+ * PC.FCSFE: Disable Frame Check Sequence Filter */
+#define BBC_PC_COMMON(pt)        (RF215_BBCn_PC_PT((uint8_t) (pt) + 1U))
 
 /* BBCn_PC register value (Baseband enabled)
  * BBEN: Baseband Core Enable */
@@ -265,15 +263,13 @@ Microchip or any third party.
 
 /* BBCn_FSKPHRRX mask to check received PHR */
 #define BBC_FSKPHRRX_MASK         (RF215_BBCn_FSKPHRRX_DW_Msk |	\
-    RF215_BBCn_FSKPHRRX_SFD_Msk | RF215_BBCn_FSKPHRRX_MS | \
-    RF215_BBCn_FSKPHRRX_FCST_Msk)
+    RF215_BBCn_FSKPHRRX_SFD_Msk | RF215_BBCn_FSKPHRRX_MS)
 
 /* BBCn_FSKPHRRX register value (common for FEC enabled/disabled)
  * DW: Data Whitening enabled
  * MS: Mode switch not used (0)
- * FCST: FCS type 32-bit */
-#define BBC_FSKPHRRX_COMMON      (RF215_BBCn_FSKPHRRX_DW_EN | \
-    RF215_BBCn_FSKPHRRX_FCST_32)
+ * FCST: FCS type not used */
+#define BBC_FSKPHRRX_COMMON      (RF215_BBCn_FSKPHRRX_DW_EN)
 
 /* BBCn_FSKPHRRX register value (FEC disabled)
  * SFD: SFD0 used (uncoded) */
