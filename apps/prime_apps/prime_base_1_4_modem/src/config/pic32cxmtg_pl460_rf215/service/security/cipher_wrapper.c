@@ -8,11 +8,11 @@
     cipher_wrapper.h
 
   Summary:
-    Interface implementation of the wrapper between Smart Energy stacks and 
+    Interface implementation of the wrapper between Smart Energy stacks and
     Crypto.
 
   Description:
-    This file implements the interface for the wrapper between Smart Energy 
+    This file implements the interface for the wrapper between Smart Energy
     stacks and Crypto. It includes calls to handle CCM, CMAC and EAX (only G3).
 *******************************************************************************/
 
@@ -72,13 +72,13 @@ int32_t CIPHER_Wrapper_AesCmacDirect(uint8_t *input, uint32_t inputLen,
                                      uint8_t *outputMac, uint8_t *key)
 {
     return (int32_t) Crypto_Mac_AesCmac_Direct(CRYPTO_HANDLER_SW_WOLFCRYPT,
-            input, inputLen, outputMac, 16, key, CRYPTO_AESKEYSIZE_128, 1);
+            input, inputLen, outputMac, 16, key, (uint32_t)(CRYPTO_AESKEYSIZE_128), 1);
 }
 
 int32_t CIPHER_Wrapper_AesCcmSetkey(uint8_t *key)
 {
     return (int32_t) Crypto_Aead_AesCcm_Init(&cipherWrapperCcmContext,
-            CRYPTO_HANDLER_SW_WOLFCRYPT, key, CRYPTO_AESKEYSIZE_128, 1);
+            CRYPTO_HANDLER_SW_WOLFCRYPT, key, (uint32_t)(CRYPTO_AESKEYSIZE_128), 1);
 }
 
 int32_t CIPHER_Wrapper_AesCcmAuthDecrypt(uint8_t *data, uint32_t dataLen,

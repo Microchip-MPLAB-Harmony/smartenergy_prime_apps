@@ -3045,6 +3045,7 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
     DRV_RF215_TX_BUFFER_OBJ* txBufObj;
     uint64_t txTime;
     uint32_t startDelayUSq5 = 0;
+    uint32_t auxTime;
     SYS_TIME_HANDLE timeHandle = SYS_TIME_HANDLE_INVALID;
     bool txError = false;
 
@@ -3093,7 +3094,8 @@ static void lRF215_TX_StartTimeExpired(uintptr_t context)
 
         /* Not ready to start and it is not too late.
          * Create new timer to start TX later. */
-        startDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) (startDelayUSq5 + RF215_TX_TIME_IRQ_DELAY_US_Q5));
+        auxTime = startDelayUSq5 + RF215_TX_TIME_IRQ_DELAY_US_Q5;
+        startDelay = (uint32_t) lRF215_PHY_USq5ToSysTimeCount((int32_t) (auxTime));
         timeHandle = SYS_TIME_TimerCreate(0U, startDelay,
                 lRF215_TX_StartTimeExpired, context, SYS_TIME_SINGLE);
 

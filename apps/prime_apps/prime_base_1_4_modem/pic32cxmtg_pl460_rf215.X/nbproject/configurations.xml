@@ -641,6 +641,7 @@
             <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/peripheral/sefc/plib_sefc1.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/peripheral/sefc/plib_sefc0.c</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/peripheral/sefc/plib_sefc_common.c</itemPath>
             </logicalFolder>
             <logicalFolder name="supc" displayName="supc" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/peripheral/supc/plib_supc.c</itemPath>
