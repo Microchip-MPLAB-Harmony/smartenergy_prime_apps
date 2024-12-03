@@ -57,10 +57,10 @@
 #include "peripheral/supc/plib_supc.h"
 #include "bsp/bsp.h"
 #include "peripheral/sefc/plib_sefc0.h"
-#include "peripheral/sefc/plib_sefc1.h"
 #include "system/int/sys_int.h"
 #include "system/cache/sys_cache.h"
 #include "system/debug/sys_debug.h"
+#include "peripheral/sefc/plib_sefc1.h"
 #include "app_bootloader.h"
 
 
@@ -74,13 +74,13 @@ extern "C" {
 // DOM-IGNORE-END
 
 /* Device Information */
-#define DEVICE_NAME			 "PIC32CX2051MTG128"
-#define DEVICE_ARCH			 "CORTEX-M4"
-#define DEVICE_FAMILY		 "PIC32CX_MT"
-#define DEVICE_SERIES		 "PIC32CXMTG"
+#define DEVICE_NAME          "PIC32CX2051MTG128"
+#define DEVICE_ARCH          "CORTEX-M4"
+#define DEVICE_FAMILY        "PIC32CX_MT"
+#define DEVICE_SERIES        "PIC32CXMTG"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 200000000
+#define CPU_CLOCK_FREQUENCY 200000000U
 
 // *****************************************************************************
 // *****************************************************************************

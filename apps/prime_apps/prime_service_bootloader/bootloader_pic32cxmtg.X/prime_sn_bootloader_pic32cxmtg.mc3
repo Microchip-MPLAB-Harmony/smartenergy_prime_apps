@@ -3808,7 +3808,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\bsp\bsp.h</file>
-         <hash>11ee62e7b23268746e221707bafd3bdc0faddf9df8e94e287921a251200e7404</hash>
+         <hash>4f124497ee0b86184954581d4578c11aa47dd9ccba83465e08f5a2c934741bb8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\configuration.h</file>
@@ -3816,7 +3816,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\definitions.h</file>
-         <hash>b4473b920b5898d241d0d98849b732909a7832f7a0627c7190fa36ff1ccbc0ae</hash>
+         <hash>d2c939d0333141903c9d8a62f245da4e046d2746aebfbd0937f6de0d7004cbdf</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\device.h</file>
@@ -3840,11 +3840,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\exceptions.c</file>
-         <hash>89852728a9a1cc4c9746839cc3caf5308b8698c0c30bf6bfbad0db9e552a387e</hash>
+         <hash>c6461b6607648b0ec136259c1a04ca632373559f6120b2217787043e14320b5c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\initialization.c</file>
-         <hash>6ad96d71a25ce8ad75f6b6caa1167220c411e3e69b90c7af0e22cbb0ed9875b6</hash>
+         <hash>7839a9a1febf686479180030a55e53a59b3c423e097ab00cc3ae1a3885d6babb</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\interrupts.c</file>
@@ -3908,27 +3908,31 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\peripheral\sefc\plib_sefc0.c</file>
-         <hash>2666b2b03017cb9382e2f9224af9a1b1158b5a063163946a0ed60ee62701f571</hash>
+         <hash>617742bee46ba461c344e3ad0d2dad8d37fe615c771f0f4b991571360261d6a4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\peripheral\sefc\plib_sefc0.h</file>
-         <hash>35517063851978e25640dfaf6512a6af69907bec245ccd05698bf94afee49581</hash>
+         <hash>379944129ce0df4921995d2086d67f2876ff1def7933b4eca65e94f9164eca16</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\peripheral\sefc\plib_sefc1.c</file>
-         <hash>10160ae893fdc4dbcf4b8f76752e74f6562a5845672a5a45cf940f65e15c46ca</hash>
+         <hash>c5864057d7dc145d784c2e0afbac3bdb66bba7f000f064903101ea84c5e827e4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\peripheral\sefc\plib_sefc1.h</file>
-         <hash>83b92e05b738cfeed963f18fe17bd28c298bc3092af00bb0448676aa58e8151c</hash>
+         <hash>3640ecd460bae3b8a39004c830dee3edff3a669498d6c2dc71dd08b5eccdb3d4</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cxmtg\peripheral\sefc\plib_sefc_common.c</file>
+         <hash>f7e1500368414009b16ba916e612ec780f90f7029ecd550dbae91b49c5b88626</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\peripheral\sefc\plib_sefc_common.h</file>
-         <hash>3e24f63c9dcb1ed3c31964d7718ebdd4e4e012f6a8d1a99b59f1cce1d2158137</hash>
+         <hash>3baa7dbf8acb6264c697a73035c40a786d850be386c308da4aad0b4f32830bd7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\peripheral\supc\plib_supc.c</file>
-         <hash>f06a16ccf2c9f4a828099e037c0445fb9eb650c1b4df2bc914c9bbc1fc91026f</hash>
+         <hash>086272ac314088b0b0ca1cf2412479c64ed8508fddad8d50706a8eda6bf986af</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\peripheral\supc\plib_supc.h</file>

@@ -50,13 +50,15 @@
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-/* This section lists the other files that are included in this file. */
+
 #include "device.h"
 #include "plib_flexcom_usart_local.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus // Provide C++ Compatibility
-extern "C" {
+
+	extern "C" {
+
 #endif
 // DOM-IGNORE-END
 
@@ -65,40 +67,51 @@ extern "C" {
 // Section: Interface Routines
 // *****************************************************************************
 // *****************************************************************************
+
 #define FLEXCOM7_USART_FrequencyGet()    (uint32_t)(100000000UL)
 
 /****************************** FLEXCOM7 USART API *********************************/
-
 void FLEXCOM7_USART_Initialize( void );
+
+bool FLEXCOM7_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP* setup, uint32_t srcClkFreq );
 
 FLEXCOM_USART_ERROR FLEXCOM7_USART_ErrorGet( void );
 
-bool FLEXCOM7_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP *setup, uint32_t srcClkFreq );
+size_t FLEXCOM7_USART_Write(uint8_t* pWrBuffer, const size_t size );
 
-bool FLEXCOM7_USART_Write( void *buffer, const size_t size );
+size_t FLEXCOM7_USART_WriteCountGet(void);
 
-bool FLEXCOM7_USART_Read( void *buffer, const size_t size );
+size_t FLEXCOM7_USART_WriteFreeBufferCountGet(void);
 
-bool FLEXCOM7_USART_WriteIsBusy( void );
+size_t FLEXCOM7_USART_WriteBufferSizeGet(void);
 
-bool FLEXCOM7_USART_ReadIsBusy( void );
+bool FLEXCOM7_USART_TransmitComplete(void);
 
-size_t FLEXCOM7_USART_WriteCountGet( void );
+bool FLEXCOM7_USART_WriteNotificationEnable(bool isEnabled, bool isPersistent);
 
-size_t FLEXCOM7_USART_ReadCountGet( void );
+void FLEXCOM7_USART_WriteThresholdSet(uint32_t nBytesThreshold);
 
-bool FLEXCOM7_USART_ReadAbort(void);
+void FLEXCOM7_USART_WriteCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
 
-void FLEXCOM7_USART_WriteCallbackRegister( FLEXCOM_USART_CALLBACK callback, uintptr_t context );
+size_t FLEXCOM7_USART_Read(uint8_t* pRdBuffer, const size_t size);
 
-void FLEXCOM7_USART_ReadCallbackRegister( FLEXCOM_USART_CALLBACK callback, uintptr_t context );
+size_t FLEXCOM7_USART_ReadCountGet(void);
 
-bool FLEXCOM7_USART_TransmitComplete( void );
+size_t FLEXCOM7_USART_ReadFreeBufferCountGet(void);
 
+size_t FLEXCOM7_USART_ReadBufferSizeGet(void);
+
+bool FLEXCOM7_USART_ReadNotificationEnable(bool isEnabled, bool isPersistent);
+
+void FLEXCOM7_USART_ReadThresholdSet(uint32_t nBytesThreshold);
+
+void FLEXCOM7_USART_ReadCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
+
     }
+
 #endif
 // DOM-IGNORE-END
 

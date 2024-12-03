@@ -4240,32 +4240,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PAL_HEADER"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
-  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PAL_HEADER&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/prime_config&gt;
-&lt;/prime_config&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PAL_TYPES"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
-  &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PAL_TYPES&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-  &lt;/prime_config&gt;
-&lt;/prime_config&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="prime_config" name="PRIME_1_4_SN_LIBRARY"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;prime_config&gt;
   &lt;prime_config dnOrder=&quot;0&quot; id=&quot;PRIME_1_4_SN_LIBRARY&quot;&gt;
@@ -4910,27 +4884,31 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\peripheral\sefc\plib_sefc0.c</file>
-         <hash>d5968cafbc56c299c89b07358d2e9b86c99c00498c393ddb17d1aa2253a028fc</hash>
+         <hash>b995311e215c56cca017261c230fd6b9125c09fee5f8c1ec5f96ecd86d5e1280</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\peripheral\sefc\plib_sefc0.h</file>
-         <hash>35517063851978e25640dfaf6512a6af69907bec245ccd05698bf94afee49581</hash>
+         <hash>379944129ce0df4921995d2086d67f2876ff1def7933b4eca65e94f9164eca16</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\peripheral\sefc\plib_sefc1.c</file>
-         <hash>9f7e024d8c96cf8f494257a5d37fbc71fefe826e13edd8b31d2148465f3a152e</hash>
+         <hash>e58ed7fa89c24400e167b15d782b0bb7b5caaeabd806072f982c272c0d3eb077</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\peripheral\sefc\plib_sefc1.h</file>
-         <hash>83b92e05b738cfeed963f18fe17bd28c298bc3092af00bb0448676aa58e8151c</hash>
+         <hash>3640ecd460bae3b8a39004c830dee3edff3a669498d6c2dc71dd08b5eccdb3d4</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cxmt_pl460_rf215\peripheral\sefc\plib_sefc_common.c</file>
+         <hash>f7e1500368414009b16ba916e612ec780f90f7029ecd550dbae91b49c5b88626</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\peripheral\sefc\plib_sefc_common.h</file>
-         <hash>3e24f63c9dcb1ed3c31964d7718ebdd4e4e012f6a8d1a99b59f1cce1d2158137</hash>
+         <hash>3baa7dbf8acb6264c697a73035c40a786d850be386c308da4aad0b4f32830bd7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\peripheral\supc\plib_supc.c</file>
-         <hash>8eee51a951454d9898a3ea8725b2700b95b1fb6feb465375647e6851149e91f2</hash>
+         <hash>f93cfc1c8f71fb6461b920c96fe1707d2f3a1d395e0213dcf7c1cffec8df9c12</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\peripheral\supc\plib_supc.h</file>
@@ -4962,11 +4940,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\pcrc\srv_pcrc.c</file>
-         <hash>e93b1bf75d6ff42cc3abaf04b63167381a53869988d5263d0fa8512c8fb96551</hash>
+         <hash>15fa5e599ebd2c081f1a32062df60ceb43eafea9217c5f4a46ff126070bc7b52</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\pcrc\srv_pcrc.h</file>
-         <hash>535eb2229d5b9e79b3f59ff109b47aacea50bd5253f56428b83a1d9078f93d2e</hash>
+         <hash>f257598d31bd730b45f4679376a130000cb6ac18277e5c1575ea45876a3005d4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\queue\srv_queue.c</file>
@@ -4978,11 +4956,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\random\srv_random.c</file>
-         <hash>14ba6499fc8017604196e79fa0f839a02765d01657e83a820e6b44549d424fb9</hash>
+         <hash>6f9f3df93792ef7cdeffbd19d4fcc06280b6d37846efa686cfd564e0511ed84e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\random\srv_random.h</file>
-         <hash>211b8cba53d7ba8717a4545e5fa4654f0bc70b36e05f1ab08eeba77d39048065</hash>
+         <hash>74409dadccb1a152f9717e596b31af36c8cac01d1a33a4a40a15c5fbdcd52a78</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\reset_handler\srv_reset_handler.c</file>
@@ -4994,15 +4972,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\security\aes_wrapper.c</file>
-         <hash>80c4776358de2a95902a6eee40d451c9bb135dc5b0d74805b7ddce8faa4123b2</hash>
+         <hash>048594d3417ed7aca7c9c88ecc38a05d9431ced66c3aeff7ee5a293fea9d8297</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\security\aes_wrapper.h</file>
-         <hash>cca17d075ee025865d70980547a8b51cd84fd01b256ee448e22873e3a9d2d511</hash>
+         <hash>144d8d6c058e5265a1110f1e94b34a83467bb523a6d85ad9b5143e74e6eb632b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\security\cipher_wrapper.c</file>
-         <hash>c5ec1ce93b76d0ab55b53cf22b443164798a41028c51b12a482ab63a85a04d10</hash>
+         <hash>9154775f564de29a88b9ab65d4847ef4b86b00cdb9e53e39da5b1339055ebe77</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\security\cipher_wrapper.h</file>
@@ -5034,11 +5012,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>6bc441c1a676a6399fa5d91d221790c81ee2a1fa9d6dc9c36299f1ab701a1a06</hash>
+         <hash>57ec6239bcb3b2c44eb9cca3be09bdeed94e2c7c95804a1828180d82030764cf</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\usi\srv_usi.h</file>
-         <hash>a6675a2a6bda97bd2c58a06754a5acfa6d59a9092b0f825fc5e9ead650a63d34</hash>
+         <hash>359880eb5e3d9f3ff227b4bdbffc92f3331df46c0eb789d2df1de7b488a3bb68</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\usi\srv_usi_definitions.h</file>
@@ -5047,14 +5025,6 @@
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\service\usi\srv_usi_local.h</file>
          <hash>cbd80d3ecb1d78130ce3d61bdbf0b6f37e524666f24299dd8eb4037162a0a503</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cxmt_pl460_rf215\stack\pal\pal.h</file>
-         <hash>0a9f71abbfe3688c89ab8fdd0453811b75f4f5b7ddf739940bd3d440f96d2160</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cxmt_pl460_rf215\stack\pal\pal_types.h</file>
-         <hash>621da568b207f5ec9099e5e8de44fe428d03e7c47c2ed807dc248d8d3cd3e785</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460_rf215\stack\prime\conv\sscs\iec_4_32\cl_432.h</file>

@@ -86,10 +86,6 @@
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="stack" displayName="stack" projectFiles="true">
-            <logicalFolder name="pal" displayName="pal" projectFiles="true">
-              <itemPath>../src/config/pic32cxmt_pl460/stack/pal/pal_types.h</itemPath>
-              <itemPath>../src/config/pic32cxmt_pl460/stack/pal/pal.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="prime" displayName="prime" projectFiles="true">
               <logicalFolder name="conv" displayName="conv" projectFiles="true">
                 <logicalFolder name="sscs" displayName="sscs" projectFiles="true">
@@ -302,6 +298,7 @@
             <logicalFolder name="sefc" displayName="sefc" projectFiles="true">
               <itemPath>../src/config/pic32cxmt_pl460/peripheral/sefc/plib_sefc0.c</itemPath>
               <itemPath>../src/config/pic32cxmt_pl460/peripheral/sefc/plib_sefc1.c</itemPath>
+              <itemPath>../src/config/pic32cxmt_pl460/peripheral/sefc/plib_sefc_common.c</itemPath>
             </logicalFolder>
             <logicalFolder name="supc" displayName="supc" projectFiles="true">
               <itemPath>../src/config/pic32cxmt_pl460/peripheral/supc/plib_supc.c</itemPath>

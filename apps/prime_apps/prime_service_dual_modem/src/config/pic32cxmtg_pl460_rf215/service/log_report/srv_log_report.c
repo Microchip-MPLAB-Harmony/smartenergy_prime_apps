@@ -113,7 +113,7 @@ void SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_LEVEL logLevel,
     blockLength = SYS_CONSOLE_PRINT_BUFFER_SIZE / 2U;
     blockNumber = bufferLength / blockLength;
     lastBlockLength = bufferLength % blockLength;
-    if (lastBlockLength)
+    if (lastBlockLength != 0U)
     {
         ++blockNumber;
     }
@@ -131,7 +131,7 @@ void SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_LEVEL logLevel,
             blockLength = lastBlockLength;
         }
 
-        if (blockLength)
+        if (blockLength != 0U)
         {
             lastPosition = lastBlock * (SYS_CONSOLE_PRINT_BUFFER_SIZE / 2U);
             for (uint32_t i = 0U; i < blockLength; i++)
