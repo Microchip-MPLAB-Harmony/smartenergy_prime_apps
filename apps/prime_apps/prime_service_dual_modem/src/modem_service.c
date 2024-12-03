@@ -1464,16 +1464,16 @@ void APP_Modem_Tasks(void)
                             APP_MODEM_ERR_UNKNOWN_CMD, "ERROR: unknown command\r\n" );
                     break;
                 }
-            }
 
-            sAppModemMsgRecv[outputMsgRecvIndex].len = 0;
-            if(++outputMsgRecvIndex == MAX_NUM_MSG_RCV) 
-            {
-                outputMsgRecvIndex = 0;
+                sAppModemMsgRecv[outputMsgRecvIndex].len = 0;
+                if(++outputMsgRecvIndex == MAX_NUM_MSG_RCV) 
+                {
+                    outputMsgRecvIndex = 0;
+                }
             }
-
-            break;
             
+            break;
+
         default:
             break;
     }
