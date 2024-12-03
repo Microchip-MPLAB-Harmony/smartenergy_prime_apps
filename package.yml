@@ -12,7 +12,7 @@ package:
       version: "SMS-4010-fix-required-misra-c-violations-in-prime-repo"
     - name: "core"
       type: "package"
-      version: "v3.14.0"
+      version: "v3.13.5"
     - name: "wolfssl"
       type: "package"
       version: "v5.7.0"
