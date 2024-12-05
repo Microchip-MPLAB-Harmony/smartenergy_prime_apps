@@ -8,11 +8,11 @@
     cipher_wrapper.h
 
   Summary:
-    Interface implementation of the wrapper between Smart Energy stacks and 
+    Interface implementation of the wrapper between Smart Energy stacks and
     Crypto.
 
   Description:
-    This file implements the interface for the wrapper between Smart Energy 
+    This file implements the interface for the wrapper between Smart Energy
     stacks and Crypto. It includes calls to handle CCM, CMAC and EAX (only G3).
 *******************************************************************************/
 
@@ -48,8 +48,8 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include "cipher_wrapper.h"
-//#include "crypto/common_crypto/MCHP_Crypto_Mac_Cipher.h"
-//#include "crypto/common_crypto/MCHP_Crypto_Aead_Cipher.h"
+#include "crypto/common_crypto/crypto_mac_cipher.h"
+#include "crypto/common_crypto/crypto_aead_cipher.h"
 #include <string.h>
 
 // *****************************************************************************
@@ -59,7 +59,7 @@ Microchip or any third party.
 // *****************************************************************************
 
 /* CCM context used in this wrapper */
-//static st_Crypto_Aead_AesCcm_ctx cipherWrapperCcmContext;
+static st_Crypto_Aead_AesCcm_ctx cipherWrapperCcmContext;
 
 
 // *****************************************************************************
@@ -71,12 +71,14 @@ Microchip or any third party.
 int32_t CIPHER_Wrapper_AesCmacDirect(uint8_t *input, uint32_t inputLen,
                                      uint8_t *outputMac, uint8_t *key)
 {
-    return 0;
+    return (int32_t) Crypto_Mac_AesCmac_Direct(CRYPTO_HANDLER_SW_WOLFCRYPT,
+            input, inputLen, outputMac, 16, key, (uint32_t)(CRYPTO_AESKEYSIZE_128), 1);
 }
 
 int32_t CIPHER_Wrapper_AesCcmSetkey(uint8_t *key)
 {
-    return 0;
+    return (int32_t) Crypto_Aead_AesCcm_Init(&cipherWrapperCcmContext,
+            CRYPTO_HANDLER_SW_WOLFCRYPT, key, (uint32_t)(CRYPTO_AESKEYSIZE_128), 1);
 }
 
 int32_t CIPHER_Wrapper_AesCcmAuthDecrypt(uint8_t *data, uint32_t dataLen,
@@ -84,7 +86,9 @@ int32_t CIPHER_Wrapper_AesCcmAuthDecrypt(uint8_t *data, uint32_t dataLen,
                                          uint8_t *aad, uint32_t aadLen,
                                          uint8_t *tag, uint32_t tagLen)
 {
-    return 0;
+    return (int32_t) Crypto_Aead_AesCcm_Cipher(&cipherWrapperCcmContext,
+            CRYPTO_CIOP_DECRYPT, data, dataLen, data,
+            iv, ivLen, tag, tagLen, aad, aadLen);
 }
 
 int32_t CIPHER_Wrapper_AesCcmEncryptAndTag(uint8_t *data, uint32_t dataLen,
@@ -92,6 +96,8 @@ int32_t CIPHER_Wrapper_AesCcmEncryptAndTag(uint8_t *data, uint32_t dataLen,
                                            uint8_t *aad, uint32_t aadLen,
                                            uint8_t *tag, uint32_t tagLen)
 {
-    return 0;
+    return (int32_t) Crypto_Aead_AesCcm_Cipher(&cipherWrapperCcmContext,
+            CRYPTO_CIOP_ENCRYPT, data, dataLen, data,
+            iv, ivLen, tag, tagLen, aad, aadLen);
 }
 
