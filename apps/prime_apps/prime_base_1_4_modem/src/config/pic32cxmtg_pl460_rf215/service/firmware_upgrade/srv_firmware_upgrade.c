@@ -66,11 +66,10 @@ Microchip or any third party.
 
 #define PRIME_FU_MEM_DRV        "drv_memory_0"
 #define PRIME_FU_MEM_INSTANCE   0
-#define PRIME_FU_MEM_OFFSET     0x40000
 #define PRIME_FU_MEM_SIZE       0x60000
 
-#define MEMORY_WRITE_SIZE       256
-#define MAX_BUFFER_READ_SIZE    256
+#define MEMORY_WRITE_SIZE       512
+#define MAX_BUFFER_READ_SIZE    1024
     
 
 // *****************************************************************************
@@ -129,19 +128,18 @@ static void lSRV_FU_TransferHandler
     switch(event)
     {
         case DRV_MEMORY_EVENT_COMMAND_COMPLETE:
-            mInfo->state = SRV_FU_MEM_STATE_CMD_WAIT;
             transferResult = SRV_FU_MEM_TRANSFER_OK;
             break;
 
         case DRV_MEMORY_EVENT_COMMAND_ERROR:
         default:
-            mInfo->state = SRV_FU_MEM_STATE_ERROR;
             transferResult = SRV_FU_MEM_TRANSFER_ERROR;
             break;
     }
 
     if (commandHandle == mInfo->eraseHandle) 
     {
+        memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
         transferCmd = SRV_FU_MEM_TRANSFER_CMD_ERASE;
     }
     else if (commandHandle == mInfo->readHandle) 
@@ -154,6 +152,7 @@ static void lSRV_FU_TransferHandler
         }
         else
         {
+            memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             transferCmd = SRV_FU_MEM_TRANSFER_CMD_READ;
         }
     }
@@ -167,11 +166,13 @@ static void lSRV_FU_TransferHandler
         }
         else
         {
+            memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             transferCmd = SRV_FU_MEM_TRANSFER_CMD_WRITE;
         }
     }
     else
     {
+        memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
         transferCmd = SRV_FU_MEM_TRANSFER_CMD_BAD;
     }
 
@@ -204,7 +205,7 @@ void SRV_FU_Initialize(void)
 	SRV_FU_SwapCallback = NULL;
     SRV_FU_MemTransferCallback = NULL;
 	
-    memInfo.startAdressFuRegion = PRIME_FU_MEM_OFFSET;
+    memInfo.startAdressFuRegion = 0;
     memInfo.sizeFuRegion = PRIME_FU_MEM_SIZE;
 
 	memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
@@ -255,12 +256,12 @@ void SRV_FU_Tasks(void)
         {
             if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.eraseHandle)
             {
+                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
                 if (SRV_FU_MemTransferCallback != NULL) 
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_ERASE, SRV_FU_MEM_TRANSFER_ERROR);
                 }   
-                
-                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             }
 
             break;
@@ -270,12 +271,12 @@ void SRV_FU_Tasks(void)
 		{
 			if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.readHandle)
 			{
+                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
                 if (SRV_FU_MemTransferCallback != NULL) 
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_READ, SRV_FU_MEM_TRANSFER_ERROR);
                 }   
-                
-                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
 			}
 			break;
 		}
@@ -288,12 +289,13 @@ void SRV_FU_Tasks(void)
 
             if (memInfo.writeSize == 0)
             {
+                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
                 if (SRV_FU_MemTransferCallback != NULL) 
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_OK);
                 }   
-                
-                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
                 break;
             }
             
@@ -317,12 +319,12 @@ void SRV_FU_Tasks(void)
  
 			if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.writeHandle)
 			{
+                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
                 if (SRV_FU_MemTransferCallback != NULL) 
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_ERROR);
                 }   
-                
-                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
 			}
             else
             {
@@ -385,13 +387,13 @@ void SRV_FU_Tasks(void)
                 }
                 else
                 {
+                    crcState = SRV_FU_CRC_IDLE;
+                    memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
                     /* Check pointer function */
                     if (SRV_FU_CrcCallback != NULL) {
                         SRV_FU_CrcCallback(calculatedCrc);
                     }
-
-                    crcState = SRV_FU_CRC_IDLE;
-                    memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
                 }
             }
             

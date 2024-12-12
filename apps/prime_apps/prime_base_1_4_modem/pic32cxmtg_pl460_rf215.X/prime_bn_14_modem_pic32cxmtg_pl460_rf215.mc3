@@ -15567,7 +15567,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primeFirmwareUpgrade" name="PRIME_FU_BUFFER_READ_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primeFirmwareUpgrade&gt;
   &lt;primeFirmwareUpgrade dnOrder=&quot;0&quot; id=&quot;PRIME_FU_BUFFER_READ_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;1024&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/primeFirmwareUpgrade&gt;
 &lt;/primeFirmwareUpgrade&gt;
 </value>
@@ -15576,7 +15578,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primeFirmwareUpgrade" name="PRIME_FU_BUFFER_WRITE_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primeFirmwareUpgrade&gt;
   &lt;primeFirmwareUpgrade dnOrder=&quot;0&quot; id=&quot;PRIME_FU_BUFFER_WRITE_SIZE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;512&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/primeFirmwareUpgrade&gt;
 &lt;/primeFirmwareUpgrade&gt;
 </value>
@@ -15598,17 +15602,6 @@
   &lt;primeFirmwareUpgrade dnOrder=&quot;0&quot; id=&quot;PRIME_FU_MEM_INSTANCE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;primeFirmwareUpgrade&quot; value=&quot;0&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/primeFirmwareUpgrade&gt;
-&lt;/primeFirmwareUpgrade&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primeFirmwareUpgrade" name="PRIME_FU_MEM_OFFSET"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primeFirmwareUpgrade&gt;
-  &lt;primeFirmwareUpgrade dnOrder=&quot;0&quot; id=&quot;PRIME_FU_MEM_OFFSET&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;primeFirmwareUpgrade&quot; value=&quot;0x40000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/primeFirmwareUpgrade&gt;
 &lt;/primeFirmwareUpgrade&gt;
@@ -16350,6 +16343,38 @@
   &lt;sefc0 dnOrder=&quot;0&quot; id=&quot;DRV_MEMORY_CONNECTED&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drv_memory_0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sefc0&gt;
+&lt;/sefc0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sefc0" name="MEMORY_MEDIA_SIZE"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sefc0&gt;
+  &lt;sefc0 dnOrder=&quot;0&quot; id=&quot;MEMORY_MEDIA_SIZE&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;384&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/sefc0&gt;
+&lt;/sefc0&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sefc0" name="START_ADDRESS"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sefc0&gt;
+  &lt;sefc0 dnOrder=&quot;0&quot; id=&quot;START_ADDRESS&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;10A0000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/sefc0&gt;
 &lt;/sefc0&gt;
@@ -29795,7 +29820,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\configuration.h</file>
-         <hash>65140f8537323a69ccc267b111b97d72365066ba7795a3cabf950207d7c64f2d</hash>
+         <hash>326c0b10cc1e01eb8faeae89e10341a90e139face5ef6cf777031e78d901e358</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\common_crypto\crypto_aead_cipher.h</file>
@@ -30147,7 +30172,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\sefc\plib_sefc0.h</file>
-         <hash>c2324fb45fa6677b412fa5a2198e41f6277b03650a42ef348930f902623b767c</hash>
+         <hash>7b3c1a0b4159b04c0541737b6bb426ad60f8dcf852d0d827bfb1a9c7551154e8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\sefc\plib_sefc1.c</file>
@@ -30199,7 +30224,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>c95b72a7fc10b87cb33e1c1f6ccb7cfeaf6ee711168267be03d2f92b352024b3</hash>
+         <hash>098db78e201fa8337971e4f1f5556c2626d07c1c2f49c5cd6b87462e444befc8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.h</file>
@@ -30207,7 +30232,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade_local.h</file>
-         <hash>ec188ec144f62529502e6434a5de28e3235937f0d21676872d79d3f01491343f</hash>
+         <hash>af885f2c4ebdf47d2e7f2d45384a399a20058cf9e3d98d5fde778398501e7d0b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\log_report\srv_log_report.c</file>
