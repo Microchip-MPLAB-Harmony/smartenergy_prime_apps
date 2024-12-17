@@ -83,75 +83,75 @@ static uint32_t volatile versionSwapEn;
 static void lAPP_SwapFirmware(void)
 {
     /* Swap firmware */
-//    if (SRV_FU_SwapFirmware() == true)
+    if (SRV_FU_SwapFirmware() == true)
     {
         /* Trigger reset to launch bootloader */
         SRV_RESET_HANDLER_RestartSystem(RESET_HANDLER_FU_RESET);
     }
 }
 
-//static void lAPP_PrimeFuResultHandler(SRV_FU_RESULT fuResult)
-//{
-//    switch (fuResult)
-//    {
-//        case SRV_FU_SUCCESS:
-//            /* Update FU pointer */
-//            fuSwapEn = APP_FU_ENABLE_SWAP;
-//            break;
-//
-//        case SRV_FU_CRC_ERROR:
-//            /* Nothing to do - FU will restart automatically */
-//            break;
-//
-//        case SRV_FU_CANCEL:
-//            /* Nothing to do */
-//            break;
-//
-//        case SRV_FU_FW_CONFIRM:
-//            /* Nothing to do */
-//            break;
-//
-//        case SRV_FU_FW_REVERT:
-//            /* Revert FU pointer */
-//            fuSwapEn = APP_FU_ENABLE_SWAP;
-//            break;
-//
-//        case SRV_FU_ERROR:
-//            /* Nothing to do */
-//            break;
-//
-//        case SRV_FU_SIGNATURE_ERROR:
-//            /* Nothing to do */
-//            break;
-//
-//        case SRV_FU_IMAGE_ERROR:
-//            /* Nothing to do */
-//            break;
-//
-//        default:
-//            break;
-//    }
-//}
+static void lAPP_PrimeFuResultHandler(SRV_FU_RESULT fuResult)
+{
+    switch (fuResult) 
+    {
+        case SRV_FU_SUCCESS:
+            /* Update FU pointer */
+            fuSwapEn = APP_FU_ENABLE_SWAP;
+            break;
 
-//static void lAPP_PrimeVersionSwapRequest(SRV_FU_TRAFFIC_VERSION traffic)
-//{
-//    /* Compare current PRIME pointer with detected traffic */
-//    if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_4)
-//    {
-//        newPrimeApi = PRIME_SN_FWSTACK14_ADDRESS;
-//        versionSwapEn = APP_VERSION_ENABLE_SWAP;
-//
-//    }
-//    else if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_3)
-//    {
-//        newPrimeApi = PRIME_SN_FWSTACK13_ADDRESS;
-//        versionSwapEn = APP_VERSION_ENABLE_SWAP;
-//    }
-//    else
-//    {
-//        // Do nothing
-//    }
-//}
+        case SRV_FU_CRC_ERROR:
+            /* Nothing to do - FU will restart automatically */
+            break;
+
+        case SRV_FU_RESULT_CANCEL:
+            /* Nothing to do */
+            break;
+
+        case SRV_FU_RESULT_FW_CONFIRM:
+            /* Nothing to do */
+            break;
+
+        case SRV_FU_RESULT_FW_REVERT:
+            /* Revert FU pointer */
+            fuSwapEn = APP_FU_ENABLE_SWAP;
+            break;
+
+        case SRV_FU_RESULT_ERROR:
+            /* Nothing to do */
+            break;
+
+        case SRV_FU_RESULT_SIGNATURE_ERROR:
+            /* Nothing to do */
+            break;
+
+        case SRV_FU_RESULT_IMAGE_ERROR:
+            /* Nothing to do */
+            break;
+
+        default:
+            break;
+    }
+}
+
+static void lAPP_PrimeVersionSwapRequest(SRV_FU_TRAFFIC_VERSION traffic)
+{
+    /* Compare current PRIME pointer with detected traffic */
+    if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_4) 
+    {
+        newPrimeApi = (PRIME_API *)PRIME_SN_FWSTACK14_ADDRESS;
+        versionSwapEn = APP_VERSION_ENABLE_SWAP;
+
+    } 
+    else if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_3) 
+    {
+        newPrimeApi = (PRIME_API *)PRIME_SN_FWSTACK13_ADDRESS;
+        versionSwapEn = APP_VERSION_ENABLE_SWAP;
+    }
+    else
+    {
+        // Do nothing
+    }
+}
 
 static void lAPP_SwapStackVersion(void)
 {
@@ -260,16 +260,10 @@ void APP_Tasks ( void )
             }
 
             /* Initialize result callback for version swap request */
-//            SRV_FU_RegisterCallbackSwap(lAPP_PrimeVersionSwapRequest);
+            SRV_FU_RegisterCallbackSwapVersion(lAPP_PrimeVersionSwapRequest);
 
             /* Initialize FU result callback */
-//            SRV_FU_RegisterCallbackFuResult(lAPP_PrimeFuResultHandler);
-
-            /* Configure PRIME firmware upgrade region */
-            //fuRegion.address = PRIME_IMAGE_FLASH_LOCATION;
-            //fuRegion.size = PRIME_IMAGE_SIZE;
-            //SRV_FU_ConfigRegions(&fuRegion);
-
+            SRV_FU_RegisterCallbackFuResult(lAPP_PrimeFuResultHandler);
             break;
         }
 
