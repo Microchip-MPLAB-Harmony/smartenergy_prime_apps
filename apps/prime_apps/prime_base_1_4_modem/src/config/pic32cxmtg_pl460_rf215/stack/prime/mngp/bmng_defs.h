@@ -11,7 +11,7 @@
     PRIME MAC Definitions Header File
 
   Description:
-    This file contains definitions of the PRIME Base Management primitives to be 
+    This file contains definitions of the PRIME Base Management primitives to be
     used by the PRIME application in the Base Node.
 *******************************************************************************/
 
@@ -84,7 +84,7 @@ typedef enum {
     Defines the acknowledgement codes for Firmware Upgrade Protocol.
 
  Description:
-    This enumeration defines the acknowledgement codes used in the Firmware 
+    This enumeration defines the acknowledgement codes used in the Firmware
     Upgrade Protocol.
 
  Remarks:
@@ -109,7 +109,7 @@ typedef enum {
     Defines the error codes for Firmware Upgrade Protocol.
 
  Description:
-    This enumeration defines the error codes used in the Firmware Upgrade 
+    This enumeration defines the error codes used in the Firmware Upgrade
     Protocol.
 
  Remarks:
@@ -117,11 +117,11 @@ typedef enum {
 */
 typedef enum {
 	BMNG_FUP_ERROR_NODE_NO_ERROR = 0,
-	BMNG_FUP_ERROR_NODE_WRONGSTATE_EXEC,
-	BMNG_FUP_ERROR_NODE_WRONGSTATE_UPG,
+	BMNG_FUP_ERROR_NODE_EXEC_WRONGSTATE,
+	BMNG_FUP_ERROR_NODE_UPG_WRONGSTATE,
 	BMNG_FUP_ERROR_NODE_WRONGSTATE,
-	BMNG_FUP_ERROR_NODE_WRONGSTATE_RCV,
-	BMNG_FUP_ERROR_NODE_WRONGSTATE_CNTDWN,
+	BMNG_FUP_ERROR_NODE_RCV_WRONGSTATE,
+	BMNG_FUP_ERROR_NODE_CNTDWN_WRONGSTATE,
 	BMNG_FUP_ERROR_NODE_FW_NOTMATCH,
 	BMNG_FUP_ERROR_NODE_REVERT_ERRORINIT,
 	BMNG_FUP_ERROR_NODE_REVERT_ERR7,
@@ -130,8 +130,8 @@ typedef enum {
 	BMNG_FUP_ERROR_NODE_CONFIRM_IND,
 	BMNG_FUP_ERROR_NODE_REVERT_CRCNOK,
 	BMNG_FUP_ERROR_NODE_RESTART,
-	BMNG_FUP_ERROR_NODE_WRONG_MISS_BITMAP,
-	BMNG_FUP_ERROR_NODE_WRONG_MISS_LIST,
+	BMNG_FUP_ERROR_NODE_MISS_BITMAP_WRONG,
+	BMNG_FUP_ERROR_NODE_MISS_LIST_WRONG,
 	BMNG_FUP_ERROR_NODE_VENDOR_INVALID,
 	BMNG_FUP_ERROR_NODE_MODEL_NOTMATCH,
 	BMNG_FUP_WARNING_NODE_ALREADY_UPDATED,
@@ -146,7 +146,7 @@ typedef enum {
     Defines the node states for Firmware Upgrade Protocol.
 
  Description:
-    This enumeration defines the node states used in the Firmware Upgrade 
+    This enumeration defines the node states used in the Firmware Upgrade
     Protocol.
 
  Remarks:
@@ -217,7 +217,7 @@ typedef struct {
     Defines the acknowledgement codes for PRIME Profile.
 
  Description:
-    This enumeration defines the acknowledgement codes to be used in the PRIME 
+    This enumeration defines the acknowledgement codes to be used in the PRIME
     Profile.
 
  Remarks:
@@ -249,14 +249,14 @@ typedef enum {
 // *****************************************************************************
 /* Start a firmware upgrade process
 
-  Summary: 
+  Summary:
     Function pointer to request to start a firmware upgrade process.
 
   Description:
-    This data type contains the definition of the function pointer to start a 
+    This data type contains the definition of the function pointer to start a
     firmware upgrade process.
     - cmd: Command to acknowledge
-    - enable: Enable (1) or disable (0) FU 
+    - enable: Enable (1) or disable (0) FU
 
   Remarks:
     The command is acknowledged with the FUP ACK callback..
@@ -267,11 +267,11 @@ typedef void (*BMNG_FUP_START_FU_REQUEST)(uint8_t cmd, uint8_t enable);
 /* Clear the target list in a firmware upgrade process
 
   Summary:
-    Function pointer to request to clear the target list in a firmware upgrade 
+    Function pointer to request to clear the target list in a firmware upgrade
     process.
 
   Description:
-    This data type contains the definition of the function pointer to clear the 
+    This data type contains the definition of the function pointer to clear the
     target list in a firmware upgrade process.
     - cmd: Command to acknowledge
 
@@ -284,11 +284,11 @@ typedef void (*BMNG_FUP_CLEAR_TARGET_LIST_REQUEST)(uint8_t cmd);
 /* Add a target node for a firmware upgrade process
 
   Summary:
-    Function pointer to request to add a target node for a firmware upgrade 
+    Function pointer to request to add a target node for a firmware upgrade
     process.
 
   Description:
-    This data type contains the definition of the function pointer to add a 
+    This data type contains the definition of the function pointer to add a
     target node for a firmware upgrade process.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be added
@@ -302,11 +302,11 @@ typedef void (*BMNG_FUP_ADD_TARGET_REQUEST)(uint8_t cmd, uint8_t *eui48);
 /* Set the firmware data for a firmware upgrade process
 
   Summary:
-    Function pointer to request to set the firmware data for a firmware upgrade 
+    Function pointer to request to set the firmware data for a firmware upgrade
     process.
 
   Description:
-    This data type contains the definition of the function pointer to set the 
+    This data type contains the definition of the function pointer to set the
     firmware data for a firmware upgrade process.
     - cmd: Command to acknowledge
     - vendorLen: Vendor length
@@ -319,19 +319,19 @@ typedef void (*BMNG_FUP_ADD_TARGET_REQUEST)(uint8_t cmd, uint8_t *eui48);
   Remarks:
     The command is acknowledged with the FUP ACK callback.
 */
-typedef void (*BMNG_FUP_SET_FW_DATA_REQUEST)(uint8_t cmd, uint8_t vendorLen, 
-    char *vendor, uint8_t modelLen, char *model, uint8_t versionLen, 
+typedef void (*BMNG_FUP_SET_FW_DATA_REQUEST)(uint8_t cmd, uint8_t vendorLen,
+    char *vendor, uint8_t modelLen, char *model, uint8_t versionLen,
     char *version);
-    
+
 // *****************************************************************************
 /* Set the upgrade options for a firmware upgrade process
 
   Summary:
-    Function pointer to request to set the upgrade options for a firmware 
+    Function pointer to request to set the upgrade options for a firmware
     upgrade process.
 
   Description:
-    This data type contains the definition of the function pointer to set the 
+    This data type contains the definition of the function pointer to set the
     upgrade options for a firmware upgrade process.
     - cmd: Command to acknowledge
     - arqEn: Enable (1) or disable (0) ARQ protocol
@@ -343,19 +343,19 @@ typedef void (*BMNG_FUP_SET_FW_DATA_REQUEST)(uint8_t cmd, uint8_t vendorLen,
   Remarks:
     The command is acknowledged with the FUP ACK callback.
 */
-typedef void (*BMNG_FUP_SET_UPGRADE_OPTIONS_REQUEST)(uint8_t cmd, uint8_t arqEn, 
-    BMNG_FUP_PAGE_SIZE pageSize, uint8_t multicastEn, uint32_t delayRestart, 
+typedef void (*BMNG_FUP_SET_UPGRADE_OPTIONS_REQUEST)(uint8_t cmd, uint8_t arqEn,
+    BMNG_FUP_PAGE_SIZE pageSize, uint8_t multicastEn, uint32_t delayRestart,
     uint32_t safetyTimer);
 
 // *****************************************************************************
 /* Initialize the file transmission for a firmware upgrade process
 
   Summary:
-    Function pointer to request to initialize the file transmission for a 
+    Function pointer to request to initialize the file transmission for a
     firmware upgrade process.
 
   Description:
-    This data type contains the definition of the function pointer to initialize 
+    This data type contains the definition of the function pointer to initialize
     the file transmission for a firmware upgrade process.
     - cmd: Command to acknowledge
     - frameNumber: Frame number (0x0000)
@@ -366,18 +366,18 @@ typedef void (*BMNG_FUP_SET_UPGRADE_OPTIONS_REQUEST)(uint8_t cmd, uint8_t arqEn,
   Remarks:
     The command is acknowledged with the FUP ACK callback.
 */
-typedef void (*BMNG_FUP_INIT_FILE_TX_REQUEST)(uint8_t cmd, uint16_t frameNumber, 
+typedef void (*BMNG_FUP_INIT_FILE_TX_REQUEST)(uint8_t cmd, uint16_t frameNumber,
     uint32_t fileSize, uint16_t frameSize, uint32_t crc);
-    
+
 // *****************************************************************************
 /* Receive a data frame for a firmware upgrade process
 
   Summary:
-    Function pointer to request to receive a data frame during the file 
+    Function pointer to request to receive a data frame during the file
     transmission for a firmware upgrade process.
 
   Description:
-    This data type contains the definition of the function pointer to receive a 
+    This data type contains the definition of the function pointer to receive a
     data frame during the file transmission for a firmware upgrade process.
     - cmd: Command to acknowledge
     - frameNumber: Frame number
@@ -387,18 +387,18 @@ typedef void (*BMNG_FUP_INIT_FILE_TX_REQUEST)(uint8_t cmd, uint16_t frameNumber,
   Remarks:
     The command is acknowledged with the FUP ACK callback.
 */
-typedef void (*BMNG_FUP_DATA_FRAME_REQUEST)(uint8_t cmd, uint16_t frameNumber, 
+typedef void (*BMNG_FUP_DATA_FRAME_REQUEST)(uint8_t cmd, uint16_t frameNumber,
     uint16_t dataLen, uint8_t *data);
 
 // *****************************************************************************
 /* Check the CRC of the transmitted file for a firmware upgrade process
 
   Summary:
-    Function pointer to request to check the CRC of the transmitted file for a 
+    Function pointer to request to check the CRC of the transmitted file for a
     firmware upgrade process.
 
   Description:
-    This data type contains the definition of the function pointer to check the 
+    This data type contains the definition of the function pointer to check the
     CRC of the transmitted file for a firmware upgrade process.
     - cmd: Command to acknowledge
 
@@ -414,7 +414,7 @@ typedef void (*BMNG_FUP_CHECK_CRC_REQUEST)(uint8_t cmd);
     Function pointer to request to abort an ongoing firmware upgrade process.
 
   Description:
-    This data type contains the definition of the function pointer to abort an 
+    This data type contains the definition of the function pointer to abort an
     ongoing firmware upgrade process.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be aborted
@@ -429,17 +429,17 @@ typedef void (*BMNG_FUP_ABORT_FU_REQUEST)(uint8_t cmd, uint8_t *eui48);
 /* Set the matching rules for a firmware upgrade process
 
   Summary:
-    Function pointer to request to set the matching rules for a firmware upgrade 
+    Function pointer to request to set the matching rules for a firmware upgrade
     process.
 
   Description:
-    This data type contains the definition of the function pointer to set the 
+    This data type contains the definition of the function pointer to set the
     matching rules for a firmware upgrade process.
     - cmd: Command to acknowledge
     - rules: Match rules: 0000 0MV0
 
   Remarks:
-    If M and/or V are set, only the nodes matching model and/or vendor will be 
+    If M and/or V are set, only the nodes matching model and/or vendor will be
     upgraded.
     The command is acknowledged with the FUP ACK callback.
 */
@@ -449,11 +449,11 @@ typedef void (*BMNG_FUP_SET_MATCH_RULE_REQUEST)(uint8_t cmd, uint8_t rules);
 /* Set the signature data for a firmware upgrade process
 
   Summary:
-    Function pointer to request to set the signature data for a firmware 
+    Function pointer to request to set the signature data for a firmware
     upgrade process.
 
   Description:
-    This data type contains the definition of the function pointer to set the 
+    This data type contains the definition of the function pointer to set the
     signature data for a firmware upgrade process.
     - cmd: Command to acknowledge
     - algorithm: Used algorithm to check signature
@@ -462,7 +462,7 @@ typedef void (*BMNG_FUP_SET_MATCH_RULE_REQUEST)(uint8_t cmd, uint8_t rules);
   Remarks:
     The command is acknowledged with the FUP ACK callback.
 */
-typedef void (*BMNG_FUP_SET_SIGNATURE_DATA_REQUEST)(uint8_t cmd, 
+typedef void (*BMNG_FUP_SET_SIGNATURE_DATA_REQUEST)(uint8_t cmd,
     uint8_t algorithm, uint16_t length);
 
 // *****************************************************************************
@@ -472,13 +472,13 @@ typedef void (*BMNG_FUP_SET_SIGNATURE_DATA_REQUEST)(uint8_t cmd,
     Function pointer to request to get the firmware version.
 
   Description:
-    This data type contains the definition of the function pointer to get the 
+    This data type contains the definition of the function pointer to get the
     firmware version.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be asked
 
   Remarks:
-    If the MAC address is FF:FF:FF:FF:FF:FF, the version information is asked to 
+    If the MAC address is FF:FF:FF:FF:FF:FF, the version information is asked to
     all registered nodes.
     The command is acknowledged with the FUP ACK callback.
     The result of the request is returned in the FUP version indication callback.
@@ -492,19 +492,19 @@ typedef void (*BMNG_FUP_GET_VERSION_REQUEST)(uint8_t cmd, uint8_t *eui48);
     Function pointer to request to get the firmware upgrade state.
 
   Description:
-    This data type contains the definition of the function pointer to get the 
+    This data type contains the definition of the function pointer to get the
     firmware upgrade state.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be asked
 
   Remarks:
-    If the MAC address is FF:FF:FF:FF:FF:FF, the state information is asked to 
+    If the MAC address is FF:FF:FF:FF:FF:FF, the state information is asked to
     all registered nodes.
     The command is acknowledged with the FUP ACK callback.
     The result of the request is returned in the FUP state indication callback.
 */
 typedef void (*BMNG_FUP_GET_STATE_REQUEST)(uint8_t cmd, uint8_t *eui48);
-    
+
 // *****************************************************************************
 /* Firmware Upgrade Protocol acknowledgement
 
@@ -520,14 +520,14 @@ typedef void (*BMNG_FUP_GET_STATE_REQUEST)(uint8_t cmd, uint8_t *eui48);
   Remarks:
     None.
 */
-typedef void (*BMNG_FUP_ACK_CB)(uint8_t cmd, BMNG_FUP_ACK ackCode, 
+typedef void (*BMNG_FUP_ACK_CB)(uint8_t cmd, BMNG_FUP_ACK ackCode,
     uint16_t extraInfo);
 
 // *****************************************************************************
 /* Firmware Upgrade Protocol status indication
 
   Summary:
-    Callback function pointer for the Firmware Upgrade Protocol status 
+    Callback function pointer for the Firmware Upgrade Protocol status
     indication.
 
   Description:
@@ -539,14 +539,14 @@ typedef void (*BMNG_FUP_ACK_CB)(uint8_t cmd, BMNG_FUP_ACK ackCode,
   Remarks:
     None.
 */
-typedef void (*BMNG_FUP_STATUS_INDICATION_CB)(BMNG_FUP_NODE_STATE nodeState, 
+typedef void (*BMNG_FUP_STATUS_INDICATION_CB)(BMNG_FUP_NODE_STATE nodeState,
     uint16_t pages, uint8_t *eui48);
 
 // *****************************************************************************
 /* Firmware Upgrade Protocol error indication
 
   Summary:
-    Callback function pointer for the Firmware Upgrade Protocol error 
+    Callback function pointer for the Firmware Upgrade Protocol error
     indication.
 
   Description:
@@ -557,14 +557,14 @@ typedef void (*BMNG_FUP_STATUS_INDICATION_CB)(BMNG_FUP_NODE_STATE nodeState,
   Remarks:
     None.
 */
-typedef void (*BMNG_FUP_ERROR_INDICATION_CB)(BMNG_FUP_ERROR errorCode, 
+typedef void (*BMNG_FUP_ERROR_INDICATION_CB)(BMNG_FUP_ERROR errorCode,
     uint8_t *eui48);
 
 // *****************************************************************************
 /* Firmware Upgrade Protocol version indication
 
   Summary:
-    Callback function pointer for the Firmware Upgrade Protocol version 
+    Callback function pointer for the Firmware Upgrade Protocol version
     indication.
 
   Description:
@@ -580,7 +580,7 @@ typedef void (*BMNG_FUP_ERROR_INDICATION_CB)(BMNG_FUP_ERROR errorCode,
   Remarks:
     None.
 */
-typedef void (*BMNG_FUP_VERSION_INDICATION_CB)(uint8_t *eui48, uint8_t vendorLen, 
+typedef void (*BMNG_FUP_VERSION_INDICATION_CB)(uint8_t *eui48, uint8_t vendorLen,
     char *vendor, uint8_t modelLen, char *model, uint8_t versionLen, char *version);
 
 // *****************************************************************************
@@ -617,11 +617,11 @@ typedef void (*BMNG_NET_EVENT_INDICATION_CB)(BMNG_NET_EVENT_INFO *netEvent);
 /* Get a PIB attribute using the PRIME Profile
 
   Summary:
-    Function pointer to request to get a PIB attribute from a node using the 
+    Function pointer to request to get a PIB attribute from a node using the
     PRIME Profile.
 
   Description:
-    This data type contains the definition of the function pointer to get a PIB 
+    This data type contains the definition of the function pointer to get a PIB
     attribute from a node using the PRIME Profile.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be asked
@@ -630,21 +630,21 @@ typedef void (*BMNG_NET_EVENT_INDICATION_CB)(BMNG_NET_EVENT_INFO *netEvent);
 
   Remarks:
     The command is acknowledged with the PPROF ACK callback.
-    The result of the request is returned in the PPROF response indication 
+    The result of the request is returned in the PPROF response indication
     callback.
 */
-typedef void (*BMNG_PPROF_GET_REQUEST)(uint8_t cmd, uint8_t *eui48, 
+typedef void (*BMNG_PPROF_GET_REQUEST)(uint8_t cmd, uint8_t *eui48,
     uint16_t dataLen, uint8_t *data);
 
 // *****************************************************************************
 /* Set a PIB attribute using the PRIME Profile
 
   Summary:
-    Function pointer to request to set a PIB attribute in a node using the 
+    Function pointer to request to set a PIB attribute in a node using the
     PRIME Profile.
 
   Description:
-    This data type contains the definition of the function pointer to set a PIB 
+    This data type contains the definition of the function pointer to set a PIB
     attribute in a node using the PRIME Profile.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be asked
@@ -654,18 +654,18 @@ typedef void (*BMNG_PPROF_GET_REQUEST)(uint8_t cmd, uint8_t *eui48,
   Remarks:
     The command is acknowledged with the PPROF ACK callback.
 */
-typedef void (*BMNG_PPROF_SET_REQUEST)(uint8_t cmd, uint8_t *eui48, 
+typedef void (*BMNG_PPROF_SET_REQUEST)(uint8_t cmd, uint8_t *eui48,
     uint16_t dataLen, uint8_t *data);
 
 // *****************************************************************************
 /* Reset all PIB statistics attributes using the PRIME Profile
 
   Summary:
-    Function pointer to request to reset all PIB statistics attributes of a node 
+    Function pointer to request to reset all PIB statistics attributes of a node
     using the PRIME Profile.
 
   Description:
-    This data type contains the definition of the function pointer to reset all 
+    This data type contains the definition of the function pointer to reset all
     PIB statistics attributes of a node using the PRIME Profile.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be reset
@@ -682,9 +682,9 @@ typedef void (*BMNG_PPROF_RESET_REQUEST)(uint8_t cmd, uint8_t *eui48);
     Function pointer to request to reboot a node using the PRIME Profile.
 
   Description:
-    This data type contains the definition of the function pointer to reboot a 
+    This data type contains the definition of the function pointer to reboot a
     node using the PRIME Profile.
-    
+
   Remarks:
     The command is acknowledged with the PPROF ACK callback.
 */
@@ -694,11 +694,11 @@ typedef void (*BMNG_PPROF_REBOOT_REQUEST)(uint8_t cmd, uint8_t *eui48);
 /* Get a PIB attribute using the PRIME Profile
 
   Summary:
-    Function pointer to request to get a PIB attribute from a node using the 
+    Function pointer to request to get a PIB attribute from a node using the
     PRIME Profile.
 
   Description:
-    This data type contains the definition of the function pointer to get a PIB 
+    This data type contains the definition of the function pointer to get a PIB
     attribute from a node using the PRIME Profile.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be asked
@@ -710,29 +710,29 @@ typedef void (*BMNG_PPROF_REBOOT_REQUEST)(uint8_t cmd, uint8_t *eui48);
     The result of the request is returned in the PPROF enhanced response
     indication callback.
 */
-typedef void (*BMNG_PPROF_GET_ENHANCED_REQUEST)(uint8_t cmd, uint8_t *eui48, 
+typedef void (*BMNG_PPROF_GET_ENHANCED_REQUEST)(uint8_t cmd, uint8_t *eui48,
     uint16_t dataLen, uint8_t *data);
 
 // *****************************************************************************
 /* Get the zero cross difference between BN and SN using the PRIME Profile
 
   Summary:
-    Function pointer to request to get the zero cross difference between BN and 
+    Function pointer to request to get the zero cross difference between BN and
     SN using the PRIME Profile.
 
   Description:
-    This data type contains the definition of the function pointer to get the 
+    This data type contains the definition of the function pointer to get the
     zero cross difference between BN and SN using the PRIME Profile.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be asked
 
   Remarks:
     The command is acknowledged with the PPROF ACK callback.
-    The result of the request is returned in the PPROF zero cross difference 
+    The result of the request is returned in the PPROF zero cross difference
     response indication callback.
 */
 typedef void (*BMNG_PPROF_GET_ZC_DIFF_REQUEST)(uint8_t cmd, uint8_t *eui48);
-    
+
 // *****************************************************************************
 /* PRIME Profile acknowledgement
 
@@ -764,7 +764,7 @@ typedef void (*BMNG_PPROF_ACK_CB)(uint8_t cmd, BMNG_PPROF_ACK ackCode);
   Remarks:
     None.
 */
-typedef void (*BMNG_PPROF_GET_RESPONSE_CB)(uint8_t *eui48, uint16_t dataLen, 
+typedef void (*BMNG_PPROF_GET_RESPONSE_CB)(uint8_t *eui48, uint16_t dataLen,
     uint8_t *data);
 
 // *****************************************************************************
@@ -782,7 +782,7 @@ typedef void (*BMNG_PPROF_GET_RESPONSE_CB)(uint8_t *eui48, uint16_t dataLen,
   Remarks:
     None.
 */
-typedef void (*BMNG_PPROF_GET_ENHANCED_RESPONSE_CB)(uint8_t *eui48, 
+typedef void (*BMNG_PPROF_GET_ENHANCED_RESPONSE_CB)(uint8_t *eui48,
     uint16_t dataLen, uint8_t *data);
 
 // *****************************************************************************
@@ -800,14 +800,14 @@ typedef void (*BMNG_PPROF_GET_ENHANCED_RESPONSE_CB)(uint8_t *eui48,
   Remarks:
     None.
 */
-typedef void (*BMNG_PPROF_GET_ZC_RESPONSE_CB)(uint8_t *eui48, uint8_t zcStatus, 
+typedef void (*BMNG_PPROF_GET_ZC_RESPONSE_CB)(uint8_t *eui48, uint8_t zcStatus,
     uint32_t zcTime);
 
 // *****************************************************************************
 /* PRIME Profile get zero crossing difference response
 
   Summary:
-    Callback function pointer for the PRIME Profile get zero crossing difference 
+    Callback function pointer for the PRIME Profile get zero crossing difference
     response.
 
   Description:
@@ -820,7 +820,7 @@ typedef void (*BMNG_PPROF_GET_ZC_RESPONSE_CB)(uint8_t *eui48, uint8_t zcStatus,
   Remarks:
     None.
 */
-typedef void (*BMNG_PPROF_GET_ZC_DIFF_RESPONSE_CB)(uint8_t *eui48, 
+typedef void (*BMNG_PPROF_GET_ZC_DIFF_RESPONSE_CB)(uint8_t *eui48,
     uint32_t timeFreq, uint32_t timeDiff);
 
 // *****************************************************************************
@@ -830,7 +830,7 @@ typedef void (*BMNG_PPROF_GET_ZC_DIFF_RESPONSE_CB)(uint8_t *eui48,
     Function pointer to request to add a node to the Whitelist.
 
   Description:
-    This data type contains the definition of the function pointer to add a node 
+    This data type contains the definition of the function pointer to add a node
     to the Whitelist.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be added
@@ -847,11 +847,11 @@ typedef void (*BMNG_WHITELIST_ADD_REQUEST)(uint8_t cmd, uint8_t *eui48);
     Function pointer to request to remove a node from the Whitelist.
 
   Description:
-    This data type contains the definition of the function pointer to remove a 
+    This data type contains the definition of the function pointer to remove a
     node from the Whitelist.
     - cmd: Command to acknowledge
     - eui48: Pointer to the address of the node to be removed
-    
+
   Remarks:
     The command is acknowledged with the Whitelist ACK callback.
 */
@@ -908,7 +908,7 @@ typedef struct {
     Management.
 
   Description:
-    This data type defines the function pointer to set the callbacks to 
+    This data type defines the function pointer to set the callbacks to
     handle the PRIME Base Management.
 
   Remarks:

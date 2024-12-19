@@ -44,6 +44,7 @@ Microchip or any third party.
 #include <stdbool.h>
 #include "pal_types.h"
 #include "driver/rf215/drv_rf215.h"
+#include "pal_rf_rm.h"
 
 /* RF RM mode */
 #define PAL_RF_RM_FORCED_OFF   1
@@ -64,28 +65,34 @@ static const uint8_t palRfBandwidth[] = {
 
 uint8_t PAL_RF_RM_GetLqi(int16_t rssi)
 {
-    if (rssi > 80) 
+    if (rssi > 80)
     {
-        return 0xFE;
-    } 
-    else 
+        return 0xFEU;
+    }
+    else
     {
-        return (rssi + 174);
+        int16_t result = rssi + 174;
+        if (result < 0) {
+            result = 0;
+        } else {
+            /* Nothing to update */
+        }
+        return (uint8_t)result;
     }
 }
 
 uint8_t PAL_RF_RM_GetLessRobustModulation(PAL_SCHEME mod1, PAL_SCHEME mod2)
 {
-    uint8_t index1 = mod1 - PAL_SCHEME_RF;
-    uint8_t index2 = mod2 - PAL_SCHEME_RF;
+    uint8_t index1 = (uint8_t)(mod1) - (uint8_t)(PAL_SCHEME_RF);
+    uint8_t index2 = (uint8_t)(mod2) - (uint8_t)(PAL_SCHEME_RF);
 
-    if (palRfBandwidth[index1] > palRfBandwidth[index2]) 
+    if (palRfBandwidth[index1] > palRfBandwidth[index2])
     {
-        return mod1;
-    } 
-    else 
+        return (uint8_t)(mod1);
+    }
+    else
     {
-        return mod2;
+        return (uint8_t)(mod2);
     }
 }
 
@@ -95,13 +102,13 @@ bool PAL_RF_RM_CheckMinimumQuality(PAL_SCHEME reference, PAL_SCHEME modulation)
     {
         return false;
     }
-    
-    if ((reference == PAL_SCHEME_RF_FSK_FEC_OFF) && 
+
+    if ((reference == PAL_SCHEME_RF_FSK_FEC_OFF) &&
         (modulation == PAL_SCHEME_RF_FSK_FEC_ON))
     {
         return false;
-    } 
-    else 
+    }
+    else
     {
         return true;
     }
@@ -109,32 +116,38 @@ bool PAL_RF_RM_CheckMinimumQuality(PAL_SCHEME reference, PAL_SCHEME modulation)
 
 PAL_SCHEME PAL_RF_RM_GetScheme(void)
 {
-    switch(palRfRmMode) 
+    PAL_SCHEME result;
+    switch(palRfRmMode)
     {
         case PAL_RF_RM_FORCED_OFF:
-            return PAL_SCHEME_RF_FSK_FEC_OFF;
+            result = PAL_SCHEME_RF_FSK_FEC_OFF;
+            break;
 
         case PAL_RF_RM_FORCED_ON:
-            return PAL_SCHEME_RF_FSK_FEC_ON;
+            result = PAL_SCHEME_RF_FSK_FEC_ON;
+            break;
 
         default:
-            return PAL_SCHEME_RF_FSK_FEC_OFF;
+            /* Handle unexpected values appropriately */
+            result = PAL_SCHEME_RF_FSK_FEC_OFF;
+            break;
     }
+    return result;
 }
 
 void PAL_RF_RM_SetScheme(PAL_SCHEME scheme)
 {
-    if (scheme == PAL_SCHEME_RF_FSK_FEC_OFF) 
+    if (scheme == PAL_SCHEME_RF_FSK_FEC_OFF)
     {
         palRfRmMode = PAL_RF_RM_FORCED_OFF;
-    } 
-    else 
+    }
+    else
     {
         palRfRmMode = PAL_RF_RM_FORCED_ON;
     }
 }
 
-void PAL_RF_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, 
+void PAL_RF_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate,
                                    PAL_SCHEME *pModulation, uint16_t pch)
 {
     DRV_RF215_RX_INDICATION_OBJ *pIndObj;
@@ -144,42 +157,44 @@ void PAL_RF_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate,
 
     pIndObj = (DRV_RF215_RX_INDICATION_OBJ *)indObj;
 
-    switch(palRfRmMode) 
+    switch(palRfRmMode)
     {
         case PAL_RF_RM_FORCED_OFF:
-            if (pIndObj->rssiDBm >= PAL_RF_RM_THRESHOLD_FSK_FEC_OFF) 
+            if (pIndObj->rssiDBm >= PAL_RF_RM_THRESHOLD_FSK_FEC_OFF)
             {
                 bestScheme = PAL_SCHEME_RF_FSK_FEC_OFF;
             }
-
             break;
 
         case PAL_RF_RM_FORCED_ON:
-            if (pIndObj->rssiDBm >= PAL_RF_RM_THRESHOLD_FSK_FEC_ON) 
+            if (pIndObj->rssiDBm >= PAL_RF_RM_THRESHOLD_FSK_FEC_ON)
             {
                 bestScheme = PAL_SCHEME_RF_FSK_FEC_ON;
             }
-
             break;
 
         default:
             if (pIndObj->rssiDBm >= PAL_RF_RM_THRESHOLD_FSK_FEC_OFF)
             {
                 bestScheme = PAL_SCHEME_RF_FSK_FEC_OFF;
-            } 
-            else if (pIndObj->rssiDBm >= PAL_RF_RM_THRESHOLD_FSK_FEC_ON) 
+            }
+            else if (pIndObj->rssiDBm >= PAL_RF_RM_THRESHOLD_FSK_FEC_ON)
             {
                 bestScheme = PAL_SCHEME_RF_FSK_FEC_ON;
             }
+            else{
+                /* No change needed */
+            }
+            break;
     }
 
     *pModulation = bestScheme;
 
-    if (bestScheme != PAL_SCHEME_RF) 
+    if (bestScheme != PAL_SCHEME_RF)
     {
-        *pBitRate = palRfBandwidth[bestScheme - PAL_SCHEME_RF];
-    } 
-    else 
+        *pBitRate = palRfBandwidth[(uint8_t)(bestScheme) - (uint8_t)(PAL_SCHEME_RF)];
+    }
+    else
     {
         *pBitRate = 0;
     }

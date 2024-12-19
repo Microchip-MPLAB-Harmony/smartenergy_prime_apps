@@ -461,9 +461,9 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM7_USART_Initialize();
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  
@@ -527,7 +527,10 @@ void SYS_Initialize ( void* data )
     /* MISRAC 2012 deviation block end */
 
 
-    /* Initialize PRIME */
+/* Initialize PRIME */
+
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
     sysObj.primeStack = PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&primeInitData);
 
 

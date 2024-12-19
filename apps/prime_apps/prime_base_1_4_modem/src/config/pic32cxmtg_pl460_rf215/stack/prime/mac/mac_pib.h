@@ -178,13 +178,13 @@ Microchip or any third party.
 #define PIB_MAC_LIST_SWITCH_TABLE_1_4           0x005A  /* v1.4 */
 #define PIB_MAC_LIST_DIRECT_CONN                0x0054
 #define PIB_MAC_LIST_DIRECT_TABLE               0x0055
-#define PIB_MAC_LIST_AVAILABLE_SWITCHES         0x0056
+#define PIB_MAC_LIST_AVAIL_SWITCHES             0x0056
 #define PIB_MAC_LIST_PHY_COMM_1_3               0x0057  /* v1.3 */
 #define PIB_MAC_LIST_PHY_COMM_1_4               0x0059  /* v1.4 */
 #define PIB_MAC_LIST_ACTIVE_CONN_EX             0x0058
 #define PIB_MAC_LIST_SWITCHES_MP                0x2000  /* v1.4 */
 #define PIB_MAC_LIST_REGISTER_DEVICES_MP        0x2050  /* v1.4 */
-#define PIB_MAC_LIST_AVAILABLE_SWITCHES_MP      0x2056  /* v1.4 */
+#define PIB_MAC_LIST_AVAIL_SWITCHES_MP          0x2056  /* v1.4 */
 #define PIB_MAC_LIST_PHY_COMM_MP                0x2059  /* v1.4 */
 
 /* MAC security PIB attributes */

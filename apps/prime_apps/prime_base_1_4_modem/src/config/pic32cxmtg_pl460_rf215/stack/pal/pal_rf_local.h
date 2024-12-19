@@ -58,10 +58,6 @@ Microchip or any third party.
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-
-#define PAL_SNIFFER_DATA_MAX_SIZE           512
-typedef void (*PAL_USI_SNIFFER_CB)(uint8_t *pData, uint16_t length);
-
 // *****************************************************************************
 /* RF PAL Module Status
 

@@ -369,7 +369,7 @@ typedef int32_t (*HAL_AES_CCM_AUTH_DECRYPT)(uint8_t *data, uint32_t dataLen,
   Remarks:
     Related to Security service.
 */
-typedef void (*HAL_AES_WRAP_KEY)(uint8_t *key, uint32_t keyLen, uint8_t *in, 
+typedef void (*HAL_AES_WRAP_KEY)(uint8_t *key, uint32_t keyLen, uint8_t *in,
     uint32_t inLen, uint8_t *out);
 
 // *****************************************************************************
@@ -399,7 +399,7 @@ typedef bool (*HAL_AES_UNWRAP_KEY)(uint8_t *key, uint32_t keyLen, uint8_t *in,
   Remarks:
     Related to Queue service.
 */
-typedef void (*HAL_QUEUE_INIT)(SRV_QUEUE *queue, uint16_t capacity, 
+typedef void (*HAL_QUEUE_INIT)(SRV_QUEUE *queue, uint16_t capacity,
     SRV_QUEUE_TYPE type);
 
 //***************************************************************************
@@ -410,7 +410,7 @@ typedef void (*HAL_QUEUE_INIT)(SRV_QUEUE *queue, uint16_t capacity,
 
   Description:
     This function pointer is used to append an element into a queue.
-   
+
   Remarks:
     Related to Queue service.
 */
@@ -433,12 +433,12 @@ typedef void (*HAL_QUEUE_APPEND_WITH_PRIORITY)(SRV_QUEUE *queue, uint32_t priori
 
 //***************************************************************************
 /* Insert before
- 
+
   Summary:
     Function pointer to insert an element into a queue before a given element.
 
   Description:
-    This function pointer is used to insert an element into a queue before a 
+    This function pointer is used to insert an element into a queue before a
     given element.
 
   Remarks:
@@ -454,7 +454,7 @@ typedef void (*HAL_QUEUE_INSERT_BEFORE)(SRV_QUEUE *queue,
     Function pointer to insert an element into a queue after a given element.
 
   Description:
-    This function pointer is used to insert an element into a queue after a 
+    This function pointer is used to insert an element into a queue after a
     given element.
 
   Remarks:
@@ -465,7 +465,7 @@ typedef void (*HAL_QUEUE_INSERT_AFTER)(SRV_QUEUE *queue,
 
 //***************************************************************************
 /* Read or remove
-  
+
   Summary:
     Function pointer to read or remove an element from a queue.
 
@@ -506,7 +506,7 @@ typedef SRV_QUEUE_ELEMENT *(*HAL_QUEUE_READ_ELEMENT)(SRV_QUEUE *queue,
   Remarks:
     Related to Queue service.
 */
-typedef void (*HAL_QUEUE_REMOVE_ELEMENT)(SRV_QUEUE *queue, 
+typedef void (*HAL_QUEUE_REMOVE_ELEMENT)(SRV_QUEUE *queue,
     SRV_QUEUE_ELEMENT *element);
 
 //***************************************************************************
@@ -541,10 +541,10 @@ typedef void (*HAL_QUEUE_SET_CAPACITY)(SRV_QUEUE *queue, uint16_t capacity);
 /* Start FU
 
   Summary:
-    Function pointer to start the firmware upgrade process. 
+    Function pointer to start the firmware upgrade process.
 
   Description:
-    This function pointer is used to start the firmware upgrade process by 
+    This function pointer is used to start the firmware upgrade process by
     initializing and unlocking the memory.
 
   Remarks:
@@ -556,10 +556,10 @@ typedef void (*HAL_FU_START)(SRV_FU_INFO *fuInfo);
 /* End FU
 
   Summary:
-    Function pointer to end the firmware upgrade process. 
+    Function pointer to end the firmware upgrade process.
 
   Description:
-    This function pointer is used to finish the firmare upgrade process and to 
+    This function pointer is used to finish the firmare upgrade process and to
     trigger the execution of the new firmware.
 
   Remarks:
@@ -574,7 +574,7 @@ typedef void (*HAL_FU_END)(SRV_FU_RESULT fuResult);
     Function pointer to read the firmware upgrade information.
 
   Description:
-    This function pointer is used to read the firmare upgrade information, which 
+    This function pointer is used to read the firmare upgrade information, which
     is stored out of the PRIME stack.
 
   Remarks:
@@ -589,7 +589,7 @@ typedef void (*HAL_FU_CFG_READ)(void *dst, uint16_t size);
     Function pointer to write the firmware upgrade information.
 
   Description:
-    This function pointer is used to write the firmare upgrade information, which 
+    This function pointer is used to write the firmare upgrade information, which
     is stored out of the PRIME stack.
 
   Remarks:
@@ -603,9 +603,9 @@ typedef void (*HAL_FU_CFG_WRITE)(void *src, uint16_t size);
   Summary:
     Function pointer to register a function to be called back when a memory
     transaction finishes
-    
+
   Description:
-    This function pointer allows the PRIME stack to register a function to be 
+    This function pointer allows the PRIME stack to register a function to be
     called back when a memory transaction finishes.
 
   Remarks:
@@ -645,11 +645,11 @@ typedef void (*HAL_FU_DATA_WRITE)(uint32_t addr, uint8_t *buf, uint16_t size);
 /* Callback for CRC
 
   Summary:
-    Function pointer to register a function to be called back when the CRC of 
+    Function pointer to register a function to be called back when the CRC of
     the received image has been calculated.
 
   Description:
-    This function pointer allows the PRIME stack to register a function to be 
+    This function pointer allows the PRIME stack to register a function to be
     called back when the CRC of the received image has been calculated.
 
   Remarks:
@@ -675,11 +675,11 @@ typedef void (*HAL_FU_CALCULATE_CRC)(void);
 /* Callback for verification
 
   Summary:
-    Function pointer to register a function to be called back when the received 
+    Function pointer to register a function to be called back when the received
     image has been verified.
 
   Description:
-    This function pointer allows the PRIME stack to register a function to be 
+    This function pointer allows the PRIME stack to register a function to be
     called back when the received image has been verified.
 
   Remarks:
@@ -694,7 +694,7 @@ typedef void (*HAL_FU_REGISTER_VERIFY_CB)(SRV_FU_IMAGE_VERIFY_CB callback);
     Function pointer to verify the received image.
 
   Description:
-    This function pointer is used to verify the received image. Metadata and 
+    This function pointer is used to verify the received image. Metadata and
     signature, if available, are checked.
 
   Remarks:
@@ -706,11 +706,11 @@ typedef void (*HAL_FU_VERIFY_IMAGE)(void);
 /* Get bitmap
 
   Summary:
-    Function pointer to get the bitmap with the information about the status of 
+    Function pointer to get the bitmap with the information about the status of
     each page of the image.
 
   Description:
-    This function pointer is used to gets the bitmap with the information about 
+    This function pointer is used to gets the bitmap with the information about
     the status of each page of the image.
 
   Remarks:
@@ -733,7 +733,7 @@ typedef uint16_t (*HAL_FU_GET_BITMAP)(uint8_t *bitmap, uint32_t *numRxPages);
 typedef void (*HAL_FU_REQUEST_SWAP)(SRV_FU_TRAFFIC_VERSION trafficVersion);
 
 // *****************************************************************************
-/*  Initializes PAL 
+/*  Initializes PAL
 
   Summary:
     Function pointer to initialize the PRIME PAL module.
@@ -768,7 +768,7 @@ typedef void (*HAL_PAL_TASKS)(SYS_MODULE_OBJ object);
     Function pointer to get the current status of the PRIME PAL module.
 
   Description:
-    This function pointer is used to get the current status of the PRIME 
+    This function pointer is used to get the current status of the PRIME
     PAL module.
 
   Remarks:
@@ -783,7 +783,7 @@ typedef SYS_STATUS (*HAL_PAL_STATUS)(SYS_MODULE_OBJ object);
     Function pointer to set PRIME PAL layer callback functions.
 
   Description:
-    This function pointer is used to link callback functions between upper 
+    This function pointer is used to link callback functions between upper
     layer and PHY layer.
 
   Remarks:
@@ -798,7 +798,7 @@ typedef void (*HAL_PAL_CALLBACK_REGISTER)(PAL_CALLBACKS *pCallbacks);
     Function pointer to request to transmit a message.
 
   Description:
-    This functions pointer is used to initiate the transmission process of a 
+    This functions pointer is used to initiate the transmission process of a
     PPDU (PHY Protocol Data Unit) to the medium indicated in the transmission
     information structure.
 
@@ -830,8 +830,8 @@ typedef uint8_t (*HAL_PAL_GET_SNR)(uint16_t pch, uint8_t *snr, uint8_t qt);
     Function pointer to get the zero-cross time (ZCT).
 
   Description:
-    This function pointer is used to get the value of the zero-cross time of 
-    the mains and the time between the last transmission or reception and the 
+    This function pointer is used to get the value of the zero-cross time of
+    the mains and the time between the last transmission or reception and the
     zero cross of the mains.
 
   Remarks:
@@ -879,7 +879,7 @@ typedef uint8_t (*HAL_PAL_GET_TIMER_EXTENDED)(uint16_t pch, uint64_t *timer);
   Remarks:
     Related to PRIME PAL.
 */
-typedef uint8_t (*HAL_PAL_GET_CD)(uint16_t pch, uint8_t *cd, uint8_t *rssi, 
+typedef uint8_t (*HAL_PAL_GET_CD)(uint16_t pch, uint8_t *cd, uint8_t *rssi,
     uint32_t *time, uint8_t *header);
 
 // ****************************************************************************
@@ -889,7 +889,7 @@ typedef uint8_t (*HAL_PAL_GET_CD)(uint16_t pch, uint8_t *cd, uint8_t *rssi,
     Function pointer to get the noise floor level value.
 
   Description:
-    This function pointer is used to know the noise level present in the 
+    This function pointer is used to know the noise level present in the
     powerline.
 
   Remarks:
@@ -904,7 +904,7 @@ typedef uint8_t (*HAL_PAL_GET_NL)(uint16_t pch, uint8_t *noise);
     Function pointer to get the automatic gain mode of the PHY PLC layer.
 
   Description:
-    This fucntion pointer is used to get Automatic Gain Mode (AGC) of the PHY 
+    This fucntion pointer is used to get Automatic Gain Mode (AGC) of the PHY
     PLC layer.
 
   Remarks:
@@ -919,7 +919,7 @@ typedef uint8_t (*HAL_PAL_GET_AGC)(uint16_t pch, uint8_t *mode, uint8_t *gain);
     Function pointer to set the automatic gain mode of the PHY PLC layer.
 
   Description:
-    This fucntion pointer is used to set Automatic Gain Mode (AGC) of the PHY 
+    This fucntion pointer is used to set Automatic Gain Mode (AGC) of the PHY
     PLC layer.
 
   Remarks:
@@ -965,7 +965,7 @@ typedef uint8_t (*HAL_PAL_GET_CHANNEL)(uint16_t *pch, uint16_t channelReference)
     Function pointer to set the band (PLC) or the physical channel (RF).
 
   Description:
-    This function pointer is used to set the physical channel or band used for 
+    This function pointer is used to set the physical channel or band used for
     the communication.
 
   Remarks:
@@ -980,13 +980,13 @@ typedef uint8_t (*HAL_PAL_SET_CHANNEL)(uint16_t pch);
     Function pointer to program a physical channel switch in the given time.
 
   Description:
-    This function pointer is used to program a physical channel switch in the 
+    This function pointer is used to program a physical channel switch in the
     given time.
 
   Remarks:
     Related to PRIME PAL.
 */
-typedef void (*HAL_PAL_PROGRAM_CHANNEL_SWITCH)(uint16_t pch, uint32_t timeSync, 
+typedef void (*HAL_PAL_PROGRAM_CHANNEL_SWITCH)(uint16_t pch, uint32_t timeSync,
     uint8_t timeMode);
 
 // ****************************************************************************
@@ -996,13 +996,13 @@ typedef void (*HAL_PAL_PROGRAM_CHANNEL_SWITCH)(uint16_t pch, uint32_t timeSync,
     Function pointer to get a PHY attribute.
 
   Description:
-    This function pointer is used to get a PHY attribute from the selected 
+    This function pointer is used to get a PHY attribute from the selected
     medium.
 
   Remarks:
     Related to PRIME PAL.
 */
-typedef uint8_t (*HAL_PAL_GET_CONFIGURATION)(uint16_t pch, uint16_t id, 
+typedef uint8_t (*HAL_PAL_GET_CONFIGURATION)(uint16_t pch, uint16_t id,
     void *val, uint16_t length);
 
 // ****************************************************************************
@@ -1012,13 +1012,13 @@ typedef uint8_t (*HAL_PAL_GET_CONFIGURATION)(uint16_t pch, uint16_t id,
     Function pointer to set a PHY attribute.
 
   Description:
-    This function pointer is used to set a PHY attribute from the selected 
+    This function pointer is used to set a PHY attribute from the selected
     medium.
 
   Remarks:
     Related to PRIME PAL.
 */
-typedef uint8_t (*HAL_PAL_SET_CONFIGURATION)(uint16_t pch, uint16_t id, 
+typedef uint8_t (*HAL_PAL_SET_CONFIGURATION)(uint16_t pch, uint16_t id,
     void *val, uint16_t length);
 
 // ****************************************************************************
@@ -1028,14 +1028,14 @@ typedef uint8_t (*HAL_PAL_SET_CONFIGURATION)(uint16_t pch, uint16_t id,
     Function pointer to get the Capture Noise Data.
 
   Description:
-    This function pointer is used to read noise data for PLC medium 
+    This function pointer is used to read noise data for PLC medium
     communication.
 
   Remarks:
     Related to PRIME PAL.
 */
-typedef uint16_t (*HAL_PAL_GET_SIGNAL_CAPTURE)(uint16_t pch, 
-    uint8_t *noiseCapture, uint8_t mode, uint32_t timeStart, uint32_t duration);
+typedef uint16_t (*HAL_PAL_GET_SIGNAL_CAPTURE)(uint16_t pch,
+    uint8_t *noiseCapture, PAL_FRAME frameType, uint32_t timeStart, uint32_t duration);
 
 // ****************************************************************************
 /* Get message duration
@@ -1049,8 +1049,8 @@ typedef uint16_t (*HAL_PAL_GET_SIGNAL_CAPTURE)(uint16_t pch,
   Remarks:
     Related to PRIME PAL.
 */
-typedef uint8_t (*HAL_PAL_GET_MSG_DURATION)(uint16_t pch, uint16_t length, 
-    PAL_SCHEME scheme, uint8_t mode, uint32_t *duration);
+typedef uint8_t (*HAL_PAL_GET_MSG_DURATION)(uint16_t pch, uint16_t length,
+    PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration);
 
 // ****************************************************************************
 /* Check minimum quality
@@ -1059,13 +1059,13 @@ typedef uint8_t (*HAL_PAL_GET_MSG_DURATION)(uint16_t pch, uint16_t length,
     Function pointer to check the minimum quality for a given modulation scheme.
 
   Description:
-    This function pointer is used to check if the modulation is good enough for 
+    This function pointer is used to check if the modulation is good enough for
     a low FER (Frame Error rate) for the given scheme.
 
   Remarks:
     Related to PRIME PAL.
 */
-typedef bool (*HAL_PAL_CHECK_MINIMUM_QUALITY)(uint16_t pch, uint8_t reference, 
+typedef bool (*HAL_PAL_CHECK_MINIMUM_QUALITY)(uint16_t pch, uint8_t reference,
     uint8_t modulation);
 
 // ****************************************************************************
@@ -1075,13 +1075,13 @@ typedef bool (*HAL_PAL_CHECK_MINIMUM_QUALITY)(uint16_t pch, uint8_t reference,
     Function pointer to get the less robust modulation scheme.
 
   Description:
-    This function pointer is used to get less robust modulation scheme for a 
+    This function pointer is used to get less robust modulation scheme for a
     selected pch.
 
   Remarks:
     Related to PRIME PAL.
 */
-typedef uint8_t (*HAL_PAL_GET_LESS_ROBUST_MODULATION)(uint16_t pch, uint8_t mod1, 
+typedef uint8_t (*HAL_PAL_GET_LESS_ROBUST_MODULATION)(uint16_t pch, uint8_t mod1,
     uint8_t mod2);
 
 // *****************************************************************************
@@ -1124,7 +1124,7 @@ typedef struct {
     HAL_AES_CCM_AUTH_DECRYPT aes_ccm_auth_decrypt;
     HAL_AES_WRAP_KEY aes_wrap_key;
     HAL_AES_UNWRAP_KEY aes_unwrap_key;
-    
+
     HAL_QUEUE_INIT queue_init;
     HAL_QUEUE_APPEND queue_append;
     HAL_QUEUE_APPEND_WITH_PRIORITY queue_append_with_priority;
@@ -1135,11 +1135,11 @@ typedef struct {
     HAL_QUEUE_REMOVE_ELEMENT queue_remove_element;
     HAL_QUEUE_FLUSH queue_flush;
     HAL_QUEUE_SET_CAPACITY queue_set_capacity;
-    
+
     HAL_FU_START fu_start;
     HAL_FU_END fu_end;
     HAL_FU_CFG_READ fu_cfg_read;
-    HAL_FU_CFG_WRITE fu_cfg_write; 
+    HAL_FU_CFG_WRITE fu_cfg_write;
     HAL_FU_REGISTER_MEM_TRANSFER_CB fu_register_callback_mem_transfer;
     HAL_FU_DATA_READ fu_data_read;
     HAL_FU_DATA_WRITE fu_data_write;
@@ -1169,7 +1169,7 @@ typedef struct {
     HAL_PAL_PROGRAM_CHANNEL_SWITCH hal_pal_program_channel_switch;
     HAL_PAL_GET_CONFIGURATION hal_pal_get_configuration;
     HAL_PAL_SET_CONFIGURATION hal_pal_set_configuration;
-    HAL_PAL_GET_SIGNAL_CAPTURE hal_pal_get_signal_capture ;
+    HAL_PAL_GET_SIGNAL_CAPTURE hal_pal_get_signal_capture;
     HAL_PAL_GET_MSG_DURATION hal_pal_get_msg_duration;
     HAL_PAL_CHECK_MINIMUM_QUALITY hal_pal_check_minimum_quality;
     HAL_PAL_GET_LESS_ROBUST_MODULATION hal_pal_get_less_robust_modulation;
@@ -1177,6 +1177,8 @@ typedef struct {
     /* New functions must be added at the end */
 
 } HAL_API;
+
+extern const HAL_API primeHalAPI;
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

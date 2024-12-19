@@ -11,7 +11,7 @@
     PRIME API Definitions Header File
 
   Description:
-    This file contains definitions of the PRIME API functions to be used by the 
+    This file contains definitions of the PRIME API functions to be used by the
     PRIME application.
 *******************************************************************************/
 
@@ -82,7 +82,7 @@ Microchip or any third party.
 typedef struct
 {
     /* HAL API pointer */
-    HAL_API *halApi;
+    const HAL_API *halApi;
     /* PAL index from configuration */
     uint8_t palIndex;
     /* USI port for Management Plane */
@@ -110,7 +110,7 @@ typedef void (*PRIME_API_INITIALIZE)(PRIME_API_INIT *init);
     Function pointer to maintain the PRIME stack state machine.
 
   Description:
-    This function pointer is used to maintain the PRIME stack internal state 
+    This function pointer is used to maintain the PRIME stack internal state
     machine and generate callbacks.
 
   Remarks:

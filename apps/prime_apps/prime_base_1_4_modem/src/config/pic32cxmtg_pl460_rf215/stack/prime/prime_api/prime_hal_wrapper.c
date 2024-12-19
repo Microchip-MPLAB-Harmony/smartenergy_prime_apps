@@ -1,6 +1,6 @@
 /*******************************************************************************
   PRIME Hardware Abstraction Layer Wrapper API Source
-   
+
   Company:
     Microchip Technology Inc.
 
@@ -55,7 +55,7 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-static HAL_API *pPrimeHalApi;
+static const HAL_API *pPrimeHalApi;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -63,7 +63,7 @@ static HAL_API *pPrimeHalApi;
 // *****************************************************************************
 // *****************************************************************************
 
-void PRIME_HAL_WRP_Configure(HAL_API *pHalApi)
+void PRIME_HAL_WRP_Configure(const HAL_API *pHalApi)
 {
     pPrimeHalApi = pHalApi;
 }
@@ -78,19 +78,19 @@ uint32_t PRIME_HAL_WRAPPER_PcrcCalculate(uint8_t *pData, size_t length,
 {
     return pPrimeHalApi->pcrc_calc(pData, length, hdrType, crcType, initValue);
 }
-    
+
 void PRIME_HAL_WRP_PcrcConfigureSNA(uint8_t *sna)
 {
     pPrimeHalApi->pcrc_config_sna(sna);
 }
 
-bool PRIME_HAL_WRP_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, 
+bool PRIME_HAL_WRP_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size,
     void* pData)
 {
     return pPrimeHalApi->get_config_info(infoType, size, pData);
 }
 
-bool PRIME_HAL_WRP_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, 
+bool PRIME_HAL_WRP_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size,
     void* pData)
 {
     return pPrimeHalApi->set_config_info(infoType, size, pData);
@@ -101,19 +101,19 @@ SRV_USI_HANDLE PRIME_HAL_WRP_UsiOpen(const SYS_MODULE_INDEX index)
     return pPrimeHalApi->usi_open(index);
 }
 
-void PRIME_HAL_WRP_UsiSetCallback(SRV_USI_HANDLE handle, 
+void PRIME_HAL_WRP_UsiSetCallback(SRV_USI_HANDLE handle,
     SRV_USI_PROTOCOL_ID protocol, SRV_USI_CALLBACK callback)
 {
     pPrimeHalApi->usi_set_callback(handle, protocol, callback);
 }
 
-void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle, 
+void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle,
     SRV_USI_PROTOCOL_ID protocol, uint8_t *data, size_t length)
 {
-    pPrimeHalApi->usi_send(handle, protocol, data, length);
+    (void)pPrimeHalApi->usi_send(handle, protocol, data, length);
 }
 
-void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel, 
+void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel,
     SRV_LOG_REPORT_CODE code, const char *info, ...)
 {
     pPrimeHalApi->debug_report(logLevel, code, info);
@@ -130,7 +130,7 @@ void PRIME_HAL_WRP_PibGetRequestSetCallback(
     pPrimeHalApi->pib_get_request_set_callback(callback);
 }
 
-void PRIME_HAL_WRP_PibSetRequest(uint16_t pibAttrib, void *pibValue, 
+void PRIME_HAL_WRP_PibSetRequest(uint16_t pibAttrib, void *pibValue,
     uint8_t pibSize)
 {
     pPrimeHalApi->pib_set_request(pibAttrib, pibValue, pibSize);
@@ -147,7 +147,7 @@ uint32_t PRIME_HAL_WRP_RngGet(void)
     return pPrimeHalApi->rng_get();
 }
 
-int32_t PRIME_HAL_WRP_AesCmacDirect(uint8_t *input, uint32_t inputLen, 
+int32_t PRIME_HAL_WRP_AesCmacDirect(uint8_t *input, uint32_t inputLen,
     uint8_t *outputMac, uint8_t *key)
 {
     return pPrimeHalApi->aes_cmac_direct(input, inputLen, outputMac, key);
@@ -159,34 +159,34 @@ int32_t PRIME_HAL_WRP_AesCcmSetkey(uint8_t *key)
 }
 
 int32_t PRIME_HAL_WRP_AesCcmEncryptAndTag(uint8_t *data, uint32_t dataLen,
-    uint8_t *iv, uint32_t ivLen, uint8_t *aad, uint32_t aadLen, uint8_t *tag, 
+    uint8_t *iv, uint32_t ivLen, uint8_t *aad, uint32_t aadLen, uint8_t *tag,
     uint32_t tagLen)
 {
-    return pPrimeHalApi->aes_ccm_encrypt_tag(data, dataLen, iv, ivLen, aad, 
+    return pPrimeHalApi->aes_ccm_encrypt_tag(data, dataLen, iv, ivLen, aad,
         aadLen, tag, tagLen);
 }
 
 int32_t PRIME_HAL_WRP_AesCcmAuthDecrypt(uint8_t *data, uint32_t dataLen,
-    uint8_t *iv, uint32_t ivLen, uint8_t *aad, uint32_t aadLen, 
+    uint8_t *iv, uint32_t ivLen, uint8_t *aad, uint32_t aadLen,
     uint8_t *tag, uint32_t tagLen)
 {
-    return pPrimeHalApi->aes_ccm_auth_decrypt(data, dataLen, iv, ivLen, aad, 
+    return pPrimeHalApi->aes_ccm_auth_decrypt(data, dataLen, iv, ivLen, aad,
         aadLen,  tag, tagLen);
 }
 
-void PRIME_HAL_WRP_AesWrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in, 
+void PRIME_HAL_WRP_AesWrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in,
     uint32_t inLen, uint8_t *out)
 {
     pPrimeHalApi->aes_wrap_key(key, keyLen, in, inLen, out);
 }
 
-bool PRIME_HAL_WRP_AesUnwrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in, 
+bool PRIME_HAL_WRP_AesUnwrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in,
     uint32_t inLen, uint8_t *out)
 {
     return pPrimeHalApi->aes_unwrap_key(key, keyLen, in, inLen, out);
 }
 
-void PRIME_HAL_WRP_QueueInit(SRV_QUEUE *queue, uint16_t capacity, 
+void PRIME_HAL_WRP_QueueInit(SRV_QUEUE *queue, uint16_t capacity,
     SRV_QUEUE_TYPE type)
 {
     pPrimeHalApi->queue_init(queue, capacity, type);
@@ -197,7 +197,7 @@ void PRIME_HAL_WRP_QueueAppend(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element)
     pPrimeHalApi->queue_append(queue, element);
 }
 
-void PRIME_HAL_WRP_QueueAppend_With_Priority(SRV_QUEUE *queue, 
+void PRIME_HAL_WRP_QueueAppend_With_Priority(SRV_QUEUE *queue,
     uint32_t priority, SRV_QUEUE_ELEMENT *element)
 {
     pPrimeHalApi->queue_append_with_priority(queue, priority, element);
@@ -227,7 +227,7 @@ SRV_QUEUE_ELEMENT *PRIME_HAL_WRP_QueueRead_Element(SRV_QUEUE *queue,
     return pPrimeHalApi->queue_read_element(queue, elementIndex);
 }
 
-void PRIME_HAL_WRP_QueueRemove_Element(SRV_QUEUE *queue, 
+void PRIME_HAL_WRP_QueueRemove_Element(SRV_QUEUE *queue,
     SRV_QUEUE_ELEMENT *element)
 {
     pPrimeHalApi->queue_remove_element(queue, element);
@@ -263,7 +263,7 @@ void PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size)
     pPrimeHalApi->fu_cfg_write(src, size);
 }
 
-void PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
+void PRIME_HAL_WRP_FuRegisterCbMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
 {
     pPrimeHalApi->fu_register_callback_mem_transfer(callback);
 }
@@ -278,7 +278,7 @@ void PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size)
     pPrimeHalApi->fu_data_write(addr, buf, size);
 }
 
-void PRIME_HAL_WRP_FuRegisterCallbackCrc(SRV_FU_CRC_CB callback)
+void PRIME_HAL_WRP_FuRegisterCbCrc(SRV_FU_CRC_CB callback)
 {
     pPrimeHalApi->fu_register_callback_crc(callback);
 }
@@ -288,7 +288,7 @@ void PRIME_HAL_WRP_FuCalculateCrc(void)
     pPrimeHalApi->fu_calculate_crc();
 }
 
-void PRIME_HAL_WRP_FuRegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback)
+void PRIME_HAL_WRP_FuRegisterCbVerify(SRV_FU_IMAGE_VERIFY_CB callback)
 {
     pPrimeHalApi->fu_register_callback_verify(callback);
 }
@@ -353,10 +353,10 @@ uint8_t PRIME_HAL_WRP_PAL_GetTimerExtended(uint16_t pch, uint64_t *timer)
     return pPrimeHalApi->hal_pal_get_timer_extended(pch, timer);
 }
 
-uint8_t PRIME_HAL_WRP_PAL_GetCD(uint16_t pch, uint8_t *cd, uint8_t *rssi, 
-    uint32_t *time, uint8_t *header)
+uint8_t PRIME_HAL_WRP_PAL_GetCD(uint16_t pch, uint8_t *cd, uint8_t *rssi,
+    uint32_t *timePrime, uint8_t *header)
 {
-    return pPrimeHalApi->hal_pal_get_cd(pch, cd, rssi, time, header);
+    return pPrimeHalApi->hal_pal_get_cd(pch, cd, rssi, timePrime, header);
 }
 
 uint8_t PRIME_HAL_WRP_PAL_GetNL(uint16_t pch, uint8_t *noise)
@@ -389,45 +389,45 @@ uint8_t PRIME_HAL_WRP_PAL_SetChannel(uint16_t pch)
     return pPrimeHalApi->hal_pal_set_channel(pch);
 }
 
-void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint16_t pch, uint32_t timeSync, 
+void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint16_t pch, uint32_t timeSync,
     uint8_t timeMode)
 {
     return pPrimeHalApi->hal_pal_program_channel_switch(pch, timeSync, timeMode);
 }
 
-uint8_t PRIME_HAL_WRP_PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val, 
+uint8_t PRIME_HAL_WRP_PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val,
     uint16_t length)
 {
     return pPrimeHalApi->hal_pal_get_configuration(pch, id, val, length);
 }
 
-uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val, 
+uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val,
     uint16_t length)
 {
     return pPrimeHalApi->hal_pal_set_configuration(pch, id, val, length);
 }
 
-uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, 
-    uint8_t mode, uint32_t timeStart, uint32_t duration)
+uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture,
+    PAL_FRAME frameType, uint32_t timeStart, uint32_t duration)
 {
-    return pPrimeHalApi->hal_pal_get_signal_capture(pch, noiseCapture, mode, 
+    return pPrimeHalApi->hal_pal_get_signal_capture(pch, noiseCapture, frameType,
         timeStart, duration);
 }
 
-uint8_t PRIME_HAL_WRP_PAL_GetMsgDuration(uint16_t pch, uint16_t length, 
-    PAL_SCHEME scheme, uint8_t mode, uint32_t *duration)
+uint8_t PRIME_HAL_WRP_PAL_GetMsgDuration(uint16_t pch, uint16_t length,
+    PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration)
 {
-    return pPrimeHalApi->hal_pal_get_msg_duration(pch, length, scheme, mode, 
+    return pPrimeHalApi->hal_pal_get_msg_duration(pch, length, scheme, frameType,
         duration);
 }
 
-bool PRIME_HAL_WRP_PAL_CheckMinimumQuality(uint16_t pch, uint8_t reference, 
+bool PRIME_HAL_WRP_PAL_CheckMinimumQuality(uint16_t pch, uint8_t reference,
     uint8_t modulation)
 {
     return pPrimeHalApi->hal_pal_check_minimum_quality(pch, reference, modulation);
 }
 
-uint8_t PRIME_HAL_WRP_PAL_GetLessRobustModulation(uint16_t pch, uint8_t mod1, 
+uint8_t PRIME_HAL_WRP_PAL_GetLessRobustModulation(uint16_t pch, uint8_t mod1,
     uint8_t mod2)
 {
     return pPrimeHalApi->hal_pal_get_less_robust_modulation(pch, mod1, mod2);

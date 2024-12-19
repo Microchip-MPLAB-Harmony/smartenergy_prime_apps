@@ -59,7 +59,7 @@ Microchip or any third party.
 
 // *****************************************************************************
 /* PRIME Initialization Data
-    
+
    Summary:
     Defines the data required to initialize the PRIME stack.
 
@@ -116,9 +116,9 @@ typedef struct
 {
     /* State of this instance */
     PRIME_STATUS status;
-    
+
     /* Pointer to the PRIME API */
-    PRIME_API *primeApi;
+    const PRIME_API *primeApi;
 
 } PRIME_OBJ;
 

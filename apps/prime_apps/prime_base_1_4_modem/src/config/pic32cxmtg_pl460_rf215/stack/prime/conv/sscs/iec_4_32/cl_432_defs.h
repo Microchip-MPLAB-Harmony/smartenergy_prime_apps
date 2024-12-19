@@ -11,7 +11,7 @@
     PRIME 4-32 Convergence Sublayer Definitions Header File
 
   Description:
-    This file contains definitions of the PRIME 4-32 Convergence Sublayer to be 
+    This file contains definitions of the PRIME 4-32 Convergence Sublayer to be
     used by the PRIME application.
 *******************************************************************************/
 
@@ -73,8 +73,8 @@ Microchip or any third party.
 #define CL_432_MAX_LENGTH_DATA            (1024 - CL_432_LPDU_HEADER)
 
 /* Addresses defined in 4-32 layer */
-#define CL_432_INVALID_ADDRESS            (0xFFFF)
-#define CL_432_BROADCAST_ADDRESS          (0x0FFF)
+#define CL_432_INVALID_ADDRESS            (0xFFFFU)
+#define CL_432_BROADCAST_ADDRESS          (0x0FFFU)
 
 // *****************************************************************************
 /* Connection status macros
@@ -106,7 +106,7 @@ Microchip or any third party.
     Enumeration of the result values for the 4-32 Convergence Layer primitives.
 
  Description:
-    This enumeration contains the result values for the 4-32 Convergence Layer 
+    This enumeration contains the result values for the 4-32 Convergence Layer
     primitives.
 
  Remarks:
@@ -126,7 +126,7 @@ typedef enum {
     Enumeration of the transmission errors defined in the 4-32 Convergence Layer.
 
  Description:
-    This enumeration contains the transmission errors defined in the 4-32 
+    This enumeration contains the transmission errors defined in the 4-32
     Convergence Layer.
 
  Remarks:
@@ -156,7 +156,7 @@ typedef enum {
     Data structure of the buffer for transmission and reception.
 
  Description:
-    This structure contains the definition of the buffer used for tranmission and 
+    This structure contains the definition of the buffer used for tranmission and
     reception of messages in the 4-32 Convergence layer.
 
  Remarks:
@@ -180,7 +180,7 @@ typedef union {
     Function pointer for the CL 4-32 Establish Request primitive.
 
  Description:
-    This data type contains the definition of the function pointer for the 
+    This data type contains the definition of the function pointer for the
     CL 4-32 Establish Request primitive.
     - deviceId: Pointer to the device identifier data
     - deviceIdLen: Length of the device identifier
@@ -189,7 +189,7 @@ typedef union {
  Remarks:
     None.
 */
-typedef void (*CL_432_ESTABLISH_REQUEST)(uint8_t *deviceId, uint8_t deviceIdLen, 
+typedef void (*CL_432_ESTABLISH_REQUEST)(uint8_t *deviceId, uint8_t deviceIdLen,
     uint8_t ae);
 
 // *****************************************************************************
@@ -199,7 +199,7 @@ typedef void (*CL_432_ESTABLISH_REQUEST)(uint8_t *deviceId, uint8_t deviceIdLen,
     Callback function pointer for the CL 4-32 Establish Confirm primitive.
 
  Description:
-    This data type contains the definition of the callback function for the 
+    This data type contains the definition of the callback function for the
     CL 4-32 Establish Confirm primitive.
     - deviceId: Pointer to the device identifier data
     - deviceIdLen: Length of the device identifier
@@ -210,7 +210,7 @@ typedef void (*CL_432_ESTABLISH_REQUEST)(uint8_t *deviceId, uint8_t deviceIdLen,
  Remarks:
     None.
 */
-typedef void (*CL_432_ESTABLISH_CONFIRM_CB)(uint8_t *deviceId, uint8_t deviceIdLen, 
+typedef void (*CL_432_ESTABLISH_CONFIRM_CB)(uint8_t *deviceId, uint8_t deviceIdLen,
     uint16_t dstAddress, uint16_t baseAddress, uint8_t ae);
 
 // *****************************************************************************
@@ -220,7 +220,7 @@ typedef void (*CL_432_ESTABLISH_CONFIRM_CB)(uint8_t *deviceId, uint8_t deviceIdL
     Function pointer for the CL 4-32 Release Request primitive.
 
  Description:
-    This data type contains the definition of the function pointer for the 
+    This data type contains the definition of the function pointer for the
     CL 4-32 Release Request primitive.
     - dstAddress: Address to disconnect
 
@@ -236,7 +236,7 @@ typedef void (*CL_432_RELEASE_REQUEST)(uint16_t dstAddress);
     Function pointer for the CL 4-32 Data Request primitive.
 
  Description:
-    This data type contains the definition of the function pointer for the 
+    This data type contains the definition of the function pointer for the
     CL 4-32 Data Request primitive.
     - dstLsap: Destination LSAP
     - srcLsap: Source LSAP
@@ -248,7 +248,7 @@ typedef void (*CL_432_RELEASE_REQUEST)(uint16_t dstAddress);
  Remarks:
     None.
 */
-typedef void (*CL_432_DL_DATA_REQUEST)(uint8_t dstLsap, uint8_t srcLsap, 
+typedef void (*CL_432_DL_DATA_REQUEST)(uint8_t dstLsap, uint8_t srcLsap,
     uint16_t dstAddress, DL_432_BUFFER *buff, uint16_t lsduLen, uint8_t linkClass);
 
 // *****************************************************************************
@@ -258,7 +258,7 @@ typedef void (*CL_432_DL_DATA_REQUEST)(uint8_t dstLsap, uint8_t srcLsap,
     Callback function pointer for the CL 4-32 Data Indication primitive.
 
  Description:
-    This data type contains the definition of the callback function for the 
+    This data type contains the definition of the callback function for the
     CL 4-32 Data Indication primitive.
     - dstLsap: Destination LSAP
     - srcLsap: Source LSAP
@@ -271,8 +271,8 @@ typedef void (*CL_432_DL_DATA_REQUEST)(uint8_t dstLsap, uint8_t srcLsap,
  Remarks:
     None.
 */
-typedef void (*CL_432_DL_DATA_INDICATION_CB)(uint8_t dstLsap, uint8_t srcLsap, 
-    uint16_t dstAddress, uint16_t srcAddress, uint8_t *data, uint16_t lsduLen, 
+typedef void (*CL_432_DL_DATA_INDICATION_CB)(uint8_t dstLsap, uint8_t srcLsap,
+    uint16_t dstAddress, uint16_t srcAddress, uint8_t *data, uint16_t lsduLen,
     uint8_t link_Class);
 
 // *****************************************************************************
@@ -282,7 +282,7 @@ typedef void (*CL_432_DL_DATA_INDICATION_CB)(uint8_t dstLsap, uint8_t srcLsap,
     Callback function pointer for the CL 4-32 Data Confirm primitive.
 
  Description:
-    This data type contains the definition of the callback function for the 
+    This data type contains the definition of the callback function for the
     CL 4-32 Data Confirm primitive.
     - dstLsap: Destination LSAP
     - srcLsap: Source LSAP
@@ -292,7 +292,7 @@ typedef void (*CL_432_DL_DATA_INDICATION_CB)(uint8_t dstLsap, uint8_t srcLsap,
  Remarks:
     None.
 */
-typedef void (*CL_432_DL_DATA_CONFIRM_CB)(uint8_t dstLsap, uint8_t srcLsap, 
+typedef void (*CL_432_DL_DATA_CONFIRM_CB)(uint8_t dstLsap, uint8_t srcLsap,
     uint16_t dstAddress, DL_432_TX_STATUS txStatus);
 
 // *****************************************************************************
@@ -302,7 +302,7 @@ typedef void (*CL_432_DL_DATA_CONFIRM_CB)(uint8_t dstLsap, uint8_t srcLsap,
     Callback function pointer for the CL 4-32 Join Indication primitive.
 
  Description:
-    This data type contains the definition of the callback function for the 
+    This data type contains the definition of the callback function for the
     CL 4-32 Join Indication primitive.
     - deviceId: Pointer to the device identifier data
     - deviceIdLen: Length of the device identifier
@@ -313,7 +313,7 @@ typedef void (*CL_432_DL_DATA_CONFIRM_CB)(uint8_t dstLsap, uint8_t srcLsap,
  Remarks:
     None.
 */
-typedef void (*CL_432_JOIN_INDICATION_CB)(uint8_t *deviceId, uint8_t deviceIdLen, 
+typedef void (*CL_432_JOIN_INDICATION_CB)(uint8_t *deviceId, uint8_t deviceIdLen,
     uint16_t dstAddress, uint8_t *mac, uint8_t ae);
 
 // *****************************************************************************
@@ -323,7 +323,7 @@ typedef void (*CL_432_JOIN_INDICATION_CB)(uint8_t *deviceId, uint8_t deviceIdLen
     Callback function pointer for the CL 4-32 Leave Indication primitive.
 
  Description:
-    This data type contains the definition of the callback function for the 
+    This data type contains the definition of the callback function for the
     CL 4-32 Leave Indication primitive.
     - dstAddress: Destination 4.32 address
 
@@ -356,11 +356,11 @@ typedef struct {
 /* CL-432 callback function pointer
 
   Summary:
-    Defines the funtion pointer to set the callbacks to handle the CL-432 
+    Defines the funtion pointer to set the callbacks to handle the CL-432
     Convergence layer.
 
   Description:
-    This data type defines the function pointer to set the callbacks to 
+    This data type defines the function pointer to set the callbacks to
     handle the CL-432 Convergence layer.
 
   Remarks:

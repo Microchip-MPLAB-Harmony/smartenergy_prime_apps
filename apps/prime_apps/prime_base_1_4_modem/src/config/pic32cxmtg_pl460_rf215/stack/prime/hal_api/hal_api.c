@@ -84,9 +84,9 @@ const HAL_API primeHalAPI = {
     SRV_LOG_REPORT_Message_With_Code,
 
     SRV_USER_PIB_GetRequest,
-    SRV_USER_PIB_GetRequestCallbackRegister,
+    SRV_USER_PIB_GetRequestCbRegister,
     SRV_USER_PIB_SetRequest,
-    SRV_USER_PIB_SetRequestCallbackRegister,
+    SRV_USER_PIB_SetRequestCbRegister,
 
     SRV_RANDOM_Get32bits,
 
@@ -96,7 +96,7 @@ const HAL_API primeHalAPI = {
     CIPHER_Wrapper_AesCcmAuthDecrypt,
     AES_Wrapper_WrapKey,
     AES_Wrapper_UnwrapKey,
-    
+
     SRV_QUEUE_Init,
     SRV_QUEUE_Append,
     SRV_QUEUE_Append_With_Priority,
@@ -107,7 +107,7 @@ const HAL_API primeHalAPI = {
     SRV_QUEUE_Remove_Element,
     SRV_QUEUE_Flush,
     SRV_QUEUE_Set_Capacity,
-    
+
     SRV_FU_Start,
     SRV_FU_End,
     SRV_FU_CfgRead,
