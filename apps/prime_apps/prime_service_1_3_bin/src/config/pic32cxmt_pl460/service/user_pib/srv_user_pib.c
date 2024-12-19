@@ -11,8 +11,8 @@
     Source code for the PRIME User PIBs service implementation.
 
   Description:
-    The User PIBs service provides a simple interface to handle a parameter 
-    interface base defined by the user from the PRIME stack. This file contains 
+    The User PIBs service provides a simple interface to handle a parameter
+    interface base defined by the user from the PRIME stack. This file contains
     the source code for the implementation of this service.
 *******************************************************************************/
 
@@ -61,8 +61,8 @@ Microchip or any third party.
 static uint32_t srvUserPibValues[11];
 
 /* Callback function pointers */
-static SRV_USER_PIB_GET_REQUEST_CALLBACK SRV_USER_PIB_GetRequestCallback;
-static SRV_USER_PIB_SET_REQUEST_CALLBACK SRV_USER_PIB_SetRequestCallback;
+static SRV_USER_PIB_GET_REQUEST_CALLBACK SRV_USER_PIB_GetRequestCb;
+static SRV_USER_PIB_SET_REQUEST_CALLBACK SRV_USER_PIB_SetRequestCb;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -76,21 +76,21 @@ void SRV_USER_PIB_GetRequest(uint16_t pibAttrib)
     uint8_t getResult;
 
     /* Check PIB value */
-    if ((pibAttrib >= PIB_USER_RESET_INFO) && (pibAttrib <= PIB_USER_R12)) 
+    if ((pibAttrib >= PIB_USER_RESET_INFO) && (pibAttrib <= PIB_USER_R12))
     {
-        getResult = true;
-        pibValue = srvUserPibValues[pibAttrib & 0x000F];
-    } 
-    else 
+        getResult = 1; /* true */
+        pibValue = srvUserPibValues[pibAttrib & 0x000FU];
+    }
+    else
     {
-        getResult = false;
+        getResult = 0; /* false */
         pibValue = 0;
     }
 
     /* Return result */
-    if (SRV_USER_PIB_GetRequestCallback != NULL) 
+    if (SRV_USER_PIB_GetRequestCb != NULL)
     {
-        SRV_USER_PIB_GetRequestCallback(getResult, pibAttrib, &pibValue, 4);
+        SRV_USER_PIB_GetRequestCb(getResult, pibAttrib, &pibValue, 4);
     }
 }
 
@@ -101,39 +101,39 @@ void SRV_USER_PIB_SetRequest(uint16_t pibAttrib, void *pibValue, uint8_t pibSize
     (void)pibSize;
 
     /* Return result */
-    if (SRV_USER_PIB_SetRequestCallback != NULL) 
+    if (SRV_USER_PIB_SetRequestCb != NULL)
     {
-        SRV_USER_PIB_SetRequestCallback(false);
+        SRV_USER_PIB_SetRequestCb(false);
     }
 }
 
-void SRV_USER_PIB_GetRequestCallbackRegister(SRV_USER_PIB_GET_REQUEST_CALLBACK callback)
+void SRV_USER_PIB_GetRequestCbRegister(SRV_USER_PIB_GET_REQUEST_CALLBACK callback)
 {
-    SRV_USER_PIB_GetRequestCallback = callback;
+    SRV_USER_PIB_GetRequestCb = callback;
 }
 
-void SRV_USER_PIB_SetRequestCallbackRegister(SRV_USER_PIB_SET_REQUEST_CALLBACK callback)
+void SRV_USER_PIB_SetRequestCbRegister(SRV_USER_PIB_SET_REQUEST_CALLBACK callback)
 {
-    SRV_USER_PIB_SetRequestCallback = callback;
+    SRV_USER_PIB_SetRequestCb = callback;
 }
 
 void SRV_USER_PIB_Initialize(void)
 {
-    SRV_USER_PIB_GetRequestCallback = NULL;
-    SRV_USER_PIB_SetRequestCallback = NULL;
+    SRV_USER_PIB_GetRequestCb = NULL;
+    SRV_USER_PIB_SetRequestCb = NULL;
 
     /* Store PIB values */
-    srvUserPibValues[PIB_USER_RESET_INFO & 0x000F] = SUPC_GPBRRead(GPBR_REGS_5);
-    srvUserPibValues[PIB_USER_PC & 0x000F] = SUPC_GPBRRead(GPBR_REGS_6);
-    srvUserPibValues[PIB_USER_LR & 0x000F] = SUPC_GPBRRead(GPBR_REGS_7);
-    srvUserPibValues[PIB_USER_PSR & 0x000F] = SUPC_GPBRRead(GPBR_REGS_8);
-    srvUserPibValues[PIB_USER_HFSR & 0x000F] = SUPC_GPBRRead(GPBR_REGS_9);
-    srvUserPibValues[PIB_USER_CFSR & 0x000F] = SUPC_GPBRRead(GPBR_REGS_10);
-    srvUserPibValues[PIB_USER_R0 & 0x000F] = SUPC_GPBRRead(GPBR_REGS_11);
-    srvUserPibValues[PIB_USER_R1 & 0x000F] = SUPC_GPBRRead(GPBR_REGS_12);
-    srvUserPibValues[PIB_USER_R2 & 0x000F] = SUPC_GPBRRead(GPBR_REGS_13);
-    srvUserPibValues[PIB_USER_R3 & 0x000F] = SUPC_GPBRRead(GPBR_REGS_14);
-    srvUserPibValues[PIB_USER_R12 & 0x000F] = SUPC_GPBRRead(GPBR_REGS_15);
+    srvUserPibValues[PIB_USER_RESET_INFO & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_5);
+    srvUserPibValues[PIB_USER_PC & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_6);
+    srvUserPibValues[PIB_USER_LR & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_7);
+    srvUserPibValues[PIB_USER_PSR & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_8);
+    srvUserPibValues[PIB_USER_HFSR & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_9);
+    srvUserPibValues[PIB_USER_CFSR & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_10);
+    srvUserPibValues[PIB_USER_R0 & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_11);
+    srvUserPibValues[PIB_USER_R1 & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_12);
+    srvUserPibValues[PIB_USER_R2 & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_13);
+    srvUserPibValues[PIB_USER_R3 & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_14);
+    srvUserPibValues[PIB_USER_R12 & 0x000FU] = SUPC_GPBRRead(GPBR_REGS_15);
 
     /* Clear registers (except reset information) */
     SUPC_GPBRWrite(GPBR_REGS_6, 0);

@@ -108,9 +108,6 @@ typedef enum
     /* Wait for commands */
     SRV_FU_MEM_STATE_CMD_WAIT,
 
-    /* An error in memory operation happened */
-    SRV_FU_MEM_STATE_ERROR,
-
     /* Attached memory cannot be initialized */
     SRV_FU_MEM_UNINITIALIZED
 

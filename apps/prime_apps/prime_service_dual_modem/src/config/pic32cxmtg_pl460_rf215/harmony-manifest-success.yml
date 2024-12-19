@@ -4,7 +4,7 @@
 
 
 project: prime_service_dual_modem
-creation_date: 2024-12-12T14:41:00.522+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2024-12-19T09:10:34.106+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1
@@ -17,7 +17,7 @@ modules:
     - {name: "csp", version: "master"}
     - {name: "core", version: "master"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_prime", version: "dev"}
+    - {name: "smartenergy_prime", version: "SMS-4010-fix-required-misra-c-violations-in-prime-repo"}
     - {name: "crypto_v4", version: "master"}
     - {name: "wolfssl", version: "v5.7.0"}
     - {name: "smartenergy", version: "dev"}

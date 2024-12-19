@@ -1,6 +1,6 @@
 /*******************************************************************************
-  PRIME API Header 
-   
+  PRIME API Header
+
   Company:
     Microchip Technology Inc.
 
@@ -11,7 +11,7 @@
     PRIME API Header File
 
   Description:
-    This module converts the PRIME stack library interface into a global 
+    This module converts the PRIME stack library interface into a global
     interface to be used by the PRIME application.
 *******************************************************************************/
 
@@ -69,7 +69,7 @@ Microchip or any third party.
 
 // *****************************************************************************
 /* PRIME API state
- 
+
   Summary:
     List of possible values of PRIME API state.
 
@@ -92,8 +92,8 @@ typedef enum
 // *****************************************************************************
 // *****************************************************************************
 
-void PRIME_API_GetPrime13API(PRIME_API **pPrimeApi);
-void PRIME_API_GetPrime14API(PRIME_API **pPrimeApi);
+void PRIME_API_GetPrime13API(const PRIME_API **pPrimeApi);
+void PRIME_API_GetPrime14API(const PRIME_API **pPrimeApi);
 
 
 //DOM-IGNORE-BEGIN

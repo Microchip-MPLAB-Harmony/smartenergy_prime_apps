@@ -38,8 +38,8 @@ implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
 */
 //DOM-IGNORE-END
-#ifndef _TIME_MANAGEMENT_H
-#define _TIME_MANAGEMENT_H
+#ifndef TIME_MANAGEMENT_H
+#define TIME_MANAGEMENT_H
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus // Provide C++ Compatibility
@@ -60,11 +60,11 @@ Microchip or any third party.
     uint64_t SRV_TIME_MANAGEMENT_GetTimeUS64(void)
 
   Summary:
-    The SRV_TIME_MANAGEMENT_GetTimeUS64 primitive gets the value of a counter 
+    The SRV_TIME_MANAGEMENT_GetTimeUS64 primitive gets the value of a counter
     and converts it in a 64 bit variable in microseconds.
 
   Description:
-    This primitive makes use of SYS_TIME service to get the value of the 
+    This primitive makes use of SYS_TIME service to get the value of the
     microseconds counter in order to be able to set timeouts and perform delays.
     This function returns the current value of such counter.
 
@@ -80,7 +80,7 @@ Microchip or any third party.
   Example:
     <code>
     uint64_t previousTimeUS = SRV_TIME_MANAGEMENT_GetTimeUS64();
- 
+
     uint64_t newTimeUS = SRV_TIME_MANAGEMENT_GetTimeUS64();
 
     if ((newTimeUS - previousTimeUS) > 1000000)
@@ -98,11 +98,11 @@ uint64_t SRV_TIME_MANAGEMENT_GetTimeUS64(void);
     uint32_t SRV_TIME_MANAGEMENT_GetTimeUS(void)
 
   Summary:
-    The SRV_TIME_MANAGEMENT_GetTimeUS primitive gets the value of a counter 
+    The SRV_TIME_MANAGEMENT_GetTimeUS primitive gets the value of a counter
     and converts it in a 32 bit variable in microseconds.
 
   Description:
-    This primitive makes use of SYS_TIME service to get the value of the 
+    This primitive makes use of SYS_TIME service to get the value of the
     microseconds counter in order to be able to set timeouts and perform delays.
     This function returns the current value of such counter.
 
@@ -136,11 +136,11 @@ uint32_t SRV_TIME_MANAGEMENT_GetTimeUS(void);
     uint64_t SRV_TIME_MANAGEMENT_USToCount(uint32_t timeUs)
 
   Summary:
-    The SRV_TIME_MANAGEMENT_USToCount primitive converts a given time in 
+    The SRV_TIME_MANAGEMENT_USToCount primitive converts a given time in
     microseconds and returns the equivalent value in cycles.
 
   Description:
-    This primitive makes use of SYS_TIME service to convert a value in 
+    This primitive makes use of SYS_TIME service to convert a value in
     microseconds and returns a value in cyles.
 
   Precondition:
@@ -157,7 +157,7 @@ uint32_t SRV_TIME_MANAGEMENT_GetTimeUS(void);
     uint64_t nextTimeCounter;
     uint32_t nextTimeUS;
     uint32_t currentTimeUS;
-     
+
     currentTimeUS= SRV_TIME_MANAGEMENT_GetTimeUS();
 
     nextTimeUS = currentTimeUS + 1000;
@@ -176,11 +176,11 @@ uint64_t SRV_TIME_MANAGEMENT_USToCount(uint32_t timeUs);
     uint32_t SRV_TIME_MANAGEMENT_CountToUS(uint64_t counter)
 
   Summary:
-    The SRV_TIME_MANAGEMENT_CountToUS primitive converts a given time in cycles 
+    The SRV_TIME_MANAGEMENT_CountToUS primitive converts a given time in cycles
     and returns the equivalent value in microseconds.
 
   Description:
-    This primitive makes use of SYS_TIME service to convert a value 
+    This primitive makes use of SYS_TIME service to convert a value
     in cycles and returns a value in microseconds.
 
   Precondition:
@@ -210,7 +210,7 @@ uint32_t SRV_TIME_MANAGEMENT_CountToUS(uint64_t counter);
 
 // *****************************************************************************
 /* Function:
-    SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterUS ( SYS_TIME_CALLBACK callback,
+    SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CbRegisterUS ( SYS_TIME_CALLBACK callback,
                         uintptr_t context, uint32_t us, SYS_TIME_CALLBACK_TYPE type )
 
    Summary:
@@ -256,31 +256,31 @@ uint32_t SRV_TIME_MANAGEMENT_CountToUS(uint64_t counter);
       The following example call will register it, requesting a 500 microsecond
       periodic callback.
       <code>
-     
-      SYS_TIME_HANDLE handle = SRV_TIME_MANAGEMENT_CallbackRegisterUS(MyCallback, (uintptr_t)0, 
+
+      SYS_TIME_HANDLE handle = SRV_TIME_MANAGEMENT_CbRegisterUS(MyCallback, (uintptr_t)0,
                 500, SYS_TIME_PERIODIC);
       if (handle != SYS_TIME_HANDLE_INVALID)
       {
-           
+
       }
       </code>
 
    Remarks:
        Will give a callback after the requested number of microseconds or longer
        have elapsed, depending on system performance. In tick-based mode, the requested
-       delay will be ceiled to the next timer tick. For example, if the 
-       timer tick is set to 1 msec and the requested delay is 1500 usec, a 
+       delay will be ceiled to the next timer tick. For example, if the
+       timer tick is set to 1 msec and the requested delay is 1500 usec, a
        delay of 2 msec will be generated.
 
        Delay values of 0 will return SYS_TIME_ERROR.
 */
 
-SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterUS ( SYS_TIME_CALLBACK callback, 
+SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CbRegisterUS ( SYS_TIME_CALLBACK callback,
                         uintptr_t context, uint32_t us, SYS_TIME_CALLBACK_TYPE type );
 
 // *****************************************************************************
 /* Function:
-    SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterMS ( SYS_TIME_CALLBACK callback,
+    SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CbRegisterMS ( SYS_TIME_CALLBACK callback,
                         uintptr_t context, uint32_t ms, SYS_TIME_CALLBACK_TYPE type )
 
    Summary:
@@ -326,26 +326,26 @@ SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterUS ( SYS_TIME_CALLBACK callb
       The following example call will register it, requesting a 1 second
       periodic callback.
       <code>
-     
-      SYS_TIME_HANDLE handle = SRV_TIME_MANAGEMENT_CallbackRegisterMS(MyCallback, (uintptr_t)0, 
+
+      SYS_TIME_HANDLE handle = SRV_TIME_MANAGEMENT_CbRegisterMS(MyCallback, (uintptr_t)0,
                 1000, SYS_TIME_PERIODIC);
       if (handle != SYS_TIME_HANDLE_INVALID)
       {
-           
+
       }
       </code>
 
    Remarks:
        Will give a callback after the requested number of microseconds or longer
        have elapsed, depending on system performance. In tick-based mode, the requested
-       delay will be ceiled to the next timer tick. For example, if the 
-       timer tick is set to 1 msec and the requested delay is 1500 usec, a 
+       delay will be ceiled to the next timer tick. For example, if the
+       timer tick is set to 1 msec and the requested delay is 1500 usec, a
        delay of 2 msec will be generated.
 
        Delay values of 0 will return SYS_TIME_ERROR.
 */
 
-SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterMS ( SYS_TIME_CALLBACK callback, 
+SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CbRegisterMS ( SYS_TIME_CALLBACK callback,
                         uintptr_t context, uint32_t ms, SYS_TIME_CALLBACK_TYPE type );
 
 //DOM-IGNORE-BEGIN
@@ -354,4 +354,4 @@ SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterMS ( SYS_TIME_CALLBACK callb
 #endif
 //DOM-IGNORE-END
 
-#endif /* _TIME_MANAGEMENT_H */
+#endif /* TIME_MANAGEMENT_H */

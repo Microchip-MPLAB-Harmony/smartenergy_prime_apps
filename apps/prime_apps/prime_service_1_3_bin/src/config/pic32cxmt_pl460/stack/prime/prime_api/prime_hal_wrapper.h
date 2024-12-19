@@ -1,6 +1,6 @@
 /*******************************************************************************
   PRIME Hardware Abstraction Layer Wrapper API Header
-   
+
   Company:
     Microchip Technology Inc.
 
@@ -66,32 +66,32 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 /* Function:
-    void PRIME_HAL_WRP_Configure(HAL_API *pHalApi)
+    void PRIME_HAL_WRP_Configure(const HAL_API *pHalApi)
 
   Summary:
     Trigger a system restart.
 
   Description:
-    This routine triggers a system restart. 
+    This routine triggers a system restart.
 
   Precondition:
     None.
-    
+
   Parameters:
-    pHalApi      - Pointer to HAL API 
+    pHalApi      - Pointer to HAL API
 
   Returns:
     None.
 
   Example:
     <code>
-    extern HAL_API primeHalAPI;
+    extern const HAL_API primeHalAPI;
 
     PRIME_HAL_WRP_Configure(&primeHalAPI);
     </code>
 
 */
-void PRIME_HAL_WRP_Configure(HAL_API *pHalApi);
+void PRIME_HAL_WRP_Configure(const HAL_API *pHalApi);
 
 /* Function:
     void PRIME_HAL_WRP_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
@@ -100,11 +100,11 @@ void PRIME_HAL_WRP_Configure(HAL_API *pHalApi);
     Trigger a system restart.
 
   Description:
-    This routine triggers a system restart. 
+    This routine triggers a system restart.
 
   Precondition:
     None.
-    
+
   Parameters:
     resetType      - Type of reset
 
@@ -125,9 +125,9 @@ void PRIME_HAL_WRP_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
 // *****************************************************************************
 /* Function:
     uint32_t PRIME_HAL_WRAPPER_PcrcCalculate(
-      uint8_t *pData, 
+      uint8_t *pData,
       size_t length,
-      PCRC_HEADER_TYPE hdrType, 
+      PCRC_HEADER_TYPE hdrType,
       PCRC_CRC_TYPE crcType,
       uint32_t initValue
     );
@@ -147,29 +147,29 @@ void PRIME_HAL_WRP_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
     length      - Length of the data stream
     hdrType     - Header type to determine the method to obtain CRC
     crcType     - CRC type(8, 16 or 32 bits)
-    initValue   - Initialization value for CRC computation 
- 
+    initValue   - Initialization value for CRC computation
+
   Returns:
     If successful, the routine returns a valid CRC value.
     If an error occurs, the return value is PCRC_INVALID. Error can occur if
     hdrType or crcType are wrong.
-    Returned CRC is always a 32-bit value. For 8-bit or 16-bit CRC, it is casted 
+    Returned CRC is always a 32-bit value. For 8-bit or 16-bit CRC, it is casted
     to 32-bit.
 
   Example:
     <code>
     uint32_t valueCrc32;
-    
-    valueCrc32 = PRIME_HAL_WRAPPER_PcrcCalculate(pData, length, 
+
+    valueCrc32 = PRIME_HAL_WRAPPER_PcrcCalculate(pData, length,
                     PCRC_HT_PRIME_GENERIC, PCRC_CRC32, 0);
     </code>
 
   Remarks:
     Related to PCRC service.
-*/        
+*/
 uint32_t PRIME_HAL_WRAPPER_PcrcCalculate(uint8_t *pData, size_t length,
     PCRC_HEADER_TYPE hdrType, PCRC_CRC_TYPE crcType, uint32_t initValue);
-    
+
 // *****************************************************************************
 /* Function:
     void PRIME_HAL_WRP_PcrcConfigureSNA(uint8_t *sna);
@@ -193,22 +193,22 @@ uint32_t PRIME_HAL_WRAPPER_PcrcCalculate(uint8_t *pData, size_t length,
   Example:
     <code>
     uint8_t sna[PCRC_SNA_SIZE];
-    
+
     PRIME_HAL_WRP_PcrcConfigureSNA(sna);
     </code>
 
   Remarks:
     Related to PCRC service.
-*/  
-    
+*/
+
 void PRIME_HAL_WRP_PcrcConfigureSNA(uint8_t *sna);
 
 // *****************************************************************************
 /* Function:
     bool PRIME_HAL_WRP_GetConfigInfo
     (
-        SRV_STORAGE_TYPE infoType, 
-        uint8_t size, 
+        SRV_STORAGE_TYPE infoType,
+        uint8_t size,
         void* pData
     )
 
@@ -242,15 +242,15 @@ void PRIME_HAL_WRP_PcrcConfigureSNA(uint8_t *sna);
   Remarks:
     Related to PRIME Storage service.
 */
-bool PRIME_HAL_WRP_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, 
+bool PRIME_HAL_WRP_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size,
     void* pData);
 
 // *****************************************************************************
 /* Function:
     bool PRIME_HAL_WRP_SetConfigInfo
     (
-        SRV_STORAGE_TYPE infoType, 
-        uint8_t size, 
+        SRV_STORAGE_TYPE infoType,
+        uint8_t size,
         void* pData
     )
 
@@ -281,9 +281,9 @@ bool PRIME_HAL_WRP_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size,
   Remarks:
     Related to PRIME Storage service.
 */
-bool PRIME_HAL_WRP_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, 
+bool PRIME_HAL_WRP_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size,
     void* pData);
-    
+
 // *****************************************************************************
 /* Function:
     SRV_USI_HANDLE PRIME_HAL_WRP_UsiOpen(const SYS_MODULE_INDEX index)
@@ -359,14 +359,14 @@ SRV_USI_HANDLE PRIME_HAL_WRP_UsiOpen(const SYS_MODULE_INDEX index);
 
     }
 
-    PRIME_HAL_WRP_UsiSetCallback(handle, SRV_USI_PROT_ID_MNGP_PRIME, 
+    PRIME_HAL_WRP_UsiSetCallback(handle, SRV_USI_PROT_ID_MNGP_PRIME,
                                  PRIME_USIEventHandler);
     </code>
-    
+
   Remarks:
     Related to USI service.
 */
-void PRIME_HAL_WRP_UsiSetCallback(SRV_USI_HANDLE handle, 
+void PRIME_HAL_WRP_UsiSetCallback(SRV_USI_HANDLE handle,
     SRV_USI_PROTOCOL_ID protocol, SRV_USI_CALLBACK callback);
 
 // *****************************************************************************
@@ -374,8 +374,8 @@ void PRIME_HAL_WRP_UsiSetCallback(SRV_USI_HANDLE handle,
     void PRIME_HAL_WRP_UsiSend
     (
         SRV_USI_HANDLE handle,
-        SRV_USI_PROTOCOL_ID protocol, 
-        uint8_t *data, 
+        SRV_USI_PROTOCOL_ID protocol,
+        uint8_t *data,
         size_t length )
 
   Summary:
@@ -402,14 +402,14 @@ void PRIME_HAL_WRP_UsiSetCallback(SRV_USI_HANDLE handle,
     <code>
     uint8_t pData[] = "Message to send through USI";
 
-    PRIME_HAL_WRP_UsiSend(handle, SRV_USI_PROT_ID_MNGP_PRIME, pData, 
+    PRIME_HAL_WRP_UsiSend(handle, SRV_USI_PROT_ID_MNGP_PRIME, pData,
                           sizeof(pData));
     </code>
 
   Remarks:
     Related to USI service.
   */
-void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle, SRV_USI_PROTOCOL_ID protocol, 
+void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle, SRV_USI_PROTOCOL_ID protocol,
     uint8_t *data, size_t length);
 
 //******************************************************************************
@@ -419,7 +419,7 @@ void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle, SRV_USI_PROTOCOL_ID protocol,
         SRV_LOG_REPORT_LEVEL logLevel,
         SRV_LOG_REPORT_CODE code,
         const char *info, ...)
-        
+
   Summary:
     Reports an error/warning code with related information.
 
@@ -445,7 +445,7 @@ void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle, SRV_USI_PROTOCOL_ID protocol,
   Remarks:
     Related to Log Report service.
 */
-void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel, 
+void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel,
     SRV_LOG_REPORT_CODE code, const char *info, ...);
 
 // *****************************************************************************
@@ -460,7 +460,7 @@ void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel,
 
   Precondition:
     None.
-    
+
   Parameters:
     pibAttrib     - PIB attribute identifier
 
@@ -469,15 +469,15 @@ void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel,
 
   Example:
     <code>
-    static void PRIME_GetRequestHandler(uint8_t result, uint16_t pibAttrib, 
+    static void PRIME_GetRequestHandler(uint8_t result, uint16_t pibAttrib,
                                       void *pibValue, uint8_t pibSize)
     {
-        if (getResult == true) 
+        if (getResult == true)
         {
             ...
         }
     }
-    
+
     PRIME_HAL_WRP_PibGetRequestSetCallback(PRIME_GetRequestHandler);
 
     PRIME_HAL_WRP_PibGetRequest(PIB_USER_RESET_INFO);
@@ -486,12 +486,12 @@ void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel,
   Remarks:
     Related to User PIB service.
 */
-void PRIME_HAL_WRP_PibGetRequest(uint16_t us_pib_attrib);
+void PRIME_HAL_WRP_PibGetRequest(uint16_t pibAttrib);
 
 // *****************************************************************************
 /* Function:
     void PRIME_HAL_WRP_PibGetRequestSetCallback
-    ( 
+    (
         SRV_USER_PIB_GET_REQUEST_CALLBACK callback
     )
 
@@ -504,7 +504,7 @@ void PRIME_HAL_WRP_PibGetRequest(uint16_t us_pib_attrib);
 
   Precondition:
     None.
-    
+
   Parameters:
     callback      - Pointer to the callback function
 
@@ -513,15 +513,15 @@ void PRIME_HAL_WRP_PibGetRequest(uint16_t us_pib_attrib);
 
   Example:
     <code>
-    static void PRIME_GetRequestHandler(uint8_t getResult, uint16_t pibAttrib, 
+    static void PRIME_GetRequestHandler(uint8_t getResult, uint16_t pibAttrib,
                                       void *pibValue, uint8_t pibSize)
     {
-        if (getResult == true) 
+        if (getResult == true)
         {
             ...
         }
     }
-    
+
     PRIME_HAL_WRP_PibGetRequestSetCallback(APP_GetRequestHandler);
     </code>
 
@@ -535,8 +535,8 @@ void PRIME_HAL_WRP_PibGetRequestSetCallback(
 /* Function:
     void PRIME_HAL_WRP_PibSetRequest
     (
-        uint16_t pibAttrib, 
-        void *pibValue, 
+        uint16_t pibAttrib,
+        void *pibValue,
         uint8_t pibSize
     )
 
@@ -548,7 +548,7 @@ void PRIME_HAL_WRP_PibGetRequestSetCallback(
 
   Precondition:
     None.
-    
+
   Parameters:
     pibAttrib     - PIB attribute identifier
     pibValue      - PIB attribute value
@@ -561,17 +561,17 @@ void PRIME_HAL_WRP_PibGetRequestSetCallback(
     <code>
     static void PRIME_SetRequestHandler(uint8_t setResult)
     {
-        if (setResult == true) 
+        if (setResult == true)
         {
             ...
         }
     }
-    
+
     uint32_t resetValue = 0;
-        
+
     PRIME_HAL_WRP_PibSetRequestSetCallback(PRIME_SetRequestHandler);
 
-    PRIME_HAL_WRP_PibSetRequest(PIB_USER_RESET_INFO, &resetValue, 
+    PRIME_HAL_WRP_PibSetRequest(PIB_USER_RESET_INFO, &resetValue,
         sizeof(resetValue));
     </code>
 
@@ -579,7 +579,7 @@ void PRIME_HAL_WRP_PibGetRequestSetCallback(
     Related to User PIB service.
 */
 
-void PRIME_HAL_WRP_PibSetRequest(uint16_t pibAttrib, void *pibValue, 
+void PRIME_HAL_WRP_PibSetRequest(uint16_t pibAttrib, void *pibValue,
     uint8_t pibSize);
 
 // *****************************************************************************
@@ -598,7 +598,7 @@ void PRIME_HAL_WRP_PibSetRequest(uint16_t pibAttrib, void *pibValue,
 
   Precondition:
     None.
-    
+
   Parameters:
     callback      - Pointer to the callback function
 
@@ -609,12 +609,12 @@ void PRIME_HAL_WRP_PibSetRequest(uint16_t pibAttrib, void *pibValue,
     <code>
     static void PRIME_SetRequestHandler(uint8_t setResult)
     {
-        if (setResult == true) 
+        if (setResult == true)
         {
             ...
         }
     }
-        
+
     PRIME_HAL_WRP_PibSetRequestSetCallback(PRIME_SetRequestHandler);
     </code>
 
@@ -657,9 +657,9 @@ uint32_t PRIME_HAL_WRP_RngGet(void);
 /* Function:
     int32_t PRIME_HAL_WRP_AesCmacDirect
     (
-        uint8_t *input, 
+        uint8_t *input,
         uint32_t inputLen,
-        uint8_t *outputMac, 
+        uint8_t *outputMac,
         uint8_t *key
     )
 
@@ -668,7 +668,7 @@ uint32_t PRIME_HAL_WRP_RngGet(void);
 
   Description:
     This function performs AES-CMAC to generate the MAC in single step without
-    initialization. The size of the key is 16 bytes. The size of the MAC is equal 
+    initialization. The size of the key is 16 bytes. The size of the MAC is equal
     to the AES block size (16 bytes).
 
   Precondition:
@@ -698,7 +698,7 @@ uint32_t PRIME_HAL_WRP_RngGet(void);
   Remarks:
     Related to Security service.
 */
-int32_t PRIME_HAL_WRP_AesCmacDirect(uint8_t *input, uint32_t inputLen, 
+int32_t PRIME_HAL_WRP_AesCmacDirect(uint8_t *input, uint32_t inputLen,
     uint8_t *outputMac, uint8_t *key);
 
 //******************************************************************************
@@ -741,11 +741,11 @@ int32_t PRIME_HAL_WRP_AesCcmSetkey(uint8_t *key);
     (
         uint8_t *data,
         uint32_t dataLen,
-        uint8_t *iv, 
+        uint8_t *iv,
         uint32_t ivLen,
-        uint8_t *aad, 
+        uint8_t *aad,
         uint32_t aadLen,
-        uint8_t *tag, 
+        uint8_t *tag,
         uint32_t tagLen
     )
 
@@ -794,20 +794,20 @@ int32_t PRIME_HAL_WRP_AesCcmSetkey(uint8_t *key);
 */
 
 int32_t PRIME_HAL_WRP_AesCcmEncryptAndTag(uint8_t *data, uint32_t dataLen,
-    uint8_t *iv, uint32_t ivLen, uint8_t *aad, uint32_t aadLen, 
+    uint8_t *iv, uint32_t ivLen, uint8_t *aad, uint32_t aadLen,
     uint8_t *tag, uint32_t tagLen);
 
 //******************************************************************************
 /* Function:
     int32_t PRIME_HAL_WRP_AesCcmAuthDecrypt
     (
-        uint8_t *data, 
+        uint8_t *data,
         uint32_t dataLen,
-        uint8_t *iv, 
+        uint8_t *iv,
         uint32_t ivLen,
-        uint8_t *aad, 
+        uint8_t *aad,
         uint32_t aadLen,
-        uint8_t *tag, 
+        uint8_t *tag,
         uint32_t tagLen
     )
 
@@ -856,20 +856,20 @@ int32_t PRIME_HAL_WRP_AesCcmEncryptAndTag(uint8_t *data, uint32_t dataLen,
 */
 
 int32_t PRIME_HAL_WRP_AesCcmAuthDecrypt(uint8_t *data, uint32_t dataLen,
-    uint8_t *iv, uint32_t ivLen, uint8_t *aad, uint32_t aadLen, 
+    uint8_t *iv, uint32_t ivLen, uint8_t *aad, uint32_t aadLen,
     uint8_t *tag, uint32_t tagLen);
-    
+
 //******************************************************************************
 /* Function:
     void PRIME_HAL_WRP_AesWrapKey
     (
-        uint8_t *key, 
-        uint32_t keyLen, 
-        uint8_t *in, 
+        uint8_t *key,
+        uint32_t keyLen,
+        uint8_t *in,
         uint32_t inLen,
         uint8_t *out
     )
-    
+
   Summary:
     Wraps a key with AES Key Wrap Algorithm.
 
@@ -902,18 +902,18 @@ int32_t PRIME_HAL_WRP_AesCcmAuthDecrypt(uint8_t *data, uint32_t dataLen,
     The wrapped key is one byte longer than the plain key.
     Related to Security service.
 */
-void PRIME_HAL_WRP_AesWrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in, 
-    uint32_t inLen, uint8_t *out);    
+void PRIME_HAL_WRP_AesWrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in,
+    uint32_t inLen, uint8_t *out);
 
 //******************************************************************************
 /* Function:
     bool PRIME_HAL_WRP_AesUnwrapKey(
-        uint8_t *key, 
-        uint32_t keyLen, 
-        uint8_t *in, 
+        uint8_t *key,
+        uint32_t keyLen,
+        uint8_t *in,
         uint32_t inLen,
         uint8_t *out)
-    
+
   Summary:
     Unwraps a key with AES Key Wrap Algorithm.
 
@@ -945,17 +945,17 @@ void PRIME_HAL_WRP_AesWrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in,
   Remarks:
     The unwrapped key is one byte shorter than the wrapped key.
     Related to Security service.
-*/    
-bool PRIME_HAL_WRP_AesUnwrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in, 
+*/
+bool PRIME_HAL_WRP_AesUnwrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in,
     uint32_t inLen, uint8_t *out);
-    
+
 //***************************************************************************
 /*
   Function:
     void PRIME_HAL_WRP_QueueInit
     (
-        SRV_QUEUE *queue, 
-        uint16_t capacity, 
+        SRV_QUEUE *queue,
+        uint16_t capacity,
         SRV_QUEUE_TYPE typede
     )
 
@@ -987,13 +987,13 @@ bool PRIME_HAL_WRP_AesUnwrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in,
   Remarks:
     Related to Queue service.
 */
-void PRIME_HAL_WRP_QueueInit(SRV_QUEUE *queue, uint16_t capacity, 
+void PRIME_HAL_WRP_QueueInit(SRV_QUEUE *queue, uint16_t capacity,
     SRV_QUEUE_TYPE type);
 
 //***************************************************************************
 /*
   Function:
-    void PRIME_HAL_WRP_QueueAppend(SRV_QUEUE *queue, 
+    void PRIME_HAL_WRP_QueueAppend(SRV_QUEUE *queue,
                                    SRV_QUEUE_ELEMENT *element)
 
   Summary:
@@ -1040,7 +1040,7 @@ void PRIME_HAL_WRP_QueueAppend(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
   Function:
     void PRIME_HAL_WRP_QueueAppend_With_Priority
     (
-        SRV_QUEUE *queue, 
+        SRV_QUEUE *queue,
         uint32_t priority,
         SRV_QUEUE_ELEMENT *element
     )
@@ -1082,7 +1082,7 @@ void PRIME_HAL_WRP_QueueAppend(SRV_QUEUE *queue, SRV_QUEUE_ELEMENT *element);
   Remarks:
     Related to Queue service.
 */
-void PRIME_HAL_WRP_QueueAppend_With_Priority(SRV_QUEUE *queue, 
+void PRIME_HAL_WRP_QueueAppend_With_Priority(SRV_QUEUE *queue,
     uint32_t priority, SRV_QUEUE_ELEMENT *element);
 
 //***************************************************************************
@@ -1236,7 +1236,7 @@ void PRIME_HAL_WRP_QueueInsert_After(SRV_QUEUE *queue,
     PRIME_HAL_WRP_QueueInit(&nodeQueue, NUM_MAX_NODES, SRV_QUEUE_TYPE_SINGLE);
     memset(nodeInfo.macAddress, 0xFF, 8);
     PRIME_HAL_WRP_QueueAppend(&nodeQueue, (SRV_QUEUE_ELEMENT *)&nodeInfo);
-    removedNode = PRIME_HAL_WRP_QueueRead_Or_Remove(&nodeQueue, 
+    removedNode = PRIME_HAL_WRP_QueueRead_Or_Remove(&nodeQueue,
                     SRV_QUEUE_MODE_REMOVE, SRV_QUEUE_POSITION_HEAD);
     </code>
 
@@ -1302,7 +1302,7 @@ SRV_QUEUE_ELEMENT *PRIME_HAL_WRP_QueueRead_Element(SRV_QUEUE *queue,
 //***************************************************************************
 /*
   Function:
-    void PRIME_HAL_WRP_QueueRemove_Element(SRV_QUEUE *queue, 
+    void PRIME_HAL_WRP_QueueRemove_Element(SRV_QUEUE *queue,
                                            SRV_QUEUE_ELEMENT *element)
 
   Summary:
@@ -1343,7 +1343,7 @@ SRV_QUEUE_ELEMENT *PRIME_HAL_WRP_QueueRead_Element(SRV_QUEUE *queue,
   Remarks:
     Related to Queue service.
 */
-void PRIME_HAL_WRP_QueueRemove_Element(SRV_QUEUE *queue, 
+void PRIME_HAL_WRP_QueueRemove_Element(SRV_QUEUE *queue,
     SRV_QUEUE_ELEMENT *element);
 
 //***************************************************************************
@@ -1440,7 +1440,7 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
     void PRIME_HAL_WRP_FuStart(SRV_FU_INFO *fuInfo)
 
   Summary:
-    Starts the firmware upgrade process. 
+    Starts the firmware upgrade process.
 
   Description:
     This function is used to start the firmware upgrade process by initializing
@@ -1458,13 +1458,13 @@ void PRIME_HAL_WRP_QueueSet_Capacity(SRV_QUEUE *queue, uint16_t capacity);
   Example:
     <code>
     SRV_FU_INFO fuInfo;
-    
+
     fuInfo.imageSize = 0x1000;
     fuInfo.pageSize = 192;
     fuInfo.signAlgorithm = SRV_FU_SIGNATURE_ALGO_NO_SIGNATURE;
     fuInfo.signLength = 0;
-    
-    PRIME_HAL_WRP_FuStart(&fuInfo);    
+
+    PRIME_HAL_WRP_FuStart(&fuInfo);
     </code>
 
   Remarks:
@@ -1477,7 +1477,7 @@ void PRIME_HAL_WRP_FuStart(SRV_FU_INFO *fuInfo);
    void PRIME_HAL_WRP_FuEnd(SRV_FU_RESULT fuResult)
 
   Summary:
-    Ends the firmware upgrade process. 
+    Ends the firmware upgrade process.
 
   Description:
     This function is used to finish the firmare upgrade process and to trigger the
@@ -1510,7 +1510,7 @@ void PRIME_HAL_WRP_FuEnd(SRV_FU_RESULT fuResult);
     Reads the firmware upgrade information.
 
   Description:
-    This function is used to read the firmare upgrade information, which is 
+    This function is used to read the firmare upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -1542,7 +1542,7 @@ void PRIME_HAL_WRP_FuCfgRead(void *dst, uint16_t size);
     Writes the firmware upgrade information.
 
   Description:
-    This function is used to write the firmare upgrade information, which is 
+    This function is used to write the firmare upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -1568,13 +1568,13 @@ void PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size);
 
 // ****************************************************************************
 /* Function:
-  void PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
+  void PRIME_HAL_WRP_FuRegisterCbMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
 
   Summary:
     Registers a function to be called back when a memory transaction finishes.
 
   Description:
-    This function allows the PRIME stack to register a function to be called 
+    This function allows the PRIME stack to register a function to be called
     back when a memory transaction finishes.
 
   Precondition:
@@ -1588,7 +1588,7 @@ void PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size);
 
   Example:
     <code>
-    void _endMemoryTransaction(SRV_FU_MEM_TRANSFER_CMD command, 
+    void _endMemoryTransaction(SRV_FU_MEM_TRANSFER_CMD command,
                       SRV_FU_MEM_TRANSFER_RESULT result)
     {
         ...
@@ -1598,14 +1598,16 @@ void PRIME_HAL_WRP_FuCfgWrite(void *src, uint16_t size);
     {
         SRV_FU_Initialize();
 
-        PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(_endMemoryTransaction);
+        PRIME_HAL_WRP_FuRegisterCbMemTransfer(_endMemoryTransaction);
     }
     </code>
 
   Remarks:
     Related to Firmware Upgrade service.
 */
-void PRIME_HAL_WRP_FuRegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
+
+void PRIME_HAL_WRP_FuRegisterCbMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
+
 
 // ****************************************************************************
 /* Function:
@@ -1673,14 +1675,14 @@ void PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size);
 
 // ****************************************************************************
 /* Function:
-    void PRIME_HAL_WRP_FuRegisterCallbackCrc(SRV_FU_CRC_CB callback)
+    void PRIME_HAL_WRP_FuRegisterCbCrc(SRV_FU_CRC_CB callback)
 
   Summary:
     Registers a function to be called back when the CRC of the received image
     has been calculated.
 
   Description:
-    This function allows the PRIME stack to register a function to be called 
+    This function allows the PRIME stack to register a function to be called
     back when the CRC of the received image has been calculated.
 
   Precondition:
@@ -1703,14 +1705,15 @@ void PRIME_HAL_WRP_FuDataWrite(uint32_t addr, uint8_t *buf, uint16_t size);
     {
         SRV_FU_Initialize();
 
-        PRIME_HAL_WRP_FuRegisterCallbackCrc(_check_crc);
+        PRIME_HAL_WRP_FuRegisterCbCrc(_check_crc);
     }
     </code>
 
   Remarks:
     Related to Firmware Upgrade service.
 */
-void PRIME_HAL_WRP_FuRegisterCallbackCrc(SRV_FU_CRC_CB callback);
+
+void PRIME_HAL_WRP_FuRegisterCbCrc(SRV_FU_CRC_CB callback);
 
 // ****************************************************************************
 /* Function:
@@ -1743,14 +1746,14 @@ void PRIME_HAL_WRP_FuCalculateCrc(void);
 
 // ****************************************************************************
 /* Function:
-    void PRIME_HAL_WRP_FuRegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback)
+    void PRIME_HAL_WRP_FuRegisterCbVerify(SRV_FU_IMAGE_VERIFY_CB callback)
 
   Summary:
-    Registers a function to be called back when the received image has been 
+    Registers a function to be called back when the received image has been
     verified.
 
   Description:
-    This function allows the PRIME stack to register a function to be called 
+    This function allows the PRIME stack to register a function to be called
     back when the received image has been verified.
 
   Precondition:
@@ -1773,14 +1776,16 @@ void PRIME_HAL_WRP_FuCalculateCrc(void);
     {
         SRV_FU_Initialize();
 
-        PRIME_HAL_WRP_FuRegisterCallbackVerify(_image_verification);
+        PRIME_HAL_WRP_FuRegisterCbVerify(_image_verification);
     }
     </code>
 
   Remarks:
     Related to Firmware Upgrade service.
 */
-void PRIME_HAL_WRP_FuRegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback);
+
+void PRIME_HAL_WRP_FuRegisterCbVerify(SRV_FU_IMAGE_VERIFY_CB callback);
+
 
 // ****************************************************************************
 /* Function:
@@ -1817,11 +1822,11 @@ void PRIME_HAL_WRP_FuVerifyImage(void);
    uint16_t PRIME_HAL_WRP_FuGetBitmap(uint8_t *bitmap, uint32_t *numRxPages)
 
   Summary:
-    Gets the bitmap with the information about the status of each page of the 
+    Gets the bitmap with the information about the status of each page of the
     image.
 
   Description:
-    This function is used to gets the bitmap with the information about the 
+    This function is used to gets the bitmap with the information about the
     status of each page of the image.
 
   Precondition:
@@ -1832,14 +1837,14 @@ void PRIME_HAL_WRP_FuVerifyImage(void);
     numRxPages    - Pointer to the number of pages received
 
   Returns:
-    Size of bitmap. Maximum value is 1024 bytes. In case of returning 0, the 
+    Size of bitmap. Maximum value is 1024 bytes. In case of returning 0, the
     bitmap buffer will be initialized internally in the PRIME stack.
 
   Example:
     <code>
     uint8_t bitmap[1024];
     uint32_t numPages = 0;
-    
+
     PRIME_HAL_WRP_FuGetBitmap(&bitmap, &numPages);
     </code>
 
@@ -2239,7 +2244,7 @@ uint8_t PRIME_HAL_WRP_PAL_GetTimerExtended(uint16_t pch, uint64_t *timer);
         uint16_t pch,
         uint8_t *cd,
         uint8_t *rssi,
-        uint32_t *time,
+        uint32_t *timePrime,
         uint8_t *header)
 
   Summary:
@@ -2255,7 +2260,7 @@ uint8_t PRIME_HAL_WRP_PAL_GetTimerExtended(uint16_t pch, uint64_t *timer);
     pch             Physical channel
     cd              Carrier detect signal output parameter
     rssi            Received signal strength indicator
-    time            Current time in us
+    timePrime      Current time in us
     header          Header type
 
   Returns:
@@ -2278,7 +2283,7 @@ uint8_t PRIME_HAL_WRP_PAL_GetTimerExtended(uint16_t pch, uint64_t *timer);
     Not available for both PHY Serial and PHY RF.
     Related to PRIME PAL.
 */
-uint8_t PRIME_HAL_WRP_PAL_GetCD(uint16_t pch, uint8_t *cd, uint8_t *rssi, uint32_t *time, uint8_t *header);
+uint8_t PRIME_HAL_WRP_PAL_GetCD(uint16_t pch, uint8_t *cd, uint8_t *rssi, uint32_t *timePrime, uint8_t *header);
 
 // ****************************************************************************
 /* Function:
@@ -2432,7 +2437,7 @@ uint8_t PRIME_HAL_WRP_PAL_GetCCA(uint16_t pch, uint8_t *pState);
 
 // ****************************************************************************
 /* Function:
-    uint8_t PRIME_HAL_WRP_PAL_GetChannel(uint16_t *pch, uint16_t channelReference)
+    uint8_t PRIME_HAL_WRP_PAL_GetChannel(uint16_t *pPch, uint16_t channelReference)
 
   Summary:
     Get the band (PLC) or the pch (RF).
@@ -2455,7 +2460,7 @@ uint8_t PRIME_HAL_WRP_PAL_GetCCA(uint16_t pch, uint8_t *pState);
     <code>
     uint8_t result=PAL_CFG_SUCCESS;
     uint16_t pch=0;
-    uint16_t channelRef=1; // Select a reference in PLC channels
+    uint16_t channelRef=1;
 
     result = PRIME_HAL_WRP_PAL_GetChannel(&pch, channelRef);
     </code>
@@ -2464,7 +2469,7 @@ uint8_t PRIME_HAL_WRP_PAL_GetCCA(uint16_t pch, uint8_t *pState);
     Not available for PHY Serial.
     Related to PRIME PAL.
 */
-uint8_t PRIME_HAL_WRP_PAL_GetChannel(uint16_t *pch, uint16_t channelReference);
+uint8_t PRIME_HAL_WRP_PAL_GetChannel(uint16_t *pPch, uint16_t channelReference);
 
 // ****************************************************************************
 /* Function:
@@ -2489,7 +2494,7 @@ uint8_t PRIME_HAL_WRP_PAL_GetChannel(uint16_t *pch, uint16_t channelReference);
   Example:
     <code>
     uint8_t result=PAL_CFG_SUCCESS;
-    uint16_t pch=1; // This mask belongs to PLC channels
+    uint16_t pch=1;
 
     result = PRIME_HAL_WRP_PAL_SetChannel(pch);
     </code>
@@ -2628,7 +2633,7 @@ uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val,
     uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(
         uint16_t pch,
         uint8_t *noiseCapture,
-        uint8_t mode,
+        PAL_FRAME frameType,
         uint32_t timeStart,
         uint32_t duration)
 
@@ -2644,7 +2649,7 @@ uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val,
   Parameters:
     pch             Physical channel
     noiseCapture    Pointer to destination buffer to store data
-    mode            Capture mode
+    frameType       Frame Type
     timeStart       Start time in us based on PL360 timer reference
     duration        Duration time in us
 
@@ -2657,17 +2662,17 @@ uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val,
     uint32_t duration = 5000;
     uint8_t noiseCapture[300];
     uint16_t noiseSize;
-    uint8_t mode = PAL_MODE_TYPE_B;
+    PAL_FRAME frameType = PAL_MODE_TYPE_B;
     uint8_t pch = 1;
 
-    noiseSize = PRIME_HAL_WRP_PAL_GetSignalCapture(pch, &noiseCapture, mode, timeStart, duration);
+    noiseSize = PRIME_HAL_WRP_PAL_GetSignalCapture(pch, &noiseCapture, PAL_FRAME frameType, timeStart, duration);
     </code>
 
   Remarks:
     Only available for PHY PLC.
     Related to PRIME PAL.
 */
-uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, uint8_t mode, 
+uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, PAL_FRAME,
                               uint32_t timeStart, uint32_t duration);
 // ****************************************************************************
 /* Function:
@@ -2691,8 +2696,7 @@ uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture,
     pch             Physical channel used
     msgLen          Message length
     scheme          Modulation scheme of message
-    mode            Indicates if the message to transmit is type A, type B or 
-                    type BC
+    frameType       Indicates if the frame type A, type B or type BC
     duration        Pointer to message duration in us (output)
 
   Returns:
@@ -2705,18 +2709,18 @@ uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture,
     uint16_t pch = 16;
     uint16_t msgLen = 30;
     PAL_SCHEME scheme = PAL_PLC_DBPSK_R;
-    uint8_t mode = PAL_MODE_TYPE_B;
+    PAL_FRAME frameType = PAL_MODE_TYPE_B;
     uint8_t result=PAL_CFG_SUCCESS;
 
-    result = PRIME_HAL_WRP_PAL_GetMsgDuration(pch, msgLen, scheme, mode, &duration);
+    result = PRIME_HAL_WRP_PAL_GetMsgDuration(pch, msgLen, scheme, frameType, &duration);
     </code>
 
   Remarks:
     Not available for PHY serial.
     Related to PRIME PAL.
 */
-uint8_t PRIME_HAL_WRP_PAL_GetMsgDuration(uint16_t pch, uint16_t length, 
-    PAL_SCHEME scheme, uint8_t mode, uint32_t *duration);
+uint8_t PRIME_HAL_WRP_PAL_GetMsgDuration(uint16_t pch, uint16_t length,
+    PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration);
 
 // ****************************************************************************
 /* Function:

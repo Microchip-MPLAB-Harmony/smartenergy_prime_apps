@@ -58,28 +58,42 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 #define PRIME_PAL_USI_INSTANCE        SRV_USI_INDEX_0
+#define PAL_SNIFFER_DATA_MAX_SIZE      512
+/* PHY Abstraction Layer PAL USI Sniffer Callback
+
+  Summary:
+    Callback designed to inform the USI Sniffer
+
+  Description:
+    This callback is used to inform the USI Sniffer
+
+  Remarks:
+    None.
+*/
+typedef void (*PAL_USI_SNIFFER_CB)(uint8_t *pData, uint16_t length);
+
 
 typedef struct PAL_INTERFACE_TYPE
 {
-    uint8_t   (*PAL_GetSNR)(uint8_t *snr, uint8_t qt);
-    uint8_t   (*PAL_GetZCT)(uint32_t *zct);
-    uint8_t   (*PAL_GetTimer)(uint32_t *timer);
-    uint8_t   (*PAL_GetTimerExtended)(uint64_t *timer);
-    uint8_t   (*PAL_GetCD)(uint8_t *cd, uint8_t *rssi, uint32_t *time, uint8_t *header);
-    uint8_t   (*PAL_GetNL)(uint8_t *noise);
-    uint8_t   (*PAL_GetCCA)(uint8_t *pState);
-    uint8_t   (*PAL_GetAGC)(uint8_t *mode, uint8_t *gain);
-    uint8_t   (*PAL_SetAGC)(uint8_t mode, uint8_t gain);
-    uint8_t   (*PAL_GetChannel)(uint16_t *pPch);
-    uint8_t   (*PAL_SetChannel)(uint16_t pch);
-    uint8_t   (*PAL_DataRequest)(PAL_MSG_REQUEST_DATA *pData);
-    void      (*PAL_ProgramChannelSwitch)(uint32_t timeSync, uint16_t pch, uint8_t timeMode);
-    uint8_t   (*PAL_GetConfiguration)(uint16_t id, void *val, uint16_t len);
-    uint8_t   (*PAL_SetConfiguration)(uint16_t id, void *val, uint16_t len);
-    uint16_t  (*PAL_GetSignalCapture)(uint8_t *noiseCapture, PAL_FRAME frameType, uint32_t timeStart, uint32_t duration);
-    uint8_t   (*PAL_GetMsgDuration)(uint16_t msgLen, PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration);
-    bool      (*PAL_CheckMinimumQuality)(PAL_SCHEME reference, PAL_SCHEME modulation);
-    uint8_t   (*PAL_GetLessRobustModulation)(PAL_SCHEME mod1, PAL_SCHEME mod2);
+    uint8_t   (*MPAL_GetSNR)(uint8_t *snr, uint8_t qt);
+    uint8_t   (*MPAL_GetZCT)(uint32_t *zct);
+    uint8_t   (*MPAL_GetTimer)(uint32_t *timer);
+    uint8_t   (*MPAL_GetTimerExtended)(uint64_t *timer);
+    uint8_t   (*MPAL_GetCD)(uint8_t *cd, uint8_t *rssi, uint32_t *time, uint8_t *header);
+    uint8_t   (*MPAL_GetNL)(uint8_t *noise);
+    uint8_t   (*MPAL_GetCCA)(uint8_t *pState);
+    uint8_t   (*MPAL_GetAGC)(uint8_t *mode, uint8_t *gain);
+    uint8_t   (*MPAL_SetAGC)(uint8_t mode, uint8_t gain);
+    uint8_t   (*MPAL_GetChannel)(uint16_t *pPch);
+    uint8_t   (*MPAL_SetChannel)(uint16_t pch);
+    uint8_t   (*MPAL_DataRequest)(PAL_MSG_REQUEST_DATA *pData);
+    void      (*MPAL_ProgramChannelSwitch)(uint32_t timeSync, uint16_t pch, uint8_t timeMode);
+    uint8_t   (*MPAL_GetConfiguration)(uint16_t id, void *val, uint16_t len);
+    uint8_t   (*MPAL_SetConfiguration)(uint16_t id, void *val, uint16_t len);
+    uint16_t  (*MPAL_GetSignalCapture)(uint8_t *noiseCapture, PAL_FRAME frameType, uint32_t timeStart, uint32_t duration);
+    uint8_t   (*MPAL_GetMsgDuration)(uint16_t msgLen, PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration);
+    bool      (*MPAL_CheckMinimumQuality)(PAL_SCHEME reference, PAL_SCHEME modulation);
+    uint8_t   (*MPAL_GetLessRobustModulation)(PAL_SCHEME mod1, PAL_SCHEME mod2);
 
 } PAL_INTERFACE;        // PRIME PAL interface descriptor
 
@@ -107,6 +121,33 @@ typedef struct
 
     uint8_t snifferEnabled;
 } PAL_DATA;
+
+
+// ****************************************************************************
+// ****************************************************************************
+// Section: Interface Routines
+// ****************************************************************************
+// ****************************************************************************
+
+uint8_t MPAL_PLC_GetSNR(uint8_t *snr, uint8_t qt);
+uint8_t MPAL_PLC_GetZCT(uint32_t *zct);
+uint8_t MPAL_PLC_GetTimer(uint32_t *timer);
+uint8_t MPAL_PLC_GetTimerExtended(uint64_t *timer);
+uint8_t MPAL_PLC_GetCD(uint8_t *cd, uint8_t *rssi, uint32_t *time, uint8_t *header);
+uint8_t MPAL_PLC_GetNL(uint8_t *noise);
+uint8_t MPAL_PLC_GetCCA(uint8_t *pState);
+uint8_t MPAL_PLC_GetAGC(uint8_t *mode, uint8_t *gain);
+uint8_t MPAL_PLC_SetAGC(uint8_t mode, uint8_t gain);
+uint8_t MPAL_PLC_GetChannel(uint16_t *pPch);
+uint8_t MPAL_PLC_SetChannel(uint16_t pch);
+uint8_t MPAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pData);
+void MPAL_PLC_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode);
+uint8_t MPAL_PLC_GetConfiguration(uint16_t id, void *val, uint16_t len);
+uint8_t MPAL_PLC_SetConfiguration(uint16_t id, void *val, uint16_t len);
+uint16_t MPAL_PLC_GetSignalCapture(uint8_t *noiseCapture, PAL_FRAME frameType, uint32_t timeStart, uint32_t duration);
+uint8_t MPAL_PLC_GetMsgDuration(uint16_t msgLen, PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration);
+bool MPAL_PLC_RM_CheckMinimumQuality(PAL_SCHEME reference, PAL_SCHEME modulation);
+uint8_t MPAL_PLC_RM_GetLessRobustModulation(PAL_SCHEME mod1, PAL_SCHEME mod2);
 
 #endif // #ifndef PAL_LOCAL_H
 /*******************************************************************************

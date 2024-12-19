@@ -11,7 +11,7 @@
     PRIME MAC Definitions Header File
 
   Description:
-    This file contains definitions of the PRIME MAC primitives to be used by the 
+    This file contains definitions of the PRIME MAC primitives to be used by the
     PRIME application.
 *******************************************************************************/
 
@@ -191,35 +191,35 @@ typedef enum {
     Defines MAC SAP result values for the MAC_ESTABLISH.confirm primitive.
 
  Description:
-    This enumeration defines MAC SAP result values for the MAC_ESTABLISH.confirm 
+    This enumeration defines MAC SAP result values for the MAC_ESTABLISH.confirm
     primitive.
 
  Remarks:
     None.
 */
 typedef enum {
-	MAC_ESTABLISH_CONFIRM_RESULT_SUCCESS            = 0,
-	MAC_ESTABLISH_CONFIRM_RESULT_REJECT             = 1,
-	MAC_ESTABLISH_CONFIRM_RESULT_TIMEOUT            = 2,
-	MAC_ESTABLISH_CONFIRM_RESULT_NO_BANDWIDTH       = 3,
-	MAC_ESTABLISH_CONFIRM_RESULT_NO_SUCH_DEVICE     = 4,
-	MAC_ESTABLISH_CONFIRM_RESULT_REDIRECT_FAILED    = 5,
-	MAC_ESTABLISH_CONFIRM_RESULT_NOT_REGISTERED     = 6,
-	MAC_ESTABLISH_CONFIRM_RESULT_NO_MORE_LCIDS      = 7,
-	MAC_ESTABLISH_CONFIRM_RESULT_DC_NO_SUPPORTED    = 8,
-	MAC_ESTABLISH_CONFIRM_RESULT_UNSUPPORTED_SP     = 14,
-	MAC_ESTABLISH_CONFIRM_RESULT_PROCCESS_ACTIVE    = 0x80
+	MAC_ESTABLISH_CFM_RESULT_SUCCESS            = 0,
+	MAC_ESTABLISH_CFM_RESULT_REJECT             = 1,
+	MAC_ESTABLISH_CFM_RESULT_TIMEOUT            = 2,
+	MAC_ESTABLISH_CFM_RESULT_NO_BANDWIDTH       = 3,
+	MAC_ESTABLISH_CFM_RESULT_NO_SUCH_DEVICE     = 4,
+	MAC_ESTABLISH_CFM_RESULT_REDIRECT_FAILED    = 5,
+	MAC_ESTABLISH_CFM_RESULT_NOT_REGISTERED     = 6,
+	MAC_ESTABLISH_CFM_RESULT_NO_MORE_LCIDS      = 7,
+	MAC_ESTABLISH_CFM_RESULT_DC_NO_SUPPORTED    = 8,
+	MAC_ESTABLISH_CFM_RESULT_UNSUPPORTED_SP     = 14,
+	MAC_ESTABLISH_CFM_RESULT_PROCCESS_ACTIVE    = 0x80
 } MAC_ESTABLISH_CONFIRM_RESULT;
 
 // *****************************************************************************
 /* MAC SAP values for the answer parameter in MAC_ESTABLISH.response primitive
 
  Summary:
-    Defines MAC SAP values for the answer parameter in the MAC_ESTABLISH.response 
+    Defines MAC SAP values for the answer parameter in the MAC_ESTABLISH.response
     primitive.
 
  Description:
-    This enumeration defines values for the answer parameter in the 
+    This enumeration defines values for the answer parameter in the
     MAC_ESTABLISH.response primitive.
 
  Remarks:
@@ -234,11 +234,11 @@ typedef enum {
 /* MAC SAP values for the reason parameter in MAC_RELEASE.indication primitive
 
  Summary:
-    Defines MAC SAP values for the reason parameter in the MAC_RELEASE.indication 
+    Defines MAC SAP values for the reason parameter in the MAC_RELEASE.indication
     primitive.
 
  Description:
-    This enumeration defines values for the reason parameter in the 
+    This enumeration defines values for the reason parameter in the
     MAC_RELEASE.indication primitive.
 
  Remarks:
@@ -253,11 +253,11 @@ typedef enum {
 /* MAC SAP values for the answer parameter in MAC_RELEASE.response primitive
 
  Summary:
-    Defines MAC SAP values for the answer parameter in the MAC_RELEASE.response 
+    Defines MAC SAP values for the answer parameter in the MAC_RELEASE.response
     primitive.
 
  Description:
-    This enumeration defines values for the answer parameter in the 
+    This enumeration defines values for the answer parameter in the
     MAC_RELEASE.response primitive.
 
  Remarks:
@@ -274,21 +274,21 @@ typedef enum {
     Defines MAC SAP result values for the MAC_RELEASE.confirm primitive.
 
  Description:
-    This enumeration defines MAC SAP result values for the MAC_RELEASE.confirm 
+    This enumeration defines MAC SAP result values for the MAC_RELEASE.confirm
     primitive.
 
  Remarks:
     None.
 */
 typedef enum {
-	MAC_RELEASE_CONFIRM_RESULT_SUCCESS          = 0,
-	MAC_RELEASE_CONFIRM_RESULT_TIMEOUT          = 2,
-	MAC_RELEASE_CONFIRM_RESULT_NOT_REGISTERED   = 6,
-	MAC_RELEASE_CONFIRM_RESULT_PROCCESS_ACTIVE  = 0x80,
-	MAC_RELEASE_CONFIRM_RESULT_BAD_HANDLER      = 0x81,
-	MAC_RELEASE_CONFIRM_RESULT_NOT_OPEN_CONN    = 0x82,
-	MAC_RELEASE_CONFIRM_RESULT_ERROR_SENDING    = 0x83,
-	MAC_RELEASE_CONFIRM_RESULT_BAD_FLOW_MODE    = 0x84,
+	MAC_RELEASE_CFM_RESULT_SUCCESS          = 0,
+	MAC_RELEASE_CFM_RESULT_TIMEOUT          = 2,
+	MAC_RELEASE_CFM_RESULT_NOT_REGISTERED   = 6,
+	MAC_RELEASE_CFM_RESULT_PROCCESS_ACTIVE  = 0x80,
+	MAC_RELEASE_CFM_RESULT_BAD_HANDLER      = 0x81,
+	MAC_RELEASE_CFM_RESULT_NOT_OPEN_CONN    = 0x82,
+	MAC_RELEASE_CFM_RESULT_ERROR_SENDING    = 0x83,
+	MAC_RELEASE_CFM_RESULT_BAD_FLOW_MODE    = 0x84,
 } MAC_RELEASE_CONFIRM_RESULT;
 
 // *****************************************************************************
@@ -298,20 +298,20 @@ typedef enum {
     Defines MAC SAP result values for the MAC_DATA.confirm primitive.
 
  Description:
-    This enumeration defines MAC SAP result values for the MAC_DATA.confirm 
+    This enumeration defines MAC SAP result values for the MAC_DATA.confirm
     primitive.
 
  Remarks:
     None.
 */
 typedef enum {
-	MAC_DATA_CONFIRM_RESULT_SUCCESS                            = 0,
-	MAC_DATA_CONFIRM_RESULT_TIMEOUT                            = 2,
-	MAC_DATA_CONFIRM_RESULT_ERROR_SENDING                      = 0x80,
-	MAC_DATA_CONFIRM_RESULT_ERROR_PROCESSING_PREVIOUS_REQUEST  = 0x81,
-	MAC_DATA_CONFIRM_RESULT_ERROR_NO_FREE_BUFFERS              = 0x82,
-	MAC_DATA_CONFIRM_RESULT_ERROR_CON_CLOSED                   = 0x83,
-	MAC_DATA_CONFIRM_RESULT_ERROR_RECEIVING_DATA               = 0x84
+	MAC_DATA_CFM_RESULT_SUCCESS                            = 0,
+	MAC_DATA_CFM_RESULT_TIMEOUT                            = 2,
+	MAC_DATA_CFM_RESULT_ERROR_SENDING                      = 0x80,
+	MAC_DATA_CFM_RESULT_ERROR_PROCESSING_PREVIOUS_REQUEST  = 0x81,
+	MAC_DATA_CFM_RESULT_ERROR_NO_FREE_BUFFERS              = 0x82,
+	MAC_DATA_CFM_RESULT_ERROR_CON_CLOSED                   = 0x83,
+	MAC_DATA_CFM_RESULT_ERROR_RECEIVING_DATA               = 0x84
 } MAC_DATA_CONFIRM_RESULT;
 
 // *****************************************************************************
@@ -338,29 +338,29 @@ typedef enum {
     Defines MAC SAP result values for the MAC_JOIN.confirm primitive.
 
  Description:
-    This enumeration defines MAC SAP result values for the MAC_JOIN.confirm 
+    This enumeration defines MAC SAP result values for the MAC_JOIN.confirm
     primitive.
 
  Remarks:
     None.
 */
 typedef enum {
-	MAC_JOIN_CONFIRM_RESULT_SUCCESS          = 0,
-	MAC_JOIN_CONFIRM_RESULT_FAILURE          = 1,
-	MAC_JOIN_CONFIRM_RESULT_TIMEOUT          = 2,
-	MAC_JOIN_CONFIRM_RESULT_NOT_REGISTERED   = 6,
-	MAC_JOIN_CONFIRM_RESULT_UNSUPPORTED_SP   = 14
+	MAC_JOIN_CFM_RESULT_SUCCESS          = 0,
+	MAC_JOIN_CFM_RESULT_FAILURE          = 1,
+	MAC_JOIN_CFM_RESULT_TIMEOUT          = 2,
+	MAC_JOIN_CFM_RESULT_NOT_REGISTERED   = 6,
+	MAC_JOIN_CFM_RESULT_UNSUPPORTED_SP   = 14
 } MAC_JOIN_CONFIRM_RESULT;
 
 // *****************************************************************************
 /* MAC SAP values for the answer parameter in MAC_JOIN.response primitive
 
  Summary:
-    Defines MAC SAP values for the answer parameter in the MAC_JOIN.response 
+    Defines MAC SAP values for the answer parameter in the MAC_JOIN.response
     primitive.
 
  Description:
-    This enumeration defines values for the answer parameter in the 
+    This enumeration defines values for the answer parameter in the
     MAC_JOIN.response primitive.
 
  Remarks:
@@ -378,21 +378,21 @@ typedef enum {
     Defines MAC SAP result values for the MAC_LEAVE.confirm primitive.
 
  Description:
-    This enumeration defines MAC SAP result values for the MAC_LEAVE.confirm 
+    This enumeration defines MAC SAP result values for the MAC_LEAVE.confirm
     primitive.
 
  Remarks:
     None.
 */
 typedef enum {
-	MAC_LEAVE_CONFIRM_RESULT_ACCEPT           = 0,
-	MAC_LEAVE_CONFIRM_RESULT_TIMEOUT          = 1,
-	MAC_LEAVE_CONFIRM_RESULT_PROCCESS_ACTIVE  = 0x80,
-	MAC_LEAVE_CONFIRM_RESULT_BAD_HANDLER      = 0x81,
-	MAC_LEAVE_CONFIRM_RESULT_NOT_OPEN_CONN    = 0x82,
-	MAC_LEAVE_CONFIRM_RESULT_ERROR_SENDING    = 0x83,
-	MAC_LEAVE_CONFIRM_RESULT_BAD_FLOW_MODE    = 0x84,
-	MAC_LEAVE_CONFIRM_RESULT_NOT_REGISTERED   = 0x85,
+	MAC_LEAVE_CFM_RESULT_ACCEPT           = 0,
+	MAC_LEAVE_CFM_RESULT_TIMEOUT          = 1,
+	MAC_LEAVE_CFM_RESULT_PROCCESS_ACTIVE  = 0x80,
+	MAC_LEAVE_CFM_RESULT_BAD_HANDLER      = 0x81,
+	MAC_LEAVE_CFM_RESULT_NOT_OPEN_CONN    = 0x82,
+	MAC_LEAVE_CFM_RESULT_ERROR_SENDING    = 0x83,
+	MAC_LEAVE_CFM_RESULT_BAD_FLOW_MODE    = 0x84,
+	MAC_LEAVE_CFM_RESULT_NOT_REGISTERED   = 0x85,
 } MAC_LEAVE_CONFIRM_RESULT;
 
 // *****************************************************************************
@@ -463,22 +463,22 @@ typedef enum {
 
   Description:
     This function pointer is used to request a MAC connection establishment.
-    eui48       - Pointer to the address of the node to which this connection 
+    eui48       - Pointer to the address of the node to which this connection
                   will be addressed
     type        - Convergence Layer type of the connection
     data        - Data associated with the connection establishment procedure
     dataLen     - Length of the data in bytes
-    arq         - Flag to indicate whether or not the ARQ mechanism should be 
+    arq         - Flag to indicate whether or not the ARQ mechanism should be
                   used for this connection
-    cfBytes     - Flag to indicate whether or not the connection should use the 
+    cfBytes     - Flag to indicate whether or not the connection should use the
                   contention or contention-free channel access scheme
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_ESTABLISH_REQUEST)(uint8_t *eui48, uint8_t type, uint8_t *data, 
+typedef void (*MAC_ESTABLISH_REQUEST)(uint8_t *eui48, uint8_t type, uint8_t *data,
     uint16_t dataLen, uint8_t arq, uint8_t cfBytes, uint8_t ae);
 
 // *****************************************************************************
@@ -490,20 +490,20 @@ typedef void (*MAC_ESTABLISH_REQUEST)(uint8_t *eui48, uint8_t type, uint8_t *dat
   Description:
     This callback is used for the MAC connection establishment indication.
     conHandle   - Unique identifier of the connection
-    eui48       - Pointer to the address of the node to which this connection 
+    eui48       - Pointer to the address of the node to which this connection
                   will be addressed
     type        - Convergence Layer type of the connection
     data        - Data associated with the connection establishment procedure
     dataLen     - Length of the data in bytes
-    cfBytes     - Flag to indicate whether or not the connection should use the 
+    cfBytes     - Flag to indicate whether or not the connection should use the
                   contention or contention-free channel access scheme
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_ESTABLISH_INDICATION_CB)(uint16_t conHandle, uint8_t *eui48, 
+typedef void (*MAC_ESTABLISH_INDICATION_CB)(uint16_t conHandle, uint8_t *eui48,
     uint8_t type, uint8_t *data, uint16_t dataLen, uint8_t cfBytes, uint8_t ae);
 
 // *****************************************************************************
@@ -516,19 +516,19 @@ typedef void (*MAC_ESTABLISH_INDICATION_CB)(uint16_t conHandle, uint8_t *eui48,
     This callback is used for the MAC connection establishment confirm.
     conHandle   - Unique identifier of the connection
     result      - Result of the connection establishment process
-    eui48       - Pointer to the address of the node to which this connection 
+    eui48       - Pointer to the address of the node to which this connection
                   will be addressed
     type        - Convergence Layer type of the connection
     data        - Data associated with the connection establishment procedure
     dataLen     - Length of the data in bytes
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_ESTABLISH_CONFIRM_CB)(uint16_t conHandle, 
-    MAC_ESTABLISH_CONFIRM_RESULT result, uint8_t *eui48, uint8_t type, 
+typedef void (*MAC_ESTABLISH_CONFIRM_CB)(uint16_t conHandle,
+    MAC_ESTABLISH_CONFIRM_RESULT result, uint8_t *eui48, uint8_t type,
     uint8_t *data, uint16_t dataLen, uint8_t ae);
 
 // *****************************************************************************
@@ -543,14 +543,14 @@ typedef void (*MAC_ESTABLISH_CONFIRM_CB)(uint16_t conHandle,
     answer:     - Action to be taken for this connection establishment
     data        - Data associated with the connection establishment procedure
     dataLen     - Length of the data in bytes
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_ESTABLISH_RESPONSE)(uint16_t conHandle, 
-    MAC_ESTABLISH_RESPONSE_ANSWER answer, uint8_t *data, uint16_t dataLen, 
+typedef void (*MAC_ESTABLISH_RESPONSE)(uint16_t conHandle,
+    MAC_ESTABLISH_RESPONSE_ANSWER answer, uint8_t *data, uint16_t dataLen,
     uint8_t ae);
 
 // *****************************************************************************
@@ -578,11 +578,11 @@ typedef void (*MAC_RELEASE_REQUEST)(uint16_t conHandle);
     This callback is used for the MAC release indication.
     conHandle   - Unique identifier of the connection
     reason      - Cause of the connection release
- 
+
   Remarks:
     None.
 */
-typedef void (*MAC_RELEASE_INDICATION_CB)(uint16_t conHandle, 
+typedef void (*MAC_RELEASE_INDICATION_CB)(uint16_t conHandle,
     MAC_RELEASE_INDICATION_REASON reason);
 
 // *****************************************************************************
@@ -599,7 +599,7 @@ typedef void (*MAC_RELEASE_INDICATION_CB)(uint16_t conHandle,
   Remarks:
     None.
 */
-typedef void (*MAC_RELEASE_CONFIRM_CB)(uint16_t conHandle, 
+typedef void (*MAC_RELEASE_CONFIRM_CB)(uint16_t conHandle,
     MAC_RELEASE_CONFIRM_RESULT result);
 
 // *****************************************************************************
@@ -616,21 +616,21 @@ typedef void (*MAC_RELEASE_CONFIRM_CB)(uint16_t conHandle,
   Remarks:
     None.
 */
-typedef void (*MAC_RELEASE_RESPONSE)(uint16_t conHandle, 
+typedef void (*MAC_RELEASE_RESPONSE)(uint16_t conHandle,
     MAC_RELEASE_RESPONSE_ANSWER answer);
 
 // *****************************************************************************
 /* MAC redirect response
 
   Summary:
-    Function pointer to respond to a MAC direct connection establishment 
+    Function pointer to respond to a MAC direct connection establishment
     indication.
 
   Description:
-    This function pointer is used to respond to a MAC direct connection 
+    This function pointer is used to respond to a MAC direct connection
     establishment indication.
     conHandle   - Unique identifier of the connection
-    eui48       - Pointer to the address of the node to which this connection 
+    eui48       - Pointer to the address of the node to which this connection
                   will be "redirected"
     data        - Data associated with the connection establishment procedure
     dataLen     - Length of the data in bytes
@@ -638,7 +638,7 @@ typedef void (*MAC_RELEASE_RESPONSE)(uint16_t conHandle,
   Remarks:
     None.
 */
-typedef void (*MAC_REDIRECT_RESPONSE)(uint16_t conHandle, uint8_t *eui48, 
+typedef void (*MAC_REDIRECT_RESPONSE)(uint16_t conHandle, uint8_t *eui48,
     uint8_t *data, uint16_t dataLen);
 
 // *****************************************************************************
@@ -651,19 +651,19 @@ typedef void (*MAC_REDIRECT_RESPONSE)(uint16_t conHandle, uint8_t *eui48,
     This function pointer is used to request to join a MAC multicast connection.
     conMode     - Connection type: broadcast or multicast
     conHandle   - Unique identifier of the connection (only used in base node)
-    eui48       - Pointer to the address of the node to which this join is 
+    eui48       - Pointer to the address of the node to which this join is
                   being requested (only used in base node)
     conType     - Connection type
     data        - Data associated with the join request procedure
     dataLen     - Length of the data in bytes
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_JOIN_REQUEST)(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHandle, 
-    uint8_t *eui48, MAC_CONNECTION_TYPE conType, uint8_t *data, uint16_t dataLen, 
+typedef void (*MAC_JOIN_REQUEST)(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHandle,
+    uint8_t *eui48, MAC_CONNECTION_TYPE conType, uint8_t *data, uint16_t dataLen,
     uint8_t ae);
 
 // *****************************************************************************
@@ -675,18 +675,18 @@ typedef void (*MAC_JOIN_REQUEST)(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHand
   Description:
     This callback is used for the MAC join indication.
     conHandle   - Unique identifier of the connection
-    eui48       - Pointer to the address of the node which wishes to join the 
+    eui48       - Pointer to the address of the node which wishes to join the
                   multicast group (only valid in base node)
     type        - Connection type
     data        - Data associated with the join request procedure
     dataLen     - Length of the data in bytes
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_JOIN_INDICATION_CB)(uint16_t conHandle, uint8_t *eui48, 
+typedef void (*MAC_JOIN_INDICATION_CB)(uint16_t conHandle, uint8_t *eui48,
     uint8_t conType, uint8_t *data, uint16_t dataLen, uint8_t ae);
 
 // *****************************************************************************
@@ -698,16 +698,16 @@ typedef void (*MAC_JOIN_INDICATION_CB)(uint16_t conHandle, uint8_t *eui48,
   Description:
     This function pointer is used to respond to a MAC join indication.
     conHandle   - Unique identifier of the connection
-    eui48       - Pointer to the address of the node which requested the multicast 
+    eui48       - Pointer to the address of the node which requested the multicast
                   group join (only used in base node)
     answer      - Action to be taken for this join request
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_JOIN_RESPONSE)(uint16_t conHandle, uint8_t *eui48, 
+typedef void (*MAC_JOIN_RESPONSE)(uint16_t conHandle, uint8_t *eui48,
     MAC_JOIN_RESPONSE_ANSWER answer, uint8_t ae);
 
 // *****************************************************************************
@@ -720,13 +720,13 @@ typedef void (*MAC_JOIN_RESPONSE)(uint16_t conHandle, uint8_t *eui48,
     This callback is used for the MAC join confirm.
     conHandle   - Unique identifier of the connection
     result      - Result of the join request process
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_JOIN_CONFIRM_CB)(uint16_t conHandle, 
+typedef void (*MAC_JOIN_CONFIRM_CB)(uint16_t conHandle,
     MAC_JOIN_CONFIRM_RESULT result, uint8_t ae);
 
 // *****************************************************************************
@@ -737,8 +737,8 @@ typedef void (*MAC_JOIN_CONFIRM_CB)(uint16_t conHandle,
 
   Description:
     This function pointer is used to request to leave a MAC multicast connection.
-    conHandle   - Unique identifier of the connection 
-    eui48       - Pointer to the address of the node to be removed from the 
+    conHandle   - Unique identifier of the connection
+    eui48       - Pointer to the address of the node to be removed from the
                   multicast group (only used in base node)
 
   Remarks:
@@ -760,7 +760,7 @@ typedef void (*MAC_LEAVE_REQUEST)(uint16_t conHandle, uint8_t *eui48);
   Remarks:
     None.
 */
-typedef void (*MAC_LEAVE_CONFIRM_CB)(uint16_t conHandle, 
+typedef void (*MAC_LEAVE_CONFIRM_CB)(uint16_t conHandle,
     MAC_LEAVE_CONFIRM_RESULT uc_result);
 
 // *****************************************************************************
@@ -772,7 +772,7 @@ typedef void (*MAC_LEAVE_CONFIRM_CB)(uint16_t conHandle,
   Description:
     This callback is used for the MAC leave indication.
     conHandle   - Unique identifier of the connection
-    eui48       - Pointer to the address of the node to remove from the multicast 
+    eui48       - Pointer to the address of the node to remove from the multicast
                   group (only valid in base node)
 
   Remarks:
@@ -787,19 +787,19 @@ typedef void (*MAC_LEAVE_INDICATION_CB)(uint16_t conHandle, uint8_t *eui48);
     Function pointer to request the transmission of data over a MAC connection.
 
   Description:
-    This function pointer is used to request the transmission of data over a MAC 
+    This function pointer is used to request the transmission of data over a MAC
     connection.
     conHandle   - Unique identifier of the connection
     data        - Pointer to data to be transmitted through this connection
     dataLen     - Length of the data in bytes
-    prio        - Priority of the data to be sent when using the CSMA access 
+    prio        - Priority of the data to be sent when using the CSMA access
                   scheme
     timeRef     - Time reference (in 10s of microseconds) (v1.4)
 
   Remarks:
     None.
 */
-typedef void (*MAC_DATA_REQUEST)(uint16_t conHandle, uint8_t *data, uint16_t dataLen, 
+typedef void (*MAC_DATA_REQUEST)(uint16_t conHandle, uint8_t *data, uint16_t dataLen,
     uint8_t prio, uint32_t timeRef);
 
 // *****************************************************************************
@@ -817,7 +817,7 @@ typedef void (*MAC_DATA_REQUEST)(uint16_t conHandle, uint8_t *data, uint16_t dat
   Remarks:
     None.
 */
-typedef void (*MAC_DATA_CONFIRM_CB)(uint16_t conHandle, uint8_t *data, 
+typedef void (*MAC_DATA_CONFIRM_CB)(uint16_t conHandle, uint8_t *data,
     MAC_DATA_CONFIRM_RESULT result);
 
 // *****************************************************************************
@@ -836,7 +836,7 @@ typedef void (*MAC_DATA_CONFIRM_CB)(uint16_t conHandle, uint8_t *data,
   Remarks:
     None.
 */
-typedef void (*MAC_DATA_INDICATION_CB)(uint16_t conHandle, uint8_t *data, 
+typedef void (*MAC_DATA_INDICATION_CB)(uint16_t conHandle, uint8_t *data,
     uint16_t dataLen, uint32_t timeRef);
 
 // *****************************************************************************
@@ -846,7 +846,7 @@ typedef void (*MAC_DATA_INDICATION_CB)(uint16_t conHandle, uint8_t *data,
     Function pointer to request a reset of the functional state of the PHY layer.
 
   Description:
-    This function pointer is used to request a reset of the functional state of 
+    This function pointer is used to request a reset of the functional state of
     the PHY layer.
     pch     - Physical channel (v1.4)
 
@@ -875,11 +875,11 @@ typedef void (*PLME_RESET_CONFIRM_CB)(PLME_RESULT result, uint16_t pch);
 /* PLME sleep request
 
   Summary:
-    Function pointer to request a suspension of all present activities of the 
+    Function pointer to request a suspension of all present activities of the
     PHY layer.
-    
+
   Description:
-    This function pointer is used to request a suspension of all present activities 
+    This function pointer is used to request a suspension of all present activities
     of the PHY layer.
     pch     - Physical channel (v1.4)
 
@@ -908,11 +908,11 @@ typedef void (*PLME_SLEEP_CONFIRM_CB)(PLME_RESULT result, uint16_t pch);
 /* PLME resume request
 
   Summary:
-    Function pointer to request to resume all suspended actitivities of the PHY 
+    Function pointer to request to resume all suspended actitivities of the PHY
     layer.
-    
+
   Description:
-    This function pointer is used to request to resume all suspended actitivities 
+    This function pointer is used to request to resume all suspended actitivities
     of the PHY layer.
     pch     - Physical channel (v1.4)
 
@@ -942,9 +942,9 @@ typedef void (*PLME_RESUME_CONFIRM_CB)(PLME_RESULT result, uint16_t pch);
 
   Summary:
     Function pointer to request the PHY layer to enter the given test mode.
-    
+
   Description:
-    This function pointer is used to request the PHY layer to enter the given 
+    This function pointer is used to request the PHY layer to enter the given
     test mode.
     enable      - Start/Stop test mode
     mode        - Transmission mode
@@ -955,7 +955,7 @@ typedef void (*PLME_RESUME_CONFIRM_CB)(PLME_RESULT result, uint16_t pch);
   Remarks:
     None.
 */
-typedef void (*PLME_TESTMODE_REQUEST)(uint8_t enable, uint8_t mode, 
+typedef void (*PLME_TESTMODE_REQUEST)(uint8_t enable, uint8_t mode,
     uint8_t modulation, uint8_t pwrLevel, uint16_t pch);
 
 // *****************************************************************************
@@ -978,11 +978,11 @@ typedef void (*PLME_TESTMODE_CONFIRM_CB)(PLME_RESULT result, uint16_t pch);
 /* PLME get request
 
   Summary:
-    Function pointer to request information about a given PIB attribute of the 
+    Function pointer to request information about a given PIB attribute of the
     PHY layer.
-    
+
   Description:
-    This function pointer is used to request information about a given PIB 
+    This function pointer is used to request information about a given PIB
     attribute of the PHY layer.
     pibAttribute    - PIB attribute
     pch             - Physical channel (v1.4)
@@ -1009,18 +1009,18 @@ typedef void (*PLME_GET_REQUEST)(uint16_t pibAttrib, uint16_t pch);
   Remarks:
     None.
 */
-typedef void (*PLME_GET_CONFIRM_CB)(PLME_RESULT status, uint16_t pibAttrib, 
+typedef void (*PLME_GET_CONFIRM_CB)(PLME_RESULT status, uint16_t pibAttrib,
     void *pibValue, uint8_t pibSize, uint16_t pch);
 
 // *****************************************************************************
 /* PLME set request
 
   Summary:
-    Function pointer to request to set a new value for a given PIB attribute of 
+    Function pointer to request to set a new value for a given PIB attribute of
     the PHY layer.
-    
+
   Description:
-    This function pointer is used to request to set a new value for a given PIB 
+    This function pointer is used to request to set a new value for a given PIB
     attribute of the PHY layer.
     pibAttribute    - PIB attribute
     pibValue        - PIB attribute value
@@ -1030,7 +1030,7 @@ typedef void (*PLME_GET_CONFIRM_CB)(PLME_RESULT status, uint16_t pibAttrib,
   Remarks:
     None.
 */
-typedef void (*PLME_SET_REQUEST)(uint16_t pibAttrib, void *pibValue, uint8_t pibSize, 
+typedef void (*PLME_SET_REQUEST)(uint16_t pibAttrib, void *pibValue, uint8_t pibSize,
     uint16_t pch);
 
 // *****************************************************************************
@@ -1053,11 +1053,11 @@ typedef void (*PLME_SET_CONFIRM_CB)(PLME_RESULT result, uint16_t pch);
 /* MLME register request
 
   Summary:
-    Function pointer to request to trigger the registration process to a 
+    Function pointer to request to trigger the registration process to a
     subnetwork through a specific switch node.
-    
+
   Description:
-    This function pointer is used to request to trigger the registration process 
+    This function pointer is used to request to trigger the registration process
     to a subnetwork through a specific switch node.
     sna     - Pointer to the subnetwork address
     sid     - Switch identifier
@@ -1082,7 +1082,7 @@ typedef void (*MLME_REGISTER_REQUEST)(uint8_t *sna, uint8_t sid);
   Remarks:
     None.
 */
-typedef void (*MLME_REGISTER_CONFIRM_CB)(MLME_RESULT result, uint8_t *sna, 
+typedef void (*MLME_REGISTER_CONFIRM_CB)(MLME_RESULT result, uint8_t *sna,
     uint8_t sid);
 
 // *****************************************************************************
@@ -1106,9 +1106,9 @@ typedef void (*MLME_REGISTER_INDICATION_CB)(uint8_t *sna, uint8_t sid);
 
   Summary:
     Function pointer to request to trigger the unregistration process.
-    
+
   Description:
-    This function pointer is used to request to trigger the unregistration 
+    This function pointer is used to request to trigger the unregistration
     process.
 
   Remarks:
@@ -1149,13 +1149,13 @@ typedef void (*MLME_UNREGISTER_INDICATION_CB)(void);
 /* MLME promote request
 
   Summary:
-    Function pointer to request to trigger the promotion process in a Service Node 
-    that is in a Terminal functional state. 
-    
+    Function pointer to request to trigger the promotion process in a Service Node
+    that is in a Terminal functional state.
+
   Description:
-    This function pointer is used to request to trigger the promotion process in a 
-    Service Node that is in a Terminal functional state. 
-    eui48       - Pointer to the address of the node to be promoted (NULL in 
+    This function pointer is used to request to trigger the promotion process in a
+    Service Node that is in a Terminal functional state.
+    eui48       - Pointer to the address of the node to be promoted (NULL in
                   Service Node)
     bcnMode     - Beacon PDU modulation scheme
 
@@ -1197,16 +1197,16 @@ typedef void (*MLME_PROMOTE_INDICATION_CB)(void);
 /* MLME MultiPHY promote request
 
   Summary:
-    Function pointer to request to trigger the promotion process in a Service Node 
-    (Terminal or Switch) in a medium (PLC or RF) different from the one the node 
-    is connected to the network. 
-    
+    Function pointer to request to trigger the promotion process in a Service Node
+    (Terminal or Switch) in a medium (PLC or RF) different from the one the node
+    is connected to the network.
+
   Description:
-    This function pointer is used to request to trigger the promotion process in 
-    a Service Node (Terminal or Switch) in a medium (PLC or RF) different from the 
-    one the node is connected to the network. This primitive only applies in PRIME 
+    This function pointer is used to request to trigger the promotion process in
+    a Service Node (Terminal or Switch) in a medium (PLC or RF) different from the
+    one the node is connected to the network. This primitive only applies in PRIME
     v1.4.
-    eui48   - Pointer to the address of the node to be promoted (NULL in Service 
+    eui48   - Pointer to the address of the node to be promoted (NULL in Service
               Node)
     bcnMode - Beacon PDU modulation scheme
     pch     - Physical channel of promotion
@@ -1214,7 +1214,7 @@ typedef void (*MLME_PROMOTE_INDICATION_CB)(void);
   Remarks:
     None.
 */
-typedef void (*MLME_MP_PROMOTE_REQUEST)(uint8_t *eui48, uint8_t bcnMode, 
+typedef void (*MLME_MP_PROMOTE_REQUEST)(uint8_t *eui48, uint8_t bcnMode,
     uint16_t pch);
 
 // *****************************************************************************
@@ -1251,11 +1251,11 @@ typedef void (*MLME_MP_PROMOTE_INDICATION_CB)(uint16_t pch);
 /* MLME demote request
 
   Summary:
-    Function pointer to request to trigger a demotion process in a Service Node 
+    Function pointer to request to trigger a demotion process in a Service Node
     that is in a Switch functional state.
-    
+
   Description:
-    This function pointer is used to request to trigger a demotion process in a 
+    This function pointer is used to request to trigger a demotion process in a
     Service Node that is in a Switch functional state.
 
   Remarks:
@@ -1296,15 +1296,15 @@ typedef void (*MLME_DEMOTE_INDICATION_CB)(void);
 /* MLME MultiPHY demote request
 
   Summary:
-    Function pointer to request to trigger a demotion process in a Service Node 
+    Function pointer to request to trigger a demotion process in a Service Node
     that is in a Switch functional state and supports MultiPHY promotion.
-    
+
   Description:
-    This function pointer is used to request to trigger a demotion process in a 
-    Service Node that is in a Switch functional state and supports MultiPHY 
+    This function pointer is used to request to trigger a demotion process in a
+    Service Node that is in a Switch functional state and supports MultiPHY
     promotion. This primitive only applies in PRIME v1.4.
     lsid    - Local switch identifier
-   
+
   Remarks:
     None.
 */
@@ -1344,13 +1344,13 @@ typedef void (*MLME_MP_DEMOTE_INDICATION_CB)(uint8_t lsid);
 /* MLME reset request
 
   Summary:
-    Function pointer to request the flushing of all transmit and receive buffers 
+    Function pointer to request the flushing of all transmit and receive buffers
     and the resetting of all state variables.
-    
+
   Description:
-    This function pointer is used to request the flushing of all transmit and 
-    receive buffers and the resetting of all state variables. As a result, a 
-    Service Node will transit from its present functional state to the 
+    This function pointer is used to request the flushing of all transmit and
+    receive buffers and the resetting of all state variables. As a result, a
+    Service Node will transit from its present functional state to the
     Disconnected functional state.
 
   Remarks:
@@ -1377,14 +1377,14 @@ typedef void (*MLME_RESET_CONFIRM_CB)(MLME_RESULT result);
 /* MLME get request
 
   Summary:
-    Function pointer to request information about a given PIB attribute of the 
+    Function pointer to request information about a given PIB attribute of the
     MAC layer.
-    
+
   Description:
-    This function pointer is used to request information about a given PIB 
+    This function pointer is used to request information about a given PIB
     attribute of the MAC layer.
     pibAttribute    - PIB attribute
-  
+
   Remarks:
     None.
 */
@@ -1406,18 +1406,18 @@ typedef void (*MLME_GET_REQUEST)(uint16_t pibAttrib);
   Remarks:
     None.
 */
-typedef void (*MLME_GET_CONFIRM_CB)(MLME_RESULT status, uint16_t pibAttrib, 
+typedef void (*MLME_GET_CONFIRM_CB)(MLME_RESULT status, uint16_t pibAttrib,
     void *pibValue, uint8_t pibSize);
 
 // *****************************************************************************
 /* MLME list get request
 
   Summary:
-    Function pointer to request information about a given PIB list attribute of 
+    Function pointer to request information about a given PIB list attribute of
     the MAC layer.
-    
+
   Description:
-    This function pointer is used to request information about a given PIB list 
+    This function pointer is used to request information about a given PIB list
     attribute of the MAC layer.
     pibAttribute    - PIB attribute
 
@@ -1441,21 +1441,21 @@ typedef void (*MLME_LIST_GET_REQUEST)(uint16_t pibAttrib);
 
 
   Remarks:
-    The buffer contains an array of records according to the PRIME specification. 
+    The buffer contains an array of records according to the PRIME specification.
     Values are stored starting with the MSB.
 */
-typedef void (*MLME_LIST_GET_CONFIRM_CB)(MLME_RESULT status, uint16_t pibAttrib, 
+typedef void (*MLME_LIST_GET_CONFIRM_CB)(MLME_RESULT status, uint16_t pibAttrib,
     uint8_t *pibBuff, uint16_t pibLen);
 
 // *****************************************************************************
 /* MLME set request
 
   Summary:
-    Function pointer to request to set a new value for a given PIB attribute of 
+    Function pointer to request to set a new value for a given PIB attribute of
     the MAC layer.
-    
+
   Description:
-    This function pointer is used to request to set a new value for a given PIB 
+    This function pointer is used to request to set a new value for a given PIB
     attribute of the MAC layer.
     pibAttribute    - PIB attribute
     pibValue        - PIB attribute value
@@ -1464,7 +1464,7 @@ typedef void (*MLME_LIST_GET_CONFIRM_CB)(MLME_RESULT status, uint16_t pibAttrib,
   Remarks:
     None.
 */
-typedef void (*MLME_SET_REQUEST)(uint16_t pibAttrib, void *pibValue, 
+typedef void (*MLME_SET_REQUEST)(uint16_t pibAttrib, void *pibValue,
     uint8_t pibSize);
 
 // *****************************************************************************
@@ -1536,7 +1536,7 @@ typedef struct {
     Defines the funtion pointer to set the callbacks to handle the MAC layer.
 
   Description:
-    This data type defines the function pointer to set the callbacks to 
+    This data type defines the function pointer to set the callbacks to
     handle the MAC layer.
 
   Remarks:

@@ -11,8 +11,8 @@
     PRIME Firmware Upgrade Service Interface Header File.
 
   Description:
-    The Firmware Upgrade service provides the handling of the firmare upgrade 
-    and version swap for PRIME. This file provides the interface definition for 
+    The Firmware Upgrade service provides the handling of the firmare upgrade
+    and version swap for PRIME. This file provides the interface definition for
     this service.
 *******************************************************************************/
 
@@ -74,7 +74,7 @@ Microchip or any third party.
     Signature algorithms defined for a PRIME firmware upgrade.
 
  Description:
-    This enumeration lists the signature algorithms included in the PRIME 
+    This enumeration lists the signature algorithms included in the PRIME
     specification for the firmware upgrade.
 
  Remarks:
@@ -116,7 +116,7 @@ typedef enum {
     Verification result defined for a PRIME firmware upgrade.
 
  Description:
-    This enumeration lists the possible results for the image verification during 
+    This enumeration lists the possible results for the image verification during
     the firmware upgrade.
 
  Remarks:
@@ -253,8 +253,8 @@ typedef void (*SRV_FU_MEM_TRANSFER_CB)
     None.
 */
 typedef enum {
-	SRV_FU_TRAFFIC_VERSION_PRIME_1_3 = 1,
-	SRV_FU_TRAFFIC_VERSION_PRIME_1_4 = 2,
+	SRV_FU_TRAFFIC_VER_PRIME_1_3 = 1,
+	SRV_FU_TRAFFIC_VER_PRIME_1_4 = 2,
 } SRV_FU_TRAFFIC_VERSION;
 
 // *****************************************************************************
@@ -270,7 +270,6 @@ typedef enum {
     None.
 */
 typedef void (*SRV_FU_VERSION_SWAP_CB)(SRV_FU_TRAFFIC_VERSION trafficVersion);
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -306,8 +305,8 @@ typedef void (*SRV_FU_VERSION_SWAP_CB)(SRV_FU_TRAFFIC_VERSION trafficVersion);
     </code>
 
   Remarks:
-    This routine must be called before any other PRIME Firmware Upgrade service 
-    routine. This function is normally not called directly by an application. 
+    This routine must be called before any other PRIME Firmware Upgrade service
+    routine. This function is normally not called directly by an application.
     It is called by the system's initialize routine (SYS_Initialize).
 */
 void SRV_FU_Initialize(void);
@@ -317,14 +316,14 @@ void SRV_FU_Initialize(void);
     void SRV_FU_Tasks(void)
 
   Summary:
-    Maintains the Firmware Upgrade state machine. 
+    Maintains the Firmware Upgrade state machine.
 
   Description:
-    This function is used to maintain the Firmware Upgrade internal state 
+    This function is used to maintain the Firmware Upgrade internal state
     machine.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -342,7 +341,7 @@ void SRV_FU_Initialize(void);
     </code>
 
   Remarks:
-    This function is normally not called directly by an application. 
+    This function is normally not called directly by an application.
     It is called by the system's tasks routine (SYS_Tasks).
 */
 void SRV_FU_Tasks(void);
@@ -352,14 +351,14 @@ void SRV_FU_Tasks(void);
     void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 
   Summary:
-    Starts the firmware upgrade process. 
+    Starts the firmware upgrade process.
 
   Description:
     This function is used to start the firmware upgrade process by initializing
     and unlocking the memory.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -371,13 +370,13 @@ void SRV_FU_Tasks(void);
   Example:
     <code>
     SRV_FU_INFO fuInfo;
-    
+
     fuInfo.imageSize = 0x1000;
     fuInfo.pageSize = 192;
     fuInfo.signAlgorithm = SRV_FU_SIGNATURE_ALGO_NO_SIGNATURE;
     fuInfo.signLength = 0;
-    
-    SRV_FU_Start(&fuInfo);    
+
+    SRV_FU_Start(&fuInfo);
     </code>
 
   Remarks:
@@ -394,7 +393,7 @@ void SRV_FU_Start(SRV_FU_INFO *fuInfo);
     finished.
 
   Description:
-    This function allows the application to register a function to be called 
+    This function allows the application to register a function to be called
     back when a firmware upgrade process has finished. Depending on the result,
     the application will trigger the execution of the new firmware.
 
@@ -433,14 +432,14 @@ void SRV_FU_RegisterCallbackFuResult(SRV_FU_RESULT_CB callback);
    void SRV_FU_End(SRV_FU_RESULT fuResult)
 
   Summary:
-    Ends the firmware upgrade process. 
+    Ends the firmware upgrade process.
 
   Description:
     This function is used to finish the firmare upgrade process and to trigger the
     execution of the new firmware.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -464,14 +463,14 @@ void SRV_FU_End(SRV_FU_RESULT fuResult);
    bool SRV_FU_SwapFirmware(void)
 
   Summary:
-    Swaps the firmware. 
+    Swaps the firmware.
 
   Description:
     This function is used to swap the firmware, if needed, and update data for
     the bootloader.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -484,7 +483,7 @@ void SRV_FU_End(SRV_FU_RESULT fuResult);
     <code>
     if (SRV_FU_SwapFirmware() == true)
     {
-        // Invoke bootloader 
+        ... Invoke bootloader
     }
     </code>
 
@@ -501,11 +500,11 @@ bool SRV_FU_SwapFirmware(void);
     Reads the firmware upgrade information.
 
   Description:
-    This function is used to read the firmare upgrade information, which is 
+    This function is used to read the firmare upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -534,11 +533,11 @@ void SRV_FU_CfgRead(void *dst, uint16_t size);
     Writes the firmware upgrade information.
 
   Description:
-    This function is used to write the firmare upgrade information, which is 
+    This function is used to write the firmare upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -567,7 +566,7 @@ void SRV_FU_CfgWrite(void *src, uint16_t size);
     Registers a function to be called back when a memory operation finishes.
 
   Description:
-    This function allows the PRIME stack to register a function to be called 
+    This function allows the PRIME stack to register a function to be called
     back when when a memory operation finishes.
 
   Precondition:
@@ -582,7 +581,7 @@ void SRV_FU_CfgWrite(void *src, uint16_t size);
 
   Example:
     <code>
-    
+
     void _endMemoryTransaction(SRV_FU_MEM_TRANSFER_CMD command,
                    SRV_FU_MEM_TRANSFER_RESULT result)
     {
@@ -604,7 +603,7 @@ void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
 
 // ****************************************************************************
 /* Function:
-   void SRV_FU_DataRead(uint32_t addr, uint8_t *buf, uint16_t size)
+   void SRV_FU_DataRead(uint32_t address, uint8_t *buffer, uint16_t size)
 
   Summary:
     Reads image from memory.
@@ -613,13 +612,13 @@ void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
     This function is used to read the image from memory.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
-    addr   - Image address to read
-    buf    - Pointer to the buffer to store the information
-    size   - Number of bytes to read
+    address - Image address to read
+    buffer  - Pointer to the buffer to store the information
+    size    - Number of bytes to read
 
   Returns:
     None.
@@ -633,11 +632,11 @@ void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback);
   Remarks:
     This function is called by the PRIME stack.
 */
-void SRV_FU_DataRead(uint32_t addr, uint8_t *buf, uint16_t size);
+void SRV_FU_DataRead(uint32_t address, uint8_t *buffer, uint16_t size);
 
 // ****************************************************************************
 /* Function:
-   void SRV_FU_DataWrite(uint32_t addr, uint8_t *buf, uint16_t size)
+   void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
 
   Summary:
     Writes image in memory.
@@ -646,13 +645,13 @@ void SRV_FU_DataRead(uint32_t addr, uint8_t *buf, uint16_t size);
     This function is used to write the image in memory.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
-    addr   - Image address to write
-    buf    - Pointer to the buffer with the information
-    size   - Number of bytes to write
+    address - Image address to write
+    buffer  - Pointer to the buffer with the information
+    size    - Number of bytes to write
 
   Returns:
     None
@@ -666,7 +665,7 @@ void SRV_FU_DataRead(uint32_t addr, uint8_t *buf, uint16_t size);
   Remarks:
     This function is called by the PRIME stack.
 */
-void SRV_FU_DataWrite(uint32_t addr, uint8_t *buf, uint16_t size);
+void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size);
 
 // ****************************************************************************
 /* Function:
@@ -677,7 +676,7 @@ void SRV_FU_DataWrite(uint32_t addr, uint8_t *buf, uint16_t size);
     has been calculated.
 
   Description:
-    This function allows the PRIME stack to register a function to be called 
+    This function allows the PRIME stack to register a function to be called
     back when the CRC of the received image has been calculated.
 
   Precondition:
@@ -721,7 +720,7 @@ void SRV_FU_RegisterCallbackCrc(SRV_FU_CRC_CB callback);
     This function is used to calculate the CRC of the received image.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -745,11 +744,11 @@ void SRV_FU_CalculateCrc(void);
     void SRV_FU_RegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback)
 
   Summary:
-    Registers a function to be called back when the received image 
+    Registers a function to be called back when the received image
     has been verified.
 
   Description:
-    This routine allows the PRIME stack to register a function to be 
+    This routine allows the PRIME stack to register a function to be
     called back when the received image has been verified.
 
   Precondition:
@@ -794,7 +793,7 @@ void SRV_FU_RegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback);
     if available, are checked.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -818,15 +817,15 @@ void SRV_FU_VerifyImage(void);
    uint16_t SRV_FU_GetBitmap(uint8_t *bitmap, uint32_t *numRxPages)
 
   Summary:
-    Gets the bitmap with the information about the status of each page of the 
+    Gets the bitmap with the information about the status of each page of the
     image.
 
   Description:
-    This function is used to gets the bitmap with the information about the 
+    This function is used to gets the bitmap with the information about the
     status of each page of the image.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this 
+    The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
@@ -834,14 +833,14 @@ void SRV_FU_VerifyImage(void);
     numRxPages    - Pointer to the number of pages received
 
   Returns:
-    Size of bitmap. Maximum value is 1024 bytes. In case of returning 0, the 
+    Size of bitmap. Maximum value is 1024 bytes. In case of returning 0, the
     bitmap buffer will be initialized internally in the PRIME stack.
 
   Example:
     <code>
     uint8_t bitmap[1024];
     uint32_t numPages = 0;
-    
+
     SRV_FU_GetBitmap(&bitmap, &numPages);
     </code>
 
@@ -855,11 +854,11 @@ uint16_t SRV_FU_GetBitmap(uint8_t *bitmap, uint32_t *numRxPages);
     void SRV_FU_RegisterCallbackSwapVersion(SRV_FU_VERSION_SWAP_CB callback)
 
   Summary:
-    Registers a function to be called back when the PRIME stack requests to 
+    Registers a function to be called back when the PRIME stack requests to
     trigger a PRIME stack version swap.
 
   Description:
-    This routine allows the application to register a function to be called 
+    This routine allows the application to register a function to be called
     back when the PRIME stack requests to trigger a PRIME stack version swap.
 
   Precondition:

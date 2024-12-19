@@ -71,7 +71,7 @@ Microchip or any third party.
     SYS_MODULE_OBJ PRIME_Initialize
     (
       const SYS_MODULE_INDEX index,
-      const SYS_MODULE_INIT * const init
+      const SYS_MODULE_INIT * init
     )
 
   Summary:
@@ -108,8 +108,8 @@ Microchip or any third party.
   Remarks:
     This routine must be called before any other PRIME routine is called.
 */
-SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index, 
-    const SYS_MODULE_INIT * const init);
+SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
+    const SYS_MODULE_INIT * init);
 
 // *****************************************************************************
 /* Function:
@@ -125,7 +125,7 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     Maintains the PRIME Stack State Machine.
 
   Precondition:
-    PRIME_Initialize routine must have been called before, and its returned 
+    PRIME_Initialize routine must have been called before, and its returned
     object used when calling this function.
 
   Parameters:
@@ -181,7 +181,7 @@ void PRIME_Tasks(SYS_MODULE_OBJ object);
 
     PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&initData);
 
-    PRIME_API *primeApiPtr = PRIME_SN_FWSTACK13_ADDRESS;
+    const PRIME_API *primeApiPtr = PRIME_SN_FWSTACK13_ADDRESS;
     PRIME_Restart((uint32_t *)primeApiPtr);
     </code>
 
@@ -221,7 +221,7 @@ void PRIME_Restart(uint32_t *primePtr);
     PRIME_STACK_INIT initData;
 
     PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&initData);
-    
+
     if (PRIME_Status() == SYS_STATUS_READY)
     {
 

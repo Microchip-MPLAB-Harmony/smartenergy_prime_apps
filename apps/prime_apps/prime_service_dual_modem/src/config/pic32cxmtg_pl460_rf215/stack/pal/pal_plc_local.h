@@ -53,9 +53,6 @@ Microchip or any third party.
 #include "driver/driver_common.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
 
-#define PAL_SNIFFER_DATA_MAX_SIZE      512
-typedef void (*PAL_USI_SNIFFER_CB)(uint8_t *pData, uint16_t length);
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
@@ -90,8 +87,8 @@ typedef enum {
     PLC PHY receiver parameters.
 
  Description:
-    This structure contains information about the last received message in the 
-    PLC PHY layer. This information is needed in the MAC layer for management 
+    This structure contains information about the last received message in the
+    PLC PHY layer. This information is needed in the MAC layer for management
     purposes.
 
  Remarks:
@@ -168,7 +165,7 @@ typedef struct
     uint32_t previousTimerRef;
 
     DRV_PLC_PHY_PIB_OBJ plcPIB;
-    
+
     DRV_PLC_PHY_TX_RESULT detectImpedanceResult;
 
     DRV_PLC_PHY_TRANSMISSION_OBJ phyTxObj;

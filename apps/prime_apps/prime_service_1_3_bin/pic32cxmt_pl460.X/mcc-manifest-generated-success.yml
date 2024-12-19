@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_sn_13_bin_pic32cxmt_pl460
-creation_date: 2024-12-05T15:12:28.073+01:00[Europe/Paris]
+creation_date: 2024-12-19T08:53:36.326+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -21,5 +21,5 @@ modules:
 - {name: csp, type: HARMONY, version: master}
 - {name: core, type: HARMONY, version: master}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: dev}
+- {name: smartenergy_prime, type: HARMONY, version: SMS-4010-fix-required-misra-c-violations-in-prime-repo}
 - {name: smartenergy, type: HARMONY, version: dev}

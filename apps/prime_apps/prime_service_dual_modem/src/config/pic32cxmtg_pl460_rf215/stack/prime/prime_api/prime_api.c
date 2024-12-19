@@ -1,6 +1,6 @@
 /*******************************************************************************
-  PRIME API Source 
-   
+  PRIME API Source
+
   Company:
     Microchip Technology Inc.
 
@@ -46,18 +46,18 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include <stdio.h>
-#include "cmsis_compiler.h" 
+#include "cmsis_compiler.h"
 #include "prime_api.h"
 #include "prime_api_types.h"
 #include "configuration.h"
 
-void PRIME_API_GetPrime13API(PRIME_API **pPrimeApi)
+void PRIME_API_GetPrime13API(const PRIME_API **pPrimeApi)
 {
-    *pPrimeApi = (PRIME_API *)PRIME_SN_FWSTACK13_ADDRESS;
+    *pPrimeApi = (const PRIME_API *)PRIME_SN_FWSTACK13_ADDRESS;
 }
 
-void PRIME_API_GetPrime14API(PRIME_API **pPrimeApi)
+void PRIME_API_GetPrime14API(const PRIME_API **pPrimeApi)
 {
-    *pPrimeApi = (PRIME_API *)PRIME_SN_FWSTACK14_ADDRESS;
+    *pPrimeApi = (const PRIME_API *)PRIME_SN_FWSTACK14_ADDRESS;
 }
 

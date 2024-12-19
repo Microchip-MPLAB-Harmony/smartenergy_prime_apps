@@ -82,7 +82,7 @@ Microchip or any third party.
 
   Description:
     This routine sets the callbacks to the PRIME Null Convergence Sublayer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -95,7 +95,7 @@ Microchip or any third party.
   Example:
     <code>
     MAC_CALLBACKS macCallbacks;
-    
+
     memset(macCallbacks, NULL, sizeof(macCallbacks);
 
 	macCallbacks.macDataConfirm = appDataConfirm;
@@ -118,12 +118,12 @@ void CL_NULL_SetCallbacks(MAC_CALLBACKS *macCallbacks);
 /* Function:
     void CL_NULL_EstablishRequest
     (
-        uint8_t *eui48, 
-        uint8_t type, 
-        uint8_t *data, 
-        uint16_t dataLen, 
-        uint8_t arq, 
-        uint8_t cfBytes, 
+        uint8_t *eui48,
+        uint8_t type,
+        uint8_t *data,
+        uint16_t dataLen,
+        uint8_t arq,
+        uint8_t cfBytes,
         uint8_t ae
     )
 
@@ -132,21 +132,21 @@ void CL_NULL_SetCallbacks(MAC_CALLBACKS *macCallbacks);
 
   Description:
     This routine is used to request a connection establishment.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
   Parameters:
-    eui48       - Pointer to the address of the node to which this connection 
+    eui48       - Pointer to the address of the node to which this connection
                   will be addressed
     type        - Convergence Layer type of the connection
     data        - Data associated with the connection establishment procedure
     dataLen     - Length of the data in bytes
-    arq         - Flag to indicate whether or not the ARQ mechanism should be 
+    arq         - Flag to indicate whether or not the ARQ mechanism should be
                   used for this connection
-    cfBytes     - Flag to indicate whether or not the connection should use the 
+    cfBytes     - Flag to indicate whether or not the connection should use the
                   contention or contention-free channel access scheme
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Returns:
@@ -156,24 +156,24 @@ void CL_NULL_SetCallbacks(MAC_CALLBACKS *macCallbacks);
     <code>
     uint8_t eui48[6];
     memset(eui48, 0x12, 6);
-    
+
 	CL_NULL_EstablishRequest(eui48, 9, NULL, 0, 1, 0, 0);
     </code>
 
   Remarks:
     The result of the request is returned in the confirm callback.
 */
-void CL_NULL_EstablishRequest(uint8_t *eui48, uint8_t type, uint8_t *data, 
+void CL_NULL_EstablishRequest(uint8_t *eui48, uint8_t type, uint8_t *data,
     uint16_t dataLen, uint8_t arq, uint8_t cfBytes, uint8_t ae);
 
 // *****************************************************************************
 /* Function:
     void CL_NULL_EstablishResponse
     (
-        uint16_t conHandle, 
-        MAC_ESTABLISH_RESPONSE_ANSWER answer, 
-        uint8_t *data, 
-        uint16_t dataLen, 
+        uint16_t conHandle,
+        MAC_ESTABLISH_RESPONSE_ANSWER answer,
+        uint8_t *data,
+        uint16_t dataLen,
         uint8_t uc_ae
     )
 
@@ -182,7 +182,7 @@ void CL_NULL_EstablishRequest(uint8_t *eui48, uint8_t type, uint8_t *data,
 
   Description:
     This routine is used to respond to a connection establishment indication.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -191,7 +191,7 @@ void CL_NULL_EstablishRequest(uint8_t *eui48, uint8_t type, uint8_t *data,
     answer      - Action to be taken for this connection establishment
     data        - Data associated with the connection establishment procedure
     dataLen     - Length of the data in bytes
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Returns:
@@ -205,8 +205,8 @@ void CL_NULL_EstablishRequest(uint8_t *eui48, uint8_t type, uint8_t *data,
   Remarks:
     None.
 */
-void CL_NULL_EstablishResponse(uint16_t conHandle, 
-    MAC_ESTABLISH_RESPONSE_ANSWER answer, uint8_t *data, uint16_t dataLen, 
+void CL_NULL_EstablishResponse(uint16_t conHandle,
+    MAC_ESTABLISH_RESPONSE_ANSWER answer, uint8_t *data, uint16_t dataLen,
     uint8_t uc_ae);
 
 // *****************************************************************************
@@ -221,7 +221,7 @@ void CL_NULL_EstablishResponse(uint16_t conHandle,
 
   Description:
     This routine is used to request a connection release.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -245,7 +245,7 @@ void CL_NULL_ReleaseRequest(uint16_t conHandle);
 /* Function:
     void CL_NULL_ReleaseResponse
     (
-        uint16_t conHandle, 
+        uint16_t conHandle,
         MAC_RELEASE_RESPONSE_ANSWER answer
     )
 
@@ -254,7 +254,7 @@ void CL_NULL_ReleaseRequest(uint16_t conHandle);
 
   Description:
     This routine is used to respond to a connection release indication.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -273,19 +273,19 @@ void CL_NULL_ReleaseRequest(uint16_t conHandle);
   Remarks:
     None.
 */
-void CL_NULL_ReleaseResponse(uint16_t conHandle, 
+void CL_NULL_ReleaseResponse(uint16_t conHandle,
     MAC_RELEASE_RESPONSE_ANSWER answer);
 
 // *****************************************************************************
 /* Function:
     void CL_NULL_JoinRequest
     (
-        MAC_JOIN_REQUEST_MODE connMode, 
-        uint16_t conHandle, 
-        uint8_t *eui48, 
-        uint8_t connType, 
-        uint8_t *data, 
-        uint16_t dataLen, 
+        MAC_JOIN_REQUEST_MODE connMode,
+        uint16_t conHandle,
+        uint8_t *eui48,
+        MAC_CONNECTION_TYPE connType,
+        uint8_t *data,
+        uint16_t dataLen,
         uint8_t ae
     )
 
@@ -294,43 +294,43 @@ void CL_NULL_ReleaseResponse(uint16_t conHandle,
 
   Description:
     This routine is used to request to join a multicast connection.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
   Parameters:
     conMode     - Connection type: broadcast or multicast
     conHandle   - Unique identifier of the connection (only used in base node)
-    eui48       - Pointer to the address of the node to which this join is 
+    eui48       - Pointer to the address of the node to which this join is
                   being requested (only used in base node)
     conType     - Connection type
     data        - Data associated with the join request procedure
     dataLen     - Length of the data in bytes
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
 
   Returns:
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_JoinRequest(JOIN_REQUEST_BROADCAST, 0, NULL, 9, NULL, 0, 0);
     </code>
 
   Remarks:
     The result of the request is returned in the confirm callback.
 */
-void CL_NULL_JoinRequest(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHandle, 
-    uint8_t *eui48, uint8_t conType, uint8_t *data, uint16_t dataLen, 
+void CL_NULL_JoinRequest(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHandle,
+    uint8_t *eui48, MAC_CONNECTION_TYPE conType, uint8_t *data, uint16_t dataLen,
     uint8_t ae);
 
 // *****************************************************************************
 /* Function:
     void CL_NULL_JoinResponse
     (
-        uint16_t conHandle, 
-        uint8_t *eui48, 
-        MAC_JOIN_RESPONSE_ANSWER answer, 
+        uint16_t conHandle,
+        uint8_t *eui48,
+        MAC_JOIN_RESPONSE_ANSWER answer,
         uint8_t ae
     )
 
@@ -339,18 +339,18 @@ void CL_NULL_JoinRequest(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHandle,
 
   Description:
     This routine is used to respond to a connection join indication.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
   Parameters:
     conHandle   - Unique identifier of the connection
-    eui48       - Pointer to the address of the node which requested the multicast 
+    eui48       - Pointer to the address of the node which requested the multicast
                   group join(only used in base node)
     answer      - Action to be taken for this join request
-    ae          - Flag to indicate that authentication and encryption is 
+    ae          - Flag to indicate that authentication and encryption is
                   requested (v1.4)
-    
+
   Returns:
     None.
 
@@ -362,14 +362,14 @@ void CL_NULL_JoinRequest(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHandle,
   Remarks:
     None.
 */
-void CL_NULL_JoinResponse(uint16_t conHandle, uint8_t *eui48, 
+void CL_NULL_JoinResponse(uint16_t conHandle, uint8_t *eui48,
     MAC_JOIN_RESPONSE_ANSWER answer, uint8_t ae);
 
 // *****************************************************************************
 /* Function:
     void CL_NULL_LeaveRequest
     (
-        uint16_t conHandle, 
+        uint16_t conHandle,
         uint8_t *eui48
     )
 
@@ -378,20 +378,20 @@ void CL_NULL_JoinResponse(uint16_t conHandle, uint8_t *eui48,
 
   Description:
     This routine is used to request to leave a multicast connection.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
   Parameters:
     conHandle   - Unique identifier of the connection
-    eui48       - Pointer to the address of the node to be removed from the 
+    eui48       - Pointer to the address of the node to be removed from the
                   multicast group (only used in base node)
 
   Returns:
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_LeaveRequest(0, NULL);
     </code>
 
@@ -405,10 +405,10 @@ void CL_NULL_LeaveRequest(uint16_t conHandle, uint8_t *eui48);
 /* Function:
     void CL_NULL_DataRequest
     (
-        uint16_t conHandle, 
-        uint8_t *data, 
-        uint16_t dataLen, 
-        uint8_t prio, 
+        uint16_t conHandle,
+        uint8_t *data,
+        uint16_t dataLen,
+        uint8_t prio,
         uint32_t timeRef
     )
 
@@ -417,7 +417,7 @@ void CL_NULL_LeaveRequest(uint16_t conHandle, uint8_t *eui48);
 
   Description:
     This routine is used to request the transmission of data over a connection.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -425,7 +425,7 @@ void CL_NULL_LeaveRequest(uint16_t conHandle, uint8_t *eui48);
     conHandle   - Unique identifier of the connection
     data        - Pointer to data to be transmitted through this connection
     dataLen     - Length of the data in bytes
-    prio        - Priority of the data to be sent when using the CSMA access 
+    prio        - Priority of the data to be sent when using the CSMA access
                   scheme
     timeRef     - Time reference (in 10s of microseconds) (v1.4)
 
@@ -433,17 +433,17 @@ void CL_NULL_LeaveRequest(uint16_t conHandle, uint8_t *eui48);
     None.
 
   Example:
-    <code>    
+    <code>
     uint16_t msgLen = 20;
     uint8_t msg[msgLen] = {0};
-    
+
 	CL_NULL_DataRequest(9, msg, msgLen, 1, 1000);
     </code>
 
   Remarks:
     The result of the request is returned in the confirm callback.
 */
-void CL_NULL_DataRequest(uint16_t conHandle, uint8_t *data, uint16_t dataLen, 
+void CL_NULL_DataRequest(uint16_t conHandle, uint8_t *data, uint16_t dataLen,
     uint8_t prio, uint32_t timeRef);
 
 // *****************************************************************************
@@ -457,9 +457,9 @@ void CL_NULL_DataRequest(uint16_t conHandle, uint8_t *data, uint16_t dataLen,
     Request a reset of the functional state of the PHY layer.
 
   Description:
-    This routine is used to request a reset of the functional state of the PHY 
+    This routine is used to request a reset of the functional state of the PHY
     layer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -470,7 +470,7 @@ void CL_NULL_DataRequest(uint16_t conHandle, uint8_t *data, uint16_t dataLen,
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_PlmeResetRequest(16);
     </code>
 
@@ -490,9 +490,9 @@ void CL_NULL_PlmeResetRequest(uint16_t pch);
     Request a suspension of all present activities of the PHY layer.
 
   Description:
-    This routine is used to request a suspension of all present activities of 
+    This routine is used to request a suspension of all present activities of
     the PHY layer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -503,7 +503,7 @@ void CL_NULL_PlmeResetRequest(uint16_t pch);
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_PlmeSleepRequest(16);
     </code>
 
@@ -523,9 +523,9 @@ void CL_NULL_PlmeSleepRequest(uint16_t pch);
     Request to resume all suspended actitivities of the PHY layer.
 
   Description:
-    This routine is used to request to resume all suspended activities of the 
+    This routine is used to request to resume all suspended activities of the
     PHY layer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -536,7 +536,7 @@ void CL_NULL_PlmeSleepRequest(uint16_t pch);
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_PlmeResumeRequest(16);
     </code>
 
@@ -549,10 +549,10 @@ void CL_NULL_PlmeResumeRequest(uint16_t us_pch);
 /* Function:
     void CL_NULL_PlmeTestModeRequest
     (
-        uint8_t enable, 
-        uint8_t mode, 
-        uint8_t modulation, 
-        uint8_t pwrLevel, 
+        uint8_t enable,
+        uint8_t mode,
+        uint8_t modulation,
+        uint8_t pwrLevel,
         uint16_t pch
     )
 
@@ -561,7 +561,7 @@ void CL_NULL_PlmeResumeRequest(uint16_t us_pch);
 
   Description:
     This routine is used to request the PHY layer to enter the given test mode.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -576,14 +576,14 @@ void CL_NULL_PlmeResumeRequest(uint16_t us_pch);
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_PlmeTestModeRequest(0, PAL_MODE_TYPE_B, PAL_PLC_DBPSK_R, 10, 16);
     </code>
 
   Remarks:
     The result of the request is returned in the confirm callback.
 */
-void CL_NULL_PlmeTestModeRequest(uint8_t enable, uint8_t mode, uint8_t modulation, 
+void CL_NULL_PlmeTestModeRequest(uint8_t enable, uint8_t mode, uint8_t modulation,
     uint8_t pwrLevel, uint16_t pch);
 
 // *****************************************************************************
@@ -598,9 +598,9 @@ void CL_NULL_PlmeTestModeRequest(uint8_t enable, uint8_t mode, uint8_t modulatio
     Request information about a given PIB attribute of the PHY layer.
 
   Description:
-    This routine is used to request information about a given PIB attribute of 
+    This routine is used to request information about a given PIB attribute of
     the PHY layer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -612,7 +612,7 @@ void CL_NULL_PlmeTestModeRequest(uint8_t enable, uint8_t mode, uint8_t modulatio
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_PlmeGetRequest(PIB_PHY_STATS_RX_TOTAL_COUNT, 16);
     </code>
 
@@ -625,8 +625,8 @@ void CL_NULL_PlmeGetRequest(uint16_t pibAttrib, uint16_t pch);
 /* Function:
     void CL_NULL_PlmeSetRequest
     (
-        uint16_t pibAttrib, 
-        void *pibValue, 
+        uint16_t pibAttrib,
+        void *pibValue,
         uint8_t pibSize,
         uint16_t pch
     )
@@ -635,9 +635,9 @@ void CL_NULL_PlmeGetRequest(uint16_t pibAttrib, uint16_t pch);
     Set a new value for a given PIB attribute of the PHY layer.
 
   Description:
-    This routine is used to set a new value for a given PIB attribute of 
+    This routine is used to set a new value for a given PIB attribute of
     the PHY layer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -651,7 +651,7 @@ void CL_NULL_PlmeGetRequest(uint16_t pibAttrib, uint16_t pch);
     None.
 
   Example:
-    <code>   
+    <code>
     uint8_t snifferEn = 1;
 	CL_NULL_PlmeSetRequest(PIB_PHY_SNIFFER_ENABLED, &snifferEn, sizeof(snifferEn), 16);
     </code>
@@ -659,7 +659,7 @@ void CL_NULL_PlmeGetRequest(uint16_t pibAttrib, uint16_t pch);
   Remarks:
     The result of the request is returned in the confirm callback.
 */
-void CL_NULL_PlmeSetRequest(uint16_t pibAttrib, void *pibValue, uint8_t pibSize, 
+void CL_NULL_PlmeSetRequest(uint16_t pibAttrib, void *pibValue, uint8_t pibSize,
     uint16_t pch);
 
 // *****************************************************************************
@@ -671,13 +671,13 @@ void CL_NULL_PlmeSetRequest(uint16_t pibAttrib, void *pibValue, uint8_t pibSize,
     )
 
   Summary:
-    Request to trigger the registration process to a subnetwork through a 
+    Request to trigger the registration process to a subnetwork through a
     specific switch node.
 
   Description:
-    This routine is used to request to trigger the registration process to a 
+    This routine is used to request to trigger the registration process to a
     subnetwork through a specific switch node.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -689,7 +689,7 @@ void CL_NULL_PlmeSetRequest(uint16_t pibAttrib, void *pibValue, uint8_t pibSize,
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_MlmeRegisterRequest(NULL, 125);
     </code>
 
@@ -710,7 +710,7 @@ void CL_NULL_MlmeRegisterRequest(uint8_t *sna, uint8_t sid);
 
   Description:
     This routine is used to request to trigger the unregistration process.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -721,7 +721,7 @@ void CL_NULL_MlmeRegisterRequest(uint8_t *sna, uint8_t sid);
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_MlmeUnregisterRequest();
     </code>
 
@@ -738,13 +738,13 @@ void CL_NULL_MlmeUnregisterRequest(void);
     )
 
   Summary:
-    Request to trigger a demotion process in a Service Node that is in a Switch 
+    Request to trigger a demotion process in a Service Node that is in a Switch
     functional state.
 
   Description:
-    This routine is used to request to trigger a demotion process in a Service 
+    This routine is used to request to trigger a demotion process in a Service
     Node that is in a Switch functional state
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -755,7 +755,7 @@ void CL_NULL_MlmeUnregisterRequest(void);
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_MlmeDemoteRequest();
     </code>
 
@@ -772,14 +772,14 @@ void CL_NULL_MlmeDemoteRequest(void);
     )
 
   Summary:
-    Request to trigger a demotion process in a Service Node that is in a Switch 
+    Request to trigger a demotion process in a Service Node that is in a Switch
     functional state and supports MultiPHY promotion.
 
   Description:
-    This routine is used to request to trigger a demotion process in a Service 
+    This routine is used to request to trigger a demotion process in a Service
     Node that is in a Switch functional state and supports MultiPHY promotion.
     This primitive only applies in PRIME v1.4.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -790,7 +790,7 @@ void CL_NULL_MlmeDemoteRequest(void);
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_MlmeMpDemoteRequest(125);
     </code>
 
@@ -808,13 +808,13 @@ void CL_NULL_MlmeMpDemoteRequest(uint8_t lsid);
     )
 
   Summary:
-    Request to trigger the promotion process in a Service Node that is in a 
-    Terminal functional state. 
+    Request to trigger the promotion process in a Service Node that is in a
+    Terminal functional state.
 
   Description:
-    This routine is used to request to trigger the promotion process in a 
-    Service Node that is in a Terminal functional state. 
-    
+    This routine is used to request to trigger the promotion process in a
+    Service Node that is in a Terminal functional state.
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -830,7 +830,7 @@ void CL_NULL_MlmeMpDemoteRequest(uint8_t lsid);
     <code>
     uint8_t eui48[6];
     memset(eui48, 0x12, 6);
-    
+
 	CL_NULL_MlmePromoteRequest(eui48, 0);
     </code>
 
@@ -849,21 +849,21 @@ void CL_NULL_MlmePromoteRequest(uint8_t *eui48, uint8_t bcnMode);
     )
 
   Summary:
-    Request to trigger the promotion process in a Service Node (Terminal or 
-    Switch) in a medium (PLC or RF) different from the one the node is connected 
-    to the network. 
+    Request to trigger the promotion process in a Service Node (Terminal or
+    Switch) in a medium (PLC or RF) different from the one the node is connected
+    to the network.
 
   Description:
-    This routine is used to request to trigger the promotion process in a 
-    Service Node (Terminal or Switch) in a medium (PLC or RF) different from the 
-    one the node is connected to the network. This primitive only applies in 
+    This routine is used to request to trigger the promotion process in a
+    Service Node (Terminal or Switch) in a medium (PLC or RF) different from the
+    one the node is connected to the network. This primitive only applies in
     PRIME v1.4.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
   Parameters:
-    eui48           - Pointer to the address of the node to be promoted (NULL in 
+    eui48           - Pointer to the address of the node to be promoted (NULL in
                       Service Node)
     bcnMode         - Beacon PDU modulation scheme
     pch             - Physical channel
@@ -875,7 +875,7 @@ void CL_NULL_MlmePromoteRequest(uint8_t *eui48, uint8_t bcnMode);
     <code>
     uint8_t eui48[6];
     memset(eui48, 0x12, 6);
-    
+
 	CL_NULL_MlmeMpPromoteRequest(eui48, 0, 16);
     </code>
 
@@ -892,15 +892,15 @@ void CL_NULL_MlmeMpPromoteRequest(uint8_t *eui48, uint8_t bcnMode, uint16_t pch)
     )
 
   Summary:
-    Request the flushing of all transmit and receive buffers and the resetting 
+    Request the flushing of all transmit and receive buffers and the resetting
     of all state variables.
 
   Description:
-    This routine is used to request the flushing of all transmit and receive 
-    buffers and the resetting of all state variables. As a result, a Service 
-    Node will transit from its present functional state to the Disconnected 
+    This routine is used to request the flushing of all transmit and receive
+    buffers and the resetting of all state variables. As a result, a Service
+    Node will transit from its present functional state to the Disconnected
     functional state.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -911,7 +911,7 @@ void CL_NULL_MlmeMpPromoteRequest(uint8_t *eui48, uint8_t bcnMode, uint16_t pch)
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_MlmeResetRequest();
     </code>
 
@@ -931,9 +931,9 @@ void CL_NULL_MlmeResetRequest(void);
     Request information about a given PIB attribute of the MAC layer.
 
   Description:
-    This routine is used to request information about a given PIB attribute of 
+    This routine is used to request information about a given PIB attribute of
     the MAC layer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -944,7 +944,7 @@ void CL_NULL_MlmeResetRequest(void);
     None.
 
   Example:
-    <code>    
+    <code>
 	CL_NULL_MlmeGetRequest(PIB_MAC_LNID);
     </code>
 
@@ -964,9 +964,9 @@ void CL_NULL_MlmeGetRequest(uint16_t pibAttrib);
     Request information about a given PIB list attribute of the MAC layer.
 
   Description:
-    This routine is used to request information about a given PIB list attribute 
+    This routine is used to request information about a given PIB list attribute
     of the MAC layer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -977,8 +977,8 @@ void CL_NULL_MlmeGetRequest(uint16_t pibAttrib);
     None.
 
   Example:
-    <code>    
-	CL_NULL_MlmeListGetRequest(PIB_MAC_LIST_AVAILABLE_SWITCHES);
+    <code>
+	CL_NULL_MlmeListGetRequest(PIB_MAC_LIST_AVAIL_SWITCHES);
     </code>
 
   Remarks:
@@ -990,8 +990,8 @@ void CL_NULL_MlmeListGetRequest(uint16_t pibAttrib);
 /* Function:
     void CL_NULL_MlmeSetRequest
     (
-        uint16_t pibAttrib, 
-        void *pibValue, 
+        uint16_t pibAttrib,
+        void *pibValue,
         uint8_t pibSize
     )
 
@@ -999,9 +999,9 @@ void CL_NULL_MlmeListGetRequest(uint16_t pibAttrib);
     Set a new value for a given PIB attribute of the MAC layer.
 
   Description:
-    This routine is used to set a new value for a given PIB attribute of 
+    This routine is used to set a new value for a given PIB attribute of
     the MAC layer.
-    
+
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
 
@@ -1014,9 +1014,9 @@ void CL_NULL_MlmeListGetRequest(uint16_t pibAttrib);
     None.
 
   Example:
-    <code>   
+    <code>
     uint8_t bandSearchTime = 25;
-	CL_NULL_MlmeSetRequest(PIB_MAC_MIN_BAND_SEARCH_TIME, &bandSearchTime, 
+	CL_NULL_MlmeSetRequest(PIB_MAC_MIN_BAND_SEARCH_TIME, &bandSearchTime,
         sizeof(bandSearchTime));
     </code>
 

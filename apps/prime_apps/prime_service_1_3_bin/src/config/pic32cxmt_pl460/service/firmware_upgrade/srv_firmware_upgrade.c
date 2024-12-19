@@ -11,7 +11,7 @@
     PRIME Firmware Upgrade Service Interface Source File.
 
   Description:
-    The Firmware Upgrade service provides the handling of the firmare upgrade 
+    The Firmware Upgrade service provides the handling of the firmare upgrade
     and version swap for PRIME. This file contains the source code for the
     implementation of this service.
 *******************************************************************************/
@@ -66,12 +66,11 @@ Microchip or any third party.
 
 #define PRIME_FU_MEM_DRV        ""
 #define PRIME_FU_MEM_INSTANCE   0
-#define PRIME_FU_MEM_OFFSET     0x50000
-#define PRIME_FU_MEM_SIZE       0x40000
+#define PRIME_FU_MEM_SIZE       (uint32_t)(0x40000)
 
-#define MEMORY_WRITE_SIZE       256
-#define MAX_BUFFER_READ_SIZE    256
-    
+#define MEMORY_WRITE_SIZE       (uint32_t)(256)
+#define MAX_BUFFER_READ_SIZE    (uint32_t)(256)
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -129,22 +128,21 @@ static void lSRV_FU_TransferHandler
     switch(event)
     {
         case DRV_MEMORY_EVENT_COMMAND_COMPLETE:
-            mInfo->state = SRV_FU_MEM_STATE_CMD_WAIT;
             transferResult = SRV_FU_MEM_TRANSFER_OK;
             break;
 
         case DRV_MEMORY_EVENT_COMMAND_ERROR:
         default:
-            mInfo->state = SRV_FU_MEM_STATE_ERROR;
             transferResult = SRV_FU_MEM_TRANSFER_ERROR;
             break;
     }
 
-    if (commandHandle == mInfo->eraseHandle) 
+    if (commandHandle == mInfo->eraseHandle)
     {
+        memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
         transferCmd = SRV_FU_MEM_TRANSFER_CMD_ERASE;
     }
-    else if (commandHandle == mInfo->readHandle) 
+    else if (commandHandle == mInfo->readHandle)
     {
         if (memInfo.state == SRV_FU_CALCULATE_CRC_BLOCK)
         {
@@ -154,6 +152,7 @@ static void lSRV_FU_TransferHandler
         }
         else
         {
+            memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             transferCmd = SRV_FU_MEM_TRANSFER_CMD_READ;
         }
     }
@@ -167,24 +166,26 @@ static void lSRV_FU_TransferHandler
         }
         else
         {
+            memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             transferCmd = SRV_FU_MEM_TRANSFER_CMD_WRITE;
         }
     }
     else
     {
+        memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
         transferCmd = SRV_FU_MEM_TRANSFER_CMD_BAD;
     }
 
-    if (SRV_FU_MemTransferCallback != NULL) 
+    if (SRV_FU_MemTransferCallback != NULL)
     {
         SRV_FU_MemTransferCallback(transferCmd, transferResult);
-    }   
+    }
 }
 
-void lSRV_FU_EraseFuRegion(void)
+static void lSRV_FU_EraseFuRegion(void)
 {
-    
-    DRV_MEMORY_AsyncErase(memInfo.memoryHandle, &memInfo.eraseHandle, 
+
+    DRV_MEMORY_AsyncErase(memInfo.memoryHandle, &memInfo.eraseHandle,
         memInfo.eraseBlockStart, memInfo.numFuRegionEraseBlocks);
 
 	memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
@@ -203,8 +204,8 @@ void SRV_FU_Initialize(void)
 	SRV_FU_ResultCallback = NULL;
 	SRV_FU_SwapCallback = NULL;
     SRV_FU_MemTransferCallback = NULL;
-	
-    memInfo.startAdressFuRegion = PRIME_FU_MEM_OFFSET;
+
+    memInfo.startAdressFuRegion = 0;
     memInfo.sizeFuRegion = PRIME_FU_MEM_SIZE;
 
 	memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
@@ -255,12 +256,12 @@ void SRV_FU_Tasks(void)
         {
             if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.eraseHandle)
             {
-                if (SRV_FU_MemTransferCallback != NULL) 
+                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
+                if (SRV_FU_MemTransferCallback != NULL)
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_ERASE, SRV_FU_MEM_TRANSFER_ERROR);
-                }   
-                
-                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+                }
             }
 
             break;
@@ -270,33 +271,34 @@ void SRV_FU_Tasks(void)
 		{
 			if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.readHandle)
 			{
-                if (SRV_FU_MemTransferCallback != NULL) 
+                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
+                if (SRV_FU_MemTransferCallback != NULL)
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_READ, SRV_FU_MEM_TRANSFER_ERROR);
-                }   
-                
-                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+                }
 			}
 			break;
 		}
-		
+
 		case SRV_FU_MEM_STATE_WRITE_ONE_BLOCK:
 		{
             uint32_t block;
             uint32_t offset;
             uint32_t bytesToCopy;
 
-            if (memInfo.writeSize == 0)
+            if (memInfo.writeSize == 0U)
             {
-                if (SRV_FU_MemTransferCallback != NULL) 
+                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
+                if (SRV_FU_MemTransferCallback != NULL)
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_OK);
-                }   
-                
-                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+                }
+
                 break;
             }
-            
+
             block = memInfo.writeAddress / memInfo.writePageSize;
             memInfo.retrieveAddress = block * memInfo.writePageSize;
             offset = memInfo.writeAddress - memInfo.retrieveAddress;
@@ -310,26 +312,26 @@ void SRV_FU_Tasks(void)
                 bytesToCopy = memInfo.writeSize;
             }
 
-            memset( pMemWrite, 0xff, memInfo.writePageSize);
-            memcpy( &pMemWrite[offset], &pBuffInput[memInfo.bytesWritten] , memInfo.writeSize);
+            (void)memset( pMemWrite, 0xff, memInfo.writePageSize);
+            (void)memcpy( &pMemWrite[offset], &pBuffInput[memInfo.bytesWritten] , memInfo.writeSize);
 
             DRV_MEMORY_AsyncWrite(memInfo.memoryHandle, &memInfo.writeHandle, pMemWrite, block, 1);
- 
+
 			if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.writeHandle)
 			{
-                if (SRV_FU_MemTransferCallback != NULL) 
+                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
+                if (SRV_FU_MemTransferCallback != NULL)
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_ERROR);
-                }   
-                
-                memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+                }
 			}
             else
             {
                 memInfo.writeAddress += bytesToCopy;
                 memInfo.writeSize -= bytesToCopy;
                 memInfo.bytesWritten += bytesToCopy;
-                
+
                 memInfo.state = SRV_FU_MEM_STATE_WRITE_WAIT_END;
             }
 
@@ -343,7 +345,7 @@ void SRV_FU_Tasks(void)
                 calculatedCrc = SRV_PCRC_GetValue(pBuffInput, crcSize, PCRC_HT_GENERIC, PCRC_CRC32,
                                      calculatedCrc);
 
-                if (crcRemainingSize > 0)
+                if (crcRemainingSize > 0U)
                 {
                     uint32_t blockStart, nBlock;
                     uint32_t bytesPagesRead;
@@ -358,7 +360,7 @@ void SRV_FU_Tasks(void)
                     {
                         crcSize = MAX_BUFFER_READ_SIZE;
                     }
-                    
+
                     blockStart = crcReadAddress / memInfo.readPageSize;
                     nBlock = crcSize / memInfo.readPageSize;
 
@@ -366,7 +368,7 @@ void SRV_FU_Tasks(void)
                     /* Aling CRC size with the readPageSize */
                     if (crcSize > bytesPagesRead)
                     {
-                        if (((nBlock + 1) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)
+                        if (((nBlock + 1U) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)
                         {
                             nBlock++;
                         }
@@ -379,34 +381,35 @@ void SRV_FU_Tasks(void)
                     }
 
                     DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, pBuffInput, blockStart, nBlock);
-                    
+
                     crcReadAddress += crcSize;
                     crcRemainingSize -= crcSize;
                 }
                 else
                 {
+                    crcState = SRV_FU_CRC_IDLE;
+                    memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
+
                     /* Check pointer function */
                     if (SRV_FU_CrcCallback != NULL) {
                         SRV_FU_CrcCallback(calculatedCrc);
                     }
-
-                    crcState = SRV_FU_CRC_IDLE;
-                    memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
                 }
             }
-            
+
             break;
         }
-        
+
         case SRV_FU_MEM_STATE_XFER_WAIT:
         case SRV_FU_MEM_STATE_SUCCESS:
         case SRV_FU_MEM_STATE_WRITE_WAIT_END:
         case SRV_FU_MEM_STATE_CMD_WAIT:
         case SRV_FU_MEM_UNINITIALIZED:
-        default:
-        {
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+         default:
             break;
-        }
+/* MISRA C-2012 deviation block end */
 	}
 }
 
@@ -421,7 +424,7 @@ void SRV_FU_DataRead(uint32_t address, uint8_t *buffer, uint16_t size)
 	nBlock = size / memInfo.readPageSize;
 
 	DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, (void *) buffer, blockStart, nBlock);
-	
+
 	memInfo.state = SRV_FU_MEM_STATE_READ_MEMORY;
 }
 
@@ -430,17 +433,17 @@ void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
 
     if (size > MAX_BUFFER_READ_SIZE)
     {
-        if (SRV_FU_MemTransferCallback != NULL) 
+        if (SRV_FU_MemTransferCallback != NULL)
         {
             SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_ERROR);
         }
 
         return;
     }
-	
+
     if (memInfo.writePageSize > MEMORY_WRITE_SIZE)
     {
-        if (SRV_FU_MemTransferCallback != NULL) 
+        if (SRV_FU_MemTransferCallback != NULL)
         {
             SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_ERROR);
         }
@@ -451,7 +454,7 @@ void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
     memInfo.writeSize = size;
     memInfo.bytesWritten = 0;
 
-    memcpy(pBuffInput, buffer, size);
+    (void)memcpy(pBuffInput, buffer, size);
 
 
     memInfo.state = SRV_FU_MEM_STATE_WRITE_ONE_BLOCK;
@@ -467,7 +470,7 @@ void SRV_FU_CfgRead(void *dst, uint16_t size)
 	*pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_1);
 	*pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_2);
 	*pointerBuffer = SUPC_GPBRRead(GPBR_REGS_3);
-	memcpy(dst, (uint8_t *)bufferValue, size);
+	(void)memcpy(dst, (void *)bufferValue, size);
 
 }
 
@@ -476,7 +479,7 @@ void SRV_FU_CfgWrite(void *src, uint16_t size)
 	uint32_t bufferValue[4];
 	uint32_t *pointerBuffer;
 
-	memcpy((uint8_t *)bufferValue, src, size);
+	(void)memcpy(bufferValue, (uint32_t *)src, size);
 
 	pointerBuffer = (uint32_t *)bufferValue;
 	SUPC_GPBRWrite(GPBR_REGS_0, *pointerBuffer++);
@@ -516,9 +519,11 @@ void SRV_FU_End(SRV_FU_RESULT fuResult)
     	case SRV_FU_RESULT_FW_CONFIRM:
             SRV_FU_ResultCallback(fuResult);
             break;
-
-    	default:
-	    	break;
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+         default:
+            break;
+/* MISRA C-2012 deviation block end */
 	}
 }
 
@@ -545,7 +550,7 @@ void SRV_FU_CalculateCrc(void)
     {
         crcSize = MAX_BUFFER_READ_SIZE;
     }
-    
+
     blockStart = crcReadAddress / memInfo.readPageSize;
 	nBlock = crcSize / memInfo.readPageSize;
 
@@ -553,7 +558,7 @@ void SRV_FU_CalculateCrc(void)
     /* Aling CRC size with the readPageSize */
     if (crcSize > bytesPagesRead)
     {
-        if (((nBlock + 1) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)
+        if (((nBlock + 1U) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)
         {
             nBlock++;
         }
@@ -566,12 +571,12 @@ void SRV_FU_CalculateCrc(void)
     }
 
 	DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, pBuffInput, blockStart, nBlock);
-	
+
 	crcReadAddress += crcSize;
     crcRemainingSize -= crcSize;
 
     memInfo.state = SRV_FU_CALCULATE_CRC_BLOCK;
-    
+
     /* CRC Initial */
     calculatedCrc = 0;
 }

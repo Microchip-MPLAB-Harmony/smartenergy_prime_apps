@@ -67,14 +67,14 @@ Microchip or any third party.
 
 /* Robust Management (RM) value used when there is no information available
 about the modulation scheme to be used */
-#define PAL_OUTDATED_INF    0x0F
+#define PAL_OUTDATED_INF    0x0FU
 
 /* Radio Channel Mask */
-#define PRIME_PAL_RF_CHN_MASK                  0x0200
+#define PRIME_PAL_RF_CHN_MASK                  0x0200U
 /* Macro to configure frequency hopping channel */
-#define PRIME_PAL_RF_FREQ_HOPPING_CHANNEL      0x03FF
+#define PRIME_PAL_RF_FREQ_HOPPING_CHANNEL      0x03FFU
 /* Serial Channel Mask */
-#define PRIME_PAL_SERIAL_CHN_MASK              0x0400
+#define PRIME_PAL_SERIAL_CHN_MASK              0x0400U
 
 // *****************************************************************************
 // *****************************************************************************
@@ -451,7 +451,7 @@ typedef struct
     /* Header type of the last received message */
     uint8_t headerType;
     /* Less robust modulation */
-    uint8_t lessRobustMod;
+    PAL_SCHEME lessRobustMod;
     /* SNR (Signal Noise Ratio) /LQI (Link Quality Indicator) */
     uint8_t lqi;
 } PAL_MSG_INDICATION_DATA;

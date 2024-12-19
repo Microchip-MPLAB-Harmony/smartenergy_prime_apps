@@ -71,15 +71,15 @@ uint64_t SRV_TIME_MANAGEMENT_GetTimeUS64(void)
 {
     uint64_t counter;
     uint64_t currentTimeUs;
-    uint32_t diffCounter;
+    uint64_t diffCounter;
     uint32_t elapsedUs;
 
-    // Get current cycle counter    
+    // Get current cycle counter
     counter = SYS_TIME_Counter64Get();
     // Diff with previous
     diffCounter = (counter - srvTimeMngPreviousCounter);
     // Convert to Us
-    elapsedUs = SYS_TIME_CountToUS(diffCounter);
+    elapsedUs = SYS_TIME_CountToUS((uint32_t)diffCounter);
     // Current time in Us
     currentTimeUs = srvTimeMngCurrentTimeUs + elapsedUs;
 
@@ -101,9 +101,9 @@ uint32_t SRV_TIME_MANAGEMENT_GetTimeUS(void)
 {
     uint32_t currentTimeUs;
 
-    // Get the low part of the current timer counter    
+    // Get the low part of the current timer counter
     currentTimeUs = (uint32_t)SRV_TIME_MANAGEMENT_GetTimeUS64();
- 
+
     return currentTimeUs;
 }
 
@@ -160,13 +160,13 @@ uint32_t SRV_TIME_MANAGEMENT_CountToUS(uint64_t counter)
     return timeUs;
 }
 
-SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterUS ( SYS_TIME_CALLBACK callback, 
+SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CbRegisterUS ( SYS_TIME_CALLBACK callback,
                         uintptr_t context, uint32_t us, SYS_TIME_CALLBACK_TYPE type )
 {
     return SYS_TIME_CallbackRegisterUS(callback, context, us, type);
 }
 
-SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CallbackRegisterMS ( SYS_TIME_CALLBACK callback, 
+SYS_TIME_HANDLE SRV_TIME_MANAGEMENT_CbRegisterMS ( SYS_TIME_CALLBACK callback,
                         uintptr_t context, uint32_t ms, SYS_TIME_CALLBACK_TYPE type )
 {
     return SYS_TIME_CallbackRegisterMS(callback, context, ms, type);

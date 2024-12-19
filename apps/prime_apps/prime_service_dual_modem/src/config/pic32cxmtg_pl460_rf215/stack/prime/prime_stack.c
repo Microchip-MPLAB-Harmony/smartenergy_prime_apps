@@ -11,7 +11,7 @@
     PRIME Stack Source File
 
   Description:
-    This file provides the source code for the implementation of the management 
+    This file provides the source code for the implementation of the management
     of the PRIME stack from the application.
 *******************************************************************************/
 
@@ -59,7 +59,6 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-extern HAL_API primeHalAPI;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -76,10 +75,13 @@ static PRIME_API_INIT primeApiInit;
 // *****************************************************************************
 // *****************************************************************************
 
-SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index, 
-    const SYS_MODULE_INIT * const init)
+SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
+    const SYS_MODULE_INIT * init)
 {
-    const PRIME_STACK_INIT* primeInit = (const PRIME_STACK_INIT * const)init;
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    const PRIME_STACK_INIT* primeInit = (const PRIME_STACK_INIT *)init;
+/* MISRA C-2012 deviation block end */
 
     /* Validate the request */
     if (index >= PRIME_INSTANCES_NUMBER)
@@ -87,22 +89,22 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
         primeObj.status = PRIME_STATUS_ERROR;
         return SYS_MODULE_OBJ_INVALID;
     }
-    
+
     /* Fill in initialization data */
     primeApiInit.palIndex = primeInit->palIndex;
     primeApiInit.mngPlaneUsiPort = primeInit->mngPlaneUsiPort;
-    primeApiInit.halApi = (HAL_API *)&primeHalAPI;
-    
+    primeApiInit.halApi = &primeHalAPI;
+
     /* Get the PRIME version */
     SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
-    
+
     (void) memset(&boardInfo, 0, sizeof(boardInfo));
-    
-    SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, sizeof(boardInfo), 
+
+    (void) SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo),
                               (void *)&boardInfo);
-    
+
     /* Get PRIME API pointer */
-    switch (boardInfo.primeVersion) 
+    switch (boardInfo.primeVersion)
     {
         case PRIME_VERSION_1_3:
             PRIME_API_GetPrime13API(&primeObj.primeApi);
@@ -113,10 +115,10 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
             PRIME_API_GetPrime14API(&primeObj.primeApi);
             break;
     }
- 
+
     /* Update status */
     primeObj.status = PRIME_STATUS_POINTER_READY;
-    
+
     return (SYS_MODULE_OBJ)0;
 }
 
@@ -129,45 +131,48 @@ void PRIME_Tasks(SYS_MODULE_OBJ object)
         primeObj.status = PRIME_STATUS_ERROR;
         return;
     }
-    
+
     switch (primeObj.status)
     {
         case PRIME_STATUS_POINTER_READY:
             primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit);
             primeObj.status = PRIME_STATUS_INITIALIZING;
             break;
-            
-            
+
+
         case PRIME_STATUS_INITIALIZING:
             /* Complete initialization of PRIME stack takes several cycles */
             /* due to the initialization of PAL and drivers */
             primeObj.primeApi->Tasks();
-            
+
             /* Do not allow the application to call PRIME until ready */
             if (primeObj.primeApi->Status() == SYS_STATUS_READY)
             {
                 primeObj.status = PRIME_STATUS_RUNNING;
             }
-            
+
             break;
-            
+
         case PRIME_STATUS_RUNNING:
             primeObj.primeApi->Tasks();
             break;
-            
+
         default:
            primeObj.status = PRIME_STATUS_ERROR;
            break;
     }
 }
-    
+
 void PRIME_Restart(uint32_t *primePtr)
 {
     /* Set PRIME API pointer */
-    primeObj.primeApi = (PRIME_API *)primePtr;
-        
-    if (primeObj.status == PRIME_STATUS_RUNNING) 
-    {     
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    primeObj.primeApi = (const PRIME_API *)primePtr;
+/* MISRA C-2012 deviation block end */
+
+    if (primeObj.status == PRIME_STATUS_RUNNING)
+    {
         /* Update status */
         primeObj.status = PRIME_STATUS_POINTER_READY;
     }

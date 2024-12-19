@@ -12,7 +12,7 @@
 
   Description:
     The Reset Handler service provides a simple interface to trigger system
-    resets and to manage and store reset causes. This file provides the 
+    resets and to manage and store reset causes. This file provides the
     interface definition for this service.
 *******************************************************************************/
 
@@ -61,6 +61,17 @@ Microchip or any third party.
 #endif
 // DOM-IGNORE-END
 
+extern volatile uint32_t saved_r0;
+extern volatile uint32_t saved_r1;
+extern volatile uint32_t saved_r2;
+extern volatile uint32_t saved_r3;
+extern volatile uint32_t saved_r12;
+extern volatile uint32_t saved_lr;
+extern volatile uint32_t saved_pc;
+extern volatile uint32_t saved_psr;
+extern volatile uint32_t saved_hfsr;
+extern volatile uint32_t saved_cfsr;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
@@ -74,7 +85,7 @@ Microchip or any third party.
     Reset causes defined for a PRIME system.
 
  Description:
-    The PRIME reset causes include the device reset causes and reset causes 
+    The PRIME reset causes include the device reset causes and reset causes
     specific to the PRIME operation.
 
  Remarks:
@@ -128,8 +139,8 @@ typedef enum {
     </code>
 
   Remarks:
-    This routine must be called before any other PRIME Reset Handler service 
-    routine. This function is normally not called directly by an application. 
+    This routine must be called before any other PRIME Reset Handler service
+    routine. This function is normally not called directly by an application.
     It is called by the system's initialize routine (SYS_Initialize).
 */
 
@@ -148,7 +159,7 @@ void SRV_RESET_HANDLER_Initialize(void);
 
   Precondition:
     The SRV_RESET_HANDLER_Initialize routine must have been called before.
-    
+
   Parameters:
     resetType      - Type of reset
 
@@ -157,7 +168,7 @@ void SRV_RESET_HANDLER_Initialize(void);
 
   Example:
     <code>
-    int main(void) 
+    int main(void)
     {
         SRV_RESET_HANDLER_RestartSystem(RESET_HANDLER_SOFTWARE_RESET);
     }
@@ -169,5 +180,6 @@ void SRV_RESET_HANDLER_Initialize(void);
 
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
 
+void DWDT0_Handler(void);
 
 #endif //SRV_RESET_HANDLER_H
