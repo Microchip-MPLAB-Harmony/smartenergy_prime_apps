@@ -57,10 +57,10 @@
 #include "peripheral/supc/plib_supc.h"
 #include "bsp/bsp.h"
 #include "peripheral/sefc/plib_sefc0.h"
-#include "peripheral/sefc/plib_sefc1.h"
 #include "system/int/sys_int.h"
 #include "system/cache/sys_cache.h"
 #include "system/debug/sys_debug.h"
+#include "peripheral/sefc/plib_sefc1.h"
 #include "app_bootloader.h"
 
 

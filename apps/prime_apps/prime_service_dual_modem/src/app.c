@@ -94,12 +94,12 @@ static void lAPP_PrimeFuResultHandler(SRV_FU_RESULT fuResult)
 {
     switch (fuResult) 
     {
-        case SRV_FU_SUCCESS:
+        case SRV_FU_RESULT_SUCCESS:
             /* Update FU pointer */
             fuSwapEn = APP_FU_ENABLE_SWAP;
             break;
 
-        case SRV_FU_CRC_ERROR:
+        case SRV_FU_RESULT_CRC_ERROR:
             /* Nothing to do - FU will restart automatically */
             break;
 
@@ -136,13 +136,13 @@ static void lAPP_PrimeFuResultHandler(SRV_FU_RESULT fuResult)
 static void lAPP_PrimeVersionSwapRequest(SRV_FU_TRAFFIC_VERSION traffic)
 {
     /* Compare current PRIME pointer with detected traffic */
-    if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_4) 
+    if (traffic == SRV_FU_TRAFFIC_VER_PRIME_1_4) 
     {
         newPrimeApi = (PRIME_API *)PRIME_SN_FWSTACK14_ADDRESS;
         versionSwapEn = APP_VERSION_ENABLE_SWAP;
 
     } 
-    else if (traffic == SRV_FU_TRAFFIC_VERSION_PRIME_1_3) 
+    else if (traffic == SRV_FU_TRAFFIC_VER_PRIME_1_3) 
     {
         newPrimeApi = (PRIME_API *)PRIME_SN_FWSTACK13_ADDRESS;
         versionSwapEn = APP_VERSION_ENABLE_SWAP;

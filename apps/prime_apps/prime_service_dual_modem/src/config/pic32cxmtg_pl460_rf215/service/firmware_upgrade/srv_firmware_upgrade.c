@@ -148,7 +148,7 @@ static void lSRV_FU_StoreMetadata(uint32_t address, uint32_t size)
     uint32_t offsetSegment, offsetMetadata;
     uint32_t sizeToCopy;
 
-    iniMetadata = fuData.imageSize - fuData.signLength;
+    iniMetadata = fuData.imageSize - fuData.signLength - PRIME_METADATA_SIZE;
 
     /* Check if the segment to write is in metadata zone*/
     if (((address + size) < iniMetadata) || (address > (iniMetadata + PRIME_METADATA_SIZE)))
