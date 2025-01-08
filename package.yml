@@ -9,7 +9,7 @@ package:
   dependencies:
     - name: "smartenergy_prime"
       type: "package"
-      version: "SMS-4010-fix-required-misra-c-violations-in-prime-repo"
+      version: "dev"
     - name: "smartenergy"
       type: "package"
       version: "dev"
