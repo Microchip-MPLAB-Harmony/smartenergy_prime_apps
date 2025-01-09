@@ -337,7 +337,7 @@ void APP_PLC_Tasks ( void )
     if (app_plcData.tmr1Expired)
     {
         app_plcData.tmr1Expired = false;
-        USER_PLC_BLINK_LED_Toggle();
+        USER_PLC_IND_LED_Toggle();
     }
 
     /* Signaling: PLC RX */
@@ -464,7 +464,7 @@ void APP_PLC_Tasks ( void )
                 app_plcData.state = APP_PLC_STATE_CONFIG_USI;
                 SYS_TIME_TimerStop(app_plcData.tmr1Handle);
                 /* Disable Blink Led */
-                USER_PLC_BLINK_LED_Off();
+                USER_PLC_IND_LED_Toggle();
             }
             break;
         }
