@@ -95,6 +95,8 @@ extern uint8_t plc_phy_bin_end;
 #define VLO_STATE                              0x02U
 
 /* Signal Capture Mode Bit Mask */
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 5.4 deviated 22 times. Deviation record ID - H3_MISRAC_2012_R_5_4_DR_1 */
 #define DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT 0U
 #define DRV_PLC_SIGNAL_CAPTURE_CHANNEL (0xFU << DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT)
 #define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT 4U
@@ -117,6 +119,7 @@ extern uint8_t plc_phy_bin_end;
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_6 0x06U
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_7 0x07U
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_8 0x08U
+    /* MISRA C-2012 deviation block end */
 
 #define SIGNAL_CAPTURE_FRAG_SIZE                  255U
 
@@ -333,7 +336,7 @@ typedef enum {
 } DRV_PLC_PHY_BUFFER_ID;
 
 /* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated once.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2012 Rule 5.2 deviated 5 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* PRIME Result values of a previous transmission
@@ -393,12 +396,16 @@ typedef struct {
 	uint8_t status;
 } DRV_PLC_PHY_SIGNAL_CAPTURE;
 
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 6.1 deviated 3 times. Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
 /* Structure defining information about CSMA algorithm */
 typedef struct {
 	uint8_t disableRx : 1;
 	uint8_t senseCount : 3;
 	uint8_t senseDelayMs : 4;
 } DRV_PLC_PHY_CSMA;
+    /* MISRA C-2012 deviation block end */
+
 
 // *****************************************************************************
 /* PRIME Transmission setup data

@@ -41,9 +41,9 @@ extern "C" {
 #define USER_PLC_IND_LED_Off()        BSP_LED1_Off()
 #define USER_PLC_IND_LED_Toggle()     BSP_LED1_Toggle()
 
-#define USER_RF_BLINK_LED_On()        LED_MIKROBUS2_PWM_On()
-#define USER_RF_BLINK_LED_Off()       LED_MIKROBUS2_PWM_Off()
-#define USER_RF_BLINK_LED_Toggle()    LED_MIKROBUS2_PWM_Toggle()
+#define USER_RF_BLINK_LED_On()        BSP_LED_MIKROBUS2_PWM_On()
+#define USER_RF_BLINK_LED_Off()       BSP_LED_MIKROBUS2_PWM_Off()
+#define USER_RF_BLINK_LED_Toggle()    BSP_LED_MIKROBUS2_PWM_Toggle()
 
 #define USER_PLC_USI_INSTANCE_INDEX   SRV_USI_INDEX_0
 #define USER_RF_USI_INSTANCE_INDEX    SRV_USI_INDEX_0

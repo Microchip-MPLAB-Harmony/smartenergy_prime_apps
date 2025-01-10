@@ -4574,7 +4574,7 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_20_PERIPHERAL_FUNCTION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;GPIO&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;LED_AL&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;GPIO&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4651,7 +4651,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_23_FUNCTION_TYPE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;LED_AL&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4673,7 +4673,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_23_PERIPHERAL_FUNCTION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;LED_AL&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;GPIO&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -5525,7 +5525,7 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_7_PERIPHERAL_FUNCTION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;GPIO&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;LED_AL&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;GPIO&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -26018,7 +26018,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>e87330839f8b432721c39cf6219398dc5572f0799e237fb767302843286a14e7</hash>
+         <hash>868627bfe8d2d131c725f5abe3b7f099a5d32218240923d014d407af8ae9ef46</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -26246,7 +26246,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.h</file>
-         <hash>18ddea80c81cb6257577605fe09e87f94ac46e30fbb053255ad8498d7500f7fe</hash>
+         <hash>f206239031fad83ee1a36e92237e6f7511dfb6e4d86b5990c8343dea953593f1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\rstc\plib_rstc.c</file>
@@ -26302,7 +26302,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\pin_configurations.csv</file>
-         <hash>cae07491118888531565ca5a832a6d37f553488a036552793e59a66bc5e23c4a</hash>
+         <hash>c643e8211cecfbe9efa896d58a1aaef66cf926b8fafb1de6e422bc64e5e5cf9e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pcoup\srv_pcoup.c</file>
@@ -26350,7 +26350,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.h</file>
-         <hash>359880eb5e3d9f3ff227b4bdbffc92f3331df46c0eb789d2df1de7b488a3bb68</hash>
+         <hash>50fbe388350ef30644db606b46c244d423cc4d5c6695fd0058501075ce9e0c84</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_definitions.h</file>

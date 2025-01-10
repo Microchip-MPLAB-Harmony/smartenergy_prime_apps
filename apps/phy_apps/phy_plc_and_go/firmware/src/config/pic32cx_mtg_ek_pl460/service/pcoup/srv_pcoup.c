@@ -272,7 +272,7 @@ bool SRV_PCOUP_SetChannelConfig(DRV_HANDLE handle, DRV_PLC_PHY_CHANNEL channel)
     /* MISRA C-2012 Rule 11.8 deviated 3 times. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
     pibObj.id = PLC_ID_DACC_TABLE_CFG;
-    pibObj.length = 17 << 2;
+    pibObj.length = 17U << 2;
     pibObj.pData = (uint8_t *)pCoupValues->daccTable;
     resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
     result = result && resultOut;

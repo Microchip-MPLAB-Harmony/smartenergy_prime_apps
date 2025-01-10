@@ -216,6 +216,24 @@
 #define LED0_Get()               ((PIOD_REGS->PIO_PDSR >> 16U) & 0x1U)
 #define LED0_PIN                  PIO_PIN_PD16
 
+/*** Macros for LED_MIKROBUS2_PWM pin ***/
+#define LED_MIKROBUS2_PWM_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<18U))
+#define LED_MIKROBUS2_PWM_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<18U))
+#define LED_MIKROBUS2_PWM_Toggle()            do {\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<18U); \
+                                            PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<18U);\
+                                        } while (0)
+#define LED_MIKROBUS2_PWM_OutputEnable()      do {\
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<18U); \
+                                            PIOD_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
+                                        }while(0)
+#define LED_MIKROBUS2_PWM_InputEnable()       do { \
+                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<18U); \
+                                            PIOD_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
+                                        } while (0)
+#define LED_MIKROBUS2_PWM_Get()               ((PIOD_REGS->PIO_PDSR >> 18U) & 0x1U)
+#define LED_MIKROBUS2_PWM_PIN                  PIO_PIN_PD18
+
 /*** Macros for PL460_ENABLE pin ***/
 #define PL460_ENABLE_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<19U))
 #define PL460_ENABLE_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<19U))
