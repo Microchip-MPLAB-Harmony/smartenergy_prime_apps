@@ -2838,6 +2838,12 @@ static DRV_RF215_TX_RESULT lRF215_TX_ParamCfg(DRV_RF215_TX_BUFFER_OBJ* txBufObj)
     DRV_RF215_PHY_CCA_MODE ccaMode = txBufObj->reqObj.ccaMode;
     DRV_RF215_TX_RESULT result = RF215_TX_SUCCESS;
 
+    if ((pObj->txStarted == true) && (txBufObj != pObj->txBufObj))
+    {
+        /* Another TX in progress: Busy TX error */
+        return RF215_TX_BUSY_TX;
+    }
+
     if (RF215_PHY_CheckTxContentionWindow(txBufObj) == true)
     {
         /* Contention window requirements not satisfied: Busy RX error */

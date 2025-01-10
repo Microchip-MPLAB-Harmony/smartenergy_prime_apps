@@ -118,7 +118,7 @@ extern "C" {
 /* RF215 Driver Configuration Options */
 #define DRV_RF215_INDEX_0                     0U
 #define DRV_RF215_CLIENTS_NUMBER              1U
-#define DRV_RF215_TX_BUFFERS_NUMBER           1U
+#define DRV_RF215_TX_BUFFERS_NUMBER           2U
 #define DRV_RF215_EXT_INT_PIN                 SYS_PORT_PIN_PC7
 #define DRV_RF215_RESET_PIN                   SYS_PORT_PIN_PA25
 #define DRV_RF215_LED_TX_PIN                  SYS_PORT_PIN_PA8

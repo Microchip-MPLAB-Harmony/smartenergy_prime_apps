@@ -4718,7 +4718,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_0_0_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4729,7 +4729,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_0_0_HANDLER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;SUPC_InterruptHandler&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;SUPC_Handler&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -4740,7 +4740,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_0_0_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6773,7 +6773,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_IER_VDD3V3SMEV&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6784,7 +6784,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_INTERRUPT_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6795,7 +6795,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_INTERRUPT_ENABLE_UPDATE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6806,7 +6806,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_INTERRUPT_HANDLER&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;SUPC_InterruptHandler&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;SUPC_Handler&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6817,7 +6817,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_INTERRUPT_HANDLER_LOCK&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6840,7 +6840,7 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;SUPC_SMMR_VDD3V3SMTH&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;15&quot;/&gt;
-      &lt;User dnOrder=&quot;1&quot; value=&quot;9&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;4&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -8196,7 +8196,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvRf215" name="DRV_RF215_NUM_TX_BUFFERS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvRf215&gt;
   &lt;drvRf215 dnOrder=&quot;0&quot; id=&quot;DRV_RF215_NUM_TX_BUFFERS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;2&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/drvRf215&gt;
 &lt;/drvRf215&gt;
 </value>
@@ -30588,7 +30590,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\configuration.h</file>
-         <hash>e9eda815e0b553271a5a8c5e767f562cfbf0c9e0fd3dacfbadc7b8480a2677dc</hash>
+         <hash>dd6d35beb3a0df93342b93cfe53bef433d3afe382535fed299cc28a81ba123e1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\common_crypto\crypto_aead_cipher.h</file>
@@ -30668,7 +30670,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\definitions.h</file>
-         <hash>9b3a88a486852e43edc04794c0b2ab88484bd367e620682c9304cac984181170</hash>
+         <hash>76440f564e8167aa90b20055df979c2d832d13d6b09a220e1e3681e8a8c1681c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\device.h</file>
@@ -30788,7 +30790,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\driver\rf215\phy\rf215_phy.c</file>
-         <hash>84b23cf9aa238e7b391989ac74cfa474613a7dc89fe607352de8e1f66d5aa027</hash>
+         <hash>8e160b66069d0850f4273579201f2ff97194e492023aaf3071c0cea30011126d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\driver\rf215\phy\rf215_phy.h</file>
@@ -30800,15 +30802,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\initialization.c</file>
-         <hash>a4f1301783bd71bc66b4d43eb3d406e04b71f8a593dc075da7333ae057de0d68</hash>
+         <hash>baab039eca74b704f5b60da5861b0e996cbbd9ea2ce0edbb9ef652e333578de3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\interrupts.c</file>
-         <hash>2f211ed61c40eb799b85b8f937e88e447e4be73b2f5e195dac08716cec60946c</hash>
+         <hash>ab4ff27f6db46366f4b26b3a329f3cbea6c50c901e3c11a5c617b5607d4a7984</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\interrupts.h</file>
-         <hash>425c959c3c43fc01713c0e48cb4a4d4a715f935f6bb27b69f139f114e23bf2ed</hash>
+         <hash>13a973821bfd5fb802b359de2889a8f08a6ab67fb6522687b044b409210ed2ed</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\libc_syscalls.c</file>
@@ -30904,7 +30906,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\nvic\plib_nvic.c</file>
-         <hash>f4307c6d944822017ff25b36e470ef7a9dc4227e26c0b91f8515712bb5ed964c</hash>
+         <hash>97bcc3b80eae7fc2499bea8b56e8b5b22fc52b3d5e3636c94672885ecfcc483b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\nvic\plib_nvic.h</file>
@@ -30952,11 +30954,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\supc\plib_supc.c</file>
-         <hash>8161df01d2ac3f9e0a6d5beeaa068d2f7becf42d0c56e9ec0d449de209fd4657</hash>
+         <hash>2e2fed4234291eb2522adff21564eea3be45bbc1d79ea6bfea02271c7b692727</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\supc\plib_supc.h</file>
-         <hash>ced7a1375cd295736c81520e205a2968f3e559a5f44946e9aadb4a130b84881c</hash>
+         <hash>69d1e7040ea51b94b62f40bf6432c66a608056de2adf4956bdc432355f019631</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\tc\plib_tc0.c</file>
@@ -31112,7 +31114,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi.h</file>
-         <hash>359880eb5e3d9f3ff227b4bdbffc92f3331df46c0eb789d2df1de7b488a3bb68</hash>
+         <hash>50fbe388350ef30644db606b46c244d423cc4d5c6695fd0058501075ce9e0c84</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi_definitions.h</file>
@@ -31124,11 +31126,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi_usart.c</file>
-         <hash>d09cfba6f1f9a6742c7820b5843ebd6c6c69dd34eae753d1fd374d307b9a9c77</hash>
+         <hash>830dd63543eeefa1efc377dd9f4fe972a83241a7ba24dac0dd14e0514034e7a0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi_usart.h</file>
-         <hash>e0cd398bc5f45624aaff463231c099566d2a73de9a5e6fe3c106a6742bf0109f</hash>
+         <hash>76c9fbddcce26a5bea9262686ce09189f878d4646b629fe3bc7509f632ec66d8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal.c</file>

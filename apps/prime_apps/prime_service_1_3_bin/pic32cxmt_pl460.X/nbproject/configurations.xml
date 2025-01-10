@@ -569,6 +569,10 @@
         <C32Global>
         </C32Global>
       </item>
+      <item path="../src/config/pic32cxmt_pl460/peripheral/sefc/plib_sefc_common.c"
+            ex="true"
+            overriding="false">
+      </item>
       <item path="../src/config/pic32cxmt_pl460/peripheral/supc/plib_supc.c"
             ex="true"
             overriding="false">

@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_bn_13_modem_pic32cxmtg_pl460
-creation_date: 2025-01-09T08:15:44.259+01:00[Europe/Paris]
+creation_date: 2025-01-10T13:56:52.746+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -21,7 +21,7 @@ modules:
 - {name: csp, type: HARMONY, version: master}
 - {name: core, type: HARMONY, version: master}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: dev}
+- {name: smartenergy_prime, type: HARMONY, version: SMS-4113-check-projects-add_BN13}
 - {name: crypto_v4, type: HARMONY, version: master}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
 - {name: smartenergy, type: HARMONY, version: dev}
