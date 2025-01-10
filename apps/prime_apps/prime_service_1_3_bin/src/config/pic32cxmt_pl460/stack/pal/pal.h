@@ -685,7 +685,7 @@ uint8_t PAL_GetChannel(uint16_t *pch, uint16_t channelReference);
   Example:
     <code>
     uint8_t result=PAL_CFG_SUCCESS;
-    uint16_t pch=1; // This mask belongs to PLC channels
+    uint16_t pch=1; This mask belongs to PLC channels
 
     result = PAL_SetChannel(pch);
     </code>
