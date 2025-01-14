@@ -149,9 +149,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
     /* PLC TX Enable Pin */
     .txEnablePin = DRV_PLC_TX_ENABLE_PIN,
 
-    /* PLC External Interrupt Pin */
-    .thMonPin = DRV_PLC_THMON_PIN,
-
 };
 
 /* HAL Interface Initialization for PLC transceiver */
@@ -168,9 +165,6 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
     /* PLC transceiver reset */
     .reset = (DRV_PLC_HAL_RESET)DRV_PLC_HAL_Reset,
-
-    /* PLC Get Thermal Monitor value */
-    .getThermalMonitor = (DRV_PLC_HAL_GET_THMON)DRV_PLC_HAL_GetThermalMonitor,
 
     /* PLC Set TX Enable Pin */
     .setTxEnable = (DRV_PLC_HAL_SET_TXENABLE)DRV_PLC_HAL_SetTxEnable,
@@ -441,7 +435,7 @@ void SYS_Initialize ( void* data )
 
 	TRNG_Initialize();
 
-	BSP_Initialize();
+    BSP_Initialize();
 
     /* MISRAC 2012 deviation block start */
     /* Following MISRA-C rules deviated in this block  */

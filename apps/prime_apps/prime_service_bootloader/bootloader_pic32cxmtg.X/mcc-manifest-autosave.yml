@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_sn_bootloader_pic32cxmtg
-creation_date: 2025-01-10T12:11:53.001+01:00[Europe/Paris]
+creation_date: 2025-01-13T16:31:19.108+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -21,4 +21,3 @@ modules:
 - {name: csp, type: HARMONY, version: master}
 - {name: core, type: HARMONY, version: master}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: bsp, type: HARMONY, version: master}

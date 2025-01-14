@@ -149,7 +149,6 @@ void SYS_Initialize ( void* data )
 
 
 
-	BSP_Initialize();
 
     APP_BOOTLOADER_Initialize();
 

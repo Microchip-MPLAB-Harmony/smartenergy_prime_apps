@@ -61,20 +61,8 @@ static const uint32_t PIO_INDEX[PIO_PORT_MAX] = { 0U, 1U, 2U, 0U };
 */
 void PIO_Initialize ( void )
 {
- /* Port A Pin 7 configuration */
-   PIOA_REGS->PIO_MSKR = 0x80U;
-   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x200U;
 
 
-
-
- /* Port D Pin 3 configuration */
-   PIOD_REGS->PIO_MSKR = 0x8U;
-   PIOD_REGS->PIO_CFGR = (PIOD_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
-
- /* Port D Pin 16 configuration */
-   PIOD_REGS->PIO_MSKR = 0x10000U;
-   PIOD_REGS->PIO_CFGR = (PIOD_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
 
 
 

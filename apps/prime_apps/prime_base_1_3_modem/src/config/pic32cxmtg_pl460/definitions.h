@@ -58,13 +58,14 @@
 #include "service/usi/srv_usi_usart.h"
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "service/log_report/srv_log_report.h"
+#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
 #include "driver/memory/drv_memory_sefc0.h"
 #include "service/reset_handler/srv_reset_handler.h"
 #include "peripheral/trng/plib_trng.h"
+#include "bsp/bsp.h"
 #include "service/psniffer/srv_psniffer.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
@@ -79,7 +80,6 @@
 #include "peripheral/cmcc/plib_cmcc.h"
 #include "peripheral/pio/plib_pio.h"
 #include "peripheral/supc/plib_supc.h"
-#include "bsp/bsp.h"
 #include "service/pcrc/srv_pcrc.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "peripheral/sefc/plib_sefc1.h"
@@ -238,9 +238,9 @@ Remarks:
 
 typedef struct
 {
+    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
-    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvMemory0;
     SYS_MODULE_OBJ  sysConsole0;
 

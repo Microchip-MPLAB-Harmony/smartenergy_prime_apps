@@ -68,7 +68,7 @@ static const uint32_t PIO_INDEX[PIO_PORT_MAX] = { 0U, 1U, 2U, 0U };
 void PIO_Initialize ( void )
 {
  /* Port A Peripheral function A configuration */
-   PIOA_REGS->PIO_MSKR = 0xf0030U;
+   PIOA_REGS->PIO_MSKR = 0x30U;
    PIOA_REGS->PIO_CFGR = 0x1U;
 
  /* Port A Peripheral function B configuration */
@@ -89,11 +89,7 @@ void PIO_Initialize ( void )
 
  /* Port A Pin 2 configuration */
    PIOA_REGS->PIO_MSKR = 0x4U;
-   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x3000400U;
-
- /* Port A Pin 7 configuration */
-   PIOA_REGS->PIO_MSKR = 0x80U;
-   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x200U;
+   PIOA_REGS->PIO_CFGR = (PIOA_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x400U;
 
  /* Port A Latch configuration */
    PIOA_REGS->PIO_CODR = 0x87U;
@@ -137,8 +133,8 @@ void PIO_Initialize ( void )
    PIOD_REGS->PIO_CFGR = (PIOD_REGS->PIO_CFGR & (PIO_CFGR_FUNC_Msk)) | 0x100U;
 
  /* Port D Latch configuration */
-   PIOD_REGS->PIO_SODR = 0x10008U;
-   PIOD_REGS->PIO_CODR = 0x98008U & ~0x10008U;
+   PIOD_REGS->PIO_SODR = 0x90008U;
+   PIOD_REGS->PIO_CODR = 0x98008U & ~0x90008U;
 
 
 
