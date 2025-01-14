@@ -9,10 +9,10 @@ package:
   dependencies:
     - name: "smartenergy_prime"
       type: "package"
-      version: "SMS-4010-fix-misra-2"
+      version: "dev"
     - name: "smartenergy"
       type: "package"
-      version: "SMS-4010-fix-misra-2"
+      version: "dev"
     - name: "core"
       type: "package"
       version: "v3.14.0"
