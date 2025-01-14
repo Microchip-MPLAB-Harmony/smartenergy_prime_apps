@@ -3656,7 +3656,7 @@
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;14&quot; y=&quot;34&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvPlcPhy&quot; x=&quot;158&quot; y=&quot;367&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvPlcPhy&quot; x=&quot;161&quot; y=&quot;368&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drv_memory&quot; x=&quot;532&quot; y=&quot;495&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;8&quot; id=&quot;flexcom0&quot; x=&quot;10&quot; y=&quot;251&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;9&quot; id=&quot;flexcom5&quot; x=&quot;11&quot; y=&quot;435&quot;/&gt;
@@ -7825,7 +7825,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_THERMAL_MONITOR"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_THERMAL_MONITOR&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
 </value>
@@ -28084,7 +28086,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\configuration.h</file>
-         <hash>6561e8f4aa5eb0d877af01b6633dd8c97beee91be070ad69d54686bca2c9fb87</hash>
+         <hash>4256f1392ae5debcdef20a375e892dcb27228b47562f7b1af60580ac4fc50856</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\crypto\common_crypto\crypto_aead_cipher.h</file>
@@ -28220,11 +28222,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\driver\plc\common\drv_plc_hal.c</file>
-         <hash>2d1dfd7f1fe2340669a3003b88a44dbc701918e4fcecd0a86a3fc57823f1cba8</hash>
+         <hash>42a6425c512e20ff8512b92b2aec198dcb9885eb542181030295da56bcf9b8ae</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\driver\plc\common\drv_plc_hal.h</file>
-         <hash>49c4516dcdad7b1109759070e2faf69e2cdd15d645cf956777e3a6a495eb0e61</hash>
+         <hash>5fe47c06a611b7adb7a8c612d865bb64702aaa4fd41588bcd406f6a3d0109eb6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\driver\plc\phy\bin\PLC_PHY_PRIME_2CHN.bin</file>
@@ -28244,11 +28246,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>99779cf2a029da5f8a08e5ab302a828770d58993f88388bbcb24fc579e9342b1</hash>
+         <hash>a44a30b2dd837164dc4ac2b54a031c5eb23841f28ba70b6f86ada23ce46b3e52</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>e14b819d166e955a4459b67cc23f8c839c881a128ed87f85422088cc01211e07</hash>
+         <hash>d72af88d1cd4d9eea74a1eb76d6a09d2e5ad9e890eb35bcaa3752d26b62e3b4d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\driver\plc\phy\drv_plc_phy_definitions.h</file>
@@ -28268,7 +28270,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\initialization.c</file>
-         <hash>8ddabe87f067b50673571914483f9d4e54c17676962a48c5e2acbfbbe92ade55</hash>
+         <hash>536b601d5565cde258498cdbf0768a1dc0343a523d786b0836438e8cf0de68e4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\interrupts.c</file>
@@ -28448,7 +28450,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\service\firmware_upgrade\srv_firmware_upgrade.h</file>
-         <hash>85111d44f40d002463c705a0a9587381fade123224aabf506700c14649e0cc67</hash>
+         <hash>cd36f4a5b0c3aa39dab34166711664c1b141a27ab2a57dd1c9978fdbfddb0052</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\service\firmware_upgrade\srv_firmware_upgrade_local.h</file>

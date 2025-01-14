@@ -128,6 +128,18 @@ void DRV_PLC_HAL_Reset(void)
     DRV_PLC_HAL_Delay(1500);
 }
 
+bool DRV_PLC_HAL_GetThermalMonitor(void)
+{
+    if (SYS_PORT_PinRead(sPlcPlib->thMonPin))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 void DRV_PLC_HAL_SetTxEnable(bool enable)
 {
     if (enable)
