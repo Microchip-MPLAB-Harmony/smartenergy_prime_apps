@@ -8,11 +8,11 @@
     aes_wrapper.c
 
   Summary:
-    Interface implementation of the AES wrapper between Smart Energy stacks and 
+    Interface implementation of the AES wrapper between Smart Energy stacks and
     AES.
 
   Description:
-    This file implements the interface for the AES wrapper between Smart Energy 
+    This file implements the interface for the AES wrapper between Smart Energy
     stacks and AES.
 *******************************************************************************/
 
@@ -75,14 +75,14 @@ void AES_Wrapper_EncryptEcb(uint8_t *in, uint8_t *out)
     (void) Crypto_Sym_Aes_Cipher(&aesWrapperContext, in, 16, out);
 }
 
-void AES_Wrapper_WrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in, 
+void AES_Wrapper_WrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in,
     uint32_t inLen, uint8_t *out)
 {
     (void) Crypto_Sym_AesKeyWrapDirect(CRYPTO_HANDLER_SW_WOLFCRYPT, in, inLen,
         out, key, keyLen, NULL, 1);
 }
 
-bool AES_Wrapper_UnwrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in, 
+bool AES_Wrapper_UnwrapKey(uint8_t *key, uint32_t keyLen, uint8_t *in,
     uint32_t inLen, uint8_t *out)
 {
     crypto_Sym_Status_E unwrapResult;

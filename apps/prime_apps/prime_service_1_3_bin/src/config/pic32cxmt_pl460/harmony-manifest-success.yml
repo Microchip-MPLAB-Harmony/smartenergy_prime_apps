@@ -4,21 +4,21 @@
 
 
 project: prime_service_1_3_bin
-creation_date: 2024-12-19T08:53:36.439+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-01-15T10:02:22.624+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
-mcc_mode: IDE            # [IDE|Standalone|Headless]
+mcc_mode: Headless            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1
 mcc_core_version: v5.7.1
-mplabx_version: v6.20        # if MPLAB X plugin only
+mplabx_version: NA        # if MPLAB X plugin only
 harmony_version: v1.5.4
-compiler: XC32 4.45
+compiler: NA
 
 modules:
-    - {name: "csp", version: "master"}
-    - {name: "core", version: "master"}
-    - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_prime", version: "SMS-4010-fix-required-misra-c-violations-in-prime-repo"}
-    - {name: "smartenergy", version: "dev"}
+    - {name: "csp", version: "Branch_v3.20.0"}
+    - {name: "core", version: "Branch_v3.14.0"}
+    - {name: "CMSIS_5", version: "master"}
+    - {name: "smartenergy_prime", version: "SMS-4010-fix-misra-2"}
+    - {name: "smartenergy", version: "SMS-4010-fix-misra-2"}
 
 packs:
     - {name: "PIC32CX-MT_DFP", version: "1.3.132"}

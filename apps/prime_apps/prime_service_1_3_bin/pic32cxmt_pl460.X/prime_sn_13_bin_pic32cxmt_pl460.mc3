@@ -4935,7 +4935,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\firmware_upgrade\srv_firmware_upgrade.h</file>
-         <hash>85111d44f40d002463c705a0a9587381fade123224aabf506700c14649e0cc67</hash>
+         <hash>cd36f4a5b0c3aa39dab34166711664c1b141a27ab2a57dd1c9978fdbfddb0052</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\firmware_upgrade\srv_firmware_upgrade_local.h</file>
@@ -5027,7 +5027,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\usi\srv_usi.h</file>
-         <hash>359880eb5e3d9f3ff227b4bdbffc92f3331df46c0eb789d2df1de7b488a3bb68</hash>
+         <hash>50fbe388350ef30644db606b46c244d423cc4d5c6695fd0058501075ce9e0c84</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\usi\srv_usi_definitions.h</file>
@@ -5103,7 +5103,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\prime_api\prime_hal_wrapper.h</file>
-         <hash>b3cf45ec92326e667ef826066752f1cf6029443ff239db7cf7e06a4ef3902cb7</hash>
+         <hash>ae1eaff6ee90e695e281a946f3cd84ac1ff7df25592d37304ce191ddd470ed1b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\startup_xc32.c</file>

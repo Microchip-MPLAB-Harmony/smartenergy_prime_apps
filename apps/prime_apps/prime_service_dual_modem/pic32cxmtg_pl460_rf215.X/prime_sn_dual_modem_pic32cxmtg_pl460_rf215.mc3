@@ -30748,7 +30748,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\definitions.h</file>
-         <hash>c22317b981b304719fcaa8f241951f2026eb4ffd4055f096f613a0a2cc76cc74</hash>
+         <hash>d9a3abc5ef89b68de50c897b97de72595cf80d976b48ff0c0bcd988e0031d83e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\device.h</file>
@@ -30880,7 +30880,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\initialization.c</file>
-         <hash>ea3ebc5ee3cd591d462387db408c85db9d7ad71e34de71a0416c9ae94f03df99</hash>
+         <hash>aba54e8448ce4e4fbc1ea73149aebe06ce285c9105a10851a6b6188ade117d25</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\interrupts.c</file>
@@ -31204,7 +31204,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi_usart.c</file>
-         <hash>830dd63543eeefa1efc377dd9f4fe972a83241a7ba24dac0dd14e0514034e7a0</hash>
+         <hash>638670a3d13b444b4cb77005cf93a44506b2aeec4f96c189796cbc1d90142087</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\usi\srv_usi_usart.h</file>
@@ -31224,7 +31224,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal_plc.c</file>
-         <hash>14b37ef0dd9d92ef46029603943babab71bc8d568c7483ab8b067e657f442c70</hash>
+         <hash>62b67b3e3dd4a135097b13cdf9304f121eeb6ee609662938022542d34c6bf6dd</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal_plc.h</file>

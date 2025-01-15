@@ -2672,7 +2672,7 @@ uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val,
     Only available for PHY PLC.
     Related to PRIME PAL.
 */
-uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, PAL_FRAME,
+uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, PAL_FRAME frameType,
                               uint32_t timeStart, uint32_t duration);
 // ****************************************************************************
 /* Function:
