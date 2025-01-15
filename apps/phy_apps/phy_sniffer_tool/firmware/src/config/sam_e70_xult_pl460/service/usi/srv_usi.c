@@ -16,28 +16,28 @@
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2023 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023-2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -279,7 +279,24 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
         cbIndex = lSRV_USI_GetCallbackIndexFromProtocol(protocol);
         if (dObj->callback[cbIndex] != NULL)
         {
-            dObj->callback[cbIndex](pData + 2, dataLength);
+            switch(protocol)
+            {
+                case SRV_USI_PROT_ID_MNGP_PRIME_GETQRY:
+                case SRV_USI_PROT_ID_MNGP_PRIME_GETRSP:
+                case SRV_USI_PROT_ID_MNGP_PRIME_SET:
+                case SRV_USI_PROT_ID_MNGP_PRIME_RESET:
+                case SRV_USI_PROT_ID_MNGP_PRIME_REBOOT:
+                case SRV_USI_PROT_ID_MNGP_PRIME_FU:
+                case SRV_USI_PROT_ID_MNGP_PRIME_GETQRY_EN:
+                case SRV_USI_PROT_ID_MNGP_PRIME_GETRSP_EN:
+                    /* MNGL spec. including header (2 bytes) */
+                    dObj->callback[cbIndex](pData, dataLength + 2U);
+                    break;
+                     
+                default:
+                    dObj->callback[cbIndex](pData + 2U, dataLength);
+                    break;
+            }
         }
     }
 }
@@ -572,7 +589,7 @@ void SRV_USI_Tasks( SYS_MODULE_OBJ object )
     
 }
 
-void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
+size_t SRV_USI_Send_Message( SRV_USI_HANDLE handle,
         SRV_USI_PROTOCOL_ID protocol, uint8_t *data, size_t length )
 {
     SRV_USI_OBJ* dObj = (SRV_USI_OBJ*)handle;
@@ -581,21 +598,20 @@ void SRV_USI_Send_Message( SRV_USI_HANDLE handle,
     /* Validate the driver handle */
     if (lSRV_USI_HandleValidate(handle) == SRV_USI_HANDLE_INVALID)
     {
-        return;
+        return 0;
     }
     
     /* Check length */
     if ((length == 0U) || (length > dObj->wrBufferSize))
     {
-        return;
+        return 0;
     }
-
-    /* Waiting for USART/CDC is free */
-    while (dObj->devDesc->writeIsBusy(dObj->devIndex) == true){}
 
     /* Build USI message */
     writeLength = lSRV_USI_BuildMessage(dObj->pWrBuffer, dObj->wrBufferSize, protocol, data, (uint16_t)length);
     
     /* Send message */
     dObj->devDesc->writeData(dObj->devIndex, dObj->pWrBuffer, writeLength);
+    
+    return writeLength;
 }

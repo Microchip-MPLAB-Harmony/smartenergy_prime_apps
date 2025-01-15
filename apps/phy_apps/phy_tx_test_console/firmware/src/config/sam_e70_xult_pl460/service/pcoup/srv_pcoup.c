@@ -12,33 +12,33 @@
 
   Description:
     This file contains the source code for the implementation of the
-    PLC PHY Cpupling service. It helps to configure the PLC PHY Coupling 
+    PLC PHY Cpupling service. It helps to configure the PLC PHY Coupling
     parameters through PLC Driver PIB interface.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
-/*******************************************************************************
-* Copyright (C) 2022 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
 //DOM-IGNORE-END
 
 // *****************************************************************************
@@ -57,12 +57,12 @@
     Holds the Tx equalization coefficients tables.
 
   Description:
-    Pre-distorsion applies specific gain factor for each carrier, compensating 
-    the frequency response of the external analog filter, and equalizing the 
+    Pre-distorsion applies specific gain factor for each carrier, compensating
+    the frequency response of the external analog filter, and equalizing the
     the transmitted signal.
 
   Remarks:
-    Values are defined in srv_pcoup.h file. Different values for HIGH and VLOW 
+    Values are defined in srv_pcoup.h file. Different values for HIGH and VLOW
     modes
  */
 
@@ -83,7 +83,7 @@ static const uint32_t srvPlcCoupDaccTableFcc[17] = SRV_PCOUP_DACC_FCC_TBL;
     PLC PHY Coupling data.
 
   Description:
-    This structure contains all the data required to set the PLC PHY Coupling 
+    This structure contains all the data required to set the PLC PHY Coupling
     parameters, for each PRIME channel.
 
   Remarks:
@@ -97,7 +97,7 @@ static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn1Data = {
   srvPlcCoupPredistCoefChn1High, srvPlcCoupPredistCoefChn1Low,
   SRV_PCOUP_CHN1_GAIN_HIGH_TBL, SRV_PCOUP_CHN1_GAIN_VLOW_TBL,
   SRV_PCOUP_CHN1_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN1_LINE_DRV_CONF
-  
+
 };
 
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn3Data = {
@@ -154,7 +154,7 @@ static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn8Data = {
   SRV_PCOUP_CHN8_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN8_LINE_DRV_CONF
 };
 
-static const SRV_PLC_PCOUP_CHANNEL_DATA * srvPlcCoupChnData[16] = {
+static const SRV_PLC_PCOUP_CHANNEL_DATA * const srvPlcCoupChnData[16] = {
     NULL,
     &srvPlcCoupChn1Data,
     NULL,
@@ -175,92 +175,123 @@ static const SRV_PLC_PCOUP_CHANNEL_DATA * srvPlcCoupChnData[16] = {
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: File scope functions
+// Section: PLC PHY Coupling Service Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
 
-DRV_PLC_PHY_CHANNEL SRV_PCOUP_Get_Default_Channel( void )
+DRV_PLC_PHY_CHANNEL SRV_PCOUP_GetDefaultChannel( void )
 {
-  return SRV_PCOUP_DEFAULT_CHANNEL;
+    return SRV_PCOUP_DEFAULT_CHANNEL;
 }
 
-SRV_PLC_PCOUP_CHANNEL_DATA * SRV_PCOUP_Get_Channel_Config(DRV_PLC_PHY_CHANNEL channel)
+SRV_PLC_PCOUP_CHANNEL_DATA * SRV_PCOUP_GetChannelConfig(DRV_PLC_PHY_CHANNEL channel)
 {
     if ((channel >= CHN1) && (channel <= CHN7_CHN8))
     {
+        /* MISRA C-2012 deviation block start */
+        /* MISRA C-2012 Rule 11.8 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+
         return (SRV_PLC_PCOUP_CHANNEL_DATA *)srvPlcCoupChnData[channel];
+
+        /* MISRA C-2012 deviation block end */
     }
-    else
-    {
-        return NULL;
-    }
+
+    /* Channel not recognized */
+    return NULL;
 }
 
-bool SRV_PCOUP_Set_Channel_Config(DRV_HANDLE handle, DRV_PLC_PHY_CHANNEL channel)
+bool SRV_PCOUP_SetChannelConfig(DRV_HANDLE handle, DRV_PLC_PHY_CHANNEL channel)
 {
-  SRV_PLC_PCOUP_CHANNEL_DATA *pCoupValues;
-  DRV_PLC_PHY_PIB_OBJ pibObj;
-  bool result;  
+    SRV_PLC_PCOUP_CHANNEL_DATA *pCoupValues;
+    DRV_PLC_PHY_PIB_OBJ pibObj;
+    bool result, resultOut;
 
-  /* Get PLC PHY Coupling parameters for the desired transmission channel */
-  pCoupValues = SRV_PCOUP_Get_Channel_Config(channel);
+    /* Get PLC PHY Coupling parameters for the desired transmission channel */
+    pCoupValues = SRV_PCOUP_GetChannelConfig(channel);
 
-  if (pCoupValues == NULL)
-  {
-    /* Transmission channel not recognized */
-    return false;
-  }
+    if (pCoupValues == NULL)
+    {
+        /* Transmission channel not recognized */
+        return false;
+    }
 
-  /* Set PLC PHY Coupling parameters */
-  pibObj.id = PLC_ID_IC_DRIVER_CFG;
-  pibObj.length = 1;
-  pibObj.pData = &pCoupValues->lineDrvConf;
-  result = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    /* Set PLC PHY Coupling parameters */
+    pibObj.id = PLC_ID_IC_DRIVER_CFG;
+    pibObj.length = 1;
+    pibObj.pData = &pCoupValues->lineDrvConf;
+    result = DRV_PLC_PHY_PIBSet(handle, &pibObj);
 
-  pibObj.id = PLC_ID_NUM_TX_LEVELS;
-  pibObj.pData = &pCoupValues->numTxLevels;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_NUM_TX_LEVELS;
+    pibObj.pData = &pCoupValues->numTxLevels;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_DACC_TABLE_CFG;
-  pibObj.length = 17 << 2;
-  pibObj.pData = (uint8_t *)pCoupValues->daccTable;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);  
+    pibObj.id = PLC_ID_MAX_RMS_TABLE_HI;
+    pibObj.length = (uint16_t)sizeof(pCoupValues->rmsHigh);
+    pibObj.pData = (uint8_t *)pCoupValues->rmsHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_MAX_RMS_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->rmsHigh);
-  pibObj.pData = (uint8_t *)pCoupValues->rmsHigh;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_MAX_RMS_TABLE_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->rmsVLow;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_MAX_RMS_TABLE_VLO;
-  pibObj.pData = (uint8_t *)pCoupValues->rmsVLow;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_THRESHOLDS_TABLE_HI;
+    pibObj.length = (uint16_t)sizeof(pCoupValues->thrsHigh);
+    pibObj.pData = (uint8_t *)pCoupValues->thrsHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_THRESHOLDS_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->thrsHigh);
-  pibObj.pData = (uint8_t *)pCoupValues->thrsHigh;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_THRESHOLDS_TABLE_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->thrsVLow;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_THRESHOLDS_TABLE_VLO;
-  pibObj.pData = (uint8_t *)pCoupValues->thrsVLow;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_GAIN_TABLE_HI;
+    pibObj.length = (uint16_t)sizeof(pCoupValues->gainHigh);
+    pibObj.pData = (uint8_t *)pCoupValues->gainHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_GAIN_TABLE_HI;
-  pibObj.length = sizeof(pCoupValues->gainHigh);
-  pibObj.pData = (uint8_t *)pCoupValues->gainHigh;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_GAIN_TABLE_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->gainVLow;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_GAIN_TABLE_VLO;
-  pibObj.pData = (uint8_t *)pCoupValues->gainVLow;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    /* MISRA C-2012 deviation block start */
+    /* MISRA C-2012 Rule 11.8 deviated 3 times. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
-  pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI;
-  pibObj.length = SRV_PCOUP_EQU_NUM_COEF_CHN << 1;
-  pibObj.pData = (uint8_t *)pCoupValues->equHigh;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_DACC_TABLE_CFG;
+    pibObj.length = 17U << 2;
+    pibObj.pData = (uint8_t *)pCoupValues->daccTable;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  pibObj.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
-  pibObj.pData = (uint8_t *)pCoupValues->equVlow;
-  result &= DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    pibObj.id = PLC_ID_PREDIST_COEF_TABLE_HI;
+    pibObj.length = SRV_PCOUP_EQU_NUM_COEF_CHN << 1;
+    pibObj.pData = (uint8_t *)pCoupValues->equHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
 
-  return result;
+    pibObj.id = PLC_ID_PREDIST_COEF_TABLE_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->equVlow;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
+
+    /* MISRA C-2012 deviation block end */
+
+    return result;
+}
+
+uint16_t SRV_PCOUP_GetChannelList(void)
+{
+  return (uint16_t)SRV_PCOUP_CHANNEL_LIST;
+}
+
+DRV_PLC_PHY_CHANNEL SRV_PCOUP_GetChannelImpedanceDetection(void)
+{
+  DRV_PLC_PHY_CHANNEL channel = (DRV_PLC_PHY_CHANNEL)SRV_PCOUP_CHANNEL_IMP_DET;
+
+  return channel;
 }

@@ -26018,7 +26018,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>868627bfe8d2d131c725f5abe3b7f099a5d32218240923d014d407af8ae9ef46</hash>
+         <hash>325aaec35e4359b0769afd7e119f60687ebc23fe8032f826d4ff48dc86bb315c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
@@ -26322,7 +26322,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pserial\srv_pserial.c</file>
-         <hash>0e38fc2783ecaa2d1d11fb9b77714ff90452211eb12e953536aba1b6970aee00</hash>
+         <hash>a071b4cb4abeb6e739cea3bbfac9cf4e8207ef364741d20cea3dc035f23841b7</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pserial\srv_pserial.h</file>
@@ -26362,11 +26362,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_usart.c</file>
-         <hash>d09cfba6f1f9a6742c7820b5843ebd6c6c69dd34eae753d1fd374d307b9a9c77</hash>
+         <hash>638670a3d13b444b4cb77005cf93a44506b2aeec4f96c189796cbc1d90142087</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_usart.h</file>
-         <hash>e0cd398bc5f45624aaff463231c099566d2a73de9a5e6fe3c106a6742bf0109f</hash>
+         <hash>76c9fbddcce26a5bea9262686ce09189f878d4646b629fe3bc7509f632ec66d8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\startup_xc32.c</file>
