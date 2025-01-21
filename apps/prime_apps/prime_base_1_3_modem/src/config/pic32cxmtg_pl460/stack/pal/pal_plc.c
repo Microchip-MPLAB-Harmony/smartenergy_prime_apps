@@ -582,28 +582,35 @@ static void lPAL_PLC_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exception, uintptr_t 
     /* Avoid warning */
     (void)context;
 
-    if (exception == DRV_PLC_PHY_EXCEPTION_UNEXPECTED_KEY)
-    {
-        palPlcData.statsErrorUnexpectedKey++;
-    }
-
-    if (exception == DRV_PLC_PHY_EXCEPTION_RESET)
-    {
-        palPlcData.statsErrorReset++;
-        palPlcData.exceptionPending = true;
-    }
-
-    if (exception == DRV_PLC_PHY_EXCEPTION_DEBUG)
-    {
-        palPlcData.statsErrorDebug++;
-    }
+    /* Set Error Status */
+    palPlcData.status = PAL_PLC_STATUS_ERROR;
 
     if (exception == DRV_PLC_PHY_EXCEPTION_CRITICAL_ERROR)
     {
         palPlcData.statsErrorCritical++;
+        palPlcData.exceptionPending = false;
     }
+    else
+    {
+        /* Set exception pending flag to manage reset from tasks */
+        palPlcData.exceptionPending = true;
 
-    palPlcData.status = PAL_PLC_STATUS_ERROR;
+        /* Update stats counter */
+        if (exception == DRV_PLC_PHY_EXCEPTION_UNEXPECTED_KEY)
+        {
+            palPlcData.statsErrorUnexpectedKey++;
+        }
+
+        if (exception == DRV_PLC_PHY_EXCEPTION_RESET)
+        {
+            palPlcData.statsErrorReset++;
+        }
+
+        if (exception == DRV_PLC_PHY_EXCEPTION_DEBUG)
+        {
+            palPlcData.statsErrorDebug++;
+        }
+    }
 
     /* Store error info */
     palPlcData.errorInfo |= (1U << (uint8_t)exception);
@@ -720,6 +727,13 @@ void PAL_PLC_Tasks(void)
                 palPlcData.detectImpedanceResult = DRV_PLC_PHY_TX_RESULT_NO_TX;
                 palPlcData.status = PAL_PLC_STATUS_DETECT_IMPEDANCE;
             }
+            else
+            {
+                if (palPlcData.drvPhyStatus == SYS_STATUS_ERROR)
+                {
+                    palPlcData.status = PAL_PLC_STATUS_ERROR;
+                }
+            }
             break;
         }
 
@@ -788,19 +802,31 @@ void PAL_PLC_Tasks(void)
             /* Restore parameters in case of PL360/PL460 reset */
             if (palPlcData.exceptionPending == true)
             {
-                /* Restart exception flag */
-                palPlcData.exceptionPending = false;
+                /* Check PLC Driver status until it is READY */
+                palPlcData.drvPhyStatus = DRV_PLC_PHY_Status(DRV_PLC_PHY_INDEX);
+                if (palPlcData.drvPhyStatus == SYS_STATUS_READY)
+                {
+                    /* Restart exception flag */
+                    palPlcData.exceptionPending = false;
 
-                /* Set Channel for impedance detection */
-                palPlcData.channel = SRV_PCOUP_GetChannelImpedanceDetection();
-                lPAL_PLC_SetTxRxChannel(palPlcData.channel);
-                palPlcData.detectImpedanceResult = DRV_PLC_PHY_TX_RESULT_NO_TX;
-                palPlcData.status = PAL_PLC_STATUS_DETECT_IMPEDANCE;
+                    /* Set Channel for impedance detection */
+                    palPlcData.channel = SRV_PCOUP_GetChannelImpedanceDetection();
+                    lPAL_PLC_SetTxRxChannel(palPlcData.channel);
+                    palPlcData.detectImpedanceResult = DRV_PLC_PHY_TX_RESULT_NO_TX;
+                    palPlcData.status = PAL_PLC_STATUS_DETECT_IMPEDANCE;
 
-                // lSetCorrelationThresholds();
+                    // lSetCorrelationThresholds();
 
-                palPlcData.hiTimerRef = 0;
-                palPlcData.previousTimerRef = 0;
+                    palPlcData.hiTimerRef = 0;
+                    palPlcData.previousTimerRef = 0;
+                }
+                else
+                {
+                    if (palPlcData.drvPhyStatus == SYS_STATUS_ERROR)
+                    {
+                        palPlcData.exceptionPending = false;
+                    }
+                }
             }
             break;
         }

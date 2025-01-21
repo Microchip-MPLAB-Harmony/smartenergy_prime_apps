@@ -58,7 +58,7 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 #define PRIME_PAL_USI_INSTANCE        SRV_USI_INDEX_0
-#define PAL_SNIFFER_DATA_MAX_SIZE      512
+#define PAL_SNIFFER_DATA_MAX_SIZE     (512 + 32) /* Sniffer header is 32 bytes */
 /* PHY Abstraction Layer PAL USI Sniffer Callback
 
   Summary:
