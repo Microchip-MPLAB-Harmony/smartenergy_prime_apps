@@ -5266,6 +5266,7 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;Falling Edge&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;Low Level&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6157,7 +6158,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_A_CFGR_Value2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x400&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x3000400&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -30748,7 +30749,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\definitions.h</file>
-         <hash>9b82d2adc6f635bda1b11fb45cb94d9ac486d4525353afd752d1aa6f9ecac188</hash>
+         <hash>d9a3abc5ef89b68de50c897b97de72595cf80d976b48ff0c0bcd988e0031d83e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\device.h</file>
@@ -30880,7 +30881,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\initialization.c</file>
-         <hash>ea3ebc5ee3cd591d462387db408c85db9d7ad71e34de71a0416c9ae94f03df99</hash>
+         <hash>aba54e8448ce4e4fbc1ea73149aebe06ce285c9105a10851a6b6188ade117d25</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\interrupts.c</file>
@@ -30992,7 +30993,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\pio\plib_pio.c</file>
-         <hash>f736349b97699a55622d5b038c33d42beed0b5f65373928f6b5809095b8e41c2</hash>
+         <hash>a4860020c2d30490014007bd78ddd3382c8861a8f4ab806647bb92939ba251aa</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\peripheral\pio\plib_pio.h</file>
@@ -31060,7 +31061,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\pin_configurations.csv</file>
-         <hash>199a6c10f2e9a7418ae300ef59514c85852ac52c6baed08d43d2dbfcd0031546</hash>
+         <hash>4bae2581d1fbb7a91a825332a210ca77af902c2c1121f823c414f92bba00b59d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.c</file>

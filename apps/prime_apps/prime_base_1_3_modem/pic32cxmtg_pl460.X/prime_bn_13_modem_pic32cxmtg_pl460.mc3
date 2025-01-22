@@ -5102,6 +5102,7 @@
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;Falling Edge&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;Low Level&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -6092,7 +6093,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_A_CFGR_Value2&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x400&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x3000400&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -28166,7 +28167,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\definitions.h</file>
-         <hash>600f5c96df1789abba0ca07303447ab5f58b615ed8e66f815ea79f3d4b3516d7</hash>
+         <hash>7c54959db6bee2a42fa96a9f1a58078fc874736013396a41bbc5dfcc846df6a3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\device.h</file>
@@ -28374,7 +28375,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\peripheral\pio\plib_pio.c</file>
-         <hash>8518a8db43d514e0e6678943f9ec8a5a2529f8e937dac23e4eddd6506e6a1162</hash>
+         <hash>c070e966ed2eec2e5bca157045a39434e31803913ecca122814695c2c3a4f320</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\peripheral\pio\plib_pio.h</file>
@@ -28442,7 +28443,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\pin_configurations.csv</file>
-         <hash>0a3e9ce1c1bdeee5ae1333b339bb3ba0b0498f1916016d9448d296ef62dcbaef</hash>
+         <hash>fce722622a24a44297b86d00ae7a5a3aa4815e88cb816c131f8b7f5ef878472d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460\service\firmware_upgrade\srv_firmware_upgrade.c</file>
