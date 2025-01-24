@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_sn_dual_modem_pic32cxmtg_pl460_rf215
-creation_date: 2025-01-22T12:32:36.236+01:00[Europe/Paris]
+creation_date: 2025-01-24T11:38:21.515+01:00[Europe/Paris]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -18,11 +18,11 @@ device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name:
     V3, version: 1.5.4}
 packs: {name: PIC32CX-MT_DFP, version: 1.3.132}
 modules:
-- {name: csp, type: HARMONY, version: master}
-- {name: core, type: HARMONY, version: master}
+- {name: csp, type: HARMONY, version: v3.20.0}
+- {name: core, type: HARMONY, version: v3.14.1}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: SMS-4118-modify-readme-and-release-notes}
-- {name: crypto_v4, type: HARMONY, version: master}
+- {name: smartenergy_prime, type: HARMONY, version: v1.0.0-E1}
+- {name: crypto_v4, type: HARMONY, version: v4.0.0-E3}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
-- {name: smartenergy, type: HARMONY, version: dev}
-- {name: shd, type: HARMONY, version: dev}
+- {name: smartenergy, type: HARMONY, version: v1.3.1}
+- {name: shd, type: HARMONY, version: v1.0.0-E1}

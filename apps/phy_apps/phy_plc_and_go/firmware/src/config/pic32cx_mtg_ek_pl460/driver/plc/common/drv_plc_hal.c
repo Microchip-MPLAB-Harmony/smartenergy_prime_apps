@@ -303,9 +303,9 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
 
     (void) sPlcPlib->spiWriteRead(sTxSpiData, cmdSize >> 1, sRxSpiData, cmdSize >> 1);
 
-    if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
-        while(sPlcPlib->spiIsBusy()){}
+    while(sPlcPlib->spiIsBusy()){}
 
+    if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
         /* Update data received */
         (void) memcpy(pCmd->pData, &sRxSpiData[4], pCmd->length);
     }
