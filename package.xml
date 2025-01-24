@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Package name="smartenergy_prime_apps">
+<Package name="smartenergy_prime_apps" version="v1.1.0-E1">
     <Dependencies>
-        <Dependency name="smartenergy_prime" version="v1.0.0"/>
+        <Dependency name="smartenergy_prime" version="v1.0.0-E1"/>
+        <Dependency name="usb" version="v3.14.0"/>
+        <Dependency name="shd" version="v1.0.0-E1"/>
     </Dependencies>
 </Package>

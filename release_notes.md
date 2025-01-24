@@ -40,7 +40,7 @@ The following table provides a list of available applications, supported platfor
 - PRIME 1.4 frequency hopping not tested.
 - PRIME 1.4 Firwmare Upgrade cannot verify signature from a binary file.
 - PRIME 1.3 Not tested.
-- Non documentation provided.
+- No documentation provided.
 
 ### Development Tools
 

@@ -53,8 +53,6 @@ The following applications are provided to demonstrate the typical use cases of 
 ____
 
 [![License](https://img.shields.io/badge/license-Harmony%20license-orange.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/blob/master/Microchip_SLA001.md)
-[![Latest release](https://img.shields.io/github/release/Microchip-MPLAB-Harmony/smartenergy_prime_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/releases/latest)
-[![Latest release date](https://img.shields.io/github/release-date/Microchip-MPLAB-Harmony/smartenergy_prime_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/releases/latest)
 [![Commit activity](https://img.shields.io/github/commit-activity/y/Microchip-MPLAB-Harmony/smartenergy_prime_apps.svg)](https://github.com/Microchip-MPLAB-Harmony/smartenergy_prime_apps/graphs/commit-activity)
 [![Contributors](https://img.shields.io/github/contributors-anon/Microchip-MPLAB-Harmony/smartenergy_prime_apps.svg)]()
 
