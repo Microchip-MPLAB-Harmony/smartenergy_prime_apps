@@ -21,7 +21,7 @@ To clone or download these applications from Github, go to the [main page of thi
 This content can also be downloaded using content manager by following these [instructions](https://github.com/Microchip-MPLAB-Harmony/contentmanager/wiki).
 
 To view the documentation offline, follow these steps:
- - Download the publication as a zip file from [here](https://onlinedocs.microchip.com/download/GUID-A95FCA59-E0E2-454E-9A79-5946EDE2DFB0?type=webhelp).
+ - Download the publication as a zip file from [here](TBD).
  - Extract the zip file into a folder.
  - Navigate to the folder and open **index.html** in a web browser of your choice.
  
