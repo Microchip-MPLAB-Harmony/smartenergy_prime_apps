@@ -11,7 +11,7 @@
     PRIME Stack Header File
 
   Description:
-    This header file provides a simple interface to manage the PRIME stack from
+    This header file provides a simple interface to manage the PRIME Stack from
     the application.
 *******************************************************************************/
 
@@ -75,10 +75,10 @@ Microchip or any third party.
     )
 
   Summary:
-    Initializes the PRIME stack for the specified index.
+    Initializes the PRIME Stack for the specified index.
 
   Description:
-    This routine initializes the PRIME stack making it ready for clients to use.
+    This routine initializes the PRIME Stack making it ready for clients to use.
 
   Precondition:
     None.
@@ -119,7 +119,7 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     )
 
   Summary:
-    Maintains PRIME Stack State Machine.
+    Maintains the PRIME Stack State Machine.
 
   Description:
     Maintains the PRIME Stack State Machine.
@@ -160,16 +160,15 @@ void PRIME_Tasks(SYS_MODULE_OBJ object);
     )
 
   Summary:
-    Restart PRIME Stack from a different location.
+    Restarts the PRIME Stack from a different location.
 
   Description:
-    Restarts the PRIME Stack from a different location.
+    This routine restarts the PRIME Stack from a different location.
 
   Precondition:
     PRIME_Initialize routine must have been called before.
 
   Parameters:
-    object   - Identifier for the object instance
     primePtr - Pointer to the PRIME API
 
   Returns:
@@ -195,10 +194,10 @@ void PRIME_Restart(uint32_t *primePtr);
     SYS_STATUS PRIME_Status(void)
 
   Summary:
-    Gets the current status of the PRIME stack.
+    Gets the current status of the PRIME Stack.
 
   Description:
-    This routine provides the current status of the PRIME stack.
+    This routine provides the current status of the PRIME Stack.
 
   Precondition:
     PRIME_Initialize routine must have been called before.
@@ -207,14 +206,14 @@ void PRIME_Restart(uint32_t *primePtr);
     None.
 
   Returns:
-    SYS_STATUS_READY: Indicates that the PRIME stack is ready and accepts
+    SYS_STATUS_READY: Indicates that the PRIME Stack is ready and accepts
     requests for new operations.
 
-    SYS_STATUS_UNINITIALIZED: Indicates the PRIME stack is not initialized.
+    SYS_STATUS_UNINITIALIZED: Indicates the PRIME Stack is not initialized.
 
-    SYS_STATUS_ERROR: Indicates the PRIME stack is not initialized correctly.
+    SYS_STATUS_ERROR: Indicates the PRIME Stack is not initialized correctly.
 
-    SYS_STATUS_BUSY: Indicates the PRIME stack is initializing.
+    SYS_STATUS_BUSY: Indicates the PRIME Stack is initializing.
 
   Example:
     <code>

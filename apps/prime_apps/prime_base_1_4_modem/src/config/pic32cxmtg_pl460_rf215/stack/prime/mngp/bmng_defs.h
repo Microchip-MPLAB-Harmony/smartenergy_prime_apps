@@ -543,24 +543,6 @@ typedef void (*BMNG_FUP_STATUS_INDICATION_CB)(BMNG_FUP_NODE_STATE nodeState,
     uint16_t pages, uint8_t *eui48);
 
 // *****************************************************************************
-/* Firmware Upgrade Protocol error indication
-
-  Summary:
-    Callback function pointer for the Firmware Upgrade Protocol error
-    indication.
-
-  Description:
-    This callback is used for the Firmware Upgrade Protocol error indication.
-    errorCode   - Error code
-    eui48       - Pointer to the MAC address of the node
-
-  Remarks:
-    None.
-*/
-typedef void (*BMNG_FUP_ERROR_INDICATION_CB)(BMNG_FUP_ERROR errorCode,
-    uint8_t *eui48);
-
-// *****************************************************************************
 /* Firmware Upgrade Protocol version indication
 
   Summary:
@@ -888,7 +870,6 @@ typedef void (*BMNG_WHITELIST_ACK_CB)(uint8_t cmd, BMNG_WHITELIST_ACK ackCode);
 typedef struct {
 	BMNG_FUP_ACK_CB fup_ack;
 	BMNG_FUP_STATUS_INDICATION_CB fup_status_ind;
-	BMNG_FUP_ERROR_INDICATION_CB fup_error_ind;
 	BMNG_FUP_VERSION_INDICATION_CB fup_version_ind;
 	BMNG_FUP_KILL_INDICATION_CB fup_kill_ind;
 	BMNG_NET_EVENT_INDICATION_CB network_event_ind;

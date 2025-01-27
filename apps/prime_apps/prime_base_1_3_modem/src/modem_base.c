@@ -594,22 +594,6 @@ static void APP_Modem_BMNG_FupStatusIndication(BMNG_FUP_NODE_STATE fupNodeState,
                          serialLen);
 }
 
-static void APP_Modem_BMNG_FupErrorIndication(BMNG_FUP_ERROR errorCode,
-                                              uint8_t *eui48)
-{
-    uint16_t serialLen = 0U;
-
-
-    appSerialBuf[serialLen++] = APP_MODEM_BMNG_FUP_STATUS_ERROR_INDICATION_CMD;
-    appSerialBuf[serialLen++] = errorCode;
-    memcpy(&appSerialBuf[serialLen], eui48, 6);
-    serialLen += 6;
-
-    /* Send packet */
-    SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf,
-                         serialLen);
-}
-
 static void APP_Modem_BMNG_FupVersionIndication(uint8_t *eui48,
         uint8_t vendorLen, char *vendor, uint8_t modelLen, char *model,
 		uint8_t versionlLen, char *version)
@@ -849,7 +833,6 @@ static void APP_Modem_SetCallbacks(void)
     gPrimeApi->Cl432SetCallbacks(&cl432Callbacks);
 
     bmngCallbacks.fup_ack = APP_Modem_BMNG_FupAck;
-    bmngCallbacks.fup_error_ind = APP_Modem_BMNG_FupErrorIndication;
     bmngCallbacks.fup_kill_ind = APP_Modem_BMNG_FupKillIndication;
     bmngCallbacks.fup_status_ind = APP_Modem_BMNG_FupStatusIndication;
     bmngCallbacks.fup_version_ind = APP_Modem_BMNG_FupVersionIndication;
