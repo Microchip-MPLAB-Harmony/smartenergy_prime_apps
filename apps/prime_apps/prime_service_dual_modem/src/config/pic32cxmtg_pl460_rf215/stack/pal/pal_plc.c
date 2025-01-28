@@ -1037,16 +1037,14 @@ uint8_t PAL_PLC_GetChannel(uint16_t *pPch)
 
 uint8_t PAL_PLC_SetChannel(uint16_t pch)
 {
-    uint8_t channel;
-
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
         return ((uint8_t)PAL_CFG_INVALID_INPUT);
     }
 
-    channel = lPAL_PLC_GetChannelNumber(pch);
+    palPlcData.channel = lPAL_PLC_GetChannelNumber(pch);
 
-    lPAL_PLC_SetTxRxChannel((DRV_PLC_PHY_CHANNEL)channel);
+    lPAL_PLC_SetTxRxChannel(palPlcData.channel);
 
     return((uint8_t)PAL_CFG_SUCCESS);
 }
@@ -1258,15 +1256,13 @@ uint8_t PAL_PLC_SetConfiguration(uint16_t id, void *pValue, uint16_t length)
 
         case PAL_ID_CFG_TXRX_CHANNEL:
         {
-            uint8_t chn;
-
             if (palPlcData.status != PAL_PLC_STATUS_READY)
             {
                 return ((uint8_t)PAL_CFG_INVALID_INPUT);
             }
 
-            chn = (*(uint8_t *)pValue);
-            lPAL_PLC_SetTxRxChannel((DRV_PLC_PHY_CHANNEL)chn);
+            palPlcData.channel = (DRV_PLC_PHY_CHANNEL) (*(uint8_t *)pValue);
+            lPAL_PLC_SetTxRxChannel(palPlcData.channel);
             result = PAL_CFG_SUCCESS;
             break;
         }

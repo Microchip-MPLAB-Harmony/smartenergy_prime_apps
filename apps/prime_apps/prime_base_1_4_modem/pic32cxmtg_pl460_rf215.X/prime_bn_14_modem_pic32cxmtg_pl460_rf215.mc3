@@ -30049,7 +30049,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\definitions.h</file>
-         <hash>71f4aa5bcfa483fed45bbb5d3729163f2ea696dbfad13a68e749157cc2c9585a</hash>
+         <hash>46a4ac2cb753dbe84c78f3efb5f8e75985119a68c3ce7485e05adeca35df1ed5</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\device.h</file>
@@ -30533,7 +30533,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal_plc.c</file>
-         <hash>8c9faa729851207388b2a16619a410d01798b1c5d64c4b3594f75339c7931ee2</hash>
+         <hash>b929743cf52f40bf2f48a698b9bec049a0783d607476c7e0ab7a731507210984</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal_plc.h</file>
