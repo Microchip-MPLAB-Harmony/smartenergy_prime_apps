@@ -1063,6 +1063,7 @@ static void APP_Modem_PLME_SetRequestCmd(uint8_t *recvMsg)
         default: /* arrays */
             memcpy(pibValueBuf, lMessage, pibSize);
             pibValue = (void *)pibValueBuf;
+            lMessage += pibSize;
             break;
     }
 

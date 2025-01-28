@@ -912,6 +912,7 @@ static void APP_Modem_MacRedirectResponseCmd(uint8_t *recvMsg)
     conHandle = ((uint16_t)(*lMessage++)) << 8;
     conHandle += *lMessage++;
     memcpy(eui48, lMessage, 6);
+    lMessage += 6;
     dataLen = ((uint16_t)(*lMessage++)) << 8;
     dataLen += *lMessage++;
     data = lMessage;
@@ -1136,6 +1137,7 @@ static void APP_Modem_PLME_SetRequestCmd(uint8_t *recvMsg)
         default: /* arrays */
             memcpy(pibValueBuf, lMessage, pibSize);
             pibValue = (void *)pibValueBuf;
+            lMessage += pibSize;
             break;
     }
 
