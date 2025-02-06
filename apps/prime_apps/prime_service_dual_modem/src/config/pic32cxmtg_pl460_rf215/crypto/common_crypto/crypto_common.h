@@ -68,5 +68,33 @@ typedef enum
     CRYPTO_CIOP_MAX,            //Max. to check Enum value range
 }crypto_CipherOper_E;
 
+/* Curve Types */
+typedef enum 
+{
+    CRYPTO_ECC_CURVE_INVALID = 0,
+
+    /* Prime Curves */
+    
+    //Weierstrass Curves
+    CRYPTO_ECC_CURVE_P192 = 1,        
+    CRYPTO_ECC_CURVE_SECP192R1 = 1, //also called as NIST P-192 or prime192v1 
+    
+    CRYPTO_ECC_CURVE_P224 = 2,
+    CRYPTO_ECC_CURVE_SECP224R1 = 2,
+     
+    CRYPTO_ECC_CURVE_P256 = 3,        
+    CRYPTO_ECC_CURVE_SECP256R1 = 3, //also called as NIST P-256 or prime256v1
+
+    CRYPTO_ECC_CURVE_P384 = 4,
+    CRYPTO_ECC_CURVE_SECP384R1 = 4, //also called as NIST P-384
+            
+    CRYPTO_ECC_CURVE_P521 = 5,
+    CRYPTO_ECC_CURVE_SECP521R1 = 5,        
+          
+    /* Twisted Edwards Curves */
+
+    CRYPTO_ECC_CURVE_MAX
+}crypto_EccCurveType_E;
+
 // *****************************************************************************
 #endif //CRYPTO_COMMON_H

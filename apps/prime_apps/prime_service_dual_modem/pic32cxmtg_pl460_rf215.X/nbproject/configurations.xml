@@ -19,6 +19,58 @@
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/crypto_sym_cipher.h</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/crypto_aead_cipher.h</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/crypto_common.h</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/crypto_digsign.h</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/crypto_hash.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+              <logicalFolder name="CPKCL_Lib" displayName="CPKCL_Lib" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccDbl_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Services_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEcDsa_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Swap_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccConv_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Fill_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_FastCopy_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_PrimeGen_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_typedef_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Comp_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccMul_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccConv_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ExpMod_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Square_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Smult_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Headers_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_CondCopy_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccAdd_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccMul_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Rng_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_mapping_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccAdd_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_CRT_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_JumpTable_Addr_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_NOP_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Hash_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_cf.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ClearFlags_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Rc_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Fmult_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GCD_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccDbl_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_JumpTable_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Div_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_SelfTest_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEcDsa_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_RedMod_pb.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="driver" displayName="driver" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_ecdsa_hw_cpkcl.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_ecc_hw_cpkcl.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_sha_hw_6156.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/crypto_digisign_cpkcc44163_wrapper.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/crypto_hash_sha6156_wrapper.h</itemPath>
+              </logicalFolder>
             </logicalFolder>
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/config.h</itemPath>
@@ -517,6 +569,19 @@
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/src/crypto_aead_cipher.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/src/crypto_sym_cipher.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/src/crypto_mac_cipher.c</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/src/crypto_digsign.c</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/src/crypto_hash.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+              <logicalFolder name="driver" displayName="driver" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_ecdsa_hw_cpkcl.c</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_sha_hw_6156.c</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_ecc_hw_cpkcl.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/src/crypto_hash_sha6156_wrapper.c</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/src/crypto_digisign_cpkcc44163_wrapper.c</itemPath>
+              </logicalFolder>
             </logicalFolder>
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_mac_wc_wrapper.c</itemPath>
