@@ -155,29 +155,15 @@ static void lAPP_PrimeVersionSwapRequest(SRV_FU_TRAFFIC_VERSION traffic)
 
 static void lAPP_SwapStackVersion(void)
 {
-    uint32_t *nvicCpr0;
-    uint32_t *nvicSer0;
-    uint32_t *nvicCer0;
-    uint32_t temp;
-
-    /* Hold interrupt system */
-    nvicSer0 = (uint32_t *)NVIC_ISER0;
-    temp = *nvicSer0;
-
-    /* Clear pending interrupts */
-    nvicCer0 = (uint32_t *)NVIC_ICER0;
-    nvicCpr0 = (uint32_t *)NVIC_ICPR0;
-    *nvicCer0 = 0xFFFFFFFF;
-    *nvicCpr0 = 0xFFFFFFFF;
-
-    /* Reset PLC */
-    DRV_PLC_HAL_Reset();
-
-    /* Restore interrupt system */
-    *nvicSer0 = temp;
-
     /* Initialize PRIME stack with the new pointer */
-    PRIME_Restart((uint32_t *)newPrimeApi);
+    if (newPrimeApi == (PRIME_API *)PRIME_SN_FWSTACK14_ADDRESS)
+    {
+        PRIME_Restart((uint32_t *)newPrimeApi, PRIME_VERSION_1_4);
+    } 
+    else
+    {
+        PRIME_Restart((uint32_t *)newPrimeApi, PRIME_VERSION_1_3);
+    }
 
     /* Initialize Modem application */
     APP_Modem_Initialize(); /* Needed to set up callbacks */

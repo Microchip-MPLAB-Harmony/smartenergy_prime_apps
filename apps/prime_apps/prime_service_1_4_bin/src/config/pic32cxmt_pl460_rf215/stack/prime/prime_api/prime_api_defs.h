@@ -101,7 +101,8 @@ typedef struct
   Remarks:
     None.
 */
-typedef void (*PRIME_API_INITIALIZE)(PRIME_API_INIT *init);
+typedef void (*PRIME_API_INITIALIZE)(PRIME_API_INIT *init, bool isRestart, 
+                                     uint8_t primeVersion);
 
 // *****************************************************************************
 /* PRIME stack state machine maintenance

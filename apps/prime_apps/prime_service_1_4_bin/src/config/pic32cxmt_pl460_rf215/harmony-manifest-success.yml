@@ -4,7 +4,7 @@
 
 
 project: prime_service_1_4_bin
-creation_date: 2025-01-23T15:03:26.111+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-02-07T11:26:49.861+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 10
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.1
@@ -17,8 +17,8 @@ modules:
     - {name: "csp", version: "v3.20.0"}
     - {name: "core", version: "v3.14.1"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_prime", version: "v1.0.0-E1"}
-    - {name: "smartenergy", version: "v1.3.1"}
+    - {name: "smartenergy_prime", version: "SMS-4131-testing-prime-1.3"}
+    - {name: "smartenergy", version: "dev"}
 
 packs:
     - {name: "PIC32CX-MT_DFP", version: "1.3.132"}

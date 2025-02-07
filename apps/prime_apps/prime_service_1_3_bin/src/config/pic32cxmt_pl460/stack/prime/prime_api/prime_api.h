@@ -11,7 +11,7 @@
     PRIME API Header File
 
   Description:
-    This module converts the PRIME stack library interface into a global
+    This module converts the PRIME Library interface into a global
     interface to be used by the PRIME application.
 *******************************************************************************/
 
@@ -106,20 +106,27 @@ typedef enum
 
 // *****************************************************************************
 /* Function:
-    void PRIME_API_Initialize(PRIME_API_INIT *init)
+    void PRIME_API_Initialize
+    (
+        PRIME_API_INIT *init, 
+        bool isRestart, 
+        uint8_t primeVersion
+    )
 
   Summary:
-    Initializes the PRIME stack.
+    Initializes the PRIME Library.
 
   Description:
-    This routine initializes the PRIME stack.
+    This routine initializes the PRIME Library.
 
   Precondition:
     None.
 
   Parameters:
-    init  - Pointer to the init data structure containing any data necessary to
-            initialize the module.
+    init           - Pointer to the init data structure containing any data necessary to
+                     initialize the module
+    isRestart      - Flag to indicate if this is a restart
+    primeVersion   - PRIME version to run
 
   Returns:
     None.
@@ -132,24 +139,25 @@ typedef enum
     init.halApi = (HAL_API*)&halApi;
     init.mngPlaneUsiPort = PRIME_MNG_PLANE_USI_INDEX;
 
-    PRIME_API_Initialize((&init);
+    PRIME_API_Initialize(&init, false, PRIME_VERSION_1_4);
     </code>
 
   Remarks:
     This routine is normally not called directly by an application. The
     PRIME application must use the function located in the header table.
 */
-void PRIME_API_Initialize(PRIME_API_INIT *init);
+void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart, 
+                          uint8_t primeVersion);
 
 // ****************************************************************************
 /* Function:
     void PRIME_API_Tasks(void)
 
   Summary:
-    Maintains the PRIME stack state machine.
+    Maintains the PRIME Library State Machine.
 
   Description:
-    This function is used to maintain the PRIME stack internal state machine and
+    This function is used to maintain the PRIME Library internal state machine and
     generate callbacks.
 
   Precondition:
@@ -182,10 +190,10 @@ void PRIME_API_Tasks(void);
     SYS_STATUS PRIME_API_Status(void)
 
   Summary:
-    Gets the status of the PRIME stack.
+    Gets the status of the PRIME Library.
 
   Description:
-    This routine gets the status of the PRIME stack.
+    This routine gets the status of the PRIME Library.
 
   Precondition:
     The PRIME_API_Initialize function should have been called before calling this
@@ -195,14 +203,14 @@ void PRIME_API_Tasks(void);
     None.
 
   Returns:
-    SYS_STATUS_READY: Indicates that the PRIME stack is ready and accepts
+    SYS_STATUS_READY: Indicates that the PRIME Library is ready and accepts
     requests for new operations.
 
-    SYS_STATUS_UNINITIALIZED: Indicates the PRIME stack is not initialized.
+    SYS_STATUS_UNINITIALIZED: Indicates the PRIME Library is not initialized.
 
-    SYS_STATUS_ERROR: Indicates the PRIME stack is not initialized correctly.
+    SYS_STATUS_ERROR: Indicates the PRIME Library is not initialized correctly.
 
-    SYS_STATUS_BUSY: Indicates the PRIME stack is initializing.
+    SYS_STATUS_BUSY: Indicates the PRIME Library is initializing.
 
   Example:
     <code>
