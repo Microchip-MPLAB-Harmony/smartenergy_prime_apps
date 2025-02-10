@@ -123,6 +123,7 @@ const HAL_API primeHalAPI = {
     SRV_FU_RequestSwapVersion,
 
     PAL_Initialize,
+    PAL_Enable,
     PAL_Tasks,
     PAL_Status,
     PAL_CallbackRegister,

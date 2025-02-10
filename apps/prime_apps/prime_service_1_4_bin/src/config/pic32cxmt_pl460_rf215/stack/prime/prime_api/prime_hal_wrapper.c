@@ -313,6 +313,11 @@ SYS_MODULE_OBJ PRIME_HAL_WRP_PAL_Initialize(const SYS_MODULE_INDEX index)
     return pPrimeHalApi->hal_pal_initialize(index);
 }
 
+void PRIME_HAL_WRP_PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL)
+{
+    pPrimeHalApi->hal_pal_enable(object, enablePAL);
+}
+
 void PRIME_HAL_WRP_PAL_Tasks(SYS_MODULE_OBJ object)
 {
     pPrimeHalApi->hal_pal_tasks(object);
@@ -321,11 +326,6 @@ void PRIME_HAL_WRP_PAL_Tasks(SYS_MODULE_OBJ object)
 SYS_STATUS PRIME_HAL_WRP_PAL_Status(SYS_MODULE_OBJ object)
 {
     return pPrimeHalApi->hal_pal_status(object);
-}
-
-void PRIME_HAL_WRP_PAL_Restart(SYS_MODULE_OBJ object, uint8_t enablePAL)
-{
-    pPrimeHalApi->hal_pal_restart(object, enablePAL);
 }
 
 void PRIME_HAL_WRP_PAL_CallbackRegister(PAL_CALLBACKS *pCallbacks)

@@ -156,7 +156,8 @@ void PRIME_Tasks(SYS_MODULE_OBJ object);
 /* Function:
     void PRIME_Restart
     (
-      uint32_t *primePtr
+      uint32_t *primePtr,
+      uint8_t version
     )
 
   Summary:
@@ -169,7 +170,8 @@ void PRIME_Tasks(SYS_MODULE_OBJ object);
     PRIME_Initialize routine must have been called before.
 
   Parameters:
-    primePtr - Pointer to the PRIME API
+    primePtr   - Pointer to the PRIME API
+    version    - PRIME version to run
 
   Returns:
     None.
@@ -181,13 +183,13 @@ void PRIME_Tasks(SYS_MODULE_OBJ object);
     PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&initData);
 
     const PRIME_API *primeApiPtr = PRIME_SN_FWSTACK13_ADDRESS;
-    PRIME_Restart((uint32_t *)primeApiPtr);
+    PRIME_Restart((uint32_t *)primeApiPtr, PRIME_VERSION_1_3);
     </code>
 
   Remarks:
     None.
 */
-void PRIME_Restart(uint32_t *primePtr);
+void PRIME_Restart(uint32_t *primePtr, uint8_t version);
 
 // *****************************************************************************
 /* Function:

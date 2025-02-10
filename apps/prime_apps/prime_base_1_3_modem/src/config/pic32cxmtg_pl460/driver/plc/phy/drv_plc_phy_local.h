@@ -174,6 +174,9 @@ typedef struct
     /* Application context for Bootloader Dara Callback */
     uintptr_t                       contextBoot;
 
+    DRV_PLC_PHY_TRANSMISSION_CFM_OBJ txCfmErrorObj;
+
+    bool                            evTxCfmError;
     /* Event detection flag: confirmation of the previous transmission */
     volatile bool                   evTxCfm[2];
 

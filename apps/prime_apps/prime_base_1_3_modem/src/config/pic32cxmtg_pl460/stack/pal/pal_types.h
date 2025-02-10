@@ -76,6 +76,11 @@ about the modulation scheme to be used */
 /* Serial Channel Mask */
 #define PRIME_PAL_SERIAL_CHN_MASK              0x0400U
 
+/* Flags to enable PAL */
+#define PAL_PLC_EN         0x01U
+#define PAL_RF_EN          0x02U
+#define PAL_SERIAL_EN      0x04U
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
@@ -369,7 +374,7 @@ typedef struct
     uint32_t timeDelay;
     /* Length of the data buffer */
     uint16_t dataLength;
-    /* Physical Physical channel to transmit the message */
+    /* Physical channel to transmit the message */
     uint16_t pch;
     /* Buffer identifier */
     uint8_t buffId;

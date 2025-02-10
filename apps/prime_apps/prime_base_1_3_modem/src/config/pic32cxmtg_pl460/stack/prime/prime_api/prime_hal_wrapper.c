@@ -313,9 +313,14 @@ SYS_MODULE_OBJ PRIME_HAL_WRP_PAL_Initialize(const SYS_MODULE_INDEX index)
     return pPrimeHalApi->hal_pal_initialize(index);
 }
 
+void PRIME_HAL_WRP_PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL)
+{
+    pPrimeHalApi->hal_pal_enable(object, enablePAL);
+}
+
 void PRIME_HAL_WRP_PAL_Tasks(SYS_MODULE_OBJ object)
 {
-    return pPrimeHalApi->hal_pal_tasks(object);
+    pPrimeHalApi->hal_pal_tasks(object);
 }
 
 SYS_STATUS PRIME_HAL_WRP_PAL_Status(SYS_MODULE_OBJ object)
@@ -325,7 +330,7 @@ SYS_STATUS PRIME_HAL_WRP_PAL_Status(SYS_MODULE_OBJ object)
 
 void PRIME_HAL_WRP_PAL_CallbackRegister(PAL_CALLBACKS *pCallbacks)
 {
-    return pPrimeHalApi->hal_pal_callback_register(pCallbacks);
+    pPrimeHalApi->hal_pal_callback_register(pCallbacks);
 }
 
 uint8_t PRIME_HAL_WRP_PAL_DataRequest(PAL_MSG_REQUEST_DATA *pData)
@@ -392,7 +397,7 @@ uint8_t PRIME_HAL_WRP_PAL_SetChannel(uint16_t pch)
 void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint16_t pch, uint32_t timeSync,
     uint8_t timeMode)
 {
-    return pPrimeHalApi->hal_pal_program_channel_switch(pch, timeSync, timeMode);
+    pPrimeHalApi->hal_pal_program_channel_switch(pch, timeSync, timeMode);
 }
 
 uint8_t PRIME_HAL_WRP_PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val,

@@ -232,21 +232,19 @@ void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart,
     {
         palSysObj = PRIME_HAL_WRP_PAL_Initialize(init->palIndex);
     }
+
+    /* Enable PAL layer depending on PRIME version */
+    uint8_t enablePAL;
+    if (primeVersion == PRIME_VERSION_1_3)
+    {
+        enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_SERIAL_EN);
+    }
     else 
     {
-        /* Restart PAL layer depending on PRIME version */
-        uint8_t enablePAL;
-        if (primeVersion == PRIME_VERSION_1_3)
-        {
-            enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_SERIAL_EN);
-        }
-        else 
-        {
-            enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_RF_EN);
-        }
-        
-        PRIME_HAL_WRP_PAL_Restart(palSysObj, enablePAL);
+        enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_RF_EN);
     }
+    
+    PRIME_HAL_WRP_PAL_Enable(palSysObj, enablePAL);
 
     primeApiState = PRIME_API_STATE_PAL_INITIALIZING;
 }

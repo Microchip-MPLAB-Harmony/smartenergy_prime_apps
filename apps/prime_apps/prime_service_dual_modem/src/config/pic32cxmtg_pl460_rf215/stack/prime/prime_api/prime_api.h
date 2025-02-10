@@ -11,7 +11,7 @@
     PRIME API Header File
 
   Description:
-    This module converts the PRIME stack library interface into a global
+    This module converts the PRIME Library interface into a global
     interface to be used by the PRIME application.
 *******************************************************************************/
 

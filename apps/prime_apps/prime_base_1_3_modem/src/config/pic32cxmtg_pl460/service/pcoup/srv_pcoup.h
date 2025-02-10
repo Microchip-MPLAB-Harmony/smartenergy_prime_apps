@@ -109,9 +109,9 @@ Microchip or any third party.
 					                             0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF}
 
 /* DACC configuration tables */
-#define SRV_PCOUP_DACC_CENA_TBL                  {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
-                                                 0x9f7800ffUL, 0x1a1a1a1aUL, 0x0UL, 0x0UL, 0x5UL, 0x355UL, \
-                                                 0x0UL, 0x1020f0UL, 0x355UL, 0x0UL, 0x1020ffUL}
+#define SRV_PCOUP_DACC_CENA_TBL                  {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
+                                                 0xa92c00ffUL, 0x1a1a1a1aUL, 0x20200000UL, 0x4400UL, 0xfd20005UL, 0x3aaUL, \
+                                                 0xf0000000UL, 0x1020f0UL, 0x3aaUL, 0xf0000000UL, 0x1020ffUL}
 
 #define SRV_PCOUP_DACC_FCC_TBL                   {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
                                                  0xffff00ffUL, 0x1b1b1b1bUL, 0x0UL, 0x0UL, 0x6UL, 0x355UL, \
@@ -119,13 +119,13 @@ Microchip or any third party.
 
 
 /* PLC PHY Coupling parameters for each PRIME channel */
-#define SRV_PCOUP_CHN1_RMS_HIGH_TBL              {2581, 2301, 2053, 1831, 1633, 1456, 1297, 1157}
-#define SRV_PCOUP_CHN1_RMS_VLOW_TBL              {4965, 4547, 4130, 3719, 3329, 2973, 2650, 2362}
-#define SRV_PCOUP_CHN1_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 2115, 1886, 1683, 1502, 1339, 1194, 1064, 948}
-#define SRV_PCOUP_CHN1_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 8010, 7179, 6390, 5723, 5105, 4547, 4061, 3615}
+#define SRV_PCOUP_CHN1_RMS_HIGH_TBL              {1725, 1522, 1349, 1202, 1071, 957, 855, 764}
+#define SRV_PCOUP_CHN1_RMS_VLOW_TBL              {4874, 4427, 3986, 3555, 3157, 2795, 2470, 2184}
+#define SRV_PCOUP_CHN1_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1467, 1292, 1145, 1019, 910, 811, 725, 648}
+#define SRV_PCOUP_CHN1_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 8479, 7515, 6665, 5874, 5192, 4576, 4030, 3557}
 #define SRV_PCOUP_CHN1_GAIN_HIGH_TBL             {81, 40, 128}
 #define SRV_PCOUP_CHN1_GAIN_VLOW_TBL             {256, 128, 281}
-#define SRV_PCOUP_CHN1_LINE_DRV_CONF             5
+#define SRV_PCOUP_CHN1_LINE_DRV_CONF             8
 #define SRV_PCOUP_CHN1_MAX_NUM_TX_LEVELS         8
 
 #define SRV_PCOUP_CHN2_RMS_HIGH_TBL              {737, 654, 581, 517, 460, 409, 364, 323}

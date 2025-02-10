@@ -93,9 +93,19 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     primeApiInit.palIndex = primeInit->palIndex;
     primeApiInit.mngPlaneUsiPort = primeInit->mngPlaneUsiPort;
     primeApiInit.halApi = &primeHalAPI;
+    
+    /* Get the PRIME version */
+    SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
+
+    (void) memset(&boardInfo, 0, sizeof(boardInfo));
+
+    (void) SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo),
+                              (void *)&boardInfo);
 
     /* Get PRIME API pointer */
     PRIME_API_GetPrimeAPI(&primeObj.primeApi);
+
+    primeObj.primeVersion = boardInfo.primeVersion;
 
     /* Update status */
     primeObj.status = PRIME_STATUS_POINTER_READY;
@@ -116,7 +126,12 @@ void PRIME_Tasks(SYS_MODULE_OBJ object)
     switch (primeObj.status)
     {
         case PRIME_STATUS_POINTER_READY:
-            primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit);
+            primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit, false, primeObj.primeVersion);
+            primeObj.status = PRIME_STATUS_INITIALIZING;
+            break;
+            
+        case PRIME_STATUS_RESTART:
+            primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit, true, primeObj.primeVersion);
             primeObj.status = PRIME_STATUS_INITIALIZING;
             break;
 
@@ -144,7 +159,7 @@ void PRIME_Tasks(SYS_MODULE_OBJ object)
     }
 }
 
-void PRIME_Restart(uint32_t *primePtr)
+void PRIME_Restart(uint32_t *primePtr, uint8_t version)
 {
     /* Set PRIME API pointer */
 /* MISRA C-2012 deviation block start */
@@ -152,10 +167,13 @@ void PRIME_Restart(uint32_t *primePtr)
     primeObj.primeApi = (const PRIME_API *)primePtr;
 /* MISRA C-2012 deviation block end */
 
+    /* Set new PRIME version */
+    primeObj.primeVersion = version;
+
     if (primeObj.status == PRIME_STATUS_RUNNING)
     {
         /* Update status */
-        primeObj.status = PRIME_STATUS_POINTER_READY;
+        primeObj.status = PRIME_STATUS_RESTART;
     }
 }
 

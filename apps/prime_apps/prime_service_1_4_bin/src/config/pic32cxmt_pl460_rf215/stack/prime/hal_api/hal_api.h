@@ -746,6 +746,20 @@ typedef void (*HAL_FU_REQUEST_SWAP)(SRV_FU_TRAFFIC_VERSION trafficVersion);
 */
 typedef SYS_MODULE_OBJ (*HAL_PAL_INITIALIZE)(const SYS_MODULE_INDEX index);
 
+// *************************************************************************
+/* Enable PAL 
+
+  Summary:
+    Function pointer to enable the PRIME PAL module.
+
+  Description:
+    This function pointer is used to enable the PRIME PAL module.
+
+  Remarks:
+    Related to PRIME PAL.
+*/
+typedef void (*HAL_PAL_ENABLE)(SYS_MODULE_OBJ object, uint8_t enablePAL);
+
 // *****************************************************************************
 /* Maintains the PAL state machine
 
@@ -775,20 +789,6 @@ typedef void (*HAL_PAL_TASKS)(SYS_MODULE_OBJ object);
     Related to PRIME PAL.
 */
 typedef SYS_STATUS (*HAL_PAL_STATUS)(SYS_MODULE_OBJ object);
-
-// *************************************************************************
-/* Restart PAL 
-
-  Summary:
-    Function pointer to restart the PRIME PAL module.
-
-  Description:
-    This function pointer is used to restart the PRIME PAL module.
-
-  Remarks:
-    Related to PRIME PAL.
-*/
-typedef void (*HAL_PAL_RESTART)(SYS_MODULE_OBJ object, uint8_t enablePAL);
 
 // ****************************************************************************
 /* Set PAL callback functions
@@ -1165,9 +1165,9 @@ typedef struct {
     HAL_FU_REQUEST_SWAP fu_request_swap;
 
     HAL_PAL_INITIALIZE hal_pal_initialize;
+    HAL_PAL_ENABLE hal_pal_enable;
     HAL_PAL_TASKS hal_pal_tasks;
     HAL_PAL_STATUS hal_pal_status;
-    HAL_PAL_RESTART hal_pal_restart;
     HAL_PAL_CALLBACK_REGISTER hal_pal_callback_register;
     HAL_PAL_DATA_REQUEST hal_pal_data_request;
     HAL_PAL_GET_SNR hal_pal_get_snr;

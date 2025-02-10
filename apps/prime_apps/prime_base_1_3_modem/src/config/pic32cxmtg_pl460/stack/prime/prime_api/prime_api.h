@@ -106,7 +106,12 @@ typedef enum
 
 // *****************************************************************************
 /* Function:
-    void PRIME_API_Initialize(PRIME_API_INIT *init)
+    void PRIME_API_Initialize
+    (
+        PRIME_API_INIT *init, 
+        bool isRestart, 
+        uint8_t primeVersion
+    )
 
   Summary:
     Initializes the PRIME Library.
@@ -118,8 +123,10 @@ typedef enum
     None.
 
   Parameters:
-    init  - Pointer to the init data structure containing any data necessary to
-            initialize the module.
+    init           - Pointer to the init data structure containing any data necessary to
+                     initialize the module
+    isRestart      - Flag to indicate if this is a restart
+    primeVersion   - PRIME version to run
 
   Returns:
     None.
@@ -132,14 +139,15 @@ typedef enum
     init.halApi = (HAL_API*)&halApi;
     init.mngPlaneUsiPort = PRIME_MNG_PLANE_USI_INDEX;
 
-    PRIME_API_Initialize((&init);
+    PRIME_API_Initialize(&init, false, PRIME_VERSION_1_4);
     </code>
 
   Remarks:
     This routine is normally not called directly by an application. The
     PRIME application must use the function located in the header table.
 */
-void PRIME_API_Initialize(PRIME_API_INIT *init);
+void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart, 
+                          uint8_t primeVersion);
 
 // ****************************************************************************
 /* Function:

@@ -97,6 +97,7 @@ typedef enum {
     PRIME_STATUS_RUNNING = SYS_STATUS_READY,
     PRIME_STATUS_ERROR = SYS_STATUS_ERROR,
     PRIME_STATUS_POINTER_READY = SYS_STATUS_ERROR_EXTENDED - 1,
+    PRIME_STATUS_RESTART = SYS_STATUS_ERROR_EXTENDED - 2,
 } PRIME_STATUS;
 
 // *****************************************************************************
@@ -119,6 +120,9 @@ typedef struct
 
     /* Pointer to the PRIME API */
     const PRIME_API *primeApi;
+    
+    /* PRIME version running */
+    uint8_t primeVersion;
 
 } PRIME_OBJ;
 

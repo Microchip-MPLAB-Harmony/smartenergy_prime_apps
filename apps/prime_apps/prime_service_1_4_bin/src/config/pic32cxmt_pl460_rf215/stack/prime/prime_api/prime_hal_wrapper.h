@@ -1929,6 +1929,39 @@ void PRIME_HAL_WRP_FuRequestSwap(SRV_FU_TRAFFIC_VERSION trafficVersion);
 */
 SYS_MODULE_OBJ PRIME_HAL_WRP_PAL_Initialize(const SYS_MODULE_INDEX index);
 
+// *****************************************************************************
+/* Function:
+  void PRIME_HAL_WRP_PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL)
+
+  Summary:
+    Enable PAL with the indicated PAL submodules.
+
+  Description:
+    This routine enables the PAL with the indicated PAL submodules.
+
+  Precondition:
+    None.
+
+  Parameters:
+    object     - Identifier for the object instance
+    enablePAL  - Flags to enable PAL submodules
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    SYS_MODULE_OBJ sysObjPal;
+    sysObjPal = PRIME_HAL_WRP_PAL_Initialize(PRIME_PAL_INDEX);
+
+    PRIME_HAL_WRP_PAL_Enable(sysObjPal, PAL_PLC_EN);
+    </code>
+
+  Remarks:
+    None.
+*/
+void PRIME_HAL_WRP_PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL);
+
 // ****************************************************************************
 /* Function:
     void PRIME_HAL_WRP_PAL_Tasks(SYS_MODULE_OBJ object)
@@ -2005,39 +2038,6 @@ void PRIME_HAL_WRP_PAL_Tasks(SYS_MODULE_OBJ object);
 */
 
 SYS_STATUS PRIME_HAL_WRP_PAL_Status(SYS_MODULE_OBJ object);
-
-// *****************************************************************************
-/* Function:
-  void PRIME_HAL_WRP_PAL_Restart(SYS_MODULE_OBJ object, uint8_t enablePAL)
-
-  Summary:
-    Restart PAL with the indicated PAL submodules.
-
-  Description:
-    This routine restarts the PAL with the indicated PAL submodules.
-
-  Precondition:
-    None.
-
-  Parameters:
-    object     - Identifier for the object instance
-    enablePAL  - Flags to enable PAL submodules
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    SYS_MODULE_OBJ sysObjPal;
-    sysObjPal = PRIME_HAL_WRP_PAL_Initialize(PRIME_PAL_INDEX);
-
-    PRIME_HAL_WRP_PAL_Restart(sysObjPal, PAL_PLC_EN);
-    </code>
-
-  Remarks:
-    None.
-*/
-void PRIME_HAL_WRP_PAL_Restart(SYS_MODULE_OBJ object, uint8_t enablePAL);
 
 // ****************************************************************************
 /* Function:

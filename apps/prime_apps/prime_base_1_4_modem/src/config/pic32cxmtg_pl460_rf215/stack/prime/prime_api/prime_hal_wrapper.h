@@ -61,6 +61,17 @@ Microchip or any third party.
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: Macro Definitions
+// *****************************************************************************
+// *****************************************************************************
+
+/* Flags to enable PAL */
+#define PRIME_HAL_WRP_PAL_PLC_EN         0x01U
+#define PRIME_HAL_WRP_PAL_RF_EN          0x02U
+#define PRIME_HAL_WRP_PAL_SERIAL_EN      0x04U
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: API Functions
 // *****************************************************************************
 // *****************************************************************************
@@ -1917,6 +1928,39 @@ void PRIME_HAL_WRP_FuRequestSwap(SRV_FU_TRAFFIC_VERSION trafficVersion);
     Related to PRIME PAL.
 */
 SYS_MODULE_OBJ PRIME_HAL_WRP_PAL_Initialize(const SYS_MODULE_INDEX index);
+
+// *****************************************************************************
+/* Function:
+  void PRIME_HAL_WRP_PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL)
+
+  Summary:
+    Enable PAL with the indicated PAL submodules.
+
+  Description:
+    This routine enables the PAL with the indicated PAL submodules.
+
+  Precondition:
+    None.
+
+  Parameters:
+    object     - Identifier for the object instance
+    enablePAL  - Flags to enable PAL submodules
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    SYS_MODULE_OBJ sysObjPal;
+    sysObjPal = PRIME_HAL_WRP_PAL_Initialize(PRIME_PAL_INDEX);
+
+    PRIME_HAL_WRP_PAL_Enable(sysObjPal, PAL_PLC_EN);
+    </code>
+
+  Remarks:
+    None.
+*/
+void PRIME_HAL_WRP_PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL);
 
 // ****************************************************************************
 /* Function:

@@ -559,7 +559,7 @@ uint8_t PAL_RF_SetChannel(uint16_t pch)
 
     channel = (uint16_t)(pch & (~PRIME_PAL_RF_CHN_MASK));
 
-    if (channel == PRIME_PAL_RF_FREQ_HOPPING_CHANNEL)
+    if (pch == PRIME_PAL_RF_FREQ_HOPPING_CHANNEL)
     {
         return (uint8_t)PAL_CFG_INVALID_INPUT;
     }

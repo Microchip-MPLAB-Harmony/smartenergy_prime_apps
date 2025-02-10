@@ -183,6 +183,39 @@ void PAL_Tasks(SYS_MODULE_OBJ object);
 
 SYS_STATUS PAL_Status(SYS_MODULE_OBJ object);
 
+// *****************************************************************************
+/* Function:
+  void PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL)
+
+  Summary:
+    Enable PAL with the indicated PAL submodules.
+
+  Description:
+    This routine enables the PAL with the indicated PAL submodules.
+
+  Precondition:
+    PAL_Initialize routine must have been called before.
+
+  Parameters:
+    object     - Identifier for the object instance
+    enablePAL  - Flags to enable PAL submodules
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    SYS_MODULE_OBJ sysObjPal;
+    sysObjPal = PAL_Initialize(PRIME_PAL_INDEX);
+
+    PAL_Enable(sysObjPal, PAL_PLC_EN);
+    </code>
+
+  Remarks:
+    None.
+*/
+void PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL);
+
 // ****************************************************************************
 /* Function:
     void PAL_CallbackRegister(PAL_CALLBACKS *pCallbacks)
