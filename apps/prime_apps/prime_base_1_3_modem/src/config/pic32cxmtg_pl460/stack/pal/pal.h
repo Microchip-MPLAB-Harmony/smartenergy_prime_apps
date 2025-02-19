@@ -732,8 +732,8 @@ uint8_t PAL_SetChannel(uint16_t pch);
 /* Function:
     void PAL_ProgramChannelSwitch
     (
-        uint16_t pch,
         uint32_t timeSync,
+        uint16_t pch,
         uint8_t timeMode
     )
 
@@ -748,8 +748,8 @@ uint8_t PAL_SetChannel(uint16_t pch);
     function.
 
   Parameters:
-    pch               Physical Channel to be updated
     timeSync          Initial pch switch time in us
+    pch               Physical Channel to be updated
     timeMode          Channel switch time mode
 
   Returns:
@@ -761,13 +761,13 @@ uint8_t PAL_SetChannel(uint16_t pch);
     uint16_t pch = 600;
     uint8_t timeMode = PAL_TX_MODE_ABSOLUTE;
 
-    PAL_ProgramChannelSwitch(pch, timeSync, timeMode);
+    PAL_ProgramChannelSwitch(timeSync, pch, timeMode);
     </code>
 
   Remarks:
     Only available for PHY RF.
 */
-void PAL_ProgramChannelSwitch(uint16_t pch, uint32_t timeSync,
+void PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, 
     uint8_t timeMode);
 
 // ****************************************************************************

@@ -1000,7 +1000,7 @@ typedef uint8_t (*HAL_PAL_SET_CHANNEL)(uint16_t pch);
   Remarks:
     Related to PRIME PAL.
 */
-typedef void (*HAL_PAL_PROGRAM_CHANNEL_SWITCH)(uint16_t pch, uint32_t timeSync,
+typedef void (*HAL_PAL_PROGRAM_CHANNEL_SWITCH)(uint32_t timeSync, uint16_t pch,
     uint8_t timeMode);
 
 // ****************************************************************************

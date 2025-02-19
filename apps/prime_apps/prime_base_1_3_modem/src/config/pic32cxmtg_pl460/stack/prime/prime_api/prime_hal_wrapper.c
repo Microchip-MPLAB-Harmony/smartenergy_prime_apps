@@ -394,10 +394,10 @@ uint8_t PRIME_HAL_WRP_PAL_SetChannel(uint16_t pch)
     return pPrimeHalApi->hal_pal_set_channel(pch);
 }
 
-void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint16_t pch, uint32_t timeSync,
+void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch,
     uint8_t timeMode)
 {
-    pPrimeHalApi->hal_pal_program_channel_switch(pch, timeSync, timeMode);
+    pPrimeHalApi->hal_pal_program_channel_switch(timeSync, pch, timeMode);
 }
 
 uint8_t PRIME_HAL_WRP_PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val,

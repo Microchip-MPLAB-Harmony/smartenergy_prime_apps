@@ -5059,11 +5059,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\hal_api\hal_api.h</file>
-         <hash>f0e7ab22f6550c19fa022e71e2778c745742547b901c5fb0d609e009a359d67b</hash>
+         <hash>4aef93a9d31a31902039fbe0ced6771c6c5f05311eb62df172aa2332ad227aed</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\libs\prime13_lib_sn.a</file>
-         <hash>f86cac7a1f096150ef4fe467a9845144f08494ee3bb9a0bf07ae93740844c0ae</hash>
+         <hash>f2f0c9910b96c94ac836356f4276501bacb0afbae6ecd3aa0d244be8409b1fb4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\mac\mac.h</file>
@@ -5099,11 +5099,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\prime_api\prime_hal_wrapper.c</file>
-         <hash>d2500cbcec3d10205e94120ddf9a7705dd6725c47af3ff2e65e123a271795ab9</hash>
+         <hash>69bd7a409cd472f0c508fce91cf4bcfc7237ba84110ab39608b44738cb4e3c67</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\prime_api\prime_hal_wrapper.h</file>
-         <hash>f202c734cf43b30f0f273a10bc75b56757282fd71a0b08928d4fd060abc40753</hash>
+         <hash>b52571472f594b5c241b95073430a4ab7bc4675366bbf291f98f52bb4c5c7339</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\startup_xc32.c</file>

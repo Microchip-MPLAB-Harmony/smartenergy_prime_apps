@@ -384,7 +384,7 @@ uint8_t PAL_SetChannel(uint16_t pch)
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
 
-void PAL_ProgramChannelSwitch(uint16_t pch, uint32_t timeSync, uint8_t timeMode)
+void PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
     
