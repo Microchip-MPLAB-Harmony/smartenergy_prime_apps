@@ -180,8 +180,8 @@ extern APP_CONSOLE_DATA appConsole;
     "3: DBPSK_C\n\r" \
 	"4: DQPSK_C\n\r" \
 	"5: D8PSK_C\n\r" \
-	"6: R_DQPSK\n\r" \
-	"7: R_D8PSK\n\r"
+	"6: R_DBPSK\n\r" \
+	"7: R_DQPSK\n\r"
 
 #define MENU_FRAME "\n\r-- PRIME Frame Type --------------\r\n"	\
 	"0: TYPE_A\n\r" \
