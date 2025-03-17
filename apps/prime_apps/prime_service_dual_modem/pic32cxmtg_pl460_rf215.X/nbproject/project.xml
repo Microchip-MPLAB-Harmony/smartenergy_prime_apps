@@ -7,7 +7,11 @@
             <creation-uuid>4225b3f2-1b5c-43b0-8ee2-9ff30860d57a</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
-            <make-dep-projects/>
+            <make-dep-projects>
+                <make-dep-project>../../prime_service_bootloader/bootloader_pic32cxmtg.X</make-dep-project>
+                <make-dep-project>../../prime_service_1_3_bin/pic32cxmt_pl460.X</make-dep-project>
+                <make-dep-project>../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X</make-dep-project>
+            </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>../src</sourceRootElem>
             </sourceRootList>
