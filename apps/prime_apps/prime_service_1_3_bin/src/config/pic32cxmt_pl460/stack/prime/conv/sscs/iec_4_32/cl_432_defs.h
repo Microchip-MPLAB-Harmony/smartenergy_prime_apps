@@ -83,7 +83,7 @@ Microchip or any third party.
     4-32 connection status macros.
 
  Description:
-    Macrod for the 4-32 connection status.
+    Macros for the 4-32 connection status.
 
  Remarks:
     None.
@@ -184,7 +184,7 @@ typedef union {
     CL 4-32 Establish Request primitive.
     - deviceId: Pointer to the device identifier data
     - deviceIdLen: Length of the device identifier
-    - ae (v1.4): Flag to indicate that authentication and encryption is requested
+    - ae: Flag to indicate that authentication and encryption is requested (v1.4)
 
  Remarks:
     None.
@@ -203,9 +203,9 @@ typedef void (*CL_432_ESTABLISH_REQUEST)(uint8_t *deviceId, uint8_t deviceIdLen,
     CL 4-32 Establish Confirm primitive.
     - deviceId: Pointer to the device identifier data
     - deviceIdLen: Length of the device identifier
-    - dstAddress: Destination 4.32 address
+    - dstAddress: Destination 4-32 address
     - baseAddress: Base 4-32 address
-    - ae (v1.4): Flag to indicate that authentication and encryption is requested
+    - ae: Flag to indicate that authentication and encryption is requested (v1.4)
 
  Remarks:
     None.
@@ -305,7 +305,7 @@ typedef void (*CL_432_DL_DATA_CONFIRM_CB)(uint8_t dstLsap, uint8_t srcLsap,
  Description:
     This data type contains the definition of the callback function for the
     CL 4-32 Release Confirm primitive.
-    - dstAddress: Destination 4.32 address
+    - dstAddress: Destination 4-32 address
     - result: Confirmation result
 
  Remarks:

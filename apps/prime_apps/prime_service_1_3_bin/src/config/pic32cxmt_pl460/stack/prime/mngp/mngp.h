@@ -76,7 +76,8 @@ Microchip or any third party.
     This routine initializes the PRIME Management Plane.
 
   Precondition:
-    None.
+    The MAC_Initialize function should have been called before calling this 
+    function.
 
   Parameters:
     macInfo     - Pointer to the MAC version information
@@ -100,7 +101,7 @@ Microchip or any third party.
 
   Remarks:
     This routine is normally not called directly by an application. It is 
-    called by the PRIME stack initalization routine.
+    called by the PRIME Stack initialization routine.
 */
 void MNGP_Initialize(MAC_VERSION_INFO *macInfo, uint8_t usiPort);
 
@@ -134,7 +135,8 @@ void MNGP_Initialize(MAC_VERSION_INFO *macInfo, uint8_t usiPort);
     </code>
 
   Remarks:
-    This function must be periodically called by the user application.
+    This function must be periodically called by the user application through
+    the PRIME Stack.
 */
 void MNGP_Tasks(void);
 

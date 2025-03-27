@@ -142,8 +142,8 @@ typedef enum {
 */
 typedef struct {
 	uint32_t imageSize;
-    uint16_t signLength;
-    SRV_FU_SIGNATURE_ALGO signAlgorithm;
+  uint16_t signLength;
+  SRV_FU_SIGNATURE_ALGO signAlgorithm;
 	uint8_t pageSize;
 } SRV_FU_INFO;
 

@@ -143,8 +143,8 @@ typedef enum
     </code>
 
   Remarks:
-    This routine is normally not called directly by an application. The
-    PRIME application must use the function located in the header table.
+    This routine is normally not called directly by an application. The PRIME 
+    application must use the function located in the PRIME API.
 */
 void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart, 
                           uint8_t primeVersion);
@@ -179,9 +179,9 @@ void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart,
     </code>
 
   Remarks:
-    This routine is normally not called directly by an application. The
-    PRIME application must use the function located in the header table
-    and call it periodically.
+    This routine is normally not called directly by an application. The PRIME 
+    application must use the function located in the PRIME API and call it 
+    periodically.
 */
 void PRIME_API_Tasks(void);
 
@@ -229,8 +229,8 @@ void PRIME_API_Tasks(void);
     </code>
 
   Remarks:
-    This routine is normally not called directly by an application. The
-    PRIME application must use the function located in the header table.
+    This routine is normally not called directly by an application. The PRIME 
+    application must use the function located in the PRIME API.
 */
 SYS_STATUS PRIME_API_Status(void);
 

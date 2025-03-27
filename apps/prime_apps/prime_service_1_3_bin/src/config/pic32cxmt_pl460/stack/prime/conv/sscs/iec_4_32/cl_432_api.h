@@ -1,5 +1,5 @@
 /*******************************************************************************
-  PRIME 4.32 Convergence Sublayer API Header
+  PRIME 4-32 Convergence Sublayer API Header
 
   Company:
     Microchip Technology Inc.
@@ -109,7 +109,7 @@ Microchip or any third party.
     </code>
 
   Remarks:
-    None
+    Unused callbacks must be set to NULL.
 */
 void CL_432_SetCallbacks(CL_432_CALLBACKS *cl432cbs);
 
@@ -220,10 +220,10 @@ void CL_432_DlDataRequest(uint8_t dstLsap, uint8_t srcLsap, uint16_t dstAddress,
 
   Example:
     <code>    
-    uint8_t eui48[6];
-    memset(eui48, 0x12, 6);
+    uint8_t len = 5;
+    uint8_t devideId[len] = {0};
     
-    CL_432_EstablishRequest(eui48, 6, 0);
+    CL_432_EstablishRequest(devideId, len, 0);
     </code>
 
   Remarks:

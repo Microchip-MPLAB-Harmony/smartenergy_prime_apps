@@ -72,8 +72,8 @@
 #define FLEXCOM7_USART_WRITE_BUFFER_SIZE            1024U
 #define FLEXCOM7_USART_9BIT_WRITE_BUFFER_SIZE       (1024U >> 1U)
 
-volatile static uint8_t FLEXCOM7_USART_ReadBuffer[FLEXCOM7_USART_READ_BUFFER_SIZE];
-volatile static uint8_t FLEXCOM7_USART_WriteBuffer[FLEXCOM7_USART_WRITE_BUFFER_SIZE];
+static volatile uint8_t FLEXCOM7_USART_ReadBuffer[FLEXCOM7_USART_READ_BUFFER_SIZE];
+static volatile uint8_t FLEXCOM7_USART_WriteBuffer[FLEXCOM7_USART_WRITE_BUFFER_SIZE];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -81,7 +81,7 @@ volatile static uint8_t FLEXCOM7_USART_WriteBuffer[FLEXCOM7_USART_WRITE_BUFFER_S
 // *****************************************************************************
 // *****************************************************************************
 
-volatile static FLEXCOM_USART_RING_BUFFER_OBJECT flexcom7UsartObj;
+static volatile FLEXCOM_USART_RING_BUFFER_OBJECT flexcom7UsartObj;
 
 void FLEXCOM7_USART_Initialize( void )
 {
@@ -133,7 +133,7 @@ void FLEXCOM7_USART_Initialize( void )
     FLEXCOM7_USART_RX_INT_ENABLE();
 }
 
-void static FLEXCOM7_USART_ErrorClear( void )
+static void FLEXCOM7_USART_ErrorClear( void )
 {
     /* Clear the error flags */
     FLEXCOM7_REGS->FLEX_US_CR = FLEX_US_CR_RSTSTA_Msk;
@@ -677,7 +677,7 @@ void FLEXCOM7_USART_ReadCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK cal
     flexcom7UsartObj.rdContext = context;
 }
 
-void static __attribute__((used)) FLEXCOM7_USART_ISR_RX_Handler( void )
+static void __attribute__((used)) FLEXCOM7_USART_ISR_RX_Handler( void )
 {
     uint16_t rdData = 0;
 
@@ -706,7 +706,7 @@ void static __attribute__((used)) FLEXCOM7_USART_ISR_RX_Handler( void )
 
 }
 
-void static __attribute__((used)) FLEXCOM7_USART_ISR_TX_Handler( void )
+static void __attribute__((used)) FLEXCOM7_USART_ISR_TX_Handler( void )
 {
     uint16_t wrByte;
 

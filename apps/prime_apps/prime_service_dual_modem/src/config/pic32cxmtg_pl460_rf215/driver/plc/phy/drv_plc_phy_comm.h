@@ -386,16 +386,18 @@ typedef struct {
 	uint8_t status;
 } DRV_PLC_PHY_SIGNAL_CAPTURE;
 
-    /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 6.1 deviated 3 times. Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+/* MISRA C-2012 deviation block start */
+/* MISRA C-2012 Rule 6.1 deviated 3 times. Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
 /* Structure defining information about CSMA algorithm */
 typedef struct {
-	uint8_t disableRx : 1;
-	uint8_t senseCount : 3;
-	uint8_t senseDelayMs : 4;
+  /* Use CSMA (0) or forced transmission (1) */
+  uint8_t disableRx : 1;
+  /* Number of CSMA senses */
+  uint8_t senseCount : 3;
+  /* CSMA Sense delay in milliseconds */
+  uint8_t senseDelayMs : 4;
 } DRV_PLC_PHY_CSMA;
-    /* MISRA C-2012 deviation block end */
-
+/* MISRA C-2012 deviation block end */
 
 // *****************************************************************************
 /* PRIME Transmission setup data

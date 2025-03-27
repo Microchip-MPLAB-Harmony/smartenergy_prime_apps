@@ -11,8 +11,8 @@
     PRIME User PIBs Service Interface Header File.
 
   Description:
-    The User PIBs service provides a simple interface to handle a parameter
-    interface base defined by the user from the PRIME stack. This file provides
+    The PRIME User PIBs service provides a simple interface to handle a parameter
+    interface base defined by the user from the PRIME Stack. This file provides
     the interface definition for this service.
 *******************************************************************************/
 
@@ -110,35 +110,18 @@ Microchip or any third party.
 /* User PIB Service Get Request Handler Function Pointer
 
    Summary
-    Pointer to a User PIB Get Request callback function.
+    Function pointer to a User PIB Get Request callback function.
 
    Description
     This data type defines a pointer to a User PIB Get Request callback function,
     thus defining the function signature. Clients of the User PIB service can
     register a callback function to get the requested user PIB with
     SRV_USER_PIB_GetRequestCbRegister function. That function will be called
-    back when the PRIME stack returns the requested user PIB.
-
-  Parameters:
-    getResult     - Result of the operation
-    pibAttrib     - PIB attribute identifier
-    pibValue      - PIB attribute value
-    pibSize       - PIB attribute value size
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    static void APP_GetRequestHandler(uint8_t getResult, uint16_t pibAttrib,
-                                void *pibValue, uint8_t pibSize)
-    {
-        if (getResult == true)
-        {
-            ...
-        }
-    }
-    </code>
+    back when the PRIME Stack returns the requested user PIB.
+    getResult - Result of the operation
+    pibAttrib - PIB attribute identifier
+    pibValue - PIB attribute value
+    pibSize - PIB attribute value size
 
   Remarks:
     None.
@@ -151,31 +134,16 @@ typedef void (*SRV_USER_PIB_GET_REQUEST_CALLBACK)(uint8_t getResult, uint16_t pi
 /* User PIB Service Set Request Handler Function Pointer
 
    Summary
-    Pointer to a User PIB Set Request callback function.
+    Function pointer to a User PIB Set Request callback function.
 
    Description
     This data type defines a pointer to a User PIB Set Request callback function,
     thus defining the function signature. Clients of the User PIB service can
     register a callback function to get the result of settting user PIB with
     SRV_USER_PIB_SetRequestCbRegister function. That function will be called
-    back when the PRIME stack returns the results of setting a user PIB.
+    back when the PRIME Stack returns the result of setting a user PIB.
+    setResult - Result of the operation
 
-  Parameters:
-    setResult        - Result of the operation
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    static void APP_SetRequestHandler(uint8_t setResult)
-    {
-        if (setResult == true)
-        {
-            ...
-        }
-    }
-    </code>
 
   Remarks:
     None.
@@ -194,7 +162,7 @@ typedef void (*SRV_USER_PIB_SET_REQUEST_CALLBACK)(uint8_t setResult);
     void SRV_USER_PIB_Initialize(void)
 
   Summary:
-    Initializes the User PIBs service.
+    Initializes the PRIME User PIBs service.
 
   Description:
     This routine initializes the PRIME User PIBs service.
@@ -258,7 +226,7 @@ void SRV_USER_PIB_Initialize(void);
 
     int main(void)
     {
-        SRV_USER_PIB_Initialize;
+        SRV_USER_PIB_Initialize();
 
         SRV_USER_PIB_GetRequestCbRegister(APP_GetRequestHandler);
     }
@@ -303,7 +271,7 @@ void SRV_USER_PIB_GetRequestCbRegister(SRV_USER_PIB_GET_REQUEST_CALLBACK callbac
 
     int main(void)
     {
-        SRV_USER_PIB_Initialize;
+        SRV_USER_PIB_Initialize();
 
         SRV_USER_PIB_GetRequestCbRegister(APP_GetRequestHandler);
 
@@ -312,7 +280,7 @@ void SRV_USER_PIB_GetRequestCbRegister(SRV_USER_PIB_GET_REQUEST_CALLBACK callbac
     </code>
 
   Remarks:
-    The requester user PIB is returned in a callback function.
+    The requested user PIB is returned in a callback function.
 */
 
 void SRV_USER_PIB_GetRequest(uint16_t pibAttrib);
@@ -350,7 +318,7 @@ void SRV_USER_PIB_GetRequest(uint16_t pibAttrib);
 
     int main(void)
     {
-        SRV_USER_PIB_Initialize;
+        SRV_USER_PIB_Initialize();
 
         SRV_USER_PIB_SetRequestCbRegister(APP_SetRequestHandler);
     }
@@ -402,7 +370,7 @@ void SRV_USER_PIB_SetRequestCbRegister(SRV_USER_PIB_SET_REQUEST_CALLBACK callbac
     {
         uint32_t resetValue = 0;
 
-        SRV_USER_PIB_Initialize;
+        SRV_USER_PIB_Initialize();
 
         SRV_USER_PIB_SetRequestCbRegister(APP_SetRequestHandler);
 

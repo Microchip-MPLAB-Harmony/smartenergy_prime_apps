@@ -12,7 +12,7 @@
 
   Description:
     This file contains definitions of the PRIME MAC control functions to be used 
-    by the PRIME stack when managing the PRIME MAC layer.
+    by the PRIME Stack when managing the PRIME MAC layer.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -80,7 +80,7 @@ Microchip or any third party.
     This routine initializes the PRIME MAC layer.
 
   Precondition:
-    None.
+    The PRIME PAL status should be SYS_STATUS_READY before calling this function.
 
   Parameters:
     macInfo     - Pointer to the MAC version information
@@ -104,7 +104,7 @@ Microchip or any third party.
 
   Remarks:
     This routine is normally not called directly by an application. It is 
-    called by the PRIME stack initalization routine.
+    called by the PRIME Stack initialization routine.
 */
 void MAC_Initialize(MAC_VERSION_INFO *macInfo, uint8_t secProfile);
 
@@ -138,7 +138,8 @@ void MAC_Initialize(MAC_VERSION_INFO *macInfo, uint8_t secProfile);
     </code>
 
   Remarks:
-    This function must be periodically called by the user application.
+    This function must be periodically called by the user application through
+    the PRIME Stack.
 */
 void MAC_Tasks(void);
 

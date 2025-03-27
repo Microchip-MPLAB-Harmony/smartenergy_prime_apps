@@ -1042,7 +1042,7 @@ uint8_t PAL_PLC_SetChannel(uint16_t pch)
         return ((uint8_t)PAL_CFG_INVALID_INPUT);
     }
 
-    palPlcData.channel = lPAL_PLC_GetChannelNumber(pch);
+    palPlcData.channel = (DRV_PLC_PHY_CHANNEL)lPAL_PLC_GetChannelNumber(pch);
 
     lPAL_PLC_SetTxRxChannel(palPlcData.channel);
 

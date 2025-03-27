@@ -1,5 +1,5 @@
 /*******************************************************************************
-  PRIME 4.32 Convergence Sublayer Control Interface Header
+  PRIME 4-32 Convergence Sublayer Control Interface Header
 
   Company:
     Microchip Technology Inc.
@@ -8,11 +8,11 @@
     cl_432.h
 
   Summary:
-    PRIME 4.32 Convergence Sublayer Control Interface Header File
+    PRIME 4-32 Convergence Sublayer Control Interface Header File
 
   Description:
     This file contains definitions of the control functions to be used by the 
-    PRIME stack when managing the PRIME 4.32 Convergence Sublayer.
+    PRIME stack when managing the PRIME 4-32 Convergence Sublayer.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -53,7 +53,7 @@ Microchip or any third party.
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: PRIME 4.32 Convergence Sublayer Control Interface Routines
+// Section: PRIME 4-32 Convergence Sublayer Control Interface Routines
 // *****************************************************************************
 // *****************************************************************************
 
@@ -62,13 +62,14 @@ Microchip or any third party.
     void CL_432_Initialize(void)
 
   Summary:
-    Initializes the PRIME 4.32 Convergence Sublayer.
+    Initializes the PRIME 4-32 Convergence Sublayer.
 
   Description:
-    This routine initializes the PRIME 4.32 Convergence Sublayer.
+    This routine initializes the PRIME 4-32 Convergence Sublayer.
 
   Precondition:
-    None.
+    The MAC_Initialize function should have been called before calling this 
+    function.
 
   Parameters:
     None.
@@ -83,7 +84,7 @@ Microchip or any third party.
 
   Remarks:
     This routine is normally not called directly by an application. It is 
-    called by the PRIME stack initalization routine.
+    called by the PRIME Stack initialization routine.
 */
 void CL_432_Initialize(void);
 

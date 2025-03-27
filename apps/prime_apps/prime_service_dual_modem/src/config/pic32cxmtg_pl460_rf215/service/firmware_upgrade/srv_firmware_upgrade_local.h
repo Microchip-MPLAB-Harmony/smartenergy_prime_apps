@@ -99,6 +99,9 @@ typedef enum
     /* Calculate CRC */
     SRV_FU_CALCULATE_CRC_BLOCK,
        
+    /* Verify Signature */
+    SRV_FU_VERIFY_SIGNATURE_BLOCK,
+    
     /* Wait for transfer to complete */
     SRV_FU_MEM_STATE_XFER_WAIT,
 
@@ -179,6 +182,25 @@ typedef enum
   SRC_FU_CRC_CALCULATING
 } SRV_FU_CRC_STATE;
 
+
+/* SIgnature calculation states
+
+  Summary:
+    SIgnature calculation states
+
+  Description:
+    States of the SIgnature calculation
+
+  Remarks:
+    -
+ */
+typedef enum
+{
+  SRV_FU_DSA_NON_PUBLIC_KEY,
+  SRV_FU_DSA_IDLE,
+  SRV_FU_DSA_WAIT_READ_BLOCK,
+  SRV_FU_DSA_CALCULATING
+} SRV_FU_DSA_STATE;
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

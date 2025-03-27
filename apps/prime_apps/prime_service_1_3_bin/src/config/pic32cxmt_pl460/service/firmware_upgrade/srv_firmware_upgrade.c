@@ -191,6 +191,8 @@ static void lSRV_FU_EraseFuRegion(void)
 	memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
 }
 
+
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Firmware Upgrade Service Interface Implementation
@@ -209,6 +211,7 @@ void SRV_FU_Initialize(void)
     memInfo.sizeFuRegion = PRIME_FU_MEM_SIZE;
 
 	memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
+
 }
 
 void SRV_FU_Tasks(void)
@@ -400,6 +403,7 @@ void SRV_FU_Tasks(void)
             break;
         }
 
+        case SRV_FU_VERIFY_SIGNATURE_BLOCK:
         case SRV_FU_MEM_STATE_XFER_WAIT:
         case SRV_FU_MEM_STATE_SUCCESS:
         case SRV_FU_MEM_STATE_WRITE_WAIT_END:
@@ -492,8 +496,8 @@ void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 {
 	fuData.imageSize = fuInfo->imageSize;
 	fuData.pageSize = fuInfo->pageSize;
-	fuData.signAlgorithm = SRV_FU_SIGNATURE_ALGO_NO_SIGNATURE;
-	fuData.signLength = 0;
+	fuData.signAlgorithm = fuInfo->signAlgorithm;
+	fuData.signLength = fuInfo->signLength;
 
 	/* Erase internal flash pages */
 	lSRV_FU_EraseFuRegion();

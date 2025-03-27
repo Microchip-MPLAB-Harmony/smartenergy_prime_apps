@@ -11,7 +11,7 @@
     PRIME Reset Handler Service Interface Header File.
 
   Description:
-    The Reset Handler service provides a simple interface to trigger system
+    The PRIME Reset Handler service provides a simple interface to trigger system
     resets and to manage and store reset causes. This file provides the
     interface definition for this service.
 *******************************************************************************/
@@ -116,7 +116,7 @@ typedef enum {
     void SRV_RESET_HANDLER_Initialize(void)
 
   Summary:
-    Initializes the Reset Handler service.
+    Initializes the PRIME Reset Handler service.
 
   Description:
     This routine initializes the PRIME Reset Handler service.

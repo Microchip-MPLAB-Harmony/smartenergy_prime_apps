@@ -92,7 +92,106 @@ typedef enum
 // *****************************************************************************
 // *****************************************************************************
 
+// *****************************************************************************
+/* Function:
+    void PRIME_API_GetPrime13API(const PRIME_API **pPrimeApi)
+
+  Summary:
+    Gets the PRIME API location for PRIME Library v1.3.
+
+  Description:
+    This routine gets the PRIME API location for PRIME Library v1.3 in a dual
+    application.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pPrimeApi  - Pointer to PRIME Library v1.3
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    const PRIME_API *gPrimeApi;
+    
+    SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
+    SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo),
+                              (void *)&boardInfo);
+
+    switch (boardInfo.primeVersion)
+    {
+        case PRIME_VERSION_1_3:
+            PRIME_API_GetPrime13API(&gPrimeApi);
+            break;
+
+        case PRIME_VERSION_1_4:
+        default:
+            PRIME_API_GetPrime14API(&gPrimeApi);
+            break;
+    }
+    
+    if (gPrimeApi->Status() == SYS_STATUS_READY)
+    {
+        ...
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
 void PRIME_API_GetPrime13API(const PRIME_API **pPrimeApi);
+
+// *****************************************************************************
+/* Function:
+    void PRIME_API_GetPrime14API(const PRIME_API **pPrimeApi)
+
+  Summary:
+    Gets the PRIME API location for PRIME Library v1.4.
+
+  Description:
+    This routine gets the PRIME API location for PRIME Library v1.4 in a dual
+    application.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pPrimeApi  - Pointer to PRIME Library v1.4
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    const PRIME_API *gPrimeApi;
+    
+    SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
+    SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo),
+                              (void *)&boardInfo);
+
+    switch (boardInfo.primeVersion)
+    {
+        case PRIME_VERSION_1_3:
+            PRIME_API_GetPrime13API(&gPrimeApi);
+            break;
+
+        case PRIME_VERSION_1_4:
+        default:
+            PRIME_API_GetPrime14API(&gPrimeApi);
+            break;
+    }
+    
+    if (gPrimeApi->Status() == SYS_STATUS_READY)
+    {
+        ...
+    }
+    </code>
+
+  Remarks:
+    None.
+*/
 void PRIME_API_GetPrime14API(const PRIME_API **pPrimeApi);
 
 
