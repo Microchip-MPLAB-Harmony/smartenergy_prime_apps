@@ -36,8 +36,8 @@
 // *****************************************************************************
 // Section: Global Data Definitions
 // *****************************************************************************
+#define    LENGTH_EDCSA_KEY      65
 // *****************************************************************************
-
 // *****************************************************************************
 /* Application Data
 
@@ -62,8 +62,14 @@ static const PRIME_API *newPrimeApi;
 static uint32_t volatile fuSwapEn;
 static uint32_t volatile versionSwapEn;
 
-/* PRIME regions configuration */
-//SRV_FU_REGION_CGF fuRegion;
+/* Public Key for FU Signature */
+static uint8_t pubEDCSAKey[LENGTH_EDCSA_KEY] =
+    {0x04,0x26,0x6f,0xfe,0x08,0x07,0x51,0xbf,0xd6,0xef,0xd6,0xde,0xf4,0x74,0xc5,
+     0x1a,0x5e,0x1a,0x10,0xbb,0x07,0xd0,0x0a,0x0a,0x4f,0x8a,0x4e,0xab,0x59,0x66,
+     0x7a,0xbb,0xd9,0xd2,0x90,0x60,0xdb,0xc7,0x95,0x16,0xab,0xfb,0x2c,0xfe,0xa0,
+     0xd4,0x7b,0xc7,0x0f,0xe8,0x2f,0x97,0xe7,0xd0,0xaa,0x4e,0x20,0x4b,0x00,0xc2,
+     0x90,0x23,0x88,0xd3,0xc8};
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -250,6 +256,9 @@ void APP_Tasks ( void )
 
             /* Initialize FU result callback */
             SRV_FU_RegisterCallbackFuResult(lAPP_PrimeFuResultHandler);
+            
+            /* Pass the public key to FU module */
+            SRV_FU_SetEDCSAPublicKey(pubEDCSAKey, LENGTH_EDCSA_KEY);
             break;
         }
 
