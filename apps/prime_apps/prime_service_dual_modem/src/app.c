@@ -258,7 +258,7 @@ void APP_Tasks ( void )
             SRV_FU_RegisterCallbackFuResult(lAPP_PrimeFuResultHandler);
             
             /* Pass the public key to FU module */
-            SRV_FU_SetEDCSAPublicKey(pubEDCSAKey, LENGTH_EDCSA_KEY);
+            SRV_FU_SetECDSAPublicKey(pubEDCSAKey, LENGTH_EDCSA_KEY);
             break;
         }
 
