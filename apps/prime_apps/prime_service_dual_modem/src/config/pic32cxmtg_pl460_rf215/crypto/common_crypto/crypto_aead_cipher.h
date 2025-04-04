@@ -18,6 +18,29 @@
     are defined here for convenience.
 *******************************************************************************/
 
+/*******************************************************************************
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*******************************************************************************/
+
 #ifndef CRYPTO_AEAD_CIPHER_H
 #define CRYPTO_AEAD_CIPHER_H
 
@@ -35,16 +58,16 @@ typedef enum
     CRYPTO_AEAD_ERROR_KEY = -125,
     CRYPTO_AEAD_ERROR_HDLR = -124,
     CRYPTO_AEAD_ERROR_INPUTDATA = -123,
-    CRYPTO_AEAD_ERROR_OUTPUTDATA = -122,        
+    CRYPTO_AEAD_ERROR_OUTPUTDATA = -122,
     CRYPTO_AEAD_ERROR_NONCE = -121,
     CRYPTO_AEAD_ERROR_AUTHTAG = -120,
-    CRYPTO_AEAD_ERROR_AAD = -119,        
+    CRYPTO_AEAD_ERROR_AAD = -119,
     CRYPTO_AEAD_ERROR_CIPOPER = -118,
-    CRYPTO_AEAD_ERROR_SID = -117,  ////session ID Error
+    CRYPTO_AEAD_ERROR_SID = -117,
     CRYPTO_AEAD_ERROR_ARG = -116,
     CRYPTO_AEAD_ERROR_CIPFAIL = -115,
-    CRYPTO_AEAD_ERROR_AUTHFAIL = -114,        
-    CRYPTO_AEAD_CIPHER_SUCCESS = 0,        
+    CRYPTO_AEAD_ERROR_AUTHFAIL = -114,
+    CRYPTO_AEAD_CIPHER_SUCCESS = 0,
 }crypto_Aead_Status_E;
 
 // *****************************************************************************

@@ -74,6 +74,9 @@ Microchip or any third party.
   Description:
     This enumeration defines the valid Firmware Upgrade Memory states. These states
     determine the behavior of the application at various times.
+
+  Remarks:
+    None.
 */
 
 typedef enum
@@ -126,7 +129,7 @@ typedef enum
     This structure holds the relevant memory information
 
   Remarks:
-    -
+    None.
  */
 
 typedef struct
@@ -183,20 +186,20 @@ typedef enum
 } SRV_FU_CRC_STATE;
 
 
-/* SIgnature calculation states
+/* Signature calculation states
 
   Summary:
-    SIgnature calculation states
+    Signature calculation states
 
   Description:
-    States of the SIgnature calculation
+    States of the Signature calculation
 
   Remarks:
-    -
+    None
  */
 typedef enum
 {
-  SRV_FU_DSA_NON_PUBLIC_KEY,
+  SRV_FU_DSA_NO_PUBLIC_KEY,
   SRV_FU_DSA_IDLE,
   SRV_FU_DSA_WAIT_READ_BLOCK,
   SRV_FU_DSA_CALCULATING

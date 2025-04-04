@@ -132,7 +132,7 @@ typedef enum {
 /* Firmware upgrade information
 
  Summary:
-    Data structure with the firmare upgrade information.
+    Data structure with the firmware upgrade information.
 
  Description:
     This structure contains the parameters for the firmware upgrade information.
@@ -141,10 +141,10 @@ typedef enum {
     None.
 */
 typedef struct {
-	uint32_t imageSize;
+  uint32_t imageSize;
   uint16_t signLength;
   SRV_FU_SIGNATURE_ALGO signAlgorithm;
-	uint8_t pageSize;
+  uint8_t pageSize;
 } SRV_FU_INFO;
 
 // *****************************************************************************
@@ -193,10 +193,10 @@ typedef void (*SRV_FU_RESULT_CB)(SRV_FU_RESULT fuResult);
 /* Memory transaction result information
 
  Summary:
-    Possible results of a memmory transaction.
+    Possible results of a memory transaction.
 
  Description:
-    Possible results of a memmory transaction.
+    Possible results of a memory transaction.
 
  Remarks:
     None.
@@ -435,7 +435,7 @@ void SRV_FU_RegisterCallbackFuResult(SRV_FU_RESULT_CB callback);
     Ends the firmware upgrade process.
 
   Description:
-    This function is used to finish the firmare upgrade process and to trigger the
+    This function is used to finish the firmware upgrade process and to trigger the
     execution of the new firmware.
 
   Precondition:
@@ -495,22 +495,22 @@ bool SRV_FU_SwapFirmware(void);
 
 // ****************************************************************************
 /* Function:
-   void SRV_FU_SetEDCSAPublicKey(uint8_t *pubKey, uint16_t pubKeyLen)
+   void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
 
   Summary:
-    Pass to the Firmware Upgrade the public key to be used for the EDCSA-256
+    Set the Firmware Upgrade the public key to be used for the ECDSA-256
     signature.
 
   Description:
-    This function sets the public key to be used for the EDCSA-256 signature.
+    This function sets the public key to be used for the ECDSA-256 signature.
 
   Precondition:
     The SRV_FU_Initialize function should have been called before calling this
     function.
 
   Parameters:
-    pubKey      - Pointer to the buffer where the EDCSA-256 public key is stored
-    pubKeyLen   - length of the key
+    pubKey      - Pointer to the buffer where the ECDSA-256 public key is stored
+    pubKeyLen   - Length of the key
 
   Returns:
     None.
@@ -522,13 +522,13 @@ bool SRV_FU_SwapFirmware(void);
     uint8_t pubKey[LEN_PUBLIC_KEY];
     uint16_t pubKeyLen = LEN_PUBLIC_KEY;
 
-    SRV_FU_SetEDCSAPublicKey(pubKey, pubKeyLen);
+    SRV_FU_SetECDSAPublicKey(pubKey, pubKeyLen);
     </code>
 
   Remarks:
     This function is called by the application.
 */
-void SRV_FU_SetEDCSAPublicKey(uint8_t *pubKey, uint16_t pubKeyLen);
+void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen);
 
 // ****************************************************************************
 /* Function:
@@ -538,7 +538,7 @@ void SRV_FU_SetEDCSAPublicKey(uint8_t *pubKey, uint16_t pubKeyLen);
     Reads the firmware upgrade information.
 
   Description:
-    This function is used to read the firmare upgrade information, which is
+    This function is used to read the firmware upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -571,7 +571,7 @@ void SRV_FU_CfgRead(void *dst, uint16_t size);
     Writes the firmware upgrade information.
 
   Description:
-    This function is used to write the firmare upgrade information, which is
+    This function is used to write the firmware upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -900,7 +900,7 @@ uint16_t SRV_FU_GetBitmap(uint8_t *bitmap, uint32_t *numRxPages);
     back when the PRIME stack requests to trigger a PRIME stack version swap.
 
   Precondition:
-    None.
+    The SRV_FU_Initialize function should have been called before calling this function.
 
   Parameters:
     callback       - Pointer to the callback function
@@ -939,7 +939,7 @@ void SRV_FU_RegisterCallbackSwapVersion(SRV_FU_VERSION_SWAP_CB callback);
     This function is used to request to swap the PRIME stack version.
 
   Precondition:
-    None.
+    The SRV_FU_Initialize function should have been called before calling this function.
 
   Parameters:
     trafficVersion  - Type of traffic PRIME 1.3 or 1.4 detected
