@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>com.microchip.mplab.nbide.embedded.makeproject</type>
+    <configuration>
+        <data xmlns="http://www.netbeans.org/ns/make-project/1">
+            <name>prime_service_dual_metering_demo_pic32cx_mtsh_db</name>
+            <creation-uuid>b1712be9-3c38-497d-b47f-4a894930fbf2</creation-uuid>
+            <make-project-type>0</make-project-type>
+            <sourceEncoding>ISO-8859-1</sourceEncoding>
+            <make-dep-projects>
+                <make-dep-project>../../prime_service_bootloader/bootloader_pic32cxmtg.X</make-dep-project>
+                <make-dep-project>../../prime_service_1_3_bin/pic32cxmt_pl460.X</make-dep-project>
+                <make-dep-project>../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X</make-dep-project>
+            </make-dep-projects>
+            <sourceRootList/>
+            <confList>
+                <confElem>
+                    <name>pic32cx_mtsh_db_pl460_rf215</name>
+                    <type>2</type>
+                </confElem>
+            </confList>
+            <formatting>
+                <project-formatting-style>false</project-formatting-style>
+            </formatting>
+        </data>
+    </configuration>
+</project>
