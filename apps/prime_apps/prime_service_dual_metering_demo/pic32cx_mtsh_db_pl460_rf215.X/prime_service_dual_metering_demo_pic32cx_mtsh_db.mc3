@@ -430,7 +430,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;String dnOrder=&quot;1&quot; id=&quot;name&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;app_prime_metrology.c&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;app_prime_management.c&lt;/Value&gt;
       &lt;/String&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -446,7 +446,7 @@
         &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
       &lt;String dnOrder=&quot;1&quot; id=&quot;name&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;app_prime_metrology.h&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;app_prime_management.h&lt;/Value&gt;
       &lt;/String&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
@@ -461,6 +461,9 @@
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
+      &lt;String dnOrder=&quot;1&quot; id=&quot;name&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;app_prime_metrology.c&lt;/Value&gt;
+      &lt;/String&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
@@ -474,6 +477,9 @@
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
         &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
+      &lt;String dnOrder=&quot;1&quot; id=&quot;name&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;app_prime_metrology.h&lt;/Value&gt;
+      &lt;/String&gt;
     &lt;/Attributes&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
@@ -8760,7 +8766,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;GEN_APP_TASK_NAME_6&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;app_prime_metrology&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;app_prime_management&quot;/&gt;
     &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
@@ -8770,7 +8776,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="GEN_APP_TASK_NAME_7"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;GEN_APP_TASK_NAME_7&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;app_prime_metrology&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
 </value>
@@ -42384,12 +42392,12 @@
          <hash>11f5eb4f9790a61b0fdcf60b4988915fb41933f3ba7d9588a0de50ac2ef8f6db</hash>
       </entry>
       <entry>
-         <file>..\src\app_prime_metrology.c</file>
-         <hash>1895f5396517a9937f0ce8c865d83ae3ff16051646d8783ef549f86d3bbbb91f</hash>
+         <file>..\src\app_prime_management.c</file>
+         <hash>e5f94f8f50b1a5eb3a631534f587da8ca78ca40d3e55b9810c8247620db07f09</hash>
       </entry>
       <entry>
-         <file>..\src\app_prime_metrology.h</file>
-         <hash>7a5924402d2475e93f41560c4d366212f254ed4eec470d79a5b3427e706e4d5e</hash>
+         <file>..\src\app_prime_management.h</file>
+         <hash>d16aa3ba5d99900772e3f2da4466681d68b23bdf78dbe9ac5bb90d6dc9b28da1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\PIC32CX2051MTSH128.ld</file>
@@ -42689,7 +42697,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\definitions.h</file>
-         <hash>dc28d311d466694abe4ef13172d28b1ed07c093f60f7909e72ca719b14136c72</hash>
+         <hash>043268ce286a5bbcae765d0f5515bed38e90a3c81157dbca04a0f72b6c9cefd8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\device.h</file>
@@ -42897,7 +42905,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\initialization.c</file>
-         <hash>e34db030fac6408c555b21c798e45847858fc1425602fe954ad001ccdaa38ee4</hash>
+         <hash>6944c0112842e22839d266a013563b066fcd9332758225241b08657ed98788ac</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\interrupts.c</file>
@@ -43537,7 +43545,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\tasks.c</file>
-         <hash>6d3f861fdf5c914f46eeed7c7209af32a2ed4015b10fa1d23ab0dbe9900e65bd</hash>
+         <hash>b988e0c8718c2bfc238439bed24fa9acdfe9de3dab0e16022b594b240b69a403</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\toolchain_specifics.h</file>

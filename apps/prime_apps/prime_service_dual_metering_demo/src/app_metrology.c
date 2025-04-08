@@ -331,12 +331,12 @@ static void _APP_METROLOGY_CalibrationCallback(bool result)
     app_metrologyData.calibrationFlag = true;
 }
 
-static void _APP_METROLOGY_HarmonicAnalysisCallback(uint8_t harmonicNum)
+static void _APP_METROLOGY_HarmonicAnalysisCallback(uint32_t harmonicBitmap)
 {
     if (app_metrologyData.pHarmonicAnalysisCallback)
     {
         app_metrologyData.harmonicAnalysisPending = false;
-        app_metrologyData.pHarmonicAnalysisCallback(harmonicNum);
+        app_metrologyData.pHarmonicAnalysisCallback(harmonicBitmap);
     }
 }
 
@@ -523,7 +523,7 @@ void APP_METROLOGY_Tasks (void)
 
                 // Send new Energy values to the Energy Task
                 newMetrologyData.energy = DRV_METROLOGY_GetEnergyValue(true);
-                newMetrologyData.Pt = DRV_METROLOGY_GetRMSValue(RMS_PT);
+                newMetrologyData.Pt = DRV_METROLOGY_GetMeasureValue(MEASURE_PT);
                 if (APP_ENERGY_SendEnergyData(&newMetrologyData) == false)
                 {
                     SYS_CMD_MESSAGE("ENERGY Queue is FULL!!!\r\n");
@@ -669,19 +669,19 @@ bool APP_METROLOGY_GetHarmonicsRegister(HARMONICS_REG_ID regId, uint32_t * regVa
     return true;
 }
 
-bool APP_METROLOGY_GetRMS(DRV_METROLOGY_RMS_TYPE rmsId, uint32_t * rmsValue, DRV_METROLOGY_RMS_SIGN * sign)
+bool APP_METROLOGY_GetRMS(DRV_METROLOGY_MEASURE_TYPE rmsId, uint32_t * rmsValue, DRV_METROLOGY_MEASURE_SIGN * sign)
 {
-    if (rmsId >= RMS_TYPE_NUM)
+    if (rmsId >= MEASURE_TYPE_NUM)
     {
         return false;
     }
 
     if (sign != NULL)
     {
-        *sign = DRV_METROLOGY_GetRMSSign(rmsId);
+        *sign = DRV_METROLOGY_GetMeasureSign(rmsId);
     }
 
-    *rmsValue = DRV_METROLOGY_GetRMSValue(rmsId);
+    *rmsValue = DRV_METROLOGY_GetMeasureValue(rmsId);
     return true;
 }
 
@@ -792,7 +792,7 @@ void APP_METROLOGY_SetLowPowerMode (void)
 
 bool APP_METROLOGY_CheckPhaseEnabled (APP_METROLOGY_PHASE_ID phase)
 {
-    uint32_t regValue = app_metrologyData.pMetControl->FEATURE_CTRL0;
+    uint32_t regValue = app_metrologyData.pMetControl->FEATURE_CTRL;
 
     if (regValue & phase)
     {

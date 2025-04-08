@@ -12,7 +12,9 @@
                 <make-dep-project>../../prime_service_1_3_bin/pic32cxmt_pl460.X</make-dep-project>
                 <make-dep-project>../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X</make-dep-project>
             </make-dep-projects>
-            <sourceRootList/>
+            <sourceRootList>
+                <sourceRootElem>../src</sourceRootElem>
+            </sourceRootList>
             <confList>
                 <confElem>
                     <name>pic32cx_mtsh_db_pl460_rf215</name>

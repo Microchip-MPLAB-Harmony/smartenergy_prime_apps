@@ -697,7 +697,7 @@ void SYS_Initialize ( void* data )
     APP_DISPLAY_Initialize();
     APP_ENERGY_Initialize();
     APP_EVENTS_Initialize();
-    APP_PRIME_METROLOGY_Initialize();
+    APP_PRIME_MANAGEMENT_Initialize();
 
 
     NVIC_Initialize();

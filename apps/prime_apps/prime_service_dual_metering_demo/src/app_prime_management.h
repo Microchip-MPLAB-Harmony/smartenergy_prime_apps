@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    app_prime_metrology.h
+    app_prime_management.h
 
   Summary:
     This header file provides prototypes and definitions for the application.
@@ -13,13 +13,13 @@
   Description:
     This header file provides function prototypes and data type definitions for
     the application.  Some of these are required by the system (such as the
-    "APP_PRIME_METROLOGY_Initialize" and "APP_PRIME_METROLOGY_Tasks" prototypes) and some of them are only used
-    internally by the application (such as the "APP_PRIME_METROLOGY_STATES" definition).  Both
+    "APP_PRIME_MANAGEMENT_Initialize" and "APP_PRIME_MANAGEMENT_Tasks" prototypes) and some of them are only used
+    internally by the application (such as the "APP_PRIME_MANAGEMENT_STATES" definition).  Both
     are defined here for convenience.
 *******************************************************************************/
 
-#ifndef _APP_PRIME_METROLOGY_H
-#define _APP_PRIME_METROLOGY_H
+#ifndef _APP_PRIME_MANAGEMENT_H
+#define _APP_PRIME_MANAGEMENT_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -47,6 +47,22 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
+/* Enable swapping of FU location */
+# define APP_FU_ENABLE_SWAP         0XFE45EC48
+    
+/* Enable swapping of stack */
+# define APP_VERSION_ENABLE_SWAP    0XEF54CE84
+    
+/* Register definition for NVIC */
+/* (NVIC) Interrupt Set-enable register */
+#define NVIC_ISER0        (0xE000E100U)
+/* (NVIC) Interrupt Clear-enable register */
+#define NVIC_ICER0        (0xE000E180U)
+/* (NVIC) Interrupt Set-pending register */
+#define NVIC_ISPR0        (0xE000E200U)
+/* (NVIC) Interrupt Clear-pending register */
+#define NVIC_ICPR0        (0xE000E280U)
+    
 // *****************************************************************************
 /* Application states
 
@@ -61,11 +77,11 @@ extern "C" {
 typedef enum
 {
     /* Application's state machine's initial state. */
-    APP_PRIME_METROLOGY_STATE_INIT=0,
-    APP_PRIME_METROLOGY_STATE_SERVICE_TASKS,
+    APP_PRIME_MANAGEMENT_STATE_INIT=0,
+    APP_PRIME_MANAGEMENT_STATE_SERVICE_TASKS,
     /* TODO: Define states used by the application state machine. */
 
-} APP_PRIME_METROLOGY_STATES;
+} APP_PRIME_MANAGEMENT_STATES;
 
 
 // *****************************************************************************
@@ -84,11 +100,11 @@ typedef enum
 typedef struct
 {
     /* The application's current state */
-    APP_PRIME_METROLOGY_STATES state;
+    APP_PRIME_MANAGEMENT_STATES state;
 
     /* TODO: Define any additional data used by the application. */
 
-} APP_PRIME_METROLOGY_DATA;
+} APP_PRIME_MANAGEMENT_DATA;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -106,7 +122,7 @@ typedef struct
 
 /*******************************************************************************
   Function:
-    void APP_PRIME_METROLOGY_Initialize ( void )
+    void APP_PRIME_MANAGEMENT_Initialize ( void )
 
   Summary:
      MPLAB Harmony application initialization routine.
@@ -114,7 +130,7 @@ typedef struct
   Description:
     This function initializes the Harmony application.  It places the
     application in its initial state and prepares it to run so that its
-    APP_PRIME_METROLOGY_Tasks function can be called.
+    APP_PRIME_MANAGEMENT_Tasks function can be called.
 
   Precondition:
     All other system initialization routines should be called before calling
@@ -128,19 +144,19 @@ typedef struct
 
   Example:
     <code>
-    APP_PRIME_METROLOGY_Initialize();
+    APP_PRIME_MANAGEMENT_Initialize();
     </code>
 
   Remarks:
     This routine must be called from the SYS_Initialize function.
 */
 
-void APP_PRIME_METROLOGY_Initialize ( void );
+void APP_PRIME_MANAGEMENT_Initialize ( void );
 
 
 /*******************************************************************************
   Function:
-    void APP_PRIME_METROLOGY_Tasks ( void )
+    void APP_PRIME_MANAGEMENT_Tasks ( void )
 
   Summary:
     MPLAB Harmony Demo application tasks function
@@ -161,14 +177,14 @@ void APP_PRIME_METROLOGY_Initialize ( void );
 
   Example:
     <code>
-    APP_PRIME_METROLOGY_Tasks();
+    APP_PRIME_MANAGEMENT_Tasks();
     </code>
 
   Remarks:
     This routine must be called from SYS_Tasks() routine.
  */
 
-void APP_PRIME_METROLOGY_Tasks( void );
+void APP_PRIME_MANAGEMENT_Tasks( void );
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -176,7 +192,7 @@ void APP_PRIME_METROLOGY_Tasks( void );
 #endif
 //DOM-IGNORE-END
 
-#endif /* _APP_PRIME_METROLOGY_H */
+#endif /* _APP_PRIME_MANAGEMENT_H */
 
 /*******************************************************************************
  End of File

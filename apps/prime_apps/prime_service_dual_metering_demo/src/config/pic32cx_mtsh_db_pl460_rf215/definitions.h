@@ -115,15 +115,15 @@
 #include "service/pvddmon/srv_pvddmon.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-#include "gfx/driver/controller/slcdc/cl010.h"
 #include "crypto/crypto_config.h"
+#include "gfx/driver/controller/slcdc/cl010.h"
 #include "app_metrology.h"
 #include "app_console.h"
 #include "app_datalog.h"
 #include "app_display.h"
 #include "app_energy.h"
 #include "app_events.h"
-#include "app_prime_metrology.h"
+#include "app_prime_management.h"
 
 
 

@@ -135,8 +135,8 @@ DRV_SLCDC_Update();
     /* Call Application task APP_EVENTS. */
     APP_EVENTS_Tasks();
 
-    /* Call Application task APP_PRIME_METROLOGY. */
-    APP_PRIME_METROLOGY_Tasks();
+    /* Call Application task APP_PRIME_MANAGEMENT. */
+    APP_PRIME_MANAGEMENT_Tasks();
 
 
 

@@ -429,7 +429,7 @@ bool APP_METROLOGY_SetControlRegister(CONTROL_REG_ID regId, uint32_t value);
 bool APP_METROLOGY_GetStatusRegister(STATUS_REG_ID regId, uint32_t * regValue, char *regName);
 bool APP_METROLOGY_GetAccumulatorRegister(ACCUMULATOR_REG_ID regId, uint64_t * regValue, char *regName);
 bool APP_METROLOGY_GetHarmonicsRegister(HARMONICS_REG_ID regId, uint32_t * regValue, char *regName);
-bool APP_METROLOGY_GetRMS(DRV_METROLOGY_RMS_TYPE rmsId, uint32_t * rmsValue, DRV_METROLOGY_RMS_SIGN * sign);
+bool APP_METROLOGY_GetRMS(DRV_METROLOGY_MEASURE_TYPE rmsId, uint32_t * rmsValue, DRV_METROLOGY_MEASURE_SIGN * sign);
 void APP_METROLOGY_SetControlByDefault(void);
 void APP_METROLOGY_StoreMetrologyData(void);
 void APP_METROLOGY_SetConfiguration(DRV_METROLOGY_CONFIGURATION * config);
