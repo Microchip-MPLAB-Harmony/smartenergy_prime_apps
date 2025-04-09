@@ -228,7 +228,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="ENABLE_SYS_PORTS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;ENABLE_SYS_PORTS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/HarmonyCore&gt;
 &lt;/HarmonyCore&gt;
 </value>
@@ -2711,6 +2713,45 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="PORTS_DEF"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
+  &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;PORTS_DEF&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/HarmonyCore&gt;
+&lt;/HarmonyCore&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="PORTS_HEADER"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
+  &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;PORTS_HEADER&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/HarmonyCore&gt;
+&lt;/HarmonyCore&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="PORTS_MAPPING"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
+  &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;PORTS_MAPPING&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/HarmonyCore&gt;
+&lt;/HarmonyCore&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="HarmonyCore" name="SELECT_RTOS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;HarmonyCore&gt;
   &lt;HarmonyCore dnOrder=&quot;0&quot; id=&quot;SELECT_RTOS&quot;&gt;
@@ -3473,11 +3514,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\definitions.h</file>
-         <hash>25907decf07110e911fe6b91f1c871ff5e924ca95f91391c68ec6a0e3b0a72ca</hash>
+         <hash>ffe2c211d91a85702ea9acf5f78e165698ea229e4b1c79ee98e33f5be073445e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\device.h</file>
-         <hash>87a68b5aeeb7f565d3dccd9cdbcac703f9fd63f3ff1dec8839becbd4fc49a593</hash>
+         <hash>e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\device_cache.h</file>
@@ -3501,15 +3542,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\initialization.c</file>
-         <hash>d4928b9640c38375474b7c62d9f15d9534c9dbedd11e78bd5b07d58d4eb9ee05</hash>
+         <hash>ab97ec3c9ec91a76c2fe9a7d46e8834e79e53407ad9fbc918330a9979d562c6f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\interrupts.c</file>
-         <hash>437349c36e15464ca96c162eb5648a5ffc7b0302321a0162512b7520287edef8</hash>
+         <hash>6a0d0c000ffeb0f036dbba22781df814837b3d6dee5f72b100da5e704d832b1d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\interrupts.h</file>
-         <hash>10080c41767fdbcc6dea33e17ea2f3f5d3646a1c55bb9114e603adbdd306bbc9</hash>
+         <hash>01546cb861902ba539183210df560edb11c3bf3b22aba3c5031a32798d0754ea</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\libc_syscalls.c</file>
@@ -3633,7 +3674,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\system\int\sys_int_mapping.h</file>
-         <hash>1c966d17b31c470d8c726165ce5202390af9cf1b733da2909f2b895543dc2937</hash>
+         <hash>a9bec903b073689bad62ea843c04732a78b8ece14ad157aa1ba2b8adc5a4d2b9</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cxmtg\system\ports\sys_ports.h</file>
+         <hash>b592317534ead0d9c9574470ee94a063de48e52a2bd3f311fcb137448b7b70ba</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cxmtg\system\ports\sys_ports_mapping.h</file>
+         <hash>8b879741803b1927b0708cfc1cdd7ae6c08b0b4f06708429691d673990cf5920</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\system\system.h</file>

@@ -14,7 +14,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -57,6 +57,7 @@
 #include "peripheral/supc/plib_supc.h"
 #include "peripheral/sefc/plib_sefc0.h"
 #include "system/int/sys_int.h"
+#include "system/ports/sys_ports.h"
 #include "system/cache/sys_cache.h"
 #include "system/debug/sys_debug.h"
 #include "peripheral/sefc/plib_sefc1.h"

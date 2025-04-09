@@ -1,14 +1,14 @@
 /*******************************************************************************
-  Interrupt System Service Mapping File
+  Ports System Service Mapping File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    sys_int_mapping.h
+    sys_ports_mapping.h
 
   Summary:
-    Interrupt System Service mapping file.
+    Ports System Service mapping file.
 
   Description:
     This header file contains the mapping of the APIs defined in the API header
@@ -41,29 +41,62 @@
 *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef SYS_INT_MAPPING_H
-#define SYS_INT_MAPPING_H
+#ifndef SYS_PORTS_MAPPING_H
+#define SYS_PORTS_MAPPING_H
+
+
+
+#include "peripheral/pio/plib_pio.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Interrupt System Service Mapping
+// Section: PORTS System Service Mapping
 // *****************************************************************************
 // *****************************************************************************
 
-/* MISRA C-2012 Rule 5.8 deviated:6 Deviation record ID -  H3_MISRAC_2012_R_5_8_DR_1 */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:6 "MISRA C-2012 Rule 5.8" "H3_MISRAC_2012_R_5_8_DR_1"
 
-#define SYS_INT_IsEnabled()                 ( __get_PRIMASK() == 0 )
-#define SYS_INT_SourceEnable( source )      NVIC_EnableIRQ( source )
-#define SYS_INT_SourceIsEnabled( source )   NVIC_GetEnableIRQ( source )
-#define SYS_INT_SourceStatusGet( source )   NVIC_GetPendingIRQ( source )
-#define SYS_INT_SourceStatusSet( source )   NVIC_SetPendingIRQ( source )
-#define SYS_INT_SourceStatusClear( source ) NVIC_ClearPendingIRQ( source )
+static inline void SYS_PORT_PinWrite(SYS_PORT_PIN pin, bool value)
+{
+    PIO_PinWrite((PIO_PIN)pin, value);
+}
 
-#pragma coverity compliance end_block "MISRA C-2012 Rule 5.8"
-#pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
+static inline bool SYS_PORT_PinRead(SYS_PORT_PIN pin)
+{
+    return(PIO_PinRead((PIO_PIN)pin));
+}
 
-#endif // SYS_INT_MAPPING_H
+static inline bool SYS_PORT_PinLatchRead(SYS_PORT_PIN pin)
+{
+    return(PIO_PinLatchRead((PIO_PIN)pin));
+}
+
+static inline void SYS_PORT_PinToggle(SYS_PORT_PIN pin)
+{
+    PIO_PinToggle((PIO_PIN)pin);
+}
+
+static inline void SYS_PORT_PinSet(SYS_PORT_PIN pin)
+{
+    PIO_PinSet((PIO_PIN)pin);
+}
+
+static inline void SYS_PORT_PinClear(SYS_PORT_PIN pin)
+{
+    PIO_PinClear((PIO_PIN)pin);
+}
+
+static inline void SYS_PORT_PinInputEnable(SYS_PORT_PIN pin)
+{
+    PIO_PinInputEnable((PIO_PIN)pin);
+}
+
+static inline void SYS_PORT_PinOutputEnable(SYS_PORT_PIN pin)
+{
+    PIO_PinOutputEnable((PIO_PIN)pin);
+}
+
+#endif // SYS_PORTS_MAPPING_H
+
+/*******************************************************************************
+ End of File
+*/
