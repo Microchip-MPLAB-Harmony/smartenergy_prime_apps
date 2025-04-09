@@ -314,9 +314,9 @@ static void _maxDemandCallback(struct tm * time, bool dataValid)
     app_consoleData.state = APP_CONSOLE_STATE_PRINT_MAX_DEMAND;
 }
 
-static void _harmonicAnalysisCallback(uint8_t harmonicNum)
+static void _harmonicAnalysisCallback(uint32_t harmonicBitmap)
 {
-    app_consoleData.harmonicNumRequest = harmonicNum;
+    app_consoleData.harmonicNumRequest = harmonicBitmap;
     app_consoleData.harmonicNumPrint = 0;
     app_consoleData.state = APP_CONSOLE_STATE_PRINT_HARMONIC_ANALYSIS;
 }
@@ -2630,9 +2630,9 @@ void APP_CONSOLE_Tasks ( void )
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetRMS(RMS_UA, &va, 0);
-            APP_METROLOGY_GetRMS(RMS_UB, &vb, 0);
-            APP_METROLOGY_GetRMS(RMS_UC, &vc, 0);
+            APP_METROLOGY_GetRMS(MEASURE_UA_RMS, &va, 0);
+            APP_METROLOGY_GetRMS(MEASURE_UB_RMS, &vb, 0);
+            APP_METROLOGY_GetRMS(MEASURE_UC_RMS, &vc, 0);
             // Show received data on console
             SYS_CMD_PRINT("Present voltage is :\r\nUa=%.3fV Ub=%.3fV Uc=%.3fV\r\n",(float)va/10000, (float)vb/10000, (float)vc/10000);
 
@@ -2649,12 +2649,12 @@ void APP_CONSOLE_Tasks ( void )
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetRMS(RMS_IA, &ia, 0);
-            APP_METROLOGY_GetRMS(RMS_IB, &ib, 0);
-            APP_METROLOGY_GetRMS(RMS_IC, &ic, 0);
-            APP_METROLOGY_GetRMS(RMS_INI, &ini, 0);
-            APP_METROLOGY_GetRMS(RMS_INM, &inm, 0);
-            APP_METROLOGY_GetRMS(RMS_INMI, &inmi, 0);
+            APP_METROLOGY_GetRMS(MEASURE_IA_RMS, &ia, 0);
+            APP_METROLOGY_GetRMS(MEASURE_IB_RMS, &ib, 0);
+            APP_METROLOGY_GetRMS(MEASURE_IC_RMS, &ic, 0);
+            APP_METROLOGY_GetRMS(MEASURE_INI_RMS, &ini, 0);
+            APP_METROLOGY_GetRMS(MEASURE_INM_RMS, &inm, 0);
+            APP_METROLOGY_GetRMS(MEASURE_INMI_RMS, &inmi, 0);
             // Show received data on console
             SYS_CMD_PRINT("Present current is :\r\nIa=%.4fA Ib=%.4fA Ic=%.4fA Ini=%.4fA Inm=%.4fA Inmi=%.4fA\r\n",
                     (float)ia/10000, (float)ib/10000, (float)ic/10000, (float)ini/10000,
@@ -2668,15 +2668,15 @@ void APP_CONSOLE_Tasks ( void )
         case APP_CONSOLE_STATE_PRINT_ACTIVE_POWER:
         {
             uint32_t pt, pa, pb, pc;
-            DRV_METROLOGY_RMS_SIGN signt, signa, signb, signc;
+            DRV_METROLOGY_MEASURE_SIGN signt, signa, signb, signc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetRMS(RMS_PT, &pt, &signt);
-            APP_METROLOGY_GetRMS(RMS_PA, &pa, &signa);
-            APP_METROLOGY_GetRMS(RMS_PB, &pb, &signb);
-            APP_METROLOGY_GetRMS(RMS_PC, &pc, &signc);
+            APP_METROLOGY_GetRMS(MEASURE_PT, &pt, &signt);
+            APP_METROLOGY_GetRMS(MEASURE_PA, &pa, &signa);
+            APP_METROLOGY_GetRMS(MEASURE_PB, &pb, &signb);
+            APP_METROLOGY_GetRMS(MEASURE_PC, &pc, &signc);
             // Show received data on console
             SYS_CMD_PRINT("Present active power is :\r\nPt=%c%.1fW Pa=%c%.1fW Pb=%c%.1fW Pc=%c%.1fW\r\n",
                    sign[signt], (float)pt/10, sign[signa], (float)pa/10, sign[signb],
@@ -2690,15 +2690,15 @@ void APP_CONSOLE_Tasks ( void )
         case APP_CONSOLE_STATE_PRINT_REACTIVE_POWER:
         {
             uint32_t qt, qa, qb, qc;
-            DRV_METROLOGY_RMS_SIGN signt, signa, signb, signc;
+            DRV_METROLOGY_MEASURE_SIGN signt, signa, signb, signc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetRMS(RMS_QT, &qt, &signt);
-            APP_METROLOGY_GetRMS(RMS_QA, &qa, &signa);
-            APP_METROLOGY_GetRMS(RMS_QB, &qb, &signb);
-            APP_METROLOGY_GetRMS(RMS_QC, &qc, &signc);
+            APP_METROLOGY_GetRMS(MEASURE_QT, &qt, &signt);
+            APP_METROLOGY_GetRMS(MEASURE_QA, &qa, &signa);
+            APP_METROLOGY_GetRMS(MEASURE_QB, &qb, &signb);
+            APP_METROLOGY_GetRMS(MEASURE_QC, &qc, &signc);
             // Show received data on console
             SYS_CMD_PRINT("Present reactive power is :\r\nQt=%c%.1fW Qa=%c%.1fW Qb=%c%.1fW Qc=%c%.1fW\r\n",
                    sign[signt], (float)qt/10, sign[signa], (float)qa/10, sign[signb],
@@ -2716,10 +2716,10 @@ void APP_CONSOLE_Tasks ( void )
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetRMS(RMS_ST, &st, 0);
-            APP_METROLOGY_GetRMS(RMS_SA, &sa, 0);
-            APP_METROLOGY_GetRMS(RMS_SB, &sb, 0);
-            APP_METROLOGY_GetRMS(RMS_SC, &sc, 0);
+            APP_METROLOGY_GetRMS(MEASURE_ST, &st, 0);
+            APP_METROLOGY_GetRMS(MEASURE_SA, &sa, 0);
+            APP_METROLOGY_GetRMS(MEASURE_SB, &sb, 0);
+            APP_METROLOGY_GetRMS(MEASURE_SC, &sc, 0);
             // Show received data on console
             SYS_CMD_PRINT("Present apparent power is :\r\nSt=%.1fVA Sa=%.1fVA Sb=%.1fVA Sc=%.1fVA\r\n",
                    (float)st/10, (float)sa/10, (float)sb/10, (float)sc/10);
@@ -2736,7 +2736,7 @@ void APP_CONSOLE_Tasks ( void )
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetRMS(RMS_FREQ, &freq, 0);
+            APP_METROLOGY_GetRMS(MEASURE_FREQ, &freq, 0);
             // Show received data on console
             SYS_CMD_PRINT("Present frequency is : \r\nFreq=%.2fHz\r\n", (float)freq/100);
 
@@ -2748,15 +2748,15 @@ void APP_CONSOLE_Tasks ( void )
         case APP_CONSOLE_STATE_PRINT_ANGLE:
         {
             uint32_t aa, ab, ac, an;
-            DRV_METROLOGY_RMS_SIGN signa, signb, signc, signn;
+            DRV_METROLOGY_MEASURE_SIGN signa, signb, signc, signn;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetRMS(RMS_ANGLEA, &aa, &signa);
-            APP_METROLOGY_GetRMS(RMS_ANGLEB, &ab, &signb);
-            APP_METROLOGY_GetRMS(RMS_ANGLEC, &ac, &signc);
-            APP_METROLOGY_GetRMS(RMS_ANGLEN, &an, &signn);
+            APP_METROLOGY_GetRMS(MEASURE_ANGLEA, &aa, &signa);
+            APP_METROLOGY_GetRMS(MEASURE_ANGLEB, &ab, &signb);
+            APP_METROLOGY_GetRMS(MEASURE_ANGLEC, &ac, &signc);
+            APP_METROLOGY_GetRMS(MEASURE_ANGLEN, &an, &signn);
             // Show received data on console
             SYS_CMD_PRINT("Voltage and current angle is : \r\nAngle_A=%c%.3f Angle_B=%c%.3f Angle_C=%c%.3f Angle_N=%c%.3f\r\n",
                     sign[signa], (float)aa/100000, sign[signb], (float)ab/100000,

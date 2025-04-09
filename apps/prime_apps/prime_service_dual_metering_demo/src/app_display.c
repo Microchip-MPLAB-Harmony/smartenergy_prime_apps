@@ -389,7 +389,7 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_VA_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_UA, &rmsValue, NULL);
+            APP_METROLOGY_GetRMS(MEASURE_UA_RMS, &rmsValue, NULL);
             sprintf((char *)buff1, "%5u%03u",
                     (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
@@ -403,7 +403,7 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_VB_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_UB, &rmsValue, NULL);
+            APP_METROLOGY_GetRMS(MEASURE_UB_RMS, &rmsValue, NULL);
             sprintf((char *)buff1, "%5u%03u",
                     (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
@@ -417,7 +417,7 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_VC_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_UC, &rmsValue, NULL);
+            APP_METROLOGY_GetRMS(MEASURE_UC_RMS, &rmsValue, NULL);
             sprintf((char *)buff1, "%5u%03u",
                     (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
@@ -431,7 +431,7 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_IA_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_IA, &rmsValue, NULL);
+            APP_METROLOGY_GetRMS(MEASURE_IA_RMS, &rmsValue, NULL);
             sprintf((char *)buff1, "%5u%03u",
                     (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
@@ -445,7 +445,7 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_IB_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_IB, &rmsValue, NULL);
+            APP_METROLOGY_GetRMS(MEASURE_IB_RMS, &rmsValue, NULL);
             sprintf((char *)buff1, "%5u%03u",
                     (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
@@ -459,7 +459,7 @@ static void APP_DISPLAY_Process(void)
 
         case APP_DISPLAY_IC_RMS:
         {
-            APP_METROLOGY_GetRMS(RMS_IC, &rmsValue, NULL);
+            APP_METROLOGY_GetRMS(MEASURE_IC_RMS, &rmsValue, NULL);
             sprintf((char *)buff1, "%5u%03u",
                     (unsigned int)(rmsValue/10000),
                     (unsigned int)((rmsValue%10000)/10));
@@ -702,10 +702,10 @@ void APP_DISPLAY_Initialize ( void )
     app_displayData.comm_signal = APP_DISPLAY_COM_SIGNAL_OFF;
 
     /* Configure Switches */
-    PIO_PinInterruptCallbackRegister(SWITCH_SCRUP_PIN,
+    PIO_PinInterruptCallbackRegister(SCRL_UP_BTN_PIN,
             _APP_DISPLAY_ScrollUp_Callback, (uintptr_t)NULL);
 
-    PIO_PinInterruptCallbackRegister(SWITCH_SCRDOWN_PIN,
+    PIO_PinInterruptCallbackRegister(SCRL_DOWN_BTN_PIN,
             _APP_DISPLAY_ScrollDown_Callback, (uintptr_t)NULL);
 
     /* Reload DWDT0 at startup */
@@ -782,8 +782,8 @@ void APP_DISPLAY_Tasks ( void )
                 APP_DISPLAY_AddLoopInfo(APP_DISPLAY_TOU4_MAX_DEMAND);
 
                 /* Enable Switches interrupts */
-                PIO_PinInterruptEnable(SWITCH_SCRUP_PIN);
-                PIO_PinInterruptEnable(SWITCH_SCRDOWN_PIN);
+                PIO_PinInterruptEnable(SCRL_UP_BTN_PIN);
+                PIO_PinInterruptEnable(SCRL_DOWN_BTN_PIN);
 
                 /* Configure display timer loop */
                 APP_DISPLAY_SetTimerLoop(3);
@@ -800,7 +800,7 @@ void APP_DISPLAY_Tasks ( void )
                 /* If any button has been pressed, change the information */
                 if (app_displayData.scrdown_pressed)
                 {
-                    if (SWITCH_SCRUP_Get() == 0)
+                    if (SCRL_UP_BTN_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Entering Low Power... Press FWUP/TAMPER switch to wake up.\r\n");
 
@@ -820,7 +820,7 @@ void APP_DISPLAY_Tasks ( void )
 
                 if (app_displayData.scrup_pressed)
                 {
-                    if (SWITCH_SCRDOWN_Get() == 0)
+                    if (SCRL_DOWN_BTN_Get() == 0)
                     {
                         SYS_CMD_MESSAGE("Emulating application holds ... Resetting by DWDT0.\r\n");
 
