@@ -502,7 +502,7 @@ static void PeripheralClockInitialize(void)
 
         { ID_PIOA, 1U, 0U, 0U, 0U},
 
-        { ID_QSPI, 1U, 0U, 0U, 0U},
+        { ID_QSPI, 1U, 1U, 0x3U, 3U},
 
         { ID_ADC, 1U, 0U, 0U, 0U},
 

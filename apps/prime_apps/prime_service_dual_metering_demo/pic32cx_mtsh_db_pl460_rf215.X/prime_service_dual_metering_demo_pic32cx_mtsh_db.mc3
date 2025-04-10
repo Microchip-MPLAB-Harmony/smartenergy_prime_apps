@@ -9994,7 +9994,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;904&quot; canvasWidth=&quot;777&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;941&quot; canvasWidth=&quot;773&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
       &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
     &lt;/PowerProfiles&gt;
@@ -10332,6 +10332,39 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;CLK_PLLC_MUL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;41&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="CLK_QSPI_GCLKCSS"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;CLK_QSPI_GCLKCSS&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;3&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="CLK_QSPI_GCLKDIV"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;CLK_QSPI_GCLKDIV&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;3&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="CLK_QSPI_GCLKEN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;CLK_QSPI_GCLKEN&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -11101,7 +11134,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_19_0_PRIORITY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;4&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;6&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -11372,6 +11405,17 @@
 </value>
       </entry>
       <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_88_0_PRIORITY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_88_0_PRIORITY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;7&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="NVIC_9_0_ENABLE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_9_0_ENABLE&quot;&gt;
@@ -11409,7 +11453,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;NVIC_9_0_PRIORITY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;7&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;4&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -14536,6 +14580,17 @@
   &lt;core dnOrder=&quot;0&quot; id=&quot;QSPI_CLOCK_FREQUENCY&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;100000000&quot;/&gt;
+    &lt;/Values&gt;
+  &lt;/core&gt;
+&lt;/core&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="QSPI_GCLK_FREQUENCY"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
+  &lt;core dnOrder=&quot;0&quot; id=&quot;QSPI_GCLK_FREQUENCY&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;50000000&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -28187,7 +28242,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="qspi" name="QSPI_CLK_FREQ"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;qspi&gt;
   &lt;qspi dnOrder=&quot;0&quot; id=&quot;QSPI_CLK_FREQ&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;qspi&quot; value=&quot;50000000&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/qspi&gt;
 &lt;/qspi&gt;
 </value>
@@ -42697,7 +42754,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\definitions.h</file>
-         <hash>043268ce286a5bbcae765d0f5515bed38e90a3c81157dbca04a0f72b6c9cefd8</hash>
+         <hash>ba562b01e3d7d6c4821700fc5d2f4f7f55d06c46d03be49fabc4b2b7e0081e56</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\device.h</file>
@@ -42945,7 +43002,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\clk\plib_clk.c</file>
-         <hash>c2838a6d7f016ff709824bb3754c48ece5a004d8f6e23597b443686035cb899c</hash>
+         <hash>9e2adb1c7719b669d14458aa31f2683c22acb02b3caa265aae2e5594b4c40d18</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\clk\plib_clk.h</file>
@@ -43009,7 +43066,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\nvic\plib_nvic.c</file>
-         <hash>7761e4ab2b56ef0765bfb82b8936f87d7d5e9c71fd02912a2f59ef307ae01610</hash>
+         <hash>c132f04fc4a1220efef13b9ac5adebbe725a0565e857ba4da09339a5edcb0e15</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\nvic\plib_nvic.h</file>
