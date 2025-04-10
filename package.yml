@@ -1,7 +1,7 @@
 package:
   format-version: "1.0.0"
   name: "smartenergy_prime_apps"
-  version: "v1.1.0-E1"
+  version: "v1.1.0"
   type: "application"
   status: "production"
   required: false
@@ -9,10 +9,10 @@ package:
   dependencies:
     - name: "smartenergy_prime"
       type: "package"
-      version: "SMS-4129-add-signature-fu"
+      version: "SMS-4157-tasks-prelease"
     - name: "usb"
       type: "package"
-      version: "v3.15.0"
+      version: "v3.16.0"
     - name: "shd"
       type: "package"
       version: "v1.1.0"
