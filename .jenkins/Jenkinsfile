@@ -1,5 +1,5 @@
 #!groovy
 
-@Library('jenkins-shared-library') _
+@Library('jenkins-shared-library@smart_energy') _
 
-jslRunH3AppRepoBuildTask(timeout:60)
+jslRunH3AppRepoSmartEnergyPrimeBuildTask(timeout:60)
