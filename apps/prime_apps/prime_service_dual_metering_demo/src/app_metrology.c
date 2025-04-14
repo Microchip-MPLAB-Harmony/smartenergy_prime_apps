@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -70,66 +70,69 @@ extern DRV_METROLOGY_INIT drvMetrologyInitData;
 const char * _met_control_desc[] =
 {
   "00 STATE_CTRL",
-  "01 FEATURE_CTRL0",
-  "02 FEATURE_CTRL1",
+  "01 FEATURE_CTRL",
+  "02 HARMONIC_CTRL",
   "03 METER_TYPE",
   "04 M",
   "05 N_MAX",
-  "06 PULSE_CTRL0",
-  "07 PULSE_CTRL1",
-  "08 PULSE_CTRL2",
-  "09 P_K_T",
-  "10 Q_K_T",
-  "11 I_K_T",
-  "12 CREEP_THR_P",
-  "13 CREEP_THR_Q",
-  "14 CREEP_THR_I",
-  "15 POWER_OS_CTRL",
-  "16 POWER_OFFSET_P",
-  "17 POWER_OFFSET_Q",
-  "18 SWELL_THR_VA",
-  "19 SWELL_THR_VB",
-  "20 SWELL_THR_VC",
-  "21 SAG_THR_VA",
-  "22 SAG_THR_VB",
-  "23 SAG_THR_VC",
-  "24 K_IA",
-  "25 K_VA",
-  "26 K_IB",
-  "27 K_VB",
-  "28 K_IC",
-  "29 K_VC",
-  "30 K_IN",
-  "31 CAL_M_IA",
-  "32 CAL_M_VA",
-  "33 CAL_M_IB",
-  "34 CAL_M_VB",
-  "35 CAL_M_IC",
-  "36 CAL_M_VC",
-  "37 CAL_M_IN",
-  "38 CAL_PH_IA",
-  "39 CAL_PH_VA",
-  "40 CAL_PH_IB",
-  "41 CAL_PH_VB",
-  "42 CAL_PH_IC",
-  "43 CAL_PH_VC",
-  "44 CAL_PH_IN",
-  "45 CAPTURE_CTRL",
-  "46 CAPT_BUFF_SIZE",
-  "47 CAPTURE_ADDR",
-  "48 RESERVED_C48",
-  "49 RESERVED_C49",
-  "50 RESERVED_C50",
-  "51 AT_CTRL_20_23",
-  "52 AT_CTRL_24_27",
-  "53 AT_CTRL_28_2B",
-  "54 RESERVED_C54",
-  "55 POWER_OS_P_A",
-  "56 POWER_OS_P_B",
-  "57 POWER_OS_P_C",
-  "58 POWER_OS_Q_A",
-  "59 POWER_OS_Q_B",
-  "60 POWER_OS_Q_C"
+  "06 PULSE0_CTRL",
+  "07 PULSE1_CTRL",
+  "08 PULSE2_CTRL",
+  "09 P_K_t",
+  "10 Q_K_t",
+  "11 I_K_t",
+  "12 S_K_t",
+  "13 CREEP_THR_P",
+  "14 CREEP_THR_Q",
+  "15 CREEP_THR_I",
+  "16 CREEP_THR_S",
+  "17 PWR_OFFS_CTRL",
+  "18 PWR_OFFS_P",
+  "19 PWR_OFFS_Q",
+  "20 PWR_OFFS_S",
+  "21 SWELL_THR_VA",
+  "22 SWELL_THR_VB",
+  "23 SWELL_THR_VC",
+  "24 SAG_THR_VA",
+  "25 SAG_THR_VB",
+  "26 SAG_THR_VC",
+  "27 K_IA",
+  "28 K_VA",
+  "29 K_IB",
+  "30 K_VB",
+  "31 K_IC",
+  "32 K_VC",
+  "33 K_IN",
+  "34 CAL_M_IA",
+  "35 CAL_M_VA",
+  "36 CAL_M_IB",
+  "37 CAL_M_VB",
+  "38 CAL_M_IC",
+  "39 CAL_M_VC",
+  "40 CAL_M_IN",
+  "41 CAL_PH_IA",
+  "42 CAL_PH_VA",
+  "43 CAL_PH_IB",
+  "44 CAL_PH_VB",
+  "45 CAL_PH_IC",
+  "46 CAL_PH_VC",
+  "47 CAL_PH_IN",
+  "48 CPTR_CTRL",
+  "49 CPTR_BUFF_SIZE",
+  "50 CPTR_ADDR",
+  "51 Reserved1",
+  "52 Reserved2",
+  "53 Reserved3",
+  "54 ATS_CTRL_20_23",
+  "55 ATS_CTRL_24_27",
+  "56 ATS_CTRL_28_2B",
+  "57 Reserved4",
+  "58 PWR_OFFS_P_A",
+  "59 PWR_OFFS_P_B",
+  "60 PWR_OFFS_P_C",
+  "61 PWR_OFFS_Q_A",
+  "62 PWR_OFFS_Q_B",
+  "63 PWR_OFFS_Q_C"
 };
 
 const char * _met_status_desc[] =
@@ -159,9 +162,9 @@ const char * _met_status_desc[] =
   "22 RESERVED_S22",
   "23 RESERVED_S23",
   "24 RESERVED_S24",
-  "25 RESERVED_S25",
-  "26 RESERVED_S26",
-  "27 RESERVED_S27",
+  "25 PULSE0_COUNTER",
+  "26 PULSE1_COUNTER",
+  "27 PULSE2_COUNTER",
   "28 RESERVED_S28",
   "29 RESERVED_S29",
   "30 ZC_N_VA",
@@ -182,7 +185,7 @@ const char * _met_acc_desc[] =
   "06 I_B_F",
   "07 I_C_F",
   "08 I_Nmi",
-  "09 RESERVED_A09",
+  "09 I_Nm_F",
   "10 RESERVED_A10",
   "11 RESERVED_A11",
   "12 RESERVED_A12",
@@ -232,20 +235,20 @@ const char * _met_acc_desc[] =
 
 const char * _met_har_desc[] =
 {
-  "00 I_A_m_R",
-  "01 V_A_m_R",
-  "02 I_B_m_R",
-  "03 V_B_m_R",
-  "04 I_C_m_R",
-  "05 V_C_m_R",
-  "06 I_N_m_R",
-  "07 I_A_m_I",
-  "08 V_A_m_I",
-  "09 I_B_m_I",
-  "10 V_B_m_I",
-  "11 I_C_m_I",
-  "12 V_C_m_I",
-  "13 I_N_m_I",
+  "000 I_A_m_R",
+  "031 V_A_m_R",
+  "062 I_B_m_R",
+  "093 V_B_m_R",
+  "124 I_C_m_R",
+  "155 V_C_m_R",
+  "186 I_N_m_R",
+  "217 I_A_m_I",
+  "248 V_A_m_I",
+  "279 I_B_m_I",
+  "310 V_B_m_I",
+  "341 I_C_m_I",
+  "372 V_C_m_I",
+  "403 I_N_m_I",
 };
 
 // *****************************************************************************
@@ -333,10 +336,19 @@ static void _APP_METROLOGY_CalibrationCallback(bool result)
 
 static void _APP_METROLOGY_HarmonicAnalysisCallback(uint32_t harmonicBitmap)
 {
-    if (app_metrologyData.pHarmonicAnalysisCallback)
+    if (app_metrologyData.stopHarmonicAnalysis)
     {
         app_metrologyData.harmonicAnalysisPending = false;
-        app_metrologyData.pHarmonicAnalysisCallback(harmonicBitmap);
+        DRV_METROLOGY_StopHarmonicAnalysis();
+    }
+
+    if (app_metrologyData.pHarmonicAnalysisCallback)
+    {
+        if (app_metrologyData.sendHarmonicsToConsole)
+        {
+            app_metrologyData.sendHarmonicsToConsole = false;
+            app_metrologyData.pHarmonicAnalysisCallback(harmonicBitmap);
+        }
     }
 }
 
@@ -603,6 +615,10 @@ bool APP_METROLOGY_SetControlRegister(CONTROL_REG_ID regId, uint32_t value)
     pData += regId;
     *pData = value;
 
+    pData = (uint32_t *)&app_metrologyData.configuration;
+    pData += regId;
+    *pData = value;
+
     return true;
 }
 
@@ -648,18 +664,82 @@ bool APP_METROLOGY_GetAccumulatorRegister(ACCUMULATOR_REG_ID regId, uint64_t * r
     return true;
 }
 
-bool APP_METROLOGY_GetHarmonicsRegister(HARMONICS_REG_ID regId, uint32_t * regValue, char *regName)
+void APP_METROLOGY_CaptureHarmonicData(void)
 {
-    uint32_t *pData;
+    (void) memcpy((uint8_t *)&app_metrologyData.harmonicsData,
+            (uint8_t *)app_metrologyData.pMetHarData, sizeof(DRV_METROLOGY_REGS_HARMONICS));
 
-    if (regId >= HARMONICS_REG_NUM)
+}
+
+bool APP_METROLOGY_GetHarmonicRegister(HARMONICS_REG_ID regId, uint8_t harmonicNum, uint32_t *regValue, char *regName)
+{
+    if (harmonicNum >= DRV_METROLOGY_HARMONICS_MAX_ORDER)
     {
         return false;
     }
 
-    pData = (uint32_t *)app_metrologyData.pMetHarData;
-    pData += regId;
-    *regValue = *pData;
+    switch(regId)
+    {
+        case HARMONICS_I_A_m_R_ID:
+            *regValue = app_metrologyData.harmonicsData.I_A_m_R[harmonicNum];
+            break;
+
+        case HARMONICS_I_B_m_R_ID:
+            *regValue = app_metrologyData.harmonicsData.I_B_m_R[harmonicNum];
+            break;
+
+        case HARMONICS_I_C_m_R_ID:
+            *regValue = app_metrologyData.harmonicsData.I_C_m_R[harmonicNum];
+            break;
+
+        case HARMONICS_I_N_m_R_ID:
+            *regValue = app_metrologyData.harmonicsData.I_N_m_R[harmonicNum];
+            break;
+
+        case HARMONICS_V_A_m_R_ID:
+            *regValue = app_metrologyData.harmonicsData.V_A_m_R[harmonicNum];
+            break;
+
+        case HARMONICS_V_B_m_R_ID:
+            *regValue = app_metrologyData.harmonicsData.V_B_m_R[harmonicNum];
+            break;
+
+        case HARMONICS_V_C_m_R_ID:
+            *regValue = app_metrologyData.harmonicsData.V_C_m_R[harmonicNum];
+            break;
+
+        case HARMONICS_I_A_m_I_ID:
+            *regValue = app_metrologyData.harmonicsData.I_A_m_I[harmonicNum];
+            break;
+
+        case HARMONICS_I_B_m_I_ID:
+            *regValue = app_metrologyData.harmonicsData.I_B_m_I[harmonicNum];
+            break;
+
+        case HARMONICS_I_C_m_I_ID:
+            *regValue = app_metrologyData.harmonicsData.I_C_m_I[harmonicNum];
+            break;
+
+        case HARMONICS_I_N_m_I_ID:
+            *regValue = app_metrologyData.harmonicsData.I_N_m_I[harmonicNum];
+            break;
+
+        case HARMONICS_V_A_m_I_ID:
+            *regValue = app_metrologyData.harmonicsData.V_A_m_I[harmonicNum];
+            break;
+
+        case HARMONICS_V_B_m_I_ID:
+            *regValue = app_metrologyData.harmonicsData.V_B_m_I[harmonicNum];
+            break;
+
+        case HARMONICS_V_C_m_I_ID:
+            *regValue = app_metrologyData.harmonicsData.V_C_m_I[harmonicNum];
+            break;
+
+        case HARMONICS_REG_NUM:
+        default:
+            break;
+    }
 
     if (regName)
     {
@@ -669,19 +749,19 @@ bool APP_METROLOGY_GetHarmonicsRegister(HARMONICS_REG_ID regId, uint32_t * regVa
     return true;
 }
 
-bool APP_METROLOGY_GetRMS(DRV_METROLOGY_MEASURE_TYPE rmsId, uint32_t * rmsValue, DRV_METROLOGY_MEASURE_SIGN * sign)
+bool APP_METROLOGY_GetMeasure(DRV_METROLOGY_MEASURE_TYPE measureId, uint32_t * value, DRV_METROLOGY_MEASURE_SIGN * sign)
 {
-    if (rmsId >= MEASURE_TYPE_NUM)
+    if (measureId >= MEASURE_TYPE_NUM)
     {
         return false;
     }
 
     if (sign != NULL)
     {
-        *sign = DRV_METROLOGY_GetMeasureSign(rmsId);
+        *sign = DRV_METROLOGY_GetMeasureSign(measureId);
     }
 
-    *rmsValue = DRV_METROLOGY_GetMeasureValue(rmsId);
+    *value = DRV_METROLOGY_GetMeasureValue(measureId);
     return true;
 }
 
@@ -691,6 +771,8 @@ void APP_METROLOGY_SetControlByDefault(void)
 
     pSrc = DRV_METROLOGY_GetControlByDefault();
     DRV_METROLOGY_SetControl(pSrc);
+
+    memcpy(&app_metrologyData.configuration, pSrc, sizeof(DRV_METROLOGY_REGS_CONTROL));
 }
 
 void APP_METROLOGY_StoreMetrologyData(void)
@@ -721,6 +803,8 @@ void APP_METROLOGY_StartCalibration(APP_METROLOGY_CALIBRATION * calibration)
         pCalibrationRefs->aimIC = calibration->aimIC;
         pCalibrationRefs->aimVC = calibration->aimVC;
         pCalibrationRefs->angleC = calibration->angleC;
+        pCalibrationRefs->aimIN = calibration->aimIN;
+        pCalibrationRefs->angleN = calibration->angleN;
         pCalibrationRefs->lineId = calibration->lineId;
 
         app_metrologyData.state = APP_METROLOGY_STATE_CHECK_CALIBRATION;
@@ -739,7 +823,7 @@ size_t APP_METROLOGY_GetWaveformCaptureData(uint32_t *address)
     return (size_t)app_metrologyData.pMetControl->CAPTURE_BUFF_SIZE;
 }
 
-bool APP_METROLOGY_StartHarmonicAnalysis(uint8_t harmonicNum)
+bool APP_METROLOGY_StartHarmonicAnalysis(uint32_t harmonicBitmap, bool singleMode)
 {
     if (app_metrologyData.harmonicAnalysisPending)
     {
@@ -756,11 +840,23 @@ bool APP_METROLOGY_StartHarmonicAnalysis(uint8_t harmonicNum)
         return false;
     }
 
-    app_metrologyData.harmonicAnalysisPending = true;
+    if (DRV_METROLOGY_StartHarmonicAnalysis(harmonicBitmap, app_metrologyData.pHarmonicAnalysisResponse))
+    {
+        app_metrologyData.harmonicAnalysisPending = true;
+        app_metrologyData.stopHarmonicAnalysis = singleMode;
+        app_metrologyData.sendHarmonicsToConsole = true;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
-    DRV_METROLOGY_StartHarmonicAnalysis(harmonicNum, app_metrologyData.pHarmonicAnalysisResponse);
-
-    return true;
+void APP_METROLOGY_StopHarmonicAnalysis(void)
+{
+    app_metrologyData.stopHarmonicAnalysis = true;
+    app_metrologyData.sendHarmonicsToConsole = true;
 }
 
 void APP_METROLOGY_SetHarmonicAnalysisCallback(DRV_METROLOGY_HARMONICS_CALLBACK callback,
@@ -770,14 +866,21 @@ void APP_METROLOGY_SetHarmonicAnalysisCallback(DRV_METROLOGY_HARMONICS_CALLBACK 
     app_metrologyData.pHarmonicAnalysisResponse = pHarmonicAnalysisResponse;
 }
 
-void APP_METROLOGY_Restart (void)
+void APP_METROLOGY_Restart (bool reloadRegsFromMemory)
 {
     DRV_METROLOGY_RESULT result;
 
     result = DRV_METROLOGY_Close();
     if (result == DRV_METROLOGY_SUCCESS)
     {
-        app_metrologyData.state = APP_METROLOGY_STATE_INIT;
+        if (reloadRegsFromMemory)
+        {
+            app_metrologyData.state = APP_METROLOGY_STATE_WAITING_DATALOG;
+        }
+        else
+        {
+            app_metrologyData.state = APP_METROLOGY_STATE_INIT;
+        }
         app_metrologyData.startMode = DRV_METROLOGY_START_HARD;
 
         sysObj.drvMet = DRV_METROLOGY_Reinitialize((SYS_MODULE_INIT *)&drvMetrologyInitData);
@@ -788,6 +891,11 @@ void APP_METROLOGY_SetLowPowerMode (void)
 {
     DRV_METROLOGY_Close();
     SUPC_BackupModeEnter();
+}
+
+void APP_METROLOGY_StopMetrology (void)
+{
+    DRV_METROLOGY_Close();
 }
 
 bool APP_METROLOGY_CheckPhaseEnabled (APP_METROLOGY_PHASE_ID phase)

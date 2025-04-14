@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -89,12 +89,15 @@ typedef enum
     CONTROL_P_K_t_ID,
     CONTROL_Q_K_t_ID,
     CONTROL_I_K_t_ID,
+    CONTROL_S_K_t_ID,
     CONTROL_CREEP_THRESHOLD_P_ID,
     CONTROL_CREEP_THRESHOLD_Q_ID,
     CONTROL_CREEP_THRESHOLD_I_ID,
+    CONTROL_CREEP_THRESHOLD_S_ID,
     CONTROL_POWER_OFFSET_CTRL_ID,
     CONTROL_POWER_OFFSET_P_ID,
     CONTROL_POWER_OFFSET_Q_ID,
+    CONTROL_POWER_OFFSET_S_ID,
     CONTROL_SWELL_THRESHOLD_VA_ID,
     CONTROL_SWELL_THRESHOLD_VB_ID,
     CONTROL_SWELL_THRESHOLD_VC_ID,
@@ -271,6 +274,8 @@ typedef struct
     double aimVC;
     double aimIC;
     double angleC;
+    double aimIN;
+    double angleN;
     DRV_METROLOGY_PHASE_ID lineId;
 } APP_METROLOGY_CALIBRATION;
 
@@ -325,8 +330,11 @@ typedef struct
     DRV_METROLOGY_REGS_HARMONICS * pMetHarData;
 
     bool harmonicAnalysisPending;
+    bool stopHarmonicAnalysis;
+    bool sendHarmonicsToConsole;
     DRV_METROLOGY_HARMONICS_RMS * pHarmonicAnalysisResponse;
     DRV_METROLOGY_HARMONICS_CALLBACK pHarmonicAnalysisCallback;
+    DRV_METROLOGY_REGS_HARMONICS harmonicsData;
 
     DRV_METROLOGY_CALIBRATION_CALLBACK pCalibrationCallback;
 
@@ -428,19 +436,22 @@ bool APP_METROLOGY_GetControlRegister(CONTROL_REG_ID regId, uint32_t * regValue,
 bool APP_METROLOGY_SetControlRegister(CONTROL_REG_ID regId, uint32_t value);
 bool APP_METROLOGY_GetStatusRegister(STATUS_REG_ID regId, uint32_t * regValue, char *regName);
 bool APP_METROLOGY_GetAccumulatorRegister(ACCUMULATOR_REG_ID regId, uint64_t * regValue, char *regName);
-bool APP_METROLOGY_GetHarmonicsRegister(HARMONICS_REG_ID regId, uint32_t * regValue, char *regName);
-bool APP_METROLOGY_GetRMS(DRV_METROLOGY_MEASURE_TYPE rmsId, uint32_t * rmsValue, DRV_METROLOGY_MEASURE_SIGN * sign);
+void APP_METROLOGY_CaptureHarmonicData(void);
+bool APP_METROLOGY_GetHarmonicRegister(HARMONICS_REG_ID regId, uint8_t harmonicNum, uint32_t *regValue, char *regName);
+bool APP_METROLOGY_GetMeasure(DRV_METROLOGY_MEASURE_TYPE measureId, uint32_t * value, DRV_METROLOGY_MEASURE_SIGN * sign);
 void APP_METROLOGY_SetControlByDefault(void);
 void APP_METROLOGY_StoreMetrologyData(void);
 void APP_METROLOGY_SetConfiguration(DRV_METROLOGY_CONFIGURATION * config);
 void APP_METROLOGY_StartCalibration(APP_METROLOGY_CALIBRATION * calibration);
 void APP_METROLOGY_SetCalibrationCallback(DRV_METROLOGY_CALIBRATION_CALLBACK callback);
 size_t APP_METROLOGY_GetWaveformCaptureData(uint32_t *pData);
-bool APP_METROLOGY_StartHarmonicAnalysis(uint8_t harmonicNum);
+bool APP_METROLOGY_StartHarmonicAnalysis(uint32_t harmonicBitmap, bool singleMode);
+void APP_METROLOGY_StopHarmonicAnalysis(void);
 void APP_METROLOGY_SetHarmonicAnalysisCallback(DRV_METROLOGY_HARMONICS_CALLBACK callback,
         DRV_METROLOGY_HARMONICS_RMS * pHarmonicAnalysisResponse);
-void APP_METROLOGY_Restart(void);
+void APP_METROLOGY_Restart(bool reloadRegsFromMemory);
 void APP_METROLOGY_SetLowPowerMode (void);
+void APP_METROLOGY_StopMetrology (void);
 bool APP_METROLOGY_CheckPhaseEnabled (APP_METROLOGY_PHASE_ID phase);
 
 //DOM-IGNORE-BEGIN

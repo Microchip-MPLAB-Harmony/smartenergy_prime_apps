@@ -10026,7 +10026,7 @@
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;PRIME STACK&quot; x=&quot;650&quot; y=&quot;100&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;adc&quot; x=&quot;21&quot; y=&quot;609&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;240&quot; y=&quot;20&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;241&quot; y=&quot;19&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvMet&quot; x=&quot;30&quot; y=&quot;160&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drvPlcPhy&quot; x=&quot;159&quot; y=&quot;465&quot;/&gt;
@@ -10043,7 +10043,7 @@
         &lt;ElementPosition dnOrder=&quot;18&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;506&quot; y=&quot;636&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;19&quot; id=&quot;mainBoard_PIC32CXMTSH_DB&quot; x=&quot;474&quot; y=&quot;24&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;621&quot; y=&quot;301&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;qspi&quot; x=&quot;43&quot; y=&quot;239&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;qspi&quot; x=&quot;46&quot; y=&quot;239&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;rtc&quot; x=&quot;484&quot; y=&quot;91&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;23&quot; id=&quot;sefc0&quot; x=&quot;193&quot; y=&quot;350&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;24&quot; id=&quot;sefc1&quot; x=&quot;640&quot; y=&quot;20&quot;/&gt;
@@ -42754,7 +42754,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\definitions.h</file>
-         <hash>ba562b01e3d7d6c4821700fc5d2f4f7f55d06c46d03be49fabc4b2b7e0081e56</hash>
+         <hash>afde3046d5da4e7a3fa14cdd0504193fd9e279cf24b79bc6d1a6cd3e6faa8ec1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\device.h</file>

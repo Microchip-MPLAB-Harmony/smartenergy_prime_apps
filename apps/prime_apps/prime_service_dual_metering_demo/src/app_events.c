@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -296,20 +296,7 @@ static bool _APP_EVENTS_UpdateEvents(APP_EVENTS_QUEUE_DATA * newEvent)
     }
 
     /* Update Event Flags */
-    app_eventsData.flags.paDir = newEvent->eventFlags.paDir;
-    app_eventsData.flags.pbDir = newEvent->eventFlags.pbDir;
-    app_eventsData.flags.pcDir = newEvent->eventFlags.pcDir;
-    app_eventsData.flags.ptDir = newEvent->eventFlags.ptDir;
-    app_eventsData.flags.qaDir = newEvent->eventFlags.qaDir;
-    app_eventsData.flags.qbDir = newEvent->eventFlags.qbDir;
-    app_eventsData.flags.qcDir = newEvent->eventFlags.qcDir;
-    app_eventsData.flags.qtDir = newEvent->eventFlags.qtDir;
-    app_eventsData.flags.sagA = newEvent->eventFlags.sagA;
-    app_eventsData.flags.sagB = newEvent->eventFlags.sagB;
-    app_eventsData.flags.sagC = newEvent->eventFlags.sagC;
-    app_eventsData.flags.swellA = newEvent->eventFlags.swellA;
-    app_eventsData.flags.swellB = newEvent->eventFlags.swellB;
-    app_eventsData.flags.swellC = newEvent->eventFlags.swellC;
+    app_eventsData.flags = newEvent->eventFlags;
 
     return update;
 }
@@ -475,7 +462,7 @@ bool APP_EVENTS_GetEventInfo(APP_EVENTS_EVENT_ID eventId, uint8_t offset, APP_EV
     return true;
 }
 
-void APP_EVENTS_GetLastEventFlags(APP_EVENTS_FLAGS *eventFlags)
+void APP_EVENTS_GetLastEventFlags(DRV_METROLOGY_AFE_EVENTS *eventFlags)
 {
     if (eventFlags)
     {

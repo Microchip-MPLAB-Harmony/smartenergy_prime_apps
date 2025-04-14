@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -105,12 +105,12 @@ typedef enum
     APP_CONSOLE_STATE_READ_ALL_ACCUM_REGS,
     APP_CONSOLE_STATE_READ_STATUS_REG,
     APP_CONSOLE_STATE_READ_ALL_STATUS_REGS,
-    APP_CONSOLE_STATE_READ_HARMONICS_REG,
+    APP_CONSOLE_STATE_READ_HARMONIC_REGS,
     APP_CONSOLE_STATE_READ_ALL_HARMONICS_REGS,
     APP_CONSOLE_STATE_READ_METER_ID,
     APP_CONSOLE_STATE_READ_TOU,
     APP_CONSOLE_STATE_READ_RTC,
-    APP_CONSOLE_STATE_PRINT_HARMONIC_ANALYSIS,
+    APP_CONSOLE_STATE_PRINT_ALL_HARMONIC_ANALYSIS,
     APP_CONSOLE_STATE_PRINT_MONTHLY_ENERGY,
     APP_CONSOLE_STATE_PRINT_MONTHLY_ENERGY_NEXT,
     APP_CONSOLE_STATE_PRINT_EVENT,
@@ -121,7 +121,13 @@ typedef enum
     APP_CONSOLE_STATE_PRINT_ACTIVE_POWER,
     APP_CONSOLE_STATE_PRINT_REACTIVE_POWER,
     APP_CONSOLE_STATE_PRINT_APARENT_POWER,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_VOLTAGE,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_CURRENT,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_ACTIVE_POWER,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_REACTIVE_POWER,
+    APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_APARENT_POWER,
     APP_CONSOLE_STATE_PRINT_FREQUENCY,
+    APP_CONSOLE_STATE_PRINT_TOTAL_FREQUENCY,
     APP_CONSOLE_STATE_PRINT_ANGLE,
     APP_CONSOLE_STATE_PRINT_WAVEFORM_DATA,
     APP_CONSOLE_STATE_PRINT_CALIBRATION_RESULT,
@@ -161,7 +167,9 @@ typedef struct
     uint8_t ctrlRegToRead;
     uint8_t accumRegToRead;
     uint8_t statusRegToRead;
-    uint8_t harRegToRead;
+    uint8_t harNumToRead;
+    uint8_t numRegsPending;
+    uint8_t numHarmsPending;
     uint32_t *rawData;
     size_t rawDataLen;
     bool rawDataFlag;
@@ -171,8 +179,7 @@ typedef struct
     APP_EVENTS_EVENT_ID eventIdRequest;
     uint8_t eventLastTimeRequest;
     uint32_t currentWaitForDatalogReady;
-    uint8_t harmonicNumRequest;
-    uint8_t harmonicNumPrint;
+    uint32_t harmonicBitmap;
     bool calibrationResult;
     int8_t numCommands;
     int8_t cmdNumToShowHelp;

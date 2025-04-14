@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -571,6 +571,15 @@ static void _APP_ENERGY_StoreDemandDataInMemory(struct tm * time, void *pData)
     APP_DATALOG_SendDatalogData(&appEnergyDatalogQueueData);
 }
 
+static void _APP_ENERGY_SupplyMonitorCallback(uint32_t supc_status, uintptr_t context)
+{
+    if (supc_status & SUPC_IMR_VDD3V3SMEV_Msk)
+    {
+        // Go to Low Power mode
+        APP_METROLOGY_SetLowPowerMode();
+    }
+}
+
 static void _APP_ENERGY_CheckTamperDetection(void)
 {
     /* Check the Tamper Event Counter value */
@@ -607,6 +616,9 @@ void APP_ENERGY_Initialize (void)
      /* Initialize Energy callbacks */
     app_energyData.maxDemandCallback = NULL;
     app_energyData.monthEnergyCallback = NULL;
+
+    /* Set callback for the supply monitor */
+    SUPC_CallbackRegister(_APP_ENERGY_SupplyMonitorCallback, 0);
 
     /* Clear RTC TIME & CALENDAR events */
     app_energyData.eventMinute = false;

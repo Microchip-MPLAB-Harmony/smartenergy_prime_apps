@@ -1,5 +1,5 @@
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -160,7 +160,7 @@ typedef enum
     APP_DISPLAY_COM_SIGNAL_OFF = 0,
     APP_DISPLAY_COM_SIGNAL_LOW,
     APP_DISPLAY_COM_SIGNAL_MED,
-    APP_DISPLAY_COM_SIGNAL_HIGH,
+    APP_DISPLAY_COM_SIGNAL_HIG,
 
 } APP_DISPLAY_COM_SIGNAL;
 
@@ -408,7 +408,7 @@ void APP_DISPLAY_SetSerialCommunication(void);
     <code>
     if (ext_com_enable == True)
     {
-        APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL_HIGH);
+        APP_DISPLAY_SetCommnicationSignal(APP_DISPLAY_COM_SIGNAL_HIG);
     }
     </code>
 
