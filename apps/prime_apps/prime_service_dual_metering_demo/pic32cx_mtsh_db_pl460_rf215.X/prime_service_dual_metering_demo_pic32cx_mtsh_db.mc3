@@ -10022,11 +10022,11 @@
     &lt;/ComponentGraph&gt;
     &lt;ComponentGraph dnOrder=&quot;4&quot; id=&quot;__ROOTVIEW&quot;&gt;
       &lt;ElementPositions dnOrder=&quot;0&quot;&gt;
-        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; x=&quot;30&quot; y=&quot;60&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;0&quot; id=&quot;HarmonyCore&quot; x=&quot;29&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;1&quot; id=&quot;PRIME STACK&quot; x=&quot;650&quot; y=&quot;100&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;2&quot; id=&quot;adc&quot; x=&quot;21&quot; y=&quot;609&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;3&quot; id=&quot;cmsis&quot; x=&quot;340&quot; y=&quot;20&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;241&quot; y=&quot;19&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;4&quot; id=&quot;core&quot; x=&quot;239&quot; y=&quot;19&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;5&quot; id=&quot;dfp&quot; x=&quot;20&quot; y=&quot;20&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;6&quot; id=&quot;drvMet&quot; x=&quot;30&quot; y=&quot;160&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;7&quot; id=&quot;drvPlcPhy&quot; x=&quot;159&quot; y=&quot;465&quot;/&gt;
@@ -12167,9 +12167,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_24_DIR"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_24_DIR&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;Out&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -12178,9 +12181,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_24_FUNCTION_NAME"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_24_FUNCTION_NAME&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;RED_LED_PD19&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -12189,9 +12195,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_24_FUNCTION_TYPE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_24_FUNCTION_TYPE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;GPIO&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -12200,9 +12209,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_24_LAT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_24_LAT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;Low&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -12211,9 +12223,12 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="PIN_24_PERIPHERAL_FUNCTION"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PIN_24_PERIPHERAL_FUNCTION&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;GPIO&quot;/&gt;
-    &lt;/Values&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+    &lt;Values dnOrder=&quot;1&quot;/&gt;
   &lt;/core&gt;
 &lt;/core&gt;
 </value>
@@ -14436,7 +14451,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_D_CFGR_Value19&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x100&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x0&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -14546,7 +14561,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;core&gt;
   &lt;core dnOrder=&quot;0&quot; id=&quot;PORT_D_MSKR_ValueGPIO&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0xf0008&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;core&quot; value=&quot;0x70008&quot;/&gt;
     &lt;/Values&gt;
   &lt;/core&gt;
 &lt;/core&gt;
@@ -26986,7 +27001,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTSH_DB&gt;
   &lt;mainBoard_PIC32CXMTSH_DB dnOrder=&quot;0&quot; id=&quot;SHD_CHECK_COLLISIONS&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;mainBoard_PIC32CXMTSH_DB&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;mainBoard_PIC32CXMTSH_DB&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/mainBoard_PIC32CXMTSH_DB&gt;
 &lt;/mainBoard_PIC32CXMTSH_DB&gt;
@@ -27260,7 +27275,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTSH_DB&gt;
   &lt;mainBoard_PIC32CXMTSH_DB dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_INTERFACE_0_OPT_4&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/mainBoard_PIC32CXMTSH_DB&gt;
 &lt;/mainBoard_PIC32CXMTSH_DB&gt;
@@ -27331,7 +27346,7 @@
   &lt;mainBoard_PIC32CXMTSH_DB dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_INTERFACE_4_OPT_2&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;/&gt;
@@ -27373,7 +27388,7 @@
   &lt;mainBoard_PIC32CXMTSH_DB dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_INTERFACE_4_OPT_5&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;readOnly&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
     &lt;Values dnOrder=&quot;1&quot;/&gt;
@@ -40880,7 +40895,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="sys_time" name="SYS_TIME_MAX_TIMERS"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_time&gt;
   &lt;sys_time dnOrder=&quot;0&quot; id=&quot;SYS_TIME_MAX_TIMERS&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;30&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/sys_time&gt;
 &lt;/sys_time&gt;
 </value>
@@ -42470,7 +42487,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\configuration.h</file>
-         <hash>34494b39912e4f770e79bfcec3cdd2606229d09ea72ebea61b2077d0e61784c9</hash>
+         <hash>1bddb53cd6ae723c3139818d062ccfa47e63781a3beba807ec6dbe10251ae4b3</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\crypto\common_crypto\crypto_aead_cipher.h</file>
@@ -42810,7 +42827,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\driver\metrology\bin\core1_metlib.bin</file>
-         <hash>a0b7ec80ba136ffa803c60f220c27c2cbc9573bff78f896ef0047595b710e366</hash>
+         <hash>ecde57dc9609ee53fb801b89e99497f10f860d773b275c43498b522de577d349</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\driver\metrology\bin\met_bin.S</file>
@@ -43074,11 +43091,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\pio\plib_pio.c</file>
-         <hash>f24d72e6ecc282b13b426b5d590ac89dffe689ce9a6fdb040a058d2de112e1fe</hash>
+         <hash>3c97ac6c7385d0ddfd8f73d470e72ee8acf2df219bc47abac80f23c871241b90</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\pio\plib_pio.h</file>
-         <hash>5dc53cbf23146bb5f1f0b77b1d38fe1256e68ba2637c10ec99dd90470a2bde84</hash>
+         <hash>978891b0bdd037e96831c861ae84c45998bf63de5130f5b6c2187f741d7b1d39</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\qspi\plib_qspi.c</file>
@@ -43166,7 +43183,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\pin_configurations.csv</file>
-         <hash>6d8ce093a3d8c20f69beb89f2a86b9abcffc1e9632d9a4dcf02aad07f20b48fe</hash>
+         <hash>dd0fcd9856f43cc1202feffac026b386750126fcba887dda0fb3db81e7ada8b4</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.c</file>
@@ -43238,7 +43255,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\reset_handler\srv_reset_handler.c</file>
-         <hash>7545efe4e007c841a10a6433f2525f77fe54cb5cb019a77449280de04dc53612</hash>
+         <hash>8f378aaa2f5c9cb6375fc33eddd9a9a951dc7727fb6d0abde768bb1e32995e47</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\reset_handler\srv_reset_handler.h</file>

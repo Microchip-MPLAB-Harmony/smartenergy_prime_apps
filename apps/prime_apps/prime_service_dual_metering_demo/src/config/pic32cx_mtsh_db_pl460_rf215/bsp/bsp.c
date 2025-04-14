@@ -79,8 +79,6 @@ void BSP_Initialize(void )
     BSP_RED_LED_PD17_Off();
     /* Switch off RED_LED_PD18 */
     BSP_RED_LED_PD18_Off();
-    /* Switch off RED_LED_PD19 */
-    BSP_RED_LED_PD19_Off();
 
 }
 

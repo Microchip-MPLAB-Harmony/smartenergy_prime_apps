@@ -124,16 +124,6 @@
                                     PIOD_REGS->PIO_ODSR ^= (1<<18);\
                                 } while (0)
 
-/*** OUTPUT PIO Macros for RED_LED_PD19 ***/
-#define BSP_RED_LED_PD19_PIN        PIO_PIN_PD19
-#define BSP_RED_LED_PD19_Get()      ((PIOD_REGS->PIO_PDSR >> 19) & 0x1)
-#define BSP_RED_LED_PD19_On()       (PIOD_REGS->PIO_SODR = (1UL<<19))
-#define BSP_RED_LED_PD19_Off()      (PIOD_REGS->PIO_CODR = (1UL<<19))
-#define BSP_RED_LED_PD19_Toggle()   do {\
-                                    PIOD_REGS->PIO_MSKR = (1<<19); \
-                                    PIOD_REGS->PIO_ODSR ^= (1<<19);\
-                                } while (0)
-
 /*** OUTPUT PIO Macros for PL460_STBY ***/
 #define BSP_PL460_STBY_PIN        PIO_PIN_PA16
 #define BSP_PL460_STBY_Get()      ((PIOA_REGS->PIO_PDSR >> 16) & 0x1)

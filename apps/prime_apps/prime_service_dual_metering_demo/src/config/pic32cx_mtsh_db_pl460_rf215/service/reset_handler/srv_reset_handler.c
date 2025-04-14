@@ -175,33 +175,33 @@ void DumpStack(uint32_t stack[])
     if ((saved_hfsr & (1UL << 30)) != 0U)
     {
         resetType = RESET_HANDLER_HARD_FAULT_RESET;
-
-        /* Check usage error */
-        if((saved_cfsr & 0xFFFF0000U) != 0U)
-        {
-            resetType = RESET_HANDLER_USAGE_FAULT_RESET;
-        }
-
-        /* Check bus fault error */
-        if((saved_cfsr & 0xFF00U) != 0U)
-        {
-            resetType = RESET_HANDLER_BUS_FAULT_RESET;
-        }
-
-        /* Check memory management error */
-        if((saved_cfsr & 0xFFU) != 0U)
-        {
-            resetType = RESET_HANDLER_MEM_MANAGE_RESET;
-        }
-    /* Check bus fault on a vector table */
-    }
+    
+    } /* Check bus fault on a vector table */
     else if ((saved_hfsr & (1U << 1)) != 0U)
     {
         resetType = RESET_HANDLER_VECTOR_FAULT_RESET;
     }
     else
     {
-        resetType = RESET_HANDLER_WATCHDOG_RESET;
+        /* Check usage error */
+        if((saved_cfsr & 0xFFFF0000U) != 0U)
+        {
+            resetType = RESET_HANDLER_USAGE_FAULT_RESET;
+        }
+        /* Check bus fault error */
+        else if((saved_cfsr & 0xFF00U) != 0U)
+        {
+            resetType = RESET_HANDLER_BUS_FAULT_RESET;
+        }
+        /* Check memory management error */
+        else if((saved_cfsr & 0xFFU) != 0U)
+        {
+            resetType = RESET_HANDLER_MEM_MANAGE_RESET;
+        }
+        else
+        {
+            resetType = RESET_HANDLER_WATCHDOG_RESET;
+        }
     }
 
     /* Trigger reset */
@@ -235,6 +235,9 @@ void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
 {
     /* Store reset information */
     lSRV_RESET_HANDLER_StoreResetInfo(resetType);
+
+    /* Stop Metrology and its peripherals before reset */
+    DRV_METROLOGY_Close();
 
     /* Trigger software reset */
     RSTC_Reset(RSTC_PROCESSOR_RESET);

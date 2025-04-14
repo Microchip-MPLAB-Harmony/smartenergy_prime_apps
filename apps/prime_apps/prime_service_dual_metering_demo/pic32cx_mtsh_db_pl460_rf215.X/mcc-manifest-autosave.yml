@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_service_dual_metering_demo_pic32cx_mtsh_db
-creation_date: 2025-04-14T11:06:07.834+02:00[Europe/Paris]
+creation_date: 2025-04-14T14:47:40.583+02:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -25,6 +25,6 @@ modules:
 - {name: shd, type: HARMONY, version: v1.1.0}
 - {name: core, type: HARMONY, version: v3.15.1}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: dev}
+- {name: smartenergy_prime, type: HARMONY, version: SMS-4149-create-metrology-app-for-prime}
 - {name: gfx, type: HARMONY, version: v3.16.0}
 - {name: crypto_v4, type: HARMONY, version: dev}

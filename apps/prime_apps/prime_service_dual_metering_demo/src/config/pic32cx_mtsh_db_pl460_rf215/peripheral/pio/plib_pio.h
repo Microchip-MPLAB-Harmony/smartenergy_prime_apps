@@ -206,24 +206,6 @@
 #define RED_LED_PD18_Get()               ((PIOD_REGS->PIO_PDSR >> 18U) & 0x1U)
 #define RED_LED_PD18_PIN                  PIO_PIN_PD18
 
-/*** Macros for RED_LED_PD19 pin ***/
-#define RED_LED_PD19_Set()               (PIOD_REGS->PIO_SODR = ((uint32_t)1U<<19U))
-#define RED_LED_PD19_Clear()             (PIOD_REGS->PIO_CODR = ((uint32_t)1U<<19U))
-#define RED_LED_PD19_Toggle()            do {\
-                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
-                                            PIOD_REGS->PIO_ODSR ^= ((uint32_t)1U<<19U);\
-                                        } while (0)
-#define RED_LED_PD19_OutputEnable()      do {\
-                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
-                                            PIOD_REGS->PIO_CFGR |=((uint32_t)1U << PIO_CFGR_DIR_Pos);\
-                                        }while(0)
-#define RED_LED_PD19_InputEnable()       do { \
-                                            PIOD_REGS->PIO_MSKR = ((uint32_t)1U<<19U); \
-                                            PIOD_REGS->PIO_CFGR &= ~((uint32_t)1U << PIO_CFGR_DIR_Pos);\
-                                        } while (0)
-#define RED_LED_PD19_Get()               ((PIOD_REGS->PIO_PDSR >> 19U) & 0x1U)
-#define RED_LED_PD19_PIN                  PIO_PIN_PD19
-
 /*** Macros for PL460_SCK pin ***/
 #define PL460_SCK_Get()               ((PIOA_REGS->PIO_PDSR >> 10U) & 0x1U)
 #define PL460_SCK_PIN                  PIO_PIN_PA10
