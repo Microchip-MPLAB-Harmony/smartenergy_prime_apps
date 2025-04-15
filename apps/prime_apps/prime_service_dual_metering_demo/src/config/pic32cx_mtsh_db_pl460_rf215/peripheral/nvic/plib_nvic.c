@@ -65,11 +65,11 @@ void NVIC_Initialize( void )
     NVIC_EnableIRQ(RTC_IRQn);
     NVIC_SetPriority(DWDT0_IRQn, 9);
     NVIC_EnableIRQ(DWDT0_IRQn);
-    NVIC_SetPriority(FLEXCOM0_IRQn, 4);
+    NVIC_SetPriority(FLEXCOM0_IRQn, 7);
     NVIC_EnableIRQ(FLEXCOM0_IRQn);
     NVIC_SetPriority(FLEXCOM1_IRQn, 8);
     NVIC_EnableIRQ(FLEXCOM1_IRQn);
-    NVIC_SetPriority(FLEXCOM2_IRQn, 9);
+    NVIC_SetPriority(FLEXCOM2_IRQn, 2);
     NVIC_EnableIRQ(FLEXCOM2_IRQn);
     NVIC_SetPriority(FLEXCOM5_IRQn, 3);
     NVIC_EnableIRQ(FLEXCOM5_IRQn);

@@ -268,13 +268,13 @@
             <logicalFolder name="pal" displayName="pal" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_local.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_rf.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc_rm.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_rf_rm.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc_local.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_rf_local.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_types.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc_rm.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="prime" displayName="prime" projectFiles="true">
               <logicalFolder name="conv" displayName="conv" projectFiles="true">
@@ -811,10 +811,10 @@
           <logicalFolder name="stack" displayName="stack" projectFiles="true">
             <logicalFolder name="pal" displayName="pal" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal.c</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc.c</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_rf.c</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc_rm.c</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_rf_rm.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/stack/pal/pal_plc_rm.c</itemPath>
             </logicalFolder>
             <logicalFolder name="prime" displayName="prime" projectFiles="true">
               <logicalFolder name="hal_api" displayName="hal_api" projectFiles="true">
@@ -1025,7 +1025,7 @@
       </toolsSet>
       <packs>
         <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.3.132"/>
-        <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -1163,7 +1163,7 @@
         <property key="exclude-floating-point-library" value="false"/>
         <property key="expand-macros" value="false"/>
         <property key="extra-include-directories-for-assembler"
-                  value="../src/config/default/driver/metrology/bin;../src/config/default/driver/plc/phy/bin;../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/bin;../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin"/>
+                  value="../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/bin;../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin"/>
         <property key="extra-include-directories-for-preprocessor" value=""/>
         <property key="false-conditionals" value="false"/>
         <property key="generate-16-bit-code" value="false"/>
@@ -1293,8 +1293,8 @@
         <property key="communication.autoselectspeed" value="true"/>
         <property key="communication.interface" value="swd"/>
         <property key="communication.speed" value="4"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.debug-startup" value="Halt at main"/>
+        <property key="debugoptions.reset-behaviour" value="Main"/>
         <property key="event.recorder.debugger.behavior" value="Running"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
@@ -1329,8 +1329,8 @@
         <property key="communication.autoselectspeed" value="true"/>
         <property key="communication.interface" value="swd"/>
         <property key="communication.speed" value="4"/>
-        <property key="debugoptions.debug-startup" value="Use system settings"/>
-        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.debug-startup" value="Halt at main"/>
+        <property key="debugoptions.reset-behaviour" value="Main"/>
         <property key="event.recorder.debugger.behavior" value="Running"/>
         <property key="event.recorder.enabled" value="false"/>
         <property key="event.recorder.scvd.files" value=""/>
