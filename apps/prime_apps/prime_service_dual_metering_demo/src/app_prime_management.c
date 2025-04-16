@@ -215,6 +215,8 @@ void APP_PRIME_MANAGEMENT_Tasks ( void )
 
             /* Initialize FU result callback */
             SRV_FU_RegisterCallbackFuResult(lAPP_PrimeFuResultHandler);
+            
+            app_prime_managementData.state = APP_PRIME_MANAGEMENT_STATE_SERVICE_TASKS;
             break;
         }
 
