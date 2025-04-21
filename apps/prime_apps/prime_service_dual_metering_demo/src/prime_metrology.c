@@ -51,6 +51,8 @@ static uint8_t ae = 0;
 /* Tx buffer */
 DL_432_BUFFER buff432;
 
+static bool isDataReceived;
+
 APP_PRIME_METROLOGY_STATES app_prime_metrologyState;
 
 // *****************************************************************************
@@ -176,6 +178,9 @@ static void lAPP_PRIME_METROLOGY_MLME_UnregisterIndication(void)
     con432Info.nodeAddr = CL_432_INVALID_ADDRESS;
     memset(&con432Info.deviceId, 0, sizeof(con432Info.deviceId));
     con432Info.deviceIdLen = 0;
+    con432Info.dstLsap = 0;
+    con432Info.srcLsap = 0;
+    con432Info.linkClass = 0;
 }
 
 static void lAPP_PRIME_METROLOGY_CL432_EstablishConfirm(uint8_t *deviceId,
@@ -211,6 +216,9 @@ static void lAPP_PRIME_METROLOGY_CL432_ReleaseConfirm(uint16_t dstAddress,
     con432Info.nodeAddr = CL_432_INVALID_ADDRESS;
     memset(&con432Info.deviceId, 0, sizeof(con432Info.deviceId));
     con432Info.deviceIdLen = 0;
+    con432Info.dstLsap = 0;
+    con432Info.srcLsap = 0;
+    con432Info.linkClass = 0;
     
     /* Re-launch 432 connection */
     gPrimeApi->Cl432EstablishRequest((uint8_t *)meterParams.meterSerial, 
@@ -227,6 +235,29 @@ static void lAPP_PRIME_METROLOGY_CL432_DlDataIndication(uint8_t dstLsap,
     (void)data;
     (void)lsduLen;
     
+    con432Info.dstLsap = srcLsap;
+    con432Info.srcLsap = dstLsap;
+    con432Info.linkClass = linkClass;
+    
+    isDataReceived = true;
+}
+
+static void lAPP_PRIME_METROLOGY_CL432_DlDataConfirm(uint8_t dstLsap, 
+            uint8_t srcLsap, uint16_t dstAddress, DL_432_TX_STATUS txStatus)
+{
+    (void)dstLsap;
+    (void)srcLsap;
+    (void)dstAddress;
+
+    if (txStatus != CL_432_TX_STATUS_SUCCESS)
+    {
+        SRV_LOG_REPORT_Message(SRV_LOG_REPORT_INFO, 
+                               "Error when sending: %d \n\r", (uint8_t)txStatus);
+    }
+}
+
+static void lAPP_PRIME_METROLOGY_SendData(void)
+{   
     /* Metrology data request (RMS instantaneous values) */
     APP_PRIME_METROLOGY_RESPONSE_DATA metData;
     DRV_METROLOGY_MEASURE_SIGN rmsSign;
@@ -333,8 +364,9 @@ static void lAPP_PRIME_METROLOGY_CL432_DlDataIndication(uint8_t dstLsap,
 
     /* Insert metrology data in reply */
     memcpy(&buff432.dl.buff, &metData, sizeof(metData));
-    gPrimeApi->Cl432DlDataRequest(dstLsap, srcLsap, con432Info.baseAddr, 
-                                  &buff432, sizeof(metData), linkClass);
+    gPrimeApi->Cl432DlDataRequest(con432Info.dstLsap, con432Info.srcLsap, 
+                                  con432Info.baseAddr, &buff432, sizeof(metData), 
+                                  con432Info.linkClass);
 }
 
 static void lAPP_PRIME_METROLOGY_SetCallbacks(void)
@@ -354,6 +386,7 @@ static void lAPP_PRIME_METROLOGY_SetCallbacks(void)
     cl432_callbacks.cl_432_establish_cfm = lAPP_PRIME_METROLOGY_CL432_EstablishConfirm;
     cl432_callbacks.cl_432_release_cfm = lAPP_PRIME_METROLOGY_CL432_ReleaseConfirm;
     cl432_callbacks.cl_432_dl_data_ind = lAPP_PRIME_METROLOGY_CL432_DlDataIndication;
+    cl432_callbacks.cl_432_dl_data_cfm = lAPP_PRIME_METROLOGY_CL432_DlDataConfirm;
   
     gPrimeApi->Cl432SetCallbacks(&cl432_callbacks);    
 }
@@ -397,6 +430,8 @@ void APP_PRIME_METROLOGY_Initialize ( void )
             break;
     }
 
+    isDataReceived = false;
+    
     /* Set state */
     app_prime_metrologyState = APP_PRIME_METROLOGY_STATE_SERVICE_CONFIGURE;
 }
@@ -453,7 +488,14 @@ void APP_PRIME_METROLOGY_Tasks ( void )
 
         case APP_PRIME_METROLOGY_STATE_SERVICE_TASKS:
         {
-
+            if (isDataReceived == true)
+            {
+                /* Send metrology data */
+                lAPP_PRIME_METROLOGY_SendData();
+                
+                isDataReceived = false;
+            }
+            
             break;
         }
 

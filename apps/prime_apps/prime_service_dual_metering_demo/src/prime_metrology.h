@@ -71,6 +71,9 @@ typedef struct {
     uint8_t deviceIdLen;
     uint16_t baseAddr;
     uint16_t nodeAddr;
+    uint8_t dstLsap; 
+    uint8_t srcLsap;
+    uint8_t linkClass;
 } APP_PRIME_METROLOGY_432_CON_INFO;
 
 typedef struct {
