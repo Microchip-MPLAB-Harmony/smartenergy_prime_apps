@@ -865,7 +865,6 @@ void BMNG_PPROF_GetEnhancedRequest(uint8_t cmd, uint8_t *eui48, uint16_t dataLen
 
   Example:
     <code>
-    uint8_t data[3] = {0x00, 0x20, 0};
     uint8_t eui48[6];
     memset(eui48, 0x12, 6);
     
@@ -905,11 +904,10 @@ void BMNG_PPROF_GetZcDiffRequest(uint8_t cmd, uint8_t *eui48);
 
   Example:
     <code>
-    uint8_t data[3] = {0x00, 0x20, 0};
     uint8_t eui48[6];
     memset(eui48, 0x12, 6);
     
-    BMNG_WHITELIST_AddRequest(PPROF_GET_ZC_DIFF_REQUEST, eui48);
+    BMNG_WHITELIST_AddRequest(WHITELIST_ADD_REQUEST, eui48);
     </code>
 
   Remarks:
@@ -947,7 +945,7 @@ void BMNG_WHITELIST_AddRequest(uint8_t cmd, uint8_t *eui48);
     uint8_t eui48[6];
     memset(eui48, 0x12, 6);
     
-    BMNG_WHITELIST_RemoveRequest(PPROF_GET_ZC_DIFF_REQUEST, eui48);
+    BMNG_WHITELIST_RemoveRequest(WHITELIST_REMOVE_REQUEST, eui48);
     </code>
 
   Remarks:

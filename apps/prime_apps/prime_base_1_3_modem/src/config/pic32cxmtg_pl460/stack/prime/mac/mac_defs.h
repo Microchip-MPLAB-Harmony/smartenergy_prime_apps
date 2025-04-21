@@ -540,7 +540,7 @@ typedef void (*MAC_ESTABLISH_CONFIRM_CB)(uint16_t conHandle,
   Description:
     This function pointer is used to respond to a MAC connection establishment request.
     conHandle   - Unique identifier of the connection
-    answer:     - Action to be taken for this connection establishment
+    answer      - Action to be taken for this connection establishment
     data        - Data associated with the connection establishment procedure
     dataLen     - Length of the data in bytes
     ae          - Flag to indicate that authentication and encryption is
@@ -611,7 +611,7 @@ typedef void (*MAC_RELEASE_CONFIRM_CB)(uint16_t conHandle,
   Description:
     This function pointer is used to respond to a MAC release request.
     conHandle   - Unique identifier of the connection
-    answer:     - Action to be taken for this connection release procedure
+    answer    - Action to be taken for this connection release procedure
 
   Remarks:
     None.
@@ -908,11 +908,11 @@ typedef void (*PLME_SLEEP_CONFIRM_CB)(PLME_RESULT result, uint16_t pch);
 /* PLME resume request
 
   Summary:
-    Function pointer to request to resume all suspended actitivities of the PHY
+    Function pointer to request to resume all suspended activities of the PHY
     layer.
 
   Description:
-    This function pointer is used to request to resume all suspended actitivities
+    This function pointer is used to request to resume all suspended activities
     of the PHY layer.
     pch     - Physical channel (v1.4)
 
@@ -1204,15 +1204,14 @@ typedef void (*MLME_PROMOTE_INDICATION_CB)(void);
   Description:
     This function pointer is used to request to trigger the promotion process in
     a Service Node (Terminal or Switch) in a medium (PLC or RF) different from the
-    one the node is connected to the network. This primitive only applies in PRIME
-    v1.4.
+    one the node is connected to the network. 
     eui48   - Pointer to the address of the node to be promoted (NULL in Service
               Node)
     bcnMode - Beacon PDU modulation scheme
     pch     - Physical channel of promotion
 
   Remarks:
-    None.
+    This primitive only applies in PRIME v1.4.
 */
 typedef void (*MLME_MP_PROMOTE_REQUEST)(uint8_t *eui48, uint8_t bcnMode,
     uint16_t pch);
@@ -1228,12 +1227,12 @@ typedef void (*MLME_MP_PROMOTE_REQUEST)(uint8_t *eui48, uint8_t bcnMode,
     result  - Result of the operation
 
   Remarks:
-    None.
+    This primitive only applies in PRIME v1.4.
 */
 typedef void (*MLME_MP_PROMOTE_CONFIRM_CB)(MLME_RESULT result);
 
 // *****************************************************************************
-/* MLME MultiPHY promoteindication
+/* MLME MultiPHY promote indication
 
   Summary:
     Callback function pointer for the MLME MultiPHY promote indication.
@@ -1243,7 +1242,7 @@ typedef void (*MLME_MP_PROMOTE_CONFIRM_CB)(MLME_RESULT result);
     pch     - Physical channel of promotion
 
   Remarks:
-    None.
+    This primitive only applies in PRIME v1.4.
 */
 typedef void (*MLME_MP_PROMOTE_INDICATION_CB)(uint16_t pch);
 
@@ -1302,11 +1301,11 @@ typedef void (*MLME_DEMOTE_INDICATION_CB)(void);
   Description:
     This function pointer is used to request to trigger a demotion process in a
     Service Node that is in a Switch functional state and supports MultiPHY
-    promotion. This primitive only applies in PRIME v1.4.
+    promotion. 
     lsid    - Local switch identifier
 
   Remarks:
-    None.
+    This primitive only applies in PRIME v1.4.
 */
 typedef void (*MLME_MP_DEMOTE_REQUEST)(uint8_t lsid);
 
@@ -1321,7 +1320,7 @@ typedef void (*MLME_MP_DEMOTE_REQUEST)(uint8_t lsid);
     result  - Result of the operation
 
   Remarks:
-    None.
+    This primitive only applies in PRIME v1.4.
 */
 typedef void (*MLME_MP_DEMOTE_CONFIRM_CB)(MLME_RESULT result);
 
@@ -1336,7 +1335,7 @@ typedef void (*MLME_MP_DEMOTE_CONFIRM_CB)(MLME_RESULT result);
     lsid    - Local switch identifier
 
   Remarks:
-    None.
+    This primitive only applies in PRIME v1.4.
 */
 typedef void (*MLME_MP_DEMOTE_INDICATION_CB)(uint8_t lsid);
 
@@ -1533,7 +1532,7 @@ typedef struct {
 /* MAC callback function pointer
 
   Summary:
-    Defines the funtion pointer to set the callbacks to handle the MAC layer.
+    Defines the function pointer to set the callbacks to handle the MAC layer.
 
   Description:
     This data type defines the function pointer to set the callbacks to

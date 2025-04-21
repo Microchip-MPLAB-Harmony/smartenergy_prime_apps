@@ -80,10 +80,11 @@ Microchip or any third party.
     void PRIME_HAL_WRP_Configure(const HAL_API *pHalApi)
 
   Summary:
-    Trigger a system restart.
+    Configure the wrapper between the PRIME Library and the external resources.
 
   Description:
-    This routine triggers a system restart.
+    This routine configures the wrapper between the PRIME Library and the 
+    external resources through the HAL API.
 
   Precondition:
     None.
@@ -100,6 +101,9 @@ Microchip or any third party.
 
     PRIME_HAL_WRP_Configure(&primeHalAPI);
     </code>
+    
+  Remarks:
+    None.
 
 */
 void PRIME_HAL_WRP_Configure(const HAL_API *pHalApi);
@@ -1491,7 +1495,7 @@ void PRIME_HAL_WRP_FuStart(SRV_FU_INFO *fuInfo);
     Ends the firmware upgrade process.
 
   Description:
-    This function is used to finish the firmare upgrade process and to trigger the
+    This function is used to finish the firmware upgrade process and to trigger the
     execution of the new firmware.
 
   Precondition:
@@ -1521,7 +1525,7 @@ void PRIME_HAL_WRP_FuEnd(SRV_FU_RESULT fuResult);
     Reads the firmware upgrade information.
 
   Description:
-    This function is used to read the firmare upgrade information, which is
+    This function is used to read the firmware upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -1553,7 +1557,7 @@ void PRIME_HAL_WRP_FuCfgRead(void *dst, uint16_t size);
     Writes the firmware upgrade information.
 
   Description:
-    This function is used to write the firmare upgrade information, which is
+    This function is used to write the firmware upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -1753,6 +1757,7 @@ void PRIME_HAL_WRP_FuRegisterCbCrc(SRV_FU_CRC_CB callback);
   Remarks:
     Related to Firmware Upgrade service.
 */
+
 void PRIME_HAL_WRP_FuCalculateCrc(void);
 
 // ****************************************************************************
@@ -1796,7 +1801,6 @@ void PRIME_HAL_WRP_FuCalculateCrc(void);
 */
 
 void PRIME_HAL_WRP_FuRegisterCbVerify(SRV_FU_IMAGE_VERIFY_CB callback);
-
 
 // ****************************************************************************
 /* Function:
@@ -2327,7 +2331,8 @@ uint8_t PRIME_HAL_WRP_PAL_GetTimerExtended(uint16_t pch, uint64_t *timer);
     Not available for both PHY Serial and PHY RF.
     Related to PRIME PAL.
 */
-uint8_t PRIME_HAL_WRP_PAL_GetCD(uint16_t pch, uint8_t *cd, uint8_t *rssi, uint32_t *timePrime, uint8_t *header);
+uint8_t PRIME_HAL_WRP_PAL_GetCD(uint16_t pch, uint8_t *cd, uint8_t *rssi, 
+    uint32_t *timePrime, uint8_t *header);
 
 // ****************************************************************************
 /* Function:
@@ -2551,7 +2556,12 @@ uint8_t PRIME_HAL_WRP_PAL_SetChannel(uint16_t pch);
 
 // ****************************************************************************
 /* Function:
-    void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode)
+    void PRIME_HAL_WRP_PAL_ProgramChannelSwitch
+    (
+        uint32_t timeSync, 
+        uint16_t pch, 
+        uint8_t timeMode
+    )
 
   Summary:
     Program a pch switch in the given time.
@@ -2583,7 +2593,8 @@ uint8_t PRIME_HAL_WRP_PAL_SetChannel(uint16_t pch);
     Only available for PHY RF.
     Related to PRIME PAL.
 */
-void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode);
+void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, 
+    uint8_t timeMode);
 
 // ****************************************************************************
 /* Function:
@@ -2626,7 +2637,8 @@ void PRIME_HAL_WRP_PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uin
   Remarks:
     Related to PRIME PAL.
 */
-uint8_t PRIME_HAL_WRP_PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val, uint16_t length);
+uint8_t PRIME_HAL_WRP_PAL_GetConfiguration(uint16_t pch, uint16_t id, 
+    void *val, uint16_t length);
 
 // ****************************************************************************
 /* Function:
@@ -2670,7 +2682,8 @@ uint8_t PRIME_HAL_WRP_PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val,
     Not available for PHY Serial.
     Related to PRIME PAL.
 */
-uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val, uint16_t length);
+uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, 
+    void *val, uint16_t length);
 
 // ****************************************************************************
 /* Function:
@@ -2709,15 +2722,18 @@ uint8_t PRIME_HAL_WRP_PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val,
     PAL_FRAME frameType = PAL_MODE_TYPE_B;
     uint8_t pch = 1;
 
-    noiseSize = PRIME_HAL_WRP_PAL_GetSignalCapture(pch, &noiseCapture, PAL_FRAME frameType, timeStart, duration);
+    noiseSize = PRIME_HAL_WRP_PAL_GetSignalCapture(pch, &noiseCapture, 
+                                                   PAL_FRAME frameType, 
+                                                   timeStart, duration);
     </code>
 
   Remarks:
     Only available for PHY PLC.
     Related to PRIME PAL.
 */
-uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, PAL_FRAME frameType,
-                              uint32_t timeStart, uint32_t duration);
+uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, 
+    PAL_FRAME frameType, uint32_t timeStart, uint32_t duration);
+    
 // ****************************************************************************
 /* Function:
     uint8_t PRIME_HAL_WRP_PAL_GetMsgDuration(
@@ -2756,7 +2772,8 @@ uint16_t PRIME_HAL_WRP_PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture,
     PAL_FRAME frameType = PAL_MODE_TYPE_B;
     uint8_t result=PAL_CFG_SUCCESS;
 
-    result = PRIME_HAL_WRP_PAL_GetMsgDuration(pch, msgLen, scheme, frameType, &duration);
+    result = PRIME_HAL_WRP_PAL_GetMsgDuration(pch, msgLen, scheme, 
+                                              frameType, &duration);
     </code>
 
   Remarks:
@@ -2806,11 +2823,15 @@ uint8_t PRIME_HAL_WRP_PAL_GetMsgDuration(uint16_t pch, uint16_t length,
     Not available for PHY Serial.
     Related to PRIME PAL.
 */
-bool PRIME_HAL_WRP_PAL_CheckMinimumQuality(uint16_t pch, uint8_t reference, uint8_t modulation);
+bool PRIME_HAL_WRP_PAL_CheckMinimumQuality(uint16_t pch, uint8_t reference, 
+    uint8_t modulation);
 
 // ****************************************************************************
 /* Function:
-    uint8_t PRIME_HAL_WRP_PAL_GetLessRobustModulation(uint16_t pch, uint8_t mod1, uint8_t mod2)
+    uint8_t PRIME_HAL_WRP_PAL_GetLessRobustModulation(
+        uint16_t pch, 
+        uint8_t mod1, 
+        uint8_t mod2)
 
   Summary:
     Get less robust modulation scheme.
@@ -2844,7 +2865,8 @@ bool PRIME_HAL_WRP_PAL_CheckMinimumQuality(uint16_t pch, uint8_t reference, uint
     Not available for PHY Serial.
     Related to PRIME PAL.
 */
-uint8_t PRIME_HAL_WRP_PAL_GetLessRobustModulation(uint16_t pch, uint8_t mod1, uint8_t mod2);
+uint8_t PRIME_HAL_WRP_PAL_GetLessRobustModulation(uint16_t pch, uint8_t mod1, 
+    uint8_t mod2);
 
 /* @cond 0 */
 /**INDENT-OFF**/

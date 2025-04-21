@@ -221,7 +221,7 @@ void PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL);
     void PAL_CallbackRegister(PAL_CALLBACKS *pCallbacks)
 
   Summary:
-    Sets PAL layer callback functions
+    Sets PAL layer callback functions.
 
   Description:
     This routine links callback functions between upper layer and phy layer.
@@ -266,7 +266,7 @@ void PAL_CallbackRegister(PAL_CALLBACKS *pCallbacks);
     uint8_t PAL_DataRequestTransmission(PAL_MSG_REQUEST_DATA *requestMsg)
 
   Summary:
-    Request to transmit a message
+    Request to transmit a message.
 
   Description:
     This functions is used to initiate the transmission process of a PPDU
@@ -346,7 +346,7 @@ uint8_t PAL_DataRequest(PAL_MSG_REQUEST_DATA *pData);
     </code>
 
   Remarks:
-    Not available in PHY Serial medium
+    Not available in PHY Serial medium.
 */
 uint8_t PAL_GetSNR(uint16_t pch, uint8_t *snr, uint8_t qt);
 
@@ -574,7 +574,7 @@ uint8_t PAL_GetNL(uint16_t pch, uint8_t *noise);
     uint8_t gain=0;
     uint16_t pch=1;
 
-    result = PAL_GetAGC(&mode, &gain);
+    result = PAL_GetAGC(pch, &mode, &gain);
     </code>
 
   Remarks:
@@ -674,7 +674,7 @@ uint8_t PAL_GetCCA(uint16_t pch, uint8_t *pState);
 
   Parameters:
     pPch               Pointer to store the Physical channel in use
-    channelReference  Physical channel in the same channels range
+    channelReference   Physical channel in the same channels range
 
   Returns:
     PAL_CFG_SUCCESS         - If successful

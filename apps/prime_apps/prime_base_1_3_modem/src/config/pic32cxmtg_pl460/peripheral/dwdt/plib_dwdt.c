@@ -56,7 +56,7 @@ typedef struct
 }dwdtCallback_t;
 
 
-volatile static dwdtCallback_t dwdt0CallbackObj;
+static volatile dwdtCallback_t dwdt0CallbackObj;
 
 
 static void WDT0_Initialize(void)

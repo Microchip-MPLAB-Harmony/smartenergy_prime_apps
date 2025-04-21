@@ -100,7 +100,6 @@
 #include "service/storage/srv_storage.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-#include "crypto/crypto_config.h"
 #include "service/time_management/srv_time_management.h"
 #include "app.h"
 

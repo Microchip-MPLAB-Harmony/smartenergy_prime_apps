@@ -214,7 +214,7 @@ void SUPC_BackupModeEnter(void)
     __WFI();
 }
 
-volatile static SUPC_OBJECT supcObj;
+static volatile SUPC_OBJECT supcObj;
 
 void SUPC_CallbackRegister(SUPC_CALLBACK callback, uintptr_t context)
 {

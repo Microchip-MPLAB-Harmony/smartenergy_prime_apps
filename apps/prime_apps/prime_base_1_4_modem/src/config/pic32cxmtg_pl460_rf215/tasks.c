@@ -91,7 +91,7 @@ DRV_MEMORY_Tasks(sysObj.drvMemory0);
 
     /* Maintain Middleware & Other Libraries */
         
-    /* Maintain Firwmare Upgrade */
+    /* Maintain Firmware Upgrade */
     SRV_FU_Tasks();
     
     /* Maintain PRIME */

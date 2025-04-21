@@ -19,28 +19,30 @@
 
 *******************************************************************************/
 
-/*******************************************************************************
-* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
+/*----------------------------------------------------------------------------
+ Copyright (C) 2019-2024 Microchip Technology Inc. and its subsidiaries.
+
+Microchip Technology Inc. and its subsidiaries.
+
+Subject to your compliance with these terms, you may use Microchip software 
+and any derivatives exclusively with Microchip products. It is your 
+responsibility to comply with third party license terms applicable to your 
+use of third party software (including open source software) that may 
+accompany Microchip software.
+
+THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
+EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
+WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
+PURPOSE.
+
+IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
+WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
+BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
+FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
+ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
+THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+----------------------------------------------------------------------------*/
 
 #ifndef WOLFCRYPT_CONFIG_H
 #define WOLFCRYPT_CONFIG_H
@@ -168,11 +170,8 @@ extern "C" {
 #define HAVE_ANON
 #define WOLFSSL_OLD_PRIME_CHECK
 #define NO_DSA
-#define FP_MAX_BITS 8192
-#define USE_CERT_BUFFERS_1024   
+#define FP_MAX_BITS 4096
 #define USE_CERT_BUFFERS_2048
-#define USE_CERT_BUFFERS_3072
-#define USE_CERT_BUFFERS_4096
 //#define WOLFSSL_RSA_PUBLIC_ONLY  //JK //Conflict with WOLFSSL_HAVE_SP_DH
 //#define WC_RSA_PSS               //JK
 //#define WOLFSSL_STATIC_RSA       //JK
@@ -203,16 +202,11 @@ int Crypto_Rng_Wc_Prng_Srand(uint8_t* output, unsigned int sz);
 //#define WC_NO_RNG //when using RNG
 //#define WC_NO_HASHDRBG
 //#define HAVE_ECC_ENCRYPT
-//#define NO_RSA                 //JK
+#define NO_RSA                 //JK
 #define NO_DH                  //JK
 //#define NO_SIG_WRAPPER
 //**********************************************************
-#define HAVE_POLY1305
-#define WC_ASYNC_ENABLE_RSA
-#define WC_RSA_PSS 
-#define WOLFSSL_HAVE_SP_RSA 
-#define WC_RSA_NO_PADDING
-#define WOLFSSL_SP_4096
+
 // ---------- WOLFCRYPT CONFIGURATION END ----------
 
 //DOM-IGNORE-BEGIN

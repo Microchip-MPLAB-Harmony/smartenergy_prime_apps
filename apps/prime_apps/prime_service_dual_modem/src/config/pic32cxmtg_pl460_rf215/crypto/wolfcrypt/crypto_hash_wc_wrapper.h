@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    crypto_mac_wc_wrapper.h
+    crypto_hash_wc_wrapper.h
 
   Summary:
     This header file provides prototypes and definitions for the application.
@@ -18,8 +18,9 @@
     are defined here for convenience.
 *******************************************************************************/
 
-#ifndef CRYPTO_MAC_WC_WRAPPER_H
-#define CRYPTO_MAC_WC_WRAPPER_H
+#ifndef CRYPTO_HASH_WC_WRAPPER_H
+#define CRYPTO_HASH_WC_WRAPPER_H
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -28,13 +29,11 @@
 // *****************************************************************************
 
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Type Definitions
 // *****************************************************************************
-crypto_Mac_Status_E Crypto_Mac_Wc_AesCmac_Init(void *ptr_aesCmacCtx, uint8_t *ptr_key, uint32_t keySize);
-crypto_Mac_Status_E Crypto_Mac_Wc_AesCmac_Cipher(void *ptr_aesCmacCtx, uint8_t *ptr_inputData, uint32_t dataLen);
-crypto_Mac_Status_E Crypto_Mac_Wc_AesCmac_Final(void *ptr_aesCmacCtx, uint8_t *ptr_outMac, uint32_t macLen);
-crypto_Mac_Status_E Crypto_Mac_Wc_AesCmac_Direct(uint8_t *ptr_inputData, uint32_t inuptLen, uint8_t *ptr_outMac, uint32_t macLen, uint8_t *ptr_key, uint32_t keyLen);
-        
-#endif //CRYPTO_MAC_WC_WRAPPER_H
+// *****************************************************************************
+
+#endif //CRYPTO_HASH_WC_WRAPPER_H

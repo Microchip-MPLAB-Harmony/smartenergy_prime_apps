@@ -140,25 +140,42 @@ typedef enum {
     PAL_STATUS_INVALID_OBJECT = SYS_STATUS_ERROR_EXTENDED - 1,
 } PAL_STATUS;
 
+
+// *****************************************************************************
+/* PAL FRAME types
+
+  Summary:
+    Different PHY frame types in PLC.
+
+  Description:
+    This enumeration identifies different PHY frame types of the PLC 
+	transceiver.
+
+  Remarks:
+    None.
+*/
 typedef enum {
     PAL_FRAME_TYPE_A  = 0,
     PAL_FRAME_TYPE_B  = 2,
     PAL_FRAME_TYPE_BC = 3,
     PAL_FRAME_TYPE_RF = 5,
-    PAL_FRAME_NOISE   = 0xFE,  /* Not in PL360 */
-    PAL_FRAME_TEST    = 0xFF,  /* Not in PL360 */
+    PAL_FRAME_NOISE   = 0xFE,
+    PAL_FRAME_TEST    = 0xFF,
 } PAL_FRAME;
 
 // *****************************************************************************
 /* PAL Modulation schemes
 
   Summary:
-    The list of all modulation schemes supported by PRIME spec.
+    List of the different modulations used in the PRIME specification.
 
+  Description:
+    This enumeration identifies the different modulations allowed by 
+	the PRIME specification in both PLC and RF.
+  
   Remarks:
     None.
 */
-
 typedef enum {
     PAL_SCHEME_DBPSK = 0x00,
     PAL_SCHEME_DQPSK = 0x01,
@@ -190,7 +207,9 @@ typedef enum {
     PAL_CFG_INVALID_INPUT = 1,
 } PAL_CFG_RESULT;
 
+// *****************************************************************************
 /* PAL information base enumeration
+ 
  Summary:
     PHY parameter identifiers requested from the MAC layer
 
@@ -201,8 +220,7 @@ typedef enum {
  Remarks:
     None.
 */
-typedef enum
-{
+typedef enum {
     /* Enable/Disable continuous transmission mode in PLC */
     PAL_ID_CONTINUOUS_TX_EN,
     /* Zero Crossing Period in PLC */
@@ -292,9 +310,7 @@ typedef enum
   Remarks:
     None.
 */
-
-typedef enum
-{
+typedef enum {
     /* Absolute TX scheduling mode (absolute TX time specified) */
     PAL_TX_MODE_ABSOLUTE = 0,
     /* Relative TX scheduling mode (delay for TX time specified) */
@@ -315,9 +331,7 @@ typedef enum
   Remarks:
     None.
 */
-
-typedef enum
-{
+typedef enum {
     /* Transmission result: already in process */
     PAL_TX_RESULT_PROCESS        = 0,
     /* Transmission result: end successfully */
@@ -354,9 +368,10 @@ typedef enum
     PAL_TX_RESULT_PHY_ERROR      = 0xFE,
 } PAL_TX_RESULT;
 
+// *****************************************************************************
 /* PAL transmission data structure
  Summary:
-    Data structure used for transmission
+    Data structure used for transmission.
 
  Description:
     This structure contains the MAC Protocol Data Unit (MPDU) to be transmitted
@@ -366,8 +381,7 @@ typedef enum
  Remarks:
     None.
 */
-typedef struct
-{
+typedef struct {
     /* Pointer to data buffer */
     uint8_t *pData;
     /* Delay for transmission in us */
@@ -394,9 +408,10 @@ typedef struct
     uint8_t senseDelayMs;
 } PAL_MSG_REQUEST_DATA;
 
+// *****************************************************************************
 /* PAL confirm data structure
  Summary:
-    Data structure used to confirm the result of transmission request
+    Data structure used to confirm the result of transmission request.
 
  Description:
     This structure is used to indicate to the MAC layer the result of the
@@ -405,8 +420,7 @@ typedef struct
  Remarks:
     None.
 */
-typedef struct
-{
+typedef struct {
     /* Transmission time in us */
     uint32_t txTime;
     /* Physical channel where the message has been transmitted */
@@ -421,9 +435,10 @@ typedef struct
     PAL_TX_RESULT result;
 } PAL_MSG_CONFIRM_DATA;
 
+// *****************************************************************************
 /* PAL indication data structure
  Summary:
-    Data structure used for PHY data indication
+    Data structure used for PHY data indication.
 
  Description:
     This structure contains the received MAC Protocol Data Unit (MPDU) and its
@@ -433,8 +448,7 @@ typedef struct
  Remarks:
     None.
 */
-typedef struct
-{
+typedef struct {
     /* Pointer to data buffer */
     uint8_t *pData;
     /* Reception time in us */
@@ -461,6 +475,7 @@ typedef struct
     uint8_t lqi;
 } PAL_MSG_INDICATION_DATA;
 
+// *****************************************************************************
 /* PHY Abstraction Layer confirm data transmission function pointer
 
   Summary:
@@ -475,6 +490,7 @@ typedef struct
 */
 typedef void (*PAL_DATA_CONFIRM_CB)(PAL_MSG_CONFIRM_DATA *pData);
 
+// *****************************************************************************
 /* PHY Abstraction Layer Indication Data Transmission Function Pointer
 
   Summary:
@@ -488,6 +504,7 @@ typedef void (*PAL_DATA_CONFIRM_CB)(PAL_MSG_CONFIRM_DATA *pData);
 */
 typedef void (*PAL_DATA_INDICATION_CB)(PAL_MSG_INDICATION_DATA *pData);
 
+// *****************************************************************************
 /* PHY Abstraction Layer switch RF channel function pointer
 
   Summary:
@@ -515,8 +532,7 @@ typedef void (*PAL_SWITCH_RF_CH_CB)(uint16_t pch);
   Remarks:
     None.
 */
-typedef struct
-{
+typedef struct {
     PAL_DATA_CONFIRM_CB dataConfirm;
     PAL_DATA_INDICATION_CB dataIndication;
     PAL_SWITCH_RF_CH_CB switchRfChannel;

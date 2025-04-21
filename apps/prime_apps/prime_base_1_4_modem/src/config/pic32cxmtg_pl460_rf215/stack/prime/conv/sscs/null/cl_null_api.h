@@ -280,10 +280,10 @@ void CL_NULL_ReleaseResponse(uint16_t conHandle,
 /* Function:
     void CL_NULL_JoinRequest
     (
-        MAC_JOIN_REQUEST_MODE connMode,
+        MAC_JOIN_REQUEST_MODE conMode,
         uint16_t conHandle,
         uint8_t *eui48,
-        MAC_CONNECTION_TYPE connType,
+        MAC_CONNECTION_TYPE conType,
         uint8_t *data,
         uint16_t dataLen,
         uint8_t ae
@@ -563,7 +563,7 @@ void CL_NULL_PlmeSleepRequest(uint16_t pch);
     )
 
   Summary:
-    Request to resume all suspended actitivities of the PHY layer.
+    Request to resume all suspended activities of the PHY layer.
 
   Description:
     This routine is used to request to resume all suspended activities of the
@@ -763,8 +763,7 @@ void CL_NULL_MlmePromoteRequest(uint8_t *eui48, uint8_t bcnMode);
   Description:
     This routine is used to request to trigger the promotion process in a
     Service Node (Terminal or Switch) in a medium (PLC or RF) different from the
-    one the node is connected to the network. This primitive only applies in
-    PRIME v1.4.
+    one the node is connected to the network. 
 
   Precondition:
     The CL_NULL_Initialize routine must have been called before.
@@ -788,6 +787,7 @@ void CL_NULL_MlmePromoteRequest(uint8_t *eui48, uint8_t bcnMode);
 
   Remarks:
     The result of the request is returned in the confirm callback.
+    This primitive only applies in PRIME v1.4.
 */
 void CL_NULL_MlmeMpPromoteRequest(uint8_t *eui48, uint8_t bcnMode, uint16_t pch);
 

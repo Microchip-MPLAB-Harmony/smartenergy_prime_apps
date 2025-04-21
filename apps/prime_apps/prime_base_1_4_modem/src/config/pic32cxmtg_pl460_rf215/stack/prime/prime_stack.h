@@ -122,7 +122,7 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     Maintains the PRIME Stack State Machine.
 
   Description:
-    Maintains the PRIME Stack State Machine.
+    This routine maintains the PRIME Stack State Machine.
 
   Precondition:
     PRIME_Initialize routine must have been called before, and its returned
@@ -148,7 +148,7 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     </code>
 
   Remarks:
-    None.
+    This routine must be called periodically.
 */
 void PRIME_Tasks(SYS_MODULE_OBJ object);
 

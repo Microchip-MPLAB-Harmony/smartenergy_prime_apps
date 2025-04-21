@@ -11,7 +11,7 @@
     PRIME Firmware Upgrade Service Interface Source File.
 
   Description:
-    The Firmware Upgrade service provides the handling of the firmare upgrade
+    The Firmware Upgrade service provides the handling of the firmware upgrade
     and version swap for PRIME. This file contains the source code for the
     implementation of this service.
 *******************************************************************************/
@@ -191,6 +191,8 @@ static void lSRV_FU_EraseFuRegion(void)
 	memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
 }
 
+
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Firmware Upgrade Service Interface Implementation
@@ -209,6 +211,7 @@ void SRV_FU_Initialize(void)
     memInfo.sizeFuRegion = PRIME_FU_MEM_SIZE;
 
 	memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
+
 }
 
 void SRV_FU_Tasks(void)
@@ -219,7 +222,7 @@ void SRV_FU_Tasks(void)
     {
         case SRV_FU_MEM_STATE_OPEN_DRIVER:
         {
-            memInfo.memoryHandle = DRV_MEMORY_Open(DRV_MEMORY_INDEX_0, DRV_IO_INTENT_READWRITE);
+            memInfo.memoryHandle = DRV_MEMORY_Open(PRIME_FU_MEM_INSTANCE, DRV_IO_INTENT_READWRITE);
 
             if (DRV_HANDLE_INVALID != memInfo.memoryHandle)
             {
@@ -313,7 +316,7 @@ void SRV_FU_Tasks(void)
             }
 
             (void)memset( pMemWrite, 0xff, memInfo.writePageSize);
-            (void)memcpy( &pMemWrite[offset], &pBuffInput[memInfo.bytesWritten] , memInfo.writeSize);
+            (void)memcpy( &pMemWrite[offset], &pBuffInput[memInfo.bytesWritten] , bytesToCopy);
 
             DRV_MEMORY_AsyncWrite(memInfo.memoryHandle, &memInfo.writeHandle, pMemWrite, block, 1);
 
@@ -365,7 +368,7 @@ void SRV_FU_Tasks(void)
                     nBlock = crcSize / memInfo.readPageSize;
 
                     bytesPagesRead = nBlock * memInfo.readPageSize;
-                    /* Aling CRC size with the readPageSize */
+                    /* Align CRC size with the readPageSize */
                     if (crcSize > bytesPagesRead)
                     {
                         if (((nBlock + 1U) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)
@@ -400,6 +403,7 @@ void SRV_FU_Tasks(void)
             break;
         }
 
+        case SRV_FU_VERIFY_SIGNATURE_BLOCK:
         case SRV_FU_MEM_STATE_XFER_WAIT:
         case SRV_FU_MEM_STATE_SUCCESS:
         case SRV_FU_MEM_STATE_WRITE_WAIT_END:
@@ -492,8 +496,8 @@ void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 {
 	fuData.imageSize = fuInfo->imageSize;
 	fuData.pageSize = fuInfo->pageSize;
-	fuData.signAlgorithm = SRV_FU_SIGNATURE_ALGO_NO_SIGNATURE;
-	fuData.signLength = 0;
+	fuData.signAlgorithm = fuInfo->signAlgorithm;
+	fuData.signLength = fuInfo->signLength;
 
 	/* Erase internal flash pages */
 	lSRV_FU_EraseFuRegion();
@@ -555,7 +559,7 @@ void SRV_FU_CalculateCrc(void)
 	nBlock = crcSize / memInfo.readPageSize;
 
     bytesPagesRead = nBlock * memInfo.readPageSize;
-    /* Aling CRC size with the readPageSize */
+    /* Align CRC size with the readPageSize */
     if (crcSize > bytesPagesRead)
     {
         if (((nBlock + 1U) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)

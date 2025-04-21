@@ -21,29 +21,6 @@
     files.
 *******************************************************************************/
 
-/*******************************************************************************
-* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
-*
-* Subject to your compliance with these terms, you may use Microchip software
-* and any derivatives exclusively with Microchip products. It is your
-* responsibility to comply with third party license terms applicable to your
-* use of third party software (including open source software) that may
-* accompany Microchip software.
-*
-* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
-* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
-* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
-* PARTICULAR PURPOSE.
-*
-* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
-* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
-* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
-* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
-* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
-* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
-* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-
  
 // *****************************************************************************
 // *****************************************************************************
@@ -68,9 +45,6 @@
 // *****************************************************************************
 // *****************************************************************************
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 14.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_14_3_DR_1 */
-
 crypto_Sym_Status_E Crypto_Sym_Aes_Init(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st, crypto_HandlerType_E handlerType_en, crypto_CipherOper_E cipherOpType_en, 
                                                 crypto_Sym_OpModes_E opMode_en, uint8_t *ptr_key, uint32_t keyLen, uint8_t *ptr_initVect, uint32_t sessionID)
 {
@@ -93,7 +67,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_Init(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st, c
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID == 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -199,12 +173,12 @@ crypto_Sym_Status_E Crypto_Sym_Aes_EncryptDirect(crypto_HandlerType_E handlerTyp
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID == 0u ) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u ) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
-    else if( (ptr_initVect == NULL)
-            && (opMode_en != CRYPTO_SYM_OPMODE_ECB)
+    else if( (ptr_initVect == NULL) 
+            && (opMode_en != CRYPTO_SYM_OPMODE_ECB) 
             )
     {
         ret_aesStatus_en = CRYPTO_SYM_ERROR_IV;
@@ -246,7 +220,7 @@ crypto_Sym_Status_E Crypto_Sym_Aes_DecryptDirect(crypto_HandlerType_E handlerTyp
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID == 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesStatus_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -289,7 +263,7 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyWrap_Init(st_Crypto_Sym_BlockCtx *ptr_aesCt
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_CIPOPER; 
     }
-    else if( (sessionID == 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -382,7 +356,7 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyWrapDirect(crypto_HandlerType_E handlerType
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID == 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -421,7 +395,7 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyUnWrapDirect(crypto_HandlerType_E handlerTy
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_KEY;
     }
-    else if( (sessionID == 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
+    else if( (sessionID <= 0u) || (sessionID > (uint32_t)CRYPTO_SYM_SESSION_MAX) )
     {
        ret_aesKwStat_en =  CRYPTO_SYM_ERROR_SID; 
     }
@@ -442,5 +416,3 @@ crypto_Sym_Status_E Crypto_Sym_AesKeyUnWrapDirect(crypto_HandlerType_E handlerTy
     }
     return ret_aesKwStat_en;    
 }
-
-/* MISRA C-2012 deviation block end */

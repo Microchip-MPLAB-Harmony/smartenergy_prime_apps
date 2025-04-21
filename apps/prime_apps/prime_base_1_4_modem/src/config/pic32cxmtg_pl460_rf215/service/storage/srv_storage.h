@@ -11,8 +11,8 @@
     PRIME Non-Volatile Storage Service Interface Header File.
 
   Description:
-    The non-volatile Storage service provides a simple interface to read and
-    write non-volatile data used by the PRIME stack. This file provides the
+    The PRIME Non-volatile Storage service provides a simple interface to read 
+    and write non-volatile data used by the PRIME stack. This file provides the
     interface definition for the Storage service.
 
 *******************************************************************************/
@@ -86,7 +86,7 @@ Microchip or any third party.
 /* Non-Volatile Storage Data Types
 
   Summary:
-    List of data types used in PRIME non-volatile storage service.
+    List of data types used in PRIME Non-volatile Storage service.
 
   Description:
     This data type defines the list of the different information stored in
@@ -275,10 +275,10 @@ typedef struct {
     void SRV_STORAGE_Initialize(void);
 
   Summary:
-    Initializes the PRIME non-volatile Storage service.
+    Initializes the PRIME Non-volatile Storage service.
 
   Description:
-    This routine initializes the PRIME non-volatile Storage service.
+    This routine initializes the PRIME Non-volatile Storage service.
 
   Precondition:
     None.
@@ -295,7 +295,7 @@ typedef struct {
     </code>
 
   Remarks:
-    This routine must be called before any other PRIME non-volatile Storage
+    This routine must be called before any other PRIME Non-volatile Storage
     service routine. This function is normally not called directly by an
     application. It is called by the system's initialize routine
     (SYS_Initialize).

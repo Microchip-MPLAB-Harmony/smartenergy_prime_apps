@@ -68,7 +68,8 @@ Microchip or any third party.
     This routine initializes the PRIME Null Convergence Sublayer.
 
   Precondition:
-    None.
+    The MAC_Initialize function should have been called before calling this 
+    function.
 
   Parameters:
     None.
@@ -83,7 +84,7 @@ Microchip or any third party.
 
   Remarks:
     This routine is normally not called directly by an application. It is 
-    called by the PRIME stack initalization routine.
+    called by the PRIME Stack initialization routine.
 */
 void CL_NULL_Initialize(void);
 

@@ -11,7 +11,7 @@
     PRIME Firmware Upgrade Service Interface Header File.
 
   Description:
-    The Firmware Upgrade service provides the handling of the firmare upgrade
+    The Firmware Upgrade service provides the handling of the firmware upgrade
     and version swap for PRIME. This file provides the interface definition for
     this service.
 *******************************************************************************/

@@ -242,21 +242,41 @@ void PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL)
     {
         return;
     }
-    
+
     if ((enablePAL & PAL_PLC_EN) == 0U)
     {
+        /* Remove callbacks */
         PAL_PLC_DataConfirmCallbackRegister(NULL);
         PAL_PLC_DataIndicationCallbackRegister(NULL);
 
         PAL_PLC_USISnifferCallbackRegister(palData.usiHandler, NULL);
     }
+    else
+    {
+        /* Register callacks */
+        PAL_PLC_DataConfirmCallbackRegister(lPAL_PlcDataConfirmCallback);
+        PAL_PLC_DataIndicationCallbackRegister(lPAL_PlcDataIndicationCallback);
+
+        /* Register PLC PHY Sniffer callback */
+        PAL_PLC_USISnifferCallbackRegister(palData.usiHandler, lPAL_PhySnifferCallback);
+    }
 
     if ((enablePAL & PAL_RF_EN) == 0U)
     {
+        /* Remove callbacks */
         PAL_RF_DataConfirmCallbackRegister(NULL);
         PAL_RF_DataIndicationCallbackRegister(NULL);
 
         PAL_RF_USISnifferCallbackRegister(palData.usiHandler, NULL);
+    }
+    else
+    {
+        /* Register callacks */
+        PAL_RF_DataConfirmCallbackRegister(lPAL_RfDataConfirmCallback);
+        PAL_RF_DataIndicationCallbackRegister(lPAL_RfDataIndicationCallback);
+
+        /* Register RF PHY Sniffer callback */
+        PAL_RF_USISnifferCallbackRegister(palData.usiHandler, lPAL_PhySnifferCallback);
     }
 
 }
@@ -309,19 +329,19 @@ void PAL_CallbackRegister(PAL_CALLBACKS *pCallbacks)
 uint8_t PAL_DataRequest(PAL_MSG_REQUEST_DATA *pData)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pData->pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_DataRequest(pData));
     }
-    
+
     return((uint8_t)PAL_TX_RESULT_PHY_ERROR);
 }
 
 uint8_t PAL_GetSNR(uint16_t pch, uint8_t *snr, uint8_t qt)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetSNR(snr, qt));
@@ -334,12 +354,12 @@ uint8_t PAL_GetSNR(uint16_t pch, uint8_t *snr, uint8_t qt)
 uint8_t PAL_GetZCT(uint16_t pch, uint32_t *zct)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetZCT(zct));
     }
-        
+
     *zct = 0UL;
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
@@ -347,7 +367,7 @@ uint8_t PAL_GetZCT(uint16_t pch, uint32_t *zct)
 uint8_t PAL_GetTimer(uint16_t pch, uint32_t *timer)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetTimer(timer));
@@ -360,12 +380,12 @@ uint8_t PAL_GetTimer(uint16_t pch, uint32_t *timer)
 uint8_t PAL_GetTimerExtended(uint16_t pch, uint64_t *timer)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetTimerExtended(timer));
     }
-    
+
     *timer = 0UL;
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
@@ -373,12 +393,12 @@ uint8_t PAL_GetTimerExtended(uint16_t pch, uint64_t *timer)
 uint8_t PAL_GetCD(uint16_t pch, uint8_t *cd, uint8_t *rssi, uint32_t *timeVal, uint8_t *header)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetCD(cd, rssi, timeVal, header));
     }
-    
+
     *cd = 0U;
     *rssi = 0U;
     *timeVal = 0UL;
@@ -395,38 +415,38 @@ uint8_t PAL_GetNL(uint16_t pch, uint8_t *noise)
 uint8_t PAL_GetAGC(uint16_t pch, uint8_t *mode, uint8_t *gain)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetAGC(mode, gain));
     }
-    
-    *mode = 0UL;
-    *gain = 0UL;
+
+    *mode = 0U;
+    *gain = 0U;
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
 
 uint8_t PAL_SetAGC(uint16_t pch, uint8_t mode, uint8_t gain)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_SetAGC(mode, gain));
     }
-    
+
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
 
 uint8_t PAL_GetCCA(uint16_t pch, uint8_t *pState)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetCCA(pState));
     }
-    
+
     *pState = 0U;
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
@@ -434,12 +454,12 @@ uint8_t PAL_GetCCA(uint16_t pch, uint8_t *pState)
 uint8_t PAL_GetChannel(uint16_t *pPch, uint16_t channelReference)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(channelReference);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetChannel(pPch));
     }
-    
+
     *pPch = 0xFFFFU;
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
@@ -447,19 +467,19 @@ uint8_t PAL_GetChannel(uint16_t *pPch, uint16_t channelReference)
 uint8_t PAL_SetChannel(uint16_t pch)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_SetChannel(pch));
     }
-    
+
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
 
 void PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         palIface->MPAL_ProgramChannelSwitch(timeSync, pch, timeMode);
@@ -469,7 +489,7 @@ void PAL_ProgramChannelSwitch(uint32_t timeSync, uint16_t pch, uint8_t timeMode)
 uint8_t PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val, uint16_t length)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface == NULL)
     {
         *(uint8_t *)val = 0U;
@@ -488,7 +508,7 @@ uint8_t PAL_GetConfiguration(uint16_t pch, uint16_t id, void *val, uint16_t leng
 uint8_t PAL_SetConfiguration(uint16_t pch, uint16_t id, void *val, uint16_t length)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface == NULL)
     {
         return((uint8_t)PAL_CFG_INVALID_INPUT);
@@ -507,12 +527,12 @@ uint16_t PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, PAL_FRAME fra
                               uint32_t timeStart, uint32_t duration)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetSignalCapture(noiseCapture, frameType, timeStart, duration));
     }
-    
+
     *noiseCapture = 0U;
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
@@ -520,12 +540,12 @@ uint16_t PAL_GetSignalCapture(uint16_t pch, uint8_t *noiseCapture, PAL_FRAME fra
 uint8_t PAL_GetMsgDuration(uint16_t pch, uint16_t length, PAL_SCHEME scheme, PAL_FRAME frameType, uint32_t *duration)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetMsgDuration(length, scheme, frameType, duration));
     }
-    
+
     *duration = 0U;
     return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
@@ -533,23 +553,23 @@ uint8_t PAL_GetMsgDuration(uint16_t pch, uint16_t length, PAL_SCHEME scheme, PAL
 bool PAL_CheckMinimumQuality(uint16_t pch, uint8_t reference, uint8_t modulation)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_CheckMinimumQuality(reference, modulation));
     }
-    
+
     return false;
 }
 
 uint8_t PAL_GetLessRobustModulation(uint16_t pch, uint8_t mod1, uint8_t mod2)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    
+
     if (palIface != NULL)
     {
         return(palIface->MPAL_GetLessRobustModulation(mod1, mod2));
     }
-    
+
     return((uint8_t)PAL_OUTDATED_INF);
 }

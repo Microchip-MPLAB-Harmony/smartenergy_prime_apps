@@ -259,7 +259,7 @@ typedef enum {
     - enable: Enable (1) or disable (0) FU
 
   Remarks:
-    The command is acknowledged with the FUP ACK callback..
+    The command is acknowledged with the FUP ACK callback.
 */
 typedef void (*BMNG_FUP_START_FU_REQUEST)(uint8_t cmd, uint8_t enable);
 
@@ -666,6 +666,8 @@ typedef void (*BMNG_PPROF_RESET_REQUEST)(uint8_t cmd, uint8_t *eui48);
   Description:
     This data type contains the definition of the function pointer to reboot a
     node using the PRIME Profile.
+    - cmd: Command to acknowledge
+    - eui48: Pointer to the address of the node to be rebooted
 
   Remarks:
     The command is acknowledged with the PPROF ACK callback.
@@ -793,7 +795,7 @@ typedef void (*BMNG_PPROF_GET_ZC_RESPONSE_CB)(uint8_t *eui48, uint8_t zcStatus,
     response.
 
   Description:
-    This callback is used for the PRIME Profile get the response to the zero
+    This callback is used for the PRIME Profile to get the response to the zero
     crossing difference between BN and SN.
     eui48       - Pointer to the MAC address of the node
     timeFreq    - Frequency
