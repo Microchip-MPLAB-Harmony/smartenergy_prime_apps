@@ -24,191 +24,6 @@
             </logicalFolder>
             <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
               <logicalFolder name="cpkcl_lib" displayName="cpkcl_lib" projectFiles="true">
-                <logicalFolder name="cryptolib_cf.h"
-                               displayName="cryptolib_cf.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_cf.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_clearflags_pb.h"
-                               displayName="cryptolib_clearflags_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ClearFlags_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_comp_pb.h"
-                               displayName="cryptolib_comp_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Comp_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_condcopy_pb.h"
-                               displayName="cryptolib_condcopy_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_CondCopy_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_crt_pb.h"
-                               displayName="cryptolib_crt_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_CRT_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_div_pb.h"
-                               displayName="cryptolib_div_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Div_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_expmod_pb.h"
-                               displayName="cryptolib_expmod_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ExpMod_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_fastcopy_pb.h"
-                               displayName="cryptolib_fastcopy_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_FastCopy_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_fill_pb.h"
-                               displayName="cryptolib_fill_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Fill_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_fmult_pb.h"
-                               displayName="cryptolib_fmult_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Fmult_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_gcd_pb.h"
-                               displayName="cryptolib_gcd_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GCD_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_gf2neccadd_pb.h"
-                               displayName="cryptolib_gf2neccadd_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccAdd_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_gf2neccconv_pb.h"
-                               displayName="cryptolib_gf2neccconv_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccConv_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_gf2neccdbl_pb.h"
-                               displayName="cryptolib_gf2neccdbl_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccDbl_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_gf2neccmul_pb.h"
-                               displayName="cryptolib_gf2neccmul_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccMul_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_gf2necdsa_pb.h"
-                               displayName="cryptolib_gf2necdsa_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEcDsa_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_hash_pb.h"
-                               displayName="cryptolib_hash_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Hash_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_headers_pb.h"
-                               displayName="cryptolib_headers_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Headers_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_jumptable_addr_pb.h"
-                               displayName="cryptolib_jumptable_addr_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_JumpTable_Addr_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_jumptable_pb.h"
-                               displayName="cryptolib_jumptable_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_JumpTable_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_mapping_pb.h"
-                               displayName="cryptolib_mapping_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_mapping_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_nop_pb.h"
-                               displayName="cryptolib_nop_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_NOP_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_primegen_pb.h"
-                               displayName="cryptolib_primegen_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_PrimeGen_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_rc_pb.h"
-                               displayName="cryptolib_rc_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Rc_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_redmod_pb.h"
-                               displayName="cryptolib_redmod_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_RedMod_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_rng_pb.h"
-                               displayName="cryptolib_rng_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Rng_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_selftest_pb.h"
-                               displayName="cryptolib_selftest_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_SelfTest_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_services_pb.h"
-                               displayName="cryptolib_services_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Services_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_smult_pb.h"
-                               displayName="cryptolib_smult_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Smult_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_square_pb.h"
-                               displayName="cryptolib_square_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Square_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_swap_pb.h"
-                               displayName="cryptolib_swap_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Swap_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_typedef_pb.h"
-                               displayName="cryptolib_typedef_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_typedef_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_zpeccadd_pb.h"
-                               displayName="cryptolib_zpeccadd_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccAdd_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_zpeccconv_pb.h"
-                               displayName="cryptolib_zpeccconv_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccConv_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_zpeccdbl_pb.h"
-                               displayName="cryptolib_zpeccdbl_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccDbl_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_zpeccmul_pb.h"
-                               displayName="cryptolib_zpeccmul_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccMul_pb.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="cryptolib_zpecdsa_pb.h"
-                               displayName="cryptolib_zpecdsa_pb.h"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEcDsa_pb.h</itemPath>
-                </logicalFolder>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2necdsa_pb.h</itemPath>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccmul_pb.h</itemPath>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpecdsa_pb.h</itemPath>
@@ -249,12 +64,9 @@
               </logicalFolder>
               <logicalFolder name="driver" displayName="driver" projectFiles="true">
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_sha_hw_6156.h</itemPath>
-                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_ecc_hw_cpkcl.h</itemPath>
-                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_ecdsa_hw_cpkcl.h</itemPath>
               </logicalFolder>
               <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/crypto_hash_sha6156_wrapper.h</itemPath>
-                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/crypto_digisign_cpkcc44163_wrapper.h</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
@@ -265,6 +77,8 @@
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/config.h</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/crypto_sym_wc_wrapper.h</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/crypto_common_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/crypto_hash_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/crypto_digisign_wc_wrapper.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/crypto_config.h</itemPath>
           </logicalFolder>
@@ -759,12 +573,9 @@
             </logicalFolder>
             <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
               <logicalFolder name="driver" displayName="driver" projectFiles="true">
-                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_ecdsa_hw_cpkcl.c</itemPath>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_sha_hw_6156.c</itemPath>
-                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_ecc_hw_cpkcl.c</itemPath>
               </logicalFolder>
               <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
-                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/src/crypto_digisign_cpkcc44163_wrapper.c</itemPath>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/src/crypto_hash_sha6156_wrapper.c</itemPath>
               </logicalFolder>
             </logicalFolder>
@@ -773,6 +584,8 @@
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_sym_wc_wrapper.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_aead_wc_wrapper.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_mac_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_hash_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_digisign_wc_wrapper.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
@@ -1171,6 +984,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -1220,6 +1034,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1251,6 +1066,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1297,6 +1113,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1325,6 +1142,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

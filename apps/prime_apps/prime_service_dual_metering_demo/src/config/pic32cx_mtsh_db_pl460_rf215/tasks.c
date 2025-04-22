@@ -105,7 +105,7 @@ DRV_SLCDC_Update();
 
     /* Maintain Middleware & Other Libraries */
         
-    /* Maintain Firwmare Upgrade */
+    /* Maintain Firmware Upgrade */
     SRV_FU_Tasks();
     
 

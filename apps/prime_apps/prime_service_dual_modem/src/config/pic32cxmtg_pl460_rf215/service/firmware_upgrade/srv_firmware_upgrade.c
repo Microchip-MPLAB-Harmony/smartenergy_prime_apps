@@ -430,14 +430,14 @@ static void lSRV_FU_ConvertDerFormatSignature(void)
 {
     uint8_t index;
     
-    for (index = 0UL; index < 32UL; index++)
+    for (index = 0U; index < 32U; index++)
     {
-        imageSignature[index] = imageSignature[4UL + index];
+        imageSignature[index] = imageSignature[4U + index];
     }
 
-    for (index = 0UL; index < 32UL; index++)
+    for (index = 0U; index < 32U; index++)
     {
-        imageSignature[32UL + index] = imageSignature[38UL + index];
+        imageSignature[32U + index] = imageSignature[38U + index];
     }
 
 }

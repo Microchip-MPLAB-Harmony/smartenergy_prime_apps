@@ -23,52 +23,10 @@
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/common_crypto/crypto_sym_cipher.h</itemPath>
             </logicalFolder>
             <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
-              <logicalFolder name="cpkcl_lib" displayName="cpkcl_lib" projectFiles="true">
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_headers_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpecdsa_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2neccdbl_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_jumptable_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccdbl_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_cf.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_square_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_nop_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_hash_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_services_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2necdsa_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_rc_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_expmod_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_fastcopy_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccadd_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccconv_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_fmult_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_swap_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2neccmul_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_jumptable_addr_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_primegen_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_comp_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2neccconv_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_condcopy_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_fill_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2neccadd_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gcd_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_selftest_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_crt_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_typedef_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_redmod_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_rng_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_div_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_smult_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccmul_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_clearflags_pb.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_mapping_pb.h</itemPath>
-              </logicalFolder>
               <logicalFolder name="driver" displayName="driver" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/driver/drv_crypto_sha_hw_6156.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/driver/drv_crypto_ecdsa_hw_cpkcl.h</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/driver/drv_crypto_ecc_hw_cpkcl.h</itemPath>
               </logicalFolder>
               <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/wrapper/crypto_digisign_cpkcc44163_wrapper.h</itemPath>
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/wrapper/crypto_hash_sha6156_wrapper.h</itemPath>
               </logicalFolder>
             </logicalFolder>
@@ -80,6 +38,8 @@
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/crypto_mac_wc_wrapper.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/crypto_aead_wc_wrapper.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/wolfcrypt_config.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/crypto_digisign_wc_wrapper.h</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/crypto_hash_wc_wrapper.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/crypto_config.h</itemPath>
           </logicalFolder>
@@ -639,13 +599,10 @@
             </logicalFolder>
             <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
               <logicalFolder name="driver" displayName="driver" projectFiles="true">
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/driver/src/drv_crypto_ecdsa_hw_cpkcl.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/driver/src/drv_crypto_ecc_hw_cpkcl.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/driver/src/drv_crypto_sha_hw_6156.c</itemPath>
               </logicalFolder>
               <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/wrapper/src/crypto_hash_sha6156_wrapper.c</itemPath>
-                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/drivers/wrapper/src/crypto_digisign_cpkcc44163_wrapper.c</itemPath>
               </logicalFolder>
             </logicalFolder>
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
@@ -653,6 +610,8 @@
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/src/crypto_common_wc_wrapper.c</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/src/crypto_mac_wc_wrapper.c</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/src/crypto_sym_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/src/crypto_hash_wc_wrapper.c</itemPath>
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/crypto/wolfcrypt/src/crypto_digisign_wc_wrapper.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
@@ -1018,14 +977,14 @@
         <targetDevice>PIC32CX2051MTSH128</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.3.132"/>
         <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.3.132"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -1041,7 +1000,7 @@
                         CT="1"
                         CN="pic32cxmtsh"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_bootloader/bootloader_pic32cxmtsh.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmtsh"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmtsh TYPE_IMAGE=DEBUG_RUN"
@@ -1056,7 +1015,7 @@
                         CT="1"
                         CN="pic32cxmt_pl460_rf215"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215 TYPE_IMAGE=DEBUG_RUN"
@@ -1071,7 +1030,7 @@
                         CT="1"
                         CN="pic32cxmt_pl460"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_1_3_bin/pic32cxmt_pl460.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460 TYPE_IMAGE=DEBUG_RUN"
@@ -1107,6 +1066,7 @@
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -1156,6 +1116,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1187,6 +1148,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1233,6 +1195,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1261,6 +1224,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

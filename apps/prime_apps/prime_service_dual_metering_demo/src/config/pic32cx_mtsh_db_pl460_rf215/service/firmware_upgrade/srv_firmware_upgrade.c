@@ -11,7 +11,7 @@
     PRIME Firmware Upgrade Service Interface Source File.
 
   Description:
-    The Firmware Upgrade service provides the handling of the firmare upgrade
+    The Firmware Upgrade service provides the handling of the firmware upgrade
     and version swap for PRIME. This file contains the source code for the
     implementation of this service.
 *******************************************************************************/
@@ -430,14 +430,14 @@ static void lSRV_FU_ConvertDerFormatSignature(void)
 {
     uint8_t index;
     
-    for (index = 0; index < 32; index++)
+    for (index = 0U; index < 32U; index++)
     {
-        imageSignature[index] = imageSignature[4 + index];
+        imageSignature[index] = imageSignature[4U + index];
     }
 
-    for (index = 0; index < 32; index++)
+    for (index = 0U; index < 32U; index++)
     {
-        imageSignature[32 + index] = imageSignature[38 + index];
+        imageSignature[32U + index] = imageSignature[38U + index];
     }
 
 }
@@ -469,7 +469,7 @@ static bool lSRV_FU_VerifySignature(void)
     } 
     
     /* Check if signature comes in DER format */
-    if (fuData.signLength == 70) {
+    if (fuData.signLength == 70UL) {
         lSRV_FU_ConvertDerFormatSignature();
     }
     
@@ -813,7 +813,7 @@ void SRV_FU_Tasks(void)
                     int8_t validDSA = 0;
 
                     /* Hash already done, do ECDSA256_SHA256 verification */
-                    stateCryptoECDSA = Crypto_DigiSign_Ecdsa_Verify(CRYPTO_HANDLER_HW_INTERNAL,
+                    stateCryptoECDSA = Crypto_DigiSign_Ecdsa_Verify(CRYPTO_HANDLER_SW_WOLFCRYPT,
                                                                     hashDigest,
                                                                     HASH_SIZE_SHA_256,
                                                                     imageSignature,
