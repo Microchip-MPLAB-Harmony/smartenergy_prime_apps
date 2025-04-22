@@ -499,13 +499,9 @@ void APP_PRIME_METROLOGY_Tasks ( void )
             break;
         }
 
-        /* TODO: implement your application state machine.*/
-
-
         /* The default state should never be executed. */
         default:
         {
-            /* TODO: Handle error in application's state machine. */
             break;
         }
     }
