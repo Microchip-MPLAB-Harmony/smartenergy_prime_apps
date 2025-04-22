@@ -132,7 +132,7 @@ typedef enum {
 /* Firmware upgrade information
 
  Summary:
-    Data structure with the firmware upgrade information.
+    Data structure with the firmare upgrade information.
 
  Description:
     This structure contains the parameters for the firmware upgrade information.
@@ -193,10 +193,10 @@ typedef void (*SRV_FU_RESULT_CB)(SRV_FU_RESULT fuResult);
 /* Memory transaction result information
 
  Summary:
-    Possible results of a memory transaction.
+    Possible results of a memmory transaction.
 
  Description:
-    Possible results of a memory transaction.
+    Possible results of a memmory transaction.
 
  Remarks:
     None.
@@ -435,7 +435,7 @@ void SRV_FU_RegisterCallbackFuResult(SRV_FU_RESULT_CB callback);
     Ends the firmware upgrade process.
 
   Description:
-    This function is used to finish the firmware upgrade process and to trigger the
+    This function is used to finish the firmare upgrade process and to trigger the
     execution of the new firmware.
 
   Precondition:
@@ -538,7 +538,7 @@ void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen);
     Reads the firmware upgrade information.
 
   Description:
-    This function is used to read the firmware upgrade information, which is
+    This function is used to read the firmare upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -571,7 +571,7 @@ void SRV_FU_CfgRead(void *dst, uint16_t size);
     Writes the firmware upgrade information.
 
   Description:
-    This function is used to write the firmware upgrade information, which is
+    This function is used to write the firmare upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -900,7 +900,7 @@ uint16_t SRV_FU_GetBitmap(uint8_t *bitmap, uint32_t *numRxPages);
     back when the PRIME stack requests to trigger a PRIME stack version swap.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this function.
+    None.
 
   Parameters:
     callback       - Pointer to the callback function
@@ -939,7 +939,7 @@ void SRV_FU_RegisterCallbackSwapVersion(SRV_FU_VERSION_SWAP_CB callback);
     This function is used to request to swap the PRIME stack version.
 
   Precondition:
-    The SRV_FU_Initialize function should have been called before calling this function.
+    None.
 
   Parameters:
     trafficVersion  - Type of traffic PRIME 1.3 or 1.4 detected

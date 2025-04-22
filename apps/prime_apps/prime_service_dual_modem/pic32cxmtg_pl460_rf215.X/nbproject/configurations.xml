@@ -24,6 +24,191 @@
             </logicalFolder>
             <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
               <logicalFolder name="cpkcl_lib" displayName="cpkcl_lib" projectFiles="true">
+                <logicalFolder name="cryptolib_cf.h"
+                               displayName="cryptolib_cf.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_cf.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_clearflags_pb.h"
+                               displayName="cryptolib_clearflags_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ClearFlags_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_comp_pb.h"
+                               displayName="cryptolib_comp_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Comp_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_condcopy_pb.h"
+                               displayName="cryptolib_condcopy_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_CondCopy_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_crt_pb.h"
+                               displayName="cryptolib_crt_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_CRT_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_div_pb.h"
+                               displayName="cryptolib_div_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Div_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_expmod_pb.h"
+                               displayName="cryptolib_expmod_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ExpMod_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_fastcopy_pb.h"
+                               displayName="cryptolib_fastcopy_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_FastCopy_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_fill_pb.h"
+                               displayName="cryptolib_fill_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Fill_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_fmult_pb.h"
+                               displayName="cryptolib_fmult_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Fmult_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_gcd_pb.h"
+                               displayName="cryptolib_gcd_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GCD_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_gf2neccadd_pb.h"
+                               displayName="cryptolib_gf2neccadd_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccAdd_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_gf2neccconv_pb.h"
+                               displayName="cryptolib_gf2neccconv_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccConv_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_gf2neccdbl_pb.h"
+                               displayName="cryptolib_gf2neccdbl_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccDbl_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_gf2neccmul_pb.h"
+                               displayName="cryptolib_gf2neccmul_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEccMul_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_gf2necdsa_pb.h"
+                               displayName="cryptolib_gf2necdsa_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_GF2NEcDsa_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_hash_pb.h"
+                               displayName="cryptolib_hash_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Hash_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_headers_pb.h"
+                               displayName="cryptolib_headers_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Headers_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_jumptable_addr_pb.h"
+                               displayName="cryptolib_jumptable_addr_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_JumpTable_Addr_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_jumptable_pb.h"
+                               displayName="cryptolib_jumptable_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_JumpTable_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_mapping_pb.h"
+                               displayName="cryptolib_mapping_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_mapping_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_nop_pb.h"
+                               displayName="cryptolib_nop_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_NOP_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_primegen_pb.h"
+                               displayName="cryptolib_primegen_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_PrimeGen_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_rc_pb.h"
+                               displayName="cryptolib_rc_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Rc_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_redmod_pb.h"
+                               displayName="cryptolib_redmod_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_RedMod_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_rng_pb.h"
+                               displayName="cryptolib_rng_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Rng_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_selftest_pb.h"
+                               displayName="cryptolib_selftest_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_SelfTest_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_services_pb.h"
+                               displayName="cryptolib_services_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Services_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_smult_pb.h"
+                               displayName="cryptolib_smult_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Smult_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_square_pb.h"
+                               displayName="cryptolib_square_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Square_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_swap_pb.h"
+                               displayName="cryptolib_swap_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_Swap_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_typedef_pb.h"
+                               displayName="cryptolib_typedef_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_typedef_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_zpeccadd_pb.h"
+                               displayName="cryptolib_zpeccadd_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccAdd_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_zpeccconv_pb.h"
+                               displayName="cryptolib_zpeccconv_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccConv_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_zpeccdbl_pb.h"
+                               displayName="cryptolib_zpeccdbl_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccDbl_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_zpeccmul_pb.h"
+                               displayName="cryptolib_zpeccmul_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEccMul_pb.h</itemPath>
+                </logicalFolder>
+                <logicalFolder name="cryptolib_zpecdsa_pb.h"
+                               displayName="cryptolib_zpecdsa_pb.h"
+                               projectFiles="true">
+                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/CPKCL_Lib/CryptoLib_ZpEcDsa_pb.h</itemPath>
+                </logicalFolder>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2necdsa_pb.h</itemPath>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccmul_pb.h</itemPath>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpecdsa_pb.h</itemPath>
@@ -901,14 +1086,14 @@
         <targetDevice>PIC32CX2051MTG128</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.60</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
         <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.3.132"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -924,7 +1109,7 @@
                         CT="1"
                         CN="pic32cxmtg"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_bootloader/bootloader_pic32cxmtg.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmtg"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmtg TYPE_IMAGE=DEBUG_RUN"
@@ -939,7 +1124,7 @@
                         CT="1"
                         CN="pic32cxmt_pl460_rf215"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215 TYPE_IMAGE=DEBUG_RUN"
@@ -954,7 +1139,7 @@
                         CT="1"
                         CN="pic32cxmt_pl460"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_1_3_bin/pic32cxmt_pl460.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460 TYPE_IMAGE=DEBUG_RUN"
@@ -1102,7 +1287,7 @@
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros"
-                  value="RAM_LENGTH=0x75000;RAM_ORIGIN=0x20000000;ROM_LENGTH=0xf0000;ROM_ORIGIN=0x1010000"/>
+                  value="RAM_LENGTH=0x74fff;RAM_ORIGIN=0x20000000;ROM_LENGTH=0xf0000;ROM_ORIGIN=0x1010000"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>
@@ -1164,6 +1349,78 @@
         <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
+      <Tool>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.adaptivespeed" value="false"/>
+        <property key="communication.autoselectspeed" value="true"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="4"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="jlink.override" value=""/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges.default}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x1000000-0x2007ffff"/>
+        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.preservebootflash" value="false"/>
+        <property key="programoptions.preserveprogrammemory" value="false"/>
+        <property key="programoptions.preserveprogrammemory.ranges"
+                  value="0x1000000-0x2007ffff"/>
+        <property key="programoptions.resetafterprogram" value="true"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+      </Tool>
+      <jlink>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="arm.use_vtor" value="false"/>
+        <property key="arm.vtor_adr" value="exception_table"/>
+        <property key="communication.adaptivespeed" value="false"/>
+        <property key="communication.autoselectspeed" value="true"/>
+        <property key="communication.interface" value="swd"/>
+        <property key="communication.speed" value="4"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
+        <property key="jlink.override" value=""/>
+        <property key="lastid" value=""/>
+        <property key="loader.board_file" value="${ProjectDir}/board.xboard"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges.default}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0x1000000-0x2007ffff"/>
+        <property key="programoptions.eraseb4program" value="false"/>
+        <property key="programoptions.preservebootflash" value="false"/>
+        <property key="programoptions.preserveprogrammemory" value="false"/>
+        <property key="programoptions.preserveprogrammemory.ranges"
+                  value="0x1000000-0x2007ffff"/>
+        <property key="programoptions.resetafterprogram" value="true"/>
+        <property key="script.has_reset" value="true"/>
+        <property key="script.log_level" value="1"/>
+        <property key="script.reset_delay" value="0"/>
+        <property key="script.show_output" value="false"/>
+      </jlink>
     </conf>
   </confs>
 </configurationDescriptor>
