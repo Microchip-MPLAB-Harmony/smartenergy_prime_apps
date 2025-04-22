@@ -222,7 +222,7 @@ void SRV_FU_Tasks(void)
     {
         case SRV_FU_MEM_STATE_OPEN_DRIVER:
         {
-            memInfo.memoryHandle = DRV_MEMORY_Open(DRV_MEMORY_INDEX_0, DRV_IO_INTENT_READWRITE);
+            memInfo.memoryHandle = DRV_MEMORY_Open(PRIME_FU_MEM_INSTANCE, DRV_IO_INTENT_READWRITE);
 
             if (DRV_HANDLE_INVALID != memInfo.memoryHandle)
             {
@@ -316,7 +316,7 @@ void SRV_FU_Tasks(void)
             }
 
             (void)memset( pMemWrite, 0xff, memInfo.writePageSize);
-            (void)memcpy( &pMemWrite[offset], &pBuffInput[memInfo.bytesWritten] , memInfo.writeSize);
+            (void)memcpy( &pMemWrite[offset], &pBuffInput[memInfo.bytesWritten] , bytesToCopy);
 
             DRV_MEMORY_AsyncWrite(memInfo.memoryHandle, &memInfo.writeHandle, pMemWrite, block, 1);
 
@@ -368,7 +368,7 @@ void SRV_FU_Tasks(void)
                     nBlock = crcSize / memInfo.readPageSize;
 
                     bytesPagesRead = nBlock * memInfo.readPageSize;
-                    /* Aling CRC size with the readPageSize */
+                    /* Align CRC size with the readPageSize */
                     if (crcSize > bytesPagesRead)
                     {
                         if (((nBlock + 1U) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)
@@ -559,7 +559,7 @@ void SRV_FU_CalculateCrc(void)
 	nBlock = crcSize / memInfo.readPageSize;
 
     bytesPagesRead = nBlock * memInfo.readPageSize;
-    /* Aling CRC size with the readPageSize */
+    /* Align CRC size with the readPageSize */
     if (crcSize > bytesPagesRead)
     {
         if (((nBlock + 1U) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)

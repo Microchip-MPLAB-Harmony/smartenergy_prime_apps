@@ -79,7 +79,7 @@ void slcdc_get_config_defaults(struct slcdc_config *slcdc_cfg)
 	slcdc_cfg->buf_time = SLCDC_BUFTIME_X64_SCLK;
 	slcdc_cfg->framePrescaler = SLCDC_FRAME_PRE_64;
 	slcdc_cfg->disp_mode = SLCDC_DISPMODE_NORMAL;
-	slcdc_cfg->controller_power_mode = SLCDC_POWER_MODE_LCDON_INVR;
+	slcdc_cfg->controller_power_mode = SLCDC_POWER_MODE_LCDON_EXTVR;
 	slcdc_cfg->frame_rate = 64;
 }
 
