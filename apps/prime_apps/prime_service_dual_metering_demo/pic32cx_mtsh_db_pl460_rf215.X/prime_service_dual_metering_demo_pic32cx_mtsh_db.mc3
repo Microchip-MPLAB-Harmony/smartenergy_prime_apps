@@ -9994,7 +9994,7 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="core" name="!@#harmonyUserData"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;UserData&gt;
   &lt;UserData dnOrder=&quot;0&quot;&gt;
-    &lt;GraphSettings canvasHeight=&quot;941&quot; canvasWidth=&quot;773&quot; dnOrder=&quot;0&quot;/&gt;
+    &lt;GraphSettings canvasHeight=&quot;963&quot; canvasWidth=&quot;773&quot; dnOrder=&quot;0&quot;/&gt;
     &lt;PowerProfiles dnOrder=&quot;1&quot;&gt;
       &lt;Profile dnOrder=&quot;0&quot; id=&quot;profile0&quot; name=&quot;Main&quot;/&gt;
     &lt;/PowerProfiles&gt;
@@ -38797,7 +38797,17 @@
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_usi" name="!@#harmonyAttachmentState"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_usi&gt;
-  &lt;srv_usi dnOrder=&quot;0&quot;/&gt;
+  &lt;srv_usi dnOrder=&quot;0&quot;&gt;
+    &lt;Attachments dnOrder=&quot;0&quot;&gt;
+      &lt;GenericDependency dnOrder=&quot;0&quot; id=&quot;srv_usi_logreport_dependency&quot;&gt;
+        &lt;Attributes dnOrder=&quot;0&quot;&gt;
+          &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+            &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+          &lt;/Boolean&gt;
+        &lt;/Attributes&gt;
+      &lt;/GenericDependency&gt;
+    &lt;/Attachments&gt;
+  &lt;/srv_usi&gt;
 &lt;/srv_usi&gt;
 </value>
       </entry>
@@ -38820,7 +38830,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="srv_usi" name="SRV_USI_ERROR_LOG_REPORT"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;srv_usi&gt;
   &lt;srv_usi dnOrder=&quot;0&quot; id=&quot;SRV_USI_ERROR_LOG_REPORT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/srv_usi&gt;
 &lt;/srv_usi&gt;
 </value>
@@ -39624,7 +39636,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;sys_debug&gt;
   &lt;sys_debug dnOrder=&quot;0&quot; id=&quot;SYS_DEBUG_LEVEL&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;SYS_ERROR_INFO&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;SYS_ERROR_DEBUG&quot;/&gt;
     &lt;/Values&gt;
   &lt;/sys_debug&gt;
 &lt;/sys_debug&gt;
@@ -42558,7 +42570,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\configuration.h</file>
-         <hash>1bddb53cd6ae723c3139818d062ccfa47e63781a3beba807ec6dbe10251ae4b3</hash>
+         <hash>2c81acfa7554db7bd1cae40459db6f017390298eab7ba26051b1440f4c818dda</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\crypto\common_crypto\crypto_aead_cipher.h</file>
@@ -43114,7 +43126,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\log_report\srv_log_report.c</file>
-         <hash>ceb0edaf18ad33f92914e64c12e3cebe2e1d0adf02c09494c5ac015801d859ee</hash>
+         <hash>a0d11f76414a164795fbd5a9e95ee00651fe24b27322180c6642ffbde71ff32a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\log_report\srv_log_report.h</file>
@@ -43170,7 +43182,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\reset_handler\srv_reset_handler.c</file>
-         <hash>8f378aaa2f5c9cb6375fc33eddd9a9a951dc7727fb6d0abde768bb1e32995e47</hash>
+         <hash>2a180544c16331a6fd8c2befb12e0014a1bbfa6575b0f0d651d34d2fddf5687e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\reset_handler\srv_reset_handler.h</file>
@@ -43226,7 +43238,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>7f5b8d43b56965cccd657790ebf027b1a799e0548d49e7e12d8f6bd2ef74dccf</hash>
+         <hash>f3341e4995bb19e7bc7d43a672a814a721f2d0eb9a9f4778fe99df43688afa8a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtsh_db_pl460_rf215\service\usi\srv_usi.h</file>

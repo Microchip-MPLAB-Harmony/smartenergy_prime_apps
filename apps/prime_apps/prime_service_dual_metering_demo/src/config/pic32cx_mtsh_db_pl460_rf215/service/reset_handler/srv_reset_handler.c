@@ -237,7 +237,7 @@ void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
     lSRV_RESET_HANDLER_StoreResetInfo(resetType);
 
     /* Stop Metrology and its peripherals before reset */
-    DRV_METROLOGY_Close();
+    (void) DRV_METROLOGY_Close();
 
     /* Trigger software reset */
     RSTC_Reset(RSTC_PROCESSOR_RESET);

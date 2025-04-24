@@ -52,6 +52,7 @@ Microchip or any third party.
 #include "driver/driver_common.h"
 #include "service/usi/srv_usi.h"
 #include "service/pcrc/srv_pcrc.h"
+#include "service/log_report/srv_log_report.h"
 #include "srv_usi_local.h"
 
 // *****************************************************************************
@@ -136,6 +137,8 @@ static SRV_USI_CALLBACK_INDEX lSRV_USI_GetCallbackIndexFromProtocol(SRV_USI_PROT
 
         case SRV_USI_PROT_ID_INVALID:
         default:
+            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_BAD_PROTOCOL,
+                                             "USI: Bad protocol to get callback\r\n");
             callbackIndex = SRV_USI_CALLBACK_INDEX_INVALID;
             break;
     }
@@ -251,6 +254,8 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
         if (dataLength != (lengthWithoutCrc - 2U))
         {
             /* Discard message */
+            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_BAD_LENGTH, 
+                                             "USI: Received bad length, protocol = 0x%02X\r\n", protocolValue);
             return;
         }
         
@@ -278,6 +283,8 @@ static void lSRV_USI_Callback_Handle ( uint8_t *pData, uint16_t length, uintptr_
         if (crcGetValue != crcRcvValue) 
         {
             /* Discard message */
+            SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_BAD_CRC,
+                                             "USI: Received wrong CRC\r\n");
             return;
         }
     
@@ -371,6 +378,8 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     if (pNewData == NULL)
     {
         /* Error in Escape Data: can't fit in destination buffer */
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_ERROR_ESCAPE, 
+            "USI: Error in Escape Data in header: can't fit in destination buffer\r\n");
         return 0;
     }
 
@@ -391,6 +400,8 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     if (pNewData == NULL)
     {
         /* Error in Escape Data: can't fit in destination buffer */
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_ERROR_ESCAPE,
+            "USI: Error in Escape Data in data: can't fit in destination buffer\r\n");
         return 0;
     }
     
@@ -415,6 +426,8 @@ static size_t lSRV_USI_BuildMessage( uint8_t *pDstData, size_t maxDstLength,
     if (pNewData == NULL)
     {
         /* Error in Escape Data: can't fit in destination buffer */
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_ERROR_ESCAPE,
+            "USI: Error in Escape Data in CRC: can't fit in destination buffer\r\n");
         return 0;
     }
     
@@ -611,6 +624,9 @@ size_t SRV_USI_Send_Message( SRV_USI_HANDLE handle,
     /* Check length */
     if ((length == 0U) || (length > dObj->wrBufferSize))
     {
+        SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR, USI_INVALID_LENGTH, 
+                                         "USI: Invalid length = %u, protocol = 0x%02X\r\n", 
+                                         (uint16_t)length, (uint8_t)protocol);
         return 0;
     }
 
