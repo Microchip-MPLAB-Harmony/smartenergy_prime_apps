@@ -46,6 +46,7 @@ The following applications are provided to demonstrate the typical use cases of 
 | [PRIME 1.3 Base Modem] (TBD) | The PRIME 1.3 Base Modem is an application example that demonstrates how to configure the PRIME Stack and its serial interface as a Base Node with modem capabilies. |
 | [PRIME 1.4 Base Modem] (TBD) | The PRIME 1.4 Base Modem is an application example that demonstrates how to configure the PRIME Stack and its serial interface as a Base Node with modem capabilies. |
 | [PRIME Dual Service Modem] (TBD) | The PRIME Dual Service Modem is an application example that demonstrates how to configure the PRIME Stack and its serial interface as a dual Service Node with modem capabilies. |
+| [PRIME Dual Service Metering Demo] (TBD) | The PRIME Dual Service Metering Demo implements a metering application and a PRIME dual Service Node, capable of joining a PRIME network and replying to IEC 61334-4-32 requests. It demonstrates how to send metrology data through the IEC 61334-4-32 connection. |
 | [PRIME 1.3 Service Bin] (TBD) | The PRIME 1.3 Service Bin is an application example that demonstrates how to configure the PRIME Library for PRIME 1.3. |
 | [PRIME 1.4 Service Bin] (TBD) | The PRIME 1.4 Service Bin is an application example that demonstrates how to configure the PRIME Library for PRIME 1.4. |
 | [PRIME Bootloader] (TBD) | The PRIME Bootloader is an application example that demonstrates how to use the bootloader in a Service Node for firmware upgrade. |

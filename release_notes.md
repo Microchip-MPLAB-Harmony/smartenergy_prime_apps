@@ -3,11 +3,45 @@
 
 # Microchip MPLAB® Harmony 3 Release Notes
 
+## Harmony 3 Smart Energy PRIME application examples v1.1.0
+
+### Development kit and demo application support
+
+The following table provides the number of examples of PRIME Harmony 3 application given for those kits:
+
+| Development Kits  | MPLAB® X Applications |
+|-------------------|:-------------------:|
+| [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM320113) | 6 |
+| [PIC32CXMTG-EK Evaluation Kit](https://www.microchip.com/en-us/development-tool/EV11K09A)                          | 12 |
+| [PIC32CXMTSH-DB Evaluation Kit](https://www.microchip.com/en-us/development-tool/EV84M21A)                         | 2 |
+| [PL460 Evaluation Kit](https://www.microchip.com/en-us/development-tool/EV13L63A)                                  | 16 |
+| [ATREB215-XPRO-A EXTENSION BOARD](https://www.microchip.com/en-us/development-tool/ATREB215-XPRO-A)                | 6  |
+
+### New Features
+
+- Added the kit PIC32CXMTSH-DB Evaluation Kit with an example that it contains both PRIME stack and Metrology running simultaneously.
+
+### Known Issues
+
+- In the applications of the service nodes, the application should be configured to do the ECDSA by software due to a problem with the crypto repository with the release v1.0.0-E3, it is expected to be solved in the following releases of the repository.
+
+### Development Tools
+
+- [MPLAB® X IDE v6.25](https://www.microchip.com/mplab/mplab-x-ide)
+- [MPLAB® XC32 C/C++ Compiler v4.60](https://www.microchip.com/mplab/compilers)
+- MPLAB® X IDE plug-ins:
+  - MPLAB® Code Configurator 5.5.2 or higher
+- PIC32CX-MT family (MCUs):
+  - PIC32CX-MT DFP 1.3.132 or higher
+- [Microchip PLC PHY Tester Tool v3.1.3](https://www.microchip.com/en-us/software-library/se_plc_phy_tester_tool)
+- [Microchip Hybrid Sniffer v2.0.4](https://www.microchip.com/en-us/software-library/se_plc_sniffer)
+- [Microchip PRIME Manager v2.2.4](https://www.microchip.com/en-us/software-library/se_prime_manager)
+
 ## Harmony 3 Smart Energy PRIME application examples v1.1.0-E1
 
 ### Development kit and demo application support
 
-The following development kits are used on provided G3 Demo Applications:
+The following development kits are used on provided PRIME Demo Applications:
 
 - [SAM E70 Xplained Ultra Evaluation Kit](https://www.microchip.com/en-us/development-tool/DM320113)
 - [PIC32CXMTG-EK Evaluation Kit](https://www.microchip.com/en-us/development-tool/EV11K09A)
@@ -66,7 +100,6 @@ In order to regenerate source code for any of the applications, you will also ne
 - Harmony wireless\_pic32cxbz\_wbz repository, v1.2.0
 - Harmony usb repository, 3.12.0 for demos requiring USB
 - CMSIS-FreeRTOS v10.5.1 (https://github.com/ARM-software/CMSIS-FreeRTOS/tree/v10.5.1) for demos requiring FreeRTOS support
-
 
 ## Harmony 3 Smart Energy PRIME application examples v1.0.0
 
