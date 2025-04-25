@@ -474,7 +474,7 @@ static bool lSRV_FU_VerifySignature(void)
     }
     
     /* Start to verify the signature */
-    stateCryptoHash = Crypto_Hash_Sha_Init(&hashCtx, CRYPTO_HASH_SHA2_256, CRYPTO_HANDLER_HW_INTERNAL, SESSION_ID);
+    stateCryptoHash = Crypto_Hash_Sha_Init(&hashCtx, CRYPTO_HASH_SHA2_256, CRYPTO_HANDLER_SW_WOLFCRYPT, SESSION_ID);
 
     if (stateCryptoHash != CRYPTO_HASH_SUCCESS)
     {

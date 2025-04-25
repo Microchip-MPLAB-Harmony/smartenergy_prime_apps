@@ -4,14 +4,14 @@
 
 
 project: prime_base_1_3_modem
-creation_date: 2025-04-21T12:44:40.544+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-04-25T14:51:06.096+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.2
 mcc_core_version: v5.7.1
 mplabx_version: v6.25        # if MPLAB X plugin only
 harmony_version: v1.5.4
-compiler: XC32 4.50
+compiler: XC32 4.60
 
 modules:
     - {name: "csp", version: "v3.22.2"}
@@ -20,7 +20,7 @@ modules:
     - {name: "smartenergy_prime", version: "SMS-4157-tasks-prelease"}
     - {name: "crypto_v4", version: "v4.0.0-E3"}
     - {name: "wolfssl", version: "v5.7.0"}
-    - {name: "smartenergy", version: "v1.4.0"}
+    - {name: "smartenergy", version: "SMS-4157-tasks-prelease"}
     - {name: "shd", version: "v1.1.0"}
 
 packs:

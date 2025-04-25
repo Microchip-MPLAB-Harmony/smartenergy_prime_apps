@@ -198,7 +198,7 @@ void PAL_Enable(SYS_MODULE_OBJ object, uint8_t enablePAL)
     }
     else
     {
-        /* Register callacks */
+        /* Register callbacks */
         PAL_PLC_DataConfirmCallbackRegister(lPAL_PlcDataConfirmCallback);
         PAL_PLC_DataIndicationCallbackRegister(lPAL_PlcDataIndicationCallback);
 

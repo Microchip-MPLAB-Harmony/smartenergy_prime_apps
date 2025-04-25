@@ -3680,8 +3680,8 @@
         &lt;ElementPosition dnOrder=&quot;10&quot; id=&quot;flexcom3&quot; x=&quot;320&quot; y=&quot;246&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;flexcom5&quot; x=&quot;4&quot; y=&quot;475&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;flexcom7&quot; x=&quot;7&quot; y=&quot;322&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_crypto&quot; x=&quot;439&quot; y=&quot;539&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;624&quot; y=&quot;539&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;lib_crypto&quot; x=&quot;532&quot; y=&quot;627&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;726&quot; y=&quot;627&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;mainBoard_PIC32CXMTG_EK&quot; x=&quot;186&quot; y=&quot;67&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;330&quot; y=&quot;644&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;sefc0&quot; x=&quot;26&quot; y=&quot;670&quot;/&gt;
@@ -3690,7 +3690,7 @@
         &lt;ElementPosition dnOrder=&quot;20&quot; id=&quot;srv_pvddmon&quot; x=&quot;460&quot; y=&quot;423&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;21&quot; id=&quot;srv_usi&quot; x=&quot;151&quot; y=&quot;170&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;22&quot; id=&quot;sys_console&quot; x=&quot;628&quot; y=&quot;262&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;23&quot; id=&quot;sys_debug&quot; x=&quot;797&quot; y=&quot;300&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;23&quot; id=&quot;sys_debug&quot; x=&quot;783&quot; y=&quot;300&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;24&quot; id=&quot;sys_time&quot; x=&quot;791&quot; y=&quot;75&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;25&quot; id=&quot;tc0&quot; x=&quot;628&quot; y=&quot;121&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;26&quot; id=&quot;trng&quot; x=&quot;467&quot; y=&quot;100&quot;/&gt;
@@ -14213,7 +14213,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;CRYPTO_HW_SHA2_256&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
@@ -15411,7 +15411,7 @@
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_hash_sha6156_wrapper_c_ftl&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/lib_crypto&gt;
@@ -15423,7 +15423,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_hash_sha6156_wrapper_c_ftl_flag&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
@@ -15435,7 +15435,7 @@
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_hash_sha6156_wrapper_h_ftl&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/lib_crypto&gt;
@@ -15447,7 +15447,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;crypto_hash_sha6156_wrapper_h_ftl_flag&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
@@ -15866,7 +15866,7 @@
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;drv_crypto_sha_hw_6156_c_ftl&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/lib_crypto&gt;
@@ -15878,7 +15878,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;drv_crypto_sha_hw_6156_c_ftl_flag&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
@@ -15890,7 +15890,7 @@
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;drv_crypto_sha_hw_6156_h_ftl&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/lib_crypto&gt;
@@ -15902,7 +15902,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_crypto&gt;
   &lt;lib_crypto dnOrder=&quot;0&quot; id=&quot;drv_crypto_sha_hw_6156_h_ftl_flag&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_crypto&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_crypto&gt;
 &lt;/lib_crypto&gt;
@@ -16202,7 +16202,9 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="CRYPTO_WC_SHA2_256"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
   &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;CRYPTO_WC_SHA2_256&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
+    &lt;Values dnOrder=&quot;0&quot;&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
+    &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
 </value>
@@ -31174,7 +31176,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\common_crypto\src\crypto_hash.c</file>
-         <hash>99de2f4d786e875592cd252a63e668cda2119c0040b7dab7a6f62c671b7357d0</hash>
+         <hash>41b7f3c97fbfe9e8a384fd6c77622fc39a0bb152ff1e7f9ebd055ef2541cfa22</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\common_crypto\src\crypto_mac_cipher.c</file>
@@ -31187,22 +31189,6 @@
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\crypto_config.h</file>
          <hash>20aa84229b9697bc8f5100cdb96a2b73222682ca7827888ea11afe1733d92656</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\drivers\driver\drv_crypto_sha_hw_6156.h</file>
-         <hash>6240ec899879942e92363107c5fc12e928df9bc30400da480d15bed279a05ea1</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\drivers\driver\src\drv_crypto_sha_hw_6156.c</file>
-         <hash>39cb6502a5e6f0442d667d9672b28881ebf5ddf6bbc8e19892bd1a961bcebdcc</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\drivers\wrapper\crypto_hash_sha6156_wrapper.h</file>
-         <hash>2ae24ffc8b187e047efe3dfb4b90c06f4c532a241f35884cc2b4ae77d7c80e62</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\drivers\wrapper\src\crypto_hash_sha6156_wrapper.c</file>
-         <hash>1b72f0457211af62cd8f3f18ee444e3c1eb7747232c26a37e0ba34b01387c20e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\wolfcrypt\config.h</file>
@@ -31222,7 +31208,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\wolfcrypt\crypto_hash_wc_wrapper.h</file>
-         <hash>c02faba4dced8210c2110fb2281fb7ee3de2475117de92eda74c9c81e1528828</hash>
+         <hash>3d9e9e39e8e2aa878b7f9c9e62793c1997577288a6eb0efea2f03c13c6ad1a1e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\wolfcrypt\crypto_mac_wc_wrapper.h</file>
@@ -31246,7 +31232,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\wolfcrypt\src\crypto_hash_wc_wrapper.c</file>
-         <hash>3211d6426dcc768cd0000c34fb75785646f26e6d734bb2cb6fcc63b6934e8c22</hash>
+         <hash>a0a2c5b800f1f44dba6728c4edb337a53480524f53164a6b3da2266547e741a9</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\crypto\wolfcrypt\src\crypto_mac_wc_wrapper.c</file>
@@ -31266,7 +31252,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\definitions.h</file>
-         <hash>97ca0c8aa919245bb24a01b67bee477fd915455041f0722c9dfc3817f904b19d</hash>
+         <hash>79bc818ccbbac04c5acfde9fae56f826d4a8394a946b9c23a8dbeee213a5ecd5</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\device.h</file>
@@ -31398,7 +31384,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\initialization.c</file>
-         <hash>d26555e653272ab0c09dbc227803b959079d37a37bf82f75fda7adb101859b9c</hash>
+         <hash>8ada9a9c7b7a6a63c354b6e407932ece6a4f42297a2c3e7cd7daa009a325c91b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\interrupts.c</file>
@@ -31582,7 +31568,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>3ac0e4c1364b2a73695a493dfdadf17328e59d3f51715e62fc4b1fac689551a2</hash>
+         <hash>5468e15d8121a4a75df007d4b8e726db91ae28449bb035578e8066c3cd46a527</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.h</file>
@@ -31742,7 +31728,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal_plc.c</file>
-         <hash>0019208d11ffbd82f9457d6da4f9aa75aadcab1591e69d7f91e8a402c5eb95ca</hash>
+         <hash>15b300a551036769961a94e4e90c2b75dc54573eecaf714e120bd6a10b1d03bd</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal_plc.h</file>
