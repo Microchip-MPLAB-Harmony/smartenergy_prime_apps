@@ -138,7 +138,7 @@ extern "C" {
 #define DRV_PLC_PHY_INDEX                     0U
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1U
 #define DRV_PLC_PHY_PROFILE                   4U
-#define DRV_PLC_PHY_NUM_CARRIERS              97U
+#define DRV_PLC_PHY_NUM_CARRIERS_PER_CHANNEL  97U
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3600U
 #define DRV_PLC_PHY_HOST_VERSION              0x36000300UL
 #define DRV_PLC_PHY_HOST_PHY                  0x36000003UL
@@ -173,6 +173,15 @@ extern "C" {
 #define USB_DEVICE_EP0_BUFFER_SIZE                          64U
 
 
+/* Maximum instances of CDC function driver */
+#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1U
+
+
+/* CDC Transfer Queue Size for both read and
+   write. Applicable to all instances of the
+   function driver */
+#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3U
+
 /*** USB Driver Configuration ***/
 
 /* Maximum USB driver instances */
@@ -189,15 +198,6 @@ extern "C" {
 
 /* Alignment for buffers that are submitted to USB Driver*/ 
 #define USB_ALIGN  CACHE_ALIGN
-
-/* Maximum instances of CDC function driver */
-#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1U
-
-
-/* CDC Transfer Queue Size for both read and
-   write. Applicable to all instances of the
-   function driver */
-#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3U
 
 
 

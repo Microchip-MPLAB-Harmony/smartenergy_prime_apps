@@ -6104,38 +6104,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_COUP_G3_HIGH_ATTENUATION"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_COUP_G3_HIGH_ATTENUATION&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_COUP_G3_INTERNAL"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_COUP_G3_INTERNAL&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_COUP_G3_MULTIBAND"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_COUP_G3_MULTIBAND&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;/&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_EXT_INT_PIN"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_EXT_INT_PIN&quot;&gt;
@@ -6164,35 +6132,6 @@
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drvPlcPhy&quot; value=&quot;PIOA_IRQn&quot;/&gt;
     &lt;/Values&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_G3_BAND"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_G3_BAND&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;FCC&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_G3_BAND_AUX"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_G3_BAND_AUX&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_G3_BAND_AUX_ACTIVE"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_G3_BAND_AUX_ACTIVE&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
 </value>
@@ -6372,22 +6311,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_PRIME_BAND_AUX"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PRIME_BAND_AUX&quot;&gt;
-    &lt;Attributes dnOrder=&quot;0&quot;&gt;
-      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;visible&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
-      &lt;/Boolean&gt;
-    &lt;/Attributes&gt;
-    &lt;Values dnOrder=&quot;1&quot;&gt;
-      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
-    &lt;/Values&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_PRIME_CH1"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PRIME_CH1&quot;&gt;
@@ -6530,15 +6453,6 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_PRIME_DEF_CHN"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
   &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PRIME_DEF_CHN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_PRIME_HIGH_ATTENUATION"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_PRIME_HIGH_ATTENUATION&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
@@ -6693,15 +6607,6 @@
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;User dnOrder=&quot;0&quot; value=&quot;1&quot;/&gt;
     &lt;/Values&gt;
-  &lt;/drvPlcPhy&gt;
-&lt;/drvPlcPhy&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="drvPlcPhy" name="DRV_PLC_UPD_BIN_FILES"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drvPlcPhy&gt;
-  &lt;drvPlcPhy dnOrder=&quot;0&quot; id=&quot;DRV_PLC_UPD_BIN_FILES&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
   &lt;/drvPlcPhy&gt;
 &lt;/drvPlcPhy&gt;
 </value>
@@ -11184,168 +11089,6 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1_AN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1_AN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1_I2C"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1_I2C&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1_INT"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1_INT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1_PWM"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1_PWM&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1_RST"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1_RST&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1_SPI"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1_SPI&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1_SPI_PA19_CSASGPIO"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1_SPI_PA19_CSASGPIO&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-1_UART"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-1_UART&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2_AN"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2_AN&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2_I2C"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2_I2C&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2_INT"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2_INT&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2_PWM"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2_PWM&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2_RST"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2_RST&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2_SPI"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2_SPI&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2_SPI_PB8_CSASGPIO"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2_SPI_PB8_CSASGPIO&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_MikroBUS-2_UART"/>
-         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
-  &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_MikroBUS-2_UART&quot;&gt;
-    &lt;Values dnOrder=&quot;0&quot;/&gt;
-  &lt;/mainBoard_PIC32CXMTG_EK&gt;
-&lt;/mainBoard_PIC32CXMTG_EK&gt;
-</value>
-      </entry>
-      <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="mainBoard_PIC32CXMTG_EK" name="SHD_MAINBOARD_CONNECTOR_Xplained-Pro"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;mainBoard_PIC32CXMTG_EK&gt;
   &lt;mainBoard_PIC32CXMTG_EK dnOrder=&quot;0&quot; id=&quot;SHD_MAINBOARD_CONNECTOR_Xplained-Pro&quot;&gt;
@@ -13347,15 +13090,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h</file>
-         <hash>7311552e5b53a6320ada6ccd11e316545825bb6894c04506f1d741653fd7369f</hash>
+         <hash>4ea4a4c49db03107c76d5415aa6b9da428013421f9f5c1d754981dd0533c6960</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h</file>
-         <hash>d6f77ba7f9ea1519c75e8c9004d41d9650b13c3f2e045b543108089714a26490</hash>
+         <hash>93ac1aea74663ae51fb7b2c36a4ef5174bbfffe2e3b05cb9008885f7c1792d2a</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h</file>
-         <hash>87a68b5aeeb7f565d3dccd9cdbcac703f9fd63f3ff1dec8839becbd4fc49a593</hash>
+         <hash>e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\device_cache.h</file>
@@ -13395,31 +13138,31 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\bin\plc_phy_bin.S</file>
-         <hash>a2135cc1ddbff3bc0acec389b7f8ecd709d15035f51a9b38ccc2975fb2bc9215</hash>
+         <hash>dd4e3e3fef2f7fd867d87f055d174f85ff316f3307f44709cc14facc7aa606db</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy.c</file>
-         <hash>b9f434e9953549db455b04a355a99d3721bc7ef522133b808b0692c7bc89e716</hash>
+         <hash>8bd562d60f47e138430c3feb73e75f7e77d51c674581be213e087bb691b9b129</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy.h</file>
-         <hash>1d0b47f4ffd6b01eb025095513d4e0e4b3ff74e15c3c0ca50718f817718de2d1</hash>
+         <hash>2692b96aaaecd83b1d4c0ece010e1016f0a2d4a6514aeeae3c64aa4964e4480b</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>6456d246a0563f62d8badde9f3bfa85b27aa5a211a9c6511329047ad97b63b02</hash>
+         <hash>c0d445f65ad60e1d14ffd53b5fd82e0fda46dced890afb8c986578daa452f4e8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>e14b819d166e955a4459b67cc23f8c839c881a128ed87f85422088cc01211e07</hash>
+         <hash>502c28e710ea1fbd01f409bbbd4c52770e536e2a05a63983a43b8cdd26eb61a9</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_definitions.h</file>
-         <hash>97bc7e4ab4509638c4fdd93092a496b95d5fbebd1d47c8958d9fbd40578dc182</hash>
+         <hash>2b30947ea00e0e8babc2df79acc018fcac95b9f31e9796fbe050fefbd9259914</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>a6b1fec5de197505a47854146aba264e29380c19a2c9df9b0f03cc8f20e1b68f</hash>
+         <hash>50320d4691bee84c8b85d70fa0dd20d15328c363eb96ac9aa20e25ab4a35dd6d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_local_comm.h</file>
@@ -13467,15 +13210,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c</file>
-         <hash>ddc368d2975772584c4e4914e09e45a348379452a509e4222888100540825148</hash>
+         <hash>2049894cbe26b0a44629ce1aaeb54ec51f63d16a9926ef6fefd9d19b4db026e1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c</file>
-         <hash>940cd4db1fe23a767c5354f3f71e163b9096e08948dbe06c994ec7209c07a06d</hash>
+         <hash>59cb39306adc1b5afe3de225c133ff96e8f96ca967af9b5e868b8fbd29ad43f6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.h</file>
-         <hash>c23c1ce0c530683cd3af75caa476d49aa339f6ac25dfa61055f3ede967c24abe</hash>
+         <hash>0d7784374a5c1dc29a4bb2d43360987dc092af35629a14e88a39fcb1dbe8d71d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\libc_syscalls.c</file>
@@ -13519,7 +13262,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\spi\master\plib_flexcom3_spi_master.c</file>
-         <hash>5321e49b84e7895bac1c679506e81ec88ee7ade528e8fdb118dade66f9ea24b7</hash>
+         <hash>25b566070f32c4b0961b375472f008293f1caa2681685adf4c06dcf8c3ef113d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\spi\master\plib_flexcom3_spi_master.h</file>
@@ -13527,7 +13270,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\spi\master\plib_flexcom5_spi_master.c</file>
-         <hash>0a6a70d52e57d35b791a0d8c876a599394fef096025240275b1300a1366a1707</hash>
+         <hash>734cc78de8fbf2a8c53b589a03fae0a16a9223506c7971ef195c0d2290319cd0</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\spi\master\plib_flexcom5_spi_master.h</file>
@@ -13539,7 +13282,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\usart\plib_flexcom0_usart.c</file>
-         <hash>57396c19fe5bb6f2cbfcaa21f97de32cc0aab01c6467918a119e38d1c8a681b3</hash>
+         <hash>f9173c4fcc6304c1aa19366a1ceffb27b2ce83a120270c3c80b5b4c3a5359d36</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\usart\plib_flexcom0_usart.h</file>
@@ -13559,7 +13302,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.c</file>
-         <hash>a63ff0ac6232ebfe215ddcd0f67cbe2c4075db91a9d9d66f62b5c658b2ea5d87</hash>
+         <hash>27520bda2d0c52fe9aaa0d4f23883843f402b7cd0b77753dddadd5fdd8436b65</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.h</file>
@@ -13607,7 +13350,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\tc\plib_tc0.c</file>
-         <hash>2e048e51e8f232c18be629afa5e1b195bd04e3caf826f9c0587a1b0766032913</hash>
+         <hash>5e26c223c2f88b40d81fad518d6e4e68b3eee3cdf0614c16088c446bfbed6396</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\tc\plib_tc0.h</file>
@@ -13647,7 +13390,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.c</file>
-         <hash>57ec6239bcb3b2c44eb9cca3be09bdeed94e2c7c95804a1828180d82030764cf</hash>
+         <hash>7f5b8d43b56965cccd657790ebf027b1a799e0548d49e7e12d8f6bd2ef74dccf</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.h</file>
@@ -13655,7 +13398,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_definitions.h</file>
-         <hash>660aeea82ed1d88e6e998264c504c48bbefc478fd0151e91d323acd8f4634392</hash>
+         <hash>1133126b8cbb855afd42755e92c8831c2aa3a560760282c3e080d92e934ea505</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_local.h</file>

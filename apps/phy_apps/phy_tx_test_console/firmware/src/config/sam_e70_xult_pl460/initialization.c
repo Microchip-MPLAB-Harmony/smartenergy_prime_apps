@@ -15,7 +15,7 @@
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -195,9 +195,6 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     /* PLC PHY Number of clients */
     .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
 
-    /* PLC PHY profile */
-    .plcProfile = DRV_PLC_PHY_PROFILE,
- 
     /* PLC Binary start address */
     .binStartAddress = (uint32_t)&plc_phy_bin_start,
     

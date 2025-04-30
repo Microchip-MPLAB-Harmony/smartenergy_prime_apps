@@ -372,10 +372,10 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     SYS_INT_SourceRestore(sPlcPlib->dmaIntSource, dmaIntStatus);
     SYS_INT_SourceRestore(sPlcPlib->rfExtIntSource, rfExtIntStatus);
 
-    if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
-        while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx)){}
-        while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx)){}
+    while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx)){}
+    while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx)){}
 
+    if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
         /* Update data received */
         (void) memcpy(pCmd->pData, &sRxSpiData[4], pCmd->length);
     }

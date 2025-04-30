@@ -119,7 +119,7 @@ extern "C" {
 #define DRV_PLC_PHY_INDEX                     0U
 #define DRV_PLC_PHY_CLIENTS_NUMBER_IDX        1U
 #define DRV_PLC_PHY_PROFILE                   4U
-#define DRV_PLC_PHY_NUM_CARRIERS              97U
+#define DRV_PLC_PHY_NUM_CARRIERS_PER_CHANNEL  97U
 #define DRV_PLC_PHY_HOST_PRODUCT              0x3600U
 #define DRV_PLC_PHY_HOST_VERSION              0x36000300UL
 #define DRV_PLC_PHY_HOST_PHY                  0x36000003UL

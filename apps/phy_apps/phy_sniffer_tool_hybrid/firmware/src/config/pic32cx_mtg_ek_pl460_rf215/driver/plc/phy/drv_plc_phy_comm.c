@@ -418,6 +418,8 @@ void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *plcPhyObj)
     gPlcPhyObj->evRxDat = false;
     gPlcPhyObj->evRegRspLength = 0;
     gPlcPhyObj->evResetTxCfm = false;
+    gPlcPhyObj->evTxCfmError = false;
+    gPlcPhyObj->txCfmErrorObj.rmsCalc = 0;
 
     /* Enable external interrupt from PLC */
     gPlcPhyObj->plcHal->enableExtInt(true);
@@ -456,6 +458,18 @@ void DRV_PLC_PHY_Task(void)
         }
     }
 
+    if (gPlcPhyObj->evTxCfmError)
+    {
+        /* Reset event flag */
+        gPlcPhyObj->evTxCfmError = false;
+
+        if (gPlcPhyObj->txCfmCallback != NULL)
+        {
+            /* Report to upper layer */
+            gPlcPhyObj->txCfmCallback(&gPlcPhyObj->txCfmErrorObj, gPlcPhyObj->contextCfm);
+        }
+    }
+
     if (gPlcPhyObj->evRxPar && gPlcPhyObj->evRxDat)
     {
         DRV_PLC_PHY_RECEPTION_OBJ rxObj;
@@ -475,26 +489,24 @@ void DRV_PLC_PHY_Task(void)
 
 void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ *transmitObj)
 {
-    DRV_PLC_PHY_TRANSMISSION_CFM_OBJ cfmObj;
+    bool error = false;
     uint8_t bufIdx = (uint8_t) transmitObj->bufferId;
 
-    if (bufIdx > (uint8_t)(TX_BUFFER_1))
+    if ((handle != 0U) || (gPlcPhyObj->status != SYS_STATUS_READY))
     {
-        /* Invalid buffer. */
-        if (gPlcPhyObj->txCfmCallback != NULL)
-        {
-            cfmObj.rmsCalc = 0;
-            cfmObj.timeIni = 0;
-            cfmObj.result = DRV_PLC_PHY_TX_RESULT_INV_BUFFER;
-            /* Report to upper layer */
-            gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
-        }
-
-        return;
+        /* Notify DRV_PLC_PHY_TX_RESULT_NO_TX */
+        error = true;
+        gPlcPhyObj->txCfmErrorObj.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
     }
 
-    if((handle != DRV_HANDLE_INVALID) && (handle == 0U) &&
-            ((gPlcPhyObj->state[bufIdx] == DRV_PLC_PHY_STATE_IDLE) || ((transmitObj->mode & TX_MODE_CANCEL) != 0U)))
+    if ((error == false) && (bufIdx > (uint8_t)(TX_BUFFER_1)))
+    {
+        /* Invalid buffer. */
+        error = true;
+        gPlcPhyObj->txCfmErrorObj.result = DRV_PLC_PHY_TX_RESULT_INV_BUFFER;
+    }
+
+    if (error == false)
     {
         size_t size;
 
@@ -524,27 +536,17 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
         else
         {
             /* Notify DRV_PLC_PHY_TX_RESULT_INV_LENGTH */
-            if (gPlcPhyObj->txCfmCallback != NULL)
-            {
-                cfmObj.rmsCalc = 0;
-                cfmObj.timeIni = 0;
-                cfmObj.result = DRV_PLC_PHY_TX_RESULT_INV_LENGTH;
-                /* Report to upper layer */
-                gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
-            }
+            error = true;
+            gPlcPhyObj->txCfmErrorObj.result = DRV_PLC_PHY_TX_RESULT_INV_LENGTH;
         }
     }
-    else
+
+    if (error)
     {
-        if (gPlcPhyObj->txCfmCallback != NULL)
-        {
-            /* Notify DRV_PLC_PHY_TX_RESULT_NO_TX */
-            cfmObj.rmsCalc = 0;
-            cfmObj.timeIni = 0;
-            cfmObj.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
-            /* Report to upper layer */
-            gPlcPhyObj->txCfmCallback(&cfmObj, gPlcPhyObj->contextCfm);
-        }
+        gPlcPhyObj->txCfmErrorObj.timeIni = transmitObj->timeIni;
+        gPlcPhyObj->txCfmErrorObj.frameType = transmitObj->frameType;
+        gPlcPhyObj->txCfmErrorObj.bufferId = (DRV_PLC_PHY_BUFFER_ID)(bufIdx);
+        gPlcPhyObj->evTxCfmError = true;
     }
 }
 

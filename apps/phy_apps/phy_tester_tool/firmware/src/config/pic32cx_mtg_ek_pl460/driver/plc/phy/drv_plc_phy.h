@@ -377,7 +377,6 @@ typedef void ( *DRV_PLC_PHY_EXCEPTION_CALLBACK )( DRV_PLC_PHY_EXCEPTION exceptio
     DRV_PLC_PHY_INIT drvPlcPhyInitData = {
         .plcHal = &drvPLCHalAPI,
         .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,
-        .plcProfile = DRV_PLC_PHY_PROFILE,
         .binStartAddress = (uint32_t)&plc_phy_bin_start,
         .binEndAddress = (uint32_t)&plc_phy_bin_end,
         .secure = DRV_PLC_SECURE,

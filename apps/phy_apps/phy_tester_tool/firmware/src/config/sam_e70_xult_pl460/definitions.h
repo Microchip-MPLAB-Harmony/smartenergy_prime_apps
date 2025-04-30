@@ -14,7 +14,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -62,14 +62,14 @@
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_cdc.h"
 #include "service/pcrc/srv_pcrc.h"
+#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "system/time/sys_time.h"
-#include "driver/usb/usbhsv1/drv_usbhsv1.h"
+#include "bsp/bsp.h"
 #include "usb/usb_device_cdc.h"
 #include "usb/usb_cdc.h"
-#include "bsp/bsp.h"
+#include "driver/usb/usbhsv1/drv_usbhsv1.h"
 #include "peripheral/afec/plib_afec1.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
@@ -212,9 +212,9 @@ typedef struct
 {
     SYS_MODULE_OBJ  usbDevObject0;
 
+    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
-    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvUSBHSV1Object;
 
 

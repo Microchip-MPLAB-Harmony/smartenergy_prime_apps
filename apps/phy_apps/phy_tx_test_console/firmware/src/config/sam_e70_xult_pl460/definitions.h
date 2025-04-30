@@ -14,7 +14,7 @@
 
 //DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -64,8 +64,8 @@
 #include "bsp/bsp.h"
 #include "driver/memory/drv_memory_efc.h"
 #include "peripheral/afec/plib_afec1.h"
-#include "service/pvddmon/srv_pvddmon.h"
 #include "peripheral/trng/plib_trng.h"
+#include "service/pvddmon/srv_pvddmon.h"
 #include "peripheral/spi/spi_master/plib_spi0_master.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"

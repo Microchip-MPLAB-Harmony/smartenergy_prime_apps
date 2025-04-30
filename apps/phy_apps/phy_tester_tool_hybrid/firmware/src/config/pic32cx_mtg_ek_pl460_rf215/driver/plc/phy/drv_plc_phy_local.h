@@ -135,9 +135,6 @@ typedef struct
     /* HAL API list that will be used by the driver to access the hardware */
     DRV_PLC_HAL_INTERFACE           *plcHal;
 
-    /* PLC Profile */
-    uint8_t                         plcProfile;
-
     /* Number of consecutive SPI errors */
     uint8_t                         consecutiveSpiErrors;
 
@@ -174,6 +171,9 @@ typedef struct
     /* Application context for Bootloader Dara Callback */
     uintptr_t                       contextBoot;
 
+    DRV_PLC_PHY_TRANSMISSION_CFM_OBJ txCfmErrorObj;
+
+    bool                            evTxCfmError;
     /* Event detection flag: confirmation of the previous transmission */
     volatile bool                   evTxCfm[2];
 

@@ -320,10 +320,10 @@ void DRV_PLC_HAL_SendWrRdCmd(DRV_PLC_HAL_CMD *pCmd, DRV_PLC_HAL_INFO *pInfo)
     (void) SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelRx, (const void *)sPlcPlib->spiAddressRx, (const void *)sRxSpiData, cmdSize >> 1);
     (void) SYS_DMA_ChannelTransfer (sPlcPlib->dmaChannelTx, (const void *)sTxSpiData, (const void *)sPlcPlib->spiAddressTx, cmdSize >> 1);
 
-    if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
-        while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx)){}
-        while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx)){}
+    while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelTx)){}
+    while(SYS_DMA_ChannelIsBusy(sPlcPlib->dmaChannelRx)){}
 
+    if (pCmd->cmd == DRV_PLC_HAL_CMD_RD) {
         /* Update data received */
         (void) memcpy(pCmd->pData, &sRxSpiData[4], pCmd->length);
     }

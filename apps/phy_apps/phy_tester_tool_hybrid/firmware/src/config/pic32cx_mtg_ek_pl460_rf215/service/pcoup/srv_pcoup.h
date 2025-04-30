@@ -86,28 +86,27 @@ Microchip or any third party.
 
 /* Equalization coefficients tables */
 #define SRV_PCOUP_PRED_CHN1_HIGH_TBL             {0x756E, 0x7396, 0x730A, 0x72EB, 0x72B2, 0x7433, 0x755E, 0x75D7, 0x769E, 0x76A4, 0x77C3, 0x7851, 0x7864, 0x78A0, \
-					                             0x78BA, 0x7918, 0x79B6, 0x79E9, 0x7ACC, 0x7B06, 0x7B30, 0x7B27, 0x7C1E, 0x7B96, 0x7A76, 0x7B12, 0x7AFD, 0x7C40, \
-					                             0x7C5E, 0x7B48, 0x7B8A, 0x7C64, 0x7C42, 0x7BCD, 0x7AFD, 0x7A5F, 0x7A03, 0x7A9D, 0x7A1A, 0x7A4A, 0x79FC, 0x7984, \
-					                             0x7A0D, 0x79CC, 0x792E, 0x780D, 0x7676, 0x75E4, 0x747A, 0x7251, 0x707E, 0x6E96, 0x6E30, 0x6D44, 0x6DBD, 0x6C9A, \
-					                             0x6C3C, 0x6CF8, 0x6CA4, 0x6CDF, 0x6C59, 0x6B2C, 0x6CB9, 0x6C1F, 0x6B6D, 0x6BF5, 0x6AF0, 0x6A55, 0x6955, 0x674F, \
-					                             0x6841, 0x685D, 0x670F, 0x6904, 0x6967, 0x6B01, 0x6C31, 0x6C2A, 0x6D82, 0x6F58, 0x6E62, 0x6F18, 0x6EE7, 0x7069, \
-					                             0x717B, 0x7120, 0x7170, 0x72FB, 0x7491, 0x75B3, 0x75A2, 0x7664, 0x784A, 0x7A52, 0x7B51, 0x7D5A, 0x7FFF}
+                                                 0x78BA, 0x7918, 0x79B6, 0x79E9, 0x7ACC, 0x7B06, 0x7B30, 0x7B27, 0x7C1E, 0x7B96, 0x7A76, 0x7B12, 0x7AFD, 0x7C40, \
+                                                 0x7C5E, 0x7B48, 0x7B8A, 0x7C64, 0x7C42, 0x7BCD, 0x7AFD, 0x7A5F, 0x7A03, 0x7A9D, 0x7A1A, 0x7A4A, 0x79FC, 0x7984, \
+                                                 0x7A0D, 0x79CC, 0x792E, 0x780D, 0x7676, 0x75E4, 0x747A, 0x7251, 0x707E, 0x6E96, 0x6E30, 0x6D44, 0x6DBD, 0x6C9A, \
+                                                 0x6C3C, 0x6CF8, 0x6CA4, 0x6CDF, 0x6C59, 0x6B2C, 0x6CB9, 0x6C1F, 0x6B6D, 0x6BF5, 0x6AF0, 0x6A55, 0x6955, 0x674F, \
+                                                 0x6841, 0x685D, 0x670F, 0x6904, 0x6967, 0x6B01, 0x6C31, 0x6C2A, 0x6D82, 0x6F58, 0x6E62, 0x6F18, 0x6EE7, 0x7069, \
+                                                 0x717B, 0x7120, 0x7170, 0x72FB, 0x7491, 0x75B3, 0x75A2, 0x7664, 0x784A, 0x7A52, 0x7B51, 0x7D5A, 0x7FFF}
 
 #define SRV_PCOUP_PRED_CHN1_VLOW_TBL             {0x7FFF, 0x7F2B, 0x7E38, 0x7CD3, 0x7B38, 0x7972, 0x77D6, 0x7654, 0x74AE, 0x7288, 0x70C0, 0x6E9A, 0x6D24, 0x6B80, \
-					                             0x6A2F, 0x6852, 0x674E, 0x65DA, 0x652E, 0x637E, 0x6292, 0x6142, 0x60CC, 0x5FF8, 0x5F6D, 0x5EC2, 0x5E6F, 0x5E55, \
-					                             0x5E43, 0x5E02, 0x5E5B, 0x5EB3, 0x5F4A, 0x5FD7, 0x604C, 0x60FC, 0x61F3, 0x6297, 0x63A9, 0x643D, 0x654A, 0x6634, \
-					                             0x675C, 0x6824, 0x6910, 0x69A4, 0x6A73, 0x6B6F, 0x6C15, 0x6CCD, 0x6D64, 0x6E4B, 0x6ED3, 0x6F44, 0x6F85, 0x70A1, \
-					                             0x70AF, 0x71B2, 0x7149, 0x71F3, 0x7203, 0x7279, 0x71FB, 0x72B4, 0x7281, 0x72A4, 0x7262, 0x72BD, 0x7295, 0x72CC, \
-					                             0x729E, 0x7288, 0x7244, 0x7279, 0x726C, 0x7230, 0x71B9, 0x70D8, 0x7045, 0x7052, 0x6F8D, 0x6F3D, 0x6EB0, 0x6E6A, \
-					                             0x6E76, 0x6E1C, 0x6D7A, 0x6D84, 0x6D50, 0x6D45, 0x6CF2, 0x6CA9, 0x6C92, 0x6CBA, 0x6C69, 0x6C27, 0x6C02}
-
+                                                 0x6A2F, 0x6852, 0x674E, 0x65DA, 0x652E, 0x637E, 0x6292, 0x6142, 0x60CC, 0x5FF8, 0x5F6D, 0x5EC2, 0x5E6F, 0x5E55, \
+                                                 0x5E43, 0x5E02, 0x5E5B, 0x5EB3, 0x5F4A, 0x5FD7, 0x604C, 0x60FC, 0x61F3, 0x6297, 0x63A9, 0x643D, 0x654A, 0x6634, \
+                                                 0x675C, 0x6824, 0x6910, 0x69A4, 0x6A73, 0x6B6F, 0x6C15, 0x6CCD, 0x6D64, 0x6E4B, 0x6ED3, 0x6F44, 0x6F85, 0x70A1, \
+                                                 0x70AF, 0x71B2, 0x7149, 0x71F3, 0x7203, 0x7279, 0x71FB, 0x72B4, 0x7281, 0x72A4, 0x7262, 0x72BD, 0x7295, 0x72CC, \
+                                                 0x729E, 0x7288, 0x7244, 0x7279, 0x726C, 0x7230, 0x71B9, 0x70D8, 0x7045, 0x7052, 0x6F8D, 0x6F3D, 0x6EB0, 0x6E6A, \
+                                                 0x6E76, 0x6E1C, 0x6D7A, 0x6D84, 0x6D50, 0x6D45, 0x6CF2, 0x6CA9, 0x6C92, 0x6CBA, 0x6C69, 0x6C27, 0x6C02}
 #define SRV_PCOUP_PRED_NOT_USED                  {0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
-					                             0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
-					                             0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
-					                             0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
-					                             0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
-					                             0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
-					                             0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF}
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF}
 
 #define SRV_PCOUP_PRED_2CHN_NOT_USED             {0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
                                                  0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
@@ -148,129 +147,129 @@ Microchip or any third party.
 #define SRV_PCOUP_CHN1_LINE_DRV_CONF             8
 #define SRV_PCOUP_CHN1_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN2_RMS_HIGH_TBL              {737, 654, 581, 517, 460, 409, 364, 323}
-#define SRV_PCOUP_CHN2_RMS_VLOW_TBL              {3492, 3124, 2766, 2430, 2122, 1853, 1622, 1425}
-#define SRV_PCOUP_CHN2_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 668, 595, 529, 469, 415, 370, 329, 292}
+#define SRV_PCOUP_CHN2_RMS_HIGH_TBL              {792, 693, 607, 533, 468, 412, 362, 319}
+#define SRV_PCOUP_CHN2_RMS_VLOW_TBL              {1627, 1473, 1319, 1168, 1030, 908, 800, 705}
+#define SRV_PCOUP_CHN2_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 670, 586, 514, 451, 396, 348, 306, 270}
 #define SRV_PCOUP_CHN2_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN2_GAIN_HIGH_TBL             {120, 30, 256}
 #define SRV_PCOUP_CHN2_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN2_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN2_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN3_RMS_HIGH_TBL              {746, 661, 584, 516, 457, 404, 358, 318}
-#define SRV_PCOUP_CHN3_RMS_VLOW_TBL              {3573, 3288, 2997, 2703, 2413, 2145, 1905, 1690}
-#define SRV_PCOUP_CHN3_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 561, 496, 439, 388, 344, 304, 270, 239}
+#define SRV_PCOUP_CHN3_RMS_HIGH_TBL              {728, 642, 566, 501, 443, 392, 347, 308}
+#define SRV_PCOUP_CHN3_RMS_VLOW_TBL              {2801, 2570, 2334, 2097, 1864, 1649, 1458, 1289}
+#define SRV_PCOUP_CHN3_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 620, 547, 482, 427, 378, 334, 296, 262}
 #define SRV_PCOUP_CHN3_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN3_GAIN_HIGH_TBL             {30, 30, 256}
 #define SRV_PCOUP_CHN3_GAIN_VLOW_TBL             {287, 128, 287}
 #define SRV_PCOUP_CHN3_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN3_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN4_RMS_HIGH_TBL              {1610, 1443, 1294, 1160, 1040, 932, 835, 748}
-#define SRV_PCOUP_CHN4_RMS_VLOW_TBL              {3465, 3160, 2854, 2552, 2271, 2018, 1793, 1593}
-#define SRV_PCOUP_CHN4_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1285, 1152, 1034, 927, 831, 744, 666, 597}
+#define SRV_PCOUP_CHN4_RMS_HIGH_TBL              {1655, 1483, 1332, 1194, 1071, 961, 861, 772}
+#define SRV_PCOUP_CHN4_RMS_VLOW_TBL              {3572, 3252, 2931, 2616, 2324, 2061, 1827, 1619}
+#define SRV_PCOUP_CHN4_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1407, 1263, 1133, 1016, 912, 818, 733, 657}
 #define SRV_PCOUP_CHN4_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN4_GAIN_HIGH_TBL             {60, 30, 256}
 #define SRV_PCOUP_CHN4_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN4_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN4_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN5_RMS_HIGH_TBL              {1794, 1602, 1430, 1277, 1141, 1019, 910, 813}
-#define SRV_PCOUP_CHN5_RMS_VLOW_TBL              {3749, 3421, 3087, 2758, 2455, 2182, 1937, 1719}
-#define SRV_PCOUP_CHN5_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1557, 1392, 1241, 1108, 990, 885, 790, 706}
+#define SRV_PCOUP_CHN5_RMS_HIGH_TBL              {1801, 1609, 1438, 1285, 1149, 1027, 918, 820}
+#define SRV_PCOUP_CHN5_RMS_VLOW_TBL              {3924, 3584, 3241, 2902, 2589, 2308, 2055, 1830}
+#define SRV_PCOUP_CHN5_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1530, 1367, 1223, 1093, 976, 872, 780, 697}
 #define SRV_PCOUP_CHN5_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN5_GAIN_HIGH_TBL             {85, 30, 256}
 #define SRV_PCOUP_CHN5_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN5_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN5_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN6_RMS_HIGH_TBL              {1243, 1108, 987, 880, 784, 699, 623, 556}
-#define SRV_PCOUP_CHN6_RMS_VLOW_TBL              {3694, 3368, 3037, 2713, 2416, 2149, 1911, 1698}
-#define SRV_PCOUP_CHN6_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1081, 963, 858, 765, 682, 607, 541, 483}
+#define SRV_PCOUP_CHN6_RMS_HIGH_TBL              {1233, 1099, 980, 874, 780, 695, 620, 553}
+#define SRV_PCOUP_CHN6_RMS_VLOW_TBL              {3757, 3429, 3097, 2773, 2474, 2207, 1968, 1754}
+#define SRV_PCOUP_CHN6_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1048, 934, 833, 742, 663, 590, 527, 470}
 #define SRV_PCOUP_CHN6_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN6_GAIN_HIGH_TBL             {60, 30, 256}
 #define SRV_PCOUP_CHN6_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN6_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN6_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN7_RMS_HIGH_TBL              {1441, 1280, 1137, 1010, 897, 798, 710, 631}
-#define SRV_PCOUP_CHN7_RMS_VLOW_TBL              {3277, 2986, 2692, 2406, 2145, 1911, 1703, 1517}
-#define SRV_PCOUP_CHN7_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1226, 1088, 967, 859, 764, 679, 603, 537}
+#define SRV_PCOUP_CHN7_RMS_HIGH_TBL              {1411, 1253, 1114, 991, 881, 784, 698, 621}
+#define SRV_PCOUP_CHN7_RMS_VLOW_TBL              {3771, 3433, 3093, 2762, 2460, 2191, 1952, 1739}
+#define SRV_PCOUP_CHN7_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1200, 1065, 946, 842, 749, 666, 593, 527}
 #define SRV_PCOUP_CHN7_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN7_GAIN_HIGH_TBL             {60, 30, 256}
 #define SRV_PCOUP_CHN7_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN7_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN7_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN8_RMS_HIGH_TBL              {894, 794, 705, 626, 556, 495, 440, 392}
-#define SRV_PCOUP_CHN8_RMS_VLOW_TBL              {3016, 2770, 2524, 2276, 2035, 1815, 1620, 1446}
-#define SRV_PCOUP_CHN8_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 688, 611, 543, 481, 429, 381, 338, 302}
+#define SRV_PCOUP_CHN8_RMS_HIGH_TBL              {877, 778, 691, 614, 546, 487, 433, 385}
+#define SRV_PCOUP_CHN8_RMS_VLOW_TBL              {4295, 3937, 3575, 3213, 2861, 2544, 2262, 2013}
+#define SRV_PCOUP_CHN8_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 745, 660, 587, 521, 464, 413, 367, 326}
 #define SRV_PCOUP_CHN8_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN8_GAIN_HIGH_TBL             {30, 30, 256}
 #define SRV_PCOUP_CHN8_GAIN_VLOW_TBL             {287, 128, 287}
 #define SRV_PCOUP_CHN8_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN8_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN12_RMS_HIGH_TBL             {417, 370, 329, 293, 260, 232, 206, 183}
-#define SRV_PCOUP_CHN12_RMS_VLOW_TBL             {1826, 1629, 1438, 1265, 1113, 982, 870, 771}
-#define SRV_PCOUP_CHN12_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 354, 315, 281, 249, 221, 196, 175, 156}
+#define SRV_PCOUP_CHN12_RMS_HIGH_TBL             {401, 353, 310, 273, 240, 212, 187, 165}
+#define SRV_PCOUP_CHN12_RMS_VLOW_TBL             {850, 767, 685, 609, 539, 475, 420, 370}
+#define SRV_PCOUP_CHN12_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 341, 300, 264, 232, 204, 181, 159, 140}
 #define SRV_PCOUP_CHN12_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN12_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN12_GAIN_VLOW_TBL            {256, 128, 256}
+#define SRV_PCOUP_CHN12_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN12_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN12_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN23_RMS_HIGH_TBL             {884, 787, 701, 624, 556, 495, 441, 392}
-#define SRV_PCOUP_CHN23_RMS_VLOW_TBL             {2729, 2441, 2153, 1890, 1653, 1447, 1269, 1120}
-#define SRV_PCOUP_CHN23_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 731, 650, 580, 517, 460, 411, 365, 326}
+#define SRV_PCOUP_CHN23_RMS_HIGH_TBL             {1650, 1447, 1277, 1131, 1001, 887, 786, 696}
+#define SRV_PCOUP_CHN23_RMS_VLOW_TBL             {1566, 1413, 1263, 1123, 994, 878, 776, 686}
+#define SRV_PCOUP_CHN23_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1402, 1231, 1086, 962, 850, 754, 669, 593}
 #define SRV_PCOUP_CHN23_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN23_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN23_GAIN_VLOW_TBL            {256, 128, 256}
+#define SRV_PCOUP_CHN23_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN23_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN23_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN34_RMS_HIGH_TBL             {1143, 1017, 906, 808, 722, 644, 575, 512}
-#define SRV_PCOUP_CHN34_RMS_VLOW_TBL             {3015, 2685, 2362, 2072, 1819, 1597, 1407, 1246}
-#define SRV_PCOUP_CHN34_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 981, 874, 778, 692, 616, 549, 489, 436}
+#define SRV_PCOUP_CHN34_RMS_HIGH_TBL             {2291, 2033, 1810, 1616, 1444, 1290, 1153, 1031}
+#define SRV_PCOUP_CHN34_RMS_VLOW_TBL             {2283, 2064, 1850, 1648, 1464, 1296, 1148, 1017}
+#define SRV_PCOUP_CHN34_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1947, 1729, 1541, 1375, 1229, 1099, 981, 877}
 #define SRV_PCOUP_CHN34_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN34_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN34_GAIN_VLOW_TBL            {256, 128, 256}
+#define SRV_PCOUP_CHN34_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN34_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN34_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN45_RMS_HIGH_TBL             {1206, 1074, 957, 853, 760, 678, 604, 539}
-#define SRV_PCOUP_CHN45_RMS_VLOW_TBL             {3138, 2804, 2480, 2186, 1928, 1701, 1506, 1338}
-#define SRV_PCOUP_CHN45_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1024, 912, 814, 725, 647, 577, 515, 459}
+#define SRV_PCOUP_CHN45_RMS_HIGH_TBL             {2136, 1912, 1712, 1535, 1375, 1232, 1104, 988}
+#define SRV_PCOUP_CHN45_RMS_VLOW_TBL             {2768, 2509, 2255, 2017, 1798, 1598, 1420, 1262}
+#define SRV_PCOUP_CHN45_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1815, 1625, 1456, 1304, 1169, 1048, 939, 840}
 #define SRV_PCOUP_CHN45_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN45_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN45_GAIN_VLOW_TBL            {256, 128, 256}
+#define SRV_PCOUP_CHN45_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN45_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN45_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN56_RMS_HIGH_TBL             {1229, 1095, 976, 870, 775, 691, 616, 550}
-#define SRV_PCOUP_CHN56_RMS_VLOW_TBL             {3143, 2823, 2513, 2232, 1983, 1763, 1572, 1405}
-#define SRV_PCOUP_CHN56_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1041, 929, 829, 739, 657, 585, 521, 465}
+#define SRV_PCOUP_CHN56_RMS_HIGH_TBL             {1841, 1641, 1465, 1308, 1167, 1042, 930, 830}
+#define SRV_PCOUP_CHN56_RMS_VLOW_TBL             {2840, 2579, 2323, 2082, 1860, 1658, 1477, 1316}
+#define SRV_PCOUP_CHN56_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1564, 1394, 1245, 1110, 991, 885, 790, 705}
 #define SRV_PCOUP_CHN56_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN56_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN56_GAIN_VLOW_TBL            {256, 128, 256}
+#define SRV_PCOUP_CHN56_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN56_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN56_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN67_RMS_HIGH_TBL             {1199, 1066, 950, 848, 757, 676, 603, 537}
-#define SRV_PCOUP_CHN67_RMS_VLOW_TBL             {3238, 2919, 2607, 2325, 2074, 1849, 1651, 1476}
-#define SRV_PCOUP_CHN67_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1012, 902, 806, 719, 641, 571, 509, 454}
+#define SRV_PCOUP_CHN67_RMS_HIGH_TBL             {1966, 1746, 1552, 1380, 1228, 1093, 972, 866}
+#define SRV_PCOUP_CHN67_RMS_VLOW_TBL             {2773, 2517, 2266, 2031, 1814, 1617, 1441, 1284}
+#define SRV_PCOUP_CHN67_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1671, 1484, 1320, 1174, 1044, 929, 827, 736}
 #define SRV_PCOUP_CHN67_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN67_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN67_GAIN_VLOW_TBL            {256, 128, 256}
+#define SRV_PCOUP_CHN67_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN67_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN67_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN78_RMS_HIGH_TBL             {1045, 931, 831, 742, 662, 591, 527, 471}
-#define SRV_PCOUP_CHN78_RMS_VLOW_TBL             {3453, 3108, 2773, 2473, 2205, 1967, 1756, 1571}
-#define SRV_PCOUP_CHN78_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 895, 798, 713, 635, 567, 505, 451, 402}
+#define SRV_PCOUP_CHN78_RMS_HIGH_TBL             {2398, 2121, 1882, 1672, 1487, 1323, 1177, 1046}
+#define SRV_PCOUP_CHN78_RMS_VLOW_TBL             {2823, 2557, 2299, 2057, 1836, 1635, 1456, 1297}
+#define SRV_PCOUP_CHN78_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 2042, 1806, 1603, 1424, 1266, 1127, 1002, 891}
 #define SRV_PCOUP_CHN78_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
 #define SRV_PCOUP_CHN78_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN78_GAIN_VLOW_TBL            {256, 128, 256}
+#define SRV_PCOUP_CHN78_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN78_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN78_MAX_NUM_TX_LEVELS        8
 

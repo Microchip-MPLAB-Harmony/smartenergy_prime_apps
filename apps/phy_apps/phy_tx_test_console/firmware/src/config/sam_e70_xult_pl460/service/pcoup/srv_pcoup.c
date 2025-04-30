@@ -100,6 +100,15 @@ static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn1Data = {
 
 };
 
+static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn2Data = {
+  SRV_PCOUP_CHN2_RMS_HIGH_TBL, SRV_PCOUP_CHN2_RMS_VLOW_TBL,
+  SRV_PCOUP_CHN2_THRS_HIGH_TBL, SRV_PCOUP_CHN2_THRS_VLOW_TBL,
+  srvPlcCoupDaccTableFcc,
+  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
+  SRV_PCOUP_CHN2_GAIN_HIGH_TBL, SRV_PCOUP_CHN2_GAIN_VLOW_TBL,
+  SRV_PCOUP_CHN2_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN2_LINE_DRV_CONF
+};
+
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn3Data = {
   SRV_PCOUP_CHN3_RMS_HIGH_TBL, SRV_PCOUP_CHN3_RMS_VLOW_TBL,
   SRV_PCOUP_CHN3_THRS_HIGH_TBL, SRV_PCOUP_CHN3_THRS_VLOW_TBL,
@@ -157,7 +166,7 @@ static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn8Data = {
 static const SRV_PLC_PCOUP_CHANNEL_DATA * const srvPlcCoupChnData[16] = {
     NULL,
     &srvPlcCoupChn1Data,
-    NULL,
+    &srvPlcCoupChn2Data,
     &srvPlcCoupChn3Data,
     &srvPlcCoupChn4Data,
     &srvPlcCoupChn5Data,
