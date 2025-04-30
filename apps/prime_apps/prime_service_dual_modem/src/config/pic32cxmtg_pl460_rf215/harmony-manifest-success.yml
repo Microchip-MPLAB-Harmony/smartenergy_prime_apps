@@ -4,7 +4,7 @@
 
 
 project: prime_service_dual_modem
-creation_date: 2025-04-29T14:00:47.776+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-04-30T12:14:11.291+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.5.2
@@ -17,10 +17,10 @@ modules:
     - {name: "csp", version: "v3.22.2"}
     - {name: "core", version: "v3.15.1"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_prime", version: "SMS-4157-tasks-prelease"}
+    - {name: "smartenergy_prime", version: "v1.0.0"}
     - {name: "crypto_v4", version: "v4.0.0-E3"}
     - {name: "wolfssl", version: "v5.7.0"}
-    - {name: "smartenergy", version: "SMS-4157-tasks-prelease"}
+    - {name: "smartenergy", version: "v1.4.1"}
     - {name: "shd", version: "v1.1.0"}
 
 packs:

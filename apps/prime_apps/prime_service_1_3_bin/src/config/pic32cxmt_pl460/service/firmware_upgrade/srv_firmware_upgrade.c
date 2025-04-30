@@ -11,7 +11,7 @@
     PRIME Firmware Upgrade Service Interface Source File.
 
   Description:
-    The Firmware Upgrade service provides the handling of the firmare upgrade
+    The Firmware Upgrade service provides the handling of the firmware upgrade
     and version swap for PRIME. This file contains the source code for the
     implementation of this service.
 *******************************************************************************/

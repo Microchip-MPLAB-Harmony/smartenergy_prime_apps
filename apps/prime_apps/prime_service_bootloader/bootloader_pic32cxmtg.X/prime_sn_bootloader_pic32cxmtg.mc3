@@ -3514,7 +3514,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\definitions.h</file>
-         <hash>ffe2c211d91a85702ea9acf5f78e165698ea229e4b1c79ee98e33f5be073445e</hash>
+         <hash>c0ea27e9d410d670c40e980fe51e6fe1ece1c28d1db369ef90e908fb229992ba</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg\device.h</file>

@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_bn_14_modem_pic32cxmtg_pl460_rf215
-creation_date: 2025-04-25T14:46:39.437+02:00[Europe/Paris]
+creation_date: 2025-04-30T11:56:48.392+02:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -21,8 +21,8 @@ modules:
 - {name: csp, type: HARMONY, version: v3.22.2}
 - {name: core, type: HARMONY, version: v3.15.1}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: SMS-4157-tasks-prelease}
+- {name: smartenergy_prime, type: HARMONY, version: v1.0.0}
 - {name: crypto_v4, type: HARMONY, version: v4.0.0-E3}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
-- {name: smartenergy, type: HARMONY, version: SMS-4157-tasks-prelease}
+- {name: smartenergy, type: HARMONY, version: v1.4.1}
 - {name: shd, type: HARMONY, version: v1.1.0}

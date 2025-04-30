@@ -559,7 +559,7 @@ typedef void (*HAL_FU_START)(SRV_FU_INFO *fuInfo);
     Function pointer to end the firmware upgrade process.
 
   Description:
-    This function pointer is used to finish the firmare upgrade process and to
+    This function pointer is used to finish the firmware upgrade process and to
     trigger the execution of the new firmware.
 
   Remarks:
@@ -574,7 +574,7 @@ typedef void (*HAL_FU_END)(SRV_FU_RESULT fuResult);
     Function pointer to read the firmware upgrade information.
 
   Description:
-    This function pointer is used to read the firmare upgrade information, which
+    This function pointer is used to read the firmware upgrade information, which
     is stored out of the PRIME stack.
 
   Remarks:
@@ -589,7 +589,7 @@ typedef void (*HAL_FU_CFG_READ)(void *dst, uint16_t size);
     Function pointer to write the firmware upgrade information.
 
   Description:
-    This function pointer is used to write the firmare upgrade information, which
+    This function pointer is used to write the firmware upgrade information, which
     is stored out of the PRIME stack.
 
   Remarks:

@@ -80,7 +80,7 @@ void SYS_Tasks ( void )
 
     /* Maintain Middleware & Other Libraries */
         
-    /* Maintain Firwmare Upgrade */
+    /* Maintain Firmware Upgrade */
     SRV_FU_Tasks();
     
     /* Maintain PRIME */

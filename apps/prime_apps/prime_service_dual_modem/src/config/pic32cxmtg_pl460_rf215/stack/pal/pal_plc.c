@@ -912,6 +912,10 @@ uint8_t PAL_PLC_GetCD(uint8_t *pCD, uint8_t *pRSSI, uint32_t *pTime, uint8_t *pH
 
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
+        *pCD = 0U;
+        *pRSSI = 0U;
+        *pTime = 0UL;
+        *pHeader = 0U;
         return (uint8_t)PAL_CFG_INVALID_INPUT;
     }
 
@@ -975,6 +979,7 @@ uint8_t PAL_PLC_GetZCT(uint32_t *pZcTime)
 
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
+        *pZcTime= 0UL;
         return (uint8_t)PAL_CFG_INVALID_INPUT;
     }
 
@@ -1031,6 +1036,7 @@ uint8_t PAL_PLC_GetNL(uint8_t *pNoise)
 
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
+        *pNoise= 0U;
         return (uint8_t)PAL_CFG_INVALID_INPUT;
     }
 
@@ -1044,6 +1050,7 @@ uint8_t PAL_PLC_GetChannel(uint16_t *pPch)
 {
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
+        *pPch = 0U;
         return ((uint8_t)PAL_CFG_INVALID_INPUT);
     }
 
@@ -1073,6 +1080,7 @@ uint8_t PAL_PLC_GetConfiguration(uint16_t id, void *pValue, uint16_t length)
 
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
+        *(uint8_t *)pValue = 0U;
         return (uint8_t)PAL_CFG_INVALID_INPUT;
     }
 
@@ -1372,6 +1380,7 @@ uint16_t PAL_PLC_GetSignalCapture(uint8_t *pData, PAL_FRAME frameType, uint32_t 
 
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
+        *pData = 0U;
         return (uint8_t)PAL_CFG_INVALID_INPUT;
     }
 

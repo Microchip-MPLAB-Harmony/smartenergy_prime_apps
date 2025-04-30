@@ -1495,7 +1495,7 @@ void PRIME_HAL_WRP_FuStart(SRV_FU_INFO *fuInfo);
     Ends the firmware upgrade process.
 
   Description:
-    This function is used to finish the firmare upgrade process and to trigger the
+    This function is used to finish the firmware upgrade process and to trigger the
     execution of the new firmware.
 
   Precondition:
@@ -1525,7 +1525,7 @@ void PRIME_HAL_WRP_FuEnd(SRV_FU_RESULT fuResult);
     Reads the firmware upgrade information.
 
   Description:
-    This function is used to read the firmare upgrade information, which is
+    This function is used to read the firmware upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:
@@ -1557,7 +1557,7 @@ void PRIME_HAL_WRP_FuCfgRead(void *dst, uint16_t size);
     Writes the firmware upgrade information.
 
   Description:
-    This function is used to write the firmare upgrade information, which is
+    This function is used to write the firmware upgrade information, which is
     stored out of the PRIME stack.
 
   Precondition:

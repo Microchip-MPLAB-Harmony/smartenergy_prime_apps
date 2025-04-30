@@ -197,9 +197,10 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
     }
     
     iniMetadata = fuData.imageSize - fuData.signLength - PRIME_METADATA_SIZE;
+    iniSignature = fuData.imageSize - fuData.signLength;
 
     /* Check if the segment to write is in metadata zone*/
-    if (((address + size) < iniMetadata) || (address > (iniMetadata + PRIME_METADATA_SIZE)))
+    if ((address + size) < iniMetadata)
     {
         return;
     }
@@ -213,7 +214,7 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
         offsetSegment = 0;
     }
 
-    if (address > iniMetadata)
+    if ((address > iniMetadata) && (address < iniSignature))
     {
         offsetMetadata = address - iniMetadata;
     }
@@ -222,25 +223,22 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
         offsetMetadata = 0;
     }
 
-    sizeToCopy = PRIME_METADATA_SIZE - offsetMetadata;
-
-    if ((size - offsetSegment) < sizeToCopy)
+    /* There is metadata inside the segment */
+    if (address < iniSignature)
     {
-        sizeToCopy = size - offsetSegment;
-    }
+        sizeToCopy = PRIME_METADATA_SIZE - offsetMetadata;
 
-    (void)memcpy(&imageMetadata[offsetMetadata], &pBuffInput[offsetSegment], sizeToCopy);
+        if ((size - offsetSegment) < sizeToCopy)
+        {
+            sizeToCopy = size - offsetSegment;
+        }
 
-    /* Fewer checks are needed because the signature is always in the last segment and 
-    after the metadata */
-    if (sizeToCopy < PRIME_METADATA_SIZE)
-    {
-        return;
+        (void)memcpy(&imageMetadata[offsetMetadata], &pBuffInput[offsetSegment], sizeToCopy);
     }
+        
+    /* Signature */
     
     /*  Check if the segment to write is in signature zone */
-    iniSignature = fuData.imageSize - fuData.signLength;
-
     if ((address + size) < iniSignature)
     {
         return;
@@ -474,7 +472,7 @@ static bool lSRV_FU_VerifySignature(void)
     }
     
     /* Start to verify the signature */
-    stateCryptoHash = Crypto_Hash_Sha_Init(&hashCtx, CRYPTO_HASH_SHA2_256, CRYPTO_HANDLER_HW_INTERNAL, SESSION_ID);
+    stateCryptoHash = Crypto_Hash_Sha_Init(&hashCtx, CRYPTO_HASH_SHA2_256, CRYPTO_HANDLER_SW_WOLFCRYPT, SESSION_ID);
 
     if (stateCryptoHash != CRYPTO_HASH_SUCCESS)
     {

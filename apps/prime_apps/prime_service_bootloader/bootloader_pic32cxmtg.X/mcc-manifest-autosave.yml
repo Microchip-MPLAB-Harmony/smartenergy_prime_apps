@@ -2,13 +2,13 @@
 
 manifest_file_version: 1.0.0
 project: prime_sn_bootloader_pic32cxmtg
-creation_date: 2025-04-09T15:33:00.140+02:00[Europe/Paris]
-operating_system: Windows 10
+creation_date: 2025-04-30T12:04:27.800+02:00[Europe/Paris]
+operating_system: Windows 11
 mcc_mode: IDE
-mcc_mode_version: v6.20
+mcc_mode_version: v6.25
 device_name: PIC32CX2051MTG128
 compiler: XC32 4.60
-mcc_version: 5.5.1
+mcc_version: 5.5.2
 mcc_core_version: 5.7.1
 content_manager_version: 5.0.1
 is_mcc_offline: false

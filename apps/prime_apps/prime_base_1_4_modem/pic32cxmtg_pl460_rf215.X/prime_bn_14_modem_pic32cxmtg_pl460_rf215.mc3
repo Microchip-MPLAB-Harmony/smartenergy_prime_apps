@@ -30295,7 +30295,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal.c</file>
-         <hash>f1261d0ca1b23944a9617c6d4b0f423dec65dc89ca0bf33955f5556ac3fbd2b4</hash>
+         <hash>8bbf26db66fed35ca8ed42193c0e43636bf5699e3c3be030483abfb9bdf8935d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal.h</file>
@@ -30307,7 +30307,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal_plc.c</file>
-         <hash>15b300a551036769961a94e4e90c2b75dc54573eecaf714e120bd6a10b1d03bd</hash>
+         <hash>6352b2b15daea732f2cbf4c242ac33ca7e0b359d958b2347fa55365719ee422f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_rf215\stack\pal\pal_plc.h</file>

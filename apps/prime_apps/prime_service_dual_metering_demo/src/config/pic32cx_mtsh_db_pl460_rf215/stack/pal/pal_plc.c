@@ -910,6 +910,15 @@ uint8_t PAL_PLC_GetCD(uint8_t *pCD, uint8_t *pRSSI, uint32_t *pTime, uint8_t *pH
     uint8_t header;
     uint8_t rssi;
 
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
+    {
+        *pCD = 0U;
+        *pRSSI = 0U;
+        *pTime = 0UL;
+        *pHeader = 0U;
+        return (uint8_t)PAL_CFG_INVALID_INPUT;
+    }
+
     /* Read Carrier Detect information from PL360 */
     palPlcData.plcPIB.id = PLC_ID_RX_CD_INFO;
     palPlcData.plcPIB.length = (uint16_t)(sizeof(cdData));
@@ -968,6 +977,12 @@ uint8_t PAL_PLC_GetZCT(uint32_t *pZcTime)
     uint32_t zcTime1us;
     uint32_t zcTime10us;
 
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
+    {
+        *pZcTime= 0UL;
+        return (uint8_t)PAL_CFG_INVALID_INPUT;
+    }
+
     palPlcData.plcPIB.id = PLC_ID_ZC_TIME;
     palPlcData.plcPIB.length = (uint16_t)(sizeof(zcTime1us));
     palPlcData.plcPIB.pData = (uint8_t *)&zcTime1us;
@@ -1018,6 +1033,13 @@ uint8_t PAL_PLC_GetCCA(uint8_t *channelState)
 
 uint8_t PAL_PLC_GetNL(uint8_t *pNoise)
 {
+
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
+    {
+        *pNoise= 0U;
+        return (uint8_t)PAL_CFG_INVALID_INPUT;
+    }
+
     /* CINR is in 1/4 db. */
     *pNoise = (palPlcData.lastRSSIAvg - (palPlcData.lastCINRMin >> 2));
 
@@ -1028,6 +1050,7 @@ uint8_t PAL_PLC_GetChannel(uint16_t *pPch)
 {
     if (palPlcData.status != PAL_PLC_STATUS_READY)
     {
+        *pPch = 0U;
         return ((uint8_t)PAL_CFG_INVALID_INPUT);
     }
 
@@ -1055,7 +1078,13 @@ uint8_t PAL_PLC_GetConfiguration(uint16_t id, void *pValue, uint16_t length)
     PAL_CFG_RESULT result = PAL_CFG_INVALID_INPUT;
     bool askPhy = false;
 
-    /* Check identifier */
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
+    {
+        *(uint8_t *)pValue = 0U;
+        return (uint8_t)PAL_CFG_INVALID_INPUT;
+    }
+
+   /* Check identifier */
     switch ((PAL_ATTRIBUTE_ID)id)
     {
         case PAL_ID_CONTINUOUS_TX_EN:
@@ -1204,6 +1233,11 @@ uint8_t PAL_PLC_SetConfiguration(uint16_t id, void *pValue, uint16_t length)
     PAL_CFG_RESULT result = PAL_CFG_INVALID_INPUT;
     bool updatePhy = false;
 
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
+    {
+        return (uint8_t)PAL_CFG_INVALID_INPUT;
+    }
+
     /* Check identifier */
     switch ((PAL_ATTRIBUTE_ID)id)
     {
@@ -1343,6 +1377,12 @@ uint16_t PAL_PLC_GetSignalCapture(uint8_t *pData, PAL_FRAME frameType, uint32_t 
     uint8_t captureParameters[9];
     uint8_t index;
     SYS_TIME_HANDLE timer = SYS_TIME_HANDLE_INVALID;
+
+    if (palPlcData.status != PAL_PLC_STATUS_READY)
+    {
+        *pData = 0U;
+        return (uint8_t)PAL_CFG_INVALID_INPUT;
+    }
 
     palPlcData.plcPIB.id = PLC_ID_SIGNAL_CAPTURE_STATUS;
     palPlcData.plcPIB.length = (uint16_t)sizeof(signalCapture);

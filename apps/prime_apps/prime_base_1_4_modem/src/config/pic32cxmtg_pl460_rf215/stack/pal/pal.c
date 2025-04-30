@@ -409,7 +409,14 @@ uint8_t PAL_GetCD(uint16_t pch, uint8_t *cd, uint8_t *rssi, uint32_t *timeVal, u
 uint8_t PAL_GetNL(uint16_t pch, uint8_t *noise)
 {
     PAL_INTERFACE *palIface = lPAL_GetInterface(pch);
-    return(palIface->MPAL_GetNL(noise));
+    
+    if (palIface != NULL)
+    {
+        return(palIface->MPAL_GetNL(noise));
+    }
+
+    *noise = 0U;
+    return((uint8_t)PAL_CFG_INVALID_INPUT);
 }
 
 uint8_t PAL_GetAGC(uint16_t pch, uint8_t *mode, uint8_t *gain)
