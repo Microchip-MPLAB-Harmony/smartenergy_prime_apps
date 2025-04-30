@@ -23,7 +23,7 @@ The following table provides the number of examples of PRIME Harmony 3 applicati
 
 ### Known Issues
 
-- In the applications of the service nodes, the application should be configured to do the ECDSA by software due to a problem with the crypto repository with the release v1.0.0-E3, it is expected to be solved in the following releases of the repository.
+- Due an Issue in crypto_v4 with PIC32CX MT, The ECDSA and SHA algorithms should be configured to be done by software.
 
 ### Development Tools
 
