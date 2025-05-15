@@ -15313,11 +15313,24 @@
 </value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="crypto_mac_wc_wrapper__c_ftl_flag"/>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="crypto_mac_wc_wrapper_c_ftl"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
-  &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;crypto_mac_wc_wrapper__c_ftl_flag&quot;&gt;
+  &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;crypto_mac_wc_wrapper_c_ftl&quot;&gt;
+    &lt;Attributes dnOrder=&quot;0&quot;&gt;
+      &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+      &lt;/Boolean&gt;
+    &lt;/Attributes&gt;
+  &lt;/lib_wolfcrypt&gt;
+&lt;/lib_wolfcrypt&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="lib_wolfcrypt" name="crypto_mac_wc_wrapper_c_ftl_flag"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;lib_wolfcrypt&gt;
+  &lt;lib_wolfcrypt dnOrder=&quot;0&quot; id=&quot;crypto_mac_wc_wrapper_c_ftl_flag&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_wolfcrypt&quot; value=&quot;false&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;lib_wolfcrypt&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/lib_wolfcrypt&gt;
 &lt;/lib_wolfcrypt&gt;
@@ -31733,6 +31746,10 @@
          <hash>a0a2c5b800f1f44dba6728c4edb337a53480524f53164a6b3da2266547e741a9</hash>
       </entry>
       <entry>
+         <file>..\src\config\samd20_xpro_pl460\crypto\wolfcrypt\src\crypto_mac_wc_wrapper.c</file>
+         <hash>ad39acb4112ff5fde4bf0800a716ed5862dc69a6559e50cc49eecb1855585c92</hash>
+      </entry>
+      <entry>
          <file>..\src\config\samd20_xpro_pl460\crypto\wolfcrypt\src\crypto_rng_wc_wrapper.c</file>
          <hash>835169b61747540d7925c85c29f0b10a18609d81e949abfcb93d08586212eae3</hash>
       </entry>
@@ -31750,7 +31767,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\definitions.h</file>
-         <hash>70b2b7f7a116c696ee3236a5f73cf0c8ed1d980342f816c7af6be16864110709</hash>
+         <hash>1946abe275b85f4bc33d64f868d221d1ea91fd9b50188a43f6ae373b683327e9</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\device.h</file>
@@ -32202,7 +32219,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\libs\prime14_lib_sn_m0.a</file>
-         <hash>e1fcaedfb9c32532f7cf914bd9c77b3909aec832c2166af751b84e014fe645ef</hash>
+         <hash>dc595a5890edece85319557ffa114f9dc7747553e20102d356e269c02b317dc9</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\mac\mac.h</file>

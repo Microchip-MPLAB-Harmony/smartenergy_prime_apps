@@ -1279,8 +1279,6 @@ static void APP_Modem_CL432DataRequestCmd(uint8_t *recvMsg)
 
 void APP_Modem_Initialize(void)
 {
-    SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
-
     /* Initialize the reception queue */
     inputMsgRecvIndex = 0;
     outputMsgRecvIndex = 0;
