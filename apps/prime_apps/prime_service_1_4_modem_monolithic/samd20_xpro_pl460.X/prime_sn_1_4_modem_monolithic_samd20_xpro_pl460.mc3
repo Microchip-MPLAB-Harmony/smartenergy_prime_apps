@@ -31767,7 +31767,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\definitions.h</file>
-         <hash>1946abe275b85f4bc33d64f868d221d1ea91fd9b50188a43f6ae373b683327e9</hash>
+         <hash>306d89ba6faeb4ae022ff4d0efb3fb527aa3fd1686a1cceb8c43d6e49c40c280</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\device.h</file>
@@ -32219,7 +32219,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\libs\prime14_lib_sn_m0.a</file>
-         <hash>dc595a5890edece85319557ffa114f9dc7747553e20102d356e269c02b317dc9</hash>
+         <hash>81dbd8f04de765520f83085d27f84217aab41fcd9849db463e5bdde750447f04</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\mac\mac.h</file>
