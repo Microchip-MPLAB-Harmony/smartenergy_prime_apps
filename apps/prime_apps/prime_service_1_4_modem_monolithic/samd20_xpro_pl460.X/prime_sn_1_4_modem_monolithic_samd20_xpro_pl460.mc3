@@ -31767,7 +31767,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\definitions.h</file>
-         <hash>306d89ba6faeb4ae022ff4d0efb3fb527aa3fd1686a1cceb8c43d6e49c40c280</hash>
+         <hash>6c3cea1b0afb353bd5b2552edae7821d23bf368a0304f28330bc84c7104c410d</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\device.h</file>
@@ -32015,11 +32015,11 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>436da81ab7403c1533be65bdee51e1b29b223a767cef6d76fcdfbe3b173f2447</hash>
+         <hash>0a7ab318c19e261986de4cb7f6ad8da8f7ad25faeaedb8d1668884690078990e</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\firmware_upgrade\srv_firmware_upgrade.h</file>
-         <hash>8b1c37ca2a0636b51bd76bab018a998741b3050ffc768a2223cea362e69a7ea4</hash>
+         <hash>97dc161468989cc51eb80311a9dbf6b9c029fab736fee0e6cd105bffe7b0348b</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\firmware_upgrade\srv_firmware_upgrade_local.h</file>
@@ -32219,7 +32219,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\libs\prime14_lib_sn_m0.a</file>
-         <hash>81dbd8f04de765520f83085d27f84217aab41fcd9849db463e5bdde750447f04</hash>
+         <hash>a4988e620581378265eb1939decf0440d3beeb93db30a784f9169974518c95a1</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\mac\mac.h</file>

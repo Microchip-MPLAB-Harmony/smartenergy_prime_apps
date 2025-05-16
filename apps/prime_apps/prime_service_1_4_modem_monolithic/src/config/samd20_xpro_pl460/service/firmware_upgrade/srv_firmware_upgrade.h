@@ -458,6 +458,77 @@ void SRV_FU_RegisterCallbackFuResult(SRV_FU_RESULT_CB callback);
 */
 void SRV_FU_End(SRV_FU_RESULT fuResult);
 
+// ****************************************************************************
+/* Function:
+   bool SRV_FU_SwapFirmware(void)
+
+  Summary:
+    Swaps the firmware.
+
+  Description:
+    This function is used to swap the firmware, if needed, and update data for
+    the bootloader.
+
+  Precondition:
+    The SRV_FU_Initialize function should have been called before calling this
+    function.
+
+  Parameters:
+    None.
+
+  Returns:
+    True if firmware must be swapped. Otherwise, false.
+
+  Example:
+    <code>
+    if (SRV_FU_SwapFirmware() == true)
+    {
+        ... Invoke bootloader
+    }
+    </code>
+
+  Remarks:
+    This function is called by the application.
+*/
+bool SRV_FU_SwapFirmware(void);
+
+
+// ****************************************************************************
+/* Function:
+   void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
+
+  Summary:
+    Set the Firmware Upgrade the public key to be used for the ECDSA-256
+    signature.
+
+  Description:
+    This function sets the public key to be used for the ECDSA-256 signature.
+
+  Precondition:
+    The SRV_FU_Initialize function should have been called before calling this
+    function.
+
+  Parameters:
+    pubKey      - Pointer to the buffer where the ECDSA-256 public key is stored
+    pubKeyLen   - Length of the key
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    #define LEN_PUBLIC_KEY 65
+
+    uint8_t pubKey[LEN_PUBLIC_KEY];
+    uint16_t pubKeyLen = LEN_PUBLIC_KEY;
+
+    SRV_FU_SetECDSAPublicKey(pubKey, pubKeyLen);
+    </code>
+
+  Remarks:
+    This function is called by the application.
+*/
+void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen);
 
 // ****************************************************************************
 /* Function:
