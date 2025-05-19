@@ -9923,7 +9923,7 @@
         &lt;ElementPosition dnOrder=&quot;11&quot; id=&quot;lib_wolfcrypt&quot; x=&quot;530&quot; y=&quot;336&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;12&quot; id=&quot;mainBoard_SAMD20_XPLAINED_PRO&quot; x=&quot;510&quot; y=&quot;60&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;13&quot; id=&quot;nvmctrl&quot; x=&quot;311&quot; y=&quot;473&quot;/&gt;
-        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;601&quot; y=&quot;447&quot;/&gt;
+        &lt;ElementPosition dnOrder=&quot;14&quot; id=&quot;primeFirmwareUpgrade&quot; x=&quot;598&quot; y=&quot;447&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;15&quot; id=&quot;sercom0&quot; x=&quot;355&quot; y=&quot;188&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;16&quot; id=&quot;sercom1&quot; x=&quot;1&quot; y=&quot;585&quot;/&gt;
         &lt;ElementPosition dnOrder=&quot;17&quot; id=&quot;sercom3&quot; x=&quot;24&quot; y=&quot;208&quot;/&gt;
@@ -16067,8 +16067,17 @@
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primeFirmwareUpgrade" name="PRIME_FU_MEM_SIZE"/>
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primeFirmwareUpgrade&gt;
   &lt;primeFirmwareUpgrade dnOrder=&quot;0&quot; id=&quot;PRIME_FU_MEM_SIZE&quot;&gt;
+    &lt;Values dnOrder=&quot;0&quot;/&gt;
+  &lt;/primeFirmwareUpgrade&gt;
+&lt;/primeFirmwareUpgrade&gt;
+</value>
+      </entry>
+      <entry>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="primeFirmwareUpgrade" name="PRIME_FU_USER_SIGNATURE_EN"/>
+         <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;primeFirmwareUpgrade&gt;
+  &lt;primeFirmwareUpgrade dnOrder=&quot;0&quot; id=&quot;PRIME_FU_USER_SIGNATURE_EN&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;primeFirmwareUpgrade&quot; value=&quot;0x40000&quot;/&gt;
+      &lt;User dnOrder=&quot;0&quot; value=&quot;true&quot;/&gt;
     &lt;/Values&gt;
   &lt;/primeFirmwareUpgrade&gt;
 &lt;/primeFirmwareUpgrade&gt;
@@ -32015,11 +32024,11 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>0a7ab318c19e261986de4cb7f6ad8da8f7ad25faeaedb8d1668884690078990e</hash>
+         <hash>4252a9ed7628df149ddc6beb382ac21ea5d9d677e7a7722b99cbf54e80c43208</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\firmware_upgrade\srv_firmware_upgrade.h</file>
-         <hash>97dc161468989cc51eb80311a9dbf6b9c029fab736fee0e6cd105bffe7b0348b</hash>
+         <hash>8a995eb0f0132290cd3498490f0ae2dad34defbbc33fb5fd60edf8afcda8f850</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\firmware_upgrade\srv_firmware_upgrade_local.h</file>
