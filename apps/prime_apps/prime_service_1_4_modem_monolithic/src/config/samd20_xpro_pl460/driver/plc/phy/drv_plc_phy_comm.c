@@ -758,6 +758,12 @@ void DRV_PLC_PHY_ExternalInterruptHandler(uintptr_t context)
     {
         DRV_PLC_PHY_EVENTS_OBJ evObj;
 
+        if (gPlcPhyObj->plcHal->getPinLevel(gPlcPhyObj->plcHal->plcPlib->extIntPio) == true)
+        {
+            /* External interrupt pin is not active */
+            return;
+        }
+
         /* Time guard */
         gPlcPhyObj->plcHal->delay(20);
 

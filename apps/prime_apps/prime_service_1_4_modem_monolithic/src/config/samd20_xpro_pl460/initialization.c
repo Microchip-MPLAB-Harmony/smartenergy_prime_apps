@@ -94,15 +94,15 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Disable STBY Pin */
-    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA08);
-    SYS_PORT_PinClear(SYS_PORT_PIN_PA08);
-    /* Enable Reset Pin */
-    SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
-    SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
     /* Enable LDO Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
     SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
+    /* Enable Reset Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+    SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
+    /* Disable STBY Pin */
+    SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA08);
+    SYS_PORT_PinClear(SYS_PORT_PIN_PA08);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -259,7 +259,6 @@ static const SRV_USI_USART_INTERFACE srvUsi0InitDataSERCOM3 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)SERCOM3_USART_ReadCallbackRegister,
     .readData = (USI_USART_PLIB_WRRD)SERCOM3_USART_Read,
     .writeData = (USI_USART_PLIB_WRRD)SERCOM3_USART_Write,
-    .intSource = SERCOM3_IRQn,
 };
 
 static uint8_t CACHE_ALIGN srvUSI0USARTReadBuffer[128] = {0};

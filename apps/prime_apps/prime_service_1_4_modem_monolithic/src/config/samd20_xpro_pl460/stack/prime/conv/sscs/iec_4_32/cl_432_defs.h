@@ -69,8 +69,7 @@ Microchip or any third party.
 #define CL_432_LPDU_HEADER                3
 
 /* Maxixum length of the LSDU (Link Service Data Unit) */
-/* (It must be smaller than PRIME_MACSAP_DATA_SIZE) */
-#define CL_432_MAX_LENGTH_DATA            (1024 - CL_432_LPDU_HEADER)
+#define CL_432_MAX_LENGTH_DATA            (256 - CL_432_LPDU_HEADER)
 
 /* Addresses defined in 4-32 layer */
 #define CL_432_INVALID_ADDRESS            (0xFFFFU)

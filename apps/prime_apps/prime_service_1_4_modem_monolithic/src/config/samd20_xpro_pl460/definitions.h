@@ -95,9 +95,9 @@
 #include "service/user_pib/srv_user_pib.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "service/storage/srv_storage.h"
+#include "bsp/bsp.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
-#include "bsp/bsp.h"
 #include "service/time_management/srv_time_management.h"
 #include "app.h"
 
