@@ -56,8 +56,19 @@ void _on_reset(void)
    /* Coprocessor Peripheral Enable */
    RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
    /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
-   uint32_t reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_CPPRES_Msk);
-   reg |= PMC_CPU_CKR_CPPRES_CLK_2 | PMC_CPU_CKR_CPCSS_MAINCK;
+   uint32_t prescaler;
+   uint32_t reg = PMC_REGS->PMC_CPU_CKR;
+   if ((reg & PMC_CPU_CKR_CPPRES_Msk) == PMC_CPU_CKR_CPPRES_CLK_1)
+   {
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_2;
+   }
+   else
+   {
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_1;
+   }
+
+   reg &= ~PMC_CPU_CKR_CPPRES_Msk;
+   reg |= prescaler | PMC_CPU_CKR_CPCSS_MAINCK;
    PMC_REGS->PMC_CPU_CKR = reg;
    while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
    {
