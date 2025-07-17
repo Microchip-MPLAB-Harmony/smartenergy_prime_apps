@@ -77,11 +77,17 @@ Microchip or any third party.
 /* PLC PRIME PHY Channel for impedance detection */
 #define SRV_PCOUP_CHANNEL_IMP_DET                CHN1
 
+/* List of channels that support impedance detection */
+#define SRV_PCOUP_CHANNEL_LIST_IMP_DET           31997
+
 /* PLC PRIME PHY Channel List */
 #define SRV_PCOUP_CHANNEL_LIST                   1
 
 /* Equalization number of coefficients (number of carriers) */
 #define SRV_PCOUP_EQU_NUM_COEF_CHN               97U
+
+/* RMS_CALC Carrier Mask size in bytes */
+#define SRV_PCOUP_CARRIER_MASK_SIZE_CHN          13U
 
 /* Equalization coefficients tables */
 #define SRV_PCOUP_PRED_CHN1_HIGH_TBL             {0x756E, 0x7396, 0x730A, 0x72EB, 0x72B2, 0x7433, 0x755E, 0x75D7, 0x769E, 0x76A4, 0x77C3, 0x7851, 0x7864, 0x78A0, \
@@ -99,6 +105,10 @@ Microchip or any third party.
                                                  0x70AF, 0x71B2, 0x7149, 0x71F3, 0x7203, 0x7279, 0x71FB, 0x72B4, 0x7281, 0x72A4, 0x7262, 0x72BD, 0x7295, 0x72CC, \
                                                  0x729E, 0x7288, 0x7244, 0x7279, 0x726C, 0x7230, 0x71B9, 0x70D8, 0x7045, 0x7052, 0x6F8D, 0x6F3D, 0x6EB0, 0x6E6A, \
                                                  0x6E76, 0x6E1C, 0x6D7A, 0x6D84, 0x6D50, 0x6D45, 0x6CF2, 0x6CA9, 0x6C92, 0x6CBA, 0x6C69, 0x6C27, 0x6C02}
+/* RMS_CALC Carrier Mask tables */
+#define SRV_PCOUP_CHN1_CARRIER_MASK_HIGH_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+#define SRV_PCOUP_CHN1_CARRIER_MASK_VLOW_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+
 /* DACC configuration tables */
 #define SRV_PCOUP_DACC_CENA_TBL                  {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
                                                  0xa92c00ffUL, 0x1a1a1a1aUL, 0x20200000UL, 0x4400UL, 0xfd20005UL, 0x3aaUL, \
@@ -163,6 +173,14 @@ typedef struct
     /* Pointer to Tx equalization coefficients table in VLOW mode.
        There is one coefficient for each carrier in the used band */
     const uint16_t * equVlow;
+  
+    /* Pointer to RMS_CALC carrier mask table in HIGH mode.
+       There is one bit for each carrier in the used band */
+    const uint8_t * carrierMaskHigh;
+
+    /* Pointer to RMS_CALC carrier mask table in VLOW mode.
+       There is one bit for each carrier in the used band */
+    const uint8_t * carrierMaskVlow;
 
     /* Tx gain values for HIGH mode [HIGH_INI, HIGH_MIN, HIGH_MAX] */
     uint16_t gainHigh[3];
@@ -354,6 +372,88 @@ bool SRV_PCOUP_SetChannelConfig(DRV_HANDLE handle, DRV_PLC_PHY_CHANNEL channel);
   ***************************************************************************/
 
 uint16_t SRV_PCOUP_GetChannelList(void);
+
+/***************************************************************************
+  Function:
+    uint16_t SRV_PCOUP_GetChannelListImpedanceDetection(void)
+
+  Summary:
+    Get the PRIME channel list valid for impedance detection.
+
+  Description:
+    This function allows to get the PRIME channel list valid for impedance detection.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    PRIME channel list valid for impedance detection. The channel list is a bitmask
+    corresponding to the following values.
+    Single channel:
+      Channel 1 : bit 0
+      Channel 2 : bit 1
+      Channel 3 : bit 2
+      Channel 4 : bit 3
+      Channel 5 : bit 4
+      Channel 6 : bit 5
+      Channel 7 : bit 6
+      Channel 8 : bit 7
+    In double channel:
+      Channel 1-2 : bit 8
+      Channel 2-3 : bit 9
+      Channel 3-4 : bit 10
+      Channel 4-5 : bit 11
+      Channel 5-6 : bit 12
+      Channel 6-7 : bit 13
+      Channel 7-8 : bit 14
+
+  Example:
+    <code>
+    uint16_t plcChannelListImpDetect;
+
+    plcChannelListImpDetect = SRV_PCOUP_GetChannelListImpedanceDetection();
+
+    </code>
+
+  Remarks:
+    None.
+  ***************************************************************************/
+
+uint16_t SRV_PCOUP_GetChannelListImpedanceDetection(void);
+
+/***************************************************************************
+  Function:
+    DRV_PLC_PHY_CHANNEL SRV_PCOUP_GetChannelImpedanceDetection(void)
+
+  Summary:
+    Get the PRIME channel for impedance detection.
+
+  Description:
+    This function allows to get the PRIME channel that should be used for impedance detection.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    PRIME channel that should be used for impedance detection.
+
+  Example:
+    <code>
+    DRV_PLC_PHY_CHANNEL plcChannelImpDetect;
+
+    plcChannelImpDetect = SRV_PCOUP_GetChannelImpedanceDetection();
+
+    </code>
+
+  Remarks:
+    None.
+  ***************************************************************************/
 
 DRV_PLC_PHY_CHANNEL SRV_PCOUP_GetChannelImpedanceDetection(void);
 

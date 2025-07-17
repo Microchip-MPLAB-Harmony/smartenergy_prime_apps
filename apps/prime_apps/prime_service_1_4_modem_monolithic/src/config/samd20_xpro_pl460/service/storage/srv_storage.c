@@ -50,6 +50,7 @@ Microchip or any third party.
 #include <string.h>
 #include "srv_storage.h"
 #include "device.h"
+#include "definitions.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -101,6 +102,7 @@ bool SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
 {
     uint16_t totalSize;
     uint8_t offset;
+    bool interruptStatus;
 
     if (infoType >= SRV_STORAGE_TYPE_END_LIST)
     {
@@ -117,6 +119,9 @@ bool SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
         /* Invalid size */
         return false;
     }
+
+    interruptStatus = SYS_INT_Disable();
+    SYS_INT_Restore(interruptStatus);
 
     /* Copy data to pointer given as parameter */
     (void) memcpy(pData, (void*) &srvStorageData[offset], size);
@@ -128,6 +133,7 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
 {
     uint16_t totalSize;
     uint8_t offset;
+    bool interruptStatus;
 
     if (infoType >= SRV_STORAGE_TYPE_END_LIST)
     {
@@ -144,6 +150,9 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
         /* Invalid size */
         return false;
     }
+
+    interruptStatus = SYS_INT_Disable();
+    SYS_INT_Restore(interruptStatus);
 
     /* Copy new data */
     (void) memcpy((void*) &srvStorageData[offset], pData, size);

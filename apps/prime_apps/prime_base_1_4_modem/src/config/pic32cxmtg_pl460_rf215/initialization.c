@@ -91,7 +91,7 @@ static const DRV_RF215_INIT drvRf215InitData = {
     .sysTimeIntSource = TC0_CH0_IRQn,
 
     /* Interrupt source ID for PLC external interrupt */
-    .plcExtIntSource = PIOA_IRQn,
+    .plcExtIntSource = DRV_PLC_EXT_INT_SRC,
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
     .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,
@@ -117,17 +117,19 @@ void _on_reset(void)
    /* Coprocessor Peripheral Enable */
    RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
    /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
-   uint32_t reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_CPPRES_Msk);
-   reg |= PMC_CPU_CKR_CPPRES_CLK_2;
-   PMC_REGS->PMC_CPU_CKR = reg;
-   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
-   while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+   uint32_t prescaler;
+   uint32_t reg = PMC_REGS->PMC_CPU_CKR;
+   if ((reg & PMC_CPU_CKR_CPPRES_Msk) == PMC_CPU_CKR_CPPRES_CLK_1)
    {
-       /* Wait for clock to be initialized */
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_2;
    }
-   /* Disable STBY Pin */
-   SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA0);
-   SYS_PORT_PinClear(SYS_PORT_PIN_PA0);
+   else
+   {
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_1;
+   }
+   reg &= ~PMC_CPU_CKR_CPPRES_Msk;
+   reg |= prescaler | PMC_CPU_CKR_CPCSS_MAINCK;
+   PMC_REGS->PMC_CPU_CKR = reg;
    while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
    {
        /* Wait for status CPMCKRDY */
@@ -137,12 +139,20 @@ void _on_reset(void)
    {
        /* Wait for clock to be initialized */
    }
-   /* Enable Reset Pin */
-   SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
-   SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
    /* Enable LDO Pin */
    SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
    SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
+   /* Enable Reset Pin */
+   SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+   SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
+   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+   while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+   {
+       /* Wait for clock to be initialized */
+   }
+   /* Disable STBY Pin */
+   SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA0);
+   SYS_PORT_PinClear(SYS_PORT_PIN_PA0);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -296,7 +306,6 @@ static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM7 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM7_USART_ReadCallbackRegister,
     .readData = (USI_USART_PLIB_WRRD)FLEXCOM7_USART_Read,
     .writeData = (USI_USART_PLIB_WRRD)FLEXCOM7_USART_Write,
-    .intSource = FLEXCOM7_IRQn,
 };
 
 static uint8_t CACHE_ALIGN srvUSI0USARTReadBuffer[128] = {0};
@@ -458,9 +467,9 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM7_USART_Initialize();
 
-    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
+    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  

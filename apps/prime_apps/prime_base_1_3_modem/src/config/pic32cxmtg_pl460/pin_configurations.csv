@@ -14,17 +14,17 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 13,PD9,,Available,In,,,,,,,
 14,PD10,,Available,In,,,,,,,
 15,PD11,,Available,In,,,,,,,
-16,PA0,PL460_STBY,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
-17,PA1,PL460_TXEN,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
+16,PA0,XPLAINED_PRO_I2C_SDA,FLEXCOM6_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+17,PA1,XPLAINED_PRO_I2C_SCL,FLEXCOM6_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 18,PD14,,Available,In,,,,,,,
-19,PD15,PL460_NRST,GPIO,Out,Low,No,Disabled,No,No,Glitch Filter,0x0
+19,PD15,XPLAINED_PRO_PWM_PLUS,PWM_PWMH1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 20,PD16,LED0,GPIO,Out,High,No,Disabled,No,No,Glitch Filter,0x0
 22,PD17,,Available,In,,,,,,,
 23,PD18,,Available,In,,,,,,,
-24,PD19,PL460_ENABLE,GPIO,Out,High,No,Disabled,No,No,Glitch Filter,0x0
+24,PD19,XPLAINED_PRO_PWM_MINUS,PWM_PWML2,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 25,PA10,,Available,In,,,,,,,
 26,PA11,,Available,In,,,,,,,
-27,PA2,PL460_EXTINT,GPIO,In,n/a,No,Low Level,No,Yes,Glitch Filter,0x0
+27,PA2,XPLAINED_PRO_IRQ,GPIO,In,n/a,No,Low Level,No,Yes,Glitch Filter,0x0
 28,PA3,,Available,In,,,,,,,
 29,PA4,VIRTUAL_COM_TX,FLEXCOM0_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 30,PA5,VIRTUAL_COM_RX,FLEXCOM0_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
@@ -43,17 +43,17 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 44,PD12,,Available,In,,,,,,,
 45,PD13,,Available,In,,,,,,,
 46,PA20,,Available,In,,,,,,,
-63,PA21,PL460_CS,FLEXCOM5_IO3,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-64,PA22,PL460_SCK,FLEXCOM5_IO2,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-65,PA23,PL460_MISO,FLEXCOM5_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-66,PA24,PL460_MOSI,FLEXCOM5_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+63,PA21,XPLAINED_PRO_SPI_CS,FLEXCOM5_IO3,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+64,PA22,XPLAINED_PRO_SPI_SCK,FLEXCOM5_IO2,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+65,PA23,XPLAINED_PRO_SPI_MISO,FLEXCOM5_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+66,PA24,XPLAINED_PRO_SPI_MOSI,FLEXCOM5_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 67,PA25,,Available,In,,,,,,,
 68,PA26,,Available,In,,,,,,,
 69,PA27,,Available,In,,,,,,,
 70,PA28,,Available,In,,,,,,,
 71,PA29,,Available,In,,,,,,,
 72,PA30,,Available,In,,,,,,,
-74,PB1,PL460_SUPPLY_MON,ADC_AD4/ACC_INN1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+74,PB1,XPLAINED_PRO_ADC_PLUS,ADC_AD4/ACC_INN1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 75,PB0,,Available,In,,,,,,,
 76,PB2,,Available,In,,,,,,,
 77,PA31,,Available,In,,,,,,,
@@ -69,7 +69,7 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 90,PB12,,Available,In,,,,,,,
 91,PB13,,Available,In,,,,,,,
 92,PB14,,Available,In,,,,,,,
-93,PB15,PL460_NTHW0,GPIO,In,n/a,No,Disabled,Yes,No,Glitch Filter,0x0
+93,PB15,XPLAINED_PRO_GPIO_SS,GPIO,In,n/a,No,Disabled,Yes,No,Glitch Filter,0x0
 94,PB16,,Available,In,,,,,,,
 95,PB17,,Available,In,,,,,,,
 96,PB18,,Available,In,,,,,,,

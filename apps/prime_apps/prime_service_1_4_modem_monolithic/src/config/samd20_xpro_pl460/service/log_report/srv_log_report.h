@@ -255,6 +255,7 @@ typedef enum
     PHY_LAYER_PLC_NOT_AVAILABLE         =   9100,
     PHY_LAYER_RF_NOT_AVAILABLE          =   9101,
     PAL_PLC_TIMER_SYNC_ERROR            =   9102,
+    PAL_PLC_RESET_PHY_LAYER             =   9103,
 
     /* PRIME Critical System Error */
     CRITICAL_ERROR_PRIME_NO_PHY         =   9997,

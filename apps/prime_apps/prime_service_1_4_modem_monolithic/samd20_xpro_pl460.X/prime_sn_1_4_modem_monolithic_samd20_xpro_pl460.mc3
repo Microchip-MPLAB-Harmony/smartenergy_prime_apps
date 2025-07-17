@@ -31787,7 +31787,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\definitions.h</file>
-         <hash>306d89ba6faeb4ae022ff4d0efb3fb527aa3fd1686a1cceb8c43d6e49c40c280</hash>
+         <hash>6c3cea1b0afb353bd5b2552edae7821d23bf368a0304f28330bc84c7104c410d</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\device.h</file>
@@ -31851,7 +31851,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\driver\plc\phy\bin\PLC_PHY_PRIME_2CHN.bin</file>
-         <hash>a30437124fd113256999bba457f42ef17666e08e25f3b3ee17ddeb83888e05b9</hash>
+         <hash>32a8ab828ff9cdf77a30f2fa9d4b5192acac1e802bceb2f21ed1e0251f94bea0</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\driver\plc\phy\bin\plc_phy_bin.S</file>
@@ -31867,11 +31867,11 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\driver\plc\phy\drv_plc_phy_comm.c</file>
-         <hash>9a4561badcd36c4c90b9fc504d3709c158aa462f42705fde48ca997889b4569f</hash>
+         <hash>8c29843880f34606212117a9c9970a1264436fce71a3d34d8529a8501e7717ef</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\driver\plc\phy\drv_plc_phy_comm.h</file>
-         <hash>295b419c81f75c2b6e09ea4282651579f5b8bc031e24a0ac86ea72545fed643c</hash>
+         <hash>2d5b72a06df2174e0ea0d63134d1f546175e3c7547b1593a24453ff389e9825e</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\driver\plc\phy\drv_plc_phy_definitions.h</file>
@@ -31879,7 +31879,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\driver\plc\phy\drv_plc_phy_local.h</file>
-         <hash>50320d4691bee84c8b85d70fa0dd20d15328c363eb96ac9aa20e25ab4a35dd6d</hash>
+         <hash>9e57c46a50397e4e50cc9fb782c315a5167101ad20506ad1a946562adcc1bc62</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\driver\plc\phy\drv_plc_phy_local_comm.h</file>
@@ -31971,11 +31971,11 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\peripheral\port\plib_port.c</file>
-         <hash>1a67b7145a79f819a80e9fc116ac71c7b6aa99b087180a4e0860bf96c3fcd63a</hash>
+         <hash>c4f1f672f0d086879ef08cbff9c7cdce6b2bcb74d9a2b85b8f7aca9beda1b51f</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\peripheral\port\plib_port.h</file>
-         <hash>1a995c03ef7160a67ffc33928eb8fc36cc5a57b463ad5881f5a629bcbb193529</hash>
+         <hash>5f8e753d0461acea3f2c8f421189aa9b804e253698fbb201a76750d1df462e2b</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\peripheral\sercom\spi_master\plib_sercom0_spi_master.c</file>
@@ -32031,7 +32031,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\pin_configurations.csv</file>
-         <hash>1daa02c4dcccce43788d1f15dfbc7948055b0fc3acbf14e5b78648923a68bb9d</hash>
+         <hash>31757b7ca7a796b9046764b078f5f28f4de17e21e8a8b3ce1b52bf65bb4eac86</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\firmware_upgrade\srv_firmware_upgrade.c</file>
@@ -32051,15 +32051,15 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\log_report\srv_log_report.h</file>
-         <hash>5c95e03258689bc7e2808ba6883fb1fbe033f0ce15a12d2f9be527a4b55fd657</hash>
+         <hash>63ea6a22c0821b8fbd5d11b03fdfe4674417dc488832c4fe1eeef412cdc43706</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\pcoup\srv_pcoup.c</file>
-         <hash>a90442a2e25e2c6a63e998cf65561db5b7f7fa7fc75c0105ee9d3b95b8cf9331</hash>
+         <hash>8dc9425d94512c6d253a6a6924b5a4c1b2b32b88edc00819a4973acc691a82e6</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\pcoup\srv_pcoup.h</file>
-         <hash>9bc742360599d1ca8b7cbf1514dff6c681c477b5fe48cf492fd5d1fbb1f32899</hash>
+         <hash>30ee694b50f20e191458215773a9046fce10b4a004010081db18c63ce9f34721</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\pcrc\srv_pcrc.c</file>
@@ -32127,7 +32127,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\storage\srv_storage.c</file>
-         <hash>044cce1b490096f19437a6173b837c444b3663085e6d31d9e70cc2acdeb054db</hash>
+         <hash>037916ca34120dfa312f7f061c351090218005ad3656e94191aed71d80ca5b0c</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\service\storage\srv_storage.h</file>
@@ -32187,7 +32187,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\pal\pal_plc.c</file>
-         <hash>d49fac2feb7dc6c9e7939a19f2ffb8622694fa1a071325957c28529ee48e4c8a</hash>
+         <hash>00f9f2e5cbb1a8378ced1f8bc23bc1f0e41d97046a51c23f4ce3689537123ee6</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\pal\pal_plc.h</file>
@@ -32195,11 +32195,11 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\pal\pal_plc_local.h</file>
-         <hash>7d5ec202b6688687846fbb0b0b4ca4a46d6e042872a2b869c1785eebf7fb48b7</hash>
+         <hash>04e9740feb1a7be9b268a41cd24713820c63034f44ac914b37d646d60a3e53e3</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\pal\pal_plc_rm.c</file>
-         <hash>94fef983dada96b2e679550b35cd36b77a528cc2ebfaf3a42e233a877d30bfcd</hash>
+         <hash>468874471ef94e2e4a4883f9fb23f9bd6413cc7d3d54672952fe57c1272ed799</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\pal\pal_plc_rm.h</file>
@@ -32207,7 +32207,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\pal\pal_types.h</file>
-         <hash>f715a30d692299c9ff4c76200cab22c96b7cea68541473dea45bb6410bbd985d</hash>
+         <hash>c9f17952673405534589ea014f1f22c32edd318abb368b8ce564e55b35e4ddab</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\conv\sscs\iec_4_32\cl_432.h</file>
@@ -32239,7 +32239,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\libs\prime14_lib_sn_m0.a</file>
-         <hash>7909ed1e8cefe6bbe04a44d11665fe7f1443b644f782bf5e40085de5842d0ded</hash>
+         <hash>a793d8cd9fd9bdb1d73f5d1d2a37a7a46630141f09948ff9031f93352dad8b97</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\stack\prime\mac\mac.h</file>
