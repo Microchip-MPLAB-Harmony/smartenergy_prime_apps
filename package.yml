@@ -1,7 +1,7 @@
 package:
   format-version: "1.0.0"
   name: "smartenergy_prime_apps"
-  version: "v1.1.0"
+  version: "MH3-114158-update-prime-feedback-field"
   type: "application"
   status: "production"
   required: false
@@ -9,7 +9,7 @@ package:
   dependencies:
     - name: "smartenergy_prime"
       type: "package"
-      version: "v1.0.0"
+      version: "MH3-114158-update-prime-feedback-field"
     - name: "smartenergy_metrology"
       type: "package"
       version: "v1.0.0"
@@ -18,4 +18,4 @@ package:
       version: "v3.16.0"
     - name: "shd"
       type: "package"
-      version: "v1.1.0"
+      version: "v1.2.0"
