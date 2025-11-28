@@ -1105,8 +1105,6 @@ static void APP_Modem_PLME_SetRequestCmd(uint8_t *recvMsg)
     uint8_t  pibValueBuf[256];
     uint8_t pibSize;
     void *pibValue;
-    uint16_t temp16;
-    uint32_t temp32;
     uint16_t pch;
 
     /* Extract parameters */
@@ -1114,32 +1112,10 @@ static void APP_Modem_PLME_SetRequestCmd(uint8_t *recvMsg)
     pibAttrib = ((uint16_t)(*lMessage++)) << 8;
     pibAttrib += *lMessage++;
     pibSize = *lMessage++;
-    /* Check PIB size */
-    switch (pibSize)
-    {
-        case 2: /* sizeof(uint16_t) */
-            /* Extract PIB value */
-            temp16 = ((uint16_t)(*lMessage++)) << 8;
-            temp16 += *lMessage++;
-            pibValue = (void *)(&temp16);
-            break;
 
-        case 4: /* sizeof(uint32_t) */
-            /* Extract PIB value */
-            temp32 = ((uint32_t)(*lMessage++) << 24);
-            temp32 += ((uint32_t)(*lMessage++) << 16);
-            temp32 += ((uint32_t)(*lMessage++) << 8);
-            temp32 += (uint32_t)*lMessage++;
-            pibValue = (void *)(&temp32);
-            break;
-
-        case 1: /* sizeof(uint8_t) */
-        default: /* arrays */
-            memcpy(pibValueBuf, lMessage, pibSize);
-            pibValue = (void *)pibValueBuf;
-            lMessage += pibSize;
-            break;
-    }
+    memcpy(pibValueBuf, lMessage, pibSize);
+    pibValue = (void *)pibValueBuf;
+    lMessage += pibSize;
 
     pch = ((uint16_t)(*lMessage++)) << 8;
     pch += *lMessage++;
@@ -1221,32 +1197,10 @@ static void APP_Modem_MLME_SetRequestCmd(uint8_t *recvMsg)
     pibAttrib = ((uint16_t)(*lMessage++)) << 8;
     pibAttrib += *lMessage++;
     pibSize = *lMessage++;
-    /* Check PIB size */
-    switch (pibSize)
-    {
-        case 2: /* sizeof(uint16_t) */
-            /* Extract PIB value */
-            temp16 = ((uint16_t)(*lMessage++)) << 8;
-            temp16 += *lMessage++;
-            pibValue = (void *)(&temp16);
-            break;
-
-        case 4: /* sizeof(uint32_t) */
-            /* Extract PIB value */
-            temp32 = ((uint32_t)(*lMessage++)) << 24;
-            temp32 += ((uint32_t)(*lMessage++)) << 16;
-            temp32 += ((uint32_t)(*lMessage++)) << 8;
-            temp32 += *lMessage++;
-            pibValue = (void *)(&temp32);
-            break;
-
-        case 1: /* sizeof(uint8_t) */
-        default: /* arrays */
-            memcpy(pibValueBuf, lMessage, pibSize);
-            pibValue = (void *)pibValueBuf;
-            break;
-    }
-
+ 
+    memcpy(pibValueBuf, lMessage, pibSize);
+    pibValue = (void *)pibValueBuf;
+ 
     gPrimeApi->MlmeSetRequest(pibAttrib, pibValue, pibSize);
 }
 
