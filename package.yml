@@ -9,7 +9,7 @@ package:
   dependencies:
     - name: "smartenergy_prime"
       type: "package"
-      version: "MH3-114158-update-prime-feedback-field"
+      version: "dev"
     - name: "smartenergy_metrology"
       type: "package"
       version: "v1.0.0"
