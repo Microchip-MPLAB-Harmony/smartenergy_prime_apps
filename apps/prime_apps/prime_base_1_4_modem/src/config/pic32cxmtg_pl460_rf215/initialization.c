@@ -456,7 +456,7 @@ void SYS_Initialize ( void* data )
     SEFC1_Initialize();
   
     DWDT_Initialize();
-    CLK_Initialize();
+    CLOCK_Initialize();
     RSTC_Initialize();
 
     PIO_Initialize();
@@ -467,9 +467,9 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM7_USART_Initialize();
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  

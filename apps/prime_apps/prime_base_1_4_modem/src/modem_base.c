@@ -1189,8 +1189,6 @@ static void APP_Modem_MLME_SetRequestCmd(uint8_t *recvMsg)
     uint16_t pibAttrib;
     uint8_t pibValueBuf[256];
     uint8_t pibSize;
-    uint16_t temp16;
-    uint32_t temp32;
 
     /* Extract parameters */
     lMessage = recvMsg;

@@ -85,12 +85,12 @@ bool DRV_SEFC0_Read( const DRV_HANDLE handle, void *rx_data, uint32_t rx_data_le
 
 bool DRV_SEFC0_PageWrite( const DRV_HANDLE handle, void *tx_data, uint32_t address )
 {
-    return (SEFC0_PageWrite((uint32_t *)tx_data, address));
+    return (SEFC_PageWrite((uint32_t *)tx_data, address));
 }
 
 bool DRV_SEFC0_SectorErase( const DRV_HANDLE handle, uint32_t address )
 {
-    return (SEFC0_PageErase(address));
+    return (SEFC_PageErase(address));
 }
 
 
