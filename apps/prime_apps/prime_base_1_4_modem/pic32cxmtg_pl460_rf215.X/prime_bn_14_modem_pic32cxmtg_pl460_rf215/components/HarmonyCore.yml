@@ -1,0 +1,180 @@
+configVersion: 1.0.0
+componentName: HarmonyCore
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: HarmonyCore
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  name: smartenergy_prime
+  type: package
+  version: v1.0.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: HarmonyCore
+          x: '732'
+          y: '7'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    ENABLE_APP_FILE:
+      attributes:
+        id: ENABLE_APP_FILE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_DRV_COMMON:
+      attributes:
+        id: ENABLE_DRV_COMMON
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_OSAL:
+      attributes:
+        id: ENABLE_OSAL
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_CACHE:
+      attributes:
+        id: ENABLE_SYS_CACHE
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_COMMON:
+      attributes:
+        id: ENABLE_SYS_COMMON
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_INT:
+      attributes:
+        id: ENABLE_SYS_INT
+      children:
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_MEDIA:
+      attributes:
+        id: ENABLE_SYS_MEDIA
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ENABLE_SYS_PORTS:
+      attributes:
+        id: ENABLE_SYS_PORTS
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: HarmonyCore
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+  userData: {}

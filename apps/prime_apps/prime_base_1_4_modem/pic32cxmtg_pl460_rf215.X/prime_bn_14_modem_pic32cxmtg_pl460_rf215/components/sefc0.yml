@@ -1,0 +1,129 @@
+configVersion: 1.0.0
+componentName: sefc0
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: sefc0
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  name: smartenergy_prime
+  type: package
+  version: v1.0.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: SEFC0_MEMORY
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: drv_memory_0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: drv_memory_MEMORY_dependency
+            type: String
+          type: Attributes
+        type: DirectCapability
+      type: Attachments
+    type: sefc0
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: sefc0
+          x: '389'
+          y: '559'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_MEMORY_CONNECTED:
+      attributes:
+        id: DRV_MEMORY_CONNECTED
+      children:
+      - children:
+        - attributes:
+            id: drv_memory_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    MEMORY_MEDIA_SIZE:
+      attributes:
+        id: MEMORY_MEDIA_SIZE
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '384'
+          type: User
+        type: Values
+      type: Integer
+    START_ADDRESS:
+      attributes:
+        id: START_ADDRESS
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: 10A0000
+          type: User
+        type: Values
+      type: String
+  userData: {}
