@@ -1,0 +1,5717 @@
+configVersion: 1.0.0
+componentName: srv_pcoup
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_pcoup
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  name: smartenergy_prime
+  type: package
+  version: v1.0.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: srv_pcoup
+          x: '518'
+          y: '148'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SRV_PCOUP_DACC_CENA_0:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_1:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '555745280'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_10:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '265420805'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_11:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '938'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_12:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '4026531840'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_13:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1057008'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_14:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '938'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_15:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '4026531840'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_16:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_16
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1057023'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_2:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '121569280'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_3:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1061093376'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_4:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3276'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_5:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_6:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2838233343'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_7:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '437918234'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_8:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '538968064'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_CENA_9:
+      attributes:
+        id: SRV_PCOUP_DACC_CENA_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '17408'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_0:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_1:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_10:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '6'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_11:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '853'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_12:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_13:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1057008'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_14:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '853'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_15:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_16:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_16
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1057023'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_2:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_3:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_4:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_5:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_6:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '4294902015'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_7:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '454761243'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_8:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_DACC_FCC_9:
+      attributes:
+        id: SRV_PCOUP_DACC_FCC_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Hex
+    SRV_PCOUP_PRIME_2CHN12:
+      attributes:
+        id: SRV_PCOUP_PRIME_2CHN12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_2CHN23:
+      attributes:
+        id: SRV_PCOUP_PRIME_2CHN23
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_2CHN34:
+      attributes:
+        id: SRV_PCOUP_PRIME_2CHN34
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_2CHN45:
+      attributes:
+        id: SRV_PCOUP_PRIME_2CHN45
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_2CHN56:
+      attributes:
+        id: SRV_PCOUP_PRIME_2CHN56
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_2CHN67:
+      attributes:
+        id: SRV_PCOUP_PRIME_2CHN67
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_2CHN78:
+      attributes:
+        id: SRV_PCOUP_PRIME_2CHN78
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHANNELS_SELECTED:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHANNELS_SELECTED
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '255'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHANNEL_IMP_DET:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHANNEL_IMP_DET
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    SRV_PCOUP_PRIME_CHN1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHN1_GAIN_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_GAIN_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '40'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '81'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_GAIN_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_GAIN_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '40'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_GAIN_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_GAIN_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '81'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_GAIN_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_GAIN_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '128'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_GAIN_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_GAIN_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_GAIN_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_GAIN_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '256'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '281'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_LINE_DRIVER:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_LINE_DRIVER
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '8'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1725'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1522'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1349'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1202'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1071'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '957'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '855'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '764'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '4874'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '4427'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3986'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3555'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3157'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2795'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2470'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_RMS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_RMS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2184'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1145'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1019'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '910'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '811'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '725'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '648'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1467'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_HIGH_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_HIGH_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1292'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '6665'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5874'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5192'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '4576'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '4030'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3557'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '8479'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN1_THRS_VLOW_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN1_THRS_VLOW_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '7515'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHN2_GAIN_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_GAIN_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '120'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_GAIN_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_GAIN_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_GAIN_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_GAIN_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '120'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_GAIN_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_GAIN_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '128'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_GAIN_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_GAIN_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_GAIN_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_GAIN_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '256'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_LINE_DRIVER:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_LINE_DRIVER
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '737'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '654'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '581'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '517'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '460'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '409'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '364'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '323'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3492'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3124'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2766'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2430'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2122'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1853'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1622'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_RMS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_RMS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1425'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '529'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '469'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '415'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '370'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '329'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '292'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '668'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_HIGH_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_HIGH_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '595'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN2_THRS_VLOW_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN2_THRS_VLOW_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHN3_GAIN_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_GAIN_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_GAIN_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_GAIN_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_GAIN_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_GAIN_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_GAIN_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_GAIN_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '128'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_GAIN_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_GAIN_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_GAIN_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_GAIN_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '287'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_LINE_DRIVER:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_LINE_DRIVER
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '746'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '661'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '584'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '516'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '457'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '404'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '358'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '318'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3573'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3288'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2997'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2703'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2413'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2145'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1905'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_RMS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_RMS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1690'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '439'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '388'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '344'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '304'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '270'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '239'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '561'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_HIGH_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_HIGH_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '496'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN3_THRS_VLOW_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN3_THRS_VLOW_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHN4_GAIN_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_GAIN_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '60'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_GAIN_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_GAIN_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_GAIN_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_GAIN_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '60'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_GAIN_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_GAIN_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '128'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_GAIN_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_GAIN_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_GAIN_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_GAIN_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '256'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_LINE_DRIVER:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_LINE_DRIVER
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1610'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1443'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1294'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1160'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1040'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '932'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '835'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '748'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3465'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3160'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2854'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2552'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2271'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2018'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1793'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_RMS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_RMS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1593'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1034'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '927'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '831'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '744'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '666'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '597'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1285'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_HIGH_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_HIGH_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1152'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN4_THRS_VLOW_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN4_THRS_VLOW_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHN5_GAIN_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_GAIN_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '85'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_GAIN_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_GAIN_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_GAIN_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_GAIN_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '85'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_GAIN_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_GAIN_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '128'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_GAIN_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_GAIN_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_GAIN_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_GAIN_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '256'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_LINE_DRIVER:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_LINE_DRIVER
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1794'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1602'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1430'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1277'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1141'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1019'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '910'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '813'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3749'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3421'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3087'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2758'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2455'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2182'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1937'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_RMS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_RMS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1719'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1241'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1108'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '990'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '885'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '790'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '706'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1557'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_HIGH_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_HIGH_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1392'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN5_THRS_VLOW_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN5_THRS_VLOW_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHN6_GAIN_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_GAIN_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '60'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_GAIN_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_GAIN_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_GAIN_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_GAIN_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '60'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_GAIN_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_GAIN_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '128'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_GAIN_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_GAIN_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_GAIN_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_GAIN_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '256'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_LINE_DRIVER:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_LINE_DRIVER
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1243'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1108'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '987'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '880'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '784'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '699'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '623'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '556'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3694'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3368'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3037'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2713'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2416'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2149'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1911'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_RMS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_RMS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1698'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '858'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '765'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '682'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '607'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '541'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '483'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1081'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_HIGH_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_HIGH_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '963'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN6_THRS_VLOW_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN6_THRS_VLOW_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHN7_GAIN_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_GAIN_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '60'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_GAIN_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_GAIN_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_GAIN_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_GAIN_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '60'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_GAIN_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_GAIN_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '128'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_GAIN_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_GAIN_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_GAIN_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_GAIN_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '256'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_LINE_DRIVER:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_LINE_DRIVER
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1441'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1280'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1137'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1010'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '897'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '798'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '710'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '631'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3277'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2986'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2692'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2406'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2145'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1911'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1703'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_RMS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_RMS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1517'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '967'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '859'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '764'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '679'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '603'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '537'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1226'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_HIGH_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_HIGH_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1088'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN7_THRS_VLOW_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN7_THRS_VLOW_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_PCOUP_PRIME_CHN8_GAIN_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_GAIN_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_GAIN_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_GAIN_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '30'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_GAIN_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_GAIN_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '30'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '256'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_GAIN_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_GAIN_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '128'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_GAIN_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_GAIN_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '128'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_GAIN_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_GAIN_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: min
+          children:
+          - type: Value
+            value: '287'
+          type: Integer
+        type: Attributes
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '287'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_LINE_DRIVER:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_LINE_DRIVER
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '894'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '794'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '705'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '626'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '556'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '495'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '440'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '392'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '3016'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2770'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2524'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2276'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '2035'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1815'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1620'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_RMS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_RMS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '1446'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '543'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '481'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '429'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '381'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '338'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '302'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '688'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_HIGH_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_HIGH_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '611'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_0:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_0
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_1:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_1
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_10:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_10
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_11:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_11
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_12:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_12
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_13:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_13
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_14:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_14
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_15:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_15
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_2:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_2
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_3:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_3
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_4:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_4
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_5:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_5
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_6:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_6
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_7:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_7
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_8:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_8
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHN8_THRS_VLOW_9:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHN8_THRS_VLOW_9
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '100000'
+          type: Dynamic
+        type: Values
+      type: Integer
+  userData: {}
