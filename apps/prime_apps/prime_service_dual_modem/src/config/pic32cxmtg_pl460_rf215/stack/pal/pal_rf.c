@@ -340,7 +340,7 @@ static void lPAL_RF_InitCallback(uintptr_t context, SYS_STATUS status)
     if (palRfData.drvRfPhyHandle == DRV_HANDLE_INVALID)
     {
         SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR,
-                (SRV_LOG_REPORT_CODE)PHY_LAYER_RF_NOT_AVAILABLE,
+                PHY_LAYER_RF_NOT_AVAILABLE,
                 "PRIME_PAL_RF: RF PHY layer not available\r\n");
         palRfData.status = PAL_RF_STATUS_ERROR;
         return;

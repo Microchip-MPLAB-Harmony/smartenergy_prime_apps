@@ -91,7 +91,7 @@ void FLEXCOM7_USART_Initialize( void )
     /* Reset FLEXCOM7 USART */
     FLEXCOM7_REGS->FLEX_US_CR = (FLEX_US_CR_RSTRX_Msk | FLEX_US_CR_RSTTX_Msk | FLEX_US_CR_RSTSTA_Msk);
 
-
+    /* Setup transmitter timeguard register */
     FLEXCOM7_REGS->FLEX_US_TTGR = 0;
 
     /* Enable FLEXCOM7 USART */
@@ -130,6 +130,7 @@ void FLEXCOM7_USART_Initialize( void )
         flexcom7UsartObj.wrBufferSize = FLEXCOM7_USART_WRITE_BUFFER_SIZE;
     }
 
+    /* Enable Read, Overrun, Parity and Framing error interrupts */
     FLEXCOM7_USART_RX_INT_ENABLE();
 }
 
@@ -729,7 +730,7 @@ static void __attribute__((used)) FLEXCOM7_USART_ISR_TX_Handler( void )
         }
         else
         {
-            /* Nothing to transmit. Disable the data register empty/fifo Threshold interrupt. */
+            /* Nothing to transmit. Disable the data register empty interrupt. */
             FLEXCOM7_USART_TX_INT_DISABLE();
             break;
         }
