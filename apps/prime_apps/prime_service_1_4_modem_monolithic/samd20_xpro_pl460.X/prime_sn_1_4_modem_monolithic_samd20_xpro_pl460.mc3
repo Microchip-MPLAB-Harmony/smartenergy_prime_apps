@@ -31787,7 +31787,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\definitions.h</file>
-         <hash>70b2b7f7a116c696ee3236a5f73cf0c8ed1d980342f816c7af6be16864110709</hash>
+         <hash>ecf0671649ee2929110ca10eeab9308fd74aa319509c7addec64e231145cd0a4</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\device.h</file>
@@ -31891,7 +31891,7 @@
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\initialization.c</file>
-         <hash>4f1d98b8a212f6836acd3e986ad1a9e0cb3958d79c0513ff273767d65527eb48</hash>
+         <hash>af0a1b305d9322b94d63a06e0082ba7345c1a51a01c08f16cb9a52bd105ee4b5</hash>
       </entry>
       <entry>
          <file>..\src\config\samd20_xpro_pl460\interrupts.c</file>
