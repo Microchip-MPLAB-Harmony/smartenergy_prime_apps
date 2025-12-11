@@ -214,7 +214,7 @@ typedef size_t (*HAL_USI_SEND)(SRV_USI_HANDLE handle, SRV_USI_PROTOCOL_ID protoc
     Related to Log Report service.
 */
 typedef void (*HAL_DEBUG_REPORT)(SRV_LOG_REPORT_LEVEL logLevel,
-    SRV_LOG_REPORT_CODE code, const char *info, ...);
+    uint32_t code, const char *info, ...);
 
 // *****************************************************************************
 /* Get a user PIB attribute

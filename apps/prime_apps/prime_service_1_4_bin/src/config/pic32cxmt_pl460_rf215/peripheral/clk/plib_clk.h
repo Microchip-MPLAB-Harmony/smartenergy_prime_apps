@@ -131,7 +131,7 @@ void CLK_Core1BusMasterClkDisable(void);
 
 // *****************************************************************************
 /* Function:
-    void CLK_Initialize ( void )
+    void CLOCK_Initialize ( void )
 
   Summary:
     Initializes hardware of the System Clock and Peripheral Clock.
@@ -151,7 +151,7 @@ void CLK_Core1BusMasterClkDisable(void);
   Example:
     <code>
     Example 1: Do not alter the configuration bit settings
-    CLK_Initialize ( );
+    CLOCK_Initialize ( );
 
     </code>
 
@@ -159,7 +159,7 @@ void CLK_Core1BusMasterClkDisable(void);
     None.
 */
 
-void CLK_Initialize ( void );
+void CLOCK_Initialize ( void );
 
 #ifdef __cplusplus
 }

@@ -55,6 +55,7 @@
             </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/pic32cxmt_pl460_rf215/service/queue/srv_queue.h</itemPath>
+              <itemPath>../src/config/pic32cxmt_pl460_rf215/service/queue/srv_queue_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="random" displayName="random" projectFiles="true">
               <itemPath>../src/config/pic32cxmt_pl460_rf215/service/random/srv_random.h</itemPath>
@@ -356,7 +357,6 @@
           </logicalFolder>
           <itemPath>../src/config/pic32cxmt_pl460_rf215/libc_syscalls.c</itemPath>
           <itemPath>../src/config/pic32cxmt_pl460_rf215/tasks.c</itemPath>
-          <itemPath>../src/config/pic32cxmt_pl460_rf215/startup_xc32.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/config/pic32cxmt_pl460_rf215/pin_configurations.csv</itemPath>
@@ -804,24 +804,6 @@
         </C32Global>
       </item>
       <item path="../src/config/pic32cxmt_pl460_rf215/service/usi/srv_usi.c"
-            ex="true"
-            overriding="false">
-        <C32>
-        </C32>
-        <C32-AR>
-        </C32-AR>
-        <C32-AS>
-        </C32-AS>
-        <C32-CO>
-        </C32-CO>
-        <C32-LD>
-        </C32-LD>
-        <C32CPP>
-        </C32CPP>
-        <C32Global>
-        </C32Global>
-      </item>
-      <item path="../src/config/pic32cxmt_pl460_rf215/startup_xc32.c"
             ex="true"
             overriding="false">
         <C32>

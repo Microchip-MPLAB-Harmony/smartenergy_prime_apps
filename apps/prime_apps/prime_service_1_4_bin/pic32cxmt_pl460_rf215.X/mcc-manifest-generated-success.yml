@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_sn_14_bin_pic32cxmt_pl460_rf215
-creation_date: 2025-07-17T12:06:32.300+02:00[Europe/Paris]
+creation_date: 2025-12-11T10:27:21.353+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -12,14 +12,14 @@ mcc_version: 5.5.2
 mcc_core_version: 5.7.1
 content_manager_version: 5.0.1
 is_mcc_offline: false
-is_using_prerelease_versions: false
+is_using_prerelease_versions: true
 mcc_content_registries: https://registry.npmjs.org/
 device_library: {library_class: com.microchip.mcc.harmony.Harmony3Library, name: Harmony
     V3, version: 1.5.4}
 packs: {name: PIC32CX-MT_DFP, version: 1.4.152}
 modules:
-- {name: csp, type: HARMONY, version: v3.22.2}
-- {name: core, type: HARMONY, version: v3.15.1}
+- {name: csp, type: HARMONY, version: v3.23.0}
+- {name: core, type: HARMONY, version: v3.15.5}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
-- {name: smartenergy_prime, type: HARMONY, version: MH3-114158-update-prime-feedback-field}
-- {name: smartenergy, type: HARMONY, version: MH3-114158-update-prime-feedback-field}
+- {name: smartenergy_prime, type: HARMONY, version: dev}
+- {name: smartenergy, type: HARMONY, version: dev}
