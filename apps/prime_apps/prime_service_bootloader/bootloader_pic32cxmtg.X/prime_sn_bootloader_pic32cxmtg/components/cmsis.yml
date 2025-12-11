@@ -13,10 +13,6 @@ dependency:
   type: package
   version: 5.9.0
 - dependencyPackage: ''
-  name: core
-  type: package
-  version: v3.15.5
-- dependencyPackage: ''
   name: csp
   type: package
   version: v3.23.0
