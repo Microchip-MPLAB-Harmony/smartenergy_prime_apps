@@ -256,8 +256,49 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="prime_sn_14_bin_pic32cxmt_pl460_rf215"
+                     displayName="prime_sn_14_bin_pic32cxmt_pl460_rf215"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <logicalFolder name="PRIME STACK" displayName="PRIME STACK" projectFiles="true">
+            <logicalFolder name="components" displayName="components" projectFiles="true">
+              <logicalFolder name="PRIME SERVICES"
+                             displayName="PRIME SERVICES"
+                             projectFiles="true">
+                <logicalFolder name="components" displayName="components" projectFiles="true">
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvSecurity.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeStorage.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvQueue.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srv_pcrc.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeResetHandler.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeUserPib.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvLogReport.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeTimeManagement.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvRandom.yml</itemPath>
+                </logicalFolder>
+                <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/PRIME SERVICES.yml</itemPath>
+              </logicalFolder>
+              <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/prime_config.yml</itemPath>
+            </logicalFolder>
+            <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/PRIME STACK.yml</itemPath>
+          </logicalFolder>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/core.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/cmsis.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/sefc1.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/dfp.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/srv_usi.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/sefc0.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/srv_usi_0.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/primeFirmwareUpgrade.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/HarmonyCore.yml</itemPath>
+        </logicalFolder>
+        <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
