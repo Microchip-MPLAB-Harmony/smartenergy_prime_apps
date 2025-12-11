@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>prime_sn_bootloader_pic32cxmtsh</name>
+            <name>prime_sn_bootloader</name>
             <creation-uuid>be0c5673-6e5b-4d95-aa70-a695ba71856e</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
