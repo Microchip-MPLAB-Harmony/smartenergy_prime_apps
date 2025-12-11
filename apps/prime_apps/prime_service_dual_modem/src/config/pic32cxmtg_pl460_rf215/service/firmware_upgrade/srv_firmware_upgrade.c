@@ -57,6 +57,7 @@ Microchip or any third party.
 
 #include "service/pcrc/srv_pcrc.h"
 #include "service/storage/srv_storage.h"
+
 #include "crypto/common_crypto/crypto_common.h"
 #include "crypto/common_crypto/crypto_hash.h"
 #include "crypto/common_crypto/crypto_digsign.h"
@@ -73,6 +74,22 @@ Microchip or any third party.
 
 #define MEMORY_WRITE_SIZE       (uint32_t)(512)
 #define MAX_BUFFER_READ_SIZE    (uint32_t)(512)
+
+
+#define PRIME_APP_FLASH_LOCATION     0x1010000
+#define PRIME_APP_SIZE               (uint32_t)(0x40000)
+#define PRIME_MAC13_FLASH_LOCATION   0x10d0000
+#define PRIME_MAC13_SIZE             (uint32_t)(0x20000)
+#define PRIME_MAC14_FLASH_LOCATION   0x1090000
+#define PRIME_MAC14_SIZE             (uint32_t)(0x22000)
+#define PRIME_PHY_FLASH_LOCATION     0x10b8000
+#define PRIME_PHY_SIZE               (uint32_t)(0x18000)
+#define PRIME_METADATA_SIZE          (uint32_t)(16)
+
+#define STR_PRIME_MAC13_APP          "MAC13BIN"
+#define STR_PRIME_MAC14_APP          "MAC14BIN"
+#define STR_PRIME_PHY_APP            "PHYBIN"
+#define STR_PRIME_SN_APP             "APPBIN"
 
 /* Define application number */
 typedef enum
@@ -95,21 +112,6 @@ typedef enum
 
 /* Size for a signature ECDSA 256 in bytes */
 #define SIGNATURE_SIZE_ECDSA_256      64
-
-#define PRIME_APP_FLASH_LOCATION     0x1010000
-#define PRIME_APP_SIZE               (uint32_t)(0x40000)
-#define PRIME_MAC13_FLASH_LOCATION   0x10d0000
-#define PRIME_MAC13_SIZE             (uint32_t)(0x20000)
-#define PRIME_MAC14_FLASH_LOCATION   0x1090000
-#define PRIME_MAC14_SIZE             (uint32_t)(0x22000)
-#define PRIME_PHY_FLASH_LOCATION     0x10b8000
-#define PRIME_PHY_SIZE               (uint32_t)(0x18000)
-#define PRIME_METADATA_SIZE          (uint32_t)(16)
-
-#define STR_PRIME_MAC13_APP          "MAC13BIN"
-#define STR_PRIME_MAC14_APP          "MAC14BIN"
-#define STR_PRIME_PHY_APP            "PHYBIN"
-#define STR_PRIME_SN_APP             "APPBIN"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -172,6 +174,7 @@ static uint32_t dsaSize;
 
 static uint32_t dsaRemainingSize;
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: File scope functions
@@ -180,9 +183,8 @@ static uint32_t dsaRemainingSize;
 static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
 {
     uint32_t iniMetadata, iniSignature;
-    uint32_t offsetSegment, offsetMetadata;
+    uint32_t offsetSegment, offsetMetadata, offsetSignature;
     uint32_t sizeToCopy;
-    uint32_t offsetSignature;
 
     /* The first segment contains the Vendor and Model */
     if (address == 0U)
@@ -233,7 +235,7 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
 
         (void)memcpy(&imageMetadata[offsetMetadata], &pBuffInput[offsetSegment], sizeToCopy);
     }
-       
+        
     /* Signature */
     
     /*  Check if the segment to write is in signature zone */
@@ -272,47 +274,47 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
 
 static bool lSRV_FU_CheckImageData(void)
 {
-    appToFu = PRIME_INVALID_APP;
+	appToFu = PRIME_INVALID_APP;
 
     /* Check image identifier */
-    if (strncmp((char *)imageMetadata, STR_PRIME_MAC13_APP, sizeof(STR_PRIME_MAC13_APP)) != 0)
+	if (strncmp((char *)imageMetadata, STR_PRIME_MAC13_APP, sizeof(STR_PRIME_MAC13_APP)) != 0)
     {
-        if (strncmp((char *)imageMetadata, STR_PRIME_MAC14_APP, sizeof(STR_PRIME_MAC14_APP)) != 0)
+	    if (strncmp((char *)imageMetadata, STR_PRIME_MAC14_APP, sizeof(STR_PRIME_MAC14_APP)) != 0)
         {
-            if (strncmp((char *)imageMetadata, STR_PRIME_PHY_APP, sizeof(STR_PRIME_PHY_APP)) != 0)
+			if (strncmp((char *)imageMetadata, STR_PRIME_PHY_APP, sizeof(STR_PRIME_PHY_APP)) != 0)
             {
-                if (strncmp((char *)imageMetadata, STR_PRIME_SN_APP, sizeof(STR_PRIME_SN_APP)) != 0)
+				if (strncmp((char *)imageMetadata, STR_PRIME_SN_APP, sizeof(STR_PRIME_SN_APP)) != 0)
                 {
-                    return false;
-                }
+				    return false;
+				}
                 else
                 {
-                    appToFu = PRIME_MAIN_APP;
-                }
-            }
+					appToFu = PRIME_MAIN_APP;
+				}
+			}
             else
             {
-                appToFu = PRIME_PHY_APP;
-            }
-        }
+				appToFu = PRIME_PHY_APP;
+			}
+		}
         else
         {
-            appToFu = PRIME_MAC14_APP;
-        }
-    }
+			appToFu = PRIME_MAC14_APP;
+		}
+	}
     else
     {
-        appToFu = PRIME_MAC13_APP;
-    }
+		appToFu = PRIME_MAC13_APP;
+	}
 
     /* Check vendor and model if app is a binary */
     if ((appToFu == PRIME_MAC13_APP) || (appToFu == PRIME_MAC14_APP))
     {
-        const PRIME_API *gPrimeApiRef;
+    	const PRIME_API *gPrimeApiRef;
 
         SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
 
-        if(SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo), (void *)&boardInfo) == false)
+	    if(SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo), (void *)&boardInfo) == false)
         {
             return false;
         }
@@ -419,7 +421,7 @@ static void lSRV_FU_EraseFuRegion(void)
     DRV_MEMORY_AsyncErase(memInfo.memoryHandle, &memInfo.eraseHandle,
         memInfo.eraseBlockStart, memInfo.numFuRegionEraseBlocks);
 
-    memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
+	memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
 }
 
 static void lSRV_FU_ConvertDerFormatSignature(void)
@@ -481,7 +483,7 @@ static bool lSRV_FU_VerifySignature(void)
         uint32_t blockStart, nBlock;
         uint32_t bytesPagesRead;
 
-        dsaState = SRV_FU_DSA_WAIT_READ_BLOCK;
+    	dsaState = SRV_FU_DSA_WAIT_READ_BLOCK;
 
         dsaReadAddress = memInfo.startAdressFuRegion;
         dsaRemainingSize = fuData.imageSize - fuData.signLength;
@@ -525,6 +527,7 @@ static bool lSRV_FU_VerifySignature(void)
     }
 }
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Firmware Upgrade Service Interface Implementation
@@ -533,16 +536,16 @@ static bool lSRV_FU_VerifySignature(void)
 
 void SRV_FU_Initialize(void)
 {
-    SRV_FU_CrcCallback = NULL;
-    SRV_FU_ImageVerifyCallback = NULL;
-    SRV_FU_ResultCallback = NULL;
-    SRV_FU_SwapCallback = NULL;
+	SRV_FU_CrcCallback = NULL;
+	SRV_FU_ImageVerifyCallback = NULL;
+	SRV_FU_ResultCallback = NULL;
+	SRV_FU_SwapCallback = NULL;
     SRV_FU_MemTransferCallback = NULL;
 
     memInfo.startAdressFuRegion = 0;
     memInfo.sizeFuRegion = PRIME_FU_MEM_SIZE;
 
-    memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
+	memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
 
     dsaState = SRV_FU_DSA_NO_PUBLIC_KEY; 
 }
@@ -576,12 +579,12 @@ void SRV_FU_Tasks(void)
                 break;
             }
 
-            memInfo.eraseBlockStart = (memInfo.startAdressFuRegion / nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_ERASE_ENTRY].blockSize);
+			memInfo.eraseBlockStart = (memInfo.startAdressFuRegion / nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_ERASE_ENTRY].blockSize);
 
             memInfo.numFuRegionEraseBlocks = (memInfo.sizeFuRegion / nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_ERASE_ENTRY].blockSize);
 
-            memInfo.writePageSize = nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_WRITE_ENTRY].blockSize;
-            memInfo.readPageSize = nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_READ_ENTRY].blockSize;
+			memInfo.writePageSize = nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_WRITE_ENTRY].blockSize;
+			memInfo.readPageSize = nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_READ_ENTRY].blockSize;
 
             memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             break;
@@ -603,22 +606,22 @@ void SRV_FU_Tasks(void)
             break;
         }
 
-        case SRV_FU_MEM_STATE_READ_MEMORY:
-        {
-            if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.readHandle)
-            {
+		case SRV_FU_MEM_STATE_READ_MEMORY:
+		{
+			if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.readHandle)
+			{
                 memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
 
                 if (SRV_FU_MemTransferCallback != NULL)
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_READ, SRV_FU_MEM_TRANSFER_ERROR);
                 }
-            }
-            break;
-        }
+			}
+			break;
+		}
 
-        case SRV_FU_MEM_STATE_WRITE_ONE_BLOCK:
-        {
+		case SRV_FU_MEM_STATE_WRITE_ONE_BLOCK:
+		{
             uint32_t block;
             uint32_t offset;
             uint32_t bytesToCopy;
@@ -653,15 +656,15 @@ void SRV_FU_Tasks(void)
 
             DRV_MEMORY_AsyncWrite(memInfo.memoryHandle, &memInfo.writeHandle, pMemWrite, block, 1);
 
-            if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.writeHandle)
-            {
+			if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.writeHandle)
+			{
                 memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
 
                 if (SRV_FU_MemTransferCallback != NULL)
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_ERROR);
                 }
-            }
+			}
             else
             {
                 memInfo.writeAddress += bytesToCopy;
@@ -672,7 +675,7 @@ void SRV_FU_Tasks(void)
             }
 
             break;
-        }
+		}
 
         case SRV_FU_CALCULATE_CRC_BLOCK:
         {
@@ -836,6 +839,7 @@ void SRV_FU_Tasks(void)
 
             break;
         }
+
         case SRV_FU_MEM_STATE_XFER_WAIT:
         case SRV_FU_MEM_STATE_SUCCESS:
         case SRV_FU_MEM_STATE_WRITE_WAIT_END:
@@ -846,22 +850,22 @@ void SRV_FU_Tasks(void)
          default:
             break;
 /* MISRA C-2012 deviation block end */
-    }
+	}
 }
 
 void SRV_FU_DataRead(uint32_t address, uint8_t *buffer, uint16_t size)
 {
-    uint32_t readAddress;
-    uint32_t blockStart, nBlock;
+	uint32_t readAddress;
+	uint32_t blockStart, nBlock;
 
-    readAddress = memInfo.startAdressFuRegion + address;
+	readAddress = memInfo.startAdressFuRegion + address;
 
-    blockStart = readAddress / memInfo.readPageSize;
-    nBlock = size / memInfo.readPageSize;
+	blockStart = readAddress / memInfo.readPageSize;
+	nBlock = size / memInfo.readPageSize;
 
-    DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, (void *) buffer, blockStart, nBlock);
+	DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, (void *) buffer, blockStart, nBlock);
 
-    memInfo.state = SRV_FU_MEM_STATE_READ_MEMORY;
+	memInfo.state = SRV_FU_MEM_STATE_READ_MEMORY;
 }
 
 void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
@@ -899,87 +903,87 @@ void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
 
 void SRV_FU_CfgRead(void *dst, uint16_t size)
 {
-    uint32_t bufferValue[4];
-    uint32_t *pointerBuffer;
+	uint32_t bufferValue[4];
+	uint32_t *pointerBuffer;
 
-    pointerBuffer = (uint32_t *)bufferValue;
-    *pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_0);
-    *pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_1);
-    *pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_2);
-    *pointerBuffer = SUPC_GPBRRead(GPBR_REGS_3);
+	pointerBuffer = (uint32_t *)bufferValue;
+	*pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_0);
+	*pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_1);
+	*pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_2);
+	*pointerBuffer = SUPC_GPBRRead(GPBR_REGS_3);
+	(void)memcpy(dst, (void *)bufferValue, size);
 
-    (void)memcpy(dst, (void *)bufferValue, size);
 }
 
 void SRV_FU_CfgWrite(void *src, uint16_t size)
 {
-    uint32_t bufferValue[4];
-    uint32_t *pointerBuffer;
+	uint32_t bufferValue[4];
+	uint32_t *pointerBuffer;
 
-    (void)memcpy(bufferValue, (uint32_t *)src, size);
+	(void)memcpy(bufferValue, (uint32_t *)src, size);
 
-    pointerBuffer = (uint32_t *)bufferValue;
-    SUPC_GPBRWrite(GPBR_REGS_0, *pointerBuffer++);
-    SUPC_GPBRWrite(GPBR_REGS_1, *pointerBuffer++);
-    SUPC_GPBRWrite(GPBR_REGS_2, *pointerBuffer++);
-    SUPC_GPBRWrite(GPBR_REGS_3, *pointerBuffer);
+	pointerBuffer = (uint32_t *)bufferValue;
+	SUPC_GPBRWrite(GPBR_REGS_0, *pointerBuffer++);
+	SUPC_GPBRWrite(GPBR_REGS_1, *pointerBuffer++);
+	SUPC_GPBRWrite(GPBR_REGS_2, *pointerBuffer++);
+	SUPC_GPBRWrite(GPBR_REGS_3, *pointerBuffer);
 }
 
 void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 {
-    fuData.imageSize = fuInfo->imageSize;
-    fuData.pageSize = fuInfo->pageSize;
-    fuData.signAlgorithm = fuInfo->signAlgorithm;
-    fuData.signLength = fuInfo->signLength;
+	fuData.imageSize = fuInfo->imageSize;
+	fuData.pageSize = fuInfo->pageSize;
+	fuData.signAlgorithm = fuInfo->signAlgorithm;
+	fuData.signLength = fuInfo->signLength;
 
-    /* Erase internal flash pages */
-    lSRV_FU_EraseFuRegion();
+	/* Erase internal flash pages */
+	lSRV_FU_EraseFuRegion();
 
-    /* Set CRC status */
-    crcState = SRV_FU_CRC_IDLE;
-    return;
+	/* Set CRC status */
+	crcState = SRV_FU_CRC_IDLE;
+	return;
 }
 
 void SRV_FU_End(SRV_FU_RESULT fuResult)
 {
-    /* Check callback is initialized */
-    if (SRV_FU_ResultCallback == NULL)
+	/* Check callback is initialized */
+	if (SRV_FU_ResultCallback == NULL)
     {
-        return;
-    }
+		return;
+	}
 
-    switch (fuResult)
+	switch (fuResult)
     {
-        case SRV_FU_RESULT_SUCCESS:
-        case SRV_FU_RESULT_CRC_ERROR:
-        case SRV_FU_RESULT_FW_REVERT:
-        case SRV_FU_RESULT_FW_CONFIRM:
+	    case SRV_FU_RESULT_SUCCESS:
+    	case SRV_FU_RESULT_CRC_ERROR:
+    	case SRV_FU_RESULT_FW_REVERT:
+    	case SRV_FU_RESULT_FW_CONFIRM:
             SRV_FU_ResultCallback(fuResult);
             break;
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
-        default:
+         default:
             break;
 /* MISRA C-2012 deviation block end */
-    }
+	}
 }
 
 void SRV_FU_CalculateCrc(void)
 {
-    uint32_t blockStart, nBlock;
+	uint32_t blockStart, nBlock;
     uint32_t bytesPagesRead;
 
-    if (crcState != SRV_FU_CRC_IDLE)
+	if (crcState != SRV_FU_CRC_IDLE)
     {
-        return;
-    }
+		return;
+	}
 
-    crcState = SRV_FU_CRC_WAIT_READ_BLOCK;
+	crcState = SRV_FU_CRC_WAIT_READ_BLOCK;
 
-    crcReadAddress = memInfo.startAdressFuRegion;
+	crcReadAddress = memInfo.startAdressFuRegion;
     crcRemainingSize = fuData.imageSize;
 
-    if (crcRemainingSize < MAX_BUFFER_READ_SIZE)
+	if (crcRemainingSize < MAX_BUFFER_READ_SIZE)
     {
         crcSize = crcRemainingSize;
     }
@@ -989,7 +993,7 @@ void SRV_FU_CalculateCrc(void)
     }
 
     blockStart = crcReadAddress / memInfo.readPageSize;
-    nBlock = crcSize / memInfo.readPageSize;
+	nBlock = crcSize / memInfo.readPageSize;
 
     bytesPagesRead = nBlock * memInfo.readPageSize;
     /* Align CRC size with the readPageSize */
@@ -1007,9 +1011,9 @@ void SRV_FU_CalculateCrc(void)
         }
     }
 
-    DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, pBuffInput, blockStart, nBlock);
+	DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, pBuffInput, blockStart, nBlock);
 
-    crcReadAddress += crcSize;
+	crcReadAddress += crcSize;
     crcRemainingSize -= crcSize;
 
     memInfo.state = SRV_FU_CALCULATE_CRC_BLOCK;
@@ -1020,40 +1024,40 @@ void SRV_FU_CalculateCrc(void)
 
 void SRV_FU_RegisterCallbackCrc(SRV_FU_CRC_CB callback)
 {
-    SRV_FU_CrcCallback = callback;
+	SRV_FU_CrcCallback = callback;
 }
 
 void SRV_FU_RegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback)
 {
-    SRV_FU_ImageVerifyCallback = callback;
+	SRV_FU_ImageVerifyCallback = callback;
 }
 
 void SRV_FU_RegisterCallbackFuResult(SRV_FU_RESULT_CB callback)
 {
-    SRV_FU_ResultCallback = callback;
+	SRV_FU_ResultCallback = callback;
 
 }
 
 uint16_t SRV_FU_GetBitmap(uint8_t *bitmap, uint32_t *numRxPages)
 {
-    (void)bitmap;
-    (void)numRxPages;
+	(void)bitmap;
+	(void)numRxPages;
 
-    return 0;
+	return 0;
 }
 
 void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion)
 {
-    /* Check callback is initialized */
-    if (SRV_FU_SwapCallback != NULL)
+	/* Check callback is initialized */
+	if (SRV_FU_SwapCallback != NULL)
     {
-        SRV_FU_SwapCallback(trafficVersion);
-    }
+		SRV_FU_SwapCallback(trafficVersion);
+	}
 }
 
 void SRV_FU_RegisterCallbackSwapVersion(SRV_FU_VERSION_SWAP_CB callback)
 {
-    SRV_FU_SwapCallback = callback;
+	SRV_FU_SwapCallback = callback;
 }
 
 void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
@@ -1063,29 +1067,29 @@ void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
 
 bool SRV_FU_SwapFirmware(void)
 {
-    uint32_t destAddress = 0;
-    uint32_t destSize = 0;
+	uint32_t destAddress;
+    uint32_t destSize;
 
     /* Check if the current stack is 1.3 */
-    SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
+	SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
 
-    if(SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo), (void *)&boardInfo) == false)
+	if(SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo), (void *)&boardInfo) == false)
     {
         return false;
     }
 
-    if (boardInfo.primeVersion == PRIME_VERSION_1_3)
+	if (boardInfo.primeVersion == PRIME_VERSION_1_3)
     {
-        /* Verify if this is a right image */
-        if (lSRV_FU_CheckImageData() == false)
+		/* Verify if this is a right image */
+		if (lSRV_FU_CheckImageData() == false)
         {
-            /* Trigger reset, needed in FU 1.3 */
-            return true;
-        }
-    }
+			/* Trigger reset, needed in FU 1.3 */
+			return true;
+		}
+	}
 
-    /* Check which app must be swapped */
-    switch (appToFu)
+	/* Check which app must be swapped */
+	switch (appToFu)
     {
         case PRIME_MAC13_APP:
             destAddress = PRIME_MAC13_FLASH_LOCATION;
@@ -1109,20 +1113,19 @@ bool SRV_FU_SwapFirmware(void)
             destSize = 0;
         break;
 
-    }
+	}
 
     if(destSize == 0U)
     {
         return false;
     }
-    else
-    {
+    else{
         /* Update boot configuration */
         SRV_STORAGE_BOOT_CONFIG bootConfig;
 
         if(SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_BOOT_INFO, (uint8_t)sizeof(bootConfig), &bootConfig))
         {
-            bootConfig.origAddr = DRV_MEMORY_AddressGet(memInfo.memoryHandle);
+	bootConfig.origAddr = DRV_MEMORY_AddressGet(memInfo.memoryHandle);
             bootConfig.destAddr = destAddress;
             bootConfig.imgSize = destSize;
             bootConfig.cfgKey = 0;
@@ -1141,6 +1144,7 @@ bool SRV_FU_SwapFirmware(void)
     }
 }
 
+
 void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
 {
     ECDSAPublicKey = pubKey;
@@ -1151,25 +1155,25 @@ void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
 
 void SRV_FU_VerifyImage(void)
 {
-    /* Check pointer function */
-    if (SRV_FU_ImageVerifyCallback == NULL)
+	/* Check pointer function */
+	if (SRV_FU_ImageVerifyCallback == NULL)
     {
-        return;
-    }
+		return;
+	}
 
     if (lSRV_FU_CheckImageData() != true)
     {
-        /* Wrong Metadata, vendor or model */
+		/* Wrong Metadata, vendor or model */
         SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_IMAGE_FAIL);
         
         return;
-    }
-
+	}
+    
     if (lSRV_FU_VerifySignature() != true)
     {
-        /* Wrong signature */
+		/* Wrong signature */
         SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_SIGNATURE_FAIL);
-    }
+	}
 }
 
 
