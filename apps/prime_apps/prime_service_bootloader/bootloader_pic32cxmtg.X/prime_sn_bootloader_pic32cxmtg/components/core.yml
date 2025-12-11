@@ -1,0 +1,264 @@
+configVersion: 1.0.0
+componentName: core
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: core
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: core
+          x: '240'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    COVERITY_SUPPRESS_DEVIATION:
+      attributes:
+        id: COVERITY_SUPPRESS_DEVIATION
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    NVIC_-1_0_ENABLE:
+      attributes:
+        id: NVIC_-1_0_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    NVIC_-1_0_HANDLER_LOCK:
+      attributes:
+        id: NVIC_-1_0_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PORT_A_CFGR_Value7:
+      attributes:
+        id: PORT_A_CFGR_Value7
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x0'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_D_CFGR_Value16:
+      attributes:
+        id: PORT_D_CFGR_Value16
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x0'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_D_CFGR_Value3:
+      attributes:
+        id: PORT_D_CFGR_Value3
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x0'
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_D_LATCH:
+      attributes:
+        id: PORT_D_LATCH
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x0'
+          type: Dynamic
+        type: Values
+      type: String
+    SUPC_SMMR_VDD3V3SMPWRM:
+      attributes:
+        id: SUPC_SMMR_VDD3V3SMPWRM
+      children:
+      - children:
+        - attributes:
+            value: '0'
+          type: User
+        type: Values
+      type: KeyValueSet
+    SUPC_SMMR_VDD3V3SMRSTEN:
+      attributes:
+        id: SUPC_SMMR_VDD3V3SMRSTEN
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    SUPC_SMMR_VDD3V3SMSMPL:
+      attributes:
+        id: SUPC_SMMR_VDD3V3SMSMPL
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: KeyValueSet
+    SUPC_SMMR_VDD3V3SMTH:
+      attributes:
+        id: SUPC_SMMR_VDD3V3SMTH
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '15'
+          type: Dynamic
+        - attributes:
+            value: '9'
+          type: User
+        type: Values
+      type: KeyValueSet
+    SysTick_INTERRUPT_ENABLE:
+      attributes:
+        id: SysTick_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SysTick_INTERRUPT_ENABLE_UPDATE:
+      attributes:
+        id: SysTick_INTERRUPT_ENABLE_UPDATE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SysTick_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: SysTick_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    USE_SYSTICK_INTERRUPT:
+      attributes:
+        id: USE_SYSTICK_INTERRUPT
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    WDT0_ENABLE:
+      attributes:
+        id: WDT0_ENABLE
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    WDT0_PERIOD:
+      attributes:
+        id: WDT0_PERIOD
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: '4095'
+          type: User
+        type: Values
+      type: Integer
+    WDT0_PERIOD_MS:
+      attributes:
+        id: WDT0_PERIOD_MS
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '16380'
+          type: Dynamic
+        type: Values
+      type: Integer
+    systickEnable:
+      attributes:
+        id: systickEnable
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+  userData:
+    children:
+    - attributes:
+        canvasHeight: '193'
+        canvasWidth: '744'
+      type: GraphSettings
+    - children:
+      - attributes:
+          id: profile0
+          name: Main
+        type: Profile
+      type: PowerProfiles
+    type: UserData

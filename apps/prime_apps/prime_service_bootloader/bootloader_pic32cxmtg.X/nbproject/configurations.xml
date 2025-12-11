@@ -189,8 +189,24 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
+      <logicalFolder name="prime_sn_bootloader_pic32cxmtg"
+                     displayName="prime_sn_bootloader_pic32cxmtg"
+                     projectFiles="true">
+        <logicalFolder name="components" displayName="components" projectFiles="true">
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/sefc0.yml</itemPath>
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/core.yml</itemPath>
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/cmsis.yml</itemPath>
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/HarmonyCore.yml</itemPath>
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/dfp.yml</itemPath>
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/sefc1.yml</itemPath>
+        </logicalFolder>
+        <itemPath>prime_sn_bootloader_pic32cxmtg/mcc-config.mc4</itemPath>
+      </logicalFolder>
       <itemPath>Makefile</itemPath>
-      <itemPath>prime_sn_bootloader_pic32cxmtg.mc3</itemPath>
+    </logicalFolder>
+    <logicalFolder name="LibraryFiles"
+                   displayName="LibraryFiles"
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
