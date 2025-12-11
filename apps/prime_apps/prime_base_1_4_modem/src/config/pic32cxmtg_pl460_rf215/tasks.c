@@ -97,7 +97,6 @@ DRV_MEMORY_Tasks(sysObj.drvMemory0);
     /* Maintain PRIME */
     PRIME_Tasks(sysObj.primeStack);
     
-    
 
     SRV_USI_Tasks(sysObj.srvUSI0);
 

@@ -124,8 +124,6 @@ Microchip or any third party.
 #define PIB_MAC_UPDATED_RM_TIMEOUT              0x004B  /* v1.4 */
 #define PIB_MAC_ALV_HOP_REPETITIONS             0x004C  /* v1.4 */
 #define PIB_MAC_PHY_CHN_CHANGE                  0x004D  /* v1.4 */
-#define PIB_MAC_PHY_PLC_ATT                     0x004E  /* v1.4 */
-#define PIB_MAC_PHY_PLC_ATT_CHANGE              0x004F  /* v1.4 */
 #define PIB_MAC_HOPPING_NUMBER_RF_CHANNELS      0x0090  /* v1.4 */
 #define PIB_MAC_HOPPING_SEQUENCE_LENGTH         0x0091  /* v1.4 */
 #define PIB_MAC_HOPPING_SEQUENCE_POSITION       0x0092  /* v1.4 */
