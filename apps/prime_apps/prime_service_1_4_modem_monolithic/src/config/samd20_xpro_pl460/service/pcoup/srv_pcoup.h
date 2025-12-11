@@ -78,7 +78,7 @@ Microchip or any third party.
 #define SRV_PCOUP_CHANNEL_IMP_DET                CHN1
 
 /* List of channels that support impedance detection */
-#define SRV_PCOUP_CHANNEL_LIST_IMP_DET           31997
+#define SRV_PCOUP_CHANNEL_LIST_IMP_DET           32509
 
 /* PLC PRIME PHY Channel List */
 #define SRV_PCOUP_CHANNEL_LIST                   1

@@ -65,18 +65,18 @@
 // *****************************************************************************
 // *****************************************************************************
 
-/*** Macros for EXT1_IRQ pin ***/
-#define EXT1_IRQ_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 4U)) & 0x01U)
-#define EXT1_IRQ_PIN                  PORT_PIN_PB04
+/*** Macros for PL460_EXTINT pin ***/
+#define PL460_EXTINT_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 4U)) & 0x01U)
+#define PL460_EXTINT_PIN                  PORT_PIN_PB04
 
-/*** Macros for EXT1_GPIO_SS pin ***/
-#define EXT1_GPIO_SS_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 5U))
-#define EXT1_GPIO_SS_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 5U))
-#define EXT1_GPIO_SS_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 5U))
-#define EXT1_GPIO_SS_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 5U))
-#define EXT1_GPIO_SS_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 5U))
-#define EXT1_GPIO_SS_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 5U)) & 0x01U)
-#define EXT1_GPIO_SS_PIN                  PORT_PIN_PB05
+/*** Macros for PL460_NTHW0 pin ***/
+#define PL460_NTHW0_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 5U))
+#define PL460_NTHW0_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 5U)) & 0x01U)
+#define PL460_NTHW0_PIN                  PORT_PIN_PB05
 
 /*** Macros for PL460_MISO pin ***/
 #define PL460_MISO_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 4U)) & 0x01U)
@@ -99,13 +99,23 @@
 #define PL460_SCK_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 7U)) & 0x01U)
 #define PL460_SCK_PIN                  PORT_PIN_PA07
 
-/*** Macros for EXT1_I2C_SDA pin ***/
-#define EXT1_I2C_SDA_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 8U)) & 0x01U)
-#define EXT1_I2C_SDA_PIN                  PORT_PIN_PA08
+/*** Macros for PL460_STBY pin ***/
+#define PL460_STBY_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 8U))
+#define PL460_STBY_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 8U))
+#define PL460_STBY_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 8U))
+#define PL460_STBY_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 8U))
+#define PL460_STBY_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 8U))
+#define PL460_STBY_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 8U)) & 0x01U)
+#define PL460_STBY_PIN                  PORT_PIN_PA08
 
-/*** Macros for EXT1_I2C_SCL pin ***/
-#define EXT1_I2C_SCL_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 9U)) & 0x01U)
-#define EXT1_I2C_SCL_PIN                  PORT_PIN_PA09
+/*** Macros for PL460_TXEN pin ***/
+#define PL460_TXEN_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 9U))
+#define PL460_TXEN_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 9U))
+#define PL460_TXEN_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 9U))
+#define PL460_TXEN_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 9U))
+#define PL460_TXEN_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 9U))
+#define PL460_TXEN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 9U)) & 0x01U)
+#define PL460_TXEN_PIN                  PORT_PIN_PA09
 
 /*** Macros for LED0 pin ***/
 #define LED0_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 14U))
@@ -124,9 +134,9 @@
 #define VIRTUAL_COM_RX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 25U)) & 0x01U)
 #define VIRTUAL_COM_RX_PIN                  PORT_PIN_PA25
 
-/*** Macros for EXT1_ADC_PLUS pin ***/
-#define EXT1_ADC_PLUS_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 0U)) & 0x01U)
-#define EXT1_ADC_PLUS_PIN                  PORT_PIN_PB00
+/*** Macros for PL460_SUPPLY_MON pin ***/
+#define PL460_SUPPLY_MON_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 0U)) & 0x01U)
+#define PL460_SUPPLY_MON_PIN                  PORT_PIN_PB00
 
 /*** Macros for PL460_NRST pin ***/
 #define PL460_NRST_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 2U))
@@ -137,9 +147,14 @@
 #define PL460_NRST_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 2U)) & 0x01U)
 #define PL460_NRST_PIN                  PORT_PIN_PB02
 
-/*** Macros for EXT1_PWM_MINUS pin ***/
-#define EXT1_PWM_MINUS_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 3U)) & 0x01U)
-#define EXT1_PWM_MINUS_PIN                  PORT_PIN_PB03
+/*** Macros for PL460_ENABLE pin ***/
+#define PL460_ENABLE_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_Toggle()            (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_OutputEnable()      (PORT_REGS->GROUP[1].PORT_DIRSET = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 3U))
+#define PL460_ENABLE_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 3U)) & 0x01U)
+#define PL460_ENABLE_PIN                  PORT_PIN_PB03
 
 // *****************************************************************************
 /* PORT Group
