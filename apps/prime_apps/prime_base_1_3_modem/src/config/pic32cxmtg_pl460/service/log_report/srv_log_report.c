@@ -67,14 +67,8 @@ static char message[SYS_CONSOLE_PRINT_BUFFER_SIZE];
 static va_list srvLogReportArgs;
 
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Log Report Service Common Interface Implementation
-// *****************************************************************************
-// *****************************************************************************
-
 void SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_LEVEL logLevel,
-                                      uint32_t code,
+                                      SRV_LOG_REPORT_CODE code,
                                       const char *info, ...)
 {
     /* Format the information */
@@ -84,7 +78,7 @@ void SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_LEVEL logLevel,
 
     SYS_DEBUG_MESSAGE((SYS_ERROR_LEVEL)logLevel, message);
 
-    (void)code;
+
 }
 
 void SRV_LOG_REPORT_Message(SRV_LOG_REPORT_LEVEL logLevel,

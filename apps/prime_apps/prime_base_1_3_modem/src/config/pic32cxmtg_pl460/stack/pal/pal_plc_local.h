@@ -78,6 +78,8 @@ typedef enum {
     PAL_PLC_STATUS_READY = SYS_STATUS_READY,
     PAL_PLC_STATUS_ERROR = SYS_STATUS_ERROR,
     PAL_PLC_STATUS_INVALID_OBJECT = SYS_STATUS_ERROR_EXTENDED - 1,
+    PAL_PLC_STATUS_DETECT_IMPEDANCE = SYS_STATUS_ERROR_EXTENDED - 2,
+    PAL_PLC_STATUS_SET_DEFAULT = SYS_STATUS_ERROR_EXTENDED - 3,
 } PAL_PLC_STATUS;
 
 /* PAL PLC PHY receiver data structure
@@ -158,7 +160,13 @@ typedef struct
 
     SYS_TIME_HANDLE syncHandle;
 
+    uint32_t hiTimerRef;
+
+    uint32_t previousTimerRef;
+
     DRV_PLC_PHY_PIB_OBJ plcPIB;
+
+    DRV_PLC_PHY_TX_RESULT detectImpedanceResult;
 
     DRV_PLC_PHY_TRANSMISSION_OBJ phyTxObj;
 
@@ -166,13 +174,9 @@ typedef struct
 
     DRV_PLC_PHY_CHANNEL channel;
 
-    DRV_PLC_PHY_CHANNEL channelImpDetect;
-
     SYS_STATUS drvPhyStatus;
 
     uint16_t channelList;
-
-    uint16_t channelListImpDetect;
 
     PAL_PLC_STATUS status;
 
@@ -205,12 +209,6 @@ typedef struct
     bool syncUpdate;
 
     bool networkDetected;
-
-    bool impedanceDetected;
-
-    bool impedanceDetectOngoing;
-    
-    bool buffer1InUse;
 
     PAL_USI_SNIFFER_CB snifferCallback;
 

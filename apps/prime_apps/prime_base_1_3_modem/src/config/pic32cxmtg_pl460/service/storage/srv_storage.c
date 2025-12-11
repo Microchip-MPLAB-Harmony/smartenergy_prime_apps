@@ -50,7 +50,6 @@ Microchip or any third party.
 #include <string.h>
 #include "srv_storage.h"
 #include "device.h"
-#include "definitions.h"
 #include "peripheral/sefc/plib_sefc0.h"
 
 // *****************************************************************************
@@ -108,7 +107,6 @@ bool SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
 {
     uint16_t totalSize;
     uint8_t offset;
-    bool interruptStatus;
 
     if (infoType >= SRV_STORAGE_TYPE_END_LIST)
     {
@@ -126,15 +124,12 @@ bool SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
         return false;
     }
 
-    interruptStatus = SYS_INT_Disable();
     /* Read data from User Signature */
     if (SEFC0_UserSignatureRead((void*) srvStorageData, ((uint32_t) totalSize + 3U) >> 2, BLOCK_0, PAGE_0) == false)
     {
         /* Error reading User Signature */
         return false;
     }
-
-    SYS_INT_Restore(interruptStatus);
 
     /* Copy data to pointer given as parameter */
     (void) memcpy(pData, (void*) &srvStorageData[offset], size);
@@ -146,7 +141,6 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
 {
     uint16_t totalSize;
     uint8_t offset;
-    bool interruptStatus;
 
     if (infoType >= SRV_STORAGE_TYPE_END_LIST)
     {
@@ -164,15 +158,12 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
         return false;
     }
 
-    interruptStatus = SYS_INT_Disable();
     /* Read data from User Signature */
     if (SEFC0_UserSignatureRead((void*) srvStorageData, SRV_STORAGE_TOTAL_SIZE >> 2, BLOCK_0, PAGE_0) == false)
     {
         /* Error reading User Signature */
         return false;
     }
-
-    SYS_INT_Restore(interruptStatus);
 
     /* Copy new data */
     (void) memcpy((void*) &srvStorageData[offset], pData, size);

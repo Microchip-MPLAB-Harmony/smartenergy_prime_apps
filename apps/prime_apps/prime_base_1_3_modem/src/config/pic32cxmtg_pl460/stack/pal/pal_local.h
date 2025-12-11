@@ -57,16 +57,8 @@ Microchip or any third party.
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
-	
 #define PRIME_PAL_USI_INSTANCE        SRV_USI_INDEX_0
-
 #define PAL_SNIFFER_DATA_MAX_SIZE     (512 + 32) /* Sniffer header is 32 bytes */
-
-/* PRIME PAL / PHY Layer Errors (reserved 300 - 399) */
-#define PHY_LAYER_PLC_NOT_AVAILABLE         300UL
-#define PHY_LAYER_RF_NOT_AVAILABLE          301UL
-#define PAL_PLC_TIMER_SYNC_ERROR            302UL
-
 /* PHY Abstraction Layer PAL USI Sniffer Callback
 
   Summary:
