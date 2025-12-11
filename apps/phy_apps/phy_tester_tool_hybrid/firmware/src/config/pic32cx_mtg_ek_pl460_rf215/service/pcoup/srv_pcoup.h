@@ -75,7 +75,10 @@ Microchip or any third party.
 #define SRV_PCOUP_DEFAULT_CHANNEL                CHN1
 
 /* PLC PRIME PHY Channel for impedance detection */
-#define SRV_PCOUP_CHANNEL_IMP_DET                CHN1
+#define SRV_PCOUP_CHANNEL_IMP_DET                CHN3
+
+/* List of channels that support impedance detection */
+#define SRV_PCOUP_CHANNEL_LIST_IMP_DET           32509
 
 /* PLC PRIME PHY Channel List */
 #define SRV_PCOUP_CHANNEL_LIST                   32767
@@ -83,6 +86,10 @@ Microchip or any third party.
 /* Equalization number of coefficients (number of carriers) */
 #define SRV_PCOUP_EQU_NUM_COEF_CHN               97U
 #define SRV_PCOUP_EQU_NUM_COEF_2_CHN             (SRV_PCOUP_EQU_NUM_COEF_CHN << 1)
+
+/* RMS_CALC Carrier Mask size in bytes */
+#define SRV_PCOUP_CARRIER_MASK_SIZE_CHN          13U
+#define SRV_PCOUP_CARRIER_MASK_SIZE_2_CHN        25U
 
 /* Equalization coefficients tables */
 #define SRV_PCOUP_PRED_CHN1_HIGH_TBL             {0x756E, 0x7396, 0x730A, 0x72EB, 0x72B2, 0x7433, 0x755E, 0x75D7, 0x769E, 0x76A4, 0x77C3, 0x7851, 0x7864, 0x78A0, \
@@ -123,6 +130,66 @@ Microchip or any third party.
                                                  0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
                                                  0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF}
 
+/* RMS_CALC Carrier Mask tables */
+#define SRV_PCOUP_CHN1_CARRIER_MASK_HIGH_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+#define SRV_PCOUP_CHN1_CARRIER_MASK_VLOW_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN2_CARRIER_MASK_HIGH_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x80}
+#define SRV_PCOUP_CHN2_CARRIER_MASK_VLOW_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN3_CARRIER_MASK_HIGH_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+#define SRV_PCOUP_CHN3_CARRIER_MASK_VLOW_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN4_CARRIER_MASK_HIGH_TBL     {0xFF, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+#define SRV_PCOUP_CHN4_CARRIER_MASK_VLOW_TBL     {0xFF, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+
+#define SRV_PCOUP_CHN5_CARRIER_MASK_HIGH_TBL     {0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+#define SRV_PCOUP_CHN5_CARRIER_MASK_VLOW_TBL     {0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+
+#define SRV_PCOUP_CHN6_CARRIER_MASK_HIGH_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0x80}
+#define SRV_PCOUP_CHN6_CARRIER_MASK_VLOW_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN7_CARRIER_MASK_HIGH_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xFF, 0xFF, 0x80}
+#define SRV_PCOUP_CHN7_CARRIER_MASK_VLOW_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xFF, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN8_CARRIER_MASK_HIGH_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0xFF, 0xFF, 0x80}
+#define SRV_PCOUP_CHN8_CARRIER_MASK_VLOW_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0xFF, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN12_CARRIER_MASK_HIGH_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xFF, 0xC0}
+#define SRV_PCOUP_CHN12_CARRIER_MASK_VLOW_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xFF, 0xC0}
+
+#define SRV_PCOUP_CHN23_CARRIER_MASK_HIGH_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0xF0, 0x00, 0x00, 0x00}
+#define SRV_PCOUP_CHN23_CARRIER_MASK_VLOW_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0xF0, 0x00, 0x00, 0x00}
+
+#define SRV_PCOUP_CHN34_CARRIER_MASK_HIGH_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0xFF, 0xFF, 0xFF, 0xF0, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+#define SRV_PCOUP_CHN34_CARRIER_MASK_VLOW_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07, 0xFF, 0xFF, 0xFF, 0xF0, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+
+#define SRV_PCOUP_CHN45_CARRIER_MASK_HIGH_TBL    {0xFF, 0xFF, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+#define SRV_PCOUP_CHN45_CARRIER_MASK_VLOW_TBL    {0xFF, 0xFF, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+
+#define SRV_PCOUP_CHN56_CARRIER_MASK_HIGH_TBL    {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, \
+                                                 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xC0}
+#define SRV_PCOUP_CHN56_CARRIER_MASK_VLOW_TBL    {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, \
+                                                 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xC0}
+
+#define SRV_PCOUP_CHN67_CARRIER_MASK_HIGH_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0xFF, 0xFF, 0xC0}
+#define SRV_PCOUP_CHN67_CARRIER_MASK_VLOW_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0xFF, 0xFF, 0xC0}
+
+#define SRV_PCOUP_CHN78_CARRIER_MASK_HIGH_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00}
+#define SRV_PCOUP_CHN78_CARRIER_MASK_VLOW_TBL    {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
+                                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00}
+
 /* DACC configuration tables */
 #define SRV_PCOUP_DACC_CENA_TBL                  {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
                                                  0xa92c00ffUL, 0x1a1a1a1aUL, 0x20200000UL, 0x4400UL, 0xfd20005UL, 0x3aaUL, \
@@ -147,129 +214,129 @@ Microchip or any third party.
 #define SRV_PCOUP_CHN1_LINE_DRV_CONF             8
 #define SRV_PCOUP_CHN1_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN2_RMS_HIGH_TBL              {792, 693, 607, 533, 468, 412, 362, 319}
-#define SRV_PCOUP_CHN2_RMS_VLOW_TBL              {1627, 1473, 1319, 1168, 1030, 908, 800, 705}
-#define SRV_PCOUP_CHN2_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 670, 586, 514, 451, 396, 348, 306, 270}
-#define SRV_PCOUP_CHN2_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN2_GAIN_HIGH_TBL             {120, 30, 256}
-#define SRV_PCOUP_CHN2_GAIN_VLOW_TBL             {256, 128, 287}
+#define SRV_PCOUP_CHN2_RMS_HIGH_TBL              {2809, 2458, 2157, 1891, 1658, 1456, 1283, 1126}
+#define SRV_PCOUP_CHN2_RMS_VLOW_TBL              {4873, 4485, 4074, 3674, 3269, 2905, 2569, 2265}
+#define SRV_PCOUP_CHN2_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 2520, 2203, 1927, 1694, 1484, 1304, 1146, 1010}
+#define SRV_PCOUP_CHN2_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 7315, 6456, 5692, 4999, 4378, 3838, 3362, 2947}
+#define SRV_PCOUP_CHN2_GAIN_HIGH_TBL             {120, 60, 256}
+#define SRV_PCOUP_CHN2_GAIN_VLOW_TBL             {287, 128, 322}
 #define SRV_PCOUP_CHN2_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN2_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN3_RMS_HIGH_TBL              {728, 642, 566, 501, 443, 392, 347, 308}
-#define SRV_PCOUP_CHN3_RMS_VLOW_TBL              {2801, 2570, 2334, 2097, 1864, 1649, 1458, 1289}
-#define SRV_PCOUP_CHN3_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 620, 547, 482, 427, 378, 334, 296, 262}
-#define SRV_PCOUP_CHN3_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN3_GAIN_HIGH_TBL             {30, 30, 256}
-#define SRV_PCOUP_CHN3_GAIN_VLOW_TBL             {287, 128, 287}
+#define SRV_PCOUP_CHN3_RMS_HIGH_TBL              {725, 642, 568, 503, 445, 395, 350, 310}
+#define SRV_PCOUP_CHN3_RMS_VLOW_TBL              {2826, 2597, 2365, 2128, 1901, 1688, 1494, 1322}
+#define SRV_PCOUP_CHN3_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 545, 482, 427, 378, 334, 296, 262, 233}
+#define SRV_PCOUP_CHN3_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 8280, 7336, 6495, 5741, 5072, 4480, 3957, 3493}
+#define SRV_PCOUP_CHN3_GAIN_HIGH_TBL             {30, 15, 256}
+#define SRV_PCOUP_CHN3_GAIN_VLOW_TBL             {287, 128, 322}
 #define SRV_PCOUP_CHN3_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN3_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN4_RMS_HIGH_TBL              {1655, 1483, 1332, 1194, 1071, 961, 861, 772}
-#define SRV_PCOUP_CHN4_RMS_VLOW_TBL              {3572, 3252, 2931, 2616, 2324, 2061, 1827, 1619}
-#define SRV_PCOUP_CHN4_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1407, 1263, 1133, 1016, 912, 818, 733, 657}
-#define SRV_PCOUP_CHN4_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
+#define SRV_PCOUP_CHN4_RMS_HIGH_TBL              {4401, 3953, 3544, 3178, 2848, 2550, 2283, 2044}
+#define SRV_PCOUP_CHN4_RMS_VLOW_TBL              {7515, 6847, 6185, 5532, 4920, 4359, 3861, 3416}
+#define SRV_PCOUP_CHN4_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 3249, 2918, 2617, 2349, 2105, 1885, 1689, 1513}
+#define SRV_PCOUP_CHN4_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 17622, 15870, 14283, 12851, 11559, 10412, 9370, 8435}
 #define SRV_PCOUP_CHN4_GAIN_HIGH_TBL             {60, 30, 256}
 #define SRV_PCOUP_CHN4_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN4_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN4_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN5_RMS_HIGH_TBL              {1801, 1609, 1438, 1285, 1149, 1027, 918, 820}
-#define SRV_PCOUP_CHN5_RMS_VLOW_TBL              {3924, 3584, 3241, 2902, 2589, 2308, 2055, 1830}
-#define SRV_PCOUP_CHN5_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1530, 1367, 1223, 1093, 976, 872, 780, 697}
-#define SRV_PCOUP_CHN5_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN5_GAIN_HIGH_TBL             {85, 30, 256}
+#define SRV_PCOUP_CHN5_RMS_HIGH_TBL              {4382, 3919, 3505, 3135, 2804, 2507, 2243, 2005}
+#define SRV_PCOUP_CHN5_RMS_VLOW_TBL              {9138, 8340, 7542, 6767, 6044, 5382, 4789, 4258}
+#define SRV_PCOUP_CHN5_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 3804, 3403, 3044, 2723, 2435, 2179, 1949, 1743}
+#define SRV_PCOUP_CHN5_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 12364, 11115, 9963, 8933, 7999, 7169, 6414, 5743}
+#define SRV_PCOUP_CHN5_GAIN_HIGH_TBL             {85, 40, 256}
 #define SRV_PCOUP_CHN5_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN5_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN5_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN6_RMS_HIGH_TBL              {1233, 1099, 980, 874, 780, 695, 620, 553}
-#define SRV_PCOUP_CHN6_RMS_VLOW_TBL              {3757, 3429, 3097, 2773, 2474, 2207, 1968, 1754}
-#define SRV_PCOUP_CHN6_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1048, 934, 833, 742, 663, 590, 527, 470}
-#define SRV_PCOUP_CHN6_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
+#define SRV_PCOUP_CHN6_RMS_HIGH_TBL              {2919, 2598, 2315, 2063, 1838, 1638, 1460, 1301}
+#define SRV_PCOUP_CHN6_RMS_VLOW_TBL              {8622, 7866, 7095, 6373, 5691, 5080, 4525, 4034}
+#define SRV_PCOUP_CHN6_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 2565, 2285, 2036, 1814, 1616, 1441, 1283, 1144}
+#define SRV_PCOUP_CHN6_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 12460, 11102, 9889, 8802, 7833, 6973, 6199, 5523}
 #define SRV_PCOUP_CHN6_GAIN_HIGH_TBL             {60, 30, 256}
 #define SRV_PCOUP_CHN6_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN6_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN6_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN7_RMS_HIGH_TBL              {1411, 1253, 1114, 991, 881, 784, 698, 621}
-#define SRV_PCOUP_CHN7_RMS_VLOW_TBL              {3771, 3433, 3093, 2762, 2460, 2191, 1952, 1739}
-#define SRV_PCOUP_CHN7_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1200, 1065, 946, 842, 749, 666, 593, 527}
-#define SRV_PCOUP_CHN7_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
+#define SRV_PCOUP_CHN7_RMS_HIGH_TBL              {3468, 3083, 2740, 2436, 2165, 1926, 1712, 1523}
+#define SRV_PCOUP_CHN7_RMS_VLOW_TBL              {8835, 8038, 7235, 6478, 5780, 5146, 4583, 4081}
+#define SRV_PCOUP_CHN7_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 2914, 2590, 2301, 2047, 1819, 1618, 1438, 1279}
+#define SRV_PCOUP_CHN7_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 15406, 13630, 12059, 10675, 9453, 8374, 7418, 6578}
 #define SRV_PCOUP_CHN7_GAIN_HIGH_TBL             {60, 30, 256}
 #define SRV_PCOUP_CHN7_GAIN_VLOW_TBL             {256, 128, 287}
 #define SRV_PCOUP_CHN7_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN7_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN8_RMS_HIGH_TBL              {877, 778, 691, 614, 546, 487, 433, 385}
-#define SRV_PCOUP_CHN8_RMS_VLOW_TBL              {4295, 3937, 3575, 3213, 2861, 2544, 2262, 2013}
-#define SRV_PCOUP_CHN8_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 745, 660, 587, 521, 464, 413, 367, 326}
-#define SRV_PCOUP_CHN8_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN8_GAIN_HIGH_TBL             {30, 30, 256}
-#define SRV_PCOUP_CHN8_GAIN_VLOW_TBL             {287, 128, 287}
+#define SRV_PCOUP_CHN8_RMS_HIGH_TBL              {2168, 1929, 1717, 1528, 1361, 1212, 1080, 962}
+#define SRV_PCOUP_CHN8_RMS_VLOW_TBL              {10206, 9351, 8496, 7640, 6824, 6078, 5407, 4809}
+#define SRV_PCOUP_CHN8_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1628, 1448, 1288, 1146, 1021, 909, 810, 720}
+#define SRV_PCOUP_CHN8_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 23125, 20543, 18202, 16117, 14268, 12632, 11193, 9912}
+#define SRV_PCOUP_CHN8_GAIN_HIGH_TBL             {30, 15, 256}
+#define SRV_PCOUP_CHN8_GAIN_VLOW_TBL             {287, 128, 322}
 #define SRV_PCOUP_CHN8_LINE_DRV_CONF             5
 #define SRV_PCOUP_CHN8_MAX_NUM_TX_LEVELS         8
 
-#define SRV_PCOUP_CHN12_RMS_HIGH_TBL             {401, 353, 310, 273, 240, 212, 187, 165}
-#define SRV_PCOUP_CHN12_RMS_VLOW_TBL             {850, 767, 685, 609, 539, 475, 420, 370}
-#define SRV_PCOUP_CHN12_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 341, 300, 264, 232, 204, 181, 159, 140}
-#define SRV_PCOUP_CHN12_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
+#define SRV_PCOUP_CHN12_RMS_HIGH_TBL             {1346, 1184, 1041, 915, 807, 710, 626, 552}
+#define SRV_PCOUP_CHN12_RMS_VLOW_TBL             {2503, 2285, 2064, 1849, 1645, 1457, 1288, 1141}
+#define SRV_PCOUP_CHN12_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1216, 1069, 940, 826, 728, 641, 564, 498}
+#define SRV_PCOUP_CHN12_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 3712, 3276, 2889, 2538, 2227, 1954, 1718, 1510}
 #define SRV_PCOUP_CHN12_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN12_GAIN_VLOW_TBL            {256, 128, 287}
+#define SRV_PCOUP_CHN12_GAIN_VLOW_TBL            {287, 128, 322}
 #define SRV_PCOUP_CHN12_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN12_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN23_RMS_HIGH_TBL             {1650, 1447, 1277, 1131, 1001, 887, 786, 696}
-#define SRV_PCOUP_CHN23_RMS_VLOW_TBL             {1566, 1413, 1263, 1123, 994, 878, 776, 686}
-#define SRV_PCOUP_CHN23_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1402, 1231, 1086, 962, 850, 754, 669, 593}
-#define SRV_PCOUP_CHN23_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN23_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN23_GAIN_VLOW_TBL            {256, 128, 287}
+#define SRV_PCOUP_CHN23_RMS_HIGH_TBL             {965, 853, 755, 668, 591, 524, 465, 411}
+#define SRV_PCOUP_CHN23_RMS_VLOW_TBL             {3533, 3228, 2915, 2610, 2322, 2058, 1822, 1613}
+#define SRV_PCOUP_CHN23_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 728, 644, 569, 503, 446, 395, 350, 310}
+#define SRV_PCOUP_CHN23_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 10643, 9410, 8312, 7338, 6473, 5713, 5033, 4436}
+#define SRV_PCOUP_CHN23_GAIN_HIGH_TBL            {30, 15, 256}
+#define SRV_PCOUP_CHN23_GAIN_VLOW_TBL            {287, 128, 322}
 #define SRV_PCOUP_CHN23_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN23_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN34_RMS_HIGH_TBL             {2291, 2033, 1810, 1616, 1444, 1290, 1153, 1031}
-#define SRV_PCOUP_CHN34_RMS_VLOW_TBL             {2283, 2064, 1850, 1648, 1464, 1296, 1148, 1017}
-#define SRV_PCOUP_CHN34_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1947, 1729, 1541, 1375, 1229, 1099, 981, 877}
-#define SRV_PCOUP_CHN34_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN34_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN34_GAIN_VLOW_TBL            {256, 128, 287}
+#define SRV_PCOUP_CHN34_RMS_HIGH_TBL             {1020, 903, 798, 706, 626, 554, 490, 435}
+#define SRV_PCOUP_CHN34_RMS_VLOW_TBL             {3706, 3386, 3060, 2742, 2436, 2158, 1908, 1687}
+#define SRV_PCOUP_CHN34_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 760, 672, 594, 526, 465, 412, 365, 323}
+#define SRV_PCOUP_CHN34_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 11058, 9802, 8684, 7688, 6792, 6010, 5309, 4694}
+#define SRV_PCOUP_CHN34_GAIN_HIGH_TBL            {30, 15, 256}
+#define SRV_PCOUP_CHN34_GAIN_VLOW_TBL            {287, 128, 322}
 #define SRV_PCOUP_CHN34_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN34_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN45_RMS_HIGH_TBL             {2136, 1912, 1712, 1535, 1375, 1232, 1104, 988}
-#define SRV_PCOUP_CHN45_RMS_VLOW_TBL             {2768, 2509, 2255, 2017, 1798, 1598, 1420, 1262}
-#define SRV_PCOUP_CHN45_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1815, 1625, 1456, 1304, 1169, 1048, 939, 840}
-#define SRV_PCOUP_CHN45_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN45_GAIN_HIGH_TBL            {120, 60, 256}
+#define SRV_PCOUP_CHN45_RMS_HIGH_TBL             {2364, 2118, 1897, 1698, 1520, 1360, 1216, 1088}
+#define SRV_PCOUP_CHN45_RMS_VLOW_TBL             {4020, 3638, 3267, 2910, 2580, 2285, 2023, 1790}
+#define SRV_PCOUP_CHN45_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1717, 1537, 1378, 1234, 1105, 989, 886, 792}
+#define SRV_PCOUP_CHN45_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 9403, 8476, 7635, 6868, 6187, 5571, 5021, 4520}
+#define SRV_PCOUP_CHN45_GAIN_HIGH_TBL            {60, 30, 256}
 #define SRV_PCOUP_CHN45_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN45_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN45_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN56_RMS_HIGH_TBL             {1841, 1641, 1465, 1308, 1167, 1042, 930, 830}
-#define SRV_PCOUP_CHN56_RMS_VLOW_TBL             {2840, 2579, 2323, 2082, 1860, 1658, 1477, 1316}
-#define SRV_PCOUP_CHN56_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1564, 1394, 1245, 1110, 991, 885, 790, 705}
-#define SRV_PCOUP_CHN56_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN56_GAIN_HIGH_TBL            {120, 60, 256}
+#define SRV_PCOUP_CHN56_RMS_HIGH_TBL             {930, 830, 741, 661, 590, 526, 470, 419}
+#define SRV_PCOUP_CHN56_RMS_VLOW_TBL             {2876, 2613, 2355, 2109, 1882, 1677, 1494, 1331}
+#define SRV_PCOUP_CHN56_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 826, 737, 658, 587, 524, 468, 417, 373}
+#define SRV_PCOUP_CHN56_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 3835, 3432, 3066, 2737, 2444, 2181, 1947, 1737}
+#define SRV_PCOUP_CHN56_GAIN_HIGH_TBL            {60, 30, 256}
 #define SRV_PCOUP_CHN56_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN56_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN56_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN67_RMS_HIGH_TBL             {1966, 1746, 1552, 1380, 1228, 1093, 972, 866}
-#define SRV_PCOUP_CHN67_RMS_VLOW_TBL             {2773, 2517, 2266, 2031, 1814, 1617, 1441, 1284}
-#define SRV_PCOUP_CHN67_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1671, 1484, 1320, 1174, 1044, 929, 827, 736}
-#define SRV_PCOUP_CHN67_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN67_GAIN_HIGH_TBL            {120, 60, 256}
+#define SRV_PCOUP_CHN67_RMS_HIGH_TBL             {1761, 1565, 1392, 1238, 1101, 980, 872, 775}
+#define SRV_PCOUP_CHN67_RMS_VLOW_TBL             {4588, 4160, 3743, 3346, 2983, 2657, 2366, 2107}
+#define SRV_PCOUP_CHN67_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 1498, 1332, 1184, 1053, 937, 833, 741, 660}
+#define SRV_PCOUP_CHN67_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 7678, 6807, 6035, 5351, 4745, 4212, 3739, 3319}
+#define SRV_PCOUP_CHN67_GAIN_HIGH_TBL            {60, 30, 256}
 #define SRV_PCOUP_CHN67_GAIN_VLOW_TBL            {256, 128, 287}
 #define SRV_PCOUP_CHN67_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN67_MAX_NUM_TX_LEVELS        8
 
-#define SRV_PCOUP_CHN78_RMS_HIGH_TBL             {2398, 2121, 1882, 1672, 1487, 1323, 1177, 1046}
-#define SRV_PCOUP_CHN78_RMS_VLOW_TBL             {2823, 2557, 2299, 2057, 1836, 1635, 1456, 1297}
-#define SRV_PCOUP_CHN78_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 2042, 1806, 1603, 1424, 1266, 1127, 1002, 891}
-#define SRV_PCOUP_CHN78_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000}
-#define SRV_PCOUP_CHN78_GAIN_HIGH_TBL            {120, 60, 256}
-#define SRV_PCOUP_CHN78_GAIN_VLOW_TBL            {256, 128, 287}
+#define SRV_PCOUP_CHN78_RMS_HIGH_TBL             {1066, 949, 844, 751, 669, 597, 533, 476}
+#define SRV_PCOUP_CHN78_RMS_VLOW_TBL             {5202, 4760, 4308, 3869, 3456, 3078, 2740, 2439}
+#define SRV_PCOUP_CHN78_THRS_HIGH_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 822, 731, 650, 579, 516, 460, 411, 367}
+#define SRV_PCOUP_CHN78_THRS_VLOW_TBL            {0, 0, 0, 0, 0, 0, 0, 0, 10641, 9390, 8291, 7325, 6476, 5730, 5072, 4497}
+#define SRV_PCOUP_CHN78_GAIN_HIGH_TBL            {30, 15, 256}
+#define SRV_PCOUP_CHN78_GAIN_VLOW_TBL            {287, 128, 322}
 #define SRV_PCOUP_CHN78_LINE_DRV_CONF            5
 #define SRV_PCOUP_CHN78_MAX_NUM_TX_LEVELS        8
 
@@ -321,6 +388,14 @@ typedef struct
     /* Pointer to Tx equalization coefficients table in VLOW mode.
        There is one coefficient for each carrier in the used band */
     const uint16_t * equVlow;
+  
+    /* Pointer to RMS_CALC carrier mask table in HIGH mode.
+       There is one bit for each carrier in the used band */
+    const uint8_t * carrierMaskHigh;
+
+    /* Pointer to RMS_CALC carrier mask table in VLOW mode.
+       There is one bit for each carrier in the used band */
+    const uint8_t * carrierMaskVlow;
 
     /* Tx gain values for HIGH mode [HIGH_INI, HIGH_MIN, HIGH_MAX] */
     uint16_t gainHigh[3];
@@ -512,6 +587,88 @@ bool SRV_PCOUP_SetChannelConfig(DRV_HANDLE handle, DRV_PLC_PHY_CHANNEL channel);
   ***************************************************************************/
 
 uint16_t SRV_PCOUP_GetChannelList(void);
+
+/***************************************************************************
+  Function:
+    uint16_t SRV_PCOUP_GetChannelListImpedanceDetection(void)
+
+  Summary:
+    Get the PRIME channel list valid for impedance detection.
+
+  Description:
+    This function allows to get the PRIME channel list valid for impedance detection.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    PRIME channel list valid for impedance detection. The channel list is a bitmask
+    corresponding to the following values.
+    Single channel:
+      Channel 1 : bit 0
+      Channel 2 : bit 1
+      Channel 3 : bit 2
+      Channel 4 : bit 3
+      Channel 5 : bit 4
+      Channel 6 : bit 5
+      Channel 7 : bit 6
+      Channel 8 : bit 7
+    In double channel:
+      Channel 1-2 : bit 8
+      Channel 2-3 : bit 9
+      Channel 3-4 : bit 10
+      Channel 4-5 : bit 11
+      Channel 5-6 : bit 12
+      Channel 6-7 : bit 13
+      Channel 7-8 : bit 14
+
+  Example:
+    <code>
+    uint16_t plcChannelListImpDetect;
+
+    plcChannelListImpDetect = SRV_PCOUP_GetChannelListImpedanceDetection();
+
+    </code>
+
+  Remarks:
+    None.
+  ***************************************************************************/
+
+uint16_t SRV_PCOUP_GetChannelListImpedanceDetection(void);
+
+/***************************************************************************
+  Function:
+    DRV_PLC_PHY_CHANNEL SRV_PCOUP_GetChannelImpedanceDetection(void)
+
+  Summary:
+    Get the PRIME channel for impedance detection.
+
+  Description:
+    This function allows to get the PRIME channel that should be used for impedance detection.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    PRIME channel that should be used for impedance detection.
+
+  Example:
+    <code>
+    DRV_PLC_PHY_CHANNEL plcChannelImpDetect;
+
+    plcChannelImpDetect = SRV_PCOUP_GetChannelImpedanceDetection();
+
+    </code>
+
+  Remarks:
+    None.
+  ***************************************************************************/
 
 DRV_PLC_PHY_CHANNEL SRV_PCOUP_GetChannelImpedanceDetection(void);
 
