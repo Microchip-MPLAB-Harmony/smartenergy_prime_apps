@@ -1,0 +1,127 @@
+configVersion: 1.0.0
+componentName: primeFirmwareUpgrade
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: primeFirmwareUpgrade
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  name: smartenergy_prime
+  type: package
+  version: v1.0.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: Memory_dep
+        children:
+        - children:
+          - attributes:
+              targetAttachmentID: drv_media
+              targetComponentID: drv_memory_0
+            type: TargetAttachment
+          type: TargetAttachments
+        type: MultiCapability
+      type: Attachments
+    type: primeFirmwareUpgrade
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: primeFirmwareUpgrade
+          x: '330'
+          y: '644'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    PRIME_FU_BUFFER_READ_SIZE:
+      attributes:
+        id: PRIME_FU_BUFFER_READ_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '512'
+          type: User
+        type: Values
+      type: Integer
+    PRIME_FU_BUFFER_WRITE_SIZE:
+      attributes:
+        id: PRIME_FU_BUFFER_WRITE_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '512'
+          type: User
+        type: Values
+      type: Integer
+    PRIME_FU_MEM_DRV:
+      attributes:
+        id: PRIME_FU_MEM_DRV
+      children:
+      - children:
+        - attributes:
+            id: primeFirmwareUpgrade
+            value: drv_memory_0
+          type: Dynamic
+        type: Values
+      type: String
+    PRIME_FU_MEM_INSTANCE:
+      attributes:
+        id: PRIME_FU_MEM_INSTANCE
+      children:
+      - children:
+        - attributes:
+            id: primeFirmwareUpgrade
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PRIME_FU_MEM_SIZE:
+      attributes:
+        id: PRIME_FU_MEM_SIZE
+      children:
+      - children:
+        - attributes:
+            id: primeFirmwareUpgrade
+            value: '0x40000'
+          type: Dynamic
+        type: Values
+      type: String
+  userData: {}
