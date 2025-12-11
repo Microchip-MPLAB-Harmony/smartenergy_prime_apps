@@ -86,7 +86,6 @@ void SYS_Tasks ( void )
     /* Maintain PRIME */
     PRIME_Tasks(sysObj.primeStack);
     
-    
 
     SRV_USI_Tasks(sysObj.srvUSI0);
 
