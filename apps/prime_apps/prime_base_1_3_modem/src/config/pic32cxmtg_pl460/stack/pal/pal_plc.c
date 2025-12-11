@@ -342,7 +342,7 @@ __STATIC_INLINE void lPAL_PLC_TimerSyncUpdate(void)
     else
     {
         SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR,
-                (SRV_LOG_REPORT_CODE)PAL_PLC_TIMER_SYNC_ERROR,
+                PAL_PLC_TIMER_SYNC_ERROR,
                 "PRIME_PAL_PLC: PLC timer synchronization error\r\n");
         lPAL_PLC_TimerSyncInitialize();
     }
@@ -842,7 +842,7 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(void)
     else
     {
         SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR,
-                (SRV_LOG_REPORT_CODE)PHY_LAYER_PLC_NOT_AVAILABLE,
+                PHY_LAYER_PLC_NOT_AVAILABLE,
                 "PRIME_PAL_PLC: PLC PHY layer not available\r\n");
         palPlcData.status = PAL_PLC_STATUS_ERROR;
         return SYS_MODULE_OBJ_INVALID;

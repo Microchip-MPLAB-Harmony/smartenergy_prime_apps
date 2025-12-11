@@ -425,7 +425,7 @@ void SYS_Initialize ( void* data )
     SEFC1_Initialize();
   
     DWDT_Initialize();
-    CLK_Initialize();
+    CLOCK_Initialize();
     RSTC_Initialize();
 
     PIO_Initialize();

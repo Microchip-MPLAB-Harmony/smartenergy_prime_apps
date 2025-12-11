@@ -56,9 +56,7 @@
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus // Provide C++ Compatibility
-
-	extern "C" {
-
+extern "C" {
 #endif
 // DOM-IGNORE-END
 
@@ -67,35 +65,27 @@
 // Section: Interface Routines
 // *****************************************************************************
 // *****************************************************************************
-
 #define FLEXCOM7_USART_FrequencyGet()    (uint32_t)(100000000UL)
 
 /****************************** FLEXCOM7 USART API *********************************/
-void FLEXCOM7_USART_Initialize( void );
 
-bool FLEXCOM7_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP* setup, uint32_t srcClkFreq );
+void FLEXCOM7_USART_Initialize( void );
 
 FLEXCOM_USART_ERROR FLEXCOM7_USART_ErrorGet( void );
 
+bool FLEXCOM7_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP* setup, uint32_t srcClkFreq );
+
 size_t FLEXCOM7_USART_Write(uint8_t* pWrBuffer, const size_t size );
 
-size_t FLEXCOM7_USART_WriteCountGet(void);
+size_t FLEXCOM7_USART_Read(uint8_t* pRdBuffer, const size_t size);
 
 size_t FLEXCOM7_USART_WriteFreeBufferCountGet(void);
 
 size_t FLEXCOM7_USART_WriteBufferSizeGet(void);
 
-bool FLEXCOM7_USART_TransmitComplete(void);
-
 bool FLEXCOM7_USART_WriteNotificationEnable(bool isEnabled, bool isPersistent);
 
 void FLEXCOM7_USART_WriteThresholdSet(uint32_t nBytesThreshold);
-
-void FLEXCOM7_USART_WriteCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
-
-size_t FLEXCOM7_USART_Read(uint8_t* pRdBuffer, const size_t size);
-
-size_t FLEXCOM7_USART_ReadCountGet(void);
 
 size_t FLEXCOM7_USART_ReadFreeBufferCountGet(void);
 
@@ -105,13 +95,20 @@ bool FLEXCOM7_USART_ReadNotificationEnable(bool isEnabled, bool isPersistent);
 
 void FLEXCOM7_USART_ReadThresholdSet(uint32_t nBytesThreshold);
 
+size_t FLEXCOM7_USART_WriteCountGet(void);
+
+size_t FLEXCOM7_USART_ReadCountGet(void);
+
+void FLEXCOM7_USART_WriteCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
+
 void FLEXCOM7_USART_ReadCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
+
+bool FLEXCOM7_USART_TransmitComplete(void);
+
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
-
     }
-
 #endif
 // DOM-IGNORE-END
 
