@@ -93,7 +93,7 @@ extern "C" {
 #define SYS_CONSOLE_USB_CDC_MAX_INSTANCES 	   		(1U)
 #define SYS_CONSOLE_PRINT_BUFFER_SIZE        		(512U)
 
-#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	(64)
+#define SYS_CONSOLE_USB_CDC_READ_WRITE_BUFFER_SIZE 	(512)
 
 #define SYS_CONSOLE_INDEX_0                       0
 
@@ -114,7 +114,6 @@ extern "C" {
 
 /* PLC PHY Driver Configuration Options */
 #define DRV_PLC_SECURE                        false
-#define DRV_PLC_EXT_INT_PIO_PORT              PIO_PORT_D
 #define DRV_PLC_EXT_INT_SRC                   PIOD_IRQn
 #define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PD28
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PD28
@@ -123,6 +122,7 @@ extern "C" {
 #define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA4
 #define DRV_PLC_STBY_PIN                      SYS_PORT_PIN_PA3
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PC17
+#define DRV_PLC_CSR_INDEX                     1
 #define DRV_PLC_SPI_CLK                       8000000
 
 /* PLC Driver Identification */
@@ -159,15 +159,6 @@ extern "C" {
 #define USB_DEVICE_EP0_BUFFER_SIZE                          64U
 
 
-/* Maximum instances of CDC function driver */
-#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1U
-
-
-/* CDC Transfer Queue Size for both read and
-   write. Applicable to all instances of the
-   function driver */
-#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3U
-
 /*** USB Driver Configuration ***/
 
 /* Maximum USB driver instances */
@@ -184,6 +175,15 @@ extern "C" {
 
 /* Alignment for buffers that are submitted to USB Driver*/ 
 #define USB_ALIGN  CACHE_ALIGN
+
+/* Maximum instances of CDC function driver */
+#define USB_DEVICE_CDC_INSTANCES_NUMBER                     1U
+
+
+/* CDC Transfer Queue Size for both read and
+   write. Applicable to all instances of the
+   function driver */
+#define USB_DEVICE_CDC_QUEUE_DEPTH_COMBINED                 3U
 
 
 
