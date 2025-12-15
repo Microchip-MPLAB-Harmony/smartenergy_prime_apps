@@ -188,9 +188,8 @@ static void lSRV_FU_EraseFuRegion(void)
     DRV_MEMORY_AsyncErase(memInfo.memoryHandle, &memInfo.eraseHandle,
         memInfo.eraseBlockStart, memInfo.numFuRegionEraseBlocks);
 
-	memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
+    memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
 }
-
 
 
 // *****************************************************************************
@@ -201,16 +200,16 @@ static void lSRV_FU_EraseFuRegion(void)
 
 void SRV_FU_Initialize(void)
 {
-	SRV_FU_CrcCallback = NULL;
-	SRV_FU_ImageVerifyCallback = NULL;
-	SRV_FU_ResultCallback = NULL;
-	SRV_FU_SwapCallback = NULL;
+    SRV_FU_CrcCallback = NULL;
+    SRV_FU_ImageVerifyCallback = NULL;
+    SRV_FU_ResultCallback = NULL;
+    SRV_FU_SwapCallback = NULL;
     SRV_FU_MemTransferCallback = NULL;
 
     memInfo.startAdressFuRegion = 0;
     memInfo.sizeFuRegion = PRIME_FU_MEM_SIZE;
 
-	memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
+    memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
 
 }
 
@@ -243,12 +242,12 @@ void SRV_FU_Tasks(void)
                 break;
             }
 
-			memInfo.eraseBlockStart = (memInfo.startAdressFuRegion / nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_ERASE_ENTRY].blockSize);
+            memInfo.eraseBlockStart = (memInfo.startAdressFuRegion / nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_ERASE_ENTRY].blockSize);
 
             memInfo.numFuRegionEraseBlocks = (memInfo.sizeFuRegion / nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_ERASE_ENTRY].blockSize);
 
-			memInfo.writePageSize = nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_WRITE_ENTRY].blockSize;
-			memInfo.readPageSize = nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_READ_ENTRY].blockSize;
+            memInfo.writePageSize = nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_WRITE_ENTRY].blockSize;
+            memInfo.readPageSize = nvmGeometry->geometryTable[SYS_MEDIA_GEOMETRY_TABLE_READ_ENTRY].blockSize;
 
             memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             break;
@@ -270,22 +269,22 @@ void SRV_FU_Tasks(void)
             break;
         }
 
-		case SRV_FU_MEM_STATE_READ_MEMORY:
-		{
-			if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.readHandle)
-			{
+        case SRV_FU_MEM_STATE_READ_MEMORY:
+        {
+            if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.readHandle)
+            {
                 memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
 
                 if (SRV_FU_MemTransferCallback != NULL)
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_READ, SRV_FU_MEM_TRANSFER_ERROR);
                 }
-			}
-			break;
-		}
+            }
+            break;
+        }
 
-		case SRV_FU_MEM_STATE_WRITE_ONE_BLOCK:
-		{
+        case SRV_FU_MEM_STATE_WRITE_ONE_BLOCK:
+        {
             uint32_t block;
             uint32_t offset;
             uint32_t bytesToCopy;
@@ -320,15 +319,15 @@ void SRV_FU_Tasks(void)
 
             DRV_MEMORY_AsyncWrite(memInfo.memoryHandle, &memInfo.writeHandle, pMemWrite, block, 1);
 
-			if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.writeHandle)
-			{
+            if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.writeHandle)
+            {
                 memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
 
                 if (SRV_FU_MemTransferCallback != NULL)
                 {
                     SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_ERROR);
                 }
-			}
+            }
             else
             {
                 memInfo.writeAddress += bytesToCopy;
@@ -339,7 +338,7 @@ void SRV_FU_Tasks(void)
             }
 
             break;
-		}
+        }
 
         case SRV_FU_CALCULATE_CRC_BLOCK:
         {
@@ -414,22 +413,22 @@ void SRV_FU_Tasks(void)
          default:
             break;
 /* MISRA C-2012 deviation block end */
-	}
+    }
 }
 
 void SRV_FU_DataRead(uint32_t address, uint8_t *buffer, uint16_t size)
 {
-	uint32_t readAddress;
-	uint32_t blockStart, nBlock;
+    uint32_t readAddress;
+    uint32_t blockStart, nBlock;
 
-	readAddress = memInfo.startAdressFuRegion + address;
+    readAddress = memInfo.startAdressFuRegion + address;
 
-	blockStart = readAddress / memInfo.readPageSize;
-	nBlock = size / memInfo.readPageSize;
+    blockStart = readAddress / memInfo.readPageSize;
+    nBlock = size / memInfo.readPageSize;
 
-	DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, (void *) buffer, blockStart, nBlock);
+    DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, (void *) buffer, blockStart, nBlock);
 
-	memInfo.state = SRV_FU_MEM_STATE_READ_MEMORY;
+    memInfo.state = SRV_FU_MEM_STATE_READ_MEMORY;
 }
 
 void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
@@ -466,87 +465,87 @@ void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
 
 void SRV_FU_CfgRead(void *dst, uint16_t size)
 {
-	uint32_t bufferValue[4];
-	uint32_t *pointerBuffer;
+    uint32_t bufferValue[4];
+    uint32_t *pointerBuffer;
 
-	pointerBuffer = (uint32_t *)bufferValue;
-	*pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_0);
-	*pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_1);
-	*pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_2);
-	*pointerBuffer = SUPC_GPBRRead(GPBR_REGS_3);
-	(void)memcpy(dst, (void *)bufferValue, size);
+    pointerBuffer = (uint32_t *)bufferValue;
+    *pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_0);
+    *pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_1);
+    *pointerBuffer++ = SUPC_GPBRRead(GPBR_REGS_2);
+    *pointerBuffer = SUPC_GPBRRead(GPBR_REGS_3);
 
+    (void)memcpy(dst, (void *)bufferValue, size);
 }
 
 void SRV_FU_CfgWrite(void *src, uint16_t size)
 {
-	uint32_t bufferValue[4];
-	uint32_t *pointerBuffer;
+    uint32_t bufferValue[4];
+    uint32_t *pointerBuffer;
 
-	(void)memcpy(bufferValue, (uint32_t *)src, size);
+    (void)memcpy(bufferValue, (uint32_t *)src, size);
 
-	pointerBuffer = (uint32_t *)bufferValue;
-	SUPC_GPBRWrite(GPBR_REGS_0, *pointerBuffer++);
-	SUPC_GPBRWrite(GPBR_REGS_1, *pointerBuffer++);
-	SUPC_GPBRWrite(GPBR_REGS_2, *pointerBuffer++);
-	SUPC_GPBRWrite(GPBR_REGS_3, *pointerBuffer);
+    pointerBuffer = (uint32_t *)bufferValue;
+    SUPC_GPBRWrite(GPBR_REGS_0, *pointerBuffer++);
+    SUPC_GPBRWrite(GPBR_REGS_1, *pointerBuffer++);
+    SUPC_GPBRWrite(GPBR_REGS_2, *pointerBuffer++);
+    SUPC_GPBRWrite(GPBR_REGS_3, *pointerBuffer);
 }
 
 void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 {
-	fuData.imageSize = fuInfo->imageSize;
-	fuData.pageSize = fuInfo->pageSize;
-	fuData.signAlgorithm = fuInfo->signAlgorithm;
-	fuData.signLength = fuInfo->signLength;
+    fuData.imageSize = fuInfo->imageSize;
+    fuData.pageSize = fuInfo->pageSize;
+    fuData.signAlgorithm = fuInfo->signAlgorithm;
+    fuData.signLength = fuInfo->signLength;
 
-	/* Erase internal flash pages */
-	lSRV_FU_EraseFuRegion();
+    /* Erase internal flash pages */
+    lSRV_FU_EraseFuRegion();
 
-	/* Set CRC status */
-	crcState = SRV_FU_CRC_IDLE;
-	return;
+    /* Set CRC status */
+    crcState = SRV_FU_CRC_IDLE;
+    return;
 }
 
 void SRV_FU_End(SRV_FU_RESULT fuResult)
 {
-	/* Check callback is initialized */
-	if (SRV_FU_ResultCallback == NULL)
+    /* Check callback is initialized */
+    if (SRV_FU_ResultCallback == NULL)
     {
-		return;
-	}
+        return;
+    }
 
-	switch (fuResult)
+    switch (fuResult)
     {
-	    case SRV_FU_RESULT_SUCCESS:
-    	case SRV_FU_RESULT_CRC_ERROR:
-    	case SRV_FU_RESULT_FW_REVERT:
-    	case SRV_FU_RESULT_FW_CONFIRM:
+        case SRV_FU_RESULT_SUCCESS:
+        case SRV_FU_RESULT_CRC_ERROR:
+        case SRV_FU_RESULT_FW_REVERT:
+        case SRV_FU_RESULT_FW_CONFIRM:
             SRV_FU_ResultCallback(fuResult);
             break;
 /* MISRA C-2012 deviation block start */
 /* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
-         default:
+        default:
             break;
 /* MISRA C-2012 deviation block end */
-	}
+    }
 }
 
 void SRV_FU_CalculateCrc(void)
 {
-	uint32_t blockStart, nBlock;
+    uint32_t blockStart, nBlock;
     uint32_t bytesPagesRead;
 
-	if (crcState != SRV_FU_CRC_IDLE)
+    if (crcState != SRV_FU_CRC_IDLE)
     {
-		return;
-	}
+        return;
+    }
 
-	crcState = SRV_FU_CRC_WAIT_READ_BLOCK;
+    crcState = SRV_FU_CRC_WAIT_READ_BLOCK;
 
-	crcReadAddress = memInfo.startAdressFuRegion;
+    crcReadAddress = memInfo.startAdressFuRegion;
     crcRemainingSize = fuData.imageSize;
 
-	if (crcRemainingSize < MAX_BUFFER_READ_SIZE)
+    if (crcRemainingSize < MAX_BUFFER_READ_SIZE)
     {
         crcSize = crcRemainingSize;
     }
@@ -556,7 +555,7 @@ void SRV_FU_CalculateCrc(void)
     }
 
     blockStart = crcReadAddress / memInfo.readPageSize;
-	nBlock = crcSize / memInfo.readPageSize;
+    nBlock = crcSize / memInfo.readPageSize;
 
     bytesPagesRead = nBlock * memInfo.readPageSize;
     /* Align CRC size with the readPageSize */
@@ -574,9 +573,9 @@ void SRV_FU_CalculateCrc(void)
         }
     }
 
-	DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, pBuffInput, blockStart, nBlock);
+    DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, pBuffInput, blockStart, nBlock);
 
-	crcReadAddress += crcSize;
+    crcReadAddress += crcSize;
     crcRemainingSize -= crcSize;
 
     memInfo.state = SRV_FU_CALCULATE_CRC_BLOCK;
@@ -587,40 +586,40 @@ void SRV_FU_CalculateCrc(void)
 
 void SRV_FU_RegisterCallbackCrc(SRV_FU_CRC_CB callback)
 {
-	SRV_FU_CrcCallback = callback;
+    SRV_FU_CrcCallback = callback;
 }
 
 void SRV_FU_RegisterCallbackVerify(SRV_FU_IMAGE_VERIFY_CB callback)
 {
-	SRV_FU_ImageVerifyCallback = callback;
+    SRV_FU_ImageVerifyCallback = callback;
 }
 
 void SRV_FU_RegisterCallbackFuResult(SRV_FU_RESULT_CB callback)
 {
-	SRV_FU_ResultCallback = callback;
+    SRV_FU_ResultCallback = callback;
 
 }
 
 uint16_t SRV_FU_GetBitmap(uint8_t *bitmap, uint32_t *numRxPages)
 {
-	(void)bitmap;
-	(void)numRxPages;
+    (void)bitmap;
+    (void)numRxPages;
 
-	return 0;
+    return 0;
 }
 
 void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion)
 {
-	/* Check callback is initialized */
-	if (SRV_FU_SwapCallback != NULL)
+    /* Check callback is initialized */
+    if (SRV_FU_SwapCallback != NULL)
     {
-		SRV_FU_SwapCallback(trafficVersion);
-	}
+        SRV_FU_SwapCallback(trafficVersion);
+    }
 }
 
 void SRV_FU_RegisterCallbackSwapVersion(SRV_FU_VERSION_SWAP_CB callback)
 {
-	SRV_FU_SwapCallback = callback;
+    SRV_FU_SwapCallback = callback;
 }
 
 void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
@@ -631,11 +630,11 @@ void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
 
 void SRV_FU_VerifyImage(void)
 {
-	/* Check pointer function */
-	if (SRV_FU_ImageVerifyCallback == NULL)
+    /* Check pointer function */
+    if (SRV_FU_ImageVerifyCallback == NULL)
     {
-		return;
-	}
+        return;
+    }
 
 }
 
