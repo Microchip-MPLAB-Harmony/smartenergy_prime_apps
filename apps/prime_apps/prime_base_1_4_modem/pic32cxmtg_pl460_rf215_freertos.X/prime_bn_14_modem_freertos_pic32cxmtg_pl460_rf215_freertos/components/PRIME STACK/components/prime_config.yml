@@ -1,0 +1,125 @@
+configVersion: 1.0.0
+componentName: prime_config
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: prime_config
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: FreeRTOS-Kernel
+  type: package
+  version: V11.1.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: PRIME STACK
+    children:
+    - children:
+      - attributes:
+          id: prime_config
+          x: '361'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    BN_SLAVE_EN:
+      attributes:
+        id: BN_SLAVE_EN
+      children:
+      - children:
+        - attributes:
+            id: prime_config
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PRIME_FW_VERSION:
+      attributes:
+        id: PRIME_FW_VERSION
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: prime_config
+            value: HB14.01.01
+          type: Dynamic
+        type: Values
+      type: String
+    PRIME_MODE:
+      attributes:
+        id: PRIME_MODE
+      children:
+      - children:
+        - attributes:
+            value: BN
+          type: User
+        type: Values
+      type: Combo
+    PRIME_RTOS_TASK_DELAY_MS:
+      attributes:
+        id: PRIME_RTOS_TASK_DELAY_MS
+      children:
+      - children:
+        - attributes:
+            value: '1'
+          type: User
+        type: Values
+      type: Integer
+    PRIME_RTOS_TASK_PRIORITY:
+      attributes:
+        id: PRIME_RTOS_TASK_PRIORITY
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: Integer
+  userData: {}

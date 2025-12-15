@@ -1,0 +1,76 @@
+configVersion: 1.0.0
+componentName: srv_psniffer
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_psniffer
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: FreeRTOS-Kernel
+  type: package
+  version: V11.1.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.2.1
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: PRIME STACK
+    children:
+    - children:
+      - attributes:
+          id: srv_psniffer
+          x: '540'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SRV_PSNF_PLC_PROFILE:
+      attributes:
+        id: SRV_PSNF_PLC_PROFILE
+      children:
+      - children:
+        - attributes:
+            id: srv_psniffer
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+  userData: {}
