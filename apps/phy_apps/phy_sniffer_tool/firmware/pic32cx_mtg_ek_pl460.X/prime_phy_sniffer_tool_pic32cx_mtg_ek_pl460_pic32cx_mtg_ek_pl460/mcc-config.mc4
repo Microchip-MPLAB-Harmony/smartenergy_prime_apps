@@ -164,7 +164,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\usi\srv_usi_definitions.h
   hash: 1133126b8cbb855afd42755e92c8831c2aa3a560760282c3e080d92e934ea505
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\usi\srv_usi_local.h
-  hash: afb81dfb99d2b3a66102822fbbd7639a7765e1ef14b725434b40762b3d3f9f4f
+  hash: cbd80d3ecb1d78130ce3d61bdbf0b6f37e524666f24299dd8eb4037162a0a503
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\usi\srv_usi_usart.c
   hash: 638670a3d13b444b4cb77005cf93a44506b2aeec4f96c189796cbc1d90142087
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\usi\srv_usi_usart.h
