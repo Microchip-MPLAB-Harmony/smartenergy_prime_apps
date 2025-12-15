@@ -148,6 +148,7 @@
             </logicalFolder>
             <logicalFolder name="queue" displayName="queue" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg_pl460_rf215_freertos/service/queue/srv_queue.h</itemPath>
+              <itemPath>../src/config/pic32cxmtg_pl460_rf215_freertos/service/queue/srv_queue_local.h</itemPath>
             </logicalFolder>
             <logicalFolder name="random" displayName="random" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg_pl460_rf215_freertos/service/random/srv_random.h</itemPath>
