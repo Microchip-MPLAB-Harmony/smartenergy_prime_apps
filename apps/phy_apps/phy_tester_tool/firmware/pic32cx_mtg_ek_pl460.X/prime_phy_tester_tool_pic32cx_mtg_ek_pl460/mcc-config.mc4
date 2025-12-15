@@ -39,7 +39,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\configuration.h
   hash: 106f237393bdf1de44f21a64fb9e6c7753945ab6cf3116991dc8e25b3162a234
 - file: ..\src\config\pic32cx_mtg_ek_pl460\definitions.h
-  hash: 73fa17536f7a633c8c7b3918a9a2c0185746abaf85d683f99505d5b100b21bb2
+  hash: c3e1cd5df198d53dffb7c56d1cf0d0a28480a20eb809e5b5db207853ed6ed9a0
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device_cache.h
@@ -181,7 +181,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\usi\srv_usi_definitions.h
   hash: 1133126b8cbb855afd42755e92c8831c2aa3a560760282c3e080d92e934ea505
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\usi\srv_usi_local.h
-  hash: afb81dfb99d2b3a66102822fbbd7639a7765e1ef14b725434b40762b3d3f9f4f
+  hash: cbd80d3ecb1d78130ce3d61bdbf0b6f37e524666f24299dd8eb4037162a0a503
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\usi\srv_usi_usart.c
   hash: 638670a3d13b444b4cb77005cf93a44506b2aeec4f96c189796cbc1d90142087
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\usi\srv_usi_usart.h
