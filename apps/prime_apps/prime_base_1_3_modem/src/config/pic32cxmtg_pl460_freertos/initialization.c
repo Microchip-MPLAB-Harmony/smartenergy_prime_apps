@@ -86,8 +86,18 @@ void _on_reset(void)
    /* Coprocessor Peripheral Enable */
    RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
    /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
-   uint32_t reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_CPPRES_Msk);
-   reg |= PMC_CPU_CKR_CPPRES_CLK_2 | PMC_CPU_CKR_CPCSS_MAINCK;
+   uint32_t prescaler;
+   uint32_t reg = PMC_REGS->PMC_CPU_CKR;
+   if ((reg & PMC_CPU_CKR_CPPRES_Msk) == PMC_CPU_CKR_CPPRES_CLK_1)
+   {
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_2;
+   }
+   else
+   {
+       prescaler = PMC_CPU_CKR_CPPRES_CLK_1;
+   }
+   reg &= ~PMC_CPU_CKR_CPPRES_Msk;
+   reg |= prescaler | PMC_CPU_CKR_CPCSS_MAINCK;
    PMC_REGS->PMC_CPU_CKR = reg;
    while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
    {
@@ -227,6 +237,7 @@ static uint8_t gDrvMemory0EraseBuffer[SEFC0_ERASE_BUFFER_SIZE] CACHE_ALIGN;
 
 static DRV_MEMORY_CLIENT_OBJECT gDrvMemory0ClientObject[DRV_MEMORY_CLIENTS_NUMBER_IDX0];
 
+static DRV_MEMORY_BUFFER_OBJECT gDrvMemory0BufferObject[DRV_MEMORY_BUF_Q_SIZE_IDX0];
 
 static const DRV_MEMORY_DEVICE_INTERFACE drvMemory0DeviceAPI = {
     .Open               = DRV_SEFC0_Open,
@@ -244,10 +255,11 @@ static const DRV_MEMORY_INIT drvMemory0InitData =
     .memDevIndex                = 0,
     .memoryDevice               = &drvMemory0DeviceAPI,
     .isMemDevInterruptEnabled   = false,
-    .memDevStatusPollUs         = 500,
     .isFsEnabled                = false,
     .ewBuffer                   = &gDrvMemory0EraseBuffer[0],
     .clientObjPool              = (uintptr_t)&gDrvMemory0ClientObject[0],
+    .bufferObj                  = (uintptr_t)&gDrvMemory0BufferObject[0],
+    .queueSize                  = DRV_MEMORY_BUF_Q_SIZE_IDX0,
     .nClientsMax                = DRV_MEMORY_CLIENTS_NUMBER_IDX0
 };
 
@@ -413,7 +425,7 @@ void SYS_Initialize ( void* data )
     SEFC1_Initialize();
   
     DWDT_Initialize();
-    CLK_Initialize();
+    CLOCK_Initialize();
     RSTC_Initialize();
 
     PIO_Initialize();

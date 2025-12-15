@@ -80,25 +80,22 @@
 #define DRV_MEMORY_TOKEN_MAX                            (DRV_MEMORY_TOKEN_MASK >> 16)
 #define DRV_MEMORY_MAKE_HANDLE(token, instance, index)  (((token) << 16) | ((instance) << 8) | (index))
 
-/* MISRA C-2012 Rule 5.2 deviated twice: Deviation record ID -  H3_MISRAC_2012_R_5_2_DR_1 */
-
 /* MEMORY Driver operations. */
 typedef enum
 {
     /* Request is read operation. */
-    DRV_MEMORY_OPERATION_TYPE_READ = 0,
+    DRV_MEM_OP_TYPE_READ = 0,
 
     /* Request is write operation. */
-    DRV_MEMORY_OPERATION_TYPE_WRITE,
+    DRV_MEM_OP_TYPE_WRITE,
 
     /* Request is erase operation. */
-    DRV_MEMORY_OPERATION_TYPE_ERASE,
+    DRV_MEM_OP_TYPE_ERASE,
 
     /* Request is erase write operation. */
-    DRV_MEMORY_OPERATION_TYPE_ERASE_WRITE
+    DRV_MEM_OP_TYPE_ERASE_WRITE
 
-} DRV_MEMORY_OPERATION_TYPE;
-/* MISRAC 2012 deviation block end */
+} DRV_MEM_OP_TYPE;
 
 /* MEMORY Driver write states. */
 typedef enum
@@ -159,6 +156,22 @@ typedef enum
 
 } DRV_MEMORY_EW_STATE;
 
+typedef enum
+{
+    /* Process the operations queued. */
+    DRV_MEMORY_PROCESS_QUEUE,
+
+    /* Perform the required transfer */
+    DRV_MEMORY_TRANSFER,
+
+    /* Idle state of the driver. */
+    DRV_MEMORY_IDLE,
+
+    /* Error state. */
+    DRV_MEMORY_ERROR
+
+} DRV_MEMORY_STATE;
+
 /**************************************
  * MEMORY Driver Client
  **************************************/
@@ -190,6 +203,9 @@ typedef struct DRV_MEMORY_CLIENT_OBJ_STRUCT
  ******************************************/
 typedef struct DRV_MEMORY_BUFFER_OBJECT_T
 {
+    /* Buffer Object array index */
+    uint32_t index;
+
     /* Client that owns this buffer */
     DRV_MEMORY_CLIENT_OBJECT *hClient;
 
@@ -209,7 +225,10 @@ typedef struct DRV_MEMORY_BUFFER_OBJECT_T
     uint32_t nBlocks;
 
     /* Operation type - read/write/erase/erasewrite */
-    DRV_MEMORY_OPERATION_TYPE opType;
+    DRV_MEM_OP_TYPE opType;
+
+    /* Pointer to the next buffer in the queue */
+    struct DRV_MEMORY_BUFFER_OBJECT_T *next;
 
 } DRV_MEMORY_BUFFER_OBJECT;
 
@@ -233,8 +252,8 @@ typedef struct
     /* Erase write state */
     DRV_MEMORY_EW_STATE ewState;
 
-    /* Flag to check transfer status */
-    volatile bool isTransferDone;
+    /* MEMORY main task routine's states */
+    DRV_MEMORY_STATE state;
 
     /* Flag to indicate in use  */
     bool inUse;
@@ -291,17 +310,32 @@ typedef struct
     /* Flag to indicate if attached memory device configured to interrupt mode */
     bool isMemDevInterruptEnabled;
 
-    /* Number of milliseconds to poll for transfer status check */
-    uint32_t memDevStatusPollUs;
+    /* Flag to indicate if transfer is complete in interrupt mode */
+    volatile bool isTransferDone;
 
     /* Attached Memory Device functions */
     const DRV_MEMORY_DEVICE_INTERFACE *memoryDevice;
 
+    /* Pointer to Buffer Objects array */
+    DRV_MEMORY_BUFFER_OBJECT *buffObjArr;
+
+    /* Pointer to free list of Buffer Objects */
+    DRV_MEMORY_BUFFER_OBJECT *buffObjFree;
+
+    /* The Buffer Q head pointer */
+    DRV_MEMORY_BUFFER_OBJECT *queueHead;
+
+    /* The Buffer Q tail pointer */
+    DRV_MEMORY_BUFFER_OBJECT *queueTail;
+
     /* Pointer to the current buffer object */
-    DRV_MEMORY_BUFFER_OBJECT currentBufObj;
+    DRV_MEMORY_BUFFER_OBJECT *currentBufObj;
 
     /* Memory pool for Client Objects */
     DRV_MEMORY_CLIENT_OBJECT *clientObjPool;
+
+    /* Buffer Queue Size */
+    size_t queueSize;
 
     /* Number of clients connected to the hardware instance */
     uint8_t numClients;
@@ -320,12 +354,6 @@ typedef struct
 
     /* Mutex to protect the client object pool */
     OSAL_MUTEX_DECLARE(clientMutex);
-
-    /* Semaphore to wait for transfer request to complete. This will be released
-     * from the System timer handler at regular interval expiry.
-    */
-    OSAL_SEM_DECLARE(transferDone);
-
 } DRV_MEMORY_OBJECT;
 
 typedef MEMORY_DEVICE_TRANSFER_STATUS (*DRV_MEMORY_TransferOperation)(
@@ -340,4 +368,3 @@ typedef MEMORY_DEVICE_TRANSFER_STATUS (*DRV_MEMORY_TransferOperation)(
 /*******************************************************************************
  End of File
 */
-

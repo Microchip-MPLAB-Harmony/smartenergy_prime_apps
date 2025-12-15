@@ -114,7 +114,7 @@ void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle,
 }
 
 void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel,
-    SRV_LOG_REPORT_CODE code, const char *info, ...)
+    uint32_t code, const char *info, ...)
 {
     pPrimeHalApi->debug_report(logLevel, code, info);
 }

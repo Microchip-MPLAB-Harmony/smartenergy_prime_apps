@@ -86,11 +86,15 @@ static const uint32_t srvPlcCoupDaccTableCenA[17] = SRV_PCOUP_DACC_CENA_TBL;
     Values are defined in srv_pcoup.h file
  */
 
+static const uint8_t srvPlcCoupCarrierMaskChn1High[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN1_CARRIER_MASK_HIGH_TBL;
+static const uint8_t srvPlcCoupCarrierMaskChn1Vlow[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN1_CARRIER_MASK_VLOW_TBL;
+
 static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn1Data = {
   SRV_PCOUP_CHN1_RMS_HIGH_TBL, SRV_PCOUP_CHN1_RMS_VLOW_TBL,
   SRV_PCOUP_CHN1_THRS_HIGH_TBL, SRV_PCOUP_CHN1_THRS_VLOW_TBL,
   srvPlcCoupDaccTableCenA,
   srvPlcCoupPredistCoefChn1High, srvPlcCoupPredistCoefChn1Low,
+  srvPlcCoupCarrierMaskChn1High, srvPlcCoupCarrierMaskChn1Vlow,
   SRV_PCOUP_CHN1_GAIN_HIGH_TBL, SRV_PCOUP_CHN1_GAIN_VLOW_TBL,
   SRV_PCOUP_CHN1_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN1_LINE_DRV_CONF
 
@@ -202,11 +206,22 @@ bool SRV_PCOUP_SetChannelConfig(DRV_HANDLE handle, DRV_PLC_PHY_CHANNEL channel)
     result = result && resultOut;
 
     /* MISRA C-2012 deviation block start */
-    /* MISRA C-2012 Rule 11.8 deviated 3 times. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2012 Rule 11.8 deviated 5 times. Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
 
     pibObj.id = PLC_ID_DACC_TABLE_CFG;
     pibObj.length = 17U << 2;
     pibObj.pData = (uint8_t *)pCoupValues->daccTable;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
+
+    pibObj.length = SRV_PCOUP_CARRIER_MASK_SIZE_CHN;
+    pibObj.id = PLC_ID_TX_RMS_CALC_CARRIER_MASK_HI;  
+    pibObj.pData = (uint8_t *)pCoupValues->carrierMaskHigh;
+    resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
+    result = result && resultOut;
+
+    pibObj.id = PLC_ID_TX_RMS_CALC_CARRIER_MASK_VLO;
+    pibObj.pData = (uint8_t *)pCoupValues->carrierMaskVlow;
     resultOut = DRV_PLC_PHY_PIBSet(handle, &pibObj);
     result = result && resultOut;
 
@@ -228,12 +243,15 @@ bool SRV_PCOUP_SetChannelConfig(DRV_HANDLE handle, DRV_PLC_PHY_CHANNEL channel)
 
 uint16_t SRV_PCOUP_GetChannelList(void)
 {
-  return (uint16_t)SRV_PCOUP_CHANNEL_LIST;
+    return (uint16_t)SRV_PCOUP_CHANNEL_LIST;
+}
+
+uint16_t SRV_PCOUP_GetChannelListImpedanceDetection(void)
+{
+    return (uint16_t)SRV_PCOUP_CHANNEL_LIST_IMP_DET;
 }
 
 DRV_PLC_PHY_CHANNEL SRV_PCOUP_GetChannelImpedanceDetection(void)
 {
-  DRV_PLC_PHY_CHANNEL channel = (DRV_PLC_PHY_CHANNEL)SRV_PCOUP_CHANNEL_IMP_DET;
-
-  return channel;
+    return SRV_PCOUP_CHANNEL_IMP_DET;
 }

@@ -9691,7 +9691,7 @@
   &lt;drv_memory dnOrder=&quot;0&quot; id=&quot;DRV_MEMORY_ASYNC_HEADER_LOCAL&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/drv_memory&gt;
@@ -9704,7 +9704,7 @@
   &lt;drv_memory dnOrder=&quot;0&quot; id=&quot;DRV_MEMORY_ASYNC_SOURCE&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/drv_memory&gt;
@@ -9726,6 +9726,7 @@
   &lt;drv_memory dnOrder=&quot;0&quot; id=&quot;DRV_MEMORY_COMMON_MODE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
       &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drv_memory&quot; value=&quot;Synchronous&quot;/&gt;
+      &lt;User dnOrder=&quot;1&quot; value=&quot;Asynchronous&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drv_memory&gt;
 &lt;/drv_memory&gt;
@@ -9736,7 +9737,7 @@
          <value>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;drv_memory&gt;
   &lt;drv_memory dnOrder=&quot;0&quot; id=&quot;DRV_MEMORY_COMMON_SYS_TIME_ENABLE&quot;&gt;
     &lt;Values dnOrder=&quot;0&quot;&gt;
-      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drv_memory&quot; value=&quot;true&quot;/&gt;
+      &lt;Dynamic dnOrder=&quot;0&quot; id=&quot;drv_memory&quot; value=&quot;false&quot;/&gt;
     &lt;/Values&gt;
   &lt;/drv_memory&gt;
 &lt;/drv_memory&gt;
@@ -9748,7 +9749,7 @@
   &lt;drv_memory dnOrder=&quot;0&quot; id=&quot;DRV_MEMORY_SYNC_HEADER_LOCAL&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/drv_memory&gt;
@@ -9761,7 +9762,7 @@
   &lt;drv_memory dnOrder=&quot;0&quot; id=&quot;DRV_MEMORY_SYNC_SOURCE&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/drv_memory&gt;
@@ -10040,7 +10041,7 @@
   &lt;drv_memory_0 dnOrder=&quot;0&quot; id=&quot;DRV_MEMORY_SYS_RTOS_TASK&quot;&gt;
     &lt;Attributes dnOrder=&quot;0&quot;&gt;
       &lt;Boolean dnOrder=&quot;0&quot; id=&quot;enabled&quot;&gt;
-        &lt;Value dnOrder=&quot;0&quot;&gt;false&lt;/Value&gt;
+        &lt;Value dnOrder=&quot;0&quot;&gt;true&lt;/Value&gt;
       &lt;/Boolean&gt;
     &lt;/Attributes&gt;
   &lt;/drv_memory_0&gt;
@@ -30240,7 +30241,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\configuration.h</file>
-         <hash>aaf6864616b903b27f0d50850abf6eb3afcf306169879a1640295f0a5631013d</hash>
+         <hash>e4c730f43f15e21cdaae84902acef6a52be950bd522bface18e10af3a337d724</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\crypto\common_crypto\crypto_aead_cipher.h</file>
@@ -30356,11 +30357,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\driver\memory\src\drv_memory.c</file>
-         <hash>c061d375ea2b25e4b77d3e1ce62a3c7d8f82edd21a4259b7d976a6600b4a44f3</hash>
+         <hash>0d57e91fff124eb1e4573bfd390d9974b55dd49d6afb04cfe8b61bd847389321</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\driver\memory\src\drv_memory_local.h</file>
-         <hash>33517ba66c986a457b96168cfb2d9437874a5ea174ce11f89df84be06c509a10</hash>
+         <hash>129258f301260bf3f612f02652c061c7df89379cc21950df0d02ba5f5ee1845d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\driver\memory\src\drv_memory_sefc0.c</file>
@@ -30428,7 +30429,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\initialization.c</file>
-         <hash>f7412d24fa1ba724853a0286ca0ba981d04399e157961cc4ff273cca1d0d217c</hash>
+         <hash>31699a1a43a73b277fd28a237cac4133c5addcf47d8f98062e3e677d95873f2f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\interrupts.c</file>
@@ -30988,7 +30989,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\tasks.c</file>
-         <hash>bbed9006f5beb31be4993ff938b33323ab95899716179577a0e8bd693fe96331</hash>
+         <hash>21d27d1c15d52bf130d99de666f690ae0fd2809df9fa2143953ac44b8bcb001e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmtg_pl460_freertos\toolchain_specifics.h</file>

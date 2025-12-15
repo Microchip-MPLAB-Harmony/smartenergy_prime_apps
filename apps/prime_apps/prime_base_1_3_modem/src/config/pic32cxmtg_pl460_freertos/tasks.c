@@ -70,6 +70,15 @@ static void lDRV_PLC_PHY_Tasks(  void *pvParameters  )
     }
 }
 
+static void lDRV_MEMORY_0_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+        DRV_MEMORY_Tasks(sysObj.drvMemory0);
+        vTaskDelay(DRV_MEMORY_RTOS_DELAY_IDX0 / portTICK_PERIOD_MS);
+    }
+}
+
 
 /* Handle for the APP_Tasks. */
 TaskHandle_t xAPP_Tasks;
@@ -139,6 +148,13 @@ void SYS_Tasks ( void )
         (TaskHandle_t*)NULL
     );
 
+    (void)xTaskCreate( lDRV_MEMORY_0_Tasks,
+        "DRV_MEM_0_TASKS",
+        DRV_MEMORY_STACK_SIZE_IDX0,
+        (void*)NULL,
+        DRV_MEMORY_PRIORITY_IDX0 ,
+        (TaskHandle_t*)NULL
+    );
 
 
 
