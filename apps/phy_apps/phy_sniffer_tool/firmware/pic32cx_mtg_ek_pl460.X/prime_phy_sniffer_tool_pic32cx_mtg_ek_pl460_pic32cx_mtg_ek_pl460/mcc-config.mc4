@@ -36,7 +36,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\configuration.h
   hash: 1616557858f677dea600cf9a7e0f16c14d503dc01affd0e3eb0aa12856ec213d
 - file: ..\src\config\pic32cx_mtg_ek_pl460\definitions.h
-  hash: bd015e522e020d27c4432ea26d6bfc99b10fa71dca9921fc777b9ca1bdce451d
+  hash: 24dca9315c7843719f1c6680f0e344b5e46672030b4574ad474780f822c5540b
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device_cache.h
