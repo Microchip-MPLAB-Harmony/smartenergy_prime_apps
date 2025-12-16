@@ -1,0 +1,60 @@
+configVersion: 1.0.0
+componentName: primeFirmwareUpgrade
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: primeFirmwareUpgrade
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: primeFirmwareUpgrade
+          x: '530'
+          y: '100'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    PRIME_FU_MEM_SIZE:
+      attributes:
+        id: PRIME_FU_MEM_SIZE
+      children:
+      - children:
+        - attributes:
+            id: primeFirmwareUpgrade
+            value: '0x40000'
+          type: Dynamic
+        type: Values
+      type: String
+  userData: {}

@@ -1,0 +1,159 @@
+configVersion: 1.0.0
+componentName: prime_config
+coreVersion: 5.8.3
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: prime_config
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.5
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: primePal_dep
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'false'
+            type: Boolean
+          type: Attributes
+        type: GenericDependency
+      type: Attachments
+    type: prime_config
+  elementPosition:
+    attributes:
+      id: PRIME STACK
+    children:
+    - children:
+      - attributes:
+          id: prime_config
+          x: '360'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    BN_SLAVE_EN:
+      attributes:
+        id: BN_SLAVE_EN
+      children:
+      - children:
+        - attributes:
+            id: prime_config
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    MAC_SECURITY_PROFILE:
+      attributes:
+        id: MAC_SECURITY_PROFILE
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: prime_config
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    NUM_MAX_NODES:
+      attributes:
+        id: NUM_MAX_NODES
+      children:
+      - children:
+        - attributes:
+            id: prime_config
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    PRIME_FW_VERSION:
+      attributes:
+        id: PRIME_FW_VERSION
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: prime_config
+            value: S13.01.01
+          type: Dynamic
+        type: Values
+      type: String
+    PRIME_PROJECT:
+      attributes:
+        id: PRIME_PROJECT
+      children:
+      - children:
+        - attributes:
+            value: bin project
+          type: User
+        type: Values
+      type: Combo
+    PRIME_VERSION:
+      attributes:
+        id: PRIME_VERSION
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            value: 1.3.6
+          type: User
+        type: Values
+      type: Combo
+  userData: {}
