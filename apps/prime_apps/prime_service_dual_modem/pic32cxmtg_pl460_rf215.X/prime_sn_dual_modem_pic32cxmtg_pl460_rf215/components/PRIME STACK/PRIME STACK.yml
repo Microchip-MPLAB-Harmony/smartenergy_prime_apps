@@ -35,7 +35,7 @@ dependency:
 - dependencyPackage: ''
   name: smartenergy_prime
   type: package
-  version: v1.0.0
+  version: v1.1.0
 - dependencyPackage: ''
   name: wolfssl
   type: package
