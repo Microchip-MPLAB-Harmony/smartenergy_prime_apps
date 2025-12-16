@@ -432,7 +432,7 @@ void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle, SRV_USI_PROTOCOL_ID protocol,
     void PRIME_HAL_WRP_DebugReport
     (
         SRV_LOG_REPORT_LEVEL logLevel,
-        SRV_LOG_REPORT_CODE code,
+        uint32_t code,
         const char *info, ...)
 
   Summary:
@@ -454,14 +454,14 @@ void PRIME_HAL_WRP_UsiSend(SRV_USI_HANDLE handle, SRV_USI_PROTOCOL_ID protocol,
 
   Example:
     <code>
-    PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_WARNING, 100, "Wrong input\r\n");
+    PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_WARNING, 300, "Wrong input\r\n");
     </code>
 
   Remarks:
     Related to Log Report service.
 */
 void PRIME_HAL_WRP_DebugReport(SRV_LOG_REPORT_LEVEL logLevel,
-    SRV_LOG_REPORT_CODE code, const char *info, ...);
+    uint32_t code, const char *info, ...);
 
 // *****************************************************************************
 /* Function:

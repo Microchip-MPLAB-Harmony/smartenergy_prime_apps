@@ -4819,7 +4819,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\configuration.h</file>
-         <hash>ea3239e4a8363508c60aeef53862ce1332e696cfcf78e19cc903dd975de89812</hash>
+         <hash>dc25f507bf2178da0d2af42554bfcd054d184babed919fa136e30e415173e4d6</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\device.h</file>
@@ -4847,11 +4847,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\peripheral\clk\plib_clk.c</file>
-         <hash>a3cf4fb98f3d1461af1981edfbf2418db03ff335c886455c07361f2d1aef422c</hash>
+         <hash>d881ee9ae6a2d3679cccc7af79f0a0a7360fff3e571aebd62657c19dcd263841</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\peripheral\clk\plib_clk.h</file>
-         <hash>5feb234b25d6c9bd283a36c9d6976f9f06c9d63a79c2a5e6becdb23d3a0eb368</hash>
+         <hash>e05f7150ea575e1bf91407d446d44bd1b1b28d87625ca71f8c535492b1e6f436</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\peripheral\cmcc\plib_cmcc.c</file>
@@ -4911,15 +4911,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\peripheral\sefc\plib_sefc_common.c</file>
-         <hash>f7e1500368414009b16ba916e612ec780f90f7029ecd550dbae91b49c5b88626</hash>
+         <hash>0c27fb9a65f685636ea4c67725983303f364c576d7608fe4b36b4294e0e0a968</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\peripheral\sefc\plib_sefc_common.h</file>
-         <hash>3baa7dbf8acb6264c697a73035c40a786d850be386c308da4aad0b4f32830bd7</hash>
+         <hash>9766f7ad9b16f211828181e06f535d478284687d4913439e270245a295bcfac8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\peripheral\supc\plib_supc.c</file>
-         <hash>f93cfc1c8f71fb6461b920c96fe1707d2f3a1d395e0213dcf7c1cffec8df9c12</hash>
+         <hash>f4715c8189864ba4f08d6e620cfd91338e4153fbd4e2cf57e49945e187cbfe73</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\peripheral\supc\plib_supc.h</file>
@@ -4931,7 +4931,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\firmware_upgrade\srv_firmware_upgrade.c</file>
-         <hash>78a079f26929594064893494a3be0c88f85d27d192e9f34819e118fce724a7e5</hash>
+         <hash>f636d8de7345858fab3b5fb880eaa4fda93a89be1c16d2d809eeef41669fbeac</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\firmware_upgrade\srv_firmware_upgrade.h</file>
@@ -4943,11 +4943,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\log_report\srv_log_report.c</file>
-         <hash>8f7f7b028ccc14f2995433f0171b51a2cbe9f14a0f46feeba4d26383e3991d2b</hash>
+         <hash>3e59ed0f486f26b774ed90422def826d012fba28d50985c5eb61123fb78736ec</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\log_report\srv_log_report.h</file>
-         <hash>5c95e03258689bc7e2808ba6883fb1fbe033f0ce15a12d2f9be527a4b55fd657</hash>
+         <hash>9503f395a75d765bfafa117425bbe58a77c18cadae307a075463ea165fb10ed1</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\pcrc\srv_pcrc.c</file>
@@ -4959,11 +4959,15 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\queue\srv_queue.c</file>
-         <hash>1ee1a40e363124e2db628b1b18ad7b896710d49c1331ad645360764d405ac75b</hash>
+         <hash>9efc5c8c03244706fafbb923e7191b75a0c3ca610b81ef28e5e92aebc0b9bedd</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\queue\srv_queue.h</file>
          <hash>e5c5687a5504867589b1679c046ba82ce2b0a7a62d3c48a74dde22bb886d1a59</hash>
+      </entry>
+      <entry>
+         <file>..\src\config\pic32cxmt_pl460\service\queue\srv_queue_local.h</file>
+         <hash>fc6385f319bc7e02ce7d2fcb2412c4e5f7e84f158a52839f2cd5ce16db1ac2e8</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\random\srv_random.c</file>
@@ -4991,7 +4995,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\security\cipher_wrapper.c</file>
-         <hash>cd202d076dc91569ac5d565e45ef6a0fda2f41222207934601a7fbeb8eced574</hash>
+         <hash>13aeaf20b43caf36da444108e7595247fb457b723462845a5f308e7c81b5aa64</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\security\cipher_wrapper.h</file>
@@ -4999,7 +5003,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\storage\srv_storage.c</file>
-         <hash>833d47995850adcf8b7315afc66ed99240741443eed470703f26e8a5f7235843</hash>
+         <hash>bec4b75f69b0771b1dc6be3c003a424eaac2fcbbd497976c5d03d64d31e0182d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\storage\srv_storage.h</file>
@@ -5035,7 +5039,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\service\usi\srv_usi_local.h</file>
-         <hash>cbd80d3ecb1d78130ce3d61bdbf0b6f37e524666f24299dd8eb4037162a0a503</hash>
+         <hash>afb81dfb99d2b3a66102822fbbd7639a7765e1ef14b725434b40762b3d3f9f4f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\conv\sscs\iec_4_32\cl_432.h</file>
@@ -5047,7 +5051,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\conv\sscs\iec_4_32\cl_432_defs.h</file>
-         <hash>11a4548165ff282691d3cd1ba1ef8b4e6bb163148e218595e8d31cd92e7b7149</hash>
+         <hash>37d61e6db65b1603d42e4b7f8bb06f1705abe5df1e0807b0de8bea970e6d4609</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\conv\sscs\null\cl_null.h</file>
@@ -5059,11 +5063,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\hal_api\hal_api.h</file>
-         <hash>7509e01eac16775b81179fffc4926b2065c4e043e4c45506ec1f1455d8419aa7</hash>
+         <hash>fc556d8fdc36ce4af0eae6f6b0a8f830acbbb23cc017b6a1e61c572e1fd5bb44</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\libs\prime13_lib_sn.a</file>
-         <hash>d3defbfee4be516eb191bfafa5a61828e8785b0a1aadc904f35658922e2cfd69</hash>
+         <hash>49433c75dfb22c5b2f9683a869b894d3ec0ce4e7ad76cc0cd07218425cbf6e4e</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\mac\mac.h</file>
@@ -5075,7 +5079,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\mac\mac_pib.h</file>
-         <hash>2a89877326b4eaf369652feda40f707e1e934d840537bcc2cbf1b799d70a9abe</hash>
+         <hash>6cd07627ad9997f9ddb0fe025328809b55f0547cd48bdcc4f6553b3936087e6c</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\mngp\mngp.h</file>
@@ -5083,7 +5087,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\prime_api\prime_api.c</file>
-         <hash>35b911752a0db97577e6e24d85ceaff7ca983a258c0b74b771c2565e0de6ec38</hash>
+         <hash>4bd8a9b014a638e626d474ccd30f9708a826fd2299e1e04e739e3772534a215d</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\prime_api\prime_api.h</file>
@@ -5099,15 +5103,11 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\prime_api\prime_hal_wrapper.c</file>
-         <hash>69bd7a409cd472f0c508fce91cf4bcfc7237ba84110ab39608b44738cb4e3c67</hash>
+         <hash>fc4ce872496aca35401598bdda8c65d2a925a4bf06941aa0013306f7e335cf4f</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\stack\prime\prime_api\prime_hal_wrapper.h</file>
-         <hash>5e004c89efa574bea079ddf5c802bbd78c036848f3c5b4053d501ea16fe5cce9</hash>
-      </entry>
-      <entry>
-         <file>..\src\config\pic32cxmt_pl460\startup_xc32.c</file>
-         <hash>ed78adca325dba19c6ffbcc5cb3ba89bd1c21f9c2fd5c1f8576d622ec6d99d3d</hash>
+         <hash>8b54157c56bc2fb17badce6c9fc3a59474d63b7b77a1aebd8fd874210ddb74dc</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\sys_tasks.h</file>
@@ -5131,7 +5131,7 @@
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\tasks.c</file>
-         <hash>e934590dd2775b1b7943d4b851ee28c20fe7c8662b03632a160270eacf020087</hash>
+         <hash>fd1d388f70bf2b9fb6e50b769076a5bfb663fb6deebccc09d41bda990363b990</hash>
       </entry>
       <entry>
          <file>..\src\config\pic32cxmt_pl460\toolchain_specifics.h</file>
