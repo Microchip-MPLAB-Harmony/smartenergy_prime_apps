@@ -4,7 +4,7 @@
 
 
 project: prime_bn_14_modem
-creation_date: 2025-12-11T13:17:11.853+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2025-12-16T08:02:08.359+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
@@ -17,7 +17,7 @@ modules:
     - {name: "csp", version: "v3.23.0"}
     - {name: "core", version: "v3.15.5"}
     - {name: "CMSIS_5", version: "5.9.0"}
-    - {name: "smartenergy_prime", version: "v1.0.0"}
+    - {name: "smartenergy_prime", version: "v1.1.0"}
     - {name: "crypto_v4", version: "v4.0.0-E3"}
     - {name: "wolfssl", version: "v5.7.0"}
     - {name: "smartenergy", version: "v1.5.0"}

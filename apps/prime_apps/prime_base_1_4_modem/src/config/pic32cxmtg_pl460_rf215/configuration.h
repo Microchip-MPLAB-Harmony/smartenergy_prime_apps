@@ -191,6 +191,11 @@ extern "C" {
 // Section: Middleware & Other Library Configuration
 // *****************************************************************************
 // *****************************************************************************
+/* PRIME stack RTOS configuration */
+#define PRIME_STACK_RTOS_STACK_SIZE         3584U
+#define PRIME_STACK_RTOS_TASK_PRIORITY          2U
+#define PRIME_STACK_RTOS_TASK_DELAY_MS          1U
+
 /* PRIME Identification */
 #define PRIME_INDEX_0                               0U
 #define PRIME_INSTANCES_NUMBER                      1U

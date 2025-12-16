@@ -64,13 +64,6 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 21.1 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_1_DR_1 */
-/* Configuration of the CORTEX-M4 Processor and Core Peripherals */
-/* PIC32CXMT */
-#define __NVIC_PRIO_BITS         4
-/* MISRA C-2012 deviation block end */
-
 /* Security profile for PRIME 1.4 */
 #define MAC_SECURITY_PROFILE     0
 

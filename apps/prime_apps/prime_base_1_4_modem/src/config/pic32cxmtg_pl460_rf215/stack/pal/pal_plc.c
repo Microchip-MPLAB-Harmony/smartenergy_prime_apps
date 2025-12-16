@@ -61,7 +61,7 @@ Microchip or any third party.
 #include "pal_plc_rm.h"
 #include "service/psniffer/srv_psniffer.h"
 #include "service/log_report/srv_log_report.h"
-#include "peripheral/trng/plib_trng.h"
+#include "service/random/srv_random.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -342,7 +342,7 @@ __STATIC_INLINE void lPAL_PLC_TimerSyncUpdate(void)
     else
     {
         SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR,
-                (SRV_LOG_REPORT_CODE)PAL_PLC_TIMER_SYNC_ERROR,
+                PAL_PLC_TIMER_SYNC_ERROR,
                 "PRIME_PAL_PLC: PLC timer synchronization error\r\n");
         lPAL_PLC_TimerSyncInitialize();
     }
@@ -394,6 +394,63 @@ static uint32_t lPAL_PLC_GetPlcTime(uint32_t timeHost)
     return (uint32_t)(timePlc);
 }
 
+static void lPAL_PLC_SetCorrelationThresholds(DRV_PLC_PHY_CHANNEL channel)
+{
+    uint16_t corrThresholds[6];
+
+    if (channel == CHN1)
+    {
+        /* Set thresholds for channel 1 */
+        corrThresholds[0] = 12288;
+        corrThresholds[1] = 12288;
+        corrThresholds[2] = 20971;
+        corrThresholds[3] = 20971;
+        corrThresholds[4] = 24576;
+        corrThresholds[5] = 24576;
+    }
+    else
+    {
+        /* Set thresholds for other channels */
+        /* Set 1/2 (Type A and Type B) thresholds to maximum value (disable CD activation at 1/2 preamble) */
+        corrThresholds[0] = 34406;
+        corrThresholds[1] = 24248;
+        corrThresholds[2] = 45875;
+        corrThresholds[3] = 39322;
+        corrThresholds[4] = 65535;
+        corrThresholds[5] = 65535;
+    }
+
+    palPlcData.plcPIB.id = PLC_ID_SYNC_THRESHOLDS;
+    palPlcData.plcPIB.length = sizeof(corrThresholds);
+    palPlcData.plcPIB.pData = (uint8_t *)corrThresholds;
+    (void)DRV_PLC_PHY_PIBSet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
+}
+
+static bool lPAL_PLC_CheckChannelInListImpDetect(DRV_PLC_PHY_CHANNEL channel)
+{
+    uint8_t channelNum = (uint8_t)channel;
+
+    if ((1U << (channelNum - 1U)) & palPlcData.channelListImpDetect)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+static void lPAL_PLC_NetworkDetected(bool networkDetected, DRV_PLC_PHY_CHANNEL channel)
+{
+    if ((networkDetected == true) && (lPAL_PLC_CheckChannelInListImpDetect(channel) == false))
+    {
+        uint8_t vloValue = 2;
+
+        palPlcData.plcPIB.id = PLC_ID_CFG_IMPEDANCE;
+        palPlcData.plcPIB.length = 1;
+        palPlcData.plcPIB.pData = &vloValue;
+        (void)DRV_PLC_PHY_PIBSet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
+    }
+}
+
 static void lPAL_PLC_SetTxRxChannel(DRV_PLC_PHY_CHANNEL channel)
 {
     /* Set channel configuration */
@@ -401,6 +458,8 @@ static void lPAL_PLC_SetTxRxChannel(DRV_PLC_PHY_CHANNEL channel)
     palPlcData.plcPIB.length = 1;
     palPlcData.plcPIB.pData = &channel;
     (void)DRV_PLC_PHY_PIBSet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
+    lPAL_PLC_SetCorrelationThresholds(channel);
+    lPAL_PLC_NetworkDetected(palPlcData.networkDetected, channel);
 
     /* Set coupling configuration */
     (void)SRV_PCOUP_SetChannelConfig(palPlcData.drvPhyHandle, channel);
@@ -409,7 +468,74 @@ static void lPAL_PLC_SetTxRxChannel(DRV_PLC_PHY_CHANNEL channel)
     lPAL_PLC_TimerSyncInitialize();
 
     SRV_PSNIFFER_SetPLCChannel((uint8_t)channel);
+}
 
+static void lPAL_PLC_ImpDetectTxMsg(void)
+{
+    DRV_PLC_PHY_TRANSMISSION_OBJ txObj;
+    uint8_t pData[8];
+
+    palPlcData.impedanceDetectOngoing = true;
+
+    if (palPlcData.buffer1InUse == true)
+    {
+        /* Buffer already in use */
+        return;
+    }
+
+    /* Transmit dummy message for impedance detection */
+    (void)memset(pData, 0xAA, sizeof(pData));
+
+    palPlcData.buffer1InUse = true;
+    txObj.bufferId = TX_BUFFER_1;
+    txObj.csma.disableRx = 0;
+    txObj.csma.senseCount = 0;
+    txObj.csma.senseDelayMs = 0;
+    txObj.frameType = FRAME_TYPE_A;
+    txObj.scheme = SCHEME_DBPSK;
+    txObj.mode = (uint8_t)(TX_MODE_RELATIVE);
+    txObj.timeIni = (SRV_RANDOM_Get32bits() & 0x3FFU) * 3072U;
+    txObj.dataLength = (uint16_t)(sizeof(pData));
+    txObj.pTransmitData = pData;
+    txObj.attenuation = 7;
+
+    DRV_PLC_PHY_TxRequest(palPlcData.drvPhyHandle, &txObj);
+}
+
+static bool lPAL_PLC_ImpDetectStart(void)
+{
+    if (palPlcData.channelImpDetect == CHN_INVALID)
+    {
+        return false;
+    }
+
+    /* Switch to required channel for impedance detection */
+    lPAL_PLC_SetTxRxChannel(palPlcData.channelImpDetect);
+
+    /* Transmit dummy message for impedance detection */
+    lPAL_PLC_ImpDetectTxMsg();
+
+    return true;
+}
+
+static void lPAL_PLC_SetTxRxChannelFromUpperLayer(DRV_PLC_PHY_CHANNEL channel)
+{
+    if (palPlcData.impedanceDetectOngoing == false)
+    {
+        bool impDetect = false;
+        if ((palPlcData.impedanceDetected == false) && (lPAL_PLC_CheckChannelInListImpDetect(channel) == false))
+        {
+            /* Desired channel doesn't support impedance detection */
+            /* Change to the appropriate channel and start impedance detection procedure (detect impedance with dummy message) */
+            impDetect = lPAL_PLC_ImpDetectStart();
+        }
+
+        if (impDetect == false)
+        {
+            /* Set/restore channel */
+            lPAL_PLC_SetTxRxChannel(channel);
+        }
+    }
 }
 
 // *****************************************************************************
@@ -427,10 +553,37 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
         lPAL_PLC_TimerSyncInitialize();
     }
 
-    if (palPlcData.status == PAL_PLC_STATUS_DETECT_IMPEDANCE)
+    if (pCfmObj->bufferId == TX_BUFFER_1)
     {
-        palPlcData.detectImpedanceResult = pCfmObj->result;
-        return;
+        palPlcData.buffer1InUse = false;
+        if (palPlcData.impedanceDetectOngoing == true)
+        {
+            if ((pCfmObj->result == DRV_PLC_PHY_TX_RESULT_SUCCESS) || (palPlcData.impedanceDetected == true))
+            {
+                /* Impedance detected successfully */
+                palPlcData.impedanceDetected = true;
+                palPlcData.impedanceDetectOngoing = false;
+
+                /* Restore channel after TX for impedance detection */
+                lPAL_PLC_SetTxRxChannel(palPlcData.channel);
+            }
+            else
+            {
+                /* Try again */
+                lPAL_PLC_ImpDetectTxMsg();
+            }
+
+            return;
+        }
+    }
+
+    if ((palPlcData.impedanceDetected == false) && (pCfmObj->result == DRV_PLC_PHY_TX_RESULT_SUCCESS))
+    {
+        if ((palPlcData.impedanceDetectOngoing == true) || (lPAL_PLC_CheckChannelInListImpDetect(palPlcData.channel) == true))
+        {
+            /* Impedance detected successfully */
+            palPlcData.impedanceDetected = true;
+        }
     }
 
     if (palPlcData.plcCallbacks.dataConfirm != NULL)
@@ -480,6 +633,19 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
         }
     }
 
+    if ((palPlcData.impedanceDetected == false) && (lPAL_PLC_CheckChannelInListImpDetect(palPlcData.channel) == false) && (palPlcData.buffer1InUse == false))
+    {
+        /* Current channel doesn't support impedance detection */
+        /* Change to the appropriate channel and start impedance detection procedure (detect impedance with dummy message) */
+        if (palPlcData.impedanceDetectOngoing == true)
+        {
+            lPAL_PLC_ImpDetectTxMsg();
+        }
+        else
+        {
+            (void)lPAL_PLC_ImpDetectStart();
+        }
+    }
 }
 
 static void lPAL_PLC_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *pIndObj, uintptr_t context)
@@ -549,7 +715,6 @@ static void lPAL_PLC_PLC_DataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *pIndObj, uintptr_t
             palPlcData.snifferCallback(palPlcData.snifferData, length);
         }
     }
-
 }
 
 static void lPAL_PLC_PLC_PVDDMonitorCb(SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context)
@@ -646,11 +811,10 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(void)
     /* Initialize data fields */
     palPlcData.waitingTxCfm = false;
     palPlcData.exceptionPending = false;
-    palPlcData.hiTimerRef = 0;
-    palPlcData.previousTimerRef = 0;
     palPlcData.errorInfo = 0;
     palPlcData.palAttenuation = 0;
     palPlcData.syncEnable = false;
+    palPlcData.buffer1InUse = false;
     palPlcData.syncHandle = SYS_TIME_HANDLE_INVALID;
 
     /* Read Default Channel */
@@ -678,7 +842,7 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(void)
     else
     {
         SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR,
-                (SRV_LOG_REPORT_CODE)PHY_LAYER_PLC_NOT_AVAILABLE,
+                PHY_LAYER_PLC_NOT_AVAILABLE,
                 "PRIME_PAL_PLC: PLC PHY layer not available\r\n");
         palPlcData.status = PAL_PLC_STATUS_ERROR;
         return SYS_MODULE_OBJ_INVALID;
@@ -710,9 +874,11 @@ void PAL_PLC_Tasks(void)
                 /* Perform initial configuration */
                 DRV_PLC_PHY_ExceptionCallbackRegister(palPlcData.drvPhyHandle, lPAL_PLC_PLC_ExceptionCb, DRV_PLC_PHY_INDEX);
                 DRV_PLC_PHY_TxCfmCallbackRegister(palPlcData.drvPhyHandle, lPAL_PLC_PLC_DataCfmCb, DRV_PLC_PHY_INDEX);
+                DRV_PLC_PHY_DataIndCallbackRegister(palPlcData.drvPhyHandle, lPAL_PLC_PLC_DataIndCb, DRV_PLC_PHY_INDEX);
 
                 /* Update Channel list */
                 palPlcData.channelList = SRV_PCOUP_GetChannelList();
+                palPlcData.channelListImpDetect = SRV_PCOUP_GetChannelListImpedanceDetection();
 
                 /* Disable TX Enable at the beginning */
                 DRV_PLC_PHY_EnableTX(palPlcData.drvPhyHandle, false);
@@ -721,11 +887,17 @@ void PAL_PLC_Tasks(void)
                 SRV_PVDDMON_CallbackRegister(lPAL_PLC_PLC_PVDDMonitorCb, 0);
                 SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
 
-                /* Set Channel for impedance detection */
-                palPlcData.channel = SRV_PCOUP_GetChannelImpedanceDetection();
+                /* Get default channel */
+                palPlcData.channel = SRV_PCOUP_GetDefaultChannel();
+                palPlcData.channelImpDetect = SRV_PCOUP_GetChannelImpedanceDetection();
+                palPlcData.impedanceDetected = false;
+                palPlcData.impedanceDetectOngoing = false;
+
+                /* Initialize channel */
                 lPAL_PLC_SetTxRxChannel(palPlcData.channel);
-                palPlcData.detectImpedanceResult = DRV_PLC_PHY_TX_RESULT_NO_TX;
-                palPlcData.status = PAL_PLC_STATUS_DETECT_IMPEDANCE;
+
+                /* Set PAL status to ready */
+                palPlcData.status = PAL_PLC_STATUS_READY;
             }
             else
             {
@@ -734,56 +906,6 @@ void PAL_PLC_Tasks(void)
                     palPlcData.status = PAL_PLC_STATUS_ERROR;
                 }
             }
-            break;
-        }
-
-        case PAL_PLC_STATUS_DETECT_IMPEDANCE:
-        {
-            if (palPlcData.detectImpedanceResult != DRV_PLC_PHY_TX_RESULT_PROCESS)
-            {
-                if (palPlcData.detectImpedanceResult == DRV_PLC_PHY_TX_RESULT_SUCCESS)
-                {
-                    /* Set Default configuration */
-                    palPlcData.status = PAL_PLC_STATUS_SET_DEFAULT;
-                }
-                else
-                {
-                    // Send Dummy Message
-                    DRV_PLC_PHY_TRANSMISSION_OBJ txObj;
-                    uint8_t pData[8];
-
-                    (void)memset(pData, 0xAA, sizeof(pData));
-
-                    txObj.bufferId = TX_BUFFER_0;
-                    txObj.csma.disableRx = 1; /* true */
-                    txObj.csma.senseCount = 0;
-                    txObj.csma.senseDelayMs = 0;
-                    txObj.frameType = FRAME_TYPE_A;
-                    txObj.scheme = SCHEME_DBPSK;
-                    txObj.mode = (uint8_t)(TX_MODE_RELATIVE);
-                    txObj.timeIni = TRNG_ReadData() % 100000U;
-                    txObj.dataLength = (uint16_t)(sizeof(pData));
-                    txObj.pTransmitData = pData;
-                    txObj.attenuation = 7;
-
-                    palPlcData.detectImpedanceResult = DRV_PLC_PHY_TX_RESULT_PROCESS;
-                    DRV_PLC_PHY_TxRequest(palPlcData.drvPhyHandle, &txObj);
-                }
-            }
-            break;
-        }
-
-        case PAL_PLC_STATUS_SET_DEFAULT:
-        {
-            /* Set Data Indication Callback */
-            DRV_PLC_PHY_DataIndCallbackRegister(palPlcData.drvPhyHandle, lPAL_PLC_PLC_DataIndCb, DRV_PLC_PHY_INDEX);
-
-            /* Apply PLC coupling configuration for the default channel */
-            palPlcData.channel = SRV_PCOUP_GetDefaultChannel();
-            lPAL_PLC_SetTxRxChannel(palPlcData.channel);
-
-            /* Set PAL status to ready */
-            palPlcData.status = PAL_PLC_STATUS_READY;
             break;
         }
 
@@ -809,16 +931,15 @@ void PAL_PLC_Tasks(void)
                     /* Restart exception flag */
                     palPlcData.exceptionPending = false;
 
-                    /* Set Channel for impedance detection */
-                    palPlcData.channel = SRV_PCOUP_GetChannelImpedanceDetection();
-                    lPAL_PLC_SetTxRxChannel(palPlcData.channel);
-                    palPlcData.detectImpedanceResult = DRV_PLC_PHY_TX_RESULT_NO_TX;
-                    palPlcData.status = PAL_PLC_STATUS_DETECT_IMPEDANCE;
+                    /* Initialize variables for impedance detection */
+                    palPlcData.impedanceDetected = false;
+                    palPlcData.impedanceDetectOngoing = false;
 
-                    // lSetCorrelationThresholds();
+                    /* Restore channel or start impedance detection if needed */
+                    lPAL_PLC_SetTxRxChannelFromUpperLayer(palPlcData.channel);
 
-                    palPlcData.hiTimerRef = 0;
-                    palPlcData.previousTimerRef = 0;
+                    /* Set PAL status to ready */
+                    palPlcData.status = PAL_PLC_STATUS_READY;
                 }
                 else
                 {
@@ -850,6 +971,11 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
         return ((uint8_t)PAL_TX_RESULT_PHY_ERROR);
     }
 
+    if ((palPlcData.impedanceDetectOngoing == true) && (pMessageData->buffId == 1))
+    {
+        return (uint8_t)PAL_TX_RESULT_BUSY_TX;
+    }
+
     /* Adapt Timer mode */
     if (pMessageData->timeMode == PAL_TX_MODE_ABSOLUTE)
     {
@@ -874,6 +1000,11 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
     SRV_PSNIFFER_SetTxMessage(&palPlcData.phyTxObj);
 
     DRV_PLC_PHY_TxRequest(palPlcData.drvPhyHandle, &palPlcData.phyTxObj);
+
+    if (palPlcData.phyTxObj.bufferId == TX_BUFFER_1)
+    {
+        palPlcData.buffer1InUse = true;
+    }
 
     return ((uint8_t)PAL_TX_RESULT_PROCESS);
 }
@@ -903,9 +1034,9 @@ uint8_t PAL_PLC_GetCD(uint8_t *pCD, uint8_t *pRSSI, uint32_t *pTime, uint8_t *pH
 {
     DRV_PLC_PHY_CD_INFO cdData;
     uint64_t tempValue;
-    uint32_t hiTimerRef;
     uint32_t rxTimeEnd;
     uint32_t time10us;
+    uint32_t timeRef;
     uint8_t cd;
     uint8_t header;
     uint8_t rssi;
@@ -918,6 +1049,9 @@ uint8_t PAL_PLC_GetCD(uint8_t *pCD, uint8_t *pRSSI, uint32_t *pTime, uint8_t *pH
         *pHeader = 0U;
         return (uint8_t)PAL_CFG_INVALID_INPUT;
     }
+
+    /* Get current time */
+    (void)PAL_PLC_GetTimerExtended(&tempValue);
 
     /* Read Carrier Detect information from PL360 */
     palPlcData.plcPIB.id = PLC_ID_RX_CD_INFO;
@@ -944,15 +1078,16 @@ uint8_t PAL_PLC_GetCD(uint8_t *pCD, uint8_t *pRSSI, uint32_t *pTime, uint8_t *pH
         cd = 1;
         header = (cdData.cdRxState == CD_RX_PAYLOAD)? 0U : 1U;
 
-        /* Check if there is overflow since last time ref read (assumed that last read time ref is previous to Rx end time) */
+        /* Check if there is overflow between current time and Rx end time (assumed that current time ref is previous to Rx end time) */
         rxTimeEnd = lPAL_PLC_GetHostTime(cdData.rxTimeEnd);
-        hiTimerRef = palPlcData.hiTimerRef;
-        if (rxTimeEnd < palPlcData.previousTimerRef) {
-            hiTimerRef++;
+        timeRef = (uint32_t)(tempValue & 0xffffffffU);
+        tempValue = tempValue & (0xffffffff00000000U);
+        if (rxTimeEnd < timeRef)
+        {
+            tempValue += 0x100000000U;
         }
 
-        /* Convert time to extended mode (64 bits) */
-        tempValue = ((uint64_t)hiTimerRef << 32) + rxTimeEnd;
+        tempValue += rxTimeEnd;
 
         /* To adjust more, make round instead floor */
         tempValue += 5U;
@@ -983,19 +1118,21 @@ uint8_t PAL_PLC_GetZCT(uint32_t *pZcTime)
         return (uint8_t)PAL_CFG_INVALID_INPUT;
     }
 
+    /* Read last ZC time from PL360 */
     palPlcData.plcPIB.id = PLC_ID_ZC_TIME;
     palPlcData.plcPIB.length = (uint16_t)(sizeof(zcTime1us));
     palPlcData.plcPIB.pData = (uint8_t *)&zcTime1us;
     (void)DRV_PLC_PHY_PIBGet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
-
     zcTime1us = lPAL_PLC_GetHostTime(zcTime1us);
 
+    /* Get current time */
     (void)PAL_PLC_GetTimerExtended(&tempValue);
 
+    /* Check if there is overflow between current time and ZC time (assumed that ZC time is current time) */
     timeRef = (uint32_t)(tempValue & 0xffffffffU);
-
     tempValue = tempValue & (0xffffffff00000000U);
-    if (timeRef < zcTime1us) {
+    if (timeRef < zcTime1us)
+    {
         tempValue -= 0x100000000U;
     }
 
@@ -1004,6 +1141,7 @@ uint8_t PAL_PLC_GetZCT(uint32_t *pZcTime)
     /* To adjust more, make round instead floor */
     tempValue += 5U;
 
+    /* Convert time to 10us base */
     zcTime10us = (uint32_t)((tempValue / 10U) & 0xffffffffU);
     *pZcTime = zcTime10us;
 
@@ -1066,8 +1204,7 @@ uint8_t PAL_PLC_SetChannel(uint16_t pch)
     }
 
     palPlcData.channel = (DRV_PLC_PHY_CHANNEL)lPAL_PLC_GetChannelNumber(pch);
-
-    lPAL_PLC_SetTxRxChannel(palPlcData.channel);
+    lPAL_PLC_SetTxRxChannelFromUpperLayer(palPlcData.channel);
 
     return((uint8_t)PAL_CFG_SUCCESS);
 }
@@ -1188,6 +1325,11 @@ uint8_t PAL_PLC_GetConfiguration(uint16_t id, void *pValue, uint16_t length)
             result = PAL_CFG_SUCCESS;
             break;
 
+        case PAL_ID_PLC_IMPULSIVE_NOISE_dBuV:
+            plcID = PLC_ID_IMPULSIVE_NOISE_dBuV;
+            askPhy = true;
+            break;	  
+
         default:
             if (id >= 0xFD00U)
             {
@@ -1296,7 +1438,8 @@ uint8_t PAL_PLC_SetConfiguration(uint16_t id, void *pValue, uint16_t length)
             }
 
             palPlcData.channel = (DRV_PLC_PHY_CHANNEL) (*(uint8_t *)pValue);
-            lPAL_PLC_SetTxRxChannel(palPlcData.channel);
+            lPAL_PLC_SetTxRxChannelFromUpperLayer(palPlcData.channel);
+
             result = PAL_CFG_SUCCESS;
             break;
         }
@@ -1324,6 +1467,7 @@ uint8_t PAL_PLC_SetConfiguration(uint16_t id, void *pValue, uint16_t length)
 
         case PAL_ID_NETWORK_DETECTION:
             palPlcData.networkDetected = (bool)(*(uint8_t *)pValue);
+            lPAL_PLC_NetworkDetected(palPlcData.networkDetected, palPlcData.channel);
             result = PAL_CFG_SUCCESS;
             break;
 
