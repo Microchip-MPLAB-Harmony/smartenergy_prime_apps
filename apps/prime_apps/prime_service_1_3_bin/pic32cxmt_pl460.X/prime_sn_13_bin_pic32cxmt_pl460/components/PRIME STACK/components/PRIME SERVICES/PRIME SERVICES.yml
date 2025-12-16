@@ -21,12 +21,10 @@ dependency:
   type: package
   version: v3.23.0
 - dependencyPackage: ''
-  devMode: true
   name: smartenergy
   type: package
   version: v1.5.0
 - dependencyPackage: ''
-  devMode: true
   name: smartenergy_prime
   type: package
   version: v1.1.0
