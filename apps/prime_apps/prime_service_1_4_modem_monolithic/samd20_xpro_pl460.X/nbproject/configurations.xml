@@ -777,8 +777,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD20_DFP" vendor="Microchip" version="3.6.112"/>
         <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
+        <pack name="SAMD20_DFP" vendor="Microchip" version="3.6.112"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
