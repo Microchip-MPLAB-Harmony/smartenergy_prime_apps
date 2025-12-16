@@ -65,14 +65,20 @@ Microchip or any third party.
 static va_list srvLogReportArgs;
 
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Log Report Service Common Interface Implementation
+// *****************************************************************************
+// *****************************************************************************
+
 void SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_LEVEL logLevel,
-                                      SRV_LOG_REPORT_CODE code,
+                                      uint32_t code,
                                       const char *info, ...)
 {
     (void)logLevel;
     (void)info;
 
-
+    (void)code;
 }
 
 void SRV_LOG_REPORT_Message(SRV_LOG_REPORT_LEVEL logLevel,
