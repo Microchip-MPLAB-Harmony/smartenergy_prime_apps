@@ -66,6 +66,7 @@ void DebugMonitor_Handler (void);
 void FLEXCOM0_InterruptHandler (void);
 void FLEXCOM5_InterruptHandler (void);
 void PIOA_InterruptHandler (void);
+void ADC_InterruptHandler (void);
 void TC0_CH0_InterruptHandler (void);
 
 

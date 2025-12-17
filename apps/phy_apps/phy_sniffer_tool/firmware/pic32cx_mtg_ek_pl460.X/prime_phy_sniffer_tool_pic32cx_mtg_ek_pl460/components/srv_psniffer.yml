@@ -1,11 +1,11 @@
 configVersion: 1.0.0
-componentName: srv_usi
+componentName: srv_psniffer
 coreVersion: 5.8.3
 device: PIC32CX2051MTG128
 library: []
 dependency:
 - dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
-  name: srv_usi
+  name: srv_psniffer
   type: module
   version: ''
 - dependencyPackage: ''
@@ -22,55 +22,48 @@ data:
     children:
     - children:
       - attributes:
-          id: srv_usi
-          x: '497'
-          y: '123'
+          id: srv_psniffer
+          x: '320'
+          y: '88'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
   symbols:
-    SRV_USI_CDC_API:
+    SRV_PSNF_PLC_PROFILE:
       attributes:
-        id: SRV_USI_CDC_API
+        id: SRV_PSNF_PLC_PROFILE
       children:
       - children:
         - attributes:
-            id: srv_usi
-            value: 'false'
+            id: srv_psniffer
+            value: '3'
           type: Dynamic
         type: Values
-      type: Boolean
-    SRV_USI_NUM_CDC:
+      type: KeyValueSet
+    SRV_PSNF_SOURCE_PRIME:
       attributes:
-        id: SRV_USI_NUM_CDC
+        id: SRV_PSNF_SOURCE_PRIME
       children:
       - children:
         - attributes:
-            id: srv_usi
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: Integer
-    SRV_USI_NUM_USART:
-      attributes:
-        id: SRV_USI_NUM_USART
-      children:
-      - children:
-        - attributes:
-            id: srv_usi
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: Integer
-    SRV_USI_USART_API:
-      attributes:
-        id: SRV_USI_USART_API
-      children:
-      - children:
-        - attributes:
-            id: srv_usi
+            id: enabled
+          children:
+          - type: Value
             value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
+          type: Boolean
+        type: Attributes
+      type: File
+    SRV_PSNF_SOURCE_G3:
+      attributes:
+        id: SRV_PSNF_SOURCE_G3
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
   userData: {}
