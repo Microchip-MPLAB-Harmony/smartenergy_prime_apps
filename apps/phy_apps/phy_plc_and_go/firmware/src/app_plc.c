@@ -158,6 +158,7 @@ static void APP_PLC_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t conte
     }
 }
 
+#ifndef APP_PLC_DISABLE_SLEEP_MODE
 static void APP_PLC_SleepModeDisableCb( uintptr_t context )
 {
     /* Avoid warning */
@@ -169,6 +170,7 @@ static void APP_PLC_SleepModeDisableCb( uintptr_t context )
     /* Set PLC state */
     appPlc.state = APP_PLC_STATE_WAITING;
 }
+#endif
 
 static void APP_PLC_ExceptionCb(DRV_PLC_PHY_EXCEPTION exceptionObj, uintptr_t context )
 {
@@ -353,8 +355,9 @@ void APP_PLC_Tasks ( void )
                 DRV_PLC_PHY_ExceptionCallbackRegister(appPlc.drvPlcHandle, APP_PLC_ExceptionCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_TxCfmCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX_0);
                 DRV_PLC_PHY_DataIndCallbackRegister(appPlc.drvPlcHandle, APP_PLC_DataIndCb, DRV_PLC_PHY_INDEX_0);
+#ifndef APP_PLC_DISABLE_SLEEP_MODE                
                 DRV_PLC_PHY_SleepDisableCallbackRegister(appPlc.drvPlcHandle, APP_PLC_SleepModeDisableCb, DRV_PLC_PHY_INDEX_0);
-                
+#endif
                 /* Apply PLC initial configuration */
                 APP_PLC_SetInitialConfiguration();
 
@@ -509,8 +512,10 @@ void APP_PLC_SetChannel ( DRV_PLC_PHY_CHANNEL channel )
 
 }
 
+
 bool APP_PLC_SetSleepMode ( bool enable )
 {
+#ifndef APP_PLC_DISABLE_SLEEP_MODE    
     bool sleepIsEnabled = (appPlc.state == APP_PLC_STATE_SLEEP);
     
     if (sleepIsEnabled != enable)
@@ -523,7 +528,7 @@ bool APP_PLC_SetSleepMode ( bool enable )
         
         return true;
     }
-    
+#endif   
     return false;
 }
 

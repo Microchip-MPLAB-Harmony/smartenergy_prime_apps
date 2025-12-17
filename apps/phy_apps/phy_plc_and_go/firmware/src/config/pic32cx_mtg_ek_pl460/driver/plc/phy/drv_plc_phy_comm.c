@@ -430,11 +430,6 @@ void DRV_PLC_PHY_Init(DRV_PLC_PHY_OBJ *plcPhyObj)
 
 void DRV_PLC_PHY_Task(void)
 {
-    if (gPlcPhyObj->sleep)
-    {
-        return;
-    }
-
     /* Check event flags */
     for (uint8_t idx = 0; idx < 2U; idx++)
     {
@@ -516,13 +511,6 @@ void DRV_PLC_PHY_TxRequest(const DRV_HANDLE handle, DRV_PLC_PHY_TRANSMISSION_OBJ
         gPlcPhyObj->txCfmErrorObj.result = DRV_PLC_PHY_TX_RESULT_INV_BUFFER;
     }
 
-    if ((error == false) && gPlcPhyObj->sleep)
-    {
-        /* Do not transmit in SLeep Mode. */
-        error = true;
-        gPlcPhyObj->txCfmErrorObj.result = DRV_PLC_PHY_TX_RESULT_NO_TX;
-    }
-
     if ((error == false) && gPlcPhyObj->plcHal->getThermalMonitor())
     {
         /* Check thermal warning (>110ºC). Do not transmit and report High Temperature warning. */
@@ -578,11 +566,6 @@ bool DRV_PLC_PHY_PIBGet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj)
 {
     if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
-        if (gPlcPhyObj->sleep)
-        {
-            return false;
-        }
-
         if (pibObj->id == PLC_ID_TIME_REF_ID)
         {
             /* Send PIB information request */
@@ -707,11 +690,6 @@ bool DRV_PLC_PHY_PIBSet(const DRV_HANDLE handle, DRV_PLC_PHY_PIB_OBJ *pibObj)
 {
     if((handle != DRV_HANDLE_INVALID) && (handle == 0U))
     {
-        if (gPlcPhyObj->sleep)
-        {
-            return false;
-        }
-
         if (((uint16_t)pibObj->id & DRV_PLC_PHY_REG_ID_MASK) != 0U)
         {
             uint8_t *pDst;

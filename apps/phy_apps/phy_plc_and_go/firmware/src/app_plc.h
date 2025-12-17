@@ -72,6 +72,7 @@ extern "C" {
 #define APP_PLC_BUFFER_SIZE                       512    
 #define APP_PLC_PIB_BUFFER_SIZE                   256
     
+#define APP_PLC_DISABLE_SLEEP_MODE
 // *****************************************************************************
 /* Application states
 

@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: sys_console
-          x: '436'
-          y: '107'
+          x: '547'
+          y: '92'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

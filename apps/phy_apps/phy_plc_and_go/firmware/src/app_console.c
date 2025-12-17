@@ -578,7 +578,7 @@ void APP_CONSOLE_Tasks ( void )
                     }
                     else
                     {
-                        APP_CONSOLE_Print("\r\nPLC Sleep mode is already enabled\r\n");
+                        APP_CONSOLE_Print("\r\nPLC Sleep mode is already enabled or Not supported\r\n");
                     }
                 }
                 else
@@ -592,6 +592,7 @@ void APP_CONSOLE_Tasks ( void )
                         APP_CONSOLE_Print("\r\nPLC Sleep mode is already disabled\r\n");
                     }
                 }
+             
                 appConsole.state = APP_CONSOLE_STATE_SHOW_PROMPT;
             }
             break;
