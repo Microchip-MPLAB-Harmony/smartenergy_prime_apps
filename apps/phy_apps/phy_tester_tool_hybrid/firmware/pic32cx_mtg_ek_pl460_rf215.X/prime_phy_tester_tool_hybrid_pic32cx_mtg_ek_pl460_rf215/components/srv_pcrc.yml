@@ -23,8 +23,8 @@ data:
     - children:
       - attributes:
           id: srv_pcrc
-          x: '293'
-          y: '154'
+          x: '400'
+          y: '168'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

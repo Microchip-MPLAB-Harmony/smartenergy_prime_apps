@@ -40,4 +40,30 @@ data:
           type: Dynamic
         type: Values
       type: KeyValueSet
+    SRV_PSER_SOURCE_PRIME:
+      attributes:
+        id: SRV_PSER_SOURCE_PRIME
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SRV_PSER_SOURCE_G3:
+      attributes:
+        id: SRV_PSER_SOURCE_G3
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
   userData: {}

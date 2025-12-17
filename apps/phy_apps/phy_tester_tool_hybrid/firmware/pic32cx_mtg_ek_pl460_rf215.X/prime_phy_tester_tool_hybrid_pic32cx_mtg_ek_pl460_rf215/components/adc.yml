@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: adc
-          x: '302'
-          y: '352'
+          x: '25'
+          y: '426'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -59,9 +59,6 @@ data:
             id: adc
             value: 'true'
           type: Dynamic
-        - attributes:
-            value: 'true'
-          type: User
         type: Values
       type: Boolean
     ADC_CLK:
