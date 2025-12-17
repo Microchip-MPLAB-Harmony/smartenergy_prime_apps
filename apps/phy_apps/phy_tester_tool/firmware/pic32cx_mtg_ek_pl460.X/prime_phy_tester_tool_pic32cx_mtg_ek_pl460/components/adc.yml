@@ -44,7 +44,7 @@ data:
     - children:
       - attributes:
           id: adc
-          x: '308'
+          x: '5'
           y: '332'
         type: ElementPosition
       type: ElementPositions
@@ -59,9 +59,6 @@ data:
             id: adc
             value: 'true'
           type: Dynamic
-        - attributes:
-            value: 'true'
-          type: User
         type: Values
       type: Boolean
     ADC_CLK:
