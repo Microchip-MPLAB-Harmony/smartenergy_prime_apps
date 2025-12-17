@@ -23,8 +23,8 @@ data:
     - children:
       - attributes:
           id: srv_rsniffer
-          x: '292'
-          y: '366'
+          x: '7'
+          y: '259'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

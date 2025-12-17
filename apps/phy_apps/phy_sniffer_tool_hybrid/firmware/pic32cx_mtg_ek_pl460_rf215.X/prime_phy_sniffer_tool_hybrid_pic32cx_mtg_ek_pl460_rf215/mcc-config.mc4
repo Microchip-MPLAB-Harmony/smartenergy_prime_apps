@@ -7,6 +7,7 @@ deviceLibrary:
 groupModules: []
 modules:
 - HarmonyCore
+- adc
 - cmsis
 - core
 - dfp
@@ -20,6 +21,7 @@ modules:
 - sefc1
 - srv_pcrc
 - srv_psniffer
+- srv_pvddmon
 - srv_rsniffer
 - srv_usi
 - srv_usi_0
@@ -37,9 +39,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\bsp\bsp.h
   hash: 2ad22ea281c0c4a382b0d9934013834bf0efbf96337921da71086865213e1548
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h
-  hash: 5ca8f1d1d109dd0d31f8ba646117e7639021d66a754255962920f6df01e102f9
+  hash: 5711e229e1207e61addf87b85a069b6aaec3c7453d9ac1d71b91bc4efd621dcf
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h
-  hash: 1f9cc3b7a8ff6ed2027e42dc554fd27097d0d504fedbc92d51a014782bb39a05
+  hash: 5afa202b6444595cabf7e1d6ab12fb5996501b8bae5491a320763d5a790f0b2f
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\device_cache.h
@@ -55,9 +57,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_boot.h
   hash: 4f91187cb22a27ddf0400d5b14f63c248a3b0327929268b67da78e884004df54
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_hal.c
-  hash: 22c1ec9174bbb43f07c3aca97bff101db1fa21545c8062bd7455f1e9b54c0347
+  hash: e3597f8647484521ccabc848cbf97be1e237de67819717c2a72e16cbfd5f2c7b
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_hal.h
-  hash: 49c4516dcdad7b1109759070e2faf69e2cdd15d645cf956777e3a6a495eb0e61
+  hash: cbbd5e72f7e9bca2a0f72acabd0277e9adf922dc25d8e469fb259929f6a4c083
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\bin\PLC_PHY_PRIME_2CHN.bin
   hash: 3e4d212703e236592a507305e95d00cdc31ca3d77edcf986a1e7c90a462a76da
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\bin\plc_phy_bin.S
@@ -67,9 +69,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy.h
   hash: 2692b96aaaecd83b1d4c0ece010e1016f0a2d4a6514aeeae3c64aa4964e4480b
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.c
-  hash: d1f65476a3b38dee67b29082de9e2a3b291c3a8d8488d9b23523268bb2d3e608
+  hash: afc4f5d6721795f326e89ead243d4a0072a8d18959629bc5cbb0dd88e66aee89
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_comm.h
-  hash: beefa6b2e61a0045a8b4caa3c7915928f75c64ba9794e234f0beae205a2d70a3
+  hash: 2d5b72a06df2174e0ea0d63134d1f546175e3c7547b1593a24453ff389e9825e
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_definitions.h
   hash: 2b30947ea00e0e8babc2df79acc018fcac95b9f31e9796fbe050fefbd9259914
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\phy\drv_plc_phy_local.h
@@ -97,11 +99,11 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\exceptions.c
   hash: a565e8d25d218b3e1069267ae9cc317161d062683a27c64e3cb454757bb82fd9
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c
-  hash: cec0d4177b795e7f736348d6f5a2a26901542c9ab7298ffceece73264e3385ec
+  hash: 69d957e36b0dd57a0aebc91732c05a8b82b687a9948fc55232803a5b97b5ca04
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c
-  hash: 13c9aaafa4e5fe4343e32c93d35da7c41c7edf56465c58b058d86b36f3befe31
+  hash: 5d5a2a92479968713308656d79db865a210b289413cd492ef816352badf7bdc5
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.h
-  hash: 0d7784374a5c1dc29a4bb2d43360987dc092af35629a14e88a39fcb1dbe8d71d
+  hash: da29980c18a07c22c21baf2aa7f600d9a3196cdeb2c9f93026a2b671eb0ee0bc
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\libc_syscalls.c
   hash: 88bb2e34c939601b5b7ad076556e3ee0fcedf388436b8cddb6d6fd3e9d07472f
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\osal\osal.h
@@ -110,6 +112,12 @@ generatedFileHashHistoryMap:
   hash: 5f0a2513a093b6d228e2b50646b204923a82047335a47f3d35a2938309ab6f37
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\osal\osal_impl_basic.h
   hash: 65e68edbc0320d0407399f65e6d06ff7e6d3d7697231cf1fe0a1fdf1d65f0463
+- file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\adc\plib_adc.c
+  hash: 910a3d22af211acad1a2246cdb9eb0c85b10e9aeb328dbced85a593a85b9b5dc
+- file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\adc\plib_adc.h
+  hash: d358ae5526754bdd902db07eeb1273ef11a84378c8d3dbe4b3cc760b8a82decb
+- file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\adc\plib_adc_common.h
+  hash: 069e4e32e014d150246b852afac02d8e8b82804e21aa6e40acf97639440bf9ef
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\clk\plib_clk.c
   hash: b97d32527078f03d522ffa5846ebcc8930e18c524a5e7c4a0be0949d7f063b6b
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\clk\plib_clk.h
@@ -139,13 +147,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\flexcom\usart\plib_flexcom_usart_local.h
   hash: 44c68d2efb80f2837e7bbcb39073972a6672c61ea2daf8f63e8c7e7da6e1208c
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\nvic\plib_nvic.c
-  hash: bda7bbbb576db7e13b82af2ac4aefd791115dd69627f7fa45426a4fc232a6a1c
+  hash: ed1510f034781288aa5bb567d918a9189929321d0cf53618b137f56de41c2c2b
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\nvic\plib_nvic.h
   hash: 9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.c
-  hash: 5e0e19ce87dc149d5e3b3d76de3c58b07603aa8ae1ec2757e918d1730da56a98
+  hash: 2db4bca43aa8a0f8722ed7eadd85a83734e2216a58d89c08b7ed81e1b17fae95
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\pio\plib_pio.h
-  hash: 18ddea80c81cb6257577605fe09e87f94ac46e30fbb053255ad8498d7500f7fe
+  hash: 882d1c3e5c3c6dc1dac08154e9a1fd1bbf4274f303eb3da7d1f7c2bacf032f02
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\rstc\plib_rstc.c
   hash: 6e115bb577927594772ed9dc212d4156e15c7aabad20ada70a9fdf3e2bdbf9b9
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\rstc\plib_rstc.h
@@ -173,7 +181,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\peripheral\tc\plib_tc_common.h
   hash: aa07077b6355fa1dc9e938cb4def1c725bffddf452ffc55e4f982f83d3988a9e
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\pin_configurations.csv
-  hash: c7303fb66775ca9e45226cc5952920a533cb76d12073edb9ef3afd6cd3d29e0c
+  hash: 8bad85576bfd7851630ea438b9e973c692ad5c5eb7c345c50c41c240f6086734
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pcrc\srv_pcrc.c
   hash: 15fa5e599ebd2c081f1a32062df60ceb43eafea9217c5f4a46ff126070bc7b52
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pcrc\srv_pcrc.h
@@ -182,6 +190,10 @@ generatedFileHashHistoryMap:
   hash: 3a3de9142f9619932d5dab81c87c4e2cd06348989fb59a6cc2fa9830ba741a71
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\psniffer\srv_psniffer.h
   hash: bb8ecbd710c5f637ebff7b1e4663de8a6e7912e0f3b6a4ff305bb4a8154896ad
+- file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pvddmon\srv_pvddmon.c
+  hash: c4f3a3c5187c3f0afb08e6ea337e36fc4da0f530c9aa591ec271c88a06c62f1c
+- file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pvddmon\srv_pvddmon.h
+  hash: 0c1d6937ea647f56286a07f217f79494479775e49da30dc563192533bb052595
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\rsniffer\srv_rsniffer.c
   hash: a879568e33b28900c617f94bb9ee45ba4eb3d3891e1738893333d526f5cb78f3
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\rsniffer\srv_rsniffer.h
@@ -193,7 +205,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_definitions.h
   hash: 1133126b8cbb855afd42755e92c8831c2aa3a560760282c3e080d92e934ea505
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_local.h
-  hash: cbd80d3ecb1d78130ce3d61bdbf0b6f37e524666f24299dd8eb4037162a0a503
+  hash: afb81dfb99d2b3a66102822fbbd7639a7765e1ef14b725434b40762b3d3f9f4f
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_usart.c
   hash: 638670a3d13b444b4cb77005cf93a44506b2aeec4f96c189796cbc1d90142087
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi_usart.h
