@@ -56,8 +56,8 @@ data:
     - children:
       - attributes:
           id: qspi
-          x: '180'
-          y: '403'
+          x: '15'
+          y: '321'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

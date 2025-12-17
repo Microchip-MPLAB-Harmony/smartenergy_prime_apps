@@ -23,8 +23,8 @@ data:
     - children:
       - attributes:
           id: srv_pcoup
-          x: '1'
-          y: '245'
+          x: '525'
+          y: '301'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -1552,7 +1552,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1313'
+            value: '1201'
           type: Dynamic
         type: Values
       type: Integer
@@ -1563,7 +1563,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '937'
+            value: '850'
           type: Dynamic
         type: Values
       type: Integer
@@ -1574,7 +1574,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '667'
+            value: '602'
           type: Dynamic
         type: Values
       type: Integer
@@ -1585,7 +1585,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '477'
+            value: '427'
           type: Dynamic
         type: Values
       type: Integer
@@ -1596,7 +1596,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '342'
+            value: '304'
           type: Dynamic
         type: Values
       type: Integer
@@ -1607,7 +1607,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '247'
+            value: '217'
           type: Dynamic
         type: Values
       type: Integer
@@ -1618,7 +1618,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '180'
+            value: '155'
           type: Dynamic
         type: Values
       type: Integer
@@ -1629,7 +1629,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '131'
+            value: '112'
           type: Dynamic
         type: Values
       type: Integer
@@ -1640,7 +1640,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '4329'
+            value: '4617'
           type: Dynamic
         type: Values
       type: Integer
@@ -1651,7 +1651,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '3314'
+            value: '3509'
           type: Dynamic
         type: Values
       type: Integer
@@ -1662,7 +1662,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '2387'
+            value: '2512'
           type: Dynamic
         type: Values
       type: Integer
@@ -1673,7 +1673,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1692'
+            value: '1769'
           type: Dynamic
         type: Values
       type: Integer
@@ -1684,7 +1684,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1201'
+            value: '1247'
           type: Dynamic
         type: Values
       type: Integer
@@ -1695,7 +1695,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '853'
+            value: '882'
           type: Dynamic
         type: Values
       type: Integer
@@ -1706,7 +1706,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '608'
+            value: '624'
           type: Dynamic
         type: Values
       type: Integer
@@ -1717,7 +1717,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '432'
+            value: '443'
           type: Dynamic
         type: Values
       type: Integer
@@ -1750,7 +1750,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '519'
+            value: '510'
           type: Dynamic
         type: Values
       type: Integer
@@ -1761,7 +1761,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '372'
+            value: '362'
           type: Dynamic
         type: Values
       type: Integer
@@ -1772,7 +1772,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '265'
+            value: '257'
           type: Dynamic
         type: Values
       type: Integer
@@ -1783,7 +1783,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '191'
+            value: '183'
           type: Dynamic
         type: Values
       type: Integer
@@ -1794,7 +1794,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '140'
+            value: '131'
           type: Dynamic
         type: Values
       type: Integer
@@ -1805,7 +1805,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '101'
+            value: '95'
           type: Dynamic
         type: Values
       type: Integer
@@ -1882,7 +1882,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1025'
+            value: '1020'
           type: Dynamic
         type: Values
       type: Integer
@@ -1893,7 +1893,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '729'
+            value: '721'
           type: Dynamic
         type: Values
       type: Integer
@@ -1926,7 +1926,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '5197'
+            value: '5074'
           type: Dynamic
         type: Values
       type: Integer
@@ -1937,7 +1937,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '3708'
+            value: '3562'
           type: Dynamic
         type: Values
       type: Integer
@@ -1948,7 +1948,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '2649'
+            value: '2510'
           type: Dynamic
         type: Values
       type: Integer
@@ -1959,7 +1959,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1906'
+            value: '1776'
           type: Dynamic
         type: Values
       type: Integer
@@ -1970,7 +1970,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1366'
+            value: '1261'
           type: Dynamic
         type: Values
       type: Integer
@@ -1981,7 +1981,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '979'
+            value: '896'
           type: Dynamic
         type: Values
       type: Integer
@@ -2058,7 +2058,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '10242'
+            value: '10327'
           type: Dynamic
         type: Values
       type: Integer
@@ -2069,7 +2069,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '7302'
+            value: '7247'
           type: Dynamic
         type: Values
       type: Integer
@@ -2157,7 +2157,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '255'
+            value: '1'
           type: Dynamic
         type: Values
       type: Integer
@@ -2816,7 +2816,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -3464,7 +3464,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -4112,7 +4112,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -4760,7 +4760,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -5408,7 +5408,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -6056,7 +6056,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -6704,7 +6704,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -7345,4 +7345,78 @@ data:
           type: Dynamic
         type: Values
       type: Integer
+    SRV_PCOUP_G3_SOURCE:
+      attributes:
+        id: SRV_PCOUP_G3_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    SRV_PCOUP_G3_HEADER:
+      attributes:
+        id: SRV_PCOUP_G3_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    SRV_PCOUP_PRIME_SOURCE:
+      attributes:
+        id: SRV_PCOUP_PRIME_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SRV_PCOUP_PRIME_HEADER:
+      attributes:
+        id: SRV_PCOUP_PRIME_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SRV_PCOUP_PRIME_CHANNELS_IMP_DETECT:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHANNELS_IMP_DETECT
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '32509'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SRV_PCOUP_PRIME_CHANNEL_IMP_DET:
+      attributes:
+        id: SRV_PCOUP_PRIME_CHANNEL_IMP_DET
+      children:
+      - children:
+        - attributes:
+            id: srv_pcoup
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
   userData: {}

@@ -69,12 +69,8 @@ Microchip or any third party.
 static const uint16_t srvPlcCoupPredistCoefChn1High[SRV_PCOUP_EQU_NUM_COEF_CHN] = SRV_PCOUP_PRED_CHN1_HIGH_TBL;
 static const uint16_t srvPlcCoupPredistCoefChn1Low[SRV_PCOUP_EQU_NUM_COEF_CHN] = SRV_PCOUP_PRED_CHN1_VLOW_TBL;
 
-static const uint16_t srvPlcCoupPredistCoefDummy[SRV_PCOUP_EQU_NUM_COEF_CHN] = SRV_PCOUP_PRED_NOT_USED;
-
 /* Configuration values of internal DACC peripheral */
 static const uint32_t srvPlcCoupDaccTableCenA[17] = SRV_PCOUP_DACC_CENA_TBL;
-
-static const uint32_t srvPlcCoupDaccTableFcc[17] = SRV_PCOUP_DACC_FCC_TBL;
 
 
 /* PLC PHY Coupling data
@@ -104,107 +100,16 @@ static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn1Data = {
 
 };
 
-static const uint8_t srvPlcCoupCarrierMaskChn2High[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN2_CARRIER_MASK_HIGH_TBL;
-static const uint8_t srvPlcCoupCarrierMaskChn2Vlow[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN2_CARRIER_MASK_VLOW_TBL;
-
-static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn2Data = {
-  SRV_PCOUP_CHN2_RMS_HIGH_TBL, SRV_PCOUP_CHN2_RMS_VLOW_TBL,
-  SRV_PCOUP_CHN2_THRS_HIGH_TBL, SRV_PCOUP_CHN2_THRS_VLOW_TBL,
-  srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
-  srvPlcCoupCarrierMaskChn2High, srvPlcCoupCarrierMaskChn2Vlow,
-  SRV_PCOUP_CHN2_GAIN_HIGH_TBL, SRV_PCOUP_CHN2_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN2_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN2_LINE_DRV_CONF
-};
-
-static const uint8_t srvPlcCoupCarrierMaskChn3High[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN3_CARRIER_MASK_HIGH_TBL;
-static const uint8_t srvPlcCoupCarrierMaskChn3Vlow[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN3_CARRIER_MASK_VLOW_TBL;
-
-static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn3Data = {
-  SRV_PCOUP_CHN3_RMS_HIGH_TBL, SRV_PCOUP_CHN3_RMS_VLOW_TBL,
-  SRV_PCOUP_CHN3_THRS_HIGH_TBL, SRV_PCOUP_CHN3_THRS_VLOW_TBL,
-  srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
-  srvPlcCoupCarrierMaskChn3High, srvPlcCoupCarrierMaskChn3Vlow,
-  SRV_PCOUP_CHN3_GAIN_HIGH_TBL, SRV_PCOUP_CHN3_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN3_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN3_LINE_DRV_CONF
-};
-
-static const uint8_t srvPlcCoupCarrierMaskChn4High[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN4_CARRIER_MASK_HIGH_TBL;
-static const uint8_t srvPlcCoupCarrierMaskChn4Vlow[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN4_CARRIER_MASK_VLOW_TBL;
-
-static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn4Data = {
-  SRV_PCOUP_CHN4_RMS_HIGH_TBL, SRV_PCOUP_CHN4_RMS_VLOW_TBL,
-  SRV_PCOUP_CHN4_THRS_HIGH_TBL, SRV_PCOUP_CHN4_THRS_VLOW_TBL,
-  srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
-  srvPlcCoupCarrierMaskChn4High, srvPlcCoupCarrierMaskChn4Vlow,
-  SRV_PCOUP_CHN4_GAIN_HIGH_TBL, SRV_PCOUP_CHN4_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN4_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN4_LINE_DRV_CONF
-};
-
-static const uint8_t srvPlcCoupCarrierMaskChn5High[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN5_CARRIER_MASK_HIGH_TBL;
-static const uint8_t srvPlcCoupCarrierMaskChn5Vlow[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN5_CARRIER_MASK_VLOW_TBL;
-
-static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn5Data = {
-  SRV_PCOUP_CHN5_RMS_HIGH_TBL, SRV_PCOUP_CHN5_RMS_VLOW_TBL,
-  SRV_PCOUP_CHN5_THRS_HIGH_TBL, SRV_PCOUP_CHN5_THRS_VLOW_TBL,
-  srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
-  srvPlcCoupCarrierMaskChn5High, srvPlcCoupCarrierMaskChn5Vlow,
-  SRV_PCOUP_CHN5_GAIN_HIGH_TBL, SRV_PCOUP_CHN5_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN5_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN5_LINE_DRV_CONF
-};
-
-static const uint8_t srvPlcCoupCarrierMaskChn6High[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN6_CARRIER_MASK_HIGH_TBL;
-static const uint8_t srvPlcCoupCarrierMaskChn6Vlow[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN6_CARRIER_MASK_VLOW_TBL;
-
-static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn6Data = {
-  SRV_PCOUP_CHN6_RMS_HIGH_TBL, SRV_PCOUP_CHN6_RMS_VLOW_TBL,
-  SRV_PCOUP_CHN6_THRS_HIGH_TBL, SRV_PCOUP_CHN6_THRS_VLOW_TBL,
-  srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
-  srvPlcCoupCarrierMaskChn6High, srvPlcCoupCarrierMaskChn6Vlow,
-  SRV_PCOUP_CHN6_GAIN_HIGH_TBL, SRV_PCOUP_CHN6_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN6_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN6_LINE_DRV_CONF
-};
-
-static const uint8_t srvPlcCoupCarrierMaskChn7High[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN7_CARRIER_MASK_HIGH_TBL;
-static const uint8_t srvPlcCoupCarrierMaskChn7Vlow[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN7_CARRIER_MASK_VLOW_TBL;
-
-static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn7Data = {
-  SRV_PCOUP_CHN7_RMS_HIGH_TBL, SRV_PCOUP_CHN7_RMS_VLOW_TBL,
-  SRV_PCOUP_CHN7_THRS_HIGH_TBL, SRV_PCOUP_CHN7_THRS_VLOW_TBL,
-  srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
-  srvPlcCoupCarrierMaskChn7High, srvPlcCoupCarrierMaskChn7Vlow,
-  SRV_PCOUP_CHN7_GAIN_HIGH_TBL, SRV_PCOUP_CHN7_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN7_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN7_LINE_DRV_CONF
-};
-
-static const uint8_t srvPlcCoupCarrierMaskChn8High[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN8_CARRIER_MASK_HIGH_TBL;
-static const uint8_t srvPlcCoupCarrierMaskChn8Vlow[SRV_PCOUP_CARRIER_MASK_SIZE_CHN] = SRV_PCOUP_CHN8_CARRIER_MASK_VLOW_TBL;
-
-static const SRV_PLC_PCOUP_CHANNEL_DATA srvPlcCoupChn8Data = {
-  SRV_PCOUP_CHN8_RMS_HIGH_TBL, SRV_PCOUP_CHN8_RMS_VLOW_TBL,
-  SRV_PCOUP_CHN8_THRS_HIGH_TBL, SRV_PCOUP_CHN8_THRS_VLOW_TBL,
-  srvPlcCoupDaccTableFcc,
-  srvPlcCoupPredistCoefDummy, srvPlcCoupPredistCoefDummy,
-  srvPlcCoupCarrierMaskChn8High, srvPlcCoupCarrierMaskChn8Vlow,
-  SRV_PCOUP_CHN8_GAIN_HIGH_TBL, SRV_PCOUP_CHN8_GAIN_VLOW_TBL,
-  SRV_PCOUP_CHN8_MAX_NUM_TX_LEVELS, SRV_PCOUP_CHN8_LINE_DRV_CONF
-};
-
 static const SRV_PLC_PCOUP_CHANNEL_DATA * const srvPlcCoupChnData[16] = {
     NULL,
     &srvPlcCoupChn1Data,
-    &srvPlcCoupChn2Data,
-    &srvPlcCoupChn3Data,
-    &srvPlcCoupChn4Data,
-    &srvPlcCoupChn5Data,
-    &srvPlcCoupChn6Data,
-    &srvPlcCoupChn7Data,
-    &srvPlcCoupChn8Data,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
     NULL,
     NULL,
     NULL,

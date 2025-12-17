@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: sys_time
-          x: '155'
-          y: '117'
+          x: '168'
+          y: '127'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
