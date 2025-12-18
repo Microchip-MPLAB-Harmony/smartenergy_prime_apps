@@ -1,0 +1,43 @@
+configVersion: 1.0.0
+componentName: srv_rsniffer
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_rsniffer
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: PRIME STACK
+    children:
+    - children:
+      - attributes:
+          id: srv_rsniffer
+          x: '543'
+          y: '94'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SRV_RSNF_PROTOCOL:
+      attributes:
+        id: SRV_RSNF_PROTOCOL
+      children:
+      - children:
+        - attributes:
+            id: srv_rsniffer
+            value: PRIME
+          type: Dynamic
+        type: Values
+      type: Combo
+  userData: {}

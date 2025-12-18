@@ -62,6 +62,16 @@ Microchip or any third party.
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: External Data
+// *****************************************************************************
+// *****************************************************************************
+
+/* PLC Binary file addressing */
+extern uint8_t plc_phy_bin_start;
+extern uint8_t plc_phy_bin_end;
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
@@ -222,6 +232,11 @@ typedef enum {
   PLC_ID_TX_CANCELLED,
   PLC_ID_RX_CD_INFO,
   PLC_ID_SFO_ESTIMATION_LAST_RX,
+  PLC_ID_IMPULSIVE_NOISE_dBuV,
+  PLC_ID_TX_RMS_CALC_PER_CARRIER,
+  PLC_ID_TX_RMS_CALC_PER_CARRIER_2,
+  PLC_ID_TX_RMS_CALC_CARRIER_MASK_HI,
+  PLC_ID_TX_RMS_CALC_CARRIER_MASK_VLO,
   PLC_ID_END_ID,
 } DRV_PLC_PHY_ID;
 
@@ -306,7 +321,9 @@ typedef enum
     CHN4_CHN5 = 12,
     CHN5_CHN6 = 13,
     CHN6_CHN7 = 14,
-    CHN7_CHN8 = 15
+    CHN7_CHN8 = 15,
+    /* Invalid channel */
+    CHN_INVALID = 0
 } DRV_PLC_PHY_CHANNEL;
 
 // *****************************************************************************

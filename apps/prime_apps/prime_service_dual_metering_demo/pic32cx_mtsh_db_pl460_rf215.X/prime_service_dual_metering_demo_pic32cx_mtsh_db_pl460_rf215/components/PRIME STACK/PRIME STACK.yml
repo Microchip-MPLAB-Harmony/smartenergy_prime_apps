@@ -1,0 +1,75 @@
+configVersion: 1.0.0
+componentName: PRIME STACK
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyGroupModule
+  name: PRIME STACK
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.15.1
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.22.2
+- dependencyPackage: ''
+  name: filex
+  type: package
+  version: v6.4.0_rel
+- dependencyPackage: ''
+  name: gfx
+  type: package
+  version: v3.15.3
+- dependencyPackage: ''
+  name: littlefs
+  type: package
+  version: v2.9.3
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.3.0
+- dependencyPackage: ''
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  name: smartenergy_metrology
+  type: package
+  version: v1.0.0
+- dependencyPackage: ''
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: PRIME STACK
+          x: '205'
+          y: '64'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}

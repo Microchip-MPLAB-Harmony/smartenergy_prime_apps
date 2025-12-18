@@ -1,0 +1,69 @@
+configVersion: 1.0.0
+componentName: srv_psniffer
+coreVersion: 5.8.3
+device: PIC32CX2051MTSH128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srv_psniffer
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: PRIME STACK
+    children:
+    - children:
+      - attributes:
+          id: srv_psniffer
+          x: '540'
+          y: '20'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SRV_PSNF_PLC_PROFILE:
+      attributes:
+        id: SRV_PSNF_PLC_PROFILE
+      children:
+      - children:
+        - attributes:
+            id: srv_psniffer
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    SRV_PSNF_SOURCE_PRIME:
+      attributes:
+        id: SRV_PSNF_SOURCE_PRIME
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SRV_PSNF_SOURCE_G3:
+      attributes:
+        id: SRV_PSNF_SOURCE_G3
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+  userData: {}

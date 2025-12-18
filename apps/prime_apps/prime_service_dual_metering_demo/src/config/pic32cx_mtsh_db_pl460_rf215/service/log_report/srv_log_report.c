@@ -67,16 +67,22 @@ static char message[SYS_CONSOLE_PRINT_BUFFER_SIZE];
 
 static va_list srvLogReportArgs;
 
-static void lSRV_LOG_REPORT_show_error(enum cl010_line disp_line, SRV_LOG_REPORT_CODE code_type)
+static void lSRV_LOG_REPORT_show_error(enum cl010_line disp_line, uint32_t code_type)
 {
     uint32_t errorType;
 
-    errorType = ((uint32_t) code_type) % 100000000UL; /* Only eight digits in the display */
+    errorType = code_type % 100000000UL; /* Only eight digits in the display */
     cl010_show_numeric_string(disp_line, (const uint8_t *)&errorType);
 }
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Log Report Service Common Interface Implementation
+// *****************************************************************************
+// *****************************************************************************
+
 void SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_LEVEL logLevel,
-                                      SRV_LOG_REPORT_CODE code,
+                                      uint32_t code,
                                       const char *info, ...)
 {
     /* Format the information */
@@ -87,7 +93,6 @@ void SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_LEVEL logLevel,
     SYS_DEBUG_MESSAGE((SYS_ERROR_LEVEL)logLevel, message);
 
     lSRV_LOG_REPORT_show_error(CL010_LINE_UP,code);
-
 }
 
 void SRV_LOG_REPORT_Message(SRV_LOG_REPORT_LEVEL logLevel,

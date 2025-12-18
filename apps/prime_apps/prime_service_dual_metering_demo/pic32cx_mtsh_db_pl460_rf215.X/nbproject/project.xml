@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>prime_service_dual_metering_demo_pic32cx_mtsh_db</name>
+            <name>prime_service_dual_metering_demo</name>
             <creation-uuid>b1712be9-3c38-497d-b47f-4a894930fbf2</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

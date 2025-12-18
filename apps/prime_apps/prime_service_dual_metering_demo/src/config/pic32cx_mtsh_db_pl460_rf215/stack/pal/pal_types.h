@@ -296,6 +296,8 @@ typedef enum {
     PAL_ID_PHY_CCA_THRESHOLD,
     /* RF band and operating mode */
     PAL_ID_RF_PHY_BAND_OPERATING_MODE,
+    /* Detection of impulsive noise in the line */	
+    PAL_ID_PLC_IMPULSIVE_NOISE_dBuV,
 } PAL_ATTRIBUTE_ID;
 
 // *****************************************************************************
@@ -364,6 +366,8 @@ typedef enum {
     PAL_TX_RESULT_HIGH_TEMP_110  = 13,
     /* Transmission Result (only RF): invalid parameter */
     PAL_TX_RESULT_INV_PARAM      = 20,
+    /* Transmission result: error in CSMA */
+    PAL_TX_RESULT_CSMA_ERROR     = 0xFD,
     /* Transmission result: error in tx */
     PAL_TX_RESULT_PHY_ERROR      = 0xFE,
 } PAL_TX_RESULT;

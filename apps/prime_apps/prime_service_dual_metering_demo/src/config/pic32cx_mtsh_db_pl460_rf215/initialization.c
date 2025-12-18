@@ -91,7 +91,7 @@ static const DRV_RF215_INIT drvRf215InitData = {
     .sysTimeIntSource = TC0_CH0_IRQn,
 
     /* Interrupt source ID for PLC external interrupt */
-    .plcExtIntSource = PIOA_IRQn,
+    .plcExtIntSource = DRV_PLC_EXT_INT_SRC,
 
     /* Initial PHY frequency band and operating mode for Sub-GHz transceiver */
     .rf09PhyBandOpmIni = SUN_FSK_BAND_863_OPM1,
@@ -136,7 +136,6 @@ static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM2 = {
     .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM2_USART_ReadCallbackRegister,
     .readData = (USI_USART_PLIB_WRRD)FLEXCOM2_USART_Read,
     .writeData = (USI_USART_PLIB_WRRD)FLEXCOM2_USART_Write,
-    .intSource = FLEXCOM2_IRQn,
 };
 
 static uint8_t CACHE_ALIGN srvUSI0USARTReadBuffer[128] = {0};
@@ -171,37 +170,15 @@ static const SRV_USI_INIT srvUSI0Init =
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-   /* Enable co-processor bus clock  */
-   PMC_REGS->PMC_SCER = (PMC_SCER_CPKEY_PASSWD | PMC_SCER_CPBMCK_Msk);
-   /* Coprocessor Peripheral Enable */
-   RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
-   /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
-   uint32_t reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_CPPRES_Msk);
-   reg |= PMC_CPU_CKR_CPPRES_CLK_2;
-   PMC_REGS->PMC_CPU_CKR = reg;
-   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
-   while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
-   {
-       /* Wait for clock to be initialized */
-   }
-   /* Disable STBY Pin */
-   SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA16);
-   SYS_PORT_PinClear(SYS_PORT_PIN_PA16);
-   while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
-   {
-       /* Wait for status CPMCKRDY */
-   }
-   PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOD);
-   while((PMC_REGS->PMC_CSR2 & PMC_CSR2_PID85_Msk) == 0U)
-   {
-       /* Wait for clock to be initialized */
-   }
-   /* Enable Reset Pin */
-   SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
-   SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
-   /* Enable LDO Pin */
-   SYS_PORT_PinOutputEnable(DRV_PLC_LDO_EN_PIN);
-   SYS_PORT_PinSet(DRV_PLC_LDO_EN_PIN);
+    /* Enable PIOA clock */
+    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+    {
+        /* Wait for clock to be initialized */
+    }
+    /* Enable and Clear Reset Pin */
+    SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
+    SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
 }
 
 /* MISRA C-2012 deviation block end */
@@ -223,9 +200,6 @@ static DRV_PLC_PLIB_INTERFACE drvPLCPlib = {
 
     /* SPI clock frequency */
     .spiClockFrequency = DRV_PLC_SPI_CLK,
-
-    /* PLC LDO Enable Pin */
-    .ldoPin = DRV_PLC_LDO_EN_PIN,
 
     /* PLC Reset Pin */
     .resetPin = DRV_PLC_RESET_PIN,
@@ -298,10 +272,10 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
 
     /* PLC Binary start address */
-    .binStartAddress = DRV_PLC_BIN_START_ADDRESS,
+    .binStartAddress = (uint32_t)&plc_phy_bin_start,
     
     /* PLC Binary end address */
-    .binEndAddress = DRV_PLC_BIN_START_ADDRESS + DRV_PLC_BIN_SIZE - 1,
+    .binEndAddress = (uint32_t)&plc_phy_bin_end,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,

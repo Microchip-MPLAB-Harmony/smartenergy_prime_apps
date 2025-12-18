@@ -47,9 +47,8 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "device.h"
-#include "interrupts.h"
-#include "peripheral/adc/plib_adc_common.h"
 
 #ifdef __cplusplus // Provide C++ Compatibility
  extern "C" {
@@ -129,10 +128,10 @@ typedef enum
 typedef void (*SRV_PVDDMON_CALLBACK)( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context );
 
 /* High and Low threshold ADC values */
-#define SRV_PVDDMON_HIGH_TRESHOLD              0xdb2U
-#define SRV_PVDDMON_LOW_TRESHOLD               0xa88U
-#define SRV_PVDDMON_HIGH_TRESHOLD_HYST         0xd97U
-#define SRV_PVDDMON_LOW_TRESHOLD_HYST          0xaa3U
+#define SRV_PVDDMON_HIGH_TRESHOLD              0x4d8U
+#define SRV_PVDDMON_LOW_TRESHOLD               0x3baU
+#define SRV_PVDDMON_HIGH_TRESHOLD_HYST         0x4ceU
+#define SRV_PVDDMON_LOW_TRESHOLD_HYST          0x3c2U
 
 // *****************************************************************************
 // *****************************************************************************
