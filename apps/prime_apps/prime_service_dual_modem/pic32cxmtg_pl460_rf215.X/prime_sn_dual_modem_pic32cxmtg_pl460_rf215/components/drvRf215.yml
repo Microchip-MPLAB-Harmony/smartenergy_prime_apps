@@ -45,8 +45,8 @@ data:
     - children:
       - attributes:
           id: drvRf215
-          x: '457'
-          y: '178'
+          x: '232'
+          y: '367'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

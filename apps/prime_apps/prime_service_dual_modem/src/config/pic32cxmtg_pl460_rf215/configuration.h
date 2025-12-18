@@ -142,9 +142,8 @@ extern "C" {
 #define DRV_PLC_EXT_INT_SRC                   PIOA_IRQn
 #define DRV_PLC_EXT_INT_PIO                   SYS_PORT_PIN_PA2
 #define DRV_PLC_EXT_INT_PIN                   SYS_PORT_PIN_PA2
-#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PD15
-#define DRV_PLC_LDO_EN_PIN                    SYS_PORT_PIN_PD19
-#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA1
+#define DRV_PLC_RESET_PIN                     SYS_PORT_PIN_PA28
+#define DRV_PLC_TX_ENABLE_PIN                 SYS_PORT_PIN_PA31
 #define DRV_PLC_THMON_PIN                     SYS_PORT_PIN_PB15
 #define DRV_PLC_CSR_INDEX                     0
 #define DRV_PLC_SPI_CLK                       8000000
@@ -162,8 +161,6 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
 
-#define DRV_PLC_BIN_START_ADDRESS             0x10b8000
-#define DRV_PLC_BIN_SIZE                      98304
 
 
 /* Memory Driver Instance 0 Configuration */
@@ -193,6 +190,11 @@ extern "C" {
 // Section: Middleware & Other Library Configuration
 // *****************************************************************************
 // *****************************************************************************
+/* PRIME stack RTOS configuration */
+#define PRIME_STACK_RTOS_STACK_SIZE         3584U
+#define PRIME_STACK_RTOS_TASK_PRIORITY          2U
+#define PRIME_STACK_RTOS_TASK_DELAY_MS          1U
+
 /* PRIME Identification */
 #define PRIME_INDEX_0                               0U
 #define PRIME_INSTANCES_NUMBER                      1U
