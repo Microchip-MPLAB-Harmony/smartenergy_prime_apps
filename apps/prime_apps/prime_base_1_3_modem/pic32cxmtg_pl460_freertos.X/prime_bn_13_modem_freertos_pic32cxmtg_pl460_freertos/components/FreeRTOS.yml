@@ -26,8 +26,8 @@ data:
     - children:
       - attributes:
           id: FreeRTOS
-          x: '330'
-          y: '280'
+          x: '18'
+          y: '282'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

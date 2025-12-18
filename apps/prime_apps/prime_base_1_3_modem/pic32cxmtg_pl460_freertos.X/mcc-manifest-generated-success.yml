@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: prime_bn_13_modem_freertos
-creation_date: 2025-12-15T15:42:52.473+01:00[Europe/Paris]
+creation_date: 2025-12-18T13:53:05.563+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
@@ -26,4 +26,4 @@ modules:
 - {name: crypto_v4, type: HARMONY, version: v4.0.0-E3}
 - {name: wolfssl, type: HARMONY, version: v5.7.0}
 - {name: smartenergy, type: HARMONY, version: v1.5.0}
-- {name: shd, type: HARMONY, version: v1.2.1}
+- {name: shd, type: HARMONY, version: v1.3.0}

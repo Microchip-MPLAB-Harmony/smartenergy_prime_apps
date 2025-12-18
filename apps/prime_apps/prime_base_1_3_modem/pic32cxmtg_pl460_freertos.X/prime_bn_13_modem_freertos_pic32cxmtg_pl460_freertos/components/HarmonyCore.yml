@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: HarmonyCore
-          x: '732'
-          y: '7'
+          x: '403'
+          y: '154'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
