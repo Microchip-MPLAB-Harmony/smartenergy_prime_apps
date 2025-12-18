@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: sefc1
-          x: '585'
-          y: '9'
+          x: '720'
+          y: '17'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

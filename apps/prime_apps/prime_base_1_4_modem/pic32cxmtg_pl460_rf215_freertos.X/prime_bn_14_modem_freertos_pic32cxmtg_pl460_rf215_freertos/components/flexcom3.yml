@@ -68,8 +68,8 @@ data:
     - children:
       - attributes:
           id: flexcom3
-          x: '18'
-          y: '258'
+          x: '13'
+          y: '261'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
