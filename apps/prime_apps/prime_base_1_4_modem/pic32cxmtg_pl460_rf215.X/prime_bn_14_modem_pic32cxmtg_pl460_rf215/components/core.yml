@@ -28,28 +28,6 @@ data:
       type: ElementPositions
     type: ComponentGraph
   symbols:
-    ADC_CLOCK_ENABLE:
-      attributes:
-        id: ADC_CLOCK_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: adc
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    ADC_INTERRUPT_ENABLE:
-      attributes:
-        id: ADC_INTERRUPT_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: adc
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     ADC_INTERRUPT_ENABLE_UPDATE:
       attributes:
         id: ADC_INTERRUPT_ENABLE_UPDATE
@@ -58,28 +36,6 @@ data:
         - attributes:
             id: core
             value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    ADC_INTERRUPT_HANDLER:
-      attributes:
-        id: ADC_INTERRUPT_HANDLER
-      children:
-      - children:
-        - attributes:
-            id: adc
-            value: ADC_InterruptHandler
-          type: Dynamic
-        type: Values
-      type: String
-    ADC_INTERRUPT_HANDLER_LOCK:
-      attributes:
-        id: ADC_INTERRUPT_HANDLER_LOCK
-      children:
-      - children:
-        - attributes:
-            id: adc
-            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -262,17 +218,6 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    FLEXCOM5_CLOCK_ENABLE:
-      attributes:
-        id: FLEXCOM5_CLOCK_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom5
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     FLEXCOM5_CLOCK_FREQUENCY:
       attributes:
         id: FLEXCOM5_CLOCK_FREQUENCY
@@ -284,17 +229,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    FLEXCOM5_INTERRUPT_ENABLE:
-      attributes:
-        id: FLEXCOM5_INTERRUPT_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom5
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     FLEXCOM5_INTERRUPT_ENABLE_UPDATE:
       attributes:
         id: FLEXCOM5_INTERRUPT_ENABLE_UPDATE
@@ -303,28 +237,6 @@ data:
         - attributes:
             id: core
             value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    FLEXCOM5_INTERRUPT_HANDLER:
-      attributes:
-        id: FLEXCOM5_INTERRUPT_HANDLER
-      children:
-      - children:
-        - attributes:
-            id: flexcom5
-            value: FLEXCOM5_InterruptHandler
-          type: Dynamic
-        type: Values
-      type: String
-    FLEXCOM5_INTERRUPT_HANDLER_LOCK:
-      attributes:
-        id: FLEXCOM5_INTERRUPT_HANDLER_LOCK
-      children:
-      - children:
-        - attributes:
-            id: flexcom5
-            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -981,10 +893,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_16_FUNCTION_NAME:
       attributes:
@@ -992,10 +906,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: PL460_STBY
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_16_FUNCTION_TYPE:
       attributes:
@@ -1006,15 +922,9 @@ data:
             id: readOnly
           children:
           - type: Value
-            value: 'true'
+            value: 'false'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
       type: String
     PIN_16_LAT:
       attributes:
@@ -1022,10 +932,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_16_PERIPHERAL_FUNCTION:
       attributes:
@@ -1033,13 +945,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        - attributes:
-            value: GPIO
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_17_DIR:
       attributes:
@@ -1047,10 +958,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_17_FUNCTION_NAME:
       attributes:
@@ -1058,10 +971,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: PL460_TXEN
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_17_FUNCTION_TYPE:
       attributes:
@@ -1072,15 +987,9 @@ data:
             id: readOnly
           children:
           - type: Value
-            value: 'true'
+            value: 'false'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
       type: String
     PIN_17_LAT:
       attributes:
@@ -1088,10 +997,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_17_PERIPHERAL_FUNCTION:
       attributes:
@@ -1099,13 +1010,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        - attributes:
-            value: GPIO
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_19_DIR:
       attributes:
@@ -1113,10 +1023,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_19_FUNCTION_NAME:
       attributes:
@@ -1124,10 +1036,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: PL460_NRST
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_19_FUNCTION_TYPE:
       attributes:
@@ -1138,15 +1052,9 @@ data:
             id: readOnly
           children:
           - type: Value
-            value: 'true'
+            value: 'false'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
       type: String
     PIN_19_LAT:
       attributes:
@@ -1154,10 +1062,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Low
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_19_PERIPHERAL_FUNCTION:
       attributes:
@@ -1165,13 +1075,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        - attributes:
-            value: GPIO
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_20_DIR:
       attributes:
@@ -1245,10 +1154,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Out
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_24_FUNCTION_NAME:
       attributes:
@@ -1256,10 +1167,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: PL460_ENABLE
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_24_FUNCTION_TYPE:
       attributes:
@@ -1270,15 +1183,9 @@ data:
             id: readOnly
           children:
           - type: Value
-            value: 'true'
+            value: 'false'
           type: Boolean
         type: Attributes
-      - children:
-        - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        type: Values
       type: String
     PIN_24_LAT:
       attributes:
@@ -1286,10 +1193,12 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: High
-          type: Dynamic
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_24_PERIPHERAL_FUNCTION:
       attributes:
@@ -1297,18 +1206,25 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: GPIO
-          type: Dynamic
-        - attributes:
-            value: GPIO
-          type: User
-        type: Values
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       type: String
     PIN_27_DIR:
       attributes:
         id: PIN_27_DIR
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1322,6 +1238,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: PL460_EXTINT
           type: Dynamic
@@ -1331,14 +1255,6 @@ data:
       attributes:
         id: PIN_27_FUNCTION_TYPE
       children:
-      - children:
-        - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1352,6 +1268,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: 'True'
           type: Dynamic
@@ -1363,12 +1287,17 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: GPIO
           type: Dynamic
-        - attributes:
-            value: GPIO
-          type: User
         type: Values
       type: String
     PIN_27_PIO_INTERRUPT:
@@ -1377,12 +1306,17 @@ data:
       children:
       - children:
         - attributes:
-            id: core
-            value: Falling Edge
-          type: Dynamic
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
         - attributes:
+            id: core
             value: Low Level
-          type: User
+          type: Dynamic
         type: Values
       type: String
     PIN_29_FUNCTION_NAME:
@@ -1609,6 +1543,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: PL460_CS
           type: Dynamic
@@ -1618,14 +1560,6 @@ data:
       attributes:
         id: PIN_63_FUNCTION_TYPE
       children:
-      - children:
-        - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1639,18 +1573,31 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: B
           type: Dynamic
-        - attributes:
-            value: B
-          type: User
         type: Values
       type: String
     PIN_64_FUNCTION_NAME:
       attributes:
         id: PIN_64_FUNCTION_NAME
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1664,14 +1611,6 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: core
             value: FLEXCOM5_IO2
           type: Dynamic
@@ -1683,18 +1622,31 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: B
           type: Dynamic
-        - attributes:
-            value: B
-          type: User
         type: Values
       type: String
     PIN_65_FUNCTION_NAME:
       attributes:
         id: PIN_65_FUNCTION_NAME
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1708,14 +1660,6 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: core
             value: FLEXCOM5_IO1
           type: Dynamic
@@ -1727,18 +1671,31 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: B
           type: Dynamic
-        - attributes:
-            value: B
-          type: User
         type: Values
       type: String
     PIN_66_FUNCTION_NAME:
       attributes:
         id: PIN_66_FUNCTION_NAME
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1752,14 +1709,6 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: core
             value: FLEXCOM5_IO0
           type: Dynamic
@@ -1771,12 +1720,17 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: B
           type: Dynamic
-        - attributes:
-            value: B
-          type: User
         type: Values
       type: String
     PIN_67_DIR:
@@ -1865,6 +1819,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: PL460_SUPPLY_MON
           type: Dynamic
@@ -1874,14 +1836,6 @@ data:
       attributes:
         id: PIN_74_FUNCTION_TYPE
       children:
-      - children:
-        - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
       - children:
         - attributes:
             id: core
@@ -1895,12 +1849,17 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: Alternate
           type: Dynamic
-        - attributes:
-            value: Alternate
-          type: User
         type: Values
       type: String
     PIN_7_DIR:
@@ -2015,6 +1974,14 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: In
           type: Dynamic
@@ -2024,6 +1991,14 @@ data:
       attributes:
         id: PIN_93_FUNCTION_NAME
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -2037,14 +2012,6 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: core
             value: GPIO
           type: Dynamic
@@ -2056,18 +2023,31 @@ data:
       children:
       - children:
         - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
             id: core
             value: GPIO
           type: Dynamic
-        - attributes:
-            value: GPIO
-          type: User
         type: Values
       type: String
     PIN_93_PU:
       attributes:
         id: PIN_93_PU
       children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
       - children:
         - attributes:
             id: core
@@ -2264,7 +2244,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x100'
+            value: '0x0'
           type: Dynamic
         type: Values
       type: String
@@ -2275,7 +2255,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x100'
+            value: '0x0'
           type: Dynamic
         type: Values
       type: String
@@ -2352,7 +2332,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x0'
+            value: 0x0L
           type: Dynamic
         type: Values
       type: String
@@ -2363,7 +2343,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0xf0030'
+            value: 0xf0030L
           type: Dynamic
         type: Values
       type: String
@@ -2374,7 +2354,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x1e00000'
+            value: 0x1e00000L
           type: Dynamic
         type: Values
       type: String
@@ -2385,7 +2365,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x0'
+            value: 0x0L
           type: Dynamic
         type: Values
       type: String
@@ -2396,7 +2376,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x0'
+            value: 0x0L
           type: Dynamic
         type: Values
       type: String
@@ -2407,7 +2387,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x0'
+            value: 0x0L
           type: Dynamic
         type: Values
       type: String
@@ -2418,7 +2398,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x0'
+            value: 0x0L
           type: Dynamic
         type: Values
       type: String
@@ -2429,7 +2409,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x0'
+            value: 0x0L
           type: Dynamic
         type: Values
       type: String
@@ -2440,7 +2420,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x2000387'
+            value: 0x92000384L
           type: Dynamic
         type: Values
       type: String
@@ -2682,7 +2662,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x100'
+            value: '0x0'
           type: Dynamic
         type: Values
       type: String
@@ -2704,7 +2684,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x100'
+            value: '0x0'
           type: Dynamic
         type: Values
       type: String
@@ -2726,7 +2706,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x90008'
+            value: '0x10008'
           type: Dynamic
         type: Values
       type: String
@@ -2814,7 +2794,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0x98008'
+            value: '0x10008'
           type: Dynamic
         type: Values
       type: String
@@ -3269,6 +3249,226 @@ data:
           type: Dynamic
         type: Values
       type: Integer
+    FLEXCOM5_CLOCK_ENABLE:
+      attributes:
+        id: FLEXCOM5_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom5
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM5_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: FLEXCOM5_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: flexcom5
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM5_INTERRUPT_ENABLE:
+      attributes:
+        id: FLEXCOM5_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom5
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM5_INTERRUPT_HANDLER:
+      attributes:
+        id: FLEXCOM5_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: flexcom5
+            value: FLEXCOM5_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_70_FUNCTION_TYPE:
+      attributes:
+        id: PIN_70_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: GPIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_70_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_70_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: GPIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_70_FUNCTION_NAME:
+      attributes:
+        id: PIN_70_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PL460_NRST
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_70_LAT:
+      attributes:
+        id: PIN_70_LAT
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: Low
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_A_CFGR_Value28:
+      attributes:
+        id: PORT_A_CFGR_Value28
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x100'
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_70_DIR:
+      attributes:
+        id: PIN_70_DIR
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: Out
+          type: Dynamic
+        type: Values
+      type: String
+    ADC_CLOCK_ENABLE:
+      attributes:
+        id: ADC_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_77_FUNCTION_TYPE:
+      attributes:
+        id: PIN_77_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: GPIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_77_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_77_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: GPIO
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_77_FUNCTION_NAME:
+      attributes:
+        id: PIN_77_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: PL460_TXEN
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_77_LAT:
+      attributes:
+        id: PIN_77_LAT
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: Low
+          type: Dynamic
+        type: Values
+      type: String
+    PORT_A_CFGR_Value31:
+      attributes:
+        id: PORT_A_CFGR_Value31
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '0x100'
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_77_DIR:
+      attributes:
+        id: PIN_77_DIR
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: Out
+          type: Dynamic
+        type: Values
+      type: String
+    ADC_INTERRUPT_ENABLE:
+      attributes:
+        id: ADC_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    ADC_INTERRUPT_HANDLER:
+      attributes:
+        id: ADC_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: ADC_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    ADC_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: ADC_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
   userData:
     children:
     - attributes:

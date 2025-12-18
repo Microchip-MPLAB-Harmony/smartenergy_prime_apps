@@ -48,8 +48,8 @@ data:
     - children:
       - attributes:
           id: lib_wolfcrypt
-          x: '645'
-          y: '398'
+          x: '596'
+          y: '343'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: sefc0
-          x: '389'
-          y: '559'
+          x: '410'
+          y: '536'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
