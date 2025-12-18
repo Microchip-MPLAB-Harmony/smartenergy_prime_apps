@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: trng
-          x: '14'
-          y: '63'
+          x: '76'
+          y: '205'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: sys_debug
-          x: '318'
-          y: '225'
+          x: '411'
+          y: '271'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
