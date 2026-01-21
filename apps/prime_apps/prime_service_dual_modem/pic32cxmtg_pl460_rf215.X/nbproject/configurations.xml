@@ -611,7 +611,6 @@
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/bin/PLC_PHY_PRIME_2CHN.bin</itemPath>
-                  <itemPath>../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
                 <itemPath>../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/drv_plc_phy.c</itemPath>
@@ -913,7 +912,7 @@
         <targetDevice>PIC32CX2051MTG128</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>5.00</languageToolchainVersion>
         <platform>3</platform>
@@ -988,7 +987,7 @@
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>true</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
-        <makeCustomizationPreStep>cd "../../../../../smartenergy/driver/plcPhy/src/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex</makeCustomizationPreStep>
+        <makeCustomizationPreStep>cd "../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex</makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>

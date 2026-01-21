@@ -247,6 +247,8 @@ extern "C" {
 #define DRV_PLC_PHY_HOST_MODEL                3U
 #define DRV_PLC_PHY_HOST_BAND                 DRV_PLC_PHY_PROFILE
 
+#define DRV_PLC_BIN_START_ADDRESS             0x10b8000
+#define DRV_PLC_BIN_SIZE                      98304
 
 
 /* Memory Driver Instance 1 Configuration */

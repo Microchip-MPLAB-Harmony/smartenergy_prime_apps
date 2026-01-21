@@ -690,7 +690,6 @@
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
                   <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin/PLC_PHY_PRIME_2CHN.bin</itemPath>
-                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/drv_plc_phy.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
@@ -1043,8 +1042,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.3.132"/>
-        <pack name="CMSIS" vendor="ARM" version="6.1.0"/>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.4.152"/>
+        <pack name="CMSIS" vendor="ARM" version="6.2.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -1101,7 +1100,7 @@
                         PD="dist/pic32cxmt_pl460/production/pic32cxmt_pl460.X.production.elf"
                         DD="dist/pic32cxmt_pl460/debug/pic32cxmt_pl460.X.debug.elf">
           </makeArtifact>
-          <loadableFile>../../../../../smartenergy/driver/plcPhy/src/bin/PLC_PHY_PRIME_2CHN.hex</loadableFile>
+          <loadableFile>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin/PLC_PHY_PRIME_2CHN.hex</loadableFile>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
@@ -1116,7 +1115,7 @@
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>true</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
-        <makeCustomizationPreStep>cd "../../../../../smartenergy/driver/plcPhy/src/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex</makeCustomizationPreStep>
+        <makeCustomizationPreStep>cd "../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex</makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
