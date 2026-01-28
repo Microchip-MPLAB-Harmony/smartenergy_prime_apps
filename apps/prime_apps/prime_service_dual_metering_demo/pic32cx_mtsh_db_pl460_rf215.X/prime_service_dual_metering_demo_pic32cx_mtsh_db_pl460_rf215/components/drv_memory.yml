@@ -11,7 +11,7 @@ dependency:
 - dependencyPackage: ''
   name: core
   type: package
-  version: v3.15.1
+  version: v3.16.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: drv_memory
-          x: '382'
-          y: '197'
+          x: '379'
+          y: '196'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -35,8 +35,34 @@ data:
       - children:
         - attributes:
             id: drv_memory
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
+    DRV_MEMORY_FS_SOURCE:
+      attributes:
+        id: DRV_MEMORY_FS_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    DRV_MEMORY_FS_HEADER:
+      attributes:
+        id: DRV_MEMORY_FS_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
   userData: {}

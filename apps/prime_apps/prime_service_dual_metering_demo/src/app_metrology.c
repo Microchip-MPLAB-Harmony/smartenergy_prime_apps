@@ -51,6 +51,7 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include "definitions.h"
+#include "peripheral/icm/plib_icm.h"
 #include "app_metrology.h"
 
 // *****************************************************************************
@@ -58,6 +59,9 @@ Microchip or any third party.
 // Section: Global Data Definitions
 // *****************************************************************************
 // *****************************************************************************
+
+/* ICM Hash area */
+uint32_t appMetrologyOutputSHA[0x10] __ALIGNED(128);
 
 extern APP_DATALOG_QUEUE appDatalogQueue;
 APP_DATALOG_QUEUE_DATA appMetrologyDatalogQueueData;
@@ -71,68 +75,88 @@ const char * _met_control_desc[] =
 {
   "00 STATE_CTRL",
   "01 FEATURE_CTRL",
-  "02 HARMONIC_CTRL",
-  "03 METER_TYPE",
-  "04 M",
-  "05 N_MAX",
-  "06 PULSE0_CTRL",
-  "07 PULSE1_CTRL",
-  "08 PULSE2_CTRL",
-  "09 P_K_t",
-  "10 Q_K_t",
-  "11 I_K_t",
-  "12 S_K_t",
-  "13 CREEP_THR_P",
-  "14 CREEP_THR_Q",
-  "15 CREEP_THR_I",
-  "16 CREEP_THR_S",
-  "17 PWR_OFFS_CTRL",
-  "18 PWR_OFFS_P",
-  "19 PWR_OFFS_Q",
-  "20 PWR_OFFS_S",
-  "21 SWELL_THR_VA",
-  "22 SWELL_THR_VB",
-  "23 SWELL_THR_VC",
-  "24 SAG_THR_VA",
-  "25 SAG_THR_VB",
-  "26 SAG_THR_VC",
-  "27 K_IA",
-  "28 K_VA",
-  "29 K_IB",
-  "30 K_VB",
-  "31 K_IC",
-  "32 K_VC",
-  "33 K_IN",
-  "34 CAL_M_IA",
-  "35 CAL_M_VA",
-  "36 CAL_M_IB",
-  "37 CAL_M_VB",
-  "38 CAL_M_IC",
-  "39 CAL_M_VC",
-  "40 CAL_M_IN",
-  "41 CAL_PH_IA",
-  "42 CAL_PH_VA",
-  "43 CAL_PH_IB",
-  "44 CAL_PH_VB",
-  "45 CAL_PH_IC",
-  "46 CAL_PH_VC",
-  "47 CAL_PH_IN",
-  "48 CPTR_CTRL",
-  "49 CPTR_BUFF_SIZE",
-  "50 CPTR_ADDR",
-  "51 Reserved1",
-  "52 Reserved2",
-  "53 Reserved3",
-  "54 ATS_CTRL_20_23",
-  "55 ATS_CTRL_24_27",
-  "56 ATS_CTRL_28_2B",
-  "57 Reserved4",
-  "58 PWR_OFFS_P_A",
-  "59 PWR_OFFS_P_B",
-  "60 PWR_OFFS_P_C",
-  "61 PWR_OFFS_Q_A",
-  "62 PWR_OFFS_Q_B",
-  "63 PWR_OFFS_Q_C"
+  "02 AFE_SELECTION",
+  "03 CHANNEL_MATRIX",
+  "04 HARMONIC_CTRL",
+  "05 METER_TYPE",
+  "06 M",
+  "07 N_MAX",
+  "08 PULSE0_CTRL",
+  "09 PULSE0_K_t",
+  "10 PULSE1_CTRL",
+  "11 PULSE1_K_t",
+  "12 PULSE2_CTRL",
+  "13 PULSE2_K_t",
+  "14 SYNTH_ADDR",
+  "15 CREEP_THR_P",
+  "16 CREEP_THR_P_A",
+  "17 CREEP_THR_P_B",
+  "18 CREEP_THR_P_C",
+  "19 CREEP_THR_Q",
+  "20 CREEP_THR_Q_A",
+  "21 CREEP_THR_Q_B",
+  "22 CREEP_THR_Q_C",
+  "23 CREEP_THR_I",
+  "24 CREEP_THR_I_A",
+  "25 CREEP_THR_I_B",
+  "26 CREEP_THR_I_C",
+  "27 CREEP_THR_S",
+  "28 PWR_OFFS_CTRL",
+  "29 PWR_OFFS_P",
+  "30 PWR_OFFS_Q",
+  "31 PWR_OFFS_S",
+  "32 SWELL_THR_VA",
+  "33 SWELL_THR_VB",
+  "34 SWELL_THR_VC",
+  "35 SAG_THR_VA",
+  "36 SAG_THR_VB",
+  "37 SAG_THR_VC",
+  "38 INT_THR_VA",
+  "39 INT_THR_VB",
+  "40 INT_THR_VC",
+  "41 RESERVED_C41",
+  "42 RESERVED_C42",
+  "43 RESERVED_C43",
+  "44 K_IA",
+  "45 K_VA",
+  "46 K_IB",
+  "47 K_VB",
+  "48 K_IC",
+  "49 K_VC",
+  "50 K_IN",
+  "51 K_VD",
+  "52 CAL_M_IA",
+  "53 CAL_M_VA",
+  "54 CAL_M_IB",
+  "55 CAL_M_VB",
+  "56 CAL_M_IC",
+  "57 CAL_M_VC",
+  "58 CAL_M_IN",
+  "59 CAL_M_VD",
+  "60 CAL_PH_IA",
+  "61 CAL_PH_VA",
+  "62 CAL_PH_IB",
+  "63 CAL_PH_VB",
+  "64 CAL_PH_IC",
+  "65 CAL_PH_VC",
+  "66 CAL_PH_IN",
+  "67 RESERVED_C67",
+  "68 CPTR_CTRL",
+  "69 CPTR_BUFF_SIZE",
+  "70 CPTR_ADDR",
+  "71 RESERVED_C71",
+  "72 RESERVED_C72",
+  "73 RESERVED_C73",
+  "74 AFE_CTRL",
+  "75 RESERVED_C75",
+  "76 RESERVED_C76",
+  "77 RESERVED_C77",
+  "78 PWR_OFFS_P_A",
+  "79 PWR_OFFS_P_B",
+  "80 PWR_OFFS_P_C",
+  "81 PWR_OFFS_Q_A",
+  "82 PWR_OFFS_Q_B",
+  "83 PWR_OFFS_Q_C"
 };
 
 const char * _met_status_desc[] =
@@ -150,87 +174,128 @@ const char * _met_status_desc[] =
   "10 FREQ_VC",
   "11 RESERVED_S11",
   "12 TEMPERATURE",
-  "13 I_A_MAX",
-  "14 I_B_MAX",
-  "15 I_C_MAX",
-  "16 I_Nm_MAX",
-  "17 I_Ni_MAX",
-  "18 V_A_MAX",
-  "19 V_B_MAX",
-  "20 V_C_MAX",
-  "21 FEATURES",
-  "22 RESERVED_S22",
-  "23 RESERVED_S23",
+  "13 V_A_MAX",
+  "14 V_B_MAX",
+  "15 V_C_MAX",
+  "16 RESERVED_S16",
+  "17 I_A_MAX",
+  "18 I_B_MAX",
+  "19 I_C_MAX",
+  "20 I_Nm_MAX",
+  "21 I_Ni_MAX",
+  "22 FEATURES",
+  "23 N_CYCLE",
   "24 RESERVED_S24",
-  "25 PULSE0_COUNTER",
-  "26 PULSE1_COUNTER",
-  "27 PULSE2_COUNTER",
-  "28 RESERVED_S28",
+  "25 RESERVED_S25",
+  "26 PULSE0_COUNTER",
+  "27 PULSE1_COUNTER",
+  "28 PULSE2_COUNTER",
   "29 RESERVED_S29",
   "30 ZC_N_VA",
   "31 ZC_N_VB",
   "32 ZC_N_VC",
-  "33 AT_CAL_41_44",
-  "34 AT_CAL_45_48"
+  "33 RESERVED_S33",
+  "34 ATCAL_41_44",
+  "35 ATCAL_45_48"
 };
 
 const char * _met_acc_desc[] =
 {
-  "00 I_A",
-  "01 I_B",
-  "02 I_C",
-  "03 I_Ni",
-  "04 I_Nm",
-  "05 I_A_F",
-  "06 I_B_F",
-  "07 I_C_F",
-  "08 I_Nmi",
-  "09 I_Nm_F",
-  "10 RESERVED_A10",
-  "11 RESERVED_A11",
-  "12 RESERVED_A12",
-  "13 RESERVED_A13",
+  "00 V_A",
+  "01 V_B",
+  "02 V_C",
+  "03 V_D",
+  "04 V_A_F",
+  "05 V_B_F",
+  "06 V_C_F",
+  "07 V_D_F",
+  "08 V_AB",
+  "09 V_BC",
+  "10 V_CA",
+  "11 V_AB_F",
+  "12 V_BC_F",
+  "13 V_CA_F",
   "14 RESERVED_A14",
-  "15 P_A",
-  "16 P_B",
-  "17 P_C",
-  "18 P_A_F",
-  "19 P_B_F",
-  "20 P_C_F",
-  "21 P_N",
-  "22 P_N_F",
-  "23 RESERVED_A23",
-  "24 Q_A",
-  "25 Q_B",
-  "26 Q_C",
-  "27 Q_A_F",
-  "28 Q_B_F",
-  "29 Q_C_F",
-  "30 Q_N",
-  "31 Q_N_F",
-  "32 RESERVED_A32",
-  "33 V_A",
-  "34 V_B",
-  "35 V_C",
-  "36 RESERVED_A36",
-  "37 V_A_F",
-  "38 V_B_F",
-  "39 V_C_F",
+  "15 RESERVED_A15",
+  "16 RESERVED_A16",
+  "17 I_A",
+  "18 I_B",
+  "19 I_C",
+  "20 I_Ni",
+  "21 I_Nm",
+  "22 I_A_F",
+  "23 I_B_F",
+  "24 I_C_F",
+  "25 I_Nmi",
+  "26 I_Nm_F",
+  "27 RESERVED_A27",
+  "28 RESERVED_A28",
+  "29 RESERVED_A29",
+  "30 RESERVED_A30",
+  "31 RESERVED_A31",
+  "32 P_A",
+  "33 P_B",
+  "34 P_C",
+  "35 P_A_F",
+  "36 P_B_F",
+  "37 P_C_F",
+  "38 P_N",
+  "39 P_N_F",
   "40 RESERVED_A40",
-  "41 V_AB",
-  "42 V_BC",
-  "43 V_CA",
-  "44 V_AB_F",
-  "45 V_BC_F",
-  "46 V_CA_F",
-  "47 RESERVED_A47",
-  "48 RESERVED_A48",
+  "41 Q_A",
+  "42 Q_B",
+  "43 Q_C",
+  "44 Q_A_F",
+  "45 Q_B_F",
+  "46 Q_C_F",
+  "47 Q_N",
+  "48 Q_N_F",
   "49 RESERVED_A49",
   "50 ACC_T0",
   "51 ACC_T1",
   "52 ACC_T2",
   "53 RESERVED_A53",
   "54 RESERVED_A54"
+};
+
+const char * _met_pcacc_desc[] =
+{
+  "00 CYCLE_V_A",
+  "01 CYCLE_V_B",
+  "02 CYCLE_V_C",
+  "03 CYCLE_V_A_F",
+  "04 CYCLE_V_B_F",
+  "05 CYCLE_V_C_F",
+  "06 CYCLE_V_AB",
+  "07 CYCLE_V_BC",
+  "08 CYCLE_V_CA",
+  "09 CYCLE_V_AB_F",
+  "10 CYCLE_V_BC_F",
+  "11 CYCLE_V_CA_F",
+  "12 CYCLE_I_A",
+  "13 CYCLE_I_B",
+  "14 CYCLE_I_C",
+  "15 CYCLE_I_Nm",
+  "16 CYCLE_I_A_F",
+  "17 CYCLE_I_B_F",
+  "18 CYCLE_I_C_F",
+  "19 CYCLE_I_Nm_F",
+  "20 CYCLE_P_A",
+  "21 CYCLE_P_B",
+  "22 CYCLE_P_C",
+  "23 CYCLE_P_A_F",
+  "24 CYCLE_P_B_F",
+  "25 CYCLE_P_C_F",
+  "26 CYCLE_P_N",
+  "27 CYCLE_P_N_F",
+  "28 CYCLE_Q_A",
+  "29 CYCLE_Q_B",
+  "30 CYCLE_Q_C",
+  "31 CYCLE_Q_A_F",
+  "32 CYCLE_Q_B_F",
+  "33 CYCLE_Q_C_F",
+  "34 CYCLE_Q_N",
+  "35 CYCLE_Q_N_F"
 };
 
 const char * _met_har_desc[] =
@@ -307,13 +372,38 @@ static void _APP_METROLOGY_StoreControlInMemory(DRV_METROLOGY_REGS_CONTROL * con
 // *****************************************************************************
 // *****************************************************************************
 
+static void _APP_METROLOGY_ICMHashCompletedCallback(ICM_REGION_ID regionId)
+{
+    if (regionId == ICM_REGION_0)
+    {
+        app_metrologyData.metBinHashCompleted = true;
+    }
+}
+
+static void _APP_METROLOGY_ICMDigestMismatchCallback(ICM_REGION_ID regionId)
+{
+    if (regionId == ICM_REGION_0)
+    {
+        /* MCU reset. Additional actions could be done: reload metrology library without restarting MCU,
+        count number of mismatches and store it lin NVM, ... */
+        app_metrologyData.metBinMismatch = true;
+    }
+}
+
 static void _APP_METROLOGY_IntegrationCallback(void)
 {
-    if ((app_metrologyData.state == APP_METROLOGY_STATE_RUNNING) ||
-        (app_metrologyData.state == APP_METROLOGY_STATE_CHECK_CALIBRATION))
+    APP_ENERGY_QUEUE_DATA newMetrologyData;
+
+    /* It is safe to process the callback here because it is called from Tasks */
+    if (app_metrologyData.state == APP_METROLOGY_STATE_RUNNING)
     {
-        /* Signal Metrology thread to update measurements for an integration period */
-        app_metrologyData.integrationFlag = true;
+        // Send new Energy values to the Energy Task
+        newMetrologyData.energy = DRV_METROLOGY_GetEnergyValue(true);
+        newMetrologyData.Pt = DRV_METROLOGY_GetMeasureValue(MEASURE_PT, false);
+        if (APP_ENERGY_SendEnergyData(&newMetrologyData) == false)
+        {
+            SYS_CMD_MESSAGE("ENERGY Queue is FULL!!!\r\n");
+        }
     }
 }
 
@@ -330,8 +420,11 @@ static void _APP_METROLOGY_CalibrationCallback(bool result)
         app_metrologyData.pCalibrationCallback(result);
     }
 
-    /* Signal Metrology to exit calibration status */
-    app_metrologyData.calibrationFlag = true;
+    /* It is safe to process the callback here because it is called from Tasks */
+    if (app_metrologyData.state == APP_METROLOGY_STATE_CHECK_CALIBRATION)
+    {
+        app_metrologyData.state = APP_METROLOGY_STATE_RUNNING;
+    }
 }
 
 static void _APP_METROLOGY_HarmonicAnalysisCallback(uint32_t harmonicBitmap)
@@ -349,6 +442,15 @@ static void _APP_METROLOGY_HarmonicAnalysisCallback(uint32_t harmonicBitmap)
             app_metrologyData.sendHarmonicsToConsole = false;
             app_metrologyData.pHarmonicAnalysisCallback(harmonicBitmap);
         }
+    }
+}
+
+static void _APP_METROLOGY_HalfCycleCallback(void)
+{
+    if (app_metrologyData.state == APP_METROLOGY_STATE_RUNNING)
+    {
+        /* Signal Metrology thread to update events for a Half/Full Cycle */
+        app_metrologyData.halfCycleFlag = true;
     }
 }
 
@@ -380,7 +482,13 @@ static void _APP_METROLOGY_GetNVMDataCallback(APP_DATALOG_RESULT result)
 void APP_METROLOGY_Initialize (void)
 {
     /* Place the App state machine in its initial state. */
-    app_metrologyData.state = APP_METROLOGY_STATE_WAITING_DATALOG;
+    app_metrologyData.state = APP_METROLOGY_STATE_ICM_GET_HASH;
+
+    /* Get met bin file descriptor to check integrity (ICM) */
+    app_metrologyData.metBinStartAddress = drvMetrologyInitData.binStartAddress;
+    app_metrologyData.metBinSize = drvMetrologyInitData.binEndAddress - drvMetrologyInitData.binStartAddress;
+    app_metrologyData.metBinHashCompleted = false;
+    app_metrologyData.metBinMismatch = false;
 
     /* Flag to indicate if configuration should be applied */
     app_metrologyData.setConfiguration = false;
@@ -399,6 +507,7 @@ void APP_METROLOGY_Initialize (void)
     app_metrologyData.pMetControl = DRV_METROLOGY_GetControlData();
     app_metrologyData.pMetStatus = DRV_METROLOGY_GetStatusData();
     app_metrologyData.pMetAccData = DRV_METROLOGY_GetAccData();
+    app_metrologyData.pMetPerCycleAccData = DRV_METROLOGY_GetPerCycleAccData();
     app_metrologyData.pMetHarData = DRV_METROLOGY_GetHarData();
 
     /* Set Callback for each metrology integration process */
@@ -407,6 +516,8 @@ void APP_METROLOGY_Initialize (void)
     DRV_METROLOGY_CalibrationCallbackRegister(_APP_METROLOGY_CalibrationCallback);
     /* Set Callback for harmonic analysis process */
     DRV_METROLOGY_HarmonicAnalysisCallbackRegister(_APP_METROLOGY_HarmonicAnalysisCallback);
+    /* Set Callback for half cycle */
+    DRV_METROLOGY_HalfCycleCallbackRegister(_APP_METROLOGY_HalfCycleCallback);
 
     /* Clear Harmonic Analysis Data */
     app_metrologyData.harmonicAnalysisPending = false;
@@ -415,11 +526,11 @@ void APP_METROLOGY_Initialize (void)
 
     /* Clear Calibration Data */
     app_metrologyData.pCalibrationCallback = NULL;
-    app_metrologyData.calibrationFlag = false;
 
-    /* Initialize integration Flag */
-    app_metrologyData.integrationFlag = false;
+    /* Initialize Flags */
+    app_metrologyData.halfCycleFlag = false;
     app_metrologyData.dataFlag = false;
+    app_metrologyData.eventFlagsPrev.afeEventsMask = 0;
 
 }
 
@@ -432,19 +543,84 @@ void APP_METROLOGY_Initialize (void)
  */
 void APP_METROLOGY_Tasks (void)
 {
-    APP_ENERGY_QUEUE_DATA newMetrologyData;
     APP_EVENTS_QUEUE_DATA newEvent;
+    DRV_METROLOGY_AFE_EVENTS_UNION newEventFlags;
+
+
+    if (app_metrologyData.metBinMismatch)
+    {
+        app_metrologyData.state = APP_METROLOGY_STATE_ERROR;
+    }
 
     /* Check the application's current state. */
     switch (app_metrologyData.state)
     {
-        /* Application's initial state. */
+        case APP_METROLOGY_STATE_ICM_GET_HASH:
+        {
+            ICM_Disable();
+
+            ICM_SetRegionDescriptorData(ICM_REGION_0,
+                                        (uint32_t *)app_metrologyData.metBinStartAddress,
+                                        app_metrologyData.metBinSize);
+
+            ICM_SetHashAreaAddress((uint32_t)appMetrologyOutputSHA);
+
+            // Set ICM callbacks (Hash Completed))
+            ICM_CallbackRegister(ICM_INTERRUPT_RHC, _APP_METROLOGY_ICMHashCompletedCallback);
+            ICM_EnableInterrupt(ICM_INTERRUPT_RHC, ICM_REGION_0);
+
+            app_metrologyData.state = APP_METROLOGY_STATE_ICM_START_MONITOR;
+            app_metrologyData.metBinHashCompleted = false;
+
+            // Compute de Hash values
+            ICM_Enable();
+
+            break;
+        }
+
+        case APP_METROLOGY_STATE_ICM_START_MONITOR:
+        {
+            if (app_metrologyData.metBinHashCompleted == true)
+            {
+                ICM_REGION_DESCRIPTOR *pDescriptor;
+
+                ICM_Disable();
+
+                ICM_SetRegionDescriptorData(ICM_REGION_0, (uint32_t *)IRAM1_ADDR,
+                                            app_metrologyData.metBinSize);
+
+                // Disable ICM callbacks (Hash Completed))
+                ICM_CallbackRegister(ICM_INTERRUPT_RHC, NULL);
+                ICM_DisableInterrupt(ICM_INTERRUPT_RHC, ICM_REGION_0);
+
+                // Set ICM Monitor Mode
+                pDescriptor = ICM_GetRegionDescriptor(ICM_REGION_0);
+                pDescriptor->config.bitfield.compareMode = 1;
+                pDescriptor->config.bitfield.wrap = 1;
+                pDescriptor->config.bitfield.endMonitor = 0;
+                pDescriptor->config.bitfield.regHashIntDis = 1;
+                pDescriptor->config.bitfield.mismatchIntDis = 0;
+
+                // Set ICM callbacks (Digest mismatch)
+                ICM_CallbackRegister(ICM_INTERRUPT_RDM, _APP_METROLOGY_ICMDigestMismatchCallback);
+                ICM_EnableInterrupt(ICM_INTERRUPT_RDM, ICM_REGION_0);
+
+                ICM_SetMonitorMode(true, 15);
+                ICM_EnableRegionMonitor(ICM_REGION_0);
+
+                ICM_Enable();
+
+                app_metrologyData.state = APP_METROLOGY_STATE_WAITING_DATALOG;
+            }
+            break;
+        }
+
         case APP_METROLOGY_STATE_WAITING_DATALOG:
         {
             if (APP_DATALOG_GetStatus() == APP_DATALOG_STATE_READY)
             {
                 /* Check if there are Metrology data in memory */
-                if (APP_DATALOG_FileExists(APP_DATALOG_USER_METROLOGY, NULL))
+                if (APP_DATALOG_DataIsValid(APP_DATALOG_USER_METROLOGY))
                 {
                     /* Metrology data exists */
                     _APP_METROLOGY_LoadControlFromMemory(&app_metrologyData.configuration);
@@ -456,7 +632,6 @@ void APP_METROLOGY_Tasks (void)
                     app_metrologyData.state = APP_METROLOGY_STATE_INIT;
                 }
             }
-
             break;
         }
 
@@ -490,6 +665,11 @@ void APP_METROLOGY_Tasks (void)
                 }
                 else
                 {
+                    // Check ICM status before running metrology
+                    if ((ICM_GetStatus() & ICM_SR_ENABLE_Msk) == 0)
+                    {
+                        ICM_Enable();
+                    }
                     app_metrologyData.state = APP_METROLOGY_STATE_RUNNING;
                 }
             }
@@ -506,7 +686,7 @@ void APP_METROLOGY_Tasks (void)
             if (DRV_METROLOGY_GetStatus() == DRV_METROLOGY_STATUS_READY)
             {
                 /* Check if there are Metrology data in memory */
-                if (APP_DATALOG_FileExists(APP_DATALOG_USER_METROLOGY, NULL) == false)
+                if (APP_DATALOG_DataIsValid(APP_DATALOG_USER_METROLOGY) == false)
                 {
                     /* Metrology data does not exists. Store in NVM */
                     _APP_METROLOGY_StoreControlInMemory(app_metrologyData.pMetControl);
@@ -514,6 +694,11 @@ void APP_METROLOGY_Tasks (void)
 
                 if (DRV_METROLOGY_Start() == DRV_METROLOGY_SUCCESS)
                 {
+                    // Check ICM status before running metrology
+                    if ((ICM_GetStatus() & ICM_SR_ENABLE_Msk) == 0)
+                    {
+                        ICM_Enable();
+                    }
                     app_metrologyData.state = APP_METROLOGY_STATE_RUNNING;
                 }
                 else
@@ -528,25 +713,22 @@ void APP_METROLOGY_Tasks (void)
 
         case APP_METROLOGY_STATE_RUNNING:
         {
-            /* Wait for the integration flag to get measurements at the end of the integration period. */
-            if (app_metrologyData.integrationFlag)
+            /* Wait for the Half/Full Cycle to get events. */
+            if (app_metrologyData.halfCycleFlag)
             {
-                app_metrologyData.integrationFlag = false;
-
-                // Send new Energy values to the Energy Task
-                newMetrologyData.energy = DRV_METROLOGY_GetEnergyValue(true);
-                newMetrologyData.Pt = DRV_METROLOGY_GetMeasureValue(MEASURE_PT);
-                if (APP_ENERGY_SendEnergyData(&newMetrologyData) == false)
-                {
-                    SYS_CMD_MESSAGE("ENERGY Queue is FULL!!!\r\n");
-                }
+                app_metrologyData.halfCycleFlag = false;
 
                 // Send new Events to the Events Task
                 RTC_TimeGet(&newEvent.eventTime);
-                DRV_METROLOGY_GetEventsData(&newEvent.eventFlags);
-                if (APP_EVENTS_SendEventsData(&newEvent) == false)
+                DRV_METROLOGY_GetEventsData(&newEventFlags);
+                if (newEventFlags.afeEventsMask != app_metrologyData.eventFlagsPrev.afeEventsMask)
                 {
-                    SYS_CMD_MESSAGE("EVENTS Queue is FULL!!!\r\n");
+                    app_metrologyData.eventFlagsPrev.afeEventsMask = newEventFlags.afeEventsMask;
+                    newEvent.eventFlags = newEventFlags.afeEvents;
+                    if (APP_EVENTS_SendEventsData(&newEvent) == false)
+                    {
+                        SYS_CMD_MESSAGE("EVENTS Queue is FULL!!!\r\n");
+                    }
                 }
             }
 
@@ -555,18 +737,21 @@ void APP_METROLOGY_Tasks (void)
 
         case APP_METROLOGY_STATE_CHECK_CALIBRATION:
         {
-            /* Wait for the metrology semaphore to wait calibration ends. */
-            if (app_metrologyData.calibrationFlag)
-            {
-                app_metrologyData.calibrationFlag = false;
-                app_metrologyData.state = APP_METROLOGY_STATE_RUNNING;
-            }
-
+            /* Wait for calibration end. */
             break;
         }
 
         /* The default state should never be executed. */
         case APP_METROLOGY_STATE_ERROR:
+        {
+            if (app_metrologyData.metBinMismatch)
+            {
+                app_metrologyData.metBinMismatch = false;
+                SYS_CMD_MESSAGE("ERROR: Metrology library has been corrupted. Results are not valid.\r\n");
+            }
+        }
+            break;
+
         default:
         {
             /* TODO: Handle error in application's state machine. */
@@ -664,6 +849,27 @@ bool APP_METROLOGY_GetAccumulatorRegister(ACCUMULATOR_REG_ID regId, uint64_t * r
     return true;
 }
 
+bool APP_METROLOGY_GetPCAccumulatorRegister(PER_CYCLE_ACCUMULATOR_REG_ID regId, uint64_t * regValue, char *regName)
+{
+    uint64_t *pData;
+
+    if (regId >= PER_CYCLE_ACC_REG_NUM)
+    {
+        return false;
+    }
+
+    pData = (uint64_t *)app_metrologyData.pMetPerCycleAccData;
+    pData += regId;
+    *regValue = *pData;
+
+    if (regName)
+    {
+        sprintf(regName,"%s",_met_pcacc_desc[regId]);
+    }
+
+    return true;
+}
+
 void APP_METROLOGY_CaptureHarmonicData(void)
 {
     (void) memcpy((uint8_t *)&app_metrologyData.harmonicsData,
@@ -749,19 +955,14 @@ bool APP_METROLOGY_GetHarmonicRegister(HARMONICS_REG_ID regId, uint8_t harmonicN
     return true;
 }
 
-bool APP_METROLOGY_GetMeasure(DRV_METROLOGY_MEASURE_TYPE measureId, uint32_t * value, DRV_METROLOGY_MEASURE_SIGN * sign)
+bool APP_METROLOGY_GetMeasure(DRV_METROLOGY_MEASURE_TYPE measureId, float * value, bool perCyleMeasure)
 {
     if (measureId >= MEASURE_TYPE_NUM)
     {
         return false;
     }
 
-    if (sign != NULL)
-    {
-        *sign = DRV_METROLOGY_GetMeasureSign(measureId);
-    }
-
-    *value = DRV_METROLOGY_GetMeasureValue(measureId);
+    *value = DRV_METROLOGY_GetMeasureValue(measureId, perCyleMeasure);
     return true;
 }
 
@@ -780,32 +981,14 @@ void APP_METROLOGY_StoreMetrologyData(void)
     _APP_METROLOGY_StoreControlInMemory(app_metrologyData.pMetControl);
 }
 
-void APP_METROLOGY_SetConfiguration(DRV_METROLOGY_CONFIGURATION * config)
-{
-    DRV_METROLOGY_SetConfiguration(config);
-
-    _APP_METROLOGY_StoreControlInMemory(app_metrologyData.pMetControl);
-}
-
-void APP_METROLOGY_StartCalibration(APP_METROLOGY_CALIBRATION * calibration)
+void APP_METROLOGY_StartCalibration(DRV_METROLOGY_CALIBRATION_REFS * calibration)
 {
     if (app_metrologyData.state == APP_METROLOGY_STATE_RUNNING)
     {
         DRV_METROLOGY_CALIBRATION_REFS * pCalibrationRefs;
 
         pCalibrationRefs = DRV_METROLOGY_GetCalibrationReferences();
-        pCalibrationRefs->aimIA = calibration->aimIA;
-        pCalibrationRefs->aimVA = calibration->aimVA;
-        pCalibrationRefs->angleA = calibration->angleA;
-        pCalibrationRefs->aimIB = calibration->aimIB;
-        pCalibrationRefs->aimVB = calibration->aimVB;
-        pCalibrationRefs->angleB = calibration->angleB;
-        pCalibrationRefs->aimIC = calibration->aimIC;
-        pCalibrationRefs->aimVC = calibration->aimVC;
-        pCalibrationRefs->angleC = calibration->angleC;
-        pCalibrationRefs->aimIN = calibration->aimIN;
-        pCalibrationRefs->angleN = calibration->angleN;
-        pCalibrationRefs->lineId = calibration->lineId;
+        *pCalibrationRefs = *calibration;
 
         app_metrologyData.state = APP_METROLOGY_STATE_CHECK_CALIBRATION;
         DRV_METROLOGY_StartCalibration();
@@ -817,15 +1000,9 @@ void APP_METROLOGY_SetCalibrationCallback(DRV_METROLOGY_CALIBRATION_CALLBACK cal
     app_metrologyData.pCalibrationCallback = callback;
 }
 
-size_t APP_METROLOGY_GetWaveformCaptureData(uint32_t *address)
-{
-    *address = (uint32_t)app_metrologyData.pMetControl->CAPTURE_ADDR;
-    return (size_t)app_metrologyData.pMetControl->CAPTURE_BUFF_SIZE;
-}
-
 bool APP_METROLOGY_StartHarmonicAnalysis(uint32_t harmonicBitmap, bool singleMode)
 {
-    if (app_metrologyData.harmonicAnalysisPending)
+    if ((app_metrologyData.harmonicAnalysisPending) && (singleMode == true))
     {
         return false;
     }
@@ -883,6 +1060,9 @@ void APP_METROLOGY_Restart (bool reloadRegsFromMemory)
         }
         app_metrologyData.startMode = DRV_METROLOGY_START_HARD;
 
+        /* Disable ICM before resetting peripheral clocks */
+        ICM_Disable();
+
         sysObj.drvMet = DRV_METROLOGY_Reinitialize((SYS_MODULE_INIT *)&drvMetrologyInitData);
     }
 }
@@ -909,6 +1089,36 @@ bool APP_METROLOGY_CheckPhaseEnabled (APP_METROLOGY_PHASE_ID phase)
     else
     {
         return false;
+    }
+}
+
+DRV_METROLOGY_AFE_TYPE APP_METROLOGY_GetAFEDescription(char *pDescription)
+{
+    return DRV_METROLOGY_GetAFEDescription(pDescription);
+}
+
+uint8_t APP_METROLOGY_GetChannelsDescription(DRV_METROLOGY_CHANNEL **pChannelDesc)
+{
+    *pChannelDesc = DRV_METROLOGY_GetChannelDescription();
+
+    return DRV_METROLOGY_CHANNELS_NUMBER;
+}
+
+void APP_METROLOGY_GetAccRegData(DRV_METROLOGY_REGS_ACCUMULATORS *pData, char **pDescription)
+{
+    if (pData != NULL)
+    {
+        memcpy(pData, app_metrologyData.pMetAccData, sizeof(DRV_METROLOGY_REGS_ACCUMULATORS));
+        *pDescription = (char *)_met_acc_desc;
+    }
+}
+
+void APP_METROLOGY_GetPerCycleAccRegData(DRV_METROLOGY_REGS_PERCYCLE_ACC *pData, char **pDescription)
+{
+    if (pData != NULL)
+    {
+        memcpy(pData, app_metrologyData.pMetPerCycleAccData, sizeof(DRV_METROLOGY_REGS_PERCYCLE_ACC));
+        *pDescription = (char *)_met_pcacc_desc;
     }
 }
 

@@ -82,8 +82,8 @@ FLEXCOM0_REGS->FLEX_US_IER = FLEX_US_IER_TXRDY_Msk; \
 FLEXCOM0_REGS->FLEX_US_FIER = (FLEX_US_FIER_TXFTHF_Msk); \
 }while(false)
 
-#define FLEXCOM0_USART_READ_BUFFER_SIZE             128U
-#define FLEXCOM0_USART_9BIT_READ_BUFFER_SIZE        (128U >> 1U)
+#define FLEXCOM0_USART_READ_BUFFER_SIZE             512U
+#define FLEXCOM0_USART_9BIT_READ_BUFFER_SIZE        (512U >> 1U)
 
 #define FLEXCOM0_USART_WRITE_BUFFER_SIZE            2048U
 #define FLEXCOM0_USART_9BIT_WRITE_BUFFER_SIZE       (2048U >> 1U)
@@ -111,6 +111,7 @@ void FLEXCOM0_USART_Initialize( void )
 
     FLEXCOM0_REGS->FLEX_US_FMR = FLEX_US_FMR_RXFTHRES(FLEXCOM0_USART_HW_RX_FIFO_THRES) | FLEX_US_FMR_TXFTHRES(FLEXCOM0_USART_HW_TX_FIFO_THRES);
 
+    /* Setup transmitter timeguard register */
     FLEXCOM0_REGS->FLEX_US_TTGR = 0;
 
     /* Enable FLEXCOM0 USART */
@@ -150,6 +151,7 @@ void FLEXCOM0_USART_Initialize( void )
         flexcom0UsartObj.wrBufferSize = FLEXCOM0_USART_WRITE_BUFFER_SIZE;
     }
 
+    /* Enable Read, Overrun, Parity and Framing error interrupts */
     FLEXCOM0_USART_RX_INT_ENABLE();
 }
 
@@ -809,13 +811,13 @@ static void __attribute__((used)) FLEXCOM0_USART_ISR_TX_Handler( void )
         }
         else
         {
-            /* Nothing to transmit. Disable the data register empty/fifo Threshold interrupt. */
+            /* Nothing to transmit. Disable the data register empty interrupt. */
             FLEXCOM0_USART_TX_INT_DISABLE();
             break;
         }
     }
 
-    /* At this point, either FIFO is completly full or all bytes are transmitted (copied in FIFO). If FIFO is full, then threshold interrupt
+    /* At this point, either FIFO is completely full or all bytes are transmitted (copied in FIFO). If FIFO is full, then threshold interrupt
     *  will be generated. If all bytes are transmitted then interrupts are disabled as interrupt generation is not needed in ring buffer mode
     */
 

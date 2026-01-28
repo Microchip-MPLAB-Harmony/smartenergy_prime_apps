@@ -48,7 +48,6 @@
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/drv_memory_definitions.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/drv_memory.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory_local.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory_file_system.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/drv_memory_sefc0.h</itemPath>
             </logicalFolder>
             <logicalFolder name="metrology" displayName="metrology" projectFiles="true">
@@ -132,6 +131,9 @@
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/plib_flexcom0_usart.h</itemPath>
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/plib_flexcom2_usart.h</itemPath>
               </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="icm" displayName="icm" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/icm/plib_icm.h</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/nvic/plib_nvic.h</itemPath>
@@ -278,24 +280,6 @@
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/debug/sys_debug.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/debug/src/sys_debug_local.h</itemPath>
             </logicalFolder>
-            <logicalFolder name="fs" displayName="fs" projectFiles="true">
-              <logicalFolder name="fat_fs" displayName="fat_fs" projectFiles="true">
-                <logicalFolder name="file_system" displayName="file_system" projectFiles="true">
-                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system/ff.h</itemPath>
-                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system/ffconf.h</itemPath>
-                </logicalFolder>
-                <logicalFolder name="hardware_access"
-                               displayName="hardware_access"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/hardware_access/diskio.h</itemPath>
-                </logicalFolder>
-              </logicalFolder>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs_local.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/sys_fs_fat_interface.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs_media_manager_local.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/sys_fs.h</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/sys_fs_media_manager.h</itemPath>
-            </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/int/sys_int.h</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/int/sys_int_mapping.h</itemPath>
@@ -329,6 +313,24 @@
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="packs" displayName="packs" projectFiles="true">
+        <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+          <logicalFolder name="CMSIS" displayName="CMSIS" projectFiles="true">
+            <logicalFolder name="Core" displayName="Core" projectFiles="true">
+              <logicalFolder name="Include" displayName="Include" projectFiles="true">
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_version.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_compiler.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_iccarm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_gcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armcc.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/core_cm4.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/mpu_armv7.h</itemPath>
+                <itemPath>../src/packs/CMSIS/CMSIS/Core/Include/cachel1_armv7.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
+          </logicalFolder>
+        </logicalFolder>
         <logicalFolder name="PIC32CX2051MTSH128_DFP"
                        displayName="PIC32CX2051MTSH128_DFP"
                        projectFiles="true">
@@ -591,6 +593,7 @@
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/core.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/primeFirmwareUpgrade.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/adc.yml</itemPath>
+          <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/icm.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/sefc0.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/cmsis.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/qspi.yml</itemPath>
@@ -600,7 +603,6 @@
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/drvPlcPhy.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/rtc.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/drvMet.yml</itemPath>
-          <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/sys_fs.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/flexcom0.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/drv_memory_0.yml</itemPath>
           <itemPath>prime_service_dual_metering_demo_pic32cx_mtsh_db_pl460_rf215/components/mainBoard_PIC32CXMTSH_DB.yml</itemPath>
@@ -673,12 +675,12 @@
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="memory" displayName="memory" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory.c</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory_file_system.c</itemPath>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/memory/src/drv_memory_sefc0.c</itemPath>
             </logicalFolder>
             <logicalFolder name="metrology" displayName="metrology" projectFiles="true">
               <logicalFolder name="bin" displayName="bin" projectFiles="true">
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/bin/met_bin.S</itemPath>
+                <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/bin/core1_metlib.bin</itemPath>
               </logicalFolder>
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/metrology/drv_metrology.c</itemPath>
             </logicalFolder>
@@ -740,6 +742,9 @@
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/plib_flexcom0_usart.c</itemPath>
                 <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/plib_flexcom2_usart.c</itemPath>
               </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="icm" displayName="icm" projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/icm/plib_icm.c</itemPath>
             </logicalFolder>
             <logicalFolder name="nvic" displayName="nvic" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/peripheral/nvic/plib_nvic.c</itemPath>
@@ -860,22 +865,6 @@
             </logicalFolder>
             <logicalFolder name="debug" displayName="debug" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/debug/src/sys_debug.c</itemPath>
-            </logicalFolder>
-            <logicalFolder name="fs" displayName="fs" projectFiles="true">
-              <logicalFolder name="fat_fs" displayName="fat_fs" projectFiles="true">
-                <logicalFolder name="file_system" displayName="file_system" projectFiles="true">
-                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system/ff.c</itemPath>
-                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/file_system/ffunicode.c</itemPath>
-                </logicalFolder>
-                <logicalFolder name="hardware_access"
-                               displayName="hardware_access"
-                               projectFiles="true">
-                  <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/fat_fs/hardware_access/diskio.c</itemPath>
-                </logicalFolder>
-              </logicalFolder>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs_media_manager.c</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs.c</itemPath>
-              <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/fs/src/sys_fs_fat_interface.c</itemPath>
             </logicalFolder>
             <logicalFolder name="int" displayName="int" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtsh_db_pl460_rf215/system/int/src/sys_int.c</itemPath>
@@ -1125,6 +1114,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -1174,6 +1164,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1205,6 +1196,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1251,6 +1243,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1279,6 +1272,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

@@ -193,7 +193,7 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
         imageModel = ((uint16_t) pBuffInput[2]) << 8;
         imageModel |= pBuffInput[3];
     }
-    
+
     iniMetadata = fuData.imageSize - fuData.signLength - PRIME_METADATA_SIZE;
     iniSignature = fuData.imageSize - fuData.signLength;
 
@@ -233,9 +233,9 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
 
         (void)memcpy(&imageMetadata[offsetMetadata], &pBuffInput[offsetSegment], sizeToCopy);
     }
-       
+
     /* Signature */
-    
+
     /*  Check if the segment to write is in signature zone */
     if ((address + size) < iniSignature)
     {
@@ -425,7 +425,7 @@ static void lSRV_FU_EraseFuRegion(void)
 static void lSRV_FU_ConvertDerFormatSignature(void)
 {
     uint8_t index;
-    
+
     for (index = 0U; index < 32U; index++)
     {
         imageSignature[index] = imageSignature[4U + index];
@@ -441,7 +441,7 @@ static void lSRV_FU_ConvertDerFormatSignature(void)
 static bool lSRV_FU_VerifySignature(void)
 {
     crypto_Hash_Status_E stateCryptoHash;
-    
+
     if (fuData.signAlgorithm == SRV_FU_SIGNATURE_ALGO_NO_SIGNATURE)
     {
         /* No need to check any signature, finish checking */
@@ -450,25 +450,25 @@ static bool lSRV_FU_VerifySignature(void)
         memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
 
         return true;
-    } 
-    
+    }
+
     if (fuData.signAlgorithm != SRV_FU_SIGNATURE_ALGO_ECDSA256_SHA256)
     {
         /* Only ECDSA256_SHA256 is supported */
         return false;
-    } 
-    
+    }
+
     if (dsaState != SRV_FU_DSA_IDLE)
     {
         /* DSA state machine not idle */
         return false;
-    } 
-    
+    }
+
     /* Check if signature comes in DER format */
     if (fuData.signLength == 70UL) {
         lSRV_FU_ConvertDerFormatSignature();
     }
-    
+
     /* Start to verify the signature */
     stateCryptoHash = Crypto_Hash_Sha_Init(&hashCtx, CRYPTO_HASH_SHA2_256, CRYPTO_HANDLER_SW_WOLFCRYPT, SESSION_ID);
 
@@ -544,7 +544,7 @@ void SRV_FU_Initialize(void)
 
     memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
 
-    dsaState = SRV_FU_DSA_NO_PUBLIC_KEY; 
+    dsaState = SRV_FU_DSA_NO_PUBLIC_KEY;
 }
 
 void SRV_FU_Tasks(void)
@@ -751,7 +751,7 @@ void SRV_FU_Tasks(void)
                     stateCryptoHash = Crypto_Hash_Sha_Update(&hashCtx, pBuffInput, dsaSize);
                     stateCryptoHash = Crypto_Hash_Sha_Final(&hashCtx, hashDigest);
                 }
-                
+
                 if (stateCryptoHash!= CRYPTO_HASH_SUCCESS)
                 {
                     dsaState = SRV_FU_DSA_IDLE;
@@ -841,11 +841,11 @@ void SRV_FU_Tasks(void)
         case SRV_FU_MEM_STATE_WRITE_WAIT_END:
         case SRV_FU_MEM_STATE_CMD_WAIT:
         case SRV_FU_MEM_UNINITIALIZED:
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
          default:
             break;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
     }
 }
 
@@ -956,11 +956,11 @@ void SRV_FU_End(SRV_FU_RESULT fuResult)
         case SRV_FU_RESULT_FW_CONFIRM:
             SRV_FU_ResultCallback(fuResult);
             break;
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
         default:
             break;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
     }
 }
 
@@ -1161,7 +1161,7 @@ void SRV_FU_VerifyImage(void)
     {
         /* Wrong Metadata, vendor or model */
         SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_IMAGE_FAIL);
-        
+
         return;
     }
 

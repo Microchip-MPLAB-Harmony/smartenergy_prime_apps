@@ -260,70 +260,31 @@ static void lAPP_PRIME_METROLOGY_SendData(void)
 {   
     /* Metrology data request (RMS instantaneous values) */
     APP_PRIME_METROLOGY_RESPONSE_DATA metData;
-    DRV_METROLOGY_MEASURE_SIGN rmsSign;
 
-    /* Get RMS voltage values (without sign) */
-    APP_METROLOGY_GetMeasure(MEASURE_UA_RMS, &metData.rmsUA, NULL);
-    APP_METROLOGY_GetMeasure(MEASURE_UB_RMS, &metData.rmsUB, NULL);
-    APP_METROLOGY_GetMeasure(MEASURE_UC_RMS, &metData.rmsUC, NULL);
+    /* Get RMS voltage values */
+    APP_METROLOGY_GetMeasure(MEASURE_UA_RMS, &metData.rmsUA, false);
+    APP_METROLOGY_GetMeasure(MEASURE_UB_RMS, &metData.rmsUB, false);
+    APP_METROLOGY_GetMeasure(MEASURE_UC_RMS, &metData.rmsUC, false);
 
-    /* Get RMS current values (without sign) */
-    APP_METROLOGY_GetMeasure(MEASURE_IA_RMS, &metData.rmsIA, NULL);
-    APP_METROLOGY_GetMeasure(MEASURE_IB_RMS, &metData.rmsIB, NULL);
-    APP_METROLOGY_GetMeasure(MEASURE_IC_RMS, &metData.rmsIC, NULL);
-    APP_METROLOGY_GetMeasure(MEASURE_INI_RMS, &metData.rmsINI, NULL);
-    APP_METROLOGY_GetMeasure(MEASURE_INM_RMS, &metData.rmsINM, NULL);
-    APP_METROLOGY_GetMeasure(MEASURE_INMI_RMS, &metData.rmsINMI, NULL);
+    /* Get RMS current values */
+    APP_METROLOGY_GetMeasure(MEASURE_IA_RMS, &metData.rmsIA, false);
+    APP_METROLOGY_GetMeasure(MEASURE_IB_RMS, &metData.rmsIB, false);
+    APP_METROLOGY_GetMeasure(MEASURE_IC_RMS, &metData.rmsIC, false);
+    APP_METROLOGY_GetMeasure(MEASURE_INI_RMS, &metData.rmsINI, false);
+    APP_METROLOGY_GetMeasure(MEASURE_INM_RMS, &metData.rmsINM, false);
+    APP_METROLOGY_GetMeasure(MEASURE_INMI_RMS, &metData.rmsINMI, false);
 
-    /* Get RMS active power values (with sign) */
-    APP_METROLOGY_GetMeasure(MEASURE_PT, (uint32_t*) &metData.rmsPT, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.rmsPT = -metData.rmsPT;
-    }
+    /* Get RMS active power values */
+    APP_METROLOGY_GetMeasure(MEASURE_PT, &metData.rmsPT, false);
+    APP_METROLOGY_GetMeasure(MEASURE_PA, &metData.rmsPA, false);
+    APP_METROLOGY_GetMeasure(MEASURE_PB, &metData.rmsPB, false);
+    APP_METROLOGY_GetMeasure(MEASURE_PC, &metData.rmsPC, false);
 
-    APP_METROLOGY_GetMeasure(MEASURE_PA, (uint32_t*) &metData.rmsPA, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.rmsPA = -metData.rmsPA;
-    }
-
-    APP_METROLOGY_GetMeasure(MEASURE_PB, (uint32_t*) &metData.rmsPB, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.rmsPB = -metData.rmsPB;
-    }
-
-    APP_METROLOGY_GetMeasure(MEASURE_PC, (uint32_t*) &metData.rmsPC, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.rmsPC = -metData.rmsPC;
-    }
-
-    /* Get RMS reactive power values (with sign) */
-    APP_METROLOGY_GetMeasure(MEASURE_QT, (uint32_t*) &metData.rmsQT, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.rmsQT = -metData.rmsQT;
-    }
-
-    APP_METROLOGY_GetMeasure(MEASURE_QA, (uint32_t*) &metData.rmsQA, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.rmsQA = -metData.rmsQA;
-    }
-
-    APP_METROLOGY_GetMeasure(MEASURE_QB, (uint32_t*) &metData.rmsQB, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.rmsQB = -metData.rmsQB;
-    }
-
-    APP_METROLOGY_GetMeasure(MEASURE_QC, (uint32_t*) &metData.rmsQC, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.rmsQC = -metData.rmsQC;
-    }
+    /* Get RMS reactive power values */
+    APP_METROLOGY_GetMeasure(MEASURE_QT, &metData.rmsQT, false);
+    APP_METROLOGY_GetMeasure(MEASURE_QA, &metData.rmsQA, false);
+    APP_METROLOGY_GetMeasure(MEASURE_QB, &metData.rmsQB, false);
+    APP_METROLOGY_GetMeasure(MEASURE_QC, &metData.rmsQC, false);
 
     /* Get RMS aparent power values (without sign) */
     APP_METROLOGY_GetMeasure(MEASURE_ST, &metData.rmsST, NULL);
@@ -336,31 +297,11 @@ static void lAPP_PRIME_METROLOGY_SendData(void)
      * dominant phase */
     APP_METROLOGY_GetMeasure(MEASURE_FREQ, &metData.freq, NULL);
 
-    /* Get angles between the voltage and current vectors
-     * (with sign) */
-    APP_METROLOGY_GetMeasure(MEASURE_ANGLEA, (uint32_t*) &metData.angleA, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.angleA = -metData.angleA;
-    }
-
-    APP_METROLOGY_GetMeasure(MEASURE_ANGLEB, (uint32_t*) &metData.angleB, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.angleB = -metData.angleB;
-    }
-
-    APP_METROLOGY_GetMeasure(MEASURE_ANGLEC, (uint32_t*) &metData.angleC, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.angleC = -metData.angleC;
-    }
-
-    APP_METROLOGY_GetMeasure(MEASURE_ANGLEN, (uint32_t*) &metData.angleN, &rmsSign);
-    if (rmsSign == MEASURE_SIGN_NEGATIVE)
-    {
-        metData.angleN = -metData.angleN;
-    }
+    /* Get angles between the voltage and current vectors */
+    APP_METROLOGY_GetMeasure(MEASURE_ANGLEA, &metData.angleA, false);
+    APP_METROLOGY_GetMeasure(MEASURE_ANGLEB, &metData.angleB, false);
+    APP_METROLOGY_GetMeasure(MEASURE_ANGLEC, &metData.angleC, false);
+    APP_METROLOGY_GetMeasure(MEASURE_ANGLEN, &metData.angleN, false);
 
     /* Insert metrology data in reply */
     memcpy(&buff432.dl.buff, &metData, sizeof(metData));

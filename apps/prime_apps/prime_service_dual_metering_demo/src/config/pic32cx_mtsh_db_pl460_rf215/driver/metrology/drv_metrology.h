@@ -71,8 +71,6 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-#define MET_CAPTURE_BUF_SIZE     DRV_METROLOGY_CAPTURE_BUF_SIZE
-
 // *****************************************************************************
 /* Metrology Driver Result
 
@@ -102,20 +100,6 @@ typedef enum {
     DRV_METROLOGY_START_SOFT,
     DRV_METROLOGY_START_HARD
 } DRV_METROLOGY_START_MODE;
-
-// *****************************************************************************
-/* Metrology Driver Measure sign
-
-  Summary:
-    Describes the sign of some metrology measurements.
-
-  Description:
-    This quality only affects to some measurements.
-*/
-typedef enum {
-    MEASURE_SIGN_POSITIVE = 0,
-    MEASURE_SIGN_NEGATIVE = 1,
-} DRV_METROLOGY_MEASURE_SIGN;
 
 // *****************************************************************************
 /* Metrology Callback Function Pointer
@@ -459,6 +443,8 @@ DRV_METROLOGY_RESULT DRV_METROLOGY_Start(void);
     None.
 */
 DRV_METROLOGY_RESULT DRV_METROLOGY_IntegrationCallbackRegister(DRV_METROLOGY_CALLBACK callback);
+DRV_METROLOGY_RESULT DRV_METROLOGY_FullCycleCallbackRegister(DRV_METROLOGY_CALLBACK callback);
+DRV_METROLOGY_RESULT DRV_METROLOGY_HalfCycleCallbackRegister(DRV_METROLOGY_CALLBACK callback);
 
 // *****************************************************************************
 /* Function:
@@ -640,6 +626,65 @@ void DRV_METROLOGY_Tasks(SYS_MODULE_OBJ object);
 
 // *****************************************************************************
 /* Function:
+    DRV_METROLOGY_AFE_TYPE DRV_METROLOGY_GetAFEDescription (char *pDescription);
+
+  Summary:
+    Get the AFE type
+
+  Description:
+    AFE type could be used to get information about the ATSENSE/MCP devices configuration.
+
+  Precondition:
+    None.
+
+  Parameters:
+    pDescription - Data pointer where AFE decription will be written.
+
+  Returns:
+    AFE type
+
+  Example:
+    <code>
+        app_metrologyData.afe = DRV_METROLOGY_GetAFEDescription();
+    </code>
+
+  Remarks:
+    None.
+*/
+DRV_METROLOGY_AFE_TYPE DRV_METROLOGY_GetAFEDescription (char *pDescription);
+
+// *****************************************************************************
+/* Function:
+    DRV_METROLOGY_CHANNEL * DRV_METROLOGY_GetChannelDescription (void);
+
+  Summary:
+    Get the pointer to the channel description table
+
+  Description:
+    Channel description table could be used to get information about how channels
+    have been configured.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    Pointer to the struct to channel configuration by default.
+
+  Example:
+    <code>
+        app_metrologyData.channelDesc = DRV_METROLOGY_GetChannelDescription();
+    </code>
+
+  Remarks:
+    None.
+*/
+DRV_METROLOGY_CHANNEL * DRV_METROLOGY_GetChannelDescription(void);
+
+// *****************************************************************************
+/* Function:
     DRV_METROLOGY_REGS_CONTROL * DRV_METROLOGY_GetControlData (void);
 
   Summary:
@@ -800,6 +845,7 @@ DRV_METROLOGY_REGS_CONTROL * DRV_METROLOGY_GetControlByDefault(void);
         app_metrologyData.pMetStatus = DRV_METROLOGY_GetStatusData();
         app_metrologyData.pMetAccData = DRV_METROLOGY_GetAccData();
         app_metrologyData.pMetHarData = DRV_METROLOGY_GetHarData();
+        app_metrologyData.pMetPCAccData = DRV_METROLOGY_GetPerCycleAccData();
     </code>
 
   Remarks:
@@ -812,15 +858,16 @@ DRV_METROLOGY_REGS_STATUS * DRV_METROLOGY_GetStatusData(void);
     DRV_METROLOGY_ACCUMULATORS * DRV_METROLOGY_GetAccData (void);
 
   Summary:
-    Get the pointer to the accumulator registers of the metrology library application running on the second processor.
+    Get the pointer to the accumulator registers of the metrology library application 
+    running on the second processor.
 
   Description:
     Accumulator registers are acting as 64-bit metrology output accumulator registers.
-    All values are integrated at an equivalent sampling rate of 4.000KHz. The Metrology library shall
-    generate the following primary output measurement quantities for each measurement interval, per-phase quantities
-    with each phase designated by the subscript '_x' (where x = [A, B, or C] for voltage channels and x = [A, B, C or N]
+    All values are integrated at an equivalent sampling rate of 4.000KHz. The Metrology 
+    library shall generate the following primary output measurement quantities for each 
+    measurement interval, per-phase quantities with each phase designated by the 
+    subscript '_x' (where x = [A, B, C or D] for voltage channels and x = [A, B, C or N]
     for current channels)
-    For a detailed description of the control registers, refer to "drv_metrology_regs.h" header file.
 
   Precondition:
     None.
@@ -837,12 +884,55 @@ DRV_METROLOGY_REGS_STATUS * DRV_METROLOGY_GetStatusData(void);
         app_metrologyData.pMetStatus = DRV_METROLOGY_GetStatusData();
         app_metrologyData.pMetAccData = DRV_METROLOGY_GetAccData();
         app_metrologyData.pMetHarData = DRV_METROLOGY_GetHarData();
+        app_metrologyData.pMetPCAccData = DRV_METROLOGY_GetPerCycleAccData();
     </code>
 
   Remarks:
-    None.
+    For a detailed description of the control registers, refer to "drv_metrology_regs.h" 
+    header file.
 */
 DRV_METROLOGY_REGS_ACCUMULATORS * DRV_METROLOGY_GetAccData(void);
+
+
+// *****************************************************************************
+/* Function:
+    DRV_METROLOGY_REGS_PERCYCLE_ACC * DRV_METROLOGY_GetPerCycleAccData (void);
+
+  Summary:
+    Get the pointer to the per-cycle accumulator registers of the metrology 
+    library application running on the second processor.
+
+  Description:
+    Per-cycle accumulator registers are acting as 64-bit metrology output accumulator 
+    registers. All values are integrated at an equivalent sampling rate of 4.000KHz. 
+    The Metrology library shall generate the following per-cycle output measurement 
+    per-phase quantities with each phase designated by the subscript '_x' 
+    (where x = [A, B, C or D] for voltage channels and x = [A, B, C or N] for current 
+    channels).    
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    Pointer to the 32-bit metrology input control registers.
+
+  Example:
+    <code>
+        app_metrologyData.pMetControl = DRV_METROLOGY_GetControlData();
+        app_metrologyData.pMetStatus = DRV_METROLOGY_GetStatusData();
+        app_metrologyData.pMetAccData = DRV_METROLOGY_GetAccData();
+        app_metrologyData.pMetHarData = DRV_METROLOGY_GetHarData();
+        app_metrologyData.pMetPCAccData = DRV_METROLOGY_GetPerCycleAccData();
+    </code>
+
+  Remarks:
+    For a detailed description of the control registers, refer to "drv_metrology_regs.h" 
+    header file.
+*/
+DRV_METROLOGY_REGS_PERCYCLE_ACC * DRV_METROLOGY_GetPerCycleAccData(void);
 
 // *****************************************************************************
 /* Function:
@@ -874,6 +964,7 @@ DRV_METROLOGY_REGS_ACCUMULATORS * DRV_METROLOGY_GetAccData(void);
         app_metrologyData.pMetStatus = DRV_METROLOGY_GetStatusData();
         app_metrologyData.pMetAccData = DRV_METROLOGY_GetAccData();
         app_metrologyData.pMetHarData = DRV_METROLOGY_GetHarData();
+        app_metrologyData.pMetPCAccData = DRV_METROLOGY_GetPerCycleAccData();
     </code>
 
   Remarks:
@@ -918,27 +1009,26 @@ void DRV_METROLOGY_SetControl(DRV_METROLOGY_REGS_CONTROL * pControl);
 
 // *****************************************************************************
 /* Function:
-    uint32_t DRV_METROLOGY_GetEnergyValue(bool restartEnergy);
+    float DRV_METROLOGY_GetEnergyValue(bool restartEnergy);
 
   Summary:
     Gets the active energy value.
 
   Description:
-    Gets the active energy value. Energy value should be previously updated by the DRV_METROLOGY_UpdateMeasurements() routine.
+    Gets the active energy value.
+    Energy is updated at the end of each integration period.
 
   Precondition:
     None.
 
   Parameters:
-    restartEnergy - Flag to indicate if the energy value should be restarted or accumulated to the previous calculated value.
+    restartEnergy - Flag to indicate if the accumulated energy value should be restarted after calling this routine.
 
   Returns:
-    The active energy value obtained according to the last call to DRV_METROLOGY_UpdateMeasurements() routine..
+    The active energy value obtained according to the last integration period.
 
   Example:
     <code>
-        DRV_METROLOGY_UpdateMeasurements();
-
         app_metrologyData.queueFree = uxQueueSpacesAvailable(appEnergyQueueID);
         if (app_metrologyData.queueFree)
         {
@@ -955,17 +1045,18 @@ void DRV_METROLOGY_SetControl(DRV_METROLOGY_REGS_CONTROL * pControl);
   Remarks:
     None.
 */
-uint32_t DRV_METROLOGY_GetEnergyValue(bool restartEnergy);
+float DRV_METROLOGY_GetEnergyValue(bool restartEnergy);
 
 // *****************************************************************************
 /* Function:
-    uint32_t DRV_METROLOGY_GetMeasureValue(DRV_METROLOGY_MEASURE_TYPE type);
+    float DRV_METROLOGY_GetMeasureValue(DRV_METROLOGY_MEASURE_TYPE type, bool perCycle);
 
   Summary:
     Gets the last value of the selected measurement type.
 
   Description:
-    Values should be previously updated by the DRV_METROLOGY_UpdateMeasurements() routine.
+    Depending on the "perCycle" value, Values are updated at the end of each integration period 
+    or at end of the cycle.
     For further information about Measurement types, refer to DRV_METROLOGY_MEASURE_TYPE definition.
 
   Precondition:
@@ -973,19 +1064,19 @@ uint32_t DRV_METROLOGY_GetEnergyValue(bool restartEnergy);
 
   Parameters:
     type - Indicate what type of measurement is obtained.
+    perCycle - Flag to indicate what accumulators are used to get the final measurement value. 
+               If True, values are obtained from the per-cycle acc registers.
 
   Returns:
     The value of the selected type.
 
   Example:
     <code>
-        DRV_METROLOGY_UpdateMeasurements();
-
         app_metrologyData.queueFree = uxQueueSpacesAvailable(appEnergyQueueID);
         if (app_metrologyData.queueFree)
         {
             newMetrologyData.energy = DRV_METROLOGY_GetEnergyValue(true);
-            newMetrologyData.Pt = DRV_METROLOGY_GetMeasureValue(MEASURE_PT);
+            newMetrologyData.Pt = DRV_METROLOGY_GetMeasureValue(MEASURE_PT, false);
             xQueueSend(appEnergyQueueID, &newMetrologyData, (TickType_t) 0);
         }
         else
@@ -997,94 +1088,19 @@ uint32_t DRV_METROLOGY_GetEnergyValue(bool restartEnergy);
   Remarks:
     None.
 */
-uint32_t DRV_METROLOGY_GetMeasureValue(DRV_METROLOGY_MEASURE_TYPE type);
+float DRV_METROLOGY_GetMeasureValue(DRV_METROLOGY_MEASURE_TYPE type, bool perCycle);
 
 // *****************************************************************************
 /* Function:
-    DRV_METROLOGY_MEASURE_SIGN DRV_METROLOGY_GetMeasureSign(DRV_METROLOGY_MEASURE_TYPE type);
-
-  Summary:
-    Gets the sign of the last value of the selected measurement type.
-
-  Description:
-    Sign values should be previously updated by the DRV_METROLOGY_UpdateMeasurements() routine.
-    For further information about Measurement types, refer to DRV_METROLOGY_MEASURE_TYPE definition.
-
-  Precondition:
-    None.
-
-  Parameters:
-    type - Indicate what type of measurement is obtained.
-
-  Returns:
-    The sign of the last value for the selected type.
-    Positive sign is identified as MEASURE_SIGN_POSITIVE (0), negative sign as MEASURE_SIGN_NEGATIVE (1).
-
-  Example:
-    <code>
-
-    </code>
-
-  Remarks:
-    None.
-*/
-DRV_METROLOGY_MEASURE_SIGN DRV_METROLOGY_GetMeasureSign(DRV_METROLOGY_MEASURE_TYPE type);
-
-// *****************************************************************************
-/* Function:
-    void DRV_METROLOGY_SetConfiguration(DRV_METROLOGY_CONFIGURATION * config);
-
-  Summary:
-    Set metrology configuration.
-
-  Description:
-    This routine is used to configure the metrology library according to the hardware
-    in the input networks, as well as the programmable gain of the internal amplifiers.
-    This function has to be called before the DRV_METROLOGY_StartCalibration() routine,
-    in order to ensure that the proper configuration has been applied before calibrating the system.
-    If the programmable gain of the internal amplifiers changes, then the metrology library must be
-    reinitialized in order to apply the changes.
-    The metrology driver code receives the parameters and writes the proper metrology control registers.
-
-  Precondition:
-    None.
-
-  Parameters:
-    config - Pointer to configuration data to be used by the metrology library.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-        DRV_METROLOGY_CONFIGURATION newConf;
-
-        newConf.mc = 800;
-        newConf.st = SENSOR_CT;
-        newConf.freq = 50;
-        newConf.gain = GAIN_1;
-        newConf.tr = 1000;
-        newConf.rl = 3.24;
-        newConf.ku = 1651;
-
-        DRV_METROLOGY_SetConfiguration(&newConf);
-    </code>
-
-  Remarks:
-    None.
-*/
-void DRV_METROLOGY_SetConfiguration(DRV_METROLOGY_CONFIGURATION * config);
-
-// *****************************************************************************
-/* Function:
-    void DRV_METROLOGY_GetEventsData(DRV_METROLOGY_AFE_EVENTS * events);
+    void DRV_METROLOGY_GetEventsData(DRV_METROLOGY_AFE_EVENTS_UNION * events);
 
   Summary:
     Gets the last metrology AFE events data.
 
   Description:
-    Events data should be previously updated by the DRV_METROLOGY_UpdateMeasurements() routine.
-    For further information about the event data, refer to DRV_METROLOGY_AFE_EVENTS definition.
+    Gets the last metrology AFE events data.
+    Events are updated at the end of each Half-Cycle and Full-Cycle.
+    For further information about the event data, refer to DRV_METROLOGY_AFE_EVENTS_UNION definition.
 
   Precondition:
     None.
@@ -1097,8 +1113,6 @@ void DRV_METROLOGY_SetConfiguration(DRV_METROLOGY_CONFIGURATION * config);
 
   Example:
     <code>
-        DRV_METROLOGY_UpdateMeasurements();
-
         app_metrologyData.queueFree = uxQueueSpacesAvailable(appEventsQueueID);
         if (app_metrologyData.queueFree)
         {
@@ -1115,7 +1129,7 @@ void DRV_METROLOGY_SetConfiguration(DRV_METROLOGY_CONFIGURATION * config);
   Remarks:
     None.
 */
-void DRV_METROLOGY_GetEventsData(DRV_METROLOGY_AFE_EVENTS * events);
+void DRV_METROLOGY_GetEventsData(DRV_METROLOGY_AFE_EVENTS_UNION * events);
 
 // *****************************************************************************
 /* Function:
@@ -1140,27 +1154,17 @@ void DRV_METROLOGY_GetEventsData(DRV_METROLOGY_AFE_EVENTS * events);
 
   Example:
     <code>
-        void APP_METROLOGY_StartCalibration(APP_METROLOGY_CALIBRATION * calibration)
-        {
-            DRV_METROLOGY_CALIBRATION_REFS * pCalibrationRefs;
+        DRV_METROLOGY_CALIBRATION_REFS * pCalibrationRefs;
+        pCalibrationRefs = DRV_METROLOGY_GetCalibrationReferences();
+        
+        pCalibrationRefs->va = 220;
+        pCalibrationRefs->ia = 30;
+        pCalibrationRefs->aa = 60;
+        pCalibrationRefs->calMask.magnitudeVa = 1;
+        pCalibrationRefs->calMask.magnitudeIa = 1;
+        pCalibrationRefs->calMask.anglePhaseA = 1;
 
-            pCalibrationRefs = DRV_METROLOGY_GetCalibrationReferences();
-            pCalibrationRefs->aimIA = calibration->aimIA;
-            pCalibrationRefs->aimVA = calibration->aimVA;
-            pCalibrationRefs->angleA = calibration->angleA;
-            pCalibrationRefs->aimIB = calibration->aimIB;
-            pCalibrationRefs->aimVB = calibration->aimVB;
-            pCalibrationRefs->angleB = calibration->angleB;
-            pCalibrationRefs->aimIC = calibration->aimIC;
-            pCalibrationRefs->aimVC = calibration->aimVC;
-            pCalibrationRefs->angleC = calibration->angleC;
-            pCalibrationRefs->aimIN = calibration->aimIN;
-            pCalibrationRefs->angleN = calibration->angleN;
-            pCalibrationRefs->lineId = calibration->lineId;
-
-            app_metrologyData.state = APP_METROLOGY_STATE_CHECK_CALIBRATION;
-            DRV_METROLOGY_StartCalibration();
-        }
+        DRV_METROLOGY_StartCalibration();
     </code>
 
   Remarks:
@@ -1170,7 +1174,7 @@ DRV_METROLOGY_CALIBRATION_REFS * DRV_METROLOGY_GetCalibrationReferences(void);
 
 // *****************************************************************************
 /* Function:
-    void APP_METROLOGY_StartCalibration(APP_METROLOGY_CALIBRATION * calibration);
+    void DRV_METROLOGY_StartCalibration(void);
 
   Summary:
     Starts internal calibration process.
@@ -1179,27 +1183,29 @@ DRV_METROLOGY_CALIBRATION_REFS * DRV_METROLOGY_GetCalibrationReferences(void);
     This routine is used to automatically calibrate the board.
     It requires accurate and stable voltage and current sources and loads, which can be
     provided by a meter test bench like the WECO (or equivalent equipment).
-    This routine must be called after a configuration routine (APP_METROLOGY_SetConfiguration),
-    in order to ensure that the proper configuration has been applied.
 
   Precondition:
     None.
 
   Parameters:
-    calibration - Pointer to calibration data to be used by the metrology library.
+    None.
 
   Returns:
     None.
 
   Example:
     <code>
-        APP_METROLOGY_CALIBRATION newCal;
+        DRV_METROLOGY_CALIBRATION_REFS * pCalibrationRefs;
+        pCalibrationRefs = DRV_METROLOGY_GetCalibrationReferences();
+        
+        pCalibrationRefs->va = 220;
+        pCalibrationRefs->ia = 30;
+        pCalibrationRefs->aa = 60;
+        pCalibrationRefs->calMask.magnitudeVa = 1;
+        pCalibrationRefs->calMask.magnitudeIa = 1;
+        pCalibrationRefs->calMask.anglePhaseA = 1;
 
-        newCal.aimVA = 220.00;
-        newCal.aimIA = 5.000;
-        newCal.angleA = 60.00;
-
-        APP_METROLOGY_StartCalibration(&newCal);
+        DRV_METROLOGY_StartCalibration();
     </code>
 
   Remarks:
@@ -1281,6 +1287,286 @@ bool DRV_METROLOGY_StartHarmonicAnalysis(uint32_t harmonicBitmap, DRV_METROLOGY_
 */
 void DRV_METROLOGY_StopHarmonicAnalysis(void);
 
+// *****************************************************************************
+/* Function:
+    void DRV_METROLOGY_CaptureSetOptions(
+        DRV_METROLOGY_CAPTURE_SOURCE_TYPE source, 
+        DRV_METROLOGY_CAPTURE_TYPE type
+    );
+
+  Summary:
+    Set the configuration options of the waveform capture process.
+
+  Description:
+    This routine configures the metrology library to set the source and type
+    of the waveform capture process.
+    All captured data is after Vref compensation was applied and are scaled values 
+    (normalized by the appropriate K_Ix and K_Vx). 
+    In the case of 16 kHz sampling data, the calibration constants were not applied.
+
+  Precondition:
+    The capture process must be in disable state.
+
+  Parameters:
+    source - Capture Source Select.
+    type - Selects whether capture is one-shot in nature (no samples captured prior to
+           being enabled) or continuous capturing.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+        DRV_METROLOGY_CaptureSetOptions(CAPTURE_SRC_16KHz, CAPTURE_ONE_SHOT);
+    </code>
+
+  Remarks:
+    None.
+*/
+void DRV_METROLOGY_CaptureSetOptions(DRV_METROLOGY_CAPTURE_SOURCE source, DRV_METROLOGY_CAPTURE_TYPE type);
+
+// *****************************************************************************
+/* Function:
+    void DRV_METROLOGY_CaptureEnableChannels(
+        uint8_t channelMask
+    );
+
+  Summary:
+    Enable the channels to be captured.
+
+  Description:
+    Up to 7 channels of data may be captured at the same time. Only selected channels are captured.
+
+  Precondition:
+    The capture process must be in disable state.
+
+  Parameters:
+    channelMask - Capture Channel Mask.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+        DRV_METROLOGY_CaptureEnableChannels(CAPTURE_CHN_IA | CAPTURE_CHN_VA | CAPTURE_CHN_IB | CAPTURE_CHN_VB);
+    </code>
+
+  Remarks:
+    None.
+*/
+void DRV_METROLOGY_CaptureEnableChannels(uint8_t channelMask);
+
+// *****************************************************************************
+/* Function:
+    void DRV_METROLOGY_CaptureDisableChannels(uint8_t channelMask);
+
+  Summary:
+    Disable the channels to be captured.
+
+  Description:
+    Up to 7 channels of data may be captured at the same time. Only selected channels are captured.
+
+  Precondition:
+    The capture process must be in disable state.
+
+  Parameters:
+    channelMask - Capture Channel Mask.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+        DRV_METROLOGY_CaptureDisableChannels(CAPTURE_CHN_IB | CAPTURE_CHN_VB);
+    </code>
+
+  Remarks:
+    None.
+*/
+void DRV_METROLOGY_CaptureDisableChannels(uint8_t channelMask);
+
+// *****************************************************************************
+/* Function:
+    bool DRV_METROLOGY_CaptureStart(uint32_t *pData, uint32_t samplesNum);
+
+  Summary:
+    Set the data buffer where the captured samples will be written, its length,
+    and start the capture process.
+
+  Description:
+    This routine configures the metrology library to set the source and type
+    of the waveform capture process.
+    All captured data is after Vref compensation was applied and are scaled values 
+    (normalized by the appropriate K_Ix and K_Vx). 
+    In the case of 16 kHz sampling data, the calibration constants were not applied.
+
+  Precondition:
+    The capture process must be in disable state.
+
+  Parameters:
+    pData - Pointer to the data buffer where the captured samples will be written.
+    samplesNum - Specifies buffer size used for the capture function in units of 32-bit values. It
+             must be divisible by the number of channels selected
+
+  Returns:
+    True if the capture process was started successfully. False otherwise.
+
+  Example:
+    <code>
+        #define MET_CAPTURE_SAMPLING_FREQ (16000UL)
+        #define MET_CAPTURE_FREQ          (50U)
+        #define MET_CAPTURE_NUM_CHN       (4U)
+        #define MET_CAPTURE_CHN_SAMPLES   (MET_CAPTURE_SAMPLING_FREQ / MET_CAPTURE_FREQ) 
+        #define MET_CAPTURE_SAMPLES       (MET_CAPTURE_CHN_SAMPLES * MET_CAPTURE_NUM_CHN)
+        static uint32_t metCaptureData[MET_CAPTURE_SAMPLES];
+
+        DRV_METROLOGY_CaptureStart(metCaptureData, MET_CAPTURE_SAMPLES);
+    </code>
+
+  Remarks:
+    None.
+*/
+bool DRV_METROLOGY_CaptureStart(uint32_t *pData, uint32_t samplesNum);
+
+// *****************************************************************************
+/* Function:
+    void DRV_METROLOGY_CaptureStop(void);
+
+  Summary:
+    Stop the capture process.
+
+  Description:
+    Disable the capture process and clear configured channel mask.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+        DRV_METROLOGY_CaptureStop();
+    </code>
+
+  Remarks:
+    None.
+*/
+void DRV_METROLOGY_CaptureStop(void);
+
+// *****************************************************************************
+/* Function:
+    DRV_METROLOGY_CAPTURE_STATE DRV_METROLOGY_CaptureGetState(void);
+
+  Summary:
+    Get the state of the capture process.
+
+  Description:
+    Status will be meaningful only when capture is enabled.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    Waveform Capture Status.
+
+  Example:
+    <code>
+        DRV_METROLOGY_CAPTURE_STATE state;
+            
+        state = DRV_METROLOGY_CaptureGetState();
+        if (state == CAPTURE_DISABLED)
+        {
+            SYS_CMD_MESSAGE("Waveform capture is DISABLED\r\n");  
+        }
+        else if (state == CAPTURE_ACTIVE)
+        {
+            SYS_CMD_MESSAGE("Waveform capture is ACTIVE\r\n");  
+        }
+        else if (state == CAPTURE_COMPLETE)
+        {
+            SYS_CMD_MESSAGE("Waveform capture is COMPLETE\r\n");  
+        }
+        else
+        {
+            SYS_CMD_MESSAGE("Error in Waveform capture state\r\n");  
+        }
+    </code>
+
+  Remarks:
+    None.
+*/
+DRV_METROLOGY_CAPTURE_STATE DRV_METROLOGY_CaptureGetState(void);
+
+// *****************************************************************************
+/* Function:
+    uint32_t DRV_METROLOGY_CaptureGetOffset(void);
+
+  Summary:
+    Get the offset of the capture process.
+
+  Description:
+    Offset within the buffer indicating the position of the last sample stored.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    Capture offset.
+
+  Example:
+    <code>
+        uint32_t offset;
+            
+        offset = DRV_METROLOGY_CaptureGetOffset();
+    </code>
+
+  Remarks:
+    None.
+*/
+uint32_t DRV_METROLOGY_CaptureGetOffset(void);
+
+// *****************************************************************************
+/* Function:
+    bool DRV_METROLOGY_CaptureCheckIsWrap(void);
+
+  Summary:
+    Capture buffer wrapped.
+
+  Description:
+    Check if buffer used to capture samples has wrapped at least once.
+
+  Precondition:
+    Only when the capture is used in continuous capture mode.
+
+  Parameters:
+    None.
+
+  Returns:
+    True if the capture buffer has wrapped at least once.
+
+  Example:
+    <code>
+        if (DRV_METROLOGY_CaptureCheckIsWrap() == true)
+        {
+            SYS_CMD_MESSAGE("Waveform capture buffer is wrapped\r\n");  
+        }
+    </code>
+
+  Remarks:
+    None.
+*/
+bool DRV_METROLOGY_CaptureCheckIsWrap(void);
+ 
 #ifdef __cplusplus
  }
 #endif

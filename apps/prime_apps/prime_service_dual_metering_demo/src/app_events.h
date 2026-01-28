@@ -54,6 +54,7 @@ Microchip or any third party.
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <time.h>
 #include "configuration.h"
 
 // DOM-IGNORE-BEGIN
@@ -71,25 +72,24 @@ extern "C" {
 // *****************************************************************************
 
 #define EVENT_LOG_MAX_NUMBER                 10
-#define EVENT_HOLDING_START_COUNTER          10//60
-#define EVENT_HOLDING_END_COUNTER            10//60
 
 typedef enum
 {
-	NO_EVENT = 0,
-	EVENT_HOLDING_START,
-	EVENT_START,
-	EVENT_HOLDING_END
+    NO_EVENT = 0,
+    EVENT_START
 } APP_EVENTS_EVENT_STATUS;
 
 typedef enum
 {
-	SAG_UA_EVENT_ID = 0,
-	SAG_UB_EVENT_ID,
-	SAG_UC_EVENT_ID,
-	POW_UA_EVENT_ID,
-	POW_UB_EVENT_ID,
-	POW_UC_EVENT_ID,
+    SAG_UA_EVENT_ID = 0,
+    SAG_UB_EVENT_ID,
+    SAG_UC_EVENT_ID,
+    SWELL_UA_EVENT_ID,
+    SWELL_UB_EVENT_ID,
+    SWELL_UC_EVENT_ID,
+    POW_PA_EVENT_ID,
+    POW_PB_EVENT_ID,
+    POW_PC_EVENT_ID,
     EVENTS_NUM_ID,
     EVENT_INVALID_ID = 0xFF,
 } APP_EVENTS_EVENT_ID;
@@ -102,11 +102,10 @@ typedef struct
 
 typedef struct
 {
-	APP_EVENTS_EVENT_STATUS status;
-	APP_EVENTS_EVENT_INFO data[EVENT_LOG_MAX_NUMBER];
-	uint16_t counter;
-	uint8_t holdingCounter;
-	uint8_t dataIndex;
+    APP_EVENTS_EVENT_STATUS status;
+    APP_EVENTS_EVENT_INFO data[EVENT_LOG_MAX_NUMBER];
+    uint16_t counter;
+    uint8_t dataIndex;
 } APP_EVENTS_EVENT_DATA;
 
 typedef struct
@@ -128,10 +127,10 @@ typedef struct
 
 typedef struct
 {
-  APP_EVENTS_QUEUE_DATA data[APP_EVENTS_QUEUE_DATA_SIZE];
-  APP_EVENTS_QUEUE_DATA * dataRd;
-  APP_EVENTS_QUEUE_DATA * dataWr;
-  uint8_t dataSize;
+    APP_EVENTS_QUEUE_DATA data[APP_EVENTS_QUEUE_DATA_SIZE];
+    APP_EVENTS_QUEUE_DATA * dataRd;
+    APP_EVENTS_QUEUE_DATA * dataWr;
+    uint8_t dataSize;
 } APP_EVENTS_QUEUE;
 
 // *****************************************************************************
@@ -148,9 +147,12 @@ typedef struct
 typedef enum
 {
     APP_EVENTS_STATE_WAITING_DATALOG = 0,
-    APP_EVENTS_STATE_INIT,
+    APP_EVENTS_STATE_READ_EVENT,
     APP_EVENTS_STATE_WAIT_DATA,
+    APP_EVENTS_STATE_WAIT_STORE,
     APP_EVENTS_STATE_RUNNING,
+    APP_EVENTS_STATE_STORE_NVM,
+    APP_EVENTS_STATE_WAIT_STORE_NVM,
     APP_EVENTS_STATE_ERROR
 
 } APP_EVENTS_STATES;
@@ -178,7 +180,15 @@ typedef struct
     APP_EVENTS_EVENTS events;
 
     DRV_METROLOGY_AFE_EVENTS flags;
-
+    
+    APP_EVENTS_EVENT_ID eventId;
+    
+    struct tm lastNVMUpdTime;
+    
+    struct tm currentTime;
+    
+    uint32_t eventMask;
+    
     bool dataIsRdy;
 
     bool dataResponseFlag;

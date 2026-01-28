@@ -52,6 +52,7 @@ Microchip or any third party.
 
 #include "definitions.h"
 #include "app_console.h"
+#include "driver/metrology/drv_metrology_definitions.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -123,10 +124,28 @@ APP_DATALOG_QUEUE_DATA datalogQueueElement;
 extern APP_DATALOG_QUEUE appDatalogQueue;
 
 /* Local array to hold password for Commands */
-#define APP_CONSOLE_MET_PWD_SIZE             6
+#define APP_CONSOLE_MET_PWD_SIZE             6U
 static char metPwd[APP_CONSOLE_MET_PWD_SIZE] = APP_CONSOLE_DEFAULT_PWD;
 
-static char sign[2] = {' ', '-'};
+static char * perCycle[] = {"", " per-cycle"};
+
+/* Local array to print the sensor type */
+static const char *gConsoleSensorTypes[SENSOR_NUM_TYPE] = {"CT", "SHUNT", "ROGOWSKI", "VRD", "TEMP", "NOT USED"};
+
+/* Local array to print the AFE type */
+static char gConsoleAFEDesc[14];
+
+/* Waveform Capture Buffer (Worst case) */
+#ifdef PIC32CXMTSH_DB
+#define APP_CONSOLE_MET_CAPTURE_NUM_CHN       (4U)
+#else
+#define APP_CONSOLE_MET_CAPTURE_NUM_CHN       (8U)
+#endif
+// Samples must be an integer number
+// 16000 / 60Hz = 266.66 samples/cycle * 3 cycles = 800 samples
+#define APP_CONSOLE_MET_CAPTURE_CHN_SAMPLES   (800UL)
+#define APP_CONSOLE_MET_CAPTURE_SAMPLES       (APP_CONSOLE_MET_CAPTURE_CHN_SAMPLES * APP_CONSOLE_MET_CAPTURE_NUM_CHN)
+static uint32_t metCaptureData[APP_CONSOLE_MET_CAPTURE_SAMPLES];
 
 // *****************************************************************************
 // *****************************************************************************
@@ -134,14 +153,9 @@ static char sign[2] = {' ', '-'};
 // *****************************************************************************
 // *****************************************************************************
 static void _commandBUF (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
-static void _commandCALA(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
-static void _commandCALB(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
-static void _commandCALC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
-static void _commandCALN(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
-static void _commandCALT(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
-static void _commandCALTN(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
-static void _commandCNF (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
+static void _commandCAL(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandDAR (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
+static void _commandDPCAR (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandDCB (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandDCD (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandDCM (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
@@ -161,12 +175,16 @@ static void _commandIDW (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandMDC (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandMDR (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandPAR (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
+static void _commandPARC (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandRTCR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandRTCW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandTOUR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandTOUW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandRST (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandRLD (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
+static void _commandDEV (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
+static void _commandSYN (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
+static void _commandCAPT (SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 static void _commandHELP(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv);
 
 #define APP_CONSOLE_HAR_DESC_SIZE    7
@@ -184,21 +202,16 @@ const char * _console_har_desc[APP_CONSOLE_HAR_DESC_SIZE] =
 static const SYS_CMD_DESCRIPTOR appCmdTbl[]=
 {
     {"BUF", _commandBUF, ": Read waveform capture data (if a parameter is used, only a 512 samples sector is returned)"},
-    {"CAL_A", _commandCALA, ": Automatic calibration phase A"},
-    {"CAL_B", _commandCALB, ": Automatic calibration phase B"},
-    {"CAL_C", _commandCALC, ": Automatic calibration phase C"},
-    {"CAL_N", _commandCALN, ": Automatic calibration Neutral"},
-    {"CAL_T", _commandCALT, ": Automatic calibration three phases A,B,C"},
-    {"CAL_TN", _commandCALTN, ": Automatic calibration three phases A,B,C and Neutral"},
-    {"CNF", _commandCNF, ": Automatic configuration"},
-    {"DAR", _commandDAR, ": Read DSP_ACC register"},
+    {"CAL", _commandCAL, ": Automatic calibration"},
+    {"DAR", _commandDAR, ": Read Metrology Accumulator registers"},
+    {"DPCAR", _commandDPCAR, ": Read Metrology Per Cycle Accumulator registers"},
     {"DCB", _commandDCB, ": Go to low power mode"},
     {"DCD", _commandDCD, ": Load default metrology control register values"},
-    {"DCM", _commandDCM, ": Write DSP_CONTROL several registers"},
-    {"DCR", _commandDCR, ": Read DSP_CONTROL registers"},
+    {"DCM", _commandDCM, ": Write Metrology Control several registers"},
+    {"DCR", _commandDCR, ": Read Metrology Control registers"},
     {"DCS", _commandDCS, ": Save metrology constants to non volatile memory"},
-    {"DCW", _commandDCW, ": Write DSP_CONTROL register"},
-    {"DSR", _commandDSR, ": Read DSP_ST register"},
+    {"DCW", _commandDCW, ": Write Metrology Control register"},
+    {"DSR", _commandDSR, ": Read Metrology Status registers"},
     {"ENC", _commandENC, ": Clear all energy"},
     {"ENR", _commandENR, ": Read energy"},
     {"EVEC",_commandEVEC, ": Clear all event record"},
@@ -211,12 +224,16 @@ static const SYS_CMD_DESCRIPTOR appCmdTbl[]=
     {"MDC", _commandMDC, ": Clear all maxim demand and happen time"},
     {"MDR", _commandMDR, ": Read maxim demand"},
     {"PAR", _commandPAR, ": Read measure parameter"},
+    {"PARC", _commandPARC, ": Read measure parameter based on per-cyle measurement"},
     {"RTCR",_commandRTCR, ": Read meter RTC"},
     {"RTCW",_commandRTCW, ": Write meter RTC"},
     {"TOUR",_commandTOUR, ": Read meter TOU"},
     {"TOUW",_commandTOUW, ": Write meter TOU"},
     {"RST", _commandRST, ": System reset"},
     {"RLD", _commandRLD, ": Reload Metrology Coprocessor"},
+    {"DEV", _commandDEV, ": Read AFE and Channels configuration"},
+    {"SYN", _commandSYN, ": Configure Synthesizer Function"},
+    {"CAPT", _commandCAPT, ": Configure Waveform Capture Process"},
     {"HELP",_commandHELP, ": Help on commands"}
 };
 
@@ -364,6 +381,75 @@ static void _calibrationCallback(bool result)
 }
 
 // *****************************************************************************
+// Synthesizer Functions
+// *****************************************************************************
+static DRV_METROLOGY_SYN_DESCRIPTOR * _addNewSyncDesc(uint8_t channel, uint16_t numSamples)
+{
+    DRV_METROLOGY_SYN_DESCRIPTOR **pSynDescHeader = &app_consoleData.pSynDescriptor;
+    DRV_METROLOGY_SYN_DESCRIPTOR *pSynCurrentDesc = *pSynDescHeader;
+    DRV_METROLOGY_SYN_DESCRIPTOR *pNewDesc;
+    uint32_t *pData;
+
+    pNewDesc = (DRV_METROLOGY_SYN_DESCRIPTOR *)OSAL_Malloc(sizeof(DRV_METROLOGY_SYN_DESCRIPTOR));
+    if (pNewDesc == NULL)
+    {
+        return NULL;
+    }
+    memset(pNewDesc, 0, sizeof(DRV_METROLOGY_SYN_DESCRIPTOR));
+
+    pData = (uint32_t *)OSAL_Malloc(numSamples << 2);
+    if (pData == NULL)
+    {
+        // Free reserved memory for descriptor
+        OSAL_Free(pNewDesc);
+        return NULL;
+    }
+    memset(pData, 0, numSamples << 2);
+
+    // Set new sync descriptor
+    pNewDesc->pData = pData;
+    pNewDesc->control.channel = channel;
+    pNewDesc->control.numSamples = numSamples;
+    pNewDesc->control.key = 0;
+    pNewDesc->next = NULL;
+    pNewDesc->prev = NULL;
+
+    if (*pSynDescHeader == NULL)
+    {
+        *pSynDescHeader = pNewDesc;
+    }
+    else
+    {
+        while (pSynCurrentDesc->next != NULL)
+        {
+            pSynCurrentDesc = pSynCurrentDesc->next;
+        }
+        pSynCurrentDesc->next = pNewDesc;
+        pNewDesc->prev = pSynCurrentDesc;
+    }
+
+    app_consoleData.pSynCurrentDesc = pNewDesc;
+    app_consoleData.pSynCurrentData = pNewDesc->pData;
+
+    return pNewDesc;
+}
+
+static void _freeSyncDescriptors(DRV_METROLOGY_SYN_DESCRIPTOR *pSynDescTail)
+{
+    while (pSynDescTail != NULL)
+    {
+        DRV_METROLOGY_SYN_DESCRIPTOR *tmp = pSynDescTail;
+
+        pSynDescTail = pSynDescTail->prev;
+        OSAL_Free(tmp->pData);
+        OSAL_Free(tmp);
+    }
+
+    app_consoleData.pSynDescriptor = NULL;
+    app_consoleData.pSynCurrentDesc = NULL;
+}
+
+// *****************************************************************************
 // COMMANDS
 // *****************************************************************************
 static inline void _removePrompt(void)
@@ -413,7 +499,6 @@ static void _commandHELP(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 static void _commandBUF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    uint32_t captureAddress;
     size_t captureSize;
     uint8_t idxMax;
     uint8_t idx = 0xFF;
@@ -427,20 +512,12 @@ static void _commandBUF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     if (argc == 2)
     {
         // Extract index from parameters
-        idx = (uint8_t)strtol(argv[1], NULL, 10);
+        idx = (uint8_t)strtol(argv[1], NULL, 10U);
     }
 
-    // Store parameters in local variables and go to corresponding state
-    captureSize = APP_METROLOGY_GetWaveformCaptureData(&captureAddress);
-
-    if ((captureSize == 0) || (captureAddress == 0))
-    {
-        SYS_CMD_MESSAGE("Waveform data is disabled.\r\n");
-        return;
-    }
-
+    captureSize = (size_t)app_consoleData.captNumSamples;
     app_consoleData.rawDataLen = captureSize;
-    app_consoleData.rawData = (uint32_t *)captureAddress;
+    app_consoleData.rawData = metCaptureData;
 
     idxMax = (captureSize - 1) >> 9;
 
@@ -452,7 +529,7 @@ static void _commandBUF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             return;
         }
 
-        if (captureSize > 512)
+        if (captureSize > 512U)
         {
             /* Check if it is the last fragment */
             if (idx == idxMax)
@@ -476,11 +553,37 @@ static void _commandBUF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
 }
 
+static bool _getCalibrationANREF(char * argv, unsigned int * value)
+{
+    char *p;
+ 
+    if (strncmp(argv, "ANREF", 5) == 0) {
+        // Get substring after '=' char
+        p = strstr(argv, "=");
+        if (p != NULL) {
+            // Advance ptr to ignore '=' and extract value
+            p++;
+            if (strcmp(p, "VA") == 0) {
+                *value = DOMINANT_V_PHASE_A;
+                return true;
+            } else if (strcmp(p, "VB") == 0) {
+                *value = DOMINANT_V_PHASE_B;
+                return true;
+            } else if (strcmp(p, "VC") == 0) {
+                *value = DOMINANT_V_PHASE_C;
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 static bool _getCalibrationValue(char * argv, char * substring, double * value)
 {
     char *p;
 
-    if (strncmp(argv, substring, 2) == 0) {
+    if (strncmp(argv, substring, strlen(substring)) == 0) {
         // Get substring after '=' char
         p = strstr(argv, "=");
         if (p != NULL) {
@@ -494,441 +597,111 @@ static bool _getCalibrationValue(char * argv, char * substring, double * value)
     return false;
 }
 
-static void _commandCALA(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
+static void _commandCAL(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 {
-    APP_METROLOGY_CALIBRATION newCalibration = {0};
+    DRV_METROLOGY_CALIBRATION_REFS newCalibration = {0};
+    uint8_t argIndex;
+    unsigned int vRefPhaseN;
     bool parseError = false;
 
-    if (argc != 4) {
+    if (argc < 2) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
         return;
     }
 
-    newCalibration.lineId = PHASE_A;
+    newCalibration.calMask.vRefPhaseN = DOMINANT_V_DYNAMIC;
+    for(argIndex = 1; argIndex < argc; argIndex++)
+    {
+        char *pArgv = argv[argIndex];
 
-    if(_getCalibrationValue(argv[1], "UA", &newCalibration.aimVA) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[2], "IA", &newCalibration.aimIA) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[3], "AA", &newCalibration.angleA) == false)
-    {
-        parseError = true;
-    }
-
-    if (parseError) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-    }
-    else
-    {
-        SYS_CMD_MESSAGE("Calibrating...\r\n");
-        APP_METROLOGY_StartCalibration(&newCalibration);
-    }
-}
-
-static void _commandCALB(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
-{
-    APP_METROLOGY_CALIBRATION newCalibration = {0};
-    bool parseError = false;
-
-    if (argc != 4) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-        return;
-    }
-
-    newCalibration.lineId = PHASE_B;
-
-    if(_getCalibrationValue(argv[1], "UB", &newCalibration.aimVB) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[2], "IB", &newCalibration.aimIB) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[3], "AB", &newCalibration.angleB) == false)
-    {
-        parseError = true;
-    }
-
-    if (parseError) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-    }
-    else
-    {
-        SYS_CMD_MESSAGE("Calibrating...\r\n");
-        APP_METROLOGY_StartCalibration(&newCalibration);
-    }
-}
-
-static void _commandCALC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
-{
-    APP_METROLOGY_CALIBRATION newCalibration = {0};
-    bool parseError = false;
-
-    if (argc != 4) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-        return;
-    }
-
-    newCalibration.lineId = PHASE_C;
-
-    if(_getCalibrationValue(argv[1], "UC", &newCalibration.aimVC) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[2], "IC", &newCalibration.aimIC) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[3], "AC", &newCalibration.angleC) == false)
-    {
-        parseError = true;
-    }
-
-    if (parseError) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-    }
-    else
-    {
-        SYS_CMD_MESSAGE("Calibrating...\r\n");
-        APP_METROLOGY_StartCalibration(&newCalibration);
-    }
-}
-
-static void _commandCALN(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
-{
-    APP_METROLOGY_CALIBRATION newCalibration = {0};
-    bool parseError = false;
-
-    if (argc != 3) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-        return;
-    }
-
-    newCalibration.lineId = PHASE_N;
-
-    if(_getCalibrationValue(argv[1], "IN", &newCalibration.aimIN) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[2], "AN", &newCalibration.angleN) == false)
-    {
-        parseError = true;
-    }
-
-    if (parseError) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-    }
-    else
-    {
-        SYS_CMD_MESSAGE("Calibrating...\r\n");
-        APP_METROLOGY_StartCalibration(&newCalibration);
-    }
-}
-
-static void _commandCALT(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
-{
-    APP_METROLOGY_CALIBRATION newCalibration = {0};
-    bool parseError = false;
-
-    if (argc != 10) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-        return;
-    }
-
-    newCalibration.lineId = PHASE_T;
-
-    if(_getCalibrationValue(argv[1], "UA", &newCalibration.aimVA) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[2], "IA", &newCalibration.aimIA) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[3], "AA", &newCalibration.angleA) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[4], "UB", &newCalibration.aimVB) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[5], "IB", &newCalibration.aimIB) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[6], "AB", &newCalibration.angleB) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[7], "UC", &newCalibration.aimVC) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[8], "IC", &newCalibration.aimIC) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[9], "AC", &newCalibration.angleC) == false)
-    {
-        parseError = true;
-    }
-
-    if (parseError) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-    }
-    else
-    {
-        SYS_CMD_MESSAGE("Calibrating...\r\n");
-        APP_METROLOGY_StartCalibration(&newCalibration);
-    }
-}
-
-static void _commandCALTN(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
-{
-    APP_METROLOGY_CALIBRATION newCalibration = {0};
-    bool parseError = false;
-
-    if (argc != 12) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-        return;
-    }
-
-    newCalibration.lineId = PHASE_TN;
-
-    if(_getCalibrationValue(argv[1], "UA", &newCalibration.aimVA) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[2], "IA", &newCalibration.aimIA) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[3], "AA", &newCalibration.angleA) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[4], "UB", &newCalibration.aimVB) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[5], "IB", &newCalibration.aimIB) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[6], "AB", &newCalibration.angleB) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[7], "UC", &newCalibration.aimVC) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[8], "IC", &newCalibration.aimIC) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[9], "AC", &newCalibration.angleC) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[10], "IN", &newCalibration.aimIN) == false)
-    {
-        parseError = true;
-    }
-    else if(_getCalibrationValue(argv[11], "AN", &newCalibration.angleN) == false)
-    {
-        parseError = true;
-    }
-
-    if (parseError) {
-        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
-    }
-    else
-    {
-        SYS_CMD_MESSAGE("Calibrating...\r\n");
-        APP_METROLOGY_StartCalibration(&newCalibration);
-    }
-}
-
-static void _commandCNF(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
-{
-    DRV_METROLOGY_CONFIGURATION newConf;
-    uint8_t idx, value;
-    char *p;
-    bool parseError = false;
-
-    if (argc == 8)
-    {
-        // Parse arguments
-        for (idx = 1; idx < argc; idx++)
+        if(_getCalibrationValue(pArgv, "UA", &newCalibration.va) == true)
         {
-            if (strncmp(argv[idx], "MC", 2) == 0)
-            {
-                // Get substring after '=' char
-                p = strstr(argv[idx], "=");
-                if (p != NULL)
-                {
-                    // Advance ptr to ignore '=' and extract value
-                    p++;
-                    newConf.mc = strtol(p, NULL, 10);
-                }
-                else
-                {
-                    parseError = true;
-                    break;
-                }
-            }
-            else if (strncmp(argv[idx], "ST", 2) == 0)
-            {
-                // Get substring after '=' char
-                p = strstr(argv[idx], "=");
-                if (p != NULL)
-                {
-                    // Advance ptr to ignore '=' and extract value
-                    p++;
-                    value = strtol(p, NULL, 10);
-                    if (value < SENSOR_NUM_TYPE)
-                    {
-                        newConf.st = (DRV_METROLOGY_SENSOR_TYPE)value;
-                    }
-                    else
-                    {
-                        parseError = true;
-                    }
-                }
-                else
-                {
-                    parseError = true;
-                    break;
-                }
-            }
-            else if (strncmp(argv[idx], "F", 1) == 0)
-            {
-                // Get substring after '=' char
-                p = strstr(argv[idx], "=");
-                if (p != NULL)
-                {
-                    // Advance ptr to ignore '=' and extract value
-                    p++;
-                    newConf.freq = strtod(p, NULL);
-                }
-                else
-                {
-                    parseError = true;
-                    break;
-                }
-            }
-            else if (strncmp(argv[idx], "G", 1) == 0)
-            {
-                // Get substring after '=' char
-                p = strstr(argv[idx], "=");
-                if (p != NULL)
-                {
-                    // Advance ptr to ignore '=' and extract value
-                    p++;
-                    value = strtol(p, NULL, 10);
-                    switch(value)
-                    {
-                        case 1:
-                            newConf.gain = (DRV_METROLOGY_GAIN_TYPE)0;
-                            break;
-                        case 2:
-                            newConf.gain = (DRV_METROLOGY_GAIN_TYPE)1;
-                            break;
-                        case 4:
-                            newConf.gain = (DRV_METROLOGY_GAIN_TYPE)2;
-                            break;
-                        case 8:
-                            newConf.gain = (DRV_METROLOGY_GAIN_TYPE)3;
-                            break;
-                        default:
-                            parseError = true;
-                    }
-                }
-                else
-                {
-                    parseError = true;
-                    break;
-                }
-            }
-            else if (strncmp(argv[idx], "TR", 2) == 0)
-            {
-                // Get substring after '=' char
-                p = strstr(argv[idx], "=");
-                if (p != NULL)
-                {
-                    // Advance ptr to ignore '=' and extract value
-                    p++;
-                    newConf.tr = strtod(p, NULL);
-                }
-                else
-                {
-                    parseError = true;
-                    break;
-                }
-            }
-            else if (strncmp(argv[idx], "RL", 2) == 0)
-            {
-                // Get substring after '=' char
-                p = strstr(argv[idx], "=");
-                if (p != NULL)
-                {
-                    // Advance ptr to ignore '=' and extract value
-                    p++;
-                    newConf.rl = strtod(p, NULL);
-                }
-                else
-                {
-                    parseError = true;
-                    break;
-                }
-            }
-            else if (strncmp(argv[idx], "KU", 2) == 0)
-            {
-                // Get substring after '=' char
-                p = strstr(argv[idx], "=");
-                if (p != NULL)
-                {
-                    // Advance ptr to ignore '=' and extract value
-                    p++;
-                    newConf.ku = strtol(p, NULL, 10);
-                }
-                else
-                {
-                    parseError = true;
-                    break;
-                }
-            }
-            else
-            {
-                parseError = true;
-                break;
-            }
+            newCalibration.calMask.magnitudeVa = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "IA", &newCalibration.ia) == true)
+        {
+            newCalibration.calMask.magnitudeIa = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "AA", &newCalibration.aa) == true)
+        {
+            newCalibration.calMask.anglePhaseA = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "UB", &newCalibration.vb) == true)
+        {
+            newCalibration.calMask.magnitudeVb = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "IB", &newCalibration.ib) == true)
+        {
+            newCalibration.calMask.magnitudeIb = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "AB", &newCalibration.ab) == true)
+        {
+            newCalibration.calMask.anglePhaseB = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "UC", &newCalibration.vc) == true)
+        {
+            newCalibration.calMask.magnitudeVc = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "IC", &newCalibration.ic) == true)
+        {
+            newCalibration.calMask.magnitudeIc = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "AC", &newCalibration.ac) == true)
+        {
+            newCalibration.calMask.anglePhaseC = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "IN", &newCalibration.in) == true)
+        {
+            newCalibration.calMask.magnitudeIn = 1;
+            continue;
+        }
+        else if(_getCalibrationANREF(pArgv, &vRefPhaseN) == true)
+        {
+            newCalibration.calMask.vRefPhaseN = vRefPhaseN;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "AN", &newCalibration.an) == true)
+        {
+            newCalibration.calMask.anglePhaseN = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "VD", &newCalibration.vd) == true)
+        {
+            newCalibration.calMask.magnitudeVd = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "AVAB", &newCalibration.avab) == true)
+        {
+            newCalibration.calMask.angleVAB = 1;
+            continue;
+        }
+        else if(_getCalibrationValue(pArgv, "AVAC", &newCalibration.avac) == true)
+        {
+            newCalibration.calMask.angleVAC = 1;
+            continue;
+        }
+        else
+        {
+            parseError = true;
         }
     }
-    else
-    {
-        // Incorrect parameter number
-        parseError = true;
-    }
 
-    if (parseError)
-    {
+    if (parseError) {
         SYS_CMD_MESSAGE("Unsupported Command !\r\n");
     }
     else
     {
-        APP_METROLOGY_SetConfiguration(&newConf);
-        SYS_CMD_MESSAGE("Configure Meter is Ok !\r\n");
-
-        /* Show console communication icon */
-        APP_DISPLAY_SetSerialCommunication();
+        SYS_CMD_MESSAGE("Calibrating...\r\n");
+        APP_METROLOGY_StartCalibration(&newCalibration);
     }
 }
 
@@ -942,6 +715,9 @@ static void _commandDAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
         app_consoleData.accumRegToRead = 0;
         app_consoleData.state = APP_CONSOLE_STATE_READ_ALL_ACCUM_REGS;
 
+        // Capture all accumulator registers
+        APP_METROLOGY_GetAccRegData(&app_consoleData.metAccRegs, &app_consoleData.pRegDescription);
+
         /* Show console communication icon */
         APP_DISPLAY_SetSerialCommunication();
     }
@@ -954,6 +730,48 @@ static void _commandDAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
             // Read register value
             app_consoleData.accumRegToRead = idx;
             app_consoleData.state = APP_CONSOLE_STATE_READ_ACCUM_REG;
+
+            /* Show console communication icon */
+            APP_DISPLAY_SetSerialCommunication();
+        }
+        else
+        {
+            // Invalid index
+            SYS_CMD_MESSAGE("Invalid register index\r\n");
+        }
+    }
+    else
+    {
+        // Incorrect parameter number
+        SYS_CMD_MESSAGE("Incorrect param number\r\n");
+    }
+}
+
+static void _commandDPCAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
+{
+    uint8_t idx;
+
+    if (argc == 1)
+    {
+        // Read all metrology accumulator registers
+        app_consoleData.accumRegToRead = 0;
+        app_consoleData.state = APP_CONSOLE_STATE_READ_ALL_PC_ACCUM_REGS;
+
+        // Capture all per cycle accumulator registers
+        APP_METROLOGY_GetPerCycleAccRegData(&app_consoleData.metPerCycleAccRegs, &app_consoleData.pRegDescription);
+
+        /* Show console communication icon */
+        APP_DISPLAY_SetSerialCommunication();
+    }
+    else if (argc == 2)
+    {
+        // Extract register index from parameters
+        idx = (uint8_t)strtol(argv[1], NULL, 10);
+        if (idx < PER_CYCLE_ACC_REG_NUM)
+        {
+            // Read register value
+            app_consoleData.accumRegToRead = idx;
+            app_consoleData.state = APP_CONSOLE_STATE_READ_PC_ACCUM_REG;
 
             /* Show console communication icon */
             APP_DISPLAY_SetSerialCommunication();
@@ -1291,29 +1109,41 @@ static void _commandEVER(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     if (argc == 3)
     {
         // Extract event id from parameters
-        if (strcmp(argv[1], "UA") == 0)
+        if (strcmp(argv[1], "UASAG") == 0)
         {
             app_consoleData.eventIdRequest = SAG_UA_EVENT_ID;
         }
-        else if (strcmp(argv[1], "UB") == 0)
+        else if (strcmp(argv[1], "UBSAG") == 0)
         {
             app_consoleData.eventIdRequest = SAG_UB_EVENT_ID;
         }
-        else if (strcmp(argv[1], "UC") == 0)
+        else if (strcmp(argv[1], "UCSAG") == 0)
         {
             app_consoleData.eventIdRequest = SAG_UC_EVENT_ID;
         }
+        else if (strcmp(argv[1], "UASWELL") == 0)
+        {
+            app_consoleData.eventIdRequest = SWELL_UA_EVENT_ID;
+        }
+        else if (strcmp(argv[1], "UBSWELL") == 0)
+        {
+            app_consoleData.eventIdRequest = SWELL_UB_EVENT_ID;
+        }
+        else if (strcmp(argv[1], "UCSWELL") == 0)
+        {
+            app_consoleData.eventIdRequest = SWELL_UC_EVENT_ID;
+        }
         else if (strcmp(argv[1], "PA") == 0)
         {
-            app_consoleData.eventIdRequest = POW_UA_EVENT_ID;
+            app_consoleData.eventIdRequest = POW_PA_EVENT_ID;
         }
         else if (strcmp(argv[1], "PB") == 0)
         {
-            app_consoleData.eventIdRequest = POW_UB_EVENT_ID;
+            app_consoleData.eventIdRequest = POW_PB_EVENT_ID;
         }
         else if (strcmp(argv[1], "PC") == 0)
         {
-            app_consoleData.eventIdRequest = POW_UC_EVENT_ID;
+            app_consoleData.eventIdRequest = POW_PC_EVENT_ID;
         }
 
         if (app_consoleData.eventIdRequest != EVENT_INVALID_ID)
@@ -1641,6 +1471,99 @@ static void _commandPAR(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
 
     if (argc == 2)
     {
+        app_consoleData.perCyclePar = 0;
+        // Extract data to retrieve from parameters
+        if (strcmp(argv[1], "U") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_VOLTAGE;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "I") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_CURRENT;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "P") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_ACTIVE_POWER;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "Q") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_REACTIVE_POWER;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "S") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_APARENT_POWER;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "UF") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_VOLTAGE;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "IF") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_CURRENT;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "PF") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_ACTIVE_POWER;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "QF") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_REACTIVE_POWER;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "SF") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_APARENT_POWER;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "F") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_FREQUENCY;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "FT") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_TOTAL_FREQUENCY;
+            wakeup = true;
+        }
+        else if (strcmp(argv[1], "A") == 0)
+        {
+            app_consoleData.state = APP_CONSOLE_STATE_PRINT_ANGLE;
+            wakeup = true;
+        }
+        else
+        {
+            // Invalid Command
+            SYS_CMD_MESSAGE("Unsupported Command !\r\n");
+        }
+
+        if (wakeup)
+        {
+            /* Show console communication icon */
+            APP_DISPLAY_SetSerialCommunication();
+        }
+    }
+    else
+    {
+        // Incorrect parameter number
+        SYS_CMD_MESSAGE("Incorrect param number\r\n");
+    }
+}
+
+static void _commandPARC(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
+{
+    bool wakeup = false;
+
+    if (argc == 2)
+    {
+        app_consoleData.perCyclePar = 1;
         // Extract data to retrieve from parameters
         if (strcmp(argv[1], "U") == 0)
         {
@@ -1809,10 +1732,6 @@ static void _commandRTCW(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
                 datalogQueueElement.pData = (uint8_t*)&app_consoleData.sysTime;
                 // Put it in queue
                 APP_DATALOG_SendDatalogData(&datalogQueueElement);
-
-                // Clear No-persistent energy/demand data
-                APP_ENERGY_ClearEnergy(false);
-                APP_ENERGY_ClearMaxDemand(false);
 
                 SYS_CMD_MESSAGE("Set RTC is ok!\r\n");
 
@@ -1995,6 +1914,275 @@ static void _commandRLD(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
     }
 }
 
+static void _commandDEV(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
+{
+    if (argc == 1)
+    {
+        // Read topology of device connections
+        app_consoleData.state = APP_CONSOLE_STATE_READ_CHANNELS_CONFIG;
+
+        /* Show console communication icon */
+        APP_DISPLAY_SetSerialCommunication();
+    }
+    else
+    {
+        // Incorrect parameter number
+        SYS_CMD_MESSAGE("Incorrect param number\r\n");
+    }
+}
+
+static void _commandSYN(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
+{
+    APP_CONSOLE_SYN_OPCMD opCmd;
+    bool paramError = false;
+    bool runCmd = true;
+
+    opCmd = (APP_CONSOLE_SYN_OPCMD)strtol(argv[1], NULL, 10);
+
+    if (app_consoleData.synIsRunning == true)
+    {
+        if (opCmd != APP_CONSOLE_SYN_OPCMD_DISABLE)
+        {
+            runCmd = false;
+            // Synthesizer enabled
+            SYS_CMD_MESSAGE("SYN_OPCMD Error: Synthesizer is enabled\r\n");
+        }
+    }
+    else
+    {
+        if (opCmd == APP_CONSOLE_SYN_OPCMD_DISABLE)
+        {
+            runCmd = false;
+            // Synthesizer disabled
+            SYS_CMD_MESSAGE("SYN_OPCMD: Synthesizer is disabled\r\n");
+        }
+    }
+
+    if (runCmd == true)
+    {
+        if (opCmd == APP_CONSOLE_SYN_OPCMD_DISABLE)
+        {
+            if (argc == 2)
+            {
+                // Go to state to disable synthesizer
+                app_consoleData.state = APP_CONSOLE_STATE_SYN_DISABLE;
+            }
+            else
+            {
+                paramError = true;
+            }
+        }
+        else if (opCmd == APP_CONSOLE_SYN_OPCMD_ENABLE)
+        {
+            if (argc == 2)
+            {
+                // Go to state to enable synthesizer
+                app_consoleData.state = APP_CONSOLE_STATE_SYN_ENABLE;
+            }
+            else
+            {
+                paramError = true;
+            }
+        }
+        else if (opCmd == APP_CONSOLE_SYN_OPCMD_CHN_TRANSFER_START)
+        {
+            if (argc == 4)
+            {
+                DRV_METROLOGY_SYN_DESCRIPTOR *pNewDesc;
+                uint16_t numSamples;
+                uint8_t channel;
+
+                // Parameters in Start Transfer: SYN|TRANSFER_START|CHN|SAMPLES
+                channel = (uint8_t)strtol(argv[2], NULL, 10);
+                numSamples = (uint16_t)strtol(argv[3], NULL, 10);
+
+                // Build new descriptor dynamically
+                pNewDesc = _addNewSyncDesc(channel, numSamples);
+                if (pNewDesc == NULL)
+                {
+                    // Lack of memory. Free all reserved memory used in descriptors and samples data
+                    _freeSyncDescriptors(app_consoleData.pSynCurrentDesc);
+                    SYS_CMD_MESSAGE("Not enough memory !\r\n");
+                }
+            }
+            else
+            {
+                paramError = true;
+            }
+        }
+        else if (opCmd == APP_CONSOLE_SYN_OPCMD_CHN_TRANSFERRING)
+        {
+            if ((argc == 6) && (app_consoleData.pSynCurrentData != NULL))
+            {
+                char *pData;
+                char data[8];
+                uint8_t chunkLen;
+                uint8_t sample;
+
+                // Parameters in Transferring: SYN|TRANSFER_CHUNK|CHN|CHUNKID|CHUNKLEN|CHUNKDATA
+                chunkLen = (uint8_t)strtol(argv[4], NULL, 10);
+                pData = argv[5];
+
+                // Fill data in the dynamic table
+                for(sample = 0; sample < chunkLen; sample++)
+                {
+                    memcpy(data, pData, 8);
+                    *app_consoleData.pSynCurrentData++ = (uint32_t)strtoul(data, NULL, 16);
+                    pData += 8;
+                }
+            }
+            else
+            {
+                paramError = true;
+            }
+        }
+        else if (opCmd == APP_CONSOLE_SYN_OPCMD_CHN_TRANSFER_END)
+        {
+            if ((argc == 3) && (app_consoleData.pSynCurrentDesc != NULL))
+            {
+                uint8_t channel;
+
+                // Parameters in End Transfer: SYN|TRANSFER_END|CHN
+                channel = (uint8_t)strtol(argv[2], NULL, 10);
+
+                if (app_consoleData.pSynCurrentDesc->control.channel == channel)
+                {
+                    // Set Key to descriptor control
+                    app_consoleData.pSynCurrentDesc->control.key = 0x5A;
+                }
+            }
+            else
+            {
+                paramError = true;
+            }
+        }
+        else
+        {
+            // Incorrect opCmd
+            SYS_CMD_MESSAGE("Unsupported Command !\r\n");
+            // Cancel settings
+        }
+
+        if (paramError)
+        {
+            // Incorrect parameter number
+            SYS_CMD_MESSAGE("Incorrect param number\r\n");
+            // Cancel settings
+        }
+    }
+}
+
+static void _commandCAPT(SYS_CMD_DEVICE_NODE* pCmdIO, int argc, char** argv)
+{
+    DRV_METROLOGY_CAPTURE_SOURCE source = CAPTURE_SRC_16KHz;
+    DRV_METROLOGY_CAPTURE_TYPE type = CAPTURE_ONE_SHOT;
+    uint8_t channelMask = 0;
+    uint8_t enable;
+    bool parseError = false;
+
+    if (argc == 1U)
+    {
+        // Get Capture state
+        DRV_METROLOGY_CAPTURE_STATE state;
+
+        state = DRV_METROLOGY_CaptureGetState();
+        if (state == CAPTURE_DISABLED)
+        {
+            SYS_CMD_MESSAGE("Waveform capture is DISABLE\r\n");
+        }
+        else if (state == CAPTURE_ACTIVE)
+        {
+            SYS_CMD_MESSAGE("Waveform capture is ACTIVE\r\n");
+        }
+        else if (state == CAPTURE_COMPLETE)
+        {
+            SYS_CMD_MESSAGE("Waveform capture is COMPLETE\r\n");
+        }
+        else
+        {
+            SYS_CMD_MESSAGE("Error in Waveform capture state\r\n");
+        }
+
+        return;
+    }
+    else if (argc == 2U)
+    {
+        // This must be a Stop command
+        enable = (uint8_t)strtol(argv[1], NULL, 10U);
+        if (enable != 0U)
+        {
+            parseError = true;
+        }
+    }
+    else if(argc == 6U)
+    {
+        enable = (uint8_t)strtol(argv[1], NULL, 10U);
+        if (enable != 1U)
+        {
+            parseError = true;
+        }
+
+        /* Get Channel mask */
+        channelMask = (uint8_t)strtol(argv[2], NULL, 10U);
+
+        /* Get capture source */
+        source = (DRV_METROLOGY_CAPTURE_SOURCE)strtol(argv[3], NULL, 10U);
+        if (source >= CAPTURE_SRC_NUM)
+        {
+            parseError = true;
+        }
+
+        /* Get capture type */
+        type = (DRV_METROLOGY_CAPTURE_TYPE)strtol(argv[4], NULL, 10U);
+        if (type >= CAPTURE_TYPE_NUM)
+        {
+            parseError = true;
+        }
+
+        /* Get the number of samples to capture */
+        app_consoleData.captNumSamples = strtol(argv[5], NULL, 10U);
+        if (app_consoleData.captNumSamples > APP_CONSOLE_MET_CAPTURE_SAMPLES)
+        {
+            app_consoleData.captNumSamples = APP_CONSOLE_MET_CAPTURE_SAMPLES;
+        }
+    }
+    else
+    {
+        parseError = true;
+    }
+
+    if (parseError)
+    {
+        SYS_CMD_MESSAGE("Unsupported Command !\r\n");
+    }
+    else
+    {
+        if (enable == 0U)
+        {
+            DRV_METROLOGY_CaptureStop();
+            SYS_CMD_MESSAGE("Stop Waveform capture\r\n");
+        }
+        else
+        {
+            DRV_METROLOGY_CAPTURE_STATE state;
+
+            state = DRV_METROLOGY_CaptureGetState();
+            if (state == CAPTURE_ACTIVE)
+            {
+                SYS_CMD_MESSAGE("Waveform capture is already enabled\r\n");
+            }
+            else
+            {
+                DRV_METROLOGY_CaptureStop();
+                DRV_METROLOGY_CaptureSetOptions(source, type);
+                DRV_METROLOGY_CaptureEnableChannels(channelMask);
+                DRV_METROLOGY_CaptureStart(metCaptureData, app_consoleData.captNumSamples);
+                SYS_CMD_MESSAGE("Launched Waveform capture\r\n");
+            }
+        }
+    }
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Initialization and State Machine Functions
@@ -2014,6 +2202,9 @@ void APP_CONSOLE_Initialize ( void )
     /* Place the App state machine in its initial state. */
     app_consoleData.state = APP_CONSOLE_STATE_INIT;
     app_consoleData.numCommands = sizeof(appCmdTbl)/sizeof(SYS_CMD_DESCRIPTOR);
+    app_consoleData.pSynDescriptor = NULL;
+    app_consoleData.pSynCurrentDesc = NULL;
+    app_consoleData.captNumSamples = 0;
 
     /* Init timer */
     app_consoleData.timer = SYS_TIME_HANDLE_INVALID;
@@ -2321,6 +2512,13 @@ void APP_CONSOLE_Tasks ( void )
         {
             if (app_consoleData.accumRegToRead < ACCUMULATOR_REG_NUM)
             {
+                uint8_t idx = app_consoleData.accumRegToRead;
+                uint64_t *pData = (uint64_t *)&app_consoleData.metAccRegs;
+                char **pDesc = (char **)app_consoleData.pRegDescription;
+
+                pData += idx;
+                pDesc += idx;
+
                 if (app_consoleData.accumRegToRead == 0)
                 {
                     // Remove Prompt symbol
@@ -2328,70 +2526,114 @@ void APP_CONSOLE_Tasks ( void )
                 }
 
                 // Check how many registers are pending to print, to format line
-                numRegsPending = ACCUMULATOR_REG_NUM - app_consoleData.accumRegToRead;
+                numRegsPending = ACCUMULATOR_REG_NUM - idx;
                 // Read and print register values
                 if (numRegsPending >= 4)
                 {
-                    if ((APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 1, &regValue64[1], regName[1])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 2, &regValue64[2], regName[2])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 3, &regValue64[3], regName[3])))
-                    {
-                        SYS_CMD_PRINT("%-19s%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2], regName[3]);
-                        SYS_CMD_PRINT("%-19llX%-19llX%-19llX%-19llX\r\n", regValue64[0], regValue64[1], regValue64[2], regValue64[3]);
-                    }
-                    else
-                    {
-                        // Cannot read register
-                        SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
-                    }
+                    SYS_CMD_PRINT("%-19s%-19s%-19s%-19s\r\n", *pDesc, *(pDesc + 1), *(pDesc + 2), *(pDesc + 3));
+                    SYS_CMD_PRINT("%-19llX%-19llX%-19llX%-19llX\r\n", *pData, *(pData + 1), *(pData + 2), *(pData + 3));
                     // Advance to next register group
                     app_consoleData.accumRegToRead += 4;
                 }
                 else if (numRegsPending == 3)
                 {
-                    if ((APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 1, &regValue64[1], regName[1])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 2, &regValue64[2], regName[2])))
-                    {
-                        SYS_CMD_PRINT("%-19s%-19s%-19s\r\n", regName[0], regName[1], regName[2]);
-                        SYS_CMD_PRINT("%-19llX%-19llX%-19llX\r\n", regValue64[0], regValue64[1], regValue64[2]);
-                    }
-                    else
-                    {
-                        // Cannot read register
-                        SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
-                    }
+                    SYS_CMD_PRINT("%-19s%-19s%-19s\r\n", *pDesc, *(pDesc + 1), *(pDesc + 2));
+                    SYS_CMD_PRINT("%-19llX%-19llX%-19llX\r\n", *pData, *(pData + 1), *(pData + 2));
                     // Advance to next register group
                     app_consoleData.accumRegToRead += 3;
                 }
                 else if (numRegsPending == 2)
                 {
-                    if ((APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0])) &&
-                        (APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead + 1, &regValue64[1], regName[1])))
-                    {
-                        SYS_CMD_PRINT("%-19s%-19s\r\n", regName[0], regName[1]);
-                        SYS_CMD_PRINT("%-19llX%-19llX\r\n", regValue64[0], regValue64[1]);
-                    }
-                    else
-                    {
-                        // Cannot read register
-                        SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
-                    }
+                    SYS_CMD_PRINT("%-19s%-19s\r\n", *pDesc, *(pDesc + 1));
+                    SYS_CMD_PRINT("%-19llX%-19llX\r\n", *pData, *(pData + 1));
                     // Advance to next register group
                     app_consoleData.accumRegToRead += 2;
                 }
                 else if (numRegsPending == 1)
                 {
-                    if ((APP_METROLOGY_GetAccumulatorRegister((ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0]))) {
-                        SYS_CMD_PRINT("%-19s\r\n", regName[0]);
-                        SYS_CMD_PRINT("%-19llX\r\n", regValue64[0]);
-                    }
-                    else
-                    {
-                        // Cannot read register
-                        SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
-                    }
+                    SYS_CMD_PRINT("%-19s\r\n", *pDesc);
+                    SYS_CMD_PRINT("%-19llX\r\n");
+                    // Advance to next register group
+                    app_consoleData.accumRegToRead += 1;
+                }
+            }
+            else
+            {
+                // All registers have been read
+                app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
+            }
+
+            app_consoleData.nextState = app_consoleData.state;
+            app_consoleData.state = APP_CONSOLE_STATE_DELAY;
+            app_consoleData.delayMs = CONSOLE_TASK_DELAY_MS_BETWEEN_REGS_PRINT;
+            break;
+        }
+
+        case APP_CONSOLE_STATE_READ_PC_ACCUM_REG:
+        {
+            // Remove Prompt symbol
+            _removePrompt();
+
+            // Read register value
+            if (APP_METROLOGY_GetPCAccumulatorRegister((PER_CYCLE_ACCUMULATOR_REG_ID)app_consoleData.accumRegToRead, &regValue64[0], regName[0]))
+            {
+                SYS_CMD_PRINT("%s\r\n%llX\r\n", regName[0], regValue64[0]);
+            }
+            else
+            {
+                // Cannot read register
+                SYS_CMD_PRINT("Could not read register %02d\r\n", app_consoleData.accumRegToRead);
+            }
+            // Go back to Idle
+            app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
+            break;
+        }
+
+        case APP_CONSOLE_STATE_READ_ALL_PC_ACCUM_REGS:
+        {
+            if (app_consoleData.accumRegToRead < PER_CYCLE_ACC_REG_NUM)
+            {
+                uint8_t idx = app_consoleData.accumRegToRead;
+                uint64_t *pData = (uint64_t *)&app_consoleData.metPerCycleAccRegs;
+                char **pDesc = (char **)app_consoleData.pRegDescription;
+
+                pData += idx;
+                pDesc += idx;
+
+                if (app_consoleData.accumRegToRead == 0)
+                {
+                    // Remove Prompt symbol
+                    _removePrompt();
+                }
+
+                // Check how many registers are pending to print, to format line
+                numRegsPending = PER_CYCLE_ACC_REG_NUM - idx;
+                // Read and print register values
+                if (numRegsPending >= 4)
+                {
+                    SYS_CMD_PRINT("%-19s%-19s%-19s%-19s\r\n", *pDesc, *(pDesc + 1), *(pDesc + 2), *(pDesc + 3));
+                    SYS_CMD_PRINT("%-19llX%-19llX%-19llX%-19llX\r\n", *pData, *(pData + 1), *(pData + 2), *(pData + 3));
+                    // Advance to next register group
+                    app_consoleData.accumRegToRead += 4;
+                }
+                else if (numRegsPending == 3)
+                {
+                    SYS_CMD_PRINT("%-19s%-19s%-19s\r\n", *pDesc, *(pDesc + 1), *(pDesc + 2));
+                    SYS_CMD_PRINT("%-19llX%-19llX%-19llX\r\n", *pData, *(pData + 1), *(pData + 2));
+                    // Advance to next register group
+                    app_consoleData.accumRegToRead += 3;
+                }
+                else if (numRegsPending == 2)
+                {
+                    SYS_CMD_PRINT("%-19s%-19s\r\n", *pDesc, *(pDesc + 1));
+                    SYS_CMD_PRINT("%-19llX%-19llX\r\n", *pData, *(pData + 1));
+                    // Advance to next register group
+                    app_consoleData.accumRegToRead += 2;
+                }
+                else if (numRegsPending == 1)
+                {
+                    SYS_CMD_PRINT("%-19s\r\n", *pDesc);
+                    SYS_CMD_PRINT("%-19llX\r\n");
                     // Advance to next register group
                     app_consoleData.accumRegToRead += 1;
                 }
@@ -2701,7 +2943,7 @@ void APP_CONSOLE_Tasks ( void )
 
             // Read and print RTC
             RTC_TimeGet(&app_consoleData.sysTime);
-            SYS_CMD_MESSAGE("Present RTC is(yy-mm-dd w hh:mm:ss):\r\n");
+            SYS_CMD_MESSAGE("Present RTC is (yy-mm-dd w hh:mm:ss):\r\n");
             SYS_CMD_PRINT("%02u-%02u-%02u %u %02u:%02u:%02u\r\n",
                     app_consoleData.sysTime.tm_year + 1900 - 2000, app_consoleData.sysTime.tm_mon + 1, app_consoleData.sysTime.tm_mday,
                     app_consoleData.sysTime.tm_wday + 1, app_consoleData.sysTime.tm_hour, app_consoleData.sysTime.tm_min, app_consoleData.sysTime.tm_sec);
@@ -2820,10 +3062,10 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_MONTHLY_ENERGY:
         {
-            uint64_t total = 0;
+            float total = 0.0f;
             int8_t idx;
 
-            for (idx = 0; idx < TARIFF_NUM_TYPE; idx ++)
+            for (idx = 0; idx < TARIFF_NUM_TYPE; idx++)
             {
                 total += energyData.tariff[idx];
             }
@@ -2836,8 +3078,8 @@ void APP_CONSOLE_Tasks ( void )
             SYS_CMD_PRINT("Last %d Month Energy is:\r\n", idx);
 
             SYS_CMD_PRINT("TT=%.2fkWh T1=%.2fkWh T2=%.2fkWh T3=%.2fkWh T4=%.2fkWh\r\n",
-                (float)total/10000000, (float)energyData.tariff[0]/10000000, (float)energyData.tariff[1]/10000000,
-                    (float)energyData.tariff[2]/10000000, (float)energyData.tariff[3]/10000000);
+                          total / 1000, energyData.tariff[0] / 1000, energyData.tariff[1] / 1000,
+                          energyData.tariff[2] / 1000, energyData.tariff[3] / 1000);
 
             /* Introduce a delay to wait console visualization */
             app_consoleData.nextState = APP_CONSOLE_STATE_PRINT_MONTHLY_ENERGY_NEXT;
@@ -2891,47 +3133,65 @@ void APP_CONSOLE_Tasks ( void )
                 {
                     SYS_CMD_PRINT("Last %d Times Uc Sag is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
-                else if (app_consoleData.eventIdRequest == POW_UA_EVENT_ID)
+                else if (app_consoleData.eventIdRequest == SWELL_UA_EVENT_ID)
+                {
+                    SYS_CMD_PRINT("Last %d Times Ua Swell is:\r\n", app_consoleData.eventLastTimeRequest);
+                }
+                else if (app_consoleData.eventIdRequest == SWELL_UB_EVENT_ID)
+                {
+                    SYS_CMD_PRINT("Last %d Times Ub Swell is:\r\n", app_consoleData.eventLastTimeRequest);
+                }
+                else if (app_consoleData.eventIdRequest == SWELL_UC_EVENT_ID)
+                {
+                    SYS_CMD_PRINT("Last %d Times Uc Swell is:\r\n", app_consoleData.eventLastTimeRequest);
+                }
+                else if (app_consoleData.eventIdRequest == POW_PA_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Pa reverse is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
-                else if (app_consoleData.eventIdRequest == POW_UB_EVENT_ID)
+                else if (app_consoleData.eventIdRequest == POW_PB_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Pb reverse is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
-                else if (app_consoleData.eventIdRequest == POW_UC_EVENT_ID)
+                else if (app_consoleData.eventIdRequest == POW_PC_EVENT_ID)
                 {
                     SYS_CMD_PRINT("Last %d Times Pc reverse is:\r\n", app_consoleData.eventLastTimeRequest);
                 }
 
                 // Show received data on console
-                SYS_CMD_PRINT("Total Num=%d ", numEvents);
-
+                SYS_CMD_PRINT("Start time (yy-mm-dd hh:mm:ss)=");
                 if (memcmp(&eventInfo.startTime, &invalidTime, sizeof(struct tm)) == 0)
                 {
-                    SYS_CMD_PRINT("start time is invalid ");
+                    SYS_CMD_PRINT("invalid\r\n");
                 }
                 else
                 {
-                    SYS_CMD_PRINT("start time is %02d-%02d %02d:%02d ",
+                    SYS_CMD_PRINT("%02u-%02u-%02u %02u:%02u:%02u\r\n",
+                    eventInfo.startTime.tm_year + 1900 - 2000,
                     eventInfo.startTime.tm_mon + 1,
                     eventInfo.startTime.tm_mday,
                     eventInfo.startTime.tm_hour,
-                    eventInfo.startTime.tm_min);
+                    eventInfo.startTime.tm_min,
+                    eventInfo.startTime.tm_sec);
                 }
 
+                SYS_CMD_PRINT("End time   (yy-mm-dd hh:mm:ss)=");
                 if (memcmp(&eventInfo.endTime, &invalidTime, sizeof(struct tm)) == 0)
                 {
-                    SYS_CMD_PRINT("end time is invalid\r\n");
+                    SYS_CMD_PRINT("invalid\r\n");
                 }
                 else
                 {
-                    SYS_CMD_PRINT("end time is %02d-%02d %02d:%02d\r\n",
+                    SYS_CMD_PRINT("%02u-%02u-%02u %02u:%02u:%02u\r\n",
+                    eventInfo.endTime.tm_year + 1900 - 2000,
                     eventInfo.endTime.tm_mon + 1,
                     eventInfo.endTime.tm_mday,
                     eventInfo.endTime.tm_hour,
-                    eventInfo.endTime.tm_min);
+                    eventInfo.endTime.tm_min,
+                    eventInfo.endTime.tm_sec);
                 }
+
+                SYS_CMD_PRINT("Total Num=%d\r\n", numEvents);
             }
             else
             {
@@ -2995,17 +3255,17 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_VOLTAGE:
         {
-            uint32_t va, vb, vc;
+            float va, vb, vc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_UA_RMS, &va, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_UB_RMS, &vb, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_UC_RMS, &vc, 0);
+            APP_METROLOGY_GetMeasure(MEASURE_UA_RMS, &va, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_UB_RMS, &vb, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_UC_RMS, &vc, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present voltage is :\r\nUa=%.3fV Ub=%.3fV Uc=%.3fV\r\n",
-                (float)va/VI_ACCURACY_INT, (float)vb/VI_ACCURACY_INT, (float)vc/VI_ACCURACY_INT);
+            SYS_CMD_PRINT("Present voltage%s is :\r\nUa=%.3fV Ub=%.3fV Uc=%.3fV\r\n",
+                          perCycle[app_consoleData.perCyclePar], va, vb, vc);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3014,22 +3274,33 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_CURRENT:
         {
-            uint32_t ia, ib, ic;
-            uint32_t ini, inm, inmi;
+            float ia, ib, ic;
+            float inm;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_IA_RMS, &ia, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_IB_RMS, &ib, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_IC_RMS, &ic, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_INI_RMS, &ini, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_INM_RMS, &inm, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_INMI_RMS, &inmi, 0);
+            APP_METROLOGY_GetMeasure(MEASURE_IA_RMS, &ia, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_IB_RMS, &ib, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_IC_RMS, &ic, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_INM_RMS, &inm, app_consoleData.perCyclePar);
+
             // Show received data on console
-            SYS_CMD_PRINT("Present current is :\r\nIa=%.4fA Ib=%.4fA Ic=%.4fA Ini=%.4fA Inm=%.4fA Inmi=%.4fA\r\n",
-                    (float)ia/VI_ACCURACY_INT, (float)ib/VI_ACCURACY_INT, (float)ic/VI_ACCURACY_INT, (float)ini/VI_ACCURACY_INT,
-                    (float)inm/VI_ACCURACY_INT, (float)inmi/VI_ACCURACY_INT);
+            if (app_consoleData.perCyclePar == false)
+            {
+                float ini, inmi;
+
+                APP_METROLOGY_GetMeasure(MEASURE_INI_RMS, &ini, app_consoleData.perCyclePar);
+                APP_METROLOGY_GetMeasure(MEASURE_INMI_RMS, &inmi, app_consoleData.perCyclePar);
+
+                SYS_CMD_PRINT("Present current%s is :\r\nIa=%.4fA Ib=%.4fA Ic=%.4fA Ini=%.4fA Inm=%.4fA Inmi=%.4fA\r\n",
+                        perCycle[app_consoleData.perCyclePar], ia, ib, ic, ini, inm, inmi);
+            }
+            else
+            {
+                SYS_CMD_PRINT("Present current%s is :\r\nIa=%.4fA Ib=%.4fA Ic=%.4fA Inm=%.4fA\r\n",
+                        perCycle[app_consoleData.perCyclePar], ia, ib, ic, inm);
+            }
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3038,20 +3309,18 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_ACTIVE_POWER:
         {
-            uint32_t pt, pa, pb, pc;
-            DRV_METROLOGY_MEASURE_SIGN signt, signa, signb, signc;
+            float pt, pa, pb, pc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_PT, &pt, &signt);
-            APP_METROLOGY_GetMeasure(MEASURE_PA, &pa, &signa);
-            APP_METROLOGY_GetMeasure(MEASURE_PB, &pb, &signb);
-            APP_METROLOGY_GetMeasure(MEASURE_PC, &pc, &signc);
+            APP_METROLOGY_GetMeasure(MEASURE_PT, &pt, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_PA, &pa, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_PB, &pb, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_PC, &pc, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present active power is :\r\nPt=%c%.1fW Pa=%c%.1fW Pb=%c%.1fW Pc=%c%.1fW\r\n",
-                   sign[signt], (float)pt/PQS_ACCURACY_INT, sign[signa], (float)pa/PQS_ACCURACY_INT, sign[signb],
-                    (float)pb/PQS_ACCURACY_INT, sign[signc], (float)pc/PQS_ACCURACY_INT);
+            SYS_CMD_PRINT("Present active power%s is :\r\nPt=%.1fW Pa=%.1fW Pb=%.1fW Pc=%.1fW\r\n",
+                   perCycle[app_consoleData.perCyclePar], pt, pa, pb, pc);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3060,20 +3329,18 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_REACTIVE_POWER:
         {
-            uint32_t qt, qa, qb, qc;
-            DRV_METROLOGY_MEASURE_SIGN signt, signa, signb, signc;
+            float qt, qa, qb, qc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_QT, &qt, &signt);
-            APP_METROLOGY_GetMeasure(MEASURE_QA, &qa, &signa);
-            APP_METROLOGY_GetMeasure(MEASURE_QB, &qb, &signb);
-            APP_METROLOGY_GetMeasure(MEASURE_QC, &qc, &signc);
+            APP_METROLOGY_GetMeasure(MEASURE_QT, &qt, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_QA, &qa, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_QB, &qb, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_QC, &qc, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present reactive power is :\r\nQt=%c%.1fVAr Qa=%c%.1fVAr Qb=%c%.1fVAr Qc=%c%.1fVAr\r\n",
-                   sign[signt], (float)qt/PQS_ACCURACY_INT, sign[signa], (float)qa/PQS_ACCURACY_INT, sign[signb],
-                    (float)qb/PQS_ACCURACY_INT, sign[signc], (float)qc/PQS_ACCURACY_INT);
+            SYS_CMD_PRINT("Present reactive power%s is :\r\nQt=%.1fVAr Qa=%.1fVAr Qb=%.1fVAr Qc=%.1fVAr\r\n",
+                   perCycle[app_consoleData.perCyclePar], qt, qa, qb, qc);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3082,18 +3349,18 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_APARENT_POWER:
         {
-            uint32_t st, sa, sb, sc;
+            float st, sa, sb, sc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_ST, &st, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_SA, &sa, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_SB, &sb, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_SC, &sc, 0);
+            APP_METROLOGY_GetMeasure(MEASURE_ST, &st, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_SA, &sa, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_SB, &sb, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_SC, &sc, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present apparent power is :\r\nSt=%.1fVA Sa=%.1fVA Sb=%.1fVA Sc=%.1fVA\r\n",
-                   (float)st/PQS_ACCURACY_INT, (float)sa/PQS_ACCURACY_INT, (float)sb/PQS_ACCURACY_INT, (float)sc/PQS_ACCURACY_INT);
+            SYS_CMD_PRINT("Present apparent power%s is :\r\nSt=%.1fVA Sa=%.1fVA Sb=%.1fVA Sc=%.1fVA\r\n",
+                   perCycle[app_consoleData.perCyclePar], st, sa, sb, sc);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3102,17 +3369,17 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_VOLTAGE:
         {
-            uint32_t va, vb, vc;
+            float va, vb, vc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_UAF_RMS, &va, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_UBF_RMS, &vb, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_UCF_RMS, &vc, 0);
+            APP_METROLOGY_GetMeasure(MEASURE_UAF_RMS, &va, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_UBF_RMS, &vb, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_UCF_RMS, &vc, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present voltage (fundamental) is :\r\nUaf=%.3fV Ubf=%.3fV Ucf=%.3fV\r\n",
-                (float)va/VI_ACCURACY_INT, (float)vb/VI_ACCURACY_INT, (float)vc/VI_ACCURACY_INT);
+            SYS_CMD_PRINT("Present voltage%s (fundamental) is :\r\nUaf=%.3fV Ubf=%.3fV Ucf=%.3fV\r\n",
+                perCycle[app_consoleData.perCyclePar], va, vb, vc);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3121,18 +3388,18 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_CURRENT:
         {
-            uint32_t ia, ib, ic, inm;
+            float ia, ib, ic, inm;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_IAF_RMS, &ia, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_IBF_RMS, &ib, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_ICF_RMS, &ic, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_IMNF_RMS, &inm, 0);
+            APP_METROLOGY_GetMeasure(MEASURE_IAF_RMS, &ia, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_IBF_RMS, &ib, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_ICF_RMS, &ic, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_IMNF_RMS, &inm, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present current (fundamental) is :\r\nIaf=%.4fA Ibf=%.4fA Icf=%.4fA Inmf=%.4fA\r\n",
-                    (float)ia/VI_ACCURACY_INT, (float)ib/VI_ACCURACY_INT, (float)ic/VI_ACCURACY_INT, (float)inm/VI_ACCURACY_INT);
+            SYS_CMD_PRINT("Present current%s (fundamental) is :\r\nIaf=%.4fA Ibf=%.4fA Icf=%.4fA Inmf=%.4fA\r\n",
+                    perCycle[app_consoleData.perCyclePar], ia, ib, ic, inm);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3141,20 +3408,18 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_ACTIVE_POWER:
         {
-            uint32_t pt, pa, pb, pc;
-            DRV_METROLOGY_MEASURE_SIGN signt, signa, signb, signc;
+            float pt, pa, pb, pc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_PTF, &pt, &signt);
-            APP_METROLOGY_GetMeasure(MEASURE_PAF, &pa, &signa);
-            APP_METROLOGY_GetMeasure(MEASURE_PBF, &pb, &signb);
-            APP_METROLOGY_GetMeasure(MEASURE_PCF, &pc, &signc);
+            APP_METROLOGY_GetMeasure(MEASURE_PTF, &pt, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_PAF, &pa, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_PBF, &pb, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_PCF, &pc, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present active power (fundamental) is :\r\nPtf=%c%.1fW Paf=%c%.1fW Pbf=%c%.1fW Pcf=%c%.1fW\r\n",
-                   sign[signt], (float)pt/PQS_ACCURACY_INT, sign[signa], (float)pa/PQS_ACCURACY_INT, sign[signb],
-                    (float)pb/PQS_ACCURACY_INT, sign[signc], (float)pc/PQS_ACCURACY_INT);
+            SYS_CMD_PRINT("Present active power%s (fundamental) is :\r\nPtf=%.1fW Paf=%.1fW Pbf=%.1fW Pcf=%.1fW\r\n",
+                   perCycle[app_consoleData.perCyclePar], pt, pa, pb, pc);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3163,20 +3428,18 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_REACTIVE_POWER:
         {
-            uint32_t qt, qa, qb, qc;
-            DRV_METROLOGY_MEASURE_SIGN signt, signa, signb, signc;
+            float qt, qa, qb, qc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_QTF, &qt, &signt);
-            APP_METROLOGY_GetMeasure(MEASURE_QAF, &qa, &signa);
-            APP_METROLOGY_GetMeasure(MEASURE_QBF, &qb, &signb);
-            APP_METROLOGY_GetMeasure(MEASURE_QCF, &qc, &signc);
+            APP_METROLOGY_GetMeasure(MEASURE_QTF, &qt, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_QAF, &qa, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_QBF, &qb, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_QCF, &qc, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present reactive power (fundamental) is :\r\nQtf=%c%.1fVAr Qaf=%c%.1fVAr Qbf=%c%.1fVAr Qcf=%c%.1fVAr\r\n",
-                   sign[signt], (float)qt/PQS_ACCURACY_INT, sign[signa], (float)qa/PQS_ACCURACY_INT, sign[signb],
-                    (float)qb/PQS_ACCURACY_INT, sign[signc], (float)qc/PQS_ACCURACY_INT);
+            SYS_CMD_PRINT("Present reactive power%s (fundamental) is :\r\nQtf=%.1fVAr Qaf=%.1fVAr Qbf=%.1fVAr Qcf=%.1fVAr\r\n",
+                   perCycle[app_consoleData.perCyclePar],qt, qa, qb, qc);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3185,18 +3448,18 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_FUNDAMENTAL_APARENT_POWER:
         {
-            uint32_t st, sa, sb, sc;
+            float st, sa, sb, sc;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_STF, &st, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_SAF, &sa, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_SBF, &sb, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_SCF, &sc, 0);
+            APP_METROLOGY_GetMeasure(MEASURE_STF, &st, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_SAF, &sa, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_SBF, &sb, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_SCF, &sc, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present apparent power (fundamental) is :\r\nSt=%.1fVA Sa=%.1fVA Sb=%.1fVA Sc=%.1fVA\r\n",
-                   (float)st/PQS_ACCURACY_INT, (float)sa/PQS_ACCURACY_INT, (float)sb/PQS_ACCURACY_INT, (float)sc/PQS_ACCURACY_INT);
+            SYS_CMD_PRINT("Present apparent power%s (fundamental) is :\r\nSt=%.1fVA Sa=%.1fVA Sb=%.1fVA Sc=%.1fVA\r\n",
+                   perCycle[app_consoleData.perCyclePar], st, sa, sb, sc);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3205,14 +3468,14 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_FREQUENCY:
         {
-            uint32_t freq;
+            float freq;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_FREQ, &freq, 0);
+            APP_METROLOGY_GetMeasure(MEASURE_FREQ, &freq, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Present frequency is : \r\nFreq=%.2fHz\r\n", (float)freq/FREQ_ACCURACY_INT);
+            SYS_CMD_PRINT("Present frequency%s is : \r\nFreq=%.2fHz\r\n", perCycle[app_consoleData.perCyclePar], freq);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3221,19 +3484,18 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_TOTAL_FREQUENCY:
         {
-            uint32_t freq, freqA, freqB, freqC;
+            float freq, freqA, freqB, freqC;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_FREQ, &freq, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_FREQA, &freqA, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_FREQB, &freqB, 0);
-            APP_METROLOGY_GetMeasure(MEASURE_FREQC, &freqC, 0);
+            APP_METROLOGY_GetMeasure(MEASURE_FREQ, &freq, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_FREQA, &freqA, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_FREQB, &freqB, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_FREQC, &freqC, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Dominant frequency is : \r\nFreq=%.2fHz\r\n", (float)freq/FREQ_ACCURACY_INT);
-            SYS_CMD_PRINT("FreqA=%.2fHz, FreqB=%.2fHz, FreqC=%.2fHz\r\n",
-                (float)freqA/FREQ_ACCURACY_INT, (float)freqB/FREQ_ACCURACY_INT, (float)freqC/FREQ_ACCURACY_INT);
+            SYS_CMD_PRINT("Dominant frequency%s is : \r\nFreq=%.2fHz\r\n", perCycle[app_consoleData.perCyclePar], freq);
+            SYS_CMD_PRINT("FreqA=%.2fHz, FreqB=%.2fHz, FreqC=%.2fHz\r\n", freqA, freqB, freqC);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3242,20 +3504,20 @@ void APP_CONSOLE_Tasks ( void )
 
         case APP_CONSOLE_STATE_PRINT_ANGLE:
         {
-            uint32_t aa, ab, ac, an;
-            DRV_METROLOGY_MEASURE_SIGN signa, signb, signc, signn;
+            float aa, ab, ac, an, aab, aac;
 
             // Remove Prompt symbol
             _removePrompt();
 
-            APP_METROLOGY_GetMeasure(MEASURE_ANGLEA, &aa, &signa);
-            APP_METROLOGY_GetMeasure(MEASURE_ANGLEB, &ab, &signb);
-            APP_METROLOGY_GetMeasure(MEASURE_ANGLEC, &ac, &signc);
-            APP_METROLOGY_GetMeasure(MEASURE_ANGLEN, &an, &signn);
+            APP_METROLOGY_GetMeasure(MEASURE_ANGLEA, &aa, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_ANGLEB, &ab, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_ANGLEC, &ac, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_ANGLEN, &an, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_ANGLEVAB, &aab, app_consoleData.perCyclePar);
+            APP_METROLOGY_GetMeasure(MEASURE_ANGLEVAC, &aac, app_consoleData.perCyclePar);
             // Show received data on console
-            SYS_CMD_PRINT("Voltage and current angle is : \r\nAngle_A=%c%.3f Angle_B=%c%.3f Angle_C=%c%.3f Angle_N=%c%.3f\r\n",
-                    sign[signa], (float)aa/ANGLE_ACCURACY_INT, sign[signb], (float)ab/ANGLE_ACCURACY_INT,
-                    sign[signc], (float)ac/ANGLE_ACCURACY_INT, sign[signn], (float)an/ANGLE_ACCURACY_INT);
+            SYS_CMD_PRINT("Voltage and current angle%s is : \r\nAngle_A=%.3f Angle_B=%.3f Angle_C=%.3f Angle_N=%.3f Angle_VAB=%.3f Angle_VAC=%.3f\r\n",
+                     perCycle[app_consoleData.perCyclePar], aa, ab, ac, an, aab, aac);
 
             // Go back to IDLE
             app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
@@ -3372,6 +3634,36 @@ void APP_CONSOLE_Tasks ( void )
             break;
         }
 
+        case APP_CONSOLE_STATE_READ_CHANNELS_CONFIG:
+        {
+            DRV_METROLOGY_CHANNEL *pChannels;
+            DRV_METROLOGY_AFE_TYPE afeType;
+            uint8_t index;
+            uint8_t indexMax;
+
+            // Remove Prompt symbol
+            _removePrompt();
+
+            // Read AFE devices
+            afeType = APP_METROLOGY_GetAFEDescription(gConsoleAFEDesc);
+            SYS_CMD_PRINT("AFE device: %s (type %u)\r\n\r\n", gConsoleAFEDesc, afeType);
+
+            // Read channels configuration
+            SYS_CMD_PRINT("Channel X:\tName\tGAIN\tSENSOR TYPE\r\n");
+            indexMax = APP_METROLOGY_GetChannelsDescription(&pChannels);
+            for (index = 0; index < indexMax; index++)
+            {
+                SYS_CMD_PRINT("Channel %u:\t%s\tGAIN_%u\t%s\r\n", index,
+                              pChannels->name, 1 << pChannels->gain,
+                              gConsoleSensorTypes[pChannels->sensorType]);
+                pChannels++;
+            }
+
+            // Go back to Idle
+            app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
+            break;
+        }
+
         case APP_CONSOLE_STATE_DELAY:
         {
             // Wait delay time
@@ -3400,6 +3692,64 @@ void APP_CONSOLE_Tasks ( void )
                     app_consoleData.state = app_consoleData.nextState;
                 }
             }
+            break;
+        }
+
+        case APP_CONSOLE_STATE_SYN_DISABLE:
+        {
+            // Remove Prompt symbol
+            _removePrompt();
+
+            // Stop Synthesizer
+            APP_METROLOGY_GetControlRegister(CONTROL_FEATURE_CTRL, &regValue32[0], regName[0]);
+            regValue32[0] &= ~FEATURE_CTRL_SYNTH_EN_Msk;
+            APP_METROLOGY_SetControlRegister(CONTROL_FEATURE_CTRL, regValue32[0]);
+
+            // disable synthesizer
+            app_consoleData.synIsRunning = false;
+
+            // Free all reserved memory used in descriptors and samples data
+            _freeSyncDescriptors(app_consoleData.pSynCurrentDesc);
+
+            SYS_CMD_MESSAGE("Synthesizer stopped\r\n");
+
+            // Go back to Idle
+            app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
+            break;
+        }
+
+        case APP_CONSOLE_STATE_SYN_ENABLE:
+        {
+            DRV_METROLOGY_SYN_DESCRIPTOR *pDesc;
+
+            // Remove Prompt symbol
+            _removePrompt();
+
+            // Check if at least 1 samples data has been configured
+            pDesc = app_consoleData.pSynDescriptor;
+            if ((pDesc != NULL) && (pDesc->pData != NULL))
+            {
+                // Set Synthesizer descriptor address
+                regValue32[0] = (uint32_t)app_consoleData.pSynDescriptor;
+                APP_METROLOGY_SetControlRegister(CONTROL_SYNTH_ADDR, regValue32[0]);
+
+                // Start Synthesizer
+                APP_METROLOGY_GetControlRegister(CONTROL_FEATURE_CTRL, &regValue32[0], regName[0]);
+                regValue32[0] |= FEATURE_CTRL_SYNTH_EN_Msk;
+                APP_METROLOGY_SetControlRegister(CONTROL_FEATURE_CTRL, regValue32[0]);
+
+                // enable synthesizer
+                app_consoleData.synIsRunning = true;
+
+                SYS_CMD_MESSAGE("Synthesizer started\r\n");
+            }
+            else
+            {
+                SYS_CMD_MESSAGE("Synthesizer fails\r\n");
+            }
+
+            // Go back to Idle
+            app_consoleData.state = APP_CONSOLE_STATE_PROMPT;
             break;
         }
 

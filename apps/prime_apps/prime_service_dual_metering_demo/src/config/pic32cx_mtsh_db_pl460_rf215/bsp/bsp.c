@@ -75,10 +75,6 @@ void BSP_Initialize(void )
     BSP_RF215_LED_RX_Off();
     /* Switch off RF215_LED_TX */
     BSP_RF215_LED_TX_Off();
-    /* Switch off RED_LED_PD17 */
-    BSP_RED_LED_PD17_Off();
-    /* Switch off RED_LED_PD18 */
-    BSP_RED_LED_PD18_Off();
 
 }
 

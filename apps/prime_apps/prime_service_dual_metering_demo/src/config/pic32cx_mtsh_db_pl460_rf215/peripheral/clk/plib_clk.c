@@ -514,6 +514,8 @@ static void PeripheralClockInitialize(void)
 
         { ID_TRNG, 1U, 0U, 0U, 0U},
 
+        { ID_ICM, 1U, 0U, 0U, 0U},
+
         { ID_CPKCC, 1U, 0U, 0U, 0U},
 
         { ID_PIOD, 1U, 0U, 0U, 0U},
@@ -546,7 +548,7 @@ static void PeripheralClockInitialize(void)
 /*********************************************************************************
                                 Clock Initialize
 *********************************************************************************/
-void CLK_Initialize( void )
+void CLOCK_Initialize( void )
 {
     if(RSTC_PMCResetStatusGet())
     {
