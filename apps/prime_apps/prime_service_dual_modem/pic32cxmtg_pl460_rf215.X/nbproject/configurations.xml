@@ -976,7 +976,7 @@
                         PD="dist/pic32cxmt_pl460/production/pic32cxmt_pl460.X.production.elf"
                         DD="dist/pic32cxmt_pl460/debug/pic32cxmt_pl460.X.debug.elf">
           </makeArtifact>
-          <loadableFile>../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin/PLC_PHY_PRIME_2CHN.hex</loadableFile>
+          <loadableFile>../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/bin/PLC_PHY_PRIME_2CHN.hex</loadableFile>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
@@ -987,7 +987,7 @@
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>true</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
-        <makeCustomizationPreStep>cd "../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex &amp;&amp; ls -all</makeCustomizationPreStep>
+        <makeCustomizationPreStep>cd "../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex</makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>

@@ -80,8 +80,8 @@ static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE rese
 }
 
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.8 deviated 6 times. Deviation record ID - H3_MISRAC_2012_R_5_8_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.8 deviated 6 times. Deviation record ID - H3_MISRAC_2023_R_5_8_DR_1 */
 void HardFault_Handler(void)
 {
     __asm volatile(
@@ -132,7 +132,7 @@ void DWDT0_Handler(void)
         "B DumpStack    \n");
 }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 volatile uint32_t saved_r0;
 volatile uint32_t saved_r1;
@@ -175,7 +175,7 @@ void DumpStack(uint32_t stack[])
     if ((saved_hfsr & (1UL << 30)) != 0U)
     {
         resetType = RESET_HANDLER_HARD_FAULT_RESET;
-    
+
     } /* Check bus fault on a vector table */
     else if ((saved_hfsr & (1U << 1)) != 0U)
     {

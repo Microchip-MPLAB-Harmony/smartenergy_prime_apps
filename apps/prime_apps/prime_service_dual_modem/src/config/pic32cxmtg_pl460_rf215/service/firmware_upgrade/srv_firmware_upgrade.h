@@ -492,7 +492,6 @@ void SRV_FU_End(SRV_FU_RESULT fuResult);
 */
 bool SRV_FU_SwapFirmware(void);
 
-
 // ****************************************************************************
 /* Function:
    void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)

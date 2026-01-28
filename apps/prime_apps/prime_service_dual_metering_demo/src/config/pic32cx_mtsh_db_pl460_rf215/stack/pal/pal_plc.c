@@ -421,7 +421,7 @@ static void lPAL_PLC_SetCorrelationThresholds(DRV_PLC_PHY_CHANNEL channel)
     }
 
     palPlcData.plcPIB.id = PLC_ID_SYNC_THRESHOLDS;
-    palPlcData.plcPIB.length = sizeof(corrThresholds);
+    palPlcData.plcPIB.length = (uint16_t)sizeof(corrThresholds);
     palPlcData.plcPIB.pData = (uint8_t *)corrThresholds;
     (void)DRV_PLC_PHY_PIBSet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
 }
@@ -430,7 +430,7 @@ static bool lPAL_PLC_CheckChannelInListImpDetect(DRV_PLC_PHY_CHANNEL channel)
 {
     uint8_t channelNum = (uint8_t)channel;
 
-    if ((1U << (channelNum - 1U)) & palPlcData.channelListImpDetect)
+    if (((uint16_t)(1U << (channelNum - 1U)) & palPlcData.channelListImpDetect) != 0U)
     {
         return true;
     }
@@ -971,7 +971,7 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
         return ((uint8_t)PAL_TX_RESULT_PHY_ERROR);
     }
 
-    if ((palPlcData.impedanceDetectOngoing == true) && (pMessageData->buffId == 1))
+    if ((palPlcData.impedanceDetectOngoing == true) && (pMessageData->buffId == 1U))
     {
         return (uint8_t)PAL_TX_RESULT_BUSY_TX;
     }

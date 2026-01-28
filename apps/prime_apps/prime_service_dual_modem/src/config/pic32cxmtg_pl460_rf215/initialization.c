@@ -67,10 +67,10 @@
 // *****************************************************************************
 // *****************************************************************************
 /* Following MISRA-C rules are deviated in the below code block */
-/* MISRA C-2012 Rule 7.2 - Deviation record ID - H3_MISRAC_2012_R_7_2_DR_1 */
-/* MISRA C-2012 Rule 11.1 - Deviation record ID - H3_MISRAC_2012_R_11_1_DR_1 */
-/* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
-/* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+/* MISRA C-2023 Rule 7.2 - Deviation record ID - H3_MISRAC_2023_R_7_2_DR_1 */
+/* MISRA C-2023 Rule 11.1 - Deviation record ID - H3_MISRAC_2023_R_11_1_DR_1 */
+/* MISRA C-2023 Rule 11.3 - Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
+/* MISRA C-2023 Rule 11.8 - Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 // <editor-fold defaultstate="collapsed" desc="DRV_RF215 Initialization Data">
 
 /* RF215 Driver Initialization Data */
@@ -103,9 +103,9 @@ static const DRV_RF215_INIT drvRf215InitData = {
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="_on_reset() critical function">
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
-/* MISRA C-2012 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2012_R_21_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_8_4_DR_1 */
+/* MISRA C-2023 Rule 21.2 deviated once. Deviation record ID - H3_MISRAC_2023_R_21_2_DR_1 */
 
 /* This routine must initialize the PL460 control pins as soon as possible */
 /* after a power up reset to avoid risks on starting up PL460 device when */
@@ -123,7 +123,7 @@ void _on_reset(void)
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
 }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // </editor-fold>
 
@@ -201,8 +201,8 @@ static DRV_PLC_HAL_INTERFACE drvPLCHalAPI = {
 
 // <editor-fold defaultstate="collapsed" desc="DRV_PLC_PHY Initialization Data">
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_8_4_DR_1 */
 
 /* PLC Driver Initialization Data */
 DRV_PLC_PHY_INIT drvPlcPhyInitData = {
@@ -211,20 +211,20 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .plcHal = &drvPLCHalAPI,
 
     /* PLC PHY Number of clients */
-    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,  
+    .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,
 
     /* PLC Binary start address */
     .binStartAddress = DRV_PLC_BIN_START_ADDRESS,
-    
+
     /* PLC Binary end address */
     .binEndAddress = DRV_PLC_BIN_START_ADDRESS + DRV_PLC_BIN_SIZE - 1,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
-    
+
 };
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_MEMORY Instance 0 Initialization Data">
@@ -397,7 +397,7 @@ static const SYS_DEBUG_INIT debugInit =
 // *****************************************************************************
 // *****************************************************************************
 
-/* MISRAC 2012 deviation block end */
+/* MISRAC 2023 deviation block end */
 
 /*******************************************************************************
   Function:
@@ -412,8 +412,8 @@ static const SYS_DEBUG_INIT debugInit =
 void SYS_Initialize ( void* data )
 {
 
-    /* MISRAC 2012 deviation block start */
-    /* MISRA C-2012 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2012_R_2_2_DR_1 */
+    /* MISRAC 2023 deviation block start */
+    /* MISRA C-2023 Rule 2.2 deviated in this file.  Deviation record ID -  H3_MISRAC_2023_R_2_2_DR_1 */
 
 
     SEFC0_Initialize();
@@ -432,9 +432,9 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM7_USART_Initialize();
 
+    ADC_Initialize();
     FLEXCOM3_SPI_Initialize();
 
-    ADC_Initialize();
     FLEXCOM5_SPI_Initialize();
 
  
@@ -447,10 +447,10 @@ void SYS_Initialize ( void* data )
 
     BSP_Initialize();
 
-    /* MISRAC 2012 deviation block start */
+    /* MISRAC 2023 deviation block start */
     /* Following MISRA-C rules deviated in this block  */
-    /* MISRA C-2012 Rule 11.3 - Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
-    /* MISRA C-2012 Rule 11.8 - Deviation record ID - H3_MISRAC_2012_R_11_8_DR_1 */
+    /* MISRA C-2023 Rule 11.3 - Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
+    /* MISRA C-2023 Rule 11.8 - Deviation record ID - H3_MISRAC_2023_R_11_8_DR_1 */
 
     /* Initialize RF215 Driver Instance */
     sysObj.drvRf215 = DRV_RF215_Initialize(DRV_RF215_INDEX_0, (SYS_MODULE_INIT *)&drvRf215InitData);
@@ -500,19 +500,19 @@ void SYS_Initialize ( void* data )
 
 /* Initialize PRIME */
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
     sysObj.primeStack = PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&primeInitData);
 
 
-    /* MISRAC 2012 deviation block end */
+    /* MISRAC 2023 deviation block end */
     APP_Initialize();
 
 
     NVIC_Initialize();
 
 
-    /* MISRAC 2012 deviation block end */
+    /* MISRAC 2023 deviation block end */
 }
 
 /*******************************************************************************

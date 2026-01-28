@@ -85,8 +85,8 @@ Microchip or any third party.
 #define VLO_STATE                              0x02U
 
 /* Signal Capture Mode Bit Mask */
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.4 deviated 22 times. Deviation record ID - H3_MISRAC_2012_R_5_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.4 deviated 22 times. Deviation record ID - H3_MISRAC_2023_R_5_4_DR_1 */
 #define DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT 0U
 #define DRV_PLC_SIGNAL_CAPTURE_CHANNEL (0xFU << DRV_PLC_SIGNAL_CAPTURE_CHANNEL_SHIFT)
 #define DRV_PLC_SIGNAL_CAPTURE_SIGNAL_SHIFT 4U
@@ -109,7 +109,7 @@ Microchip or any third party.
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_6 0x06U
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_7 0x07U
 #define DRV_PLC_SIGNAL_CAPTURE_CHN_8 0x08U
-    /* MISRA C-2012 deviation block end */
+    /* MISRA C-2023 deviation block end */
 
 #define SIGNAL_CAPTURE_FRAG_SIZE                  255U
 
@@ -225,8 +225,8 @@ typedef enum {
   PLC_ID_IMPULSIVE_NOISE_dBuV,
   PLC_ID_TX_RMS_CALC_PER_CARRIER,
   PLC_ID_TX_RMS_CALC_PER_CARRIER_2,
-  PLC_ID_TX_RMS_CALC_CARRIER_MASK_HI,
-  PLC_ID_TX_RMS_CALC_CARRIER_MASK_VLO,
+  PLC_ID_TX_RMS_CALC_HI_CARRIER_MASK,
+  PLC_ID_TX_RMS_CALC_VLO_CARRIER_MASK,
   PLC_ID_END_ID,
 } DRV_PLC_PHY_ID;
 
@@ -332,8 +332,8 @@ typedef enum {
   TX_BUFFER_1 = 1,
 } DRV_PLC_PHY_BUFFER_ID;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 5.2 deviated 5 times.  Deviation record ID - H3_MISRAC_2012_R_5_2_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.2 deviated 5 times.  Deviation record ID - H3_MISRAC_2023_R_5_2_DR_1 */
 
 // *****************************************************************************
 /* PRIME Result values of a previous transmission
@@ -378,7 +378,7 @@ typedef enum {
   DRV_PLC_PHY_TX_RESULT_NO_TX = 255,
 } DRV_PLC_PHY_TX_RESULT;
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 /* Signal Capture States */
 typedef enum {
@@ -393,8 +393,8 @@ typedef struct {
 	uint8_t status;
 } DRV_PLC_PHY_SIGNAL_CAPTURE;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 6.1 deviated 3 times. Deviation record ID - H3_MISRAC_2012_R_6_1_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 6.1 deviated 3 times. Deviation record ID - H3_MISRAC_2023_R_6_1_DR_1 */
 /* Structure defining information about CSMA algorithm */
 typedef struct {
   /* Use CSMA (0) or forced transmission (1) */
@@ -404,7 +404,7 @@ typedef struct {
   /* CSMA Sense delay in milliseconds */
   uint8_t senseDelayMs : 4;
 } DRV_PLC_PHY_CSMA;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 // *****************************************************************************
 /* PRIME Transmission setup data

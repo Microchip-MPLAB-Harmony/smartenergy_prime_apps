@@ -78,10 +78,10 @@ static PRIME_API_INIT primeApiInit;
 SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     const SYS_MODULE_INIT * init)
 {
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
     const PRIME_STACK_INIT* primeInit = (const PRIME_STACK_INIT *)init;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
     /* Validate the request */
     if (index >= PRIME_INSTANCES_NUMBER)
@@ -94,7 +94,7 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     primeApiInit.palIndex = primeInit->palIndex;
     primeApiInit.mngPlaneUsiPort = primeInit->mngPlaneUsiPort;
     primeApiInit.halApi = &primeHalAPI;
-    
+
     /* Get the PRIME version */
     SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
 
@@ -140,7 +140,7 @@ void PRIME_Tasks(SYS_MODULE_OBJ object)
             primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit, false, primeObj.primeVersion);
             primeObj.status = PRIME_STATUS_INITIALIZING;
             break;
-            
+
         case PRIME_STATUS_RESTART:
             primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit, true, primeObj.primeVersion);
             primeObj.status = PRIME_STATUS_INITIALIZING;
@@ -173,10 +173,10 @@ void PRIME_Tasks(SYS_MODULE_OBJ object)
 void PRIME_Restart(uint32_t *primePtr, uint8_t version)
 {
     /* Set PRIME API pointer */
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 11.3 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
     primeObj.primeApi = (const PRIME_API *)primePtr;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
     /* Set new PRIME version */
     primeObj.primeVersion = version;

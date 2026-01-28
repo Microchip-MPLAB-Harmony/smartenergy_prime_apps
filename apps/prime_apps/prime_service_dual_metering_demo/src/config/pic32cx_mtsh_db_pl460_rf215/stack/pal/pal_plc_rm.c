@@ -49,7 +49,7 @@ Microchip or any third party.
 #include "pal_plc_local.h"
 #include "pal_plc_rm.h"
 
-#define SNR_MIN_DBPSK_C                  9
+#define SNR_MIN_DBPSK_C                  9U
 
 #define CINR_CONV(x)                     (((((int16_t)x) + 1000) * 4) / 100)
 #define EVM_INV_CONV(x)                  ((((uint32_t)x) * 512U) / 10U)
@@ -314,13 +314,16 @@ void PAL_PLC_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, PAL_SCHEME
 	if ((pIndObj->scheme == (DRV_PLC_PHY_SCH) PAL_SCHEME_DBPSK_C) &&
 		(palPlcRmBandwidth[bestModulation] >= palPlcRmBandwidth[PAL_SCHEME_DBPSK_C]))
 	{
-	  	PAL_PLC_GetConfiguration(PAL_ID_PLC_IMPULSIVE_NOISE_dBuV, &impulsiveNoise, 1U);
-
-	  	if (pIndObj->rssiAvg < (impulsiveNoise + SNR_MIN_DBPSK_C)) {
-	  		bestModulation = PAL_OUTDATED_INF;
-	  	}
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 18.6 deviated once. Deviation record ID - H3_MISRAC_2023_R_18_6_DR_1. */
+	  	if(PAL_CFG_SUCCESS == (PAL_CFG_RESULT)PAL_PLC_GetConfiguration((uint16_t)PAL_ID_PLC_IMPULSIVE_NOISE_dBuV, &impulsiveNoise, 1U)){
+/* MISRA C-2023 deviation block end */
+			if (pIndObj->rssiAvg < (impulsiveNoise + SNR_MIN_DBPSK_C)) {
+				bestModulation = PAL_OUTDATED_INF;
+			}
+		}
 	}
-	
+
 	*pModulation = (PAL_SCHEME)(bestModulation);
 	if (pch >= (uint16_t)CHN1_CHN2)
 	{
