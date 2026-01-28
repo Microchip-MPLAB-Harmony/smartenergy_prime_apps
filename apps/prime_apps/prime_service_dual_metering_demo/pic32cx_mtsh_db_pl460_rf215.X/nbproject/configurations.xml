@@ -1031,8 +1031,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.4.152"/>
         <pack name="CMSIS" vendor="ARM" version="6.2.0"/>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.4.152"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -1104,7 +1104,7 @@
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>true</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
-        <makeCustomizationPreStep>cd "../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex</makeCustomizationPreStep>
+        <makeCustomizationPreStep>cd "../src/config/pic32cx_mtsh_db_pl460_rf215/driver/plc/phy/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex &amp;&amp; ls -all</makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
         <makeCustomizationPostStep></makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
@@ -1114,7 +1114,6 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -1164,7 +1163,6 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1196,7 +1194,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1243,7 +1240,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1272,7 +1268,6 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>
