@@ -147,7 +147,7 @@ static void lSRV_FU_TransferHandler
         if (memInfo.state == SRV_FU_CALCULATE_CRC_BLOCK)
         {
             /* Calculating CRC.... no callback*/
-            crcState = SRC_FU_CRC_CALCULATING;
+            crcState = SRV_FU_CRC_CALCULATING;
             return;
         }
         else
@@ -342,7 +342,7 @@ void SRV_FU_Tasks(void)
 
         case SRV_FU_CALCULATE_CRC_BLOCK:
         {
-            if (crcState == SRC_FU_CRC_CALCULATING)
+            if (crcState == SRV_FU_CRC_CALCULATING)
             {
                 calculatedCrc = SRV_PCRC_GetValue(pBuffInput, crcSize, PCRC_HT_GENERIC, PCRC_CRC32,
                                      calculatedCrc);
@@ -408,11 +408,11 @@ void SRV_FU_Tasks(void)
         case SRV_FU_MEM_STATE_WRITE_WAIT_END:
         case SRV_FU_MEM_STATE_CMD_WAIT:
         case SRV_FU_MEM_UNINITIALIZED:
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
          default:
             break;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
     }
 }
 
@@ -522,11 +522,11 @@ void SRV_FU_End(SRV_FU_RESULT fuResult)
         case SRV_FU_RESULT_FW_CONFIRM:
             SRV_FU_ResultCallback(fuResult);
             break;
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
         default:
             break;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
     }
 }
 

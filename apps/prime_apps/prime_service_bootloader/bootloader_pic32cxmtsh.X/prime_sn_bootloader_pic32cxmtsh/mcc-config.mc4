@@ -20,7 +20,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cxmtsh\configuration.h
   hash: 321175fed312776d5e0da9d63da1fca0673933ab0298c1d9a4aeb32cf5873639
 - file: ..\src\config\pic32cxmtsh\definitions.h
-  hash: 3870b6640084bf28e5b727db5637d0e8d3f00ffe60d48a71adeab2ae32a21e53
+  hash: f6c673130f63fb65176fc2f110ae5cdeb53c50270fc6a94659fbfbf961e506b5
 - file: ..\src\config\pic32cxmtsh\device.h
   hash: 31f7ac2b10db22dd9085d8e61fa72a36d0300c3c8e09df0d2c23c3d3636c8b40
 - file: ..\src\config\pic32cxmtsh\device_cache.h

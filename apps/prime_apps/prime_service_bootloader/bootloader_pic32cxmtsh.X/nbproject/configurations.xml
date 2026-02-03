@@ -298,7 +298,7 @@
       </toolsSet>
       <packs>
         <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.4.152"/>
-        <pack name="CMSIS" vendor="ARM" version="6.2.0"/>
+        <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>

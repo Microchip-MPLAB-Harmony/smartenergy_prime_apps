@@ -147,7 +147,7 @@ static void lSRV_FU_TransferHandler
         if (memInfo.state == SRV_FU_CALCULATE_CRC_BLOCK)
         {
             /* Calculating CRC.... no callback*/
-            crcState = SRC_FU_CRC_CALCULATING;
+            crcState = SRV_FU_CRC_CALCULATING;
             return;
         }
         else
@@ -342,7 +342,7 @@ void SRV_FU_Tasks(void)
 
         case SRV_FU_CALCULATE_CRC_BLOCK:
         {
-            if (crcState == SRC_FU_CRC_CALCULATING)
+            if (crcState == SRV_FU_CRC_CALCULATING)
             {
                 calculatedCrc = SRV_PCRC_GetValue(pBuffInput, crcSize, PCRC_HT_GENERIC, PCRC_CRC32,
                                      calculatedCrc);

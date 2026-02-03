@@ -175,6 +175,11 @@ extern "C" {
 // Section: Middleware & Other Library Configuration
 // *****************************************************************************
 // *****************************************************************************
+/* Service Firmware Upgrade RTOS configuration */
+#define SRV_FU_RTOS_STACK_SIZE         3584U
+#define SRV_FU_RTOS_TASK_PRIORITY          2U
+#define SRV_FU_RTOS_TASK_DELAY_MS          1U
+
 /* PRIME stack RTOS configuration */
 #define PRIME_STACK_RTOS_STACK_SIZE         3584U
 #define PRIME_STACK_RTOS_TASK_PRIORITY          2U

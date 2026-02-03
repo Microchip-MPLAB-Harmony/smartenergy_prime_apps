@@ -321,7 +321,7 @@ void CL_NULL_ReleaseResponse(uint16_t conHandle,
     The result of the request is returned in the confirm callback.
 */
 void CL_NULL_JoinRequest(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHandle,
-    uint8_t *eui48, MAC_CONNECTION_TYPE conType, uint8_t *data, uint16_t dataLen,
+    uint8_t *eui48, uint8_t conType, uint8_t *data, uint16_t dataLen,
     uint8_t ae);
 
 // *****************************************************************************

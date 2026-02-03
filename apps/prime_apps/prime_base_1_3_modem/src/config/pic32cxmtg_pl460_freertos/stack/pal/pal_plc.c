@@ -361,10 +361,10 @@ static uint32_t lPAL_PLC_GetHostTime(uint32_t timePlc)
     /* Convert PLC delay to Host delay (frequency deviation) */
     delayAux = delayPlc * (int64_t)palPlcData.syncTimerRelFreq;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 10.1 deviated once. Deviation record ID - H3_MISRAC_2012_R_10_1_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 10.1 deviated once. Deviation record ID - H3_MISRAC_2023_R_10_1_DR_1 */
     delayHost = (delayAux + (1L << 23)) >> 24;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
     /* Compute Host time */
     timeHost = (int64_t)palPlcData.timeRefHost + delayHost;
@@ -381,12 +381,12 @@ static uint32_t lPAL_PLC_GetPlcTime(uint32_t timeHost)
     /* Compute Host delay time since last synchronization */
     delayHost = (int64_t)(timeHost) - (int64_t)(palPlcData.timeRefHost);
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 10.1 deviated twice. Deviation record ID - H3_MISRAC_2012_R_10_1_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 10.1 deviated twice. Deviation record ID - H3_MISRAC_2023_R_10_1_DR_1 */
 /* Convert Host delay to PLC delay (frequency deviation) */
     delayPlc = delayHost << 24;
     delayPlc = DIV_ROUND(delayPlc, (int64_t)(palPlcData.syncTimerRelFreq));
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
     /* Compute PLC time */
     timePlc = (int64_t)(palPlcData.timeRefPlc) + delayPlc;
@@ -421,7 +421,7 @@ static void lPAL_PLC_SetCorrelationThresholds(DRV_PLC_PHY_CHANNEL channel)
     }
 
     palPlcData.plcPIB.id = PLC_ID_SYNC_THRESHOLDS;
-    palPlcData.plcPIB.length = sizeof(corrThresholds);
+    palPlcData.plcPIB.length = (uint16_t)sizeof(corrThresholds);
     palPlcData.plcPIB.pData = (uint8_t *)corrThresholds;
     (void)DRV_PLC_PHY_PIBSet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
 }
@@ -430,7 +430,7 @@ static bool lPAL_PLC_CheckChannelInListImpDetect(DRV_PLC_PHY_CHANNEL channel)
 {
     uint8_t channelNum = (uint8_t)channel;
 
-    if ((1U << (channelNum - 1U)) & palPlcData.channelListImpDetect)
+    if ((((uint16_t)1U << (channelNum - 1U)) & palPlcData.channelListImpDetect) != 0U)
     {
         return true;
     }
@@ -824,8 +824,8 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(void)
     if (palPlcData.drvPhyStatus == SYS_STATUS_UNINITIALIZED)
     {
         /* Initialize PLC Driver Instance */
-    /* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
+    /* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 11.3 deviated twice. Deviation record ID - H3_MISRAC_2023_R_11_3_DR_1 */
     (void) DRV_PLC_PHY_Initialize(DRV_PLC_PHY_INDEX, (SYS_MODULE_INIT *)&drvPlcPhyInitData);
 
     }
@@ -971,7 +971,7 @@ uint8_t PAL_PLC_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
         return ((uint8_t)PAL_TX_RESULT_PHY_ERROR);
     }
 
-    if ((palPlcData.impedanceDetectOngoing == true) && (pMessageData->buffId == 1))
+    if ((palPlcData.impedanceDetectOngoing == true) && (pMessageData->buffId == 1U))
     {
         return (uint8_t)PAL_TX_RESULT_BUSY_TX;
     }
@@ -1328,7 +1328,7 @@ uint8_t PAL_PLC_GetConfiguration(uint16_t id, void *pValue, uint16_t length)
         case PAL_ID_PLC_IMPULSIVE_NOISE_dBuV:
             plcID = PLC_ID_IMPULSIVE_NOISE_dBuV;
             askPhy = true;
-            break;	  
+            break;
 
         default:
             if (id >= 0xFD00U)

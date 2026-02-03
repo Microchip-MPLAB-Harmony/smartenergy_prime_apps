@@ -430,7 +430,7 @@ static bool lPAL_PLC_CheckChannelInListImpDetect(DRV_PLC_PHY_CHANNEL channel)
 {
     uint8_t channelNum = (uint8_t)channel;
 
-    if (((uint16_t)(1U << (channelNum - 1U)) & palPlcData.channelListImpDetect) != 0U)
+    if ((((uint16_t)1U << (channelNum - 1U)) & palPlcData.channelListImpDetect) != 0U)
     {
         return true;
     }

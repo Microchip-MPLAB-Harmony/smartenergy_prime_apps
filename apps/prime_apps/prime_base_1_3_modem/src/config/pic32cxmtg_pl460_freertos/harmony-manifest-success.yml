@@ -4,18 +4,18 @@
 
 
 project: prime_bn_13_modem_freertos
-creation_date: 2025-12-18T13:53:06.196+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2026-02-12T08:09:15.262+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3
 mcc_core_version: v5.8.3
 mplabx_version: v6.25        # if MPLAB X plugin only
 harmony_version: v5.6.3
-compiler: XC32 4.60
+compiler: XC32 5.00
 
 modules:
-    - {name: "csp", version: "v3.23.0"}
-    - {name: "core", version: "v3.15.5"}
+    - {name: "csp", version: "v3.25.0"}
+    - {name: "core", version: "v3.16.0"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "smartenergy_prime", version: "v1.1.0"}
     - {name: "FreeRTOS-Kernel", version: "V11.1.0"}

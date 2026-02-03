@@ -304,6 +304,40 @@ static uint8_t lAPP_BOOTLOADER_SwapFwVersion(uint32_t imgSize,
 
     return 1;
 }
+
+static void lAPP_BOOTLOADER_DowngradeClockSytem(void)
+{
+    /* Program PMC_CPU_CKR.PRES and wait for PMC_SR.MCKRDY to be set   */
+    uint32_t reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_PRES_Msk);
+    PMC_REGS->PMC_CPU_CKR = (reg | PMC_CPU_CKR_PRES_CLK_1);
+    while ((PMC_REGS->PMC_SR & PMC_SR_MCKRDY_Msk) != PMC_SR_MCKRDY_Msk)
+    {
+        /* Wait for status MCKRDY */
+    }
+
+    /* Program PMC_CPU_CKR.CSS and MCK dividers and Wait for PMC_SR.MCKRDY to be set    */
+    reg = (PMC_REGS->PMC_CPU_CKR & ~(PMC_CPU_CKR_CSS_Msk |
+                                     PMC_CPU_CKR_RATIO_MCK0DIV_Msk |
+                                     PMC_CPU_CKR_RATIO_MCK0DIV2_Msk));
+    reg |= PMC_CPU_CKR_CSS_MD_SLOW_CLK;
+    PMC_REGS->PMC_CPU_CKR = reg;
+    while ((PMC_REGS->PMC_SR & PMC_SR_MCKRDY_Msk) != PMC_SR_MCKRDY_Msk)
+    {
+        /* Wait for status MCKRDY */
+    }
+
+    /* Disable Flash high speed patch */;
+    SFR_REGS->SFR_WPMR = SFR_WPMR_WPKEY_PASSWD;
+    SFR_REGS->SFR_FLASH = SFR_FLASH_Msk;
+    SFR_REGS->SFR_WPMR = (SFR_WPMR_WPKEY_PASSWD | SFR_WPMR_WPEN_Msk);
+
+    CLK_Core1BusMasterClkDisable();
+
+    /* Disable PLLs (first PLLB) */
+    CLK_PLLDisable(PLLB);
+    CLK_PLLDisable(PLLA);
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Initialization and State Machine Functions
@@ -427,6 +461,9 @@ void APP_BOOTLOADER_Tasks(void) {
 
             __disable_irq();
 
+            /* Downgrade clock system */
+            lAPP_BOOTLOADER_DowngradeClockSytem();
+
             /* Disable SysTick */
             SysTick->CTRL = 0;
 
@@ -443,9 +480,9 @@ void APP_BOOTLOADER_Tasks(void) {
             /* Set the stack pointer to the start of the firmware application */
             __set_MSP(*(int *) (BOOT_FLASH_APP_FIRMWARE_START_ADDRESS));
 
-            /* Offset the start of the vector table (first 6 bits must be 
+            /* Offset the start of the vector table (first 6 bits must be
              * zero) */
-            /* The register containing the offset, from 0x00000000, is at 
+            /* The register containing the offset, from 0x00000000, is at
              * 0xE000ED08 */
             SCB->VTOR = ((uint32_t) BOOT_FLASH_APP_FIRMWARE_START_ADDRESS &
                     SCB_VTOR_TBLOFF_Msk);
@@ -454,11 +491,11 @@ void APP_BOOTLOADER_Tasks(void) {
             __enable_irq();
             /* * (int *) 0xE000ED08 = FIRMWARE_START_ADDRESS; */
 
-            /* Jump to the start of the firmware, casting the address as 
-             * function pointer to the start of the firmware. We want to jump 
+            /* Jump to the start of the firmware, casting the address as
+             * function pointer to the start of the firmware. We want to jump
              * to the address of the reset. */
 
-            /* Handler function, that is the value that is being pointed at 
+            /* Handler function, that is the value that is being pointed at
              * position FIRMWARE_RESET_ADDRESS */
 
             void (*runFirmware)(void) = NULL;

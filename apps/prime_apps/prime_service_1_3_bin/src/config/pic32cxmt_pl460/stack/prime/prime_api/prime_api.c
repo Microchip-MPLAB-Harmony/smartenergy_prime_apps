@@ -73,13 +73,13 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_8_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 8.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_8_4_DR_1 */
 void __attribute__((optimize("-O1"), section(".text.Reset_Handler"), long_call)) Reset_Handler(void)
 {
     // Avoid warning in compilation. Reset Handler is not needed.
 }
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 __attribute__ ((section(".vectors"), used))
 static const PRIME_API PRIME_API_Interface =
@@ -162,10 +162,10 @@ static void lPRIME_API_SetPrimeVersion(MAC_VERSION_INFO *macInfo)
         copyLen = sizeInfo;
     }
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 7.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_7_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 7.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_7_4_DR_1 */
     (void)memcpy(macInfo->fwModel, PRIME_FW_MODEL, copyLen);
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
     macInfo->pibModel = PRIME_PIB_MODEL;
 
@@ -178,10 +178,10 @@ static void lPRIME_API_SetPrimeVersion(MAC_VERSION_INFO *macInfo)
         copyLen = sizeInfo;
     }
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 7.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_7_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 7.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_7_4_DR_1 */
     (void)memcpy(macInfo->fwVendor, PRIME_FW_VENDOR, copyLen);
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
     macInfo->pibVendor = PRIME_PIB_VENDOR;
 
@@ -194,10 +194,10 @@ static void lPRIME_API_SetPrimeVersion(MAC_VERSION_INFO *macInfo)
         copyLen = sizeInfo;
     }
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 7.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_7_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 7.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_7_4_DR_1 */
     (void)memcpy(macInfo->fwVersion, PRIME_FW_VERSION, copyLen);
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
 
 }
 
@@ -206,7 +206,7 @@ static void lPRIME_API_SetPrimeVersion(MAC_VERSION_INFO *macInfo)
 // Section: PRIME API Interface Implementation
 // *****************************************************************************
 // *****************************************************************************
-void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart, 
+void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart,
                           uint8_t primeVersion)
 {
     lPRIME_API_PrimeDataStartup();
@@ -232,11 +232,11 @@ void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart,
     {
         enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_SERIAL_EN);
     }
-    else 
+    else
     {
         enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_RF_EN);
     }
-    
+
     PRIME_HAL_WRP_PAL_Enable(palSysObj, enablePAL);
 
     primeApiState = PRIME_API_STATE_PAL_INITIALIZING;
@@ -281,11 +281,11 @@ void PRIME_API_Tasks(void)
 
             break;
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2012_R_16_4_DR_1 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 16.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_16_4_DR_1 */
          default:
             break;
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */
     }
 
 }

@@ -34,11 +34,11 @@ extern "C" {
 #endif
 
 
-/* MISRAC 2012 deviation block start */
-/* MISRA C-2012 Rule 21.2 deviated twice.  Deviation record ID -  H3_MISRAC_2012_R_21_2_DR_1 */
+/* MISRAC 2023 deviation block start */
+/* MISRA C-2023 Rule 21.2 deviated twice.  Deviation record ID -  H3_MISRAC_2023_R_21_2_DR_1 */
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
-#pragma coverity compliance block deviate:2 "MISRA C-2012 Rule 21.2" "H3_MISRAC_2012_R_21_2_DR_1"
+#pragma coverity compliance block deviate:2 "MISRA C-2023 Rule 21.2" "H3_MISRAC_2023_R_21_2_DR_1"
 /* Harmony specific
  * We implement only the syscalls we want over the stubs provided by libpic32c
  */
@@ -61,6 +61,6 @@ void _exit(int status)
 }
 #endif
 
-#pragma coverity compliance end_block "MISRA C-2012 Rule 21.2"
+#pragma coverity compliance end_block "MISRA C-2023 Rule 21.2"
 #pragma GCC diagnostic pop
-/* MISRAC 2012 deviation block end */
+/* MISRAC 2023 deviation block end */

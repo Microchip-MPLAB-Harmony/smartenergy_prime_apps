@@ -95,6 +95,18 @@ static void lAPP_Tasks(  void *pvParameters  )
 }
 
 
+static void lSRV_FU_Tasks(  void *pvParameters  )
+{
+    while(true)
+    {
+        /* Maintain Firmware Upgrade */
+        SRV_FU_Tasks();
+
+        vTaskDelay(SRV_FU_RTOS_TASK_DELAY_MS / portTICK_PERIOD_MS);
+    }
+}
+
+
 static void lPRIME_STACK_Tasks(  void *pvParameters  )
 {
     while(true)
@@ -160,8 +172,13 @@ void SYS_Tasks ( void )
 
     /* Maintain Middleware & Other Libraries */
         
-    /* Maintain Firmware Upgrade */
-    SRV_FU_Tasks();
+    (void) xTaskCreate( lSRV_FU_Tasks,
+        "SRV_FU_TASKS",
+        SRV_FU_RTOS_STACK_SIZE,
+        (void*)NULL,
+        SRV_FU_RTOS_TASK_PRIORITY,
+        (TaskHandle_t*)NULL
+    );
     
     (void) xTaskCreate( lPRIME_STACK_Tasks,
         "PRIME_STACK_TASKS",

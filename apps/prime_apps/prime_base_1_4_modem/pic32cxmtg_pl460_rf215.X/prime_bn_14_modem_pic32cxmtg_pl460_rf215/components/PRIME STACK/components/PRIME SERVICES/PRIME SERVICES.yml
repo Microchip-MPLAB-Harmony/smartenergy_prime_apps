@@ -17,17 +17,9 @@ dependency:
   type: package
   version: v3.16.0
 - dependencyPackage: ''
-  name: core
-  type: package
-  version: v3.16.0
-- dependencyPackage: ''
   name: crypto_v4
   type: package
   version: v4.0.0-E3
-- dependencyPackage: ''
-  name: csp
-  type: package
-  version: v3.25.0
 - dependencyPackage: ''
   name: csp
   type: package

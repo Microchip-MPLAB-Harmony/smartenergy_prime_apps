@@ -60,9 +60,9 @@ static char message[SYS_CONSOLE_PRINT_BUFFER_SIZE];
 // *****************************************************************************
 // *****************************************************************************
 
-/* MISRA C-2012 deviation block start */
-/* MISRA C-2012 Rule 17.1 deviated 6 times. Deviation record ID - H3_MISRAC_2012_R_17_1_DR_1 */
-/* MISRA C-2012 Rule 21.6 deviated 4 times. Deviation record ID - H3_MISRAC_2012_R_21_1_DR_6 */
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 17.1 deviated 6 times. Deviation record ID - H3_MISRAC_2023_R_17_1_DR_1 */
+/* MISRA C-2023 Rule 21.6 deviated 4 times. Deviation record ID - H3_MISRAC_2023_R_21_1_DR_6 */
 
 static va_list srvLogReportArgs;
 
@@ -154,4 +154,4 @@ void SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_LEVEL logLevel,
     SYS_DEBUG_PRINT((SYS_ERROR_LEVEL)logLevel, "\r\n");
 }
 
-/* MISRA C-2012 deviation block end */
+/* MISRA C-2023 deviation block end */

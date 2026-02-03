@@ -2,12 +2,12 @@
 
 manifest_file_version: 1.0.0
 project: prime_sn_bootloader
-creation_date: 2025-12-16T09:29:04.755+01:00[Europe/Paris]
+creation_date: 2026-02-11T15:41:23.781+01:00[Europe/Paris]
 operating_system: Windows 11
 mcc_mode: IDE
 mcc_mode_version: v6.25
 device_name: PIC32CX2051MTSH128
-compiler: XC32 4.60
+compiler: XC32 5.00
 mcc_version: 5.6.3
 mcc_core_version: 5.8.3
 content_manager_version: 6.0.3

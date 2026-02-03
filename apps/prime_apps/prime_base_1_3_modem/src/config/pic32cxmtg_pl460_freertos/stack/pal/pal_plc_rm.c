@@ -49,7 +49,7 @@ Microchip or any third party.
 #include "pal_plc_local.h"
 #include "pal_plc_rm.h"
 
-#define SNR_MIN_DBPSK_C                  9
+#define SNR_MIN_DBPSK_C                  9U
 
 #define CINR_CONV(x)                     (((((int16_t)x) + 1000) * 4) / 100)
 #define EVM_INV_CONV(x)                  ((((uint32_t)x) * 512U) / 10U)
@@ -277,7 +277,7 @@ void PAL_PLC_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, PAL_SCHEME
 	uint8_t index;
 	uint8_t numConditions;
 	uint8_t bestModulation;
-	uint8_t impulsiveNoise;
+	static uint8_t impulsiveNoise;
 
 	pIndObj = (DRV_PLC_PHY_RECEPTION_OBJ *)indObj;
 
@@ -314,13 +314,13 @@ void PAL_PLC_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, PAL_SCHEME
 	if ((pIndObj->scheme == (DRV_PLC_PHY_SCH) PAL_SCHEME_DBPSK_C) &&
 		(palPlcRmBandwidth[bestModulation] >= palPlcRmBandwidth[PAL_SCHEME_DBPSK_C]))
 	{
-	  	PAL_PLC_GetConfiguration(PAL_ID_PLC_IMPULSIVE_NOISE_dBuV, &impulsiveNoise, 1U);
-
-	  	if (pIndObj->rssiAvg < (impulsiveNoise + SNR_MIN_DBPSK_C)) {
-	  		bestModulation = PAL_OUTDATED_INF;
-	  	}
+		if(PAL_CFG_SUCCESS == (PAL_CFG_RESULT)PAL_PLC_GetConfiguration((uint16_t)PAL_ID_PLC_IMPULSIVE_NOISE_dBuV, &impulsiveNoise, 1U)){
+			if (pIndObj->rssiAvg < (impulsiveNoise + SNR_MIN_DBPSK_C)) {
+				bestModulation = PAL_OUTDATED_INF;
+			}
+		}
 	}
-	
+
 	*pModulation = (PAL_SCHEME)(bestModulation);
 	if (pch >= (uint16_t)CHN1_CHN2)
 	{

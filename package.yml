@@ -9,7 +9,7 @@ package:
   dependencies:
     - name: "smartenergy_prime"
       type: "package"
-      version: "MH3-116882-fix-misra-in-prime"
+      version: "dev"
     - name: "smartenergy_metrology"
       type: "package"
       version: "v2.0.0"

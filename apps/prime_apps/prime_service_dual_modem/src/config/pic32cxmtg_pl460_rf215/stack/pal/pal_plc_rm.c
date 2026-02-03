@@ -277,7 +277,7 @@ void PAL_PLC_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, PAL_SCHEME
 	uint8_t index;
 	uint8_t numConditions;
 	uint8_t bestModulation;
-	uint8_t impulsiveNoise;
+	static uint8_t impulsiveNoise;
 
 	pIndObj = (DRV_PLC_PHY_RECEPTION_OBJ *)indObj;
 
@@ -314,10 +314,7 @@ void PAL_PLC_RM_GetRobustModulation(void *indObj, uint16_t *pBitRate, PAL_SCHEME
 	if ((pIndObj->scheme == (DRV_PLC_PHY_SCH) PAL_SCHEME_DBPSK_C) &&
 		(palPlcRmBandwidth[bestModulation] >= palPlcRmBandwidth[PAL_SCHEME_DBPSK_C]))
 	{
-/* MISRA C-2023 deviation block start */
-/* MISRA C-2023 Rule 18.6 deviated once. Deviation record ID - H3_MISRAC_2023_R_18_6_DR_1. */
-	  	if(PAL_CFG_SUCCESS == (PAL_CFG_RESULT)PAL_PLC_GetConfiguration((uint16_t)PAL_ID_PLC_IMPULSIVE_NOISE_dBuV, &impulsiveNoise, 1U)){
-/* MISRA C-2023 deviation block end */
+		if(PAL_CFG_SUCCESS == (PAL_CFG_RESULT)PAL_PLC_GetConfiguration((uint16_t)PAL_ID_PLC_IMPULSIVE_NOISE_dBuV, &impulsiveNoise, 1U)){
 			if (pIndObj->rssiAvg < (impulsiveNoise + SNR_MIN_DBPSK_C)) {
 				bestModulation = PAL_OUTDATED_INF;
 			}
