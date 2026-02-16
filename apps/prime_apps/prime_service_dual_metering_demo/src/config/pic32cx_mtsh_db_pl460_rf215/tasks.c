@@ -137,6 +137,9 @@ DRV_SLCDC_Update();
     /* Call Application task APP_PRIME_MANAGEMENT. */
     APP_PRIME_MANAGEMENT_Tasks();
 
+    /* Call Application task APP_MODEM. */
+    APP_MODEM_Tasks();
+
 
 
 

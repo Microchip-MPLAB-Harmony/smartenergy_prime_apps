@@ -132,16 +132,16 @@ static uint8_t CACHE_ALIGN srvUSI0ReadBuffer[SRV_USI0_RD_BUF_SIZE] = {0};
 static uint8_t CACHE_ALIGN srvUSI0WriteBuffer[SRV_USI0_WR_BUF_SIZE] = {0};
 
 
-static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM2 = {
-    .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM2_USART_ReadCallbackRegister,
-    .readData = (USI_USART_PLIB_WRRD)FLEXCOM2_USART_Read,
-    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM2_USART_Write,
+static const SRV_USI_USART_INTERFACE srvUsi0InitDataFLEXCOM6 = {
+    .readCallbackRegister = (USI_USART_PLIB_READ_CALLBACK_REG)FLEXCOM6_USART_ReadCallbackRegister,
+    .readData = (USI_USART_PLIB_WRRD)FLEXCOM6_USART_Read,
+    .writeData = (USI_USART_PLIB_WRRD)FLEXCOM6_USART_Write,
 };
 
 static uint8_t CACHE_ALIGN srvUSI0USARTReadBuffer[128] = {0};
 
 static const USI_USART_INIT_DATA srvUsi0InitData = {
-    .plib = (void*)&srvUsi0InitDataFLEXCOM2,
+    .plib = (void*)&srvUsi0InitDataFLEXCOM6,
     .pRdBuffer = (void*)srvUSI0ReadBuffer,
     .rdBufferSize = SRV_USI0_RD_BUF_SIZE,
     .usartReadBuffer = (void *)srvUSI0USARTReadBuffer,
@@ -514,11 +514,11 @@ void SYS_Initialize ( void* data )
 
     RTC_Initialize();
 
+    FLEXCOM6_USART_Initialize();
+
     FLEXCOM0_USART_Initialize();
 
     FLEXCOM1_SPI_Initialize();
-
-    FLEXCOM2_USART_Initialize();
 
 	ICM_Initialize();
     BSP_Initialize();
@@ -610,6 +610,7 @@ void SYS_Initialize ( void* data )
     APP_ENERGY_Initialize();
     APP_EVENTS_Initialize();
     APP_PRIME_MANAGEMENT_Initialize();
+    APP_MODEM_Initialize();
 
 
     NVIC_Initialize();

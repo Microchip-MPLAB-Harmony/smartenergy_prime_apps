@@ -35,7 +35,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-const PRIME_API *gPrimeApi;
+const PRIME_API *gPrimeApiMetrology;
 
 static SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
 
@@ -157,7 +157,7 @@ static void lAPP_PRIME_METROLOGY_MLME_RegisterIndication(uint8_t *sna,
     if (boardInfo.primeVersion == PRIME_VERSION_1_4)
     {
 	/* Get current security profile */
-	gPrimeApi->MlmeGetRequest(PIB_MAC_SEC_PROFILE_USED);
+	gPrimeApiMetrology->MlmeGetRequest(PIB_MAC_SEC_PROFILE_USED);
     } 
     else 
     {
@@ -165,7 +165,7 @@ static void lAPP_PRIME_METROLOGY_MLME_RegisterIndication(uint8_t *sna,
     }
 
     /* Launch 432 connection */
-    gPrimeApi->Cl432EstablishRequest((uint8_t *)meterParams.meterSerial, 
+    gPrimeApiMetrology->Cl432EstablishRequest((uint8_t *)meterParams.meterSerial, 
                                      strlen((const char *)meterParams.meterSerial), 
                                      ae);
 }
@@ -221,7 +221,7 @@ static void lAPP_PRIME_METROLOGY_CL432_ReleaseConfirm(uint16_t dstAddress,
     con432Info.linkClass = 0;
     
     /* Re-launch 432 connection */
-    gPrimeApi->Cl432EstablishRequest((uint8_t *)meterParams.meterSerial, 
+    gPrimeApiMetrology->Cl432EstablishRequest((uint8_t *)meterParams.meterSerial, 
                                      strlen((const char *)meterParams.meterSerial), 
                                      ae);
 }
@@ -305,7 +305,7 @@ static void lAPP_PRIME_METROLOGY_SendData(void)
 
     /* Insert metrology data in reply */
     memcpy(&buff432.dl.buff, &metData, sizeof(metData));
-    gPrimeApi->Cl432DlDataRequest(con432Info.dstLsap, con432Info.srcLsap, 
+    gPrimeApiMetrology->Cl432DlDataRequest(con432Info.dstLsap, con432Info.srcLsap, 
                                   con432Info.baseAddr, &buff432, sizeof(metData), 
                                   con432Info.linkClass);
 }
@@ -322,14 +322,14 @@ static void lAPP_PRIME_METROLOGY_SetCallbacks(void)
     macCallbacks.mlme_register_ind = lAPP_PRIME_METROLOGY_MLME_RegisterIndication;
     macCallbacks.mlme_unregister_ind = lAPP_PRIME_METROLOGY_MLME_UnregisterIndication;
 
-    gPrimeApi->MacSetCallbacks(&macCallbacks);
+    gPrimeApiMetrology->MacSetCallbacks(&macCallbacks);
     
     cl432_callbacks.cl_432_establish_cfm = lAPP_PRIME_METROLOGY_CL432_EstablishConfirm;
     cl432_callbacks.cl_432_release_cfm = lAPP_PRIME_METROLOGY_CL432_ReleaseConfirm;
     cl432_callbacks.cl_432_dl_data_ind = lAPP_PRIME_METROLOGY_CL432_DlDataIndication;
     cl432_callbacks.cl_432_dl_data_cfm = lAPP_PRIME_METROLOGY_CL432_DlDataConfirm;
   
-    gPrimeApi->Cl432SetCallbacks(&cl432_callbacks);    
+    gPrimeApiMetrology->Cl432SetCallbacks(&cl432_callbacks);    
 }
 
 // *****************************************************************************
@@ -362,12 +362,12 @@ void APP_PRIME_METROLOGY_Initialize ( void )
     switch (boardInfo.primeVersion)
     {
         case PRIME_VERSION_1_3:
-            PRIME_API_GetPrime13API(&gPrimeApi);
+            PRIME_API_GetPrime13API(&gPrimeApiMetrology);
             break;
 
         case PRIME_VERSION_1_4:
         default:
-            PRIME_API_GetPrime14API(&gPrimeApi);
+            PRIME_API_GetPrime14API(&gPrimeApiMetrology);
             break;
     }
 
@@ -395,7 +395,7 @@ void APP_PRIME_METROLOGY_Tasks ( void )
         case APP_PRIME_METROLOGY_STATE_SERVICE_CONFIGURE:
         {
             /* Check if PRIME stack is ready */
-            if (gPrimeApi->Status() == SYS_STATUS_READY)
+            if (gPrimeApiMetrology->Status() == SYS_STATUS_READY)
             {
                 /* Set callback functions */
                 lAPP_PRIME_METROLOGY_SetCallbacks();
@@ -410,16 +410,16 @@ void APP_PRIME_METROLOGY_Tasks ( void )
                 /* Read parameters for serial number */
                 if (boardInfo.primeVersion == PRIME_VERSION_1_3)
                 {
-                    gPrimeApi->MlmeGetRequest(PIB_MTP_MAC_EUI_48);
+                    gPrimeApiMetrology->MlmeGetRequest(PIB_MTP_MAC_EUI_48);
                 } 
                 else 
                 {
-                    gPrimeApi->MlmeGetRequest(PIB_MAC_EUI_48);
+                    gPrimeApiMetrology->MlmeGetRequest(PIB_MAC_EUI_48);
                 }
 
-                gPrimeApi->MlmeGetRequest(PIB_MAC_APP_FW_VERSION);
-                gPrimeApi->MlmeGetRequest(PIB_MAC_APP_VENDOR_ID);
-                gPrimeApi->MlmeGetRequest(PIB_MAC_APP_PRODUCT_ID);
+                gPrimeApiMetrology->MlmeGetRequest(PIB_MAC_APP_FW_VERSION);
+                gPrimeApiMetrology->MlmeGetRequest(PIB_MAC_APP_VENDOR_ID);
+                gPrimeApiMetrology->MlmeGetRequest(PIB_MAC_APP_PRODUCT_ID);
 
                 app_prime_metrologyState = APP_PRIME_METROLOGY_STATE_SERVICE_TASKS;
             }

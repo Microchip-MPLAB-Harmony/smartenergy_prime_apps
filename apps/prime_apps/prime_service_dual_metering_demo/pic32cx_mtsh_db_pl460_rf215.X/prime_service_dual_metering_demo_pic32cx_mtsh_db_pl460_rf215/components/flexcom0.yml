@@ -68,8 +68,8 @@ data:
     - children:
       - attributes:
           id: flexcom0
-          x: '31'
-          y: '586'
+          x: '98'
+          y: '587'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -82,47 +82,6 @@ data:
         - attributes:
             id: flexcom0
             value: '54'
-          type: Dynamic
-        type: Values
-      type: Integer
-    FLEXCOM_MODE:
-      attributes:
-        id: FLEXCOM_MODE
-      children:
-      - children:
-        - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            id: flexcom0
-            value: '1'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    FLEXCOM_SPI_CSR0_SCBR_VALUE:
-      attributes:
-        id: FLEXCOM_SPI_CSR0_SCBR_VALUE
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: '100'
-          type: Dynamic
-        type: Values
-      type: Integer
-    FLEXCOM_SPI_CSR1_SCBR_VALUE:
-      attributes:
-        id: FLEXCOM_SPI_CSR1_SCBR_VALUE
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: '100'
           type: Dynamic
         type: Values
       type: Integer
@@ -181,28 +140,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    FLEXCOM_USART_FIFO_ENABLE:
-      attributes:
-        id: FLEXCOM_USART_FIFO_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    FLEXCOM_USART_INTERRUPT_MODE_ENABLE:
-      attributes:
-        id: FLEXCOM_USART_INTERRUPT_MODE_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     FLEXCOM_USART_MR_OVER:
       attributes:
         id: FLEXCOM_USART_MR_OVER
@@ -211,108 +148,6 @@ data:
         - attributes:
             id: flexcom0
             value: '0'
-          type: Dynamic
-        type: Values
-      type: Integer
-    FLEXCOM_USART_OPERATING_MODE:
-      attributes:
-        id: FLEXCOM_USART_OPERATING_MODE
-      children:
-      - children:
-        - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            id: flexcom0
-            value: '5'
-          type: Dynamic
-        type: Values
-      type: KeyValueSet
-    FLEXCOM_USART_RING_BUFFER_MODE_ENABLE:
-      attributes:
-        id: FLEXCOM_USART_RING_BUFFER_MODE_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    FLEXCOM_USART_RX_FIFO_THRESHOLD:
-      attributes:
-        id: FLEXCOM_USART_RX_FIFO_THRESHOLD
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: '1'
-          type: User
-        type: Values
-      type: Integer
-    FLEXCOM_USART_TX_FIFO_THRESHOLD:
-      attributes:
-        id: FLEXCOM_USART_TX_FIFO_THRESHOLD
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: '1'
-          type: User
-        type: Values
-      type: Integer
-    FLEX_USART_CLOCK_FREQ:
-      attributes:
-        id: FLEX_USART_CLOCK_FREQ
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            id: flexcom0
-            value: '100000000'
-          type: Dynamic
-        type: Values
-      type: Integer
-    FLEX_USART_IRDA_FILTER_VAL:
-      attributes:
-        id: FLEX_USART_IRDA_FILTER_VAL
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: '137'
           type: Dynamic
         type: Values
       type: Integer
@@ -349,6 +184,237 @@ data:
           type: Dynamic
         type: Values
       type: String
+    FLEXCOM0_HEADER:
+      attributes:
+        id: FLEXCOM0_HEADER
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom0_usart.h
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_usart_ring_buffer.h.ftl
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: HEADER
+          type: String
+        type: Attributes
+      type: File
+    FLEXCOM0_COMMON_HEADER:
+      attributes:
+        id: FLEXCOM0_COMMON_HEADER
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom_usart_local.h
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_usart_local.h
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: HEADER
+          type: String
+        type: Attributes
+      type: File
+    FLEXCOM0_SOURCE:
+      attributes:
+        id: FLEXCOM0_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: dest
+          children:
+          - type: Value
+            value: /peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: plib_flexcom0_usart.c
+          type: String
+        - attributes:
+            id: project
+          children:
+          - type: Value
+            value: config/pic32cx_mtsh_db_pl460_rf215/peripheral/flexcom/usart/
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/plib_flexcom_usart_ring_buffer.c.ftl
+          type: String
+        type: Attributes
+      type: File
+    FLEX_USART_CLOCK_FREQ:
+      attributes:
+        id: FLEX_USART_CLOCK_FREQ
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: flexcom0
+            value: '100000000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    FLEXCOM_SPI_CSR1_SCBR_VALUE:
+      attributes:
+        id: FLEXCOM_SPI_CSR1_SCBR_VALUE
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: '100'
+          type: Dynamic
+        type: Values
+      type: Integer
+    FLEXCOM_SPI_CSR0_SCBR_VALUE:
+      attributes:
+        id: FLEXCOM_SPI_CSR0_SCBR_VALUE
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: '100'
+          type: Dynamic
+        type: Values
+      type: Integer
+    FLEX_USART_IRDA_FILTER_VAL:
+      attributes:
+        id: FLEX_USART_IRDA_FILTER_VAL
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: '137'
+          type: Dynamic
+        type: Values
+      type: Integer
+    FLEXCOM_SYS_INIT:
+      attributes:
+        id: FLEXCOM_SYS_INIT
+      children:
+      - children:
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: core.LIST_SYSTEM_INIT_C_SYS_INITIALIZE_PERIPHERALS
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/system/initialization.c.ftl
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: STRING
+          type: String
+        type: Attributes
+      type: File
+    FLEXCOM_SYS_DEF:
+      attributes:
+        id: FLEXCOM_SYS_DEF
+      children:
+      - children:
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: name
+          children:
+          - type: Value
+            value: core.LIST_SYSTEM_DEFINITIONS_H_INCLUDES
+          type: String
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: ../peripheral/flexcom_11268/templates/system/definitions.h.ftl
+          type: String
+        - attributes:
+            id: type
+          children:
+          - type: Value
+            value: STRING
+          type: String
+        type: Attributes
+      type: File
     TWI_INTERRUPT_MODE:
       attributes:
         id: TWI_INTERRUPT_MODE
@@ -360,6 +426,127 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    FLEXCOM_USART_INTERRUPT_MODE_ENABLE:
+      attributes:
+        id: FLEXCOM_USART_INTERRUPT_MODE_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM_USART_RING_BUFFER_MODE_ENABLE:
+      attributes:
+        id: FLEXCOM_USART_RING_BUFFER_MODE_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    USE_USART_TRANSMIT_DMA:
+      attributes:
+        id: USE_USART_TRANSMIT_DMA
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    USE_USART_RECEIVE_DMA:
+      attributes:
+        id: USE_USART_RECEIVE_DMA
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM_USART_FIFO_ENABLE:
+      attributes:
+        id: FLEXCOM_USART_FIFO_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    USART_DATA_BITS:
+      attributes:
+        id: USART_DATA_BITS
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: DRV_USART_DATA_8_BIT
+          type: Dynamic
+        type: Values
+      type: String
+    FLEX_USART_MR_MODE9:
+      attributes:
+        id: FLEX_USART_MR_MODE9
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM_MODE:
+      attributes:
+        id: FLEXCOM_MODE
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: flexcom0
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    FLEXCOM_USART_OPERATING_MODE:
+      attributes:
+        id: FLEXCOM_USART_OPERATING_MODE
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: flexcom0
+            value: '5'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
     USART_TX_RING_BUFFER_SIZE:
       attributes:
         id: USART_TX_RING_BUFFER_SIZE
@@ -375,46 +562,6 @@ data:
       - children:
         - attributes:
             value: '2048'
-          type: User
-        type: Values
-      type: Integer
-    USE_USART_RECEIVE_DMA:
-      attributes:
-        id: USE_USART_RECEIVE_DMA
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    USE_USART_TRANSMIT_DMA:
-      attributes:
-        id: USE_USART_TRANSMIT_DMA
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    USART_RX_RING_BUFFER_SIZE:
-      attributes:
-        id: USART_RX_RING_BUFFER_SIZE
-      children:
-      - children:
-        - attributes:
-            id: visible
-          children:
-          - type: Value
-            value: 'true'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
-            value: '512'
           type: User
         type: Values
       type: Integer

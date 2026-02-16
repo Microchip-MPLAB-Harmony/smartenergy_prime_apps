@@ -39,8 +39,8 @@ data:
     - children:
       - attributes:
           id: srv_usi
-          x: '730'
-          y: '323'
+          x: '834'
+          y: '414'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
@@ -99,4 +99,30 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    SRV_USI_USART_HEADER:
+      attributes:
+        id: SRV_USI_USART_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SRV_USI_USART_SOURCE:
+      attributes:
+        id: SRV_USI_USART_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
   userData: {}

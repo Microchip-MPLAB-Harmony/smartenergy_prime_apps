@@ -496,9 +496,9 @@ static void PeripheralClockInitialize(void)
 
         { ID_FLEXCOM1, 1U, 0U, 0U, 0U},
 
-        { ID_FLEXCOM2, 1U, 0U, 0U, 0U},
-
         { ID_FLEXCOM5, 1U, 0U, 0U, 0U},
+
+        { ID_FLEXCOM6, 1U, 0U, 0U, 0U},
 
         { ID_PIOA, 1U, 0U, 0U, 0U},
 

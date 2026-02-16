@@ -38,13 +38,13 @@ data:
             id: label
           children:
           - type: Value
-            value: SHD_MAINBOARD_INTERFACE_0_OPT_3
+            value: SHD_MAINBOARD_CONNECTOR_mikroBUS_UART
           type: String
         type: Attributes
       - children:
         - attributes:
             id: mainBoard_PIC32CXMTSH_DB
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -294,5 +294,15 @@ data:
             value: 'false'
           type: Boolean
         type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_mikroBUS_UART:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_mikroBUS_UART
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
       type: Boolean
   userData: {}

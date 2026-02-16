@@ -52,9 +52,9 @@
 #include "driver/rf215/drv_rf215.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom5_spi_master.h"
 #include "peripheral/rtc/plib_rtc.h"
+#include "peripheral/flexcom/usart/plib_flexcom6_usart.h"
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "peripheral/flexcom/spi/master/plib_flexcom1_spi_master.h"
-#include "peripheral/flexcom/usart/plib_flexcom2_usart.h"
 #include "system/time/sys_time.h"
 #include "driver/metrology/drv_metrology_definitions.h"
 #include "driver/metrology/drv_metrology.h"
@@ -118,6 +118,7 @@
 #include "app_energy.h"
 #include "app_events.h"
 #include "app_prime_management.h"
+#include "app_modem.h"
 
 
 

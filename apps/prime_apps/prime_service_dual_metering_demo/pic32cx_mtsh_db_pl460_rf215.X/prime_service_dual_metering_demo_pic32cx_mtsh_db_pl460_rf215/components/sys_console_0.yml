@@ -39,28 +39,6 @@ data:
     type: sys_console_0
   elementPosition: {}
   symbols:
-    SYS_CONSOLE_DEVICE:
-      attributes:
-        id: SYS_CONSOLE_DEVICE
-      children:
-      - children:
-        - attributes:
-            id: sys_console_0
-            value: FLEXCOM0
-          type: Dynamic
-        type: Values
-      type: String
-    SYS_CONSOLE_DEVICE_SET:
-      attributes:
-        id: SYS_CONSOLE_DEVICE_SET
-      children:
-      - children:
-        - attributes:
-            id: sys_console_0
-            value: UART
-          type: Dynamic
-        type: Values
-      type: String
     SYS_CONSOLE_DEVICE_UART_INDEX:
       attributes:
         id: SYS_CONSOLE_DEVICE_UART_INDEX
@@ -72,4 +50,104 @@ data:
           type: Dynamic
         type: Values
       type: Integer
+    SYS_CONSOLE_USB_HEADER:
+      attributes:
+        id: SYS_CONSOLE_USB_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CONSOLE_USB_DEFINITIONS_HEADER:
+      attributes:
+        id: SYS_CONSOLE_USB_DEFINITIONS_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CONSOLE_UART_HEADER:
+      attributes:
+        id: SYS_CONSOLE_UART_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CONSOLE_UART_DEFINITIONS_HEADER:
+      attributes:
+        id: SYS_CONSOLE_UART_DEFINITIONS_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CONSOLE_USB_CDC_SOURCE:
+      attributes:
+        id: SYS_CONSOLE_USB_CDC_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CONSOLE_UART_SOURCE:
+      attributes:
+        id: SYS_CONSOLE_UART_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CONSOLE_DEVICE_SET:
+      attributes:
+        id: SYS_CONSOLE_DEVICE_SET
+      children:
+      - children:
+        - attributes:
+            id: sys_console_0
+            value: UART
+          type: Dynamic
+        type: Values
+      type: String
+    SYS_CONSOLE_DEVICE:
+      attributes:
+        id: SYS_CONSOLE_DEVICE
+      children:
+      - children:
+        - attributes:
+            id: sys_console_0
+            value: FLEXCOM0
+          type: Dynamic
+        type: Values
+      type: String
   userData: {}

@@ -126,7 +126,7 @@ void PIO_Initialize ( void )
     /* Clear the ISR register */
    (uint32_t)PIOB_REGS->PIO_ISR;
  /* Port C Peripheral function A configuration */
-   PIOC_REGS->PIO_MSKR = 0xffc0U;
+   PIOC_REGS->PIO_MSKR = 0x3ffc0U;
    PIOC_REGS->PIO_CFGR = 0x1U;
 
  /* Port C Peripheral function GPIO configuration */

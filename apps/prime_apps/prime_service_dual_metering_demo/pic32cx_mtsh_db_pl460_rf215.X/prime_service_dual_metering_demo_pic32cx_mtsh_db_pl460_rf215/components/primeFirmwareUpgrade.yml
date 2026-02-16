@@ -37,7 +37,7 @@ data:
     - children:
       - attributes:
           id: primeFirmwareUpgrade
-          x: '562'
+          x: '638'
           y: '369'
         type: ElementPosition
       type: ElementPositions

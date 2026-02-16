@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: sys_command
-          x: '383'
-          y: '485'
+          x: '449'
+          y: '493'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

@@ -384,17 +384,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    FLEXCOM0_CLOCK_ENABLE:
-      attributes:
-        id: FLEXCOM0_CLOCK_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     FLEXCOM0_CLOCK_FREQUENCY:
       attributes:
         id: FLEXCOM0_CLOCK_FREQUENCY
@@ -406,17 +395,6 @@ data:
           type: Dynamic
         type: Values
       type: Integer
-    FLEXCOM0_INTERRUPT_ENABLE:
-      attributes:
-        id: FLEXCOM0_INTERRUPT_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     FLEXCOM0_INTERRUPT_ENABLE_UPDATE:
       attributes:
         id: FLEXCOM0_INTERRUPT_ENABLE_UPDATE
@@ -425,28 +403,6 @@ data:
         - attributes:
             id: core
             value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    FLEXCOM0_INTERRUPT_HANDLER:
-      attributes:
-        id: FLEXCOM0_INTERRUPT_HANDLER
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: FLEXCOM0_InterruptHandler
-          type: Dynamic
-        type: Values
-      type: String
-    FLEXCOM0_INTERRUPT_HANDLER_LOCK:
-      attributes:
-        id: FLEXCOM0_INTERRUPT_HANDLER_LOCK
-      children:
-      - children:
-        - attributes:
-            id: flexcom0
-            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -472,17 +428,6 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
-    FLEXCOM2_CLOCK_ENABLE:
-      attributes:
-        id: FLEXCOM2_CLOCK_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom2
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     FLEXCOM2_CLOCK_FREQUENCY:
       attributes:
         id: FLEXCOM2_CLOCK_FREQUENCY
@@ -490,21 +435,10 @@ data:
       - children:
         - attributes:
             id: core
-            value: '100000000'
+            value: '0'
           type: Dynamic
         type: Values
       type: Integer
-    FLEXCOM2_INTERRUPT_ENABLE:
-      attributes:
-        id: FLEXCOM2_INTERRUPT_ENABLE
-      children:
-      - children:
-        - attributes:
-            id: flexcom2
-            value: 'true'
-          type: Dynamic
-        type: Values
-      type: Boolean
     FLEXCOM2_INTERRUPT_ENABLE_UPDATE:
       attributes:
         id: FLEXCOM2_INTERRUPT_ENABLE_UPDATE
@@ -512,28 +446,6 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'false'
-          type: Dynamic
-        type: Values
-      type: Boolean
-    FLEXCOM2_INTERRUPT_HANDLER:
-      attributes:
-        id: FLEXCOM2_INTERRUPT_HANDLER
-      children:
-      - children:
-        - attributes:
-            id: flexcom2
-            value: FLEXCOM2_InterruptHandler
-          type: Dynamic
-        type: Values
-      type: String
-    FLEXCOM2_INTERRUPT_HANDLER_LOCK:
-      attributes:
-        id: FLEXCOM2_INTERRUPT_HANDLER_LOCK
-      children:
-      - children:
-        - attributes:
-            id: flexcom2
             value: 'true'
           type: Dynamic
         type: Values
@@ -829,7 +741,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -840,7 +752,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: FLEXCOM2_InterruptHandler
+            value: FLEXCOM2_Handler
           type: Dynamic
         type: Values
       type: String
@@ -851,7 +763,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: 'true'
+            value: 'false'
           type: Dynamic
         type: Values
       type: Boolean
@@ -4281,7 +4193,7 @@ data:
       - children:
         - attributes:
             id: core
-            value: '0xffc0'
+            value: '0x3ffc0'
           type: Dynamic
         type: Values
       type: String
@@ -5620,6 +5532,215 @@ data:
       - children:
         - attributes:
             id: icm
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    PIN_125_FUNCTION_TYPE:
+      attributes:
+        id: PIN_125_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: FLEXCOM6_IO0
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_125_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_125_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_125_FUNCTION_NAME:
+      attributes:
+        id: PIN_125_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: MIKROBUS_UART_TX
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_126_FUNCTION_TYPE:
+      attributes:
+        id: PIN_126_FUNCTION_TYPE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: FLEXCOM6_IO1
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_126_PERIPHERAL_FUNCTION:
+      attributes:
+        id: PIN_126_PERIPHERAL_FUNCTION
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: A
+          type: Dynamic
+        type: Values
+      type: String
+    PIN_126_FUNCTION_NAME:
+      attributes:
+        id: PIN_126_FUNCTION_NAME
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: MIKROBUS_UART_RX
+          type: Dynamic
+        type: Values
+      type: String
+    FLEXCOM6_CLOCK_ENABLE:
+      attributes:
+        id: FLEXCOM6_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom6
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM6_CLOCK_FREQUENCY:
+      attributes:
+        id: FLEXCOM6_CLOCK_FREQUENCY
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: '100000000'
+          type: Dynamic
+        type: Values
+      type: Integer
+    FLEXCOM6_INTERRUPT_ENABLE_UPDATE:
+      attributes:
+        id: FLEXCOM6_INTERRUPT_ENABLE_UPDATE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    NVIC_15_0_ENABLE:
+      attributes:
+        id: NVIC_15_0_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM6_INTERRUPT_ENABLE:
+      attributes:
+        id: FLEXCOM6_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom6
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    NVIC_15_0_HANDLER:
+      attributes:
+        id: NVIC_15_0_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: FLEXCOM6_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    FLEXCOM6_INTERRUPT_HANDLER:
+      attributes:
+        id: FLEXCOM6_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: flexcom6
+            value: FLEXCOM6_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    NVIC_15_0_HANDLER_LOCK:
+      attributes:
+        id: NVIC_15_0_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: core
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM6_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: FLEXCOM6_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: flexcom6
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM0_CLOCK_ENABLE:
+      attributes:
+        id: FLEXCOM0_CLOCK_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM0_INTERRUPT_ENABLE:
+      attributes:
+        id: FLEXCOM0_INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    FLEXCOM0_INTERRUPT_HANDLER:
+      attributes:
+        id: FLEXCOM0_INTERRUPT_HANDLER
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
+            value: FLEXCOM0_InterruptHandler
+          type: Dynamic
+        type: Values
+      type: String
+    FLEXCOM0_INTERRUPT_HANDLER_LOCK:
+      attributes:
+        id: FLEXCOM0_INTERRUPT_HANDLER_LOCK
+      children:
+      - children:
+        - attributes:
+            id: flexcom0
             value: 'true'
           type: Dynamic
         type: Values

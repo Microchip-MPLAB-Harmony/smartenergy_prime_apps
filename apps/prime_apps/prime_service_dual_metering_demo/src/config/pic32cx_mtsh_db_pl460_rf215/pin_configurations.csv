@@ -83,8 +83,8 @@ Pin Number,Pin ID,Custom Name,Function,Direction,Latch,Open Drain,PIO Interrupt,
 122,PC13,,QSPI_QIO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 123,PC14,,QSPI_QCS,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 124,PC15,,QSPI_QSCK,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
-125,PC16,,Available,In,,,,,,,
-126,PC17,,Available,In,,,,,,,
+125,PC16,MIKROBUS_UART_TX,FLEXCOM6_IO0,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
+126,PC17,MIKROBUS_UART_RX,FLEXCOM6_IO1,n/a,n/a,No,Disabled,No,No,Glitch Filter,0x0
 127,PC18,,Available,In,,,,,,,
 128,PC19,,Available,In,,,,,,,
 129,PD20,,Available,In,,,,,,,

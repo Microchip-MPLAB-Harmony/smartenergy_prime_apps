@@ -90,9 +90,9 @@ extern void DWDT1_Handler              ( void ) __attribute__((weak, alias("Dumm
 extern void PMC_Handler                ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void SEFC0_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void SEFC1_Handler              ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
+extern void FLEXCOM2_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void FLEXCOM3_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void FLEXCOM4_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
-extern void FLEXCOM6_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void FLEXCOM7_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void PIOA_SEC_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
 extern void PIOB_SEC_Handler           ( void ) __attribute__((weak, alias("Dummy_Handler"),noreturn));
@@ -199,11 +199,11 @@ const H3DeviceVectors exception_table=
     .pfnSEFC1_Handler              = SEFC1_Handler,
     .pfnFLEXCOM0_Handler           = FLEXCOM0_InterruptHandler,
     .pfnFLEXCOM1_Handler           = FLEXCOM1_InterruptHandler,
-    .pfnFLEXCOM2_Handler           = FLEXCOM2_InterruptHandler,
+    .pfnFLEXCOM2_Handler           = FLEXCOM2_Handler,
     .pfnFLEXCOM3_Handler           = FLEXCOM3_Handler,
     .pfnFLEXCOM4_Handler           = FLEXCOM4_Handler,
     .pfnFLEXCOM5_Handler           = FLEXCOM5_InterruptHandler,
-    .pfnFLEXCOM6_Handler           = FLEXCOM6_Handler,
+    .pfnFLEXCOM6_Handler           = FLEXCOM6_InterruptHandler,
     .pfnFLEXCOM7_Handler           = FLEXCOM7_Handler,
     .pfnPIOA_Handler               = PIOA_InterruptHandler,
     .pfnPIOA_SEC_Handler           = PIOA_SEC_Handler,

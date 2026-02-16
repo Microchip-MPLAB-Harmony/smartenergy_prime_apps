@@ -38,8 +38,8 @@ modules:
 - drv_sst26
 - flexcom0
 - flexcom1
-- flexcom2
 - flexcom5
+- flexcom6
 - gfx_disp_slcd1-PIC32CXMT
 - icm
 - le_gfx_slcdc
@@ -87,6 +87,10 @@ generatedFileHashHistoryMap:
   hash: 842a064824c8015ad08d678a811275dc73f2a95dcfc93829c9d851117b46cf5d
 - file: ..\src\app_metrology.h
   hash: 11f5eb4f9790a61b0fdcf60b4988915fb41933f3ba7d9588a0de50ac2ef8f6db
+- file: ..\src\app_modem.c
+  hash: f64cb864dc7c4c78565a09f3011b0c8c6a5bef09f1d49f557199da7b8fe56533
+- file: ..\src\app_modem.h
+  hash: 2b148ee83aa0af31962a5b70ca95c9e6e9f76f468731d34b25531eb23b99d73b
 - file: ..\src\app_prime_management.c
   hash: e5f94f8f50b1a5eb3a631534f587da8ca78ca40d3e55b9810c8247620db07f09
 - file: ..\src\app_prime_management.h
@@ -162,7 +166,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\crypto\wolfcrypt\wolfcrypt_config.h
   hash: ee0712706d1d9203a21334680e076155fc8f2ad8a8c0ee07231295670f972e71
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\definitions.h
-  hash: d919eb17e3f7232f2c7b7baf157a4675587ff4313cab58125f18637dbac08783
+  hash: bfad9658162cd91fdee0e006bb89f72518cd6a8078873e0c74989e9a9b5a87ae
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\device.h
   hash: 31f7ac2b10db22dd9085d8e61fa72a36d0300c3c8e09df0d2c23c3d3636c8b40
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\device_cache.h
@@ -264,11 +268,11 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\gfx\driver\controller\slcdc\drv_gfx_slcdc.h
   hash: 746b04dda4eadc6e185f4b8c8a4df8e01d8a373d3d51440dd4b02e6566a3758a
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\initialization.c
-  hash: 1e42cc85b95255fc34c1c64310cd8de279eaab2bbb752ab848da73ba2682211f
+  hash: 3427d1c97869b95bdcbe1ecb2c46925d57de0db546f8cd845c87031305ae86a2
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\interrupts.c
-  hash: 54fa6c4c251c71038318f7f23655725ca4e1af7db7589d47f0888d2100ca0364
+  hash: e2d5bfbc1caa43e96ee434c8a6a398b9331d0cf5c0aadf24423ec11c3468a88b
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\interrupts.h
-  hash: fe2480dff458dd3a7b6524df6cb6e2c01a3bab5ffac9d373358a0aa91f9d6376
+  hash: f528e0a7f7cc05ad2936687a932f5ab0d7bd6b8bab031829ae5f0ed07c06cf75
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\libc_syscalls.c
   hash: c9afc1b1257829415a1a6746ce3744f0a768b339d59fff2ab3ca1fab58b2a916
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\osal\osal.h
@@ -284,7 +288,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\adc\plib_adc_common.h
   hash: 069e4e32e014d150246b852afac02d8e8b82804e21aa6e40acf97639440bf9ef
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\clk\plib_clk.c
-  hash: 6d648d2616507fb70b11762b99e783b0c6808f649228b656e493cb9f336a6098
+  hash: 80c2a0cba69ee1b46ed8a3254432d6804b99aa290d7fa7d24d28ccd525a21cae
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\clk\plib_clk.h
   hash: ebfbe4bc247953c3f0a89d3ae6d3487f6f2f6f0ad5fb08a16e0f93bb4707b875
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\cmcc\plib_cmcc.c
@@ -306,13 +310,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\flexcom\spi\master\plib_flexcom_spi_master_common.h
   hash: 8ad565a4b0d64e38f2932935e557dd1642b26ea1630ef123a7c69231cbfe7d47
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\flexcom\usart\plib_flexcom0_usart.c
-  hash: f85d3c923f3c7197f4c691dfa900ce77ae151f8bd5a084e0577f38e04abd1ff9
+  hash: 3393d81108470f0009c01b1608e32fc4c6665fd95fde989896ad57485a88b5d2
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\flexcom\usart\plib_flexcom0_usart.h
   hash: 6ff3d26bf626ef771cb42c71342dab16cccd25f77c7febe901bdef788e9de816
-- file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\flexcom\usart\plib_flexcom2_usart.c
-  hash: a7f165509bff5bd8070067dbe5711c5bb90f0a34190ae482dcbe0f25cc87d251
-- file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\flexcom\usart\plib_flexcom2_usart.h
-  hash: 55011e5ca2847079f2e4fdeae2fb8bb72c49bbfbb45f963285a335d1d087388a
+- file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\flexcom\usart\plib_flexcom6_usart.c
+  hash: 4be9a686c729228432f7a2f30cc5d1efdbf7396e99c28f2b7acc9a4a16d087ca
+- file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\flexcom\usart\plib_flexcom6_usart.h
+  hash: f5d381d8e9622eb4e31f84a8080e118b283bfaa0d3525c635211cad1f74bcacd
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\flexcom\usart\plib_flexcom_usart_local.h
   hash: 44c68d2efb80f2837e7bbcb39073972a6672c61ea2daf8f63e8c7e7da6e1208c
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\icm\plib_icm.c
@@ -320,13 +324,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\icm\plib_icm.h
   hash: 020b97abd64383ea643981f8472321665d202f34a14ea7977a2d79386af02be5
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\nvic\plib_nvic.c
-  hash: 02212e1a8892b855761e05137e15cf2478a07ea8b87ce60ebf367459dba4a745
+  hash: 446ece77e2fc59012f446a8c0c35addd5989d7693447a12048140b15f223a12f
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\nvic\plib_nvic.h
   hash: 9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\pio\plib_pio.c
-  hash: ee302405f71bde9fd5449fe6873eb918b1534a087620dfcf40e858496a90edcb
+  hash: ce17fc2827337cbbb2df196a83e1ee525ced2aa983daefb250fc274904d905c0
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\pio\plib_pio.h
-  hash: 43bde886af73b3088e3dfc7dacc81726d249f48790e6a8abf8a52ca47486bdf6
+  hash: 6f9a238c15fa649a2dea09df8c90fd8b8a00e0e11cd50efa5c18246981816fbd
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\qspi\plib_qspi.c
   hash: bc82e8fe85c324517b8051c16fddc962fc63a0a721dbb5da3d9fbeceea90bb71
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\qspi\plib_qspi.h
@@ -370,7 +374,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\peripheral\trng\plib_trng.h
   hash: f32600bb96970ba2982b4fe27b19ef190b6df46044463a45a38d3ced146f60b2
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\pin_configurations.csv
-  hash: 7f9166da2ec5b410e82e6ebda58cbd31a26a2116fec759a9c7fd5664d2e854fe
+  hash: 83537d3dca85a91dc566275d18fcc2165b4f0620bbd26d33be9f3312644dc684
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.c
   hash: 9bf922dc98cdddeaeeaef690dd2a0a50bc4c003cc7c39df6e05b24c90e349a2b
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\service\firmware_upgrade\srv_firmware_upgrade.h
@@ -482,7 +486,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\stack\prime\hal_api\hal_api.h
   hash: fc556d8fdc36ce4af0eae6f6b0a8f830acbbb23cc017b6a1e61c572e1fd5bb44
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\stack\prime\mac\mac_defs.h
-  hash: 60ca8b47999985333d07ee8b42b90f6c0aaa5fce40cd540bd0e2767ed6b487d8
+  hash: 8ae9f2486cff16a55fdfc058fa0bd173d8ab5f7a32a30cbf186fe5174ea2a63b
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\stack\prime\mac\mac_pib.h
   hash: 6cd07627ad9997f9ddb0fe025328809b55f0547cd48bdcc4f6553b3936087e6c
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\stack\prime\prime_api\prime_api.c
@@ -562,7 +566,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\system\time\sys_time_definitions.h
   hash: 46537746b1d12ece6b682c9be1c8f3f219663c638c21a51a973762b7b393afe6
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\tasks.c
-  hash: ef0b7058460a4071b4f80ae578cc6ce203bc61007ece55decc951bd6e69d1d72
+  hash: 3df14f1dff06bec591cc474649947723e44725b9bec0ac34e32fc846288479b1
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\toolchain_specifics.h
   hash: a4f1774c6f1f8c6cd522567536c9e9d75ca63259b868015ac9b0fb0aeeffe1f4
 - file: ..\src\config\pic32cx_mtsh_db_pl460_rf215\user.h

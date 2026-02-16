@@ -417,6 +417,14 @@
                                         } while (0)
 #define RF215_RSTN_Get()               ((PIOB_REGS->PIO_PDSR >> 26U) & 0x1U)
 #define RF215_RSTN_PIN                  PIO_PIN_PB26
+
+/*** Macros for MIKROBUS_UART_TX pin ***/
+#define MIKROBUS_UART_TX_Get()               ((PIOC_REGS->PIO_PDSR >> 16U) & 0x1U)
+#define MIKROBUS_UART_TX_PIN                  PIO_PIN_PC16
+
+/*** Macros for MIKROBUS_UART_RX pin ***/
+#define MIKROBUS_UART_RX_Get()               ((PIOC_REGS->PIO_PDSR >> 17U) & 0x1U)
+#define MIKROBUS_UART_RX_PIN                  PIO_PIN_PC17
 // *****************************************************************************
 /* PIO Ports
 

@@ -1,17 +1,17 @@
 /*******************************************************************************
-  FLEXCOM2 USART PLIB
+  FLEXCOM6 USART PLIB
 
   Company
     Microchip Technology Inc.
 
   File Name
-    plib_flexcom2_usart.h
+    plib_flexcom6_usart.h
 
   Summary
-    FLEXCOM2 USART peripheral library interface.
+    FLEXCOM6 USART peripheral library interface.
 
   Description
-    This file defines the interface to the FLEXCOM2 USART peripheral library. This
+    This file defines the interface to the FLEXCOM6 USART peripheral library. This
     library provides access to and control of the associated peripheral
     instance.
 
@@ -42,8 +42,8 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 
-#ifndef PLIB_FLEXCOM2_USART_H // Guards against multiple inclusion
-#define PLIB_FLEXCOM2_USART_H
+#ifndef PLIB_FLEXCOM6_USART_H // Guards against multiple inclusion
+#define PLIB_FLEXCOM6_USART_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -65,45 +65,45 @@ extern "C" {
 // Section: Interface Routines
 // *****************************************************************************
 // *****************************************************************************
-#define FLEXCOM2_USART_FrequencyGet()    (uint32_t)(100000000UL)
+#define FLEXCOM6_USART_FrequencyGet()    (uint32_t)(100000000UL)
 
-/****************************** FLEXCOM2 USART API *********************************/
+/****************************** FLEXCOM6 USART API *********************************/
 
-void FLEXCOM2_USART_Initialize( void );
+void FLEXCOM6_USART_Initialize( void );
 
-FLEXCOM_USART_ERROR FLEXCOM2_USART_ErrorGet( void );
+FLEXCOM_USART_ERROR FLEXCOM6_USART_ErrorGet( void );
 
-bool FLEXCOM2_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP* setup, uint32_t srcClkFreq );
+bool FLEXCOM6_USART_SerialSetup( FLEXCOM_USART_SERIAL_SETUP* setup, uint32_t srcClkFreq );
 
-size_t FLEXCOM2_USART_Write(uint8_t* pWrBuffer, const size_t size );
+size_t FLEXCOM6_USART_Write(uint8_t* pWrBuffer, const size_t size );
 
-size_t FLEXCOM2_USART_Read(uint8_t* pRdBuffer, const size_t size);
+size_t FLEXCOM6_USART_Read(uint8_t* pRdBuffer, const size_t size);
 
-size_t FLEXCOM2_USART_WriteFreeBufferCountGet(void);
+size_t FLEXCOM6_USART_WriteFreeBufferCountGet(void);
 
-size_t FLEXCOM2_USART_WriteBufferSizeGet(void);
+size_t FLEXCOM6_USART_WriteBufferSizeGet(void);
 
-bool FLEXCOM2_USART_WriteNotificationEnable(bool isEnabled, bool isPersistent);
+bool FLEXCOM6_USART_WriteNotificationEnable(bool isEnabled, bool isPersistent);
 
-void FLEXCOM2_USART_WriteThresholdSet(uint32_t nBytesThreshold);
+void FLEXCOM6_USART_WriteThresholdSet(uint32_t nBytesThreshold);
 
-size_t FLEXCOM2_USART_ReadFreeBufferCountGet(void);
+size_t FLEXCOM6_USART_ReadFreeBufferCountGet(void);
 
-size_t FLEXCOM2_USART_ReadBufferSizeGet(void);
+size_t FLEXCOM6_USART_ReadBufferSizeGet(void);
 
-bool FLEXCOM2_USART_ReadNotificationEnable(bool isEnabled, bool isPersistent);
+bool FLEXCOM6_USART_ReadNotificationEnable(bool isEnabled, bool isPersistent);
 
-void FLEXCOM2_USART_ReadThresholdSet(uint32_t nBytesThreshold);
+void FLEXCOM6_USART_ReadThresholdSet(uint32_t nBytesThreshold);
 
-size_t FLEXCOM2_USART_WriteCountGet(void);
+size_t FLEXCOM6_USART_WriteCountGet(void);
 
-size_t FLEXCOM2_USART_ReadCountGet(void);
+size_t FLEXCOM6_USART_ReadCountGet(void);
 
-void FLEXCOM2_USART_WriteCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
+void FLEXCOM6_USART_WriteCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
 
-void FLEXCOM2_USART_ReadCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
+void FLEXCOM6_USART_ReadCallbackRegister( FLEXCOM_USART_RING_BUFFER_CALLBACK callback, uintptr_t context);
 
-bool FLEXCOM2_USART_TransmitComplete(void);
+bool FLEXCOM6_USART_TransmitComplete(void);
 
 
 // DOM-IGNORE-BEGIN
@@ -112,4 +112,4 @@ bool FLEXCOM2_USART_TransmitComplete(void);
 #endif
 // DOM-IGNORE-END
 
-#endif //PLIB_FLEXCOM2_USART_H
+#endif //PLIB_FLEXCOM6_USART_H
