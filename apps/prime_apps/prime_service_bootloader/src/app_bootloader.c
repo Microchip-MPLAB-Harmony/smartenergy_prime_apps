@@ -307,6 +307,11 @@ static uint8_t lAPP_BOOTLOADER_SwapFwVersion(uint32_t imgSize,
 
 static void lAPP_BOOTLOADER_DowngradeClockSytem(void)
 {
+    /* Enable MAIN RC Oscillator */
+    CLK_EnableMainRCOscillator();
+    /* Disable Core1 Bus Master */
+    CLK_Core1BusMasterClkDisable();
+ 
     /* Program PMC_CPU_CKR.PRES and wait for PMC_SR.MCKRDY to be set   */
     uint32_t reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_PRES_Msk);
     PMC_REGS->PMC_CPU_CKR = (reg | PMC_CPU_CKR_PRES_CLK_1);
@@ -314,25 +319,48 @@ static void lAPP_BOOTLOADER_DowngradeClockSytem(void)
     {
         /* Wait for status MCKRDY */
     }
-
+ 
     /* Program PMC_CPU_CKR.CSS and MCK dividers and Wait for PMC_SR.MCKRDY to be set    */
     reg = (PMC_REGS->PMC_CPU_CKR & ~(PMC_CPU_CKR_CSS_Msk |
                                      PMC_CPU_CKR_RATIO_MCK0DIV_Msk |
                                      PMC_CPU_CKR_RATIO_MCK0DIV2_Msk));
-    reg |= PMC_CPU_CKR_CSS_MD_SLOW_CLK;
+    reg |= PMC_CPU_CKR_CSS_MAINCK;
     PMC_REGS->PMC_CPU_CKR = reg;
     while ((PMC_REGS->PMC_SR & PMC_SR_MCKRDY_Msk) != PMC_SR_MCKRDY_Msk)
     {
         /* Wait for status MCKRDY */
     }
-
+ 
+    /* Set coprocessor clock dummy prescaler */
+    reg = (PMC_REGS->PMC_CPU_CKR & ~(PMC_CPU_CKR_CPPRES_Msk | PMC_CPU_CKR_RATIO_MCK1DIV_Msk));
+    reg |= PMC_CPU_CKR_CPPRES_CLK_2;
+    PMC_REGS->PMC_CPU_CKR = reg;
+ 
+    /* Program PMC_CPU_CKR.CPCSS and Wait for PMC_SR.CPMCKRDY to be set    */
+    reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_CPCSS_Msk);
+    PMC_REGS->PMC_CPU_CKR = (reg | PMC_CPU_CKR_CPCSS_MAINCK);
+    while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
+    {
+        /* Wait for status CPMCKRDY */
+    }
+ 
+    /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
+    reg = (PMC_REGS->PMC_CPU_CKR & ~PMC_CPU_CKR_CPPRES_Msk);
+    reg |= PMC_CPU_CKR_CPPRES_CLK_1;
+    PMC_REGS->PMC_CPU_CKR = reg;
+    while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
+    {
+        /* Wait for status CPMCKRDY */
+    }
+ 
+    /* Enable co-processor bus clock  */
+    PMC_REGS->PMC_SCER = (PMC_SCER_CPKEY_PASSWD | PMC_SCER_CPBMCK_Msk);
+ 
     /* Disable Flash high speed patch */;
     SFR_REGS->SFR_WPMR = SFR_WPMR_WPKEY_PASSWD;
     SFR_REGS->SFR_FLASH = SFR_FLASH_Msk;
     SFR_REGS->SFR_WPMR = (SFR_WPMR_WPKEY_PASSWD | SFR_WPMR_WPEN_Msk);
-
-    CLK_Core1BusMasterClkDisable();
-
+ 
     /* Disable PLLs (first PLLB) */
     CLK_PLLDisable(PLLB);
     CLK_PLLDisable(PLLA);
@@ -461,8 +489,11 @@ void APP_BOOTLOADER_Tasks(void) {
 
             __disable_irq();
 
-            /* Downgrade clock system */
-            lAPP_BOOTLOADER_DowngradeClockSytem();
+            if(RSTC_PMCResetStatusGet())
+            {
+                /* Downgrade clock system */
+                lAPP_BOOTLOADER_DowngradeClockSytem();
+            }
 
             /* Disable SysTick */
             SysTick->CTRL = 0;
