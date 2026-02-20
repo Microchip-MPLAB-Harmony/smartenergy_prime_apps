@@ -86,7 +86,7 @@ int32_t CIPHER_Wrapper_AesCcmAuthDecrypt(uint8_t *data, uint32_t dataLen,
                                          uint8_t *aad, uint32_t aadLen,
                                          uint8_t *tag, uint32_t tagLen)
 {
-    if (dataLen == 0)
+    if (dataLen == 0U)
     {
         return (int32_t) Crypto_Aead_AesCcm_Cipher(&cipherWrapperCcmContext,
                 CRYPTO_CIOP_DECRYPT, NULL, 0, NULL,
@@ -105,7 +105,7 @@ int32_t CIPHER_Wrapper_AesCcmEncryptAndTag(uint8_t *data, uint32_t dataLen,
                                            uint8_t *aad, uint32_t aadLen,
                                            uint8_t *tag, uint32_t tagLen)
 {
-    if (dataLen == 0)
+    if (dataLen == 0U)
     {
         return (int32_t) Crypto_Aead_AesCcm_Cipher(&cipherWrapperCcmContext,
                 CRYPTO_CIOP_ENCRYPT, NULL, 0, NULL,

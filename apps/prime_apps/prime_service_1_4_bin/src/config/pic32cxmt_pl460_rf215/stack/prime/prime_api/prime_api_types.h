@@ -88,6 +88,7 @@ typedef struct
     uint16_t                     model;
     char                         version[20];
     PRIME_API_INITIALIZE         Initialize;
+    PRIME_API_OPEN               Open;
     PRIME_API_TASKS              Tasks;
     PRIME_API_STATUS             Status;
     MAC_SET_CALLBACKS            MacSetCallbacks;

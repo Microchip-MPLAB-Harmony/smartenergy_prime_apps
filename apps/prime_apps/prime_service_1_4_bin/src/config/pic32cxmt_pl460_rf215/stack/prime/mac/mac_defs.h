@@ -663,7 +663,7 @@ typedef void (*MAC_REDIRECT_RESPONSE)(uint16_t conHandle, uint8_t *eui48,
     None.
 */
 typedef void (*MAC_JOIN_REQUEST)(MAC_JOIN_REQUEST_MODE conMode, uint16_t conHandle,
-    uint8_t *eui48, MAC_CONNECTION_TYPE conType, uint8_t *data, uint16_t dataLen,
+    uint8_t *eui48, uint8_t conType, uint8_t *data, uint16_t dataLen,
     uint8_t ae);
 
 // *****************************************************************************
@@ -1204,7 +1204,7 @@ typedef void (*MLME_PROMOTE_INDICATION_CB)(void);
   Description:
     This function pointer is used to request to trigger the promotion process in
     a Service Node (Terminal or Switch) in a medium (PLC or RF) different from the
-    one the node is connected to the network. 
+    one the node is connected to the network.
     eui48   - Pointer to the address of the node to be promoted (NULL in Service
               Node)
     bcnMode - Beacon PDU modulation scheme
@@ -1301,7 +1301,7 @@ typedef void (*MLME_DEMOTE_INDICATION_CB)(void);
   Description:
     This function pointer is used to request to trigger a demotion process in a
     Service Node that is in a Switch functional state and supports MultiPHY
-    promotion. 
+    promotion.
     lsid    - Local switch identifier
 
   Remarks:

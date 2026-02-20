@@ -113,6 +113,21 @@ SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     return (SYS_MODULE_OBJ)0;
 }
 
+void PRIME_Open(SYS_MODULE_INDEX index)
+{
+    /* Validate the request */
+    if (index >= PRIME_INSTANCES_NUMBER)
+    {
+        primeObj.status = PRIME_STATUS_ERROR;
+    }
+
+    /* Check if PRIME can be opened */
+    if (primeObj.status == PRIME_STATUS_INITIALIZED)
+    {
+        primeObj.primeApi->Open();
+        primeObj.status = PRIME_STATUS_LOADING;
+    }
+}
 
 void PRIME_Tasks(SYS_MODULE_OBJ object)
 {
@@ -127,16 +142,19 @@ void PRIME_Tasks(SYS_MODULE_OBJ object)
     {
         case PRIME_STATUS_POINTER_READY:
             primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit, false, primeObj.primeVersion);
-            primeObj.status = PRIME_STATUS_INITIALIZING;
+            primeObj.status = PRIME_STATUS_INITIALIZED;
             break;
 
         case PRIME_STATUS_RESTART:
             primeObj.primeApi->Initialize((PRIME_API_INIT*)&primeApiInit, true, primeObj.primeVersion);
-            primeObj.status = PRIME_STATUS_INITIALIZING;
+            primeObj.status = PRIME_STATUS_INITIALIZED;
             break;
 
+        case PRIME_STATUS_INITIALIZED:
+            /* Waiting to be opened */
+            break;
 
-        case PRIME_STATUS_INITIALIZING:
+        case PRIME_STATUS_LOADING:
             /* Complete initialization of PRIME stack takes several cycles */
             /* due to the initialization of PAL and drivers */
             primeObj.primeApi->Tasks();

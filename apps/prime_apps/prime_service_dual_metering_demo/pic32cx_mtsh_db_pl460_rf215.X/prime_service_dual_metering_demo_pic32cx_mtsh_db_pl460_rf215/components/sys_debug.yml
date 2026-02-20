@@ -78,7 +78,7 @@ data:
       children:
       - children:
         - attributes:
-            value: SYS_ERROR_DEBUG
+            value: SYS_ERROR_FATAL
           type: User
         type: Values
       type: Combo

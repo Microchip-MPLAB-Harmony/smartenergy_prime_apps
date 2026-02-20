@@ -256,17 +256,12 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: drvPlcPhy
             value: 'false'
           type: Dynamic
+        - attributes:
+            value: 'true'
+          type: User
         type: Values
       type: Boolean
     DRV_PLC_PRIME_CH3:
@@ -275,17 +270,12 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: drvPlcPhy
             value: 'false'
           type: Dynamic
+        - attributes:
+            value: 'true'
+          type: User
         type: Values
       type: Boolean
     DRV_PLC_PRIME_CH4:
@@ -294,17 +284,12 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: drvPlcPhy
             value: 'false'
           type: Dynamic
+        - attributes:
+            value: 'true'
+          type: User
         type: Values
       type: Boolean
     DRV_PLC_PRIME_CH5:
@@ -313,17 +298,12 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: drvPlcPhy
             value: 'false'
           type: Dynamic
+        - attributes:
+            value: 'true'
+          type: User
         type: Values
       type: Boolean
     DRV_PLC_PRIME_CH6:
@@ -332,17 +312,12 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: drvPlcPhy
             value: 'false'
           type: Dynamic
+        - attributes:
+            value: 'true'
+          type: User
         type: Values
       type: Boolean
     DRV_PLC_PRIME_CH7:
@@ -351,17 +326,12 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: drvPlcPhy
             value: 'false'
           type: Dynamic
+        - attributes:
+            value: 'true'
+          type: User
         type: Values
       type: Boolean
     DRV_PLC_PRIME_CH8:
@@ -370,17 +340,12 @@ data:
       children:
       - children:
         - attributes:
-            id: readOnly
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      - children:
-        - attributes:
             id: drvPlcPhy
             value: 'false'
           type: Dynamic
+        - attributes:
+            value: 'true'
+          type: User
         type: Values
       type: Boolean
     DRV_PLC_PRIME_CHANNELS_SELECTED:
@@ -390,7 +355,7 @@ data:
       - children:
         - attributes:
             id: drvPlcPhy
-            value: '1'
+            value: '255'
           type: Dynamic
         type: Values
       type: Integer
@@ -564,4 +529,14 @@ data:
           type: Boolean
         type: Attributes
       type: File
+    DRV_PLC_PRIME_2CHN_MODE:
+      attributes:
+        id: DRV_PLC_PRIME_2CHN_MODE
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
   userData: {}

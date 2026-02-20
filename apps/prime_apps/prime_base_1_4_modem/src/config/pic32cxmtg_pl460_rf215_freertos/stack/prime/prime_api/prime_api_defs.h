@@ -103,6 +103,20 @@ typedef struct
 */
 typedef void (*PRIME_API_INITIALIZE)(PRIME_API_INIT *init, bool isRestart, 
                                      uint8_t primeVersion);
+								
+// *****************************************************************************
+/* PRIME stack opening
+
+  Summary:
+    Function pointer to open the PRIME stack.
+
+  Description:
+    This function pointer is used to open the PRIME stack.
+
+  Remarks:
+    None.
+*/
+typedef void (*PRIME_API_OPEN)(void);
 
 // *****************************************************************************
 /* PRIME stack state machine maintenance

@@ -2157,7 +2157,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '1'
+            value: '255'
           type: Dynamic
         type: Values
       type: Integer
@@ -2168,7 +2168,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: '0'
+            value: '2'
           type: Dynamic
         type: Values
       type: KeyValueSet
@@ -2827,7 +2827,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -3475,7 +3475,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -4123,7 +4123,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -4771,7 +4771,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -5419,7 +5419,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -6067,7 +6067,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -6715,7 +6715,7 @@ data:
       - children:
         - attributes:
             id: srv_pcoup
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
@@ -7372,32 +7372,6 @@ data:
     SRV_PCOUP_G3_HEADER:
       attributes:
         id: SRV_PCOUP_G3_HEADER
-      children:
-      - children:
-        - attributes:
-            id: enabled
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      type: File
-    SRV_PCOUP_MM_SOURCE:
-      attributes:
-        id: SRV_PCOUP_MM_SOURCE
-      children:
-      - children:
-        - attributes:
-            id: enabled
-          children:
-          - type: Value
-            value: 'false'
-          type: Boolean
-        type: Attributes
-      type: File
-    SRV_PCOUP_MM_HEADER:
-      attributes:
-        id: SRV_PCOUP_MM_HEADER
       children:
       - children:
         - attributes:

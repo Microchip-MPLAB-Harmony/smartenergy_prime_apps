@@ -88,6 +88,7 @@ static const PRIME_API PRIME_API_Interface =
     .model = PRIME_PIB_MODEL,
     .version = PRIME_FW_VERSION,
     .Initialize = PRIME_API_Initialize,
+    .Open = PRIME_API_Open,
     .Tasks = PRIME_API_Tasks,
     .Status = PRIME_API_Status,
     .MacSetCallbacks = CL_NULL_SetCallbacks,
@@ -132,6 +133,15 @@ static MAC_VERSION_INFO primeApiMacInfo;
 
 /* Port for the Management Plane */
 static uint8_t primeApiMngPlanePort;
+
+/* PRIME version */
+static uint8_t primeApiVersion;
+
+/* Index for PAL */
+static uint8_t primeApiPalIndex;
+
+/* Flag for restart */
+static bool primeApiIsRestart;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -219,27 +229,43 @@ void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart,
 
     /* Store port for PRIME initialization */
     primeApiMngPlanePort = init->mngPlaneUsiPort;
+	
+	/* Store information for PAL initialization */
+    primeApiVersion = primeVersion;
+	primeApiPalIndex = init->palIndex;
+	
+    /* Store restart flag */
+    primeApiIsRestart = isRestart;
 
-    /* Initialize PAL layer */
-    if (isRestart == false)
+    /* Wait fort opening */
+    primeApiState = PRIME_API_STATE_WAITING_OPEN;
+}
+
+void PRIME_API_Open(void)
+{
+    if (primeApiState == PRIME_API_STATE_WAITING_OPEN)
     {
-        palSysObj = PRIME_HAL_WRP_PAL_Initialize(init->palIndex);
-    }
+        /* Initialize PAL layer */
+        if (primeApiIsRestart == false)
+        {
+            palSysObj = PRIME_HAL_WRP_PAL_Initialize(primeApiPalIndex);
+        }
 
-    /* Enable PAL layer depending on PRIME version */
-    uint8_t enablePAL;
-    if (primeVersion == PRIME_VERSION_1_3)
-    {
-        enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_SERIAL_EN);
-    }
-    else
-    {
-        enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_RF_EN);
-    }
+        /* Enable PAL layer depending on PRIME version */
+        uint8_t enablePAL;
+        if (primeApiVersion == PRIME_VERSION_1_3)
+        {
+            enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_SERIAL_EN);
+        }
+        else
+        {
+            enablePAL = (PRIME_HAL_WRP_PAL_PLC_EN) | (PRIME_HAL_WRP_PAL_RF_EN);
+        }
 
-    PRIME_HAL_WRP_PAL_Enable(palSysObj, enablePAL);
+        PRIME_HAL_WRP_PAL_Enable(palSysObj, enablePAL);
 
-    primeApiState = PRIME_API_STATE_PAL_INITIALIZING;
+        primeApiState = PRIME_API_STATE_PAL_INITIALIZING;
+    }
 }
 
 void PRIME_API_Tasks(void)
@@ -297,6 +323,10 @@ SYS_STATUS PRIME_API_Status(void)
     /* Return the PRIME API status */
     switch (primeApiState)
     {
+        case PRIME_API_STATE_WAITING_OPEN:
+            status = SYS_STATUS_BUSY;
+            break;
+            
         case PRIME_API_STATE_PAL_INITIALIZING:
             status = SYS_STATUS_BUSY;
             break;

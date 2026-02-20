@@ -75,13 +75,13 @@ Microchip or any third party.
 #define SRV_PCOUP_DEFAULT_CHANNEL                CHN1
 
 /* PLC PRIME PHY Channel for impedance detection */
-#define SRV_PCOUP_CHANNEL_IMP_DET                CHN1
+#define SRV_PCOUP_CHANNEL_IMP_DET                CHN3
 
 /* List of channels that support impedance detection */
 #define SRV_PCOUP_CHANNEL_LIST_IMP_DET           32509
 
 /* PLC PRIME PHY Channel List */
-#define SRV_PCOUP_CHANNEL_LIST                   1
+#define SRV_PCOUP_CHANNEL_LIST                   255
 
 /* Equalization number of coefficients (number of carriers) */
 #define SRV_PCOUP_EQU_NUM_COEF_CHN               97U
@@ -105,14 +105,47 @@ Microchip or any third party.
                                                  0x70AF, 0x71B2, 0x7149, 0x71F3, 0x7203, 0x7279, 0x71FB, 0x72B4, 0x7281, 0x72A4, 0x7262, 0x72BD, 0x7295, 0x72CC, \
                                                  0x729E, 0x7288, 0x7244, 0x7279, 0x726C, 0x7230, 0x71B9, 0x70D8, 0x7045, 0x7052, 0x6F8D, 0x6F3D, 0x6EB0, 0x6E6A, \
                                                  0x6E76, 0x6E1C, 0x6D7A, 0x6D84, 0x6D50, 0x6D45, 0x6CF2, 0x6CA9, 0x6C92, 0x6CBA, 0x6C69, 0x6C27, 0x6C02}
+#define SRV_PCOUP_PRED_NOT_USED                  {0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, \
+                                                 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF, 0x7FFF}
+
 /* RMS_CALC Carrier Mask tables */
 #define SRV_PCOUP_CHN1_CARRIER_MASK_HIGH_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
 #define SRV_PCOUP_CHN1_CARRIER_MASK_VLOW_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN2_CARRIER_MASK_HIGH_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x80}
+#define SRV_PCOUP_CHN2_CARRIER_MASK_VLOW_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN3_CARRIER_MASK_HIGH_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+#define SRV_PCOUP_CHN3_CARRIER_MASK_VLOW_TBL     {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN4_CARRIER_MASK_HIGH_TBL     {0xFF, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+#define SRV_PCOUP_CHN4_CARRIER_MASK_VLOW_TBL     {0xFF, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+
+#define SRV_PCOUP_CHN5_CARRIER_MASK_HIGH_TBL     {0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+#define SRV_PCOUP_CHN5_CARRIER_MASK_VLOW_TBL     {0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}
+
+#define SRV_PCOUP_CHN6_CARRIER_MASK_HIGH_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0x80}
+#define SRV_PCOUP_CHN6_CARRIER_MASK_VLOW_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3F, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN7_CARRIER_MASK_HIGH_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xFF, 0xFF, 0x80}
+#define SRV_PCOUP_CHN7_CARRIER_MASK_VLOW_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0xFF, 0xFF, 0x80}
+
+#define SRV_PCOUP_CHN8_CARRIER_MASK_HIGH_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0xFF, 0xFF, 0x80}
+#define SRV_PCOUP_CHN8_CARRIER_MASK_VLOW_TBL     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1F, 0xFF, 0xFF, 0x80}
 
 /* DACC configuration tables */
 #define SRV_PCOUP_DACC_CENA_TBL                  {0x0UL, 0x21200000UL, 0x73f0000UL, 0x3f3f0000UL, 0xcccUL, 0x0UL, \
                                                  0xa92c00ffUL, 0x1a1a1a1aUL, 0x20200000UL, 0x4400UL, 0xfd20005UL, 0x3aaUL, \
                                                  0xf0000000UL, 0x1020f0UL, 0x3aaUL, 0xf0000000UL, 0x1020ffUL}
+
+#define SRV_PCOUP_DACC_FCC_TBL                   {0x0UL, 0x0UL, 0x100UL, 0x100UL, 0x0UL, 0x0UL, \
+                                                 0xffff00ffUL, 0x1b1b1b1bUL, 0x0UL, 0x0UL, 0x6UL, 0x355UL, \
+                                                 0x0UL, 0x1020f0UL, 0x355UL, 0x0UL, 0x1020ffUL}
 
 
 /* PLC PHY Coupling parameters for each PRIME channel */
@@ -124,6 +157,69 @@ Microchip or any third party.
 #define SRV_PCOUP_CHN1_GAIN_VLOW_TBL             {256, 128, 281}
 #define SRV_PCOUP_CHN1_LINE_DRV_CONF             8
 #define SRV_PCOUP_CHN1_MAX_NUM_TX_LEVELS         8
+
+#define SRV_PCOUP_CHN2_RMS_HIGH_TBL              {2809, 2458, 2157, 1891, 1658, 1456, 1283, 1126}
+#define SRV_PCOUP_CHN2_RMS_VLOW_TBL              {4873, 4485, 4074, 3674, 3269, 2905, 2569, 2265}
+#define SRV_PCOUP_CHN2_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 2520, 2203, 1927, 1694, 1484, 1304, 1146, 1010}
+#define SRV_PCOUP_CHN2_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 7315, 6456, 5692, 4999, 4378, 3838, 3362, 2947}
+#define SRV_PCOUP_CHN2_GAIN_HIGH_TBL             {120, 60, 256}
+#define SRV_PCOUP_CHN2_GAIN_VLOW_TBL             {287, 128, 322}
+#define SRV_PCOUP_CHN2_LINE_DRV_CONF             5
+#define SRV_PCOUP_CHN2_MAX_NUM_TX_LEVELS         8
+
+#define SRV_PCOUP_CHN3_RMS_HIGH_TBL              {725, 642, 568, 503, 445, 395, 350, 310}
+#define SRV_PCOUP_CHN3_RMS_VLOW_TBL              {2826, 2597, 2365, 2128, 1901, 1688, 1494, 1322}
+#define SRV_PCOUP_CHN3_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 545, 482, 427, 378, 334, 296, 262, 233}
+#define SRV_PCOUP_CHN3_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 8280, 7336, 6495, 5741, 5072, 4480, 3957, 3493}
+#define SRV_PCOUP_CHN3_GAIN_HIGH_TBL             {30, 15, 256}
+#define SRV_PCOUP_CHN3_GAIN_VLOW_TBL             {287, 128, 322}
+#define SRV_PCOUP_CHN3_LINE_DRV_CONF             5
+#define SRV_PCOUP_CHN3_MAX_NUM_TX_LEVELS         8
+
+#define SRV_PCOUP_CHN4_RMS_HIGH_TBL              {4401, 3953, 3544, 3178, 2848, 2550, 2283, 2044}
+#define SRV_PCOUP_CHN4_RMS_VLOW_TBL              {7515, 6847, 6185, 5532, 4920, 4359, 3861, 3416}
+#define SRV_PCOUP_CHN4_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 3249, 2918, 2617, 2349, 2105, 1885, 1689, 1513}
+#define SRV_PCOUP_CHN4_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 17622, 15870, 14283, 12851, 11559, 10412, 9370, 8435}
+#define SRV_PCOUP_CHN4_GAIN_HIGH_TBL             {60, 30, 256}
+#define SRV_PCOUP_CHN4_GAIN_VLOW_TBL             {256, 128, 287}
+#define SRV_PCOUP_CHN4_LINE_DRV_CONF             5
+#define SRV_PCOUP_CHN4_MAX_NUM_TX_LEVELS         8
+
+#define SRV_PCOUP_CHN5_RMS_HIGH_TBL              {4382, 3919, 3505, 3135, 2804, 2507, 2243, 2005}
+#define SRV_PCOUP_CHN5_RMS_VLOW_TBL              {9138, 8340, 7542, 6767, 6044, 5382, 4789, 4258}
+#define SRV_PCOUP_CHN5_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 3804, 3403, 3044, 2723, 2435, 2179, 1949, 1743}
+#define SRV_PCOUP_CHN5_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 12364, 11115, 9963, 8933, 7999, 7169, 6414, 5743}
+#define SRV_PCOUP_CHN5_GAIN_HIGH_TBL             {85, 40, 256}
+#define SRV_PCOUP_CHN5_GAIN_VLOW_TBL             {256, 128, 287}
+#define SRV_PCOUP_CHN5_LINE_DRV_CONF             5
+#define SRV_PCOUP_CHN5_MAX_NUM_TX_LEVELS         8
+
+#define SRV_PCOUP_CHN6_RMS_HIGH_TBL              {2919, 2598, 2315, 2063, 1838, 1638, 1460, 1301}
+#define SRV_PCOUP_CHN6_RMS_VLOW_TBL              {8622, 7866, 7095, 6373, 5691, 5080, 4525, 4034}
+#define SRV_PCOUP_CHN6_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 2565, 2285, 2036, 1814, 1616, 1441, 1283, 1144}
+#define SRV_PCOUP_CHN6_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 12460, 11102, 9889, 8802, 7833, 6973, 6199, 5523}
+#define SRV_PCOUP_CHN6_GAIN_HIGH_TBL             {60, 30, 256}
+#define SRV_PCOUP_CHN6_GAIN_VLOW_TBL             {256, 128, 287}
+#define SRV_PCOUP_CHN6_LINE_DRV_CONF             5
+#define SRV_PCOUP_CHN6_MAX_NUM_TX_LEVELS         8
+
+#define SRV_PCOUP_CHN7_RMS_HIGH_TBL              {3468, 3083, 2740, 2436, 2165, 1926, 1712, 1523}
+#define SRV_PCOUP_CHN7_RMS_VLOW_TBL              {8835, 8038, 7235, 6478, 5780, 5146, 4583, 4081}
+#define SRV_PCOUP_CHN7_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 2914, 2590, 2301, 2047, 1819, 1618, 1438, 1279}
+#define SRV_PCOUP_CHN7_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 15406, 13630, 12059, 10675, 9453, 8374, 7418, 6578}
+#define SRV_PCOUP_CHN7_GAIN_HIGH_TBL             {60, 30, 256}
+#define SRV_PCOUP_CHN7_GAIN_VLOW_TBL             {256, 128, 287}
+#define SRV_PCOUP_CHN7_LINE_DRV_CONF             5
+#define SRV_PCOUP_CHN7_MAX_NUM_TX_LEVELS         8
+
+#define SRV_PCOUP_CHN8_RMS_HIGH_TBL              {2168, 1929, 1717, 1528, 1361, 1212, 1080, 962}
+#define SRV_PCOUP_CHN8_RMS_VLOW_TBL              {10206, 9351, 8496, 7640, 6824, 6078, 5407, 4809}
+#define SRV_PCOUP_CHN8_THRS_HIGH_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 1628, 1448, 1288, 1146, 1021, 909, 810, 720}
+#define SRV_PCOUP_CHN8_THRS_VLOW_TBL             {0, 0, 0, 0, 0, 0, 0, 0, 23125, 20543, 18202, 16117, 14268, 12632, 11193, 9912}
+#define SRV_PCOUP_CHN8_GAIN_HIGH_TBL             {30, 15, 256}
+#define SRV_PCOUP_CHN8_GAIN_VLOW_TBL             {287, 128, 322}
+#define SRV_PCOUP_CHN8_LINE_DRV_CONF             5
+#define SRV_PCOUP_CHN8_MAX_NUM_TX_LEVELS         8
 
 
 // *****************************************************************************

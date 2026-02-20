@@ -78,7 +78,7 @@ Microchip or any third party.
     Initializes the PRIME Stack for the specified index.
 
   Description:
-    This routine initializes the PRIME Stack making it ready for clients to use.
+    This routine initializes the PRIME Stack.
 
   Precondition:
     None.
@@ -110,6 +110,42 @@ Microchip or any third party.
 */
 SYS_MODULE_OBJ PRIME_Initialize(const SYS_MODULE_INDEX index,
     const SYS_MODULE_INIT * init);
+
+// *****************************************************************************
+/* Function:
+    void PRIME_Open(SYS_MODULE_INDEX index)
+
+  Summary:
+    Opens the PRIME Stack for the specified index.
+
+  Description:
+    This routine opens the PRIME Stack instance making it ready for clients to use.
+
+  Precondition:
+    PRIME_Initialize routine must have been called before.
+
+  Parameters:
+    index   - Index for the instance to be opened
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    PRIME_STACK_INIT initData;
+    SYS_MODULE_OBJ sysObjPrime;
+
+    sysObjPrime = PRIME_Initialize(PRIME_INDEX_0, (SYS_MODULE_INIT *)&initData);
+    
+    PRIME_Open(PRIME_INDEX_0);
+    </code>
+
+
+  Remarks:
+    This routine must be called before any other PRIME routine is called, except 
+    PRIME_Initialize.
+*/
+void PRIME_Open(SYS_MODULE_INDEX index);
 
 // *****************************************************************************
 /* Function:

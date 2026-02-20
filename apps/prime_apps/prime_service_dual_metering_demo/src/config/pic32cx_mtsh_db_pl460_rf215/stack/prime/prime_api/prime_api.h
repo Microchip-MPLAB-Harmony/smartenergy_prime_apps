@@ -82,6 +82,7 @@ Microchip or any third party.
 
 typedef enum
 {
+    PRIME_API_STATE_WAITING_OPEN,
     PRIME_API_STATE_PAL_INITIALIZING,
     PRIME_API_STATE_PRIME_RUNNING
 } PRIME_API_STATE;

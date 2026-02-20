@@ -30,7 +30,7 @@
 /* Buffer used to tx serialization */
 static uint8_t appSerialBuf[MAX_LENGTH_BUFF];
 
-const PRIME_API *gPrimeApi;
+static const PRIME_API *gPrimeApi;
 
 SRV_USI_HANDLE gUsiHandle=0;
 

@@ -94,6 +94,7 @@ Microchip or any third party.
 
 typedef enum
 {
+    PRIME_API_STATE_WAITING_OPEN,
     PRIME_API_STATE_PAL_INITIALIZING,
     PRIME_API_STATE_PRIME_RUNNING
 } PRIME_API_STATE;
@@ -148,6 +149,44 @@ typedef enum
 */
 void PRIME_API_Initialize(PRIME_API_INIT *init, bool isRestart, 
                           uint8_t primeVersion);
+                
+// *****************************************************************************
+/* Function:
+    void PRIME_API_Open(void)
+   
+  Summary:
+    Opens the PRIME Library.
+
+  Description:
+    This routine opens the PRIME Library.
+
+  Precondition:
+    None.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    PRIME_API_INIT init;
+
+    init.palIndex = PRIME_PAL_INDEX;
+    init.halApi = (HAL_API*)&halApi;
+    init.mngPlaneUsiPort = PRIME_MNG_PLANE_USI_INDEX;
+
+    PRIME_API_Initialize(&init, false, PRIME_VERSION_1_4);
+    
+    PRIME_API_Open();
+    </code>
+
+  Remarks:
+    This routine is normally not called directly by an application. The PRIME 
+    application must use the function located in the PRIME API.
+*/
+void PRIME_API_Open(void);
 
 // ****************************************************************************
 /* Function:

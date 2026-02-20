@@ -241,6 +241,9 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
+            /* Start of PRIME STack*/
+            PRIME_Open(PRIME_INDEX_0);
+            
             /* Register timer callback to blink LED */
             SYS_TIME_HANDLE timeHandle = SYS_TIME_CallbackRegisterMS(
                     lAPP_TimeExpiredSetFlag, (uintptr_t) &appData.timerLedExpired,

@@ -983,6 +983,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -997,10 +998,10 @@
         <property key="exclude-floating-point" value="false"/>
         <property key="expand-pragma-config" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/pic32cx_mtg_ek_pl460_rf215;../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/drivers;../src/config/pic32cx_mtg_ek_pl460_rf215/crypto/wolfcrypt;../src/config/pic32cxmtg_pl460_freertos;../src/config/pic32cxmtg_pl460_freertos/crypto/drivers;../src/config/pic32cxmtg_pl460_freertos/crypto/wolfcrypt;../src/config/pic32cxmtg_pl460_rf215;../src/config/pic32cxmtg_pl460_rf215/crypto/drivers;../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt;../src/config/pic32cxmtg_pl460_rf215_freertos;../src/config/pic32cxmtg_pl460_rf215_freertos/crypto/drivers;../src/config/pic32cxmtg_pl460_rf215_freertos/crypto/wolfcrypt;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
+                  value="../src;../src/config/pic32cxmtg_pl460_freertos;../src/config/pic32cxmtg_pl460_freertos/crypto/drivers;../src/config/pic32cxmtg_pl460_freertos/crypto/wolfcrypt;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/packs/PIC32CX2051MTG128_DFP;../src/third_party/rtos/FreeRTOS/Source/include;../src/third_party/rtos/FreeRTOS/Source/portable/GCC/SAM/ARM_CM4F;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="isolate-each-function" value="true"/>
+        <property key="isolate-each-function" value="false"/>
         <property key="keep-inline" value="false"/>
         <property key="make-warnings-into-errors" value="false"/>
         <property key="oXC16gcc-errata" value=""/>
@@ -1012,8 +1013,8 @@
         <property key="oXC16gcc-sfr-warn" value="false"/>
         <property key="oXC16gcc-smar-io-lvl" value="1"/>
         <property key="oXC16gcc-smart-io-fmt" value=""/>
-        <property key="optimization-level" value="-O1"/>
-        <property key="place-data-into-section" value="true"/>
+        <property key="optimization-level" value="-O0"/>
+        <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
         <property key="preprocessor-macros"
@@ -1032,6 +1033,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1063,6 +1065,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1109,6 +1112,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1137,6 +1141,7 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
+        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>

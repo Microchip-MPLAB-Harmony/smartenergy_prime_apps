@@ -1050,7 +1050,7 @@
                         CT="1"
                         CN="pic32cxmtsh"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_bootloader/bootloader_pic32cxmtsh.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmtsh"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmtsh TYPE_IMAGE=DEBUG_RUN"
@@ -1065,7 +1065,7 @@
                         CT="1"
                         CN="pic32cxmt_pl460_rf215"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215 TYPE_IMAGE=DEBUG_RUN"
@@ -1080,7 +1080,7 @@
                         CT="1"
                         CN="pic32cxmt_pl460"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_1_3_bin/pic32cxmt_pl460.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460 TYPE_IMAGE=DEBUG_RUN"
@@ -1116,7 +1116,6 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -1166,7 +1165,6 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -1198,7 +1196,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1245,7 +1242,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
@@ -1274,7 +1270,6 @@
         <property key="use-indirect-calls" value="false"/>
       </C32CPP>
       <C32Global>
-        <property key="appendMe" value=""/>
         <property key="combine-sourcefiles" value="false"/>
         <property key="common-include-directories" value=""/>
         <property key="common-macros" value=""/>
