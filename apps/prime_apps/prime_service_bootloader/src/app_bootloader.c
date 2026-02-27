@@ -364,6 +364,19 @@ static void lAPP_BOOTLOADER_DowngradeClockSytem(void)
     /* Disable PLLs (first PLLB) */
     CLK_PLLDisable(PLLB);
     CLK_PLLDisable(PLLA);
+
+    /* Reset PLL registers to POR defaults */
+    PMC_REGS->PMC_PLL_UPDT = PMC_PLL_UPDT_ID(0);  /* Select PLLA */
+    PMC_REGS->PMC_PLL_ACR = 0x00020058U;           /* PLLA POR default ACR */
+    PMC_REGS->PMC_PLL_CTRL1 = 0;                   /* MUL=0 */
+    PMC_REGS->PMC_PLL_CTRL2 = 0;                   /* FRACR=0 */
+    PMC_REGS->PMC_PLL_UPDT = PMC_PLL_UPDT_UPDATE_Msk | PMC_PLL_UPDT_ID(0);
+
+    PMC_REGS->PMC_PLL_UPDT = PMC_PLL_UPDT_ID(1);  /* Select PLLB */
+    PMC_REGS->PMC_PLL_ACR = 0x35020058U;           /* PLLB POR default ACR */
+    PMC_REGS->PMC_PLL_CTRL1 = 0;
+    PMC_REGS->PMC_PLL_CTRL2 = 0;
+    PMC_REGS->PMC_PLL_UPDT = PMC_PLL_UPDT_UPDATE_Msk | PMC_PLL_UPDT_ID(1);
 }
 
 // *****************************************************************************
