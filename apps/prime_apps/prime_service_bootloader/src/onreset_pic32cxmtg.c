@@ -31,8 +31,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define PLC460_RESET_PIN                     SYS_PORT_PIN_PD15
-#define PLC460_LDO_EN_PIN                    SYS_PORT_PIN_PD19
+#define PL460_RESET_PIN                     SYS_PORT_PIN_PA28
 
 // *****************************************************************************
 // *****************************************************************************
@@ -51,52 +50,15 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
- /* Enable co-processor bus clock  */
- PMC_REGS->PMC_SCER = (PMC_SCER_CPKEY_PASSWD | PMC_SCER_CPBMCK_Msk);
- /* Coprocessor Peripheral Enable */
- RSTC_REGS->RSTC_MR |= (RSTC_MR_KEY_PASSWD | RSTC_MR_CPEREN_Msk);
- /* Program PMC_CPU_CKR.CPPRES and wait for PMC_SR.CPMCKRDY to be set   */
- uint32_t prescaler;
- uint32_t reg = PMC_REGS->PMC_CPU_CKR;
- if ((reg & PMC_CPU_CKR_CPPRES_Msk) == PMC_CPU_CKR_CPPRES_CLK_1)
- {
-     prescaler = PMC_CPU_CKR_CPPRES_CLK_2;
- }
- else
- {
-     prescaler = PMC_CPU_CKR_CPPRES_CLK_1;
- }
-
- reg &= ~PMC_CPU_CKR_CPPRES_Msk;
- reg |= prescaler | PMC_CPU_CKR_CPCSS_MAINCK;
- PMC_REGS->PMC_CPU_CKR = reg;
- while ((PMC_REGS->PMC_SR & PMC_SR_CPMCKRDY_Msk) != PMC_SR_CPMCKRDY_Msk)
- {
-     /* Wait for status CPMCKRDY */
- }
- 
- PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOD);
- while((PMC_REGS->PMC_CSR2 & PMC_CSR2_PID85_Msk) == 0U)
- {
-     /* Wait for clock to be initialized */
- }
- 
- /* Enable LDO Pin */
- SYS_PORT_PinOutputEnable(PLC460_LDO_EN_PIN);
- SYS_PORT_PinSet(PLC460_LDO_EN_PIN);
- /* Enable Reset Pin */
- SYS_PORT_PinOutputEnable(PLC460_RESET_PIN);
- SYS_PORT_PinClear(PLC460_RESET_PIN);
- 
- PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
- while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
- {
-     /* Wait for clock to be initialized */
- }
-
- /* Disable STBY Pin */
- SYS_PORT_PinOutputEnable(SYS_PORT_PIN_PA0);
- SYS_PORT_PinClear(SYS_PORT_PIN_PA0);
+    /* Enable PIOA clock */
+    PMC_REGS->PMC_PCR = PMC_PCR_CMD_Msk | PMC_PCR_EN_Msk | PMC_PCR_PID(ID_PIOA);
+    while((PMC_REGS->PMC_CSR0 & PMC_CSR0_PID17_Msk) == 0U)
+    {
+        /* Wait for clock to be initialized */
+    }
+    /* Enable and Clear Reset Pin */
+    SYS_PORT_PinOutputEnable(PL460_RESET_PIN);
+    SYS_PORT_PinClear(PL460_RESET_PIN);
 }
 
 /* MISRA C-2012 deviation block end */
