@@ -348,9 +348,6 @@ static void lAPP_PRIME_METROLOGY_SetCallbacks(void)
 
 void APP_PRIME_METROLOGY_Initialize ( void )
 {
-    /* Place the App state machine in its initial state. */
-    app_prime_metrologyState = APP_PRIME_METROLOGY_STATE_INIT;
-
     (void) memset(&boardInfo, 0, sizeof(boardInfo));
 
     /* Get the PRIME version */
@@ -374,7 +371,7 @@ void APP_PRIME_METROLOGY_Initialize ( void )
     isDataReceived = false;
     
     /* Set state */
-    app_prime_metrologyState = APP_PRIME_METROLOGY_STATE_WAIT_ICM_READY;
+    app_prime_metrologyState = APP_PRIME_METROLOGY_STATE_PRIME_OPEN;
 }
 
 
@@ -392,16 +389,10 @@ void APP_PRIME_METROLOGY_Tasks ( void )
     switch ( app_prime_metrologyState )
     {
         /* Application's initial state. */
-        case APP_PRIME_METROLOGY_STATE_WAIT_ICM_READY:
+        case APP_PRIME_METROLOGY_STATE_PRIME_OPEN:
         {
-            APP_METROLOGY_STATE statusMetrology = APP_METROLOGY_GetState();
-            
-            if ((statusMetrology != APP_METROLOGY_STATE_ICM_GET_HASH) &&
-                (statusMetrology != APP_METROLOGY_STATE_ICM_START_MONITOR))     
-            {
-                PRIME_Open(PRIME_INDEX_0);
-                app_prime_metrologyState = APP_PRIME_METROLOGY_STATE_SERVICE_CONFIGURE;   
-            }
+            PRIME_Open(PRIME_INDEX_0);
+            app_prime_metrologyState = APP_PRIME_METROLOGY_STATE_SERVICE_CONFIGURE;
             break;
         }    
         
