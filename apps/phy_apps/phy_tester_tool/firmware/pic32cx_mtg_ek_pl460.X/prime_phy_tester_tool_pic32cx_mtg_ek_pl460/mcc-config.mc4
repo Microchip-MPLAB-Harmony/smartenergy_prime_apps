@@ -39,7 +39,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\configuration.h
   hash: 2a0e1682cdec9f5de068980bbc70fc8b537c2616bd1546c9efdd0aacfb949cce
 - file: ..\src\config\pic32cx_mtg_ek_pl460\definitions.h
-  hash: d59102e4f9d180bc601c179db8bb60300f890a1e9fc611d94b048545fb4bc14b
+  hash: 506b0aa094642851096b01d7686e9aa8a9582ed208b2a1c87657e9b500a7380d
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device_cache.h
@@ -117,7 +117,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\peripheral\flexcom\spi\master\plib_flexcom_spi_master_common.h
   hash: 8ad565a4b0d64e38f2932935e557dd1642b26ea1630ef123a7c69231cbfe7d47
 - file: ..\src\config\pic32cx_mtg_ek_pl460\peripheral\flexcom\usart\plib_flexcom0_usart.c
-  hash: 9866ac57073f251a36067e5b4928b37515fe67a1d2b4758fbb4fbc1338140bf9
+  hash: 746cda39f34ef439d9214e7a3e4b61e0a33f9b953420a9fef487849806770644
 - file: ..\src\config\pic32cx_mtg_ek_pl460\peripheral\flexcom\usart\plib_flexcom0_usart.h
   hash: 6ff3d26bf626ef771cb42c71342dab16cccd25f77c7febe901bdef788e9de816
 - file: ..\src\config\pic32cx_mtg_ek_pl460\peripheral\flexcom\usart\plib_flexcom_usart_local.h
