@@ -63,14 +63,14 @@
 #include "peripheral/flexcom/usart/plib_flexcom0_usart.h"
 #include "driver/sst26/drv_sst26.h"
 #include "peripheral/sefc/plib_sefc0.h"
+#include "system/time/sys_time.h"
+#include "peripheral/sefc/plib_sefc1.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
-#include "peripheral/sefc/plib_sefc1.h"
-#include "system/time/sys_time.h"
 #include "peripheral/qspi/plib_qspi.h"
-#include "peripheral/trng/plib_trng.h"
 #include "service/pvddmon/srv_pvddmon.h"
+#include "peripheral/trng/plib_trng.h"
 #include "bsp/bsp.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
@@ -213,9 +213,9 @@ Remarks:
 typedef struct
 {
     SYS_MODULE_OBJ  drvSST26;
+    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
-    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvMemory0;
     SYS_MODULE_OBJ  sysConsole0;
 

@@ -48,7 +48,6 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include <stdio.h>
-#include <stdarg.h>
 #include "configuration.h"
 #include "srv_log_report.h"
 #include "gfx/driver/controller/slcdc/cl010.h"
@@ -64,6 +63,8 @@ static char message[SYS_CONSOLE_PRINT_BUFFER_SIZE];
 /* MISRA C-2023 deviation block start */
 /* MISRA C-2023 Rule 17.1 deviated 6 times. Deviation record ID - H3_MISRAC_2023_R_17_1_DR_1 */
 /* MISRA C-2023 Rule 21.6 deviated 4 times. Deviation record ID - H3_MISRAC_2023_R_21_1_DR_6 */
+
+#include <stdarg.h>
 
 static va_list srvLogReportArgs;
 
@@ -145,16 +146,13 @@ void SRV_LOG_REPORT_Buffer(SRV_LOG_REPORT_LEVEL logLevel,
             blockLength = lastBlockLength;
         }
 
-        if (blockLength != 0U)
+        lastPosition = lastBlock * (SYS_CONSOLE_PRINT_BUFFER_SIZE / 2U);
+        for (uint32_t i = 0U; i < blockLength; i++)
         {
-            lastPosition = lastBlock * (SYS_CONSOLE_PRINT_BUFFER_SIZE / 2U);
-            for (uint32_t i = 0U; i < blockLength; i++)
-            {
-                (void) sprintf(&message[i << 1], "%02x", buffer[lastPosition + i]);
-            }
-
-            SYS_DEBUG_PRINT((SYS_ERROR_LEVEL)logLevel, message);
+            (void) sprintf(&message[i << 1], "%02x", buffer[lastPosition + i]);
         }
+
+        SYS_DEBUG_PRINT((SYS_ERROR_LEVEL)logLevel, message);
 
         ++lastBlock;
     }

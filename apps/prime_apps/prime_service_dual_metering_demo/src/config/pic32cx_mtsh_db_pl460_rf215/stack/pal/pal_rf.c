@@ -111,61 +111,58 @@ static PAL_RF_CFM_DATA palRfCfmData = {0};
 // Section: File Scope Functions
 // *****************************************************************************
 // *****************************************************************************
-static PAL_CFG_RESULT lPAL_RF_SetTxData(DRV_RF215_TX_HANDLE txHandle,
-                                        uint8_t *pData, uint8_t buffId)
+static void lPAL_RF_SetTxData(DRV_RF215_TX_HANDLE txHandle,
+                                        uint8_t buffId)
 {
     uint8_t index;
 
     for (index = 0; index < DRV_RF215_TX_BUFFERS_NUMBER; index++)
     {
-        if (palRfData.txData[index].pData == NULL)
+        if (palRfData.txData[index].txHandle == DRV_RF215_TX_HANDLE_INVALID)
         {
-            palRfData.txData[index].pData = pData;
             palRfData.txData[index].buffId = buffId;
             palRfData.txData[index].txHandle = txHandle;
-            return PAL_CFG_SUCCESS;
+            return;
         }
     }
-
-    return PAL_CFG_INVALID_INPUT;
 }
 
-static PAL_CFG_RESULT lPAL_RF_GetTxHandler(DRV_RF215_TX_HANDLE *txHandle, uint8_t *pData)
+static DRV_RF215_TX_HANDLE lPAL_RF_GetTxHandler(uint8_t buffId)
 {
     uint8_t index;
-
-    *txHandle = DRV_RF215_TX_HANDLE_INVALID;
-
+    DRV_RF215_TX_HANDLE txHandle = DRV_RF215_TX_HANDLE_INVALID;
+ 
     for (index = 0; index < DRV_RF215_TX_BUFFERS_NUMBER; index++)
     {
-        if (palRfData.txData[index].pData == pData)
+        if (palRfData.txData[index].buffId == buffId)
         {
-            *txHandle = palRfData.txData[index].txHandle;
-
-            palRfData.txData[index].pData = NULL;
+            txHandle = palRfData.txData[index].txHandle;
             palRfData.txData[index].txHandle = DRV_RF215_TX_HANDLE_INVALID;
-            return PAL_CFG_SUCCESS;
+            palRfData.txData[index].buffId = 0xFFU;
+            break;
         }
     }
 
-    return PAL_CFG_INVALID_INPUT;
+    return txHandle;
 }
 
 static uint8_t lPAL_RF_GetTxBuffId(DRV_RF215_TX_HANDLE txHandle)
 {
     uint8_t index;
-
+    uint8_t buffId = 0xFFU;
+ 
     for (index = 0; index < DRV_RF215_TX_BUFFERS_NUMBER; index++)
     {
         if (palRfData.txData[index].txHandle == txHandle)
         {
-            palRfData.txData[index].pData = NULL;
+            buffId = palRfData.txData[index].buffId;
             palRfData.txData[index].txHandle = DRV_RF215_TX_HANDLE_INVALID;
-            return((uint8_t)(palRfData.txData[index].buffId));
+            palRfData.txData[index].buffId = 0xFFU;
+            break;
         }
     }
 
-    return(0xFFU);
+    return buffId;
 }
 
 static void lPAL_RF_UpdatePhyConfiguration(void)
@@ -193,18 +190,41 @@ static void lPAL_RF_DataCfmCb(DRV_RF215_TX_HANDLE txHandle,
 {
     PAL_MSG_CONFIRM_DATA dataCfm;
 
+    if ((palRfData.snifferCallback) != NULL)
+    {
+        uint8_t* pRfSnifferData=NULL;
+        uint16_t paySymbols=0;
+        size_t dataLength=0;
+        uint16_t channel = (uint16_t)(palRfData.currentPch & (~PRIME_PAL_RF_CHN_MASK));
+
+        (void)DRV_RF215_GetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_TX_PAY_SYMBOLS,
+                    &paySymbols);
+
+        pRfSnifferData = SRV_RSNIFFER_SerialCfmMessage(pCfmObj, txHandle,
+                         &palRfData.rfPhyConfig, paySymbols, channel,
+                         &dataLength);
+
+        if (dataLength != 0U)
+        {
+            palRfData.snifferCallback(pRfSnifferData, dataLength);
+        }
+    }
+
     if (txHandle == DRV_RF215_TX_HANDLE_INVALID)
     {
+        /* Error confirm, called from PAL_RF_Tasks */
         dataCfm.bufId = (uint8_t)ctxt;
+        dataCfm.txTime = pCfmObj->timeIniCount;
     }
     else
     {
+        /* Normal confirm */
         dataCfm.bufId = lPAL_RF_GetTxBuffId(txHandle);
+        dataCfm.txTime = SRV_TIME_MANAGEMENT_CountToUS(pCfmObj->timeIniCount);
     }
 
     if (palRfData.rfCallbacks.dataConfirm != NULL)
     {
-        dataCfm.txTime = SRV_TIME_MANAGEMENT_CountToUS(pCfmObj->timeIniCount);
         dataCfm.pch = palRfData.currentPch;
         dataCfm.rmsCalc = 255;
         dataCfm.frameType = PAL_FRAME_TYPE_RF;
@@ -256,27 +276,6 @@ static void lPAL_RF_DataCfmCb(DRV_RF215_TX_HANDLE txHandle,
 
         palRfData.rfCallbacks.dataConfirm(&dataCfm);
     }
-
-    if ((palRfData.snifferCallback) != NULL)
-    {
-        uint8_t* pRfSnifferData=NULL;
-        uint16_t paySymbols=0;
-        size_t dataLength=0;
-        uint16_t channel = (uint16_t)(palRfData.currentPch & (~PRIME_PAL_RF_CHN_MASK));
-
-        (void)DRV_RF215_GetPib(palRfData.drvRfPhyHandle, RF215_PIB_PHY_TX_PAY_SYMBOLS,
-                    &paySymbols);
-
-        pRfSnifferData = SRV_RSNIFFER_SerialCfmMessage(pCfmObj, txHandle,
-                         &palRfData.rfPhyConfig, paySymbols, channel,
-                         &dataLength);
-
-        if (dataLength != 0U)
-        {
-            palRfData.snifferCallback(pRfSnifferData, dataLength);
-        }
-    }
-
 }
 
 static void lPAL_RF_DataIndCb(DRV_RF215_RX_INDICATION_OBJ* pIndObj, uintptr_t ctxt)
@@ -370,6 +369,11 @@ SYS_MODULE_OBJ PAL_RF_Initialize(void)
     DRV_RF215_ReadyStatusCallbackRegister(DRV_RF215_INDEX_0, lPAL_RF_InitCallback, 0);
 
     palRfCfmData.needsCfm = false;
+    for (uint8_t index = 0; index < DRV_RF215_TX_BUFFERS_NUMBER; index++)
+    {
+        palRfData.txData[index].txHandle = DRV_RF215_TX_HANDLE_INVALID;
+        palRfData.txData[index].buffId = 0xFFU;
+    }
 
     return (SYS_MODULE_OBJ)DRV_RF215_INDEX_0;
 }
@@ -384,10 +388,9 @@ void PAL_RF_Tasks(void)
 {
     if (palRfCfmData.needsCfm == true)
     {
+        palRfCfmData.needsCfm = false;
         lPAL_RF_DataCfmCb(DRV_RF215_TX_HANDLE_INVALID, &palRfCfmData.pCfmObj,
                                                         palRfCfmData.buffId);
-
-        palRfCfmData.needsCfm = false;
     }
 }
 
@@ -413,13 +416,16 @@ uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
         return ((uint8_t)PAL_TX_RESULT_PHY_ERROR);
     }
 
+    /* Check if there is already a programmed transmission with the same buffId */
+    rfPhyTxReqHandle = lPAL_RF_GetTxHandler(pMessageData->buffId);
+    if ((rfPhyTxReqHandle != DRV_RF215_TX_HANDLE_INVALID) || (pMessageData->timeMode == PAL_TX_MODE_CANCEL))
+    {
+        /* Cancel transmission. Also cancel if reprogrammed transmission. */
+        DRV_RF215_TxCancel(palRfData.drvRfPhyHandle, rfPhyTxReqHandle);
+    }
+
     if (pMessageData->timeMode == PAL_TX_MODE_CANCEL)
     {
-        if (lPAL_RF_GetTxHandler(&rfPhyTxReqHandle, pMessageData->pData) == PAL_CFG_SUCCESS)
-        {
-            DRV_RF215_TxCancel(palRfData.drvRfPhyHandle, rfPhyTxReqHandle);
-        }
-
         return ((uint8_t)PAL_TX_RESULT_PROCESS);
     }
 
@@ -460,7 +466,7 @@ uint8_t PAL_RF_DataRequest(PAL_MSG_REQUEST_DATA *pMessageData)
     }
 
     /* Message accepted */
-    (void)lPAL_RF_SetTxData(rfPhyTxReqHandle, pMessageData->pData, pMessageData->buffId);
+    lPAL_RF_SetTxData(rfPhyTxReqHandle, pMessageData->buffId);
 
     if ((palRfData.snifferCallback) != NULL)
     {

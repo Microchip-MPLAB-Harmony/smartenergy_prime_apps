@@ -46,7 +46,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h
   hash: f48a67ada28e05bd8dc82234694f96b79d107d5bdac3e0cf79f33c9d2c72bf4a
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h
-  hash: b40295362e68cfbb4b3d32e5d53ec7aec1b0f36007e424944e04d5c014ee506c
+  hash: e7195c720eb0fa8256ebc297d53900b773ac8afe5f7f1d16b5b61687efc8d30c
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\device_cache.h
@@ -106,7 +106,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\exceptions.c
   hash: 251729130964d6a74b7a9ee99700b57a16c0e1b5d31029678e06ecd3d8dedc9e
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c
-  hash: 03261945256364c845566cf907e91c426c4a82fca4e6351e53f6d8bd7ea664be
+  hash: 5a20785e17592889c522c107ae77e7c93db06d6e56dee5c77bbc51916aa96d8d
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c
   hash: 7a252e506268acaeb504874cb290dafab52ae73acb8843ac5eb6fa8a4a2927f3
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.h

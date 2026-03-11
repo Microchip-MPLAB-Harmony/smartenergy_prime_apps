@@ -83,9 +83,8 @@ typedef enum
 
 typedef struct
 {
-    uint8_t *pData;
-    uint8_t buffId;
     DRV_RF215_TX_HANDLE txHandle;
+    uint8_t buffId;
 } PAL_RF_TX_DATA;
 
 // *****************************************************************************

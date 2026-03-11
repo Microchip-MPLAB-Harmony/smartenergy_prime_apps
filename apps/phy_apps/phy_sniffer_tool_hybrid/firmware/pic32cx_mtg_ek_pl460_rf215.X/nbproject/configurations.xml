@@ -107,6 +107,11 @@
             <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/rsniffer/srv_rsniffer.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="time_management"
+                           displayName="time_management"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/time_management/srv_time_management.h</itemPath>
+            </logicalFolder>
             <logicalFolder name="usi" displayName="usi" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_usart.h</itemPath>
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_local.h</itemPath>
@@ -277,6 +282,7 @@
           <itemPath>prime_phy_sniffer_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_usi.yml</itemPath>
           <itemPath>prime_phy_sniffer_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/core.yml</itemPath>
           <itemPath>prime_phy_sniffer_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/sefc1.yml</itemPath>
+          <itemPath>prime_phy_sniffer_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/primeTimeManagement.yml</itemPath>
           <itemPath>prime_phy_sniffer_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/srv_pcrc.yml</itemPath>
           <itemPath>prime_phy_sniffer_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/cmsis.yml</itemPath>
           <itemPath>prime_phy_sniffer_tool_hybrid_pic32cx_mtg_ek_pl460_rf215/components/flexcom0.yml</itemPath>
@@ -406,6 +412,11 @@
             </logicalFolder>
             <logicalFolder name="rsniffer" displayName="rsniffer" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/rsniffer/srv_rsniffer.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="time_management"
+                           displayName="time_management"
+                           projectFiles="true">
+              <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/time_management/srv_time_management.c</itemPath>
             </logicalFolder>
             <logicalFolder name="usi" displayName="usi" projectFiles="true">
               <itemPath>../src/config/pic32cx_mtg_ek_pl460_rf215/service/usi/srv_usi_usart.c</itemPath>

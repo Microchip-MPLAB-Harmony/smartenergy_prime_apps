@@ -51,7 +51,7 @@ Microchip or any third party.
 #include <string.h>
 #include "srv_rsniffer.h"
 #include "configuration.h"
-#include "system/time/sys_time.h"
+#include "service/time_management/srv_time_management.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -116,8 +116,6 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-static uint64_t srvRsnifferPrevSysTime = 0;
-static uint32_t srvRsnifferPrevTimeUS = 0;
 static uint8_t srvRsnifferRxMsg[RSNIFFER_MSG_MAX_SIZE];
 static uint8_t srvRsnifferTxMsg[DRV_RF215_TX_BUFFERS_NUMBER][RSNIFFER_MSG_MAX_SIZE];
 
@@ -142,28 +140,6 @@ static uint8_t SRV_RSNIFFER_FrameType(DRV_RF215_PHY_CFG_OBJ* pPhyCfgObj)
     }
 
     return frameType;
-}
-
-static uint32_t lSRV_RSNIFFER_SysTimeToUS(uint64_t sysTime)
-{
-    uint64_t sysTimeDiff;
-    uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
-    uint32_t timeUS = srvRsnifferPrevTimeUS;
-
-    /* Difference between current and previous system time */
-    sysTimeDiff = sysTime - srvRsnifferPrevSysTime;
-    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000UL);
-    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000UL);
-
-    /* Convert system time to microseconds and add to previous time */
-    timeUS += (SYS_TIME_CountToUS(0x10000000UL) * sysTimeDiffNumHigh);
-    timeUS += SYS_TIME_CountToUS(sysTimeDiffRemaining);
-
-    /* Store times for next computation */
-    srvRsnifferPrevSysTime = sysTime;
-    srvRsnifferPrevTimeUS = timeUS;
-
-    return timeUS;
 }
 
 // *****************************************************************************
@@ -209,7 +185,7 @@ uint8_t* SRV_RSNIFFER_SerialRxMessage (
     srvRsnifferRxMsg[7] = (uint8_t) channel;
 
     /* Initial and end time of RX frame */
-    timeIni = lSRV_RSNIFFER_SysTimeToUS(pIndObj->timeIniCount);
+    timeIni = SRV_TIME_MANAGEMENT_CountToUS(pIndObj->timeIniCount);
     srvRsnifferRxMsg[19] = (uint8_t) (timeIni >> 24);
     srvRsnifferRxMsg[20] = (uint8_t) (timeIni >> 16);
     srvRsnifferRxMsg[21] = (uint8_t) (timeIni >> 8);
@@ -322,7 +298,7 @@ uint8_t* SRV_RSNIFFER_SerialCfmMessage (
     pMsgDest[7] = (uint8_t) (channel);
 
     /* Initial and end time of RX frame */
-    timeIni = lSRV_RSNIFFER_SysTimeToUS(pCfmObj->timeIniCount);
+    timeIni = SRV_TIME_MANAGEMENT_CountToUS(pCfmObj->timeIniCount);
     pMsgDest[19] = (uint8_t) (timeIni >> 24);
     pMsgDest[20] = (uint8_t) (timeIni >> 16);
     pMsgDest[21] = (uint8_t) (timeIni >> 8);

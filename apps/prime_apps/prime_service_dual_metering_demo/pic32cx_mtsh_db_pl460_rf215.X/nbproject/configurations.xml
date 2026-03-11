@@ -1027,14 +1027,14 @@
         <targetDevice>PIC32CX2051MTSH128</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>5.00</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.4.152"/>
         <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.4.152"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>

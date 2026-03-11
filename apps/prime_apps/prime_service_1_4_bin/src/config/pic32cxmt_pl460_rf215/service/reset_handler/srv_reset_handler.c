@@ -50,6 +50,7 @@ Microchip or any third party.
 #include "definitions.h"
 #include "srv_reset_handler.h"
 #include "device.h"
+#include "interrupts.h"
 
 // *****************************************************************************
 // *****************************************************************************

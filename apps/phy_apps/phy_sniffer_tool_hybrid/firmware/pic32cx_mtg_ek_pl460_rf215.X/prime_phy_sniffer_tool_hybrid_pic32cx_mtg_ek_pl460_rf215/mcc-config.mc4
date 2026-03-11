@@ -17,6 +17,7 @@ modules:
 - flexcom3
 - flexcom5
 - mainBoard_PIC32CXMTG_EK
+- primeTimeManagement
 - sefc0
 - sefc1
 - srv_pcrc
@@ -41,7 +42,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h
   hash: 5711e229e1207e61addf87b85a069b6aaec3c7453d9ac1d71b91bc4efd621dcf
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h
-  hash: 81fec826a90ed74a167633e92639e18d3790809367c68ec7369f2025da9c23df
+  hash: a5e96a04e3effe9e1e4cc10880b58e2a2295141975a902c4585fd4b91a53f0c3
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\device_cache.h
@@ -99,7 +100,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\exceptions.c
   hash: 251729130964d6a74b7a9ee99700b57a16c0e1b5d31029678e06ecd3d8dedc9e
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\initialization.c
-  hash: 762340d56974ac684136e0f31fc7dbdbce6cb49a546adf874dfe851b4378cbcc
+  hash: 9ca8cf1d767d90b5e1323680b1c3a13a3ba929d04638f168113b8b743183f34f
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.c
   hash: 7a252e506268acaeb504874cb290dafab52ae73acb8843ac5eb6fa8a4a2927f3
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\interrupts.h
@@ -195,9 +196,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\pvddmon\srv_pvddmon.h
   hash: 0c1d6937ea647f56286a07f217f79494479775e49da30dc563192533bb052595
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\rsniffer\srv_rsniffer.c
-  hash: a879568e33b28900c617f94bb9ee45ba4eb3d3891e1738893333d526f5cb78f3
+  hash: af13001034b3d539bef9ce0564716108ca22ff23c36f950721d79e3ef0dde03b
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\rsniffer\srv_rsniffer.h
   hash: c9c1f861a2963bec23c689fa5a750dae6c59221564ed4cf3b4558e79c46a94c0
+- file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\time_management\srv_time_management.c
+  hash: 311e0869d0a2b5da913c1cc5ee3fcc33f3ea0216698b23a27d300d5397e8ad12
+- file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\time_management\srv_time_management.h
+  hash: 8dfb49e0825d37d324a50abd32291e8b6b8b398ab89ebdcc62bb25ef77d24472
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.c
   hash: e264c7bdd532feed19bf1814d8e594f01e38debadeed0933ce72ea110cf425f7
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\service\usi\srv_usi.h

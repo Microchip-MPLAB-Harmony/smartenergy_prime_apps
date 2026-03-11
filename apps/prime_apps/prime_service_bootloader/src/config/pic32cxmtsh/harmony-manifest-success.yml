@@ -4,7 +4,7 @@
 
 
 project: prime_sn_bootloader
-creation_date: 2026-02-20T10:47:24.961+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2026-03-17T10:55:47.899+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.6.3

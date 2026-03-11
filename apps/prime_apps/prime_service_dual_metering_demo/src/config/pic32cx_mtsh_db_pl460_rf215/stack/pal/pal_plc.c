@@ -90,7 +90,7 @@ Microchip or any third party.
 #define PHY_HEADER_TIME                (4480U)
 #define PHY_HEADER_B_BC_TIME           (2240U * 4U)
 
-#define DIV_ROUND(a, b)                (((a) + (b >> 1)) / (b))
+#define DIV_ROUND(a, b)                (((a) + ((b) >> 1)) / (b))
 #define MAX(a, b)                      (((a) > (b)) ?  (a) : (b))
 #define MIN(a, b)                      (((a) < (b)) ?  (a) : (b))
 
@@ -283,7 +283,7 @@ __STATIC_INLINE void lPAL_PLC_TimerSyncUpdate(void)
     uint32_t delayHost;
     uint32_t delayPlc;
     uint32_t syncTimerRelFreq;
-    uint64_t delayAux;
+    uint64_t syncTimerRelFreqAux;
 
     /* Get current Host and PLC timers */
     timeHost = lPAL_PLC_TimerSyncRead(&timePlcSync);
@@ -293,8 +293,8 @@ __STATIC_INLINE void lPAL_PLC_TimerSyncUpdate(void)
     delayPlc = timePlcSync - palPlcData.timeRefPlc;
 
     /* Compute relative frequency F_host/F_plc [uQ1.24] */
-    delayAux = DIV_ROUND((uint64_t)delayHost << 24, (uint64_t)(delayPlc));
-    syncTimerRelFreq = (uint32_t)(delayAux);
+    syncTimerRelFreqAux = DIV_ROUND((uint64_t)delayHost << 24, delayPlc);
+    syncTimerRelFreq = (uint32_t)syncTimerRelFreqAux;
 
     /* Check if relative frequency is consistent, otherwise timer read is wrong */
     if ((syncTimerRelFreq >= SYNC_TIMER_REL_FREQ_MIN) && (syncTimerRelFreq <= SYNC_TIMER_REL_FREQ_MAX))
@@ -351,47 +351,78 @@ __STATIC_INLINE void lPAL_PLC_TimerSyncUpdate(void)
 static uint32_t lPAL_PLC_GetHostTime(uint32_t timePlc)
 {
     int64_t delayAux;
-    int64_t delayPlc;
-    int64_t delayHost;
-    int64_t timeHost;
+    uint64_t delayAuxUnsigned;
+    int32_t delayPlc;
+    uint32_t delayPlcUnsigned;
+    int32_t delayHost;
+    uint32_t timeHost;
+    uint32_t roundingOffset;
 
     /* Compute PLC delay time since last sinchronization */
-    delayPlc = (int64_t)(timePlc) - (int64_t)(palPlcData.timeRefPlc);
+    delayPlcUnsigned = timePlc - palPlcData.timeRefPlc;
+    delayPlc = (int32_t)delayPlcUnsigned;
 
     /* Convert PLC delay to Host delay (frequency deviation) */
-    delayAux = delayPlc * (int64_t)palPlcData.syncTimerRelFreq;
-
-/* MISRA C-2023 deviation block start */
-/* MISRA C-2023 Rule 10.1 deviated once. Deviation record ID - H3_MISRAC_2023_R_10_1_DR_1 */
-    delayHost = (delayAux + (1L << 23)) >> 24;
-/* MISRA C-2023 deviation block end */
+    delayAux = (int64_t)delayPlc * (int32_t)palPlcData.syncTimerRelFreq;
+    roundingOffset = 1UL << 23;
+    delayAux += (int32_t)roundingOffset;
+    if (delayAux >= 0)
+    {
+        delayAuxUnsigned = (uint64_t)delayAux;
+        delayAuxUnsigned >>= 24;
+        delayHost = (int32_t)delayAuxUnsigned;
+    }
+    else
+    {
+        delayAuxUnsigned = (uint64_t)(-delayAux);
+        delayAuxUnsigned >>= 24;
+        delayHost = -(int32_t)delayAuxUnsigned;
+    }
 
     /* Compute Host time */
-    timeHost = (int64_t)palPlcData.timeRefHost + delayHost;
+    timeHost = palPlcData.timeRefHost + (uint32_t)delayHost;
 
-    return (uint32_t)(timeHost);
+    return timeHost;
 }
 
 static uint32_t lPAL_PLC_GetPlcTime(uint32_t timeHost)
 {
-    int64_t delayPlc;
-    int64_t delayHost;
-    int64_t timePlc;
+    int64_t delayAux;
+    uint64_t delayAuxUnsigned;
+    int32_t delayHost;
+    uint32_t delayHostUnsigned;
+    int32_t delayPlc;
+    uint32_t timePlc;
+    int64_t divisor;
+    int32_t halfDivisor;
+    uint32_t halfDivisorUnsigned;
 
     /* Compute Host delay time since last synchronization */
-    delayHost = (int64_t)(timeHost) - (int64_t)(palPlcData.timeRefHost);
+    delayHostUnsigned = timeHost - palPlcData.timeRefHost;
+    delayHost = (int32_t)delayHostUnsigned;
 
-/* MISRA C-2023 deviation block start */
-/* MISRA C-2023 Rule 10.1 deviated twice. Deviation record ID - H3_MISRAC_2023_R_10_1_DR_1 */
-/* Convert Host delay to PLC delay (frequency deviation) */
-    delayPlc = delayHost << 24;
-    delayPlc = DIV_ROUND(delayPlc, (int64_t)(palPlcData.syncTimerRelFreq));
-/* MISRA C-2023 deviation block end */
+    /* Convert Host delay to PLC delay (frequency deviation) */
+    if (delayHost >= 0)
+    {
+        delayAuxUnsigned = (uint64_t)delayHost << 24;
+        delayAux = (int64_t)delayAuxUnsigned;
+    }
+    else
+    {
+        delayHostUnsigned = (uint32_t)(-delayHost);
+        delayAuxUnsigned = (uint64_t)delayHostUnsigned << 24;
+        delayAux = -(int64_t)delayAuxUnsigned;
+    }
+
+    divisor = (int64_t)palPlcData.syncTimerRelFreq;
+    halfDivisorUnsigned = palPlcData.syncTimerRelFreq >> 1;
+    halfDivisor = (int32_t)halfDivisorUnsigned;
+    delayPlc = (int32_t)((delayAux + halfDivisor) / divisor);
 
     /* Compute PLC time */
-    timePlc = (int64_t)(palPlcData.timeRefPlc) + delayPlc;
+    timePlc = palPlcData.timeRefPlc + (uint32_t)delayPlc;
 
-    return (uint32_t)(timePlc);
+    return timePlc;
 }
 
 static void lPAL_PLC_SetCorrelationThresholds(DRV_PLC_PHY_CHANNEL channel)
@@ -586,6 +617,26 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
         }
     }
 
+    if ((palPlcData.snifferCallback) != NULL)
+    {
+        size_t dataLength;
+        uint16_t paySymbols;
+
+        palPlcData.plcPIB.id = PLC_ID_TX_PAY_SYMBOLS;
+        palPlcData.plcPIB.length = 2;
+        palPlcData.plcPIB.pData = (uint8_t *)&paySymbols;
+        (void)DRV_PLC_PHY_PIBGet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
+
+        SRV_PSNIFFER_SetTxPayloadSymbols(paySymbols);
+
+        dataLength = SRV_PSNIFFER_SerialCfmMessage(palPlcData.snifferData, pCfmObj);
+
+        if (dataLength != 0U)
+        {
+            palPlcData.snifferCallback(palPlcData.snifferData, dataLength);
+        }
+    }
+
     if (palPlcData.plcCallbacks.dataConfirm != NULL)
     {
         PAL_MSG_CONFIRM_DATA dataCfm;
@@ -609,28 +660,6 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
         }
 
         palPlcData.plcCallbacks.dataConfirm(&dataCfm);
-    }
-
-    if ((palPlcData.snifferCallback) != NULL)
-    {
-        size_t dataLength;
-        uint16_t paySymbols;
-        uint16_t payloadSymbols;
-
-        palPlcData.plcPIB.id = PLC_ID_TX_PAY_SYMBOLS;
-        palPlcData.plcPIB.length = 2;
-        palPlcData.plcPIB.pData = (uint8_t *)&paySymbols;
-        (void)DRV_PLC_PHY_PIBGet(palPlcData.drvPhyHandle, &palPlcData.plcPIB);
-
-        payloadSymbols = (uint16_t)palPlcData.plcPIB.pData[0] | ((uint16_t)palPlcData.plcPIB.pData[1] << 8);
-        SRV_PSNIFFER_SetTxPayloadSymbols(payloadSymbols);
-
-        dataLength = SRV_PSNIFFER_SerialCfmMessage(palPlcData.snifferData, pCfmObj);
-
-        if (dataLength != 0U)
-        {
-            palPlcData.snifferCallback(palPlcData.snifferData, dataLength);
-        }
     }
 
     if ((palPlcData.impedanceDetected == false) && (lPAL_PLC_CheckChannelInListImpDetect(palPlcData.channel) == false) && (palPlcData.buffer1InUse == false))

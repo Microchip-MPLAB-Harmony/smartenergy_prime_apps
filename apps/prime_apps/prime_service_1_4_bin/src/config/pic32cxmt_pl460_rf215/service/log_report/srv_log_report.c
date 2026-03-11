@@ -48,7 +48,6 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include <stdio.h>
-#include <stdarg.h>
 #include "configuration.h"
 #include "srv_log_report.h"
 
@@ -61,6 +60,8 @@ Microchip or any third party.
 /* MISRA C-2023 deviation block start */
 /* MISRA C-2023 Rule 17.1 deviated 6 times. Deviation record ID - H3_MISRAC_2023_R_17_1_DR_1 */
 /* MISRA C-2023 Rule 21.6 deviated 4 times. Deviation record ID - H3_MISRAC_2023_R_21_1_DR_6 */
+
+#include <stdarg.h>
 
 static va_list srvLogReportArgs;
 
