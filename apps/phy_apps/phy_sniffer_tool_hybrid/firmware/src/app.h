@@ -74,12 +74,12 @@ extern "C" {
 // *****************************************************************************
 #define APP_PLC_DATA_BUFFER_SIZE      512
 #define APP_PLC_SNIFFER_BUFFER_SIZE   (APP_PLC_DATA_BUFFER_SIZE + 32)
-#define APP_PLC_PIB_BUFFER_SIZE       2
+#define APP_PLC_PIB_BUFFER_SIZE       4
 
 #define LED_BLINK_RATE_MS             500
 #define LED_BLINK_PLC_MSG_MS          100
 
-#define DIV_ROUND(a, b)                            (((a) + (b >> 1)) / (b))
+#define DIV_ROUND(a, b)                            (((a) + ((b) >> 1)) / (b))
 
 // *****************************************************************************
 // *****************************************************************************
@@ -141,17 +141,13 @@ typedef struct
 
     bool tmrSyncExpired;
 
-    uint64_t syncSysTimeRef;
+    uint32_t syncHostTimeRef;
 
     uint32_t syncPlcTimeRef;
 
     uint32_t syncTimerRelFreq;
 
     uint32_t syncTimeDelay;
-
-    uint64_t plcSnifferPrevSysTime;
-
-    uint32_t plcSnifferPrevTimeUS;
 
     DRV_HANDLE drvPlcHandle;
 

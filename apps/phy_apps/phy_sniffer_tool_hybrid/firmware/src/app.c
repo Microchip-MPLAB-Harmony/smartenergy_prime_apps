@@ -86,9 +86,8 @@ static uint8_t plcSnifferDataBuffer[APP_PLC_SNIFFER_BUFFER_SIZE];
 // *****************************************************************************
 // *****************************************************************************
 
-static void _APP_TimerSyncInit();
-static uint64_t _APP_PlcTimeToSysTime(uint32_t plcTime);
-static uint32_t _APP_SysTimeToUS(uint64_t sysTime);
+static void _APP_TimerSyncInit(void);
+static uint32_t _APP_PlcTimeToHostUS(uint32_t plcTime);
 
 // *****************************************************************************
 // *****************************************************************************
@@ -112,7 +111,6 @@ static void _APP_PlcExceptionCb(DRV_PLC_PHY_EXCEPTION exception, uintptr_t ctxt)
 
 static void _APP_PlcDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t ctxt)
 {
-    uint64_t rxSysTime;
     size_t length;
 
     /* Avoid warning */
@@ -131,9 +129,8 @@ static void _APP_PlcDataIndCb(DRV_PLC_PHY_RECEPTION_OBJ *indObj, uintptr_t ctxt)
     DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &appData.plcPIB);
     SRV_PSNIFFER_SetRxPayloadSymbols(*(uint16_t *)appData.plcPIB.pData);
 
-    /* Convert RX time to SYS_TIME units and convert to 32-bit US counter */
-    rxSysTime = _APP_PlcTimeToSysTime(indObj->timeIni);
-    indObj->timeIni = _APP_SysTimeToUS(rxSysTime);
+    /* Convert PLC RX time to host time (microseconds) */
+    indObj->timeIni = _APP_PlcTimeToHostUS(indObj->timeIni);
 
     /* Serialize received PLC message */
     length = SRV_PSNIFFER_SerialRxMessage(plcSnifferDataBuffer, indObj);
@@ -235,36 +232,39 @@ void _APP_UsiSnifferEventCb(uint8_t *pData, size_t length)
 // *****************************************************************************
 // *****************************************************************************
 
-static uint64_t _APP_TimerSyncRead(uint32_t* plcTime)
+static uint32_t _APP_TimerSyncRead(uint32_t* plcTime)
 {
-    uint64_t sysTime;
+    uint32_t hostTimeUS;
 
     /* Enter critical region to ensure constant delay between timers read */
     SYS_INT_Disable();
 
-    /* Read current PLC driver and SYS_TIME timers */
+    /* Read Host timer (microseconds) */
+    hostTimeUS = SRV_TIME_MANAGEMENT_GetTimeUS();
+
+    /* Read PLC timer */
     appData.plcPIB.id = PLC_ID_TIME_REF_ID;
     appData.plcPIB.length = 4;
-    sysTime = SYS_TIME_Counter64Get();
     DRV_PLC_PHY_PIBGet(appData.drvPlcHandle, &appData.plcPIB);
 
     /* Leave critical region */
     SYS_INT_Enable();
 
-    /* Compensate difference between timer reads */
-    sysTime += SYS_TIME_USToCount(5);
+    /* Compensate delay between Host and PLC timer reads */
+    hostTimeUS += 6U;
 
     *plcTime = *((uint32_t*) appData.plcPIB.pData);
-    return sysTime;
+    return hostTimeUS;
 }
 
-static void _APP_TimerSyncInit()
+static void _APP_TimerSyncInit(void)
 {
     /* Get initial timer references */
-    appData.syncSysTimeRef = _APP_TimerSyncRead(&appData.syncPlcTimeRef);
+    appData.syncHostTimeRef = _APP_TimerSyncRead(&appData.syncPlcTimeRef);
 
-    /* Initialize relative frequency F_SysTime/F_PLC [uQ1.24] */
-    appData.syncTimerRelFreq = (uint32_t) (((uint64_t) SYS_TIME_FrequencyGet() << 24) / 1000000);
+    /* Initialize relative frequency F_Host/F_PLC [uQ1.24].
+     * Both clocks are ~1 MHz, so initial ratio is 1.0 */
+    appData.syncTimerRelFreq = (uint32_t) (1UL << 24);
 
     /* Program first interrupt after 50 ms (5 us deviation with 100 PPM) */
     SYS_TIME_TimerDestroy(appData.tmrSyncHandle);
@@ -285,23 +285,23 @@ static void _APP_TimerSyncInit()
 
 static inline void _APP_TimerSyncUpdate(void)
 {
-    uint64_t sysTime;
+    uint32_t hostTimeUS;
     uint32_t plcTime;
-    uint64_t delaySysTime;
+    uint32_t delayHostUS;
     uint32_t delayPlcTime;
 
-    /* Get current SYS_TIME and PLC timers */
-    sysTime = _APP_TimerSyncRead(&plcTime);
+    /* Get current Host and PLC timers */
+    hostTimeUS = _APP_TimerSyncRead(&plcTime);
 
     /* Compute delays from reference (last read) */
-    delaySysTime = sysTime - appData.syncSysTimeRef;
+    delayHostUS = hostTimeUS - appData.syncHostTimeRef;
     delayPlcTime = plcTime - appData.syncPlcTimeRef;
 
-    /* Compute relative frequency F_SysTime/F_PLC [uQ1.24] */
-    appData.syncTimerRelFreq = (uint32_t) DIV_ROUND((uint64_t) delaySysTime << 24, delayPlcTime);
+    /* Compute relative frequency F_Host/F_PLC [uQ1.24] */
+    appData.syncTimerRelFreq = (uint32_t) DIV_ROUND((uint64_t) delayHostUS << 24, delayPlcTime);
 
     /* Update reference for next synchronization */
-    appData.syncSysTimeRef = sysTime;
+    appData.syncHostTimeRef = hostTimeUS;
     appData.syncPlcTimeRef = plcTime;
 
     if (appData.syncTimeDelay != 5000)
@@ -345,42 +345,21 @@ static inline void _APP_TimerSyncUpdate(void)
     }
 }
 
-static uint64_t _APP_PlcTimeToSysTime(uint32_t plcTime)
+static uint32_t _APP_PlcTimeToHostUS(uint32_t plcTime)
 {
-    int64_t delayAux, delaySysTime;
     int32_t delayPlc;
+    int64_t delayAux;
+    int32_t delayHost;
 
     /* Compute PLC PHY delay time since last synchronization */
     delayPlc = (int32_t) (plcTime - appData.syncPlcTimeRef);
 
     /* Convert PLC PHY delay to Host delay (frequency deviation) */
     delayAux = (int64_t) delayPlc * appData.syncTimerRelFreq;
-    delaySysTime = (delayAux + (1UL << 23)) >> 24;
+    delayHost = (int32_t) ((delayAux + (1L << 23)) >> 24);
 
-    /* Compute SYS_TIME */
-    return appData.syncSysTimeRef + delaySysTime;
-}
-
-static uint32_t _APP_SysTimeToUS(uint64_t sysTime)
-{
-    uint64_t sysTimeDiff;
-    uint32_t sysTimeDiffNumHigh, sysTimeDiffRemaining;
-    uint32_t timeUS = appData.plcSnifferPrevTimeUS;
-
-    /* Difference between current and previous system time */
-    sysTimeDiff = sysTime - appData.plcSnifferPrevSysTime;
-    sysTimeDiffNumHigh = (uint32_t) (sysTimeDiff / 0x10000000);
-    sysTimeDiffRemaining = (uint32_t) (sysTimeDiff % 0x10000000);
-
-    /* Convert system time to microseconds and add to previous time */
-    timeUS += (SYS_TIME_CountToUS(0x10000000) * sysTimeDiffNumHigh);
-    timeUS += SYS_TIME_CountToUS(sysTimeDiffRemaining);
-
-    /* Store times for next computation */
-    appData.plcSnifferPrevSysTime = sysTime;
-    appData.plcSnifferPrevTimeUS = timeUS;
-
-    return timeUS;
+    /* Compute Host time in microseconds */
+    return appData.syncHostTimeRef + (uint32_t) delayHost;
 }
 
 // *****************************************************************************
@@ -439,6 +418,9 @@ void APP_Tasks ( void )
     {
         appData.tmr1Expired = false;
         USER_BLINK_LED_Toggle();
+
+        /* Update Time Management service internal counters */
+        (void) SRV_TIME_MANAGEMENT_GetTimeUS();
     }
 
     if (appData.tmr2Expired == true)
