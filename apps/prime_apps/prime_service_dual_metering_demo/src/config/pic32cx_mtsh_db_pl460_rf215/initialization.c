@@ -512,9 +512,9 @@ void SYS_Initialize ( void* data )
 
     FLEXCOM5_SPI_Initialize();
 
-    RTC_Initialize();
-
     FLEXCOM6_USART_Initialize();
+
+    RTC_Initialize();
 
     FLEXCOM0_USART_Initialize();
 

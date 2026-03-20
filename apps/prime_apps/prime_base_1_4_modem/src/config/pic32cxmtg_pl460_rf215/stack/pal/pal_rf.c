@@ -214,7 +214,7 @@ static void lPAL_RF_DataCfmCb(DRV_RF215_TX_HANDLE txHandle,
     {
         /* Error confirm, called from PAL_RF_Tasks */
         dataCfm.bufId = (uint8_t)ctxt;
-        dataCfm.txTime = pCfmObj->timeIniCount;
+        dataCfm.txTime = (uint32_t)pCfmObj->timeIniCount;
     }
     else
     {

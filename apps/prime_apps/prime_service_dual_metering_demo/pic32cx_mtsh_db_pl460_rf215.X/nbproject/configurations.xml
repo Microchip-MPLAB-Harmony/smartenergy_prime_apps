@@ -1027,7 +1027,7 @@
         <targetDevice>PIC32CX2051MTSH128</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>jlink</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>5.00</languageToolchainVersion>
         <platform>3</platform>
@@ -1050,7 +1050,7 @@
                         CT="1"
                         CN="pic32cxmtsh"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../../prime_service_bootloader/bootloader_pic32cxmtsh.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmtsh"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmtsh TYPE_IMAGE=DEBUG_RUN"
@@ -1065,7 +1065,7 @@
                         CT="1"
                         CN="pic32cxmt_pl460_rf215"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../../prime_service_1_4_bin/pic32cxmt_pl460_rf215.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460_rf215 TYPE_IMAGE=DEBUG_RUN"
@@ -1080,7 +1080,7 @@
                         CT="1"
                         CN="pic32cxmt_pl460"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../../prime_service_1_3_bin/pic32cxmt_pl460.X"
                         BC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460"
                         DBC="${MAKE}  -f Makefile CONF=pic32cxmt_pl460 TYPE_IMAGE=DEBUG_RUN"

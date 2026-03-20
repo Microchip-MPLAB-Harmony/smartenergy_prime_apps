@@ -617,6 +617,9 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
         }
     }
 
+    /* Convert time from PL360 to Host */
+    pCfmObj->timeIni = lPAL_PLC_GetHostTime(pCfmObj->timeIni);
+
     if ((palPlcData.snifferCallback) != NULL)
     {
         size_t dataLength;
@@ -641,8 +644,7 @@ static void lPAL_PLC_PLC_DataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *pCfmObj, ui
     {
         PAL_MSG_CONFIRM_DATA dataCfm;
 
-        dataCfm.txTime = lPAL_PLC_GetHostTime(pCfmObj->timeIni);
-        pCfmObj->timeIni = dataCfm.txTime;  /* For sniffer */
+        dataCfm.txTime = pCfmObj->timeIni;
         dataCfm.rmsCalc = (uint16_t)pCfmObj->rmsCalc;
         dataCfm.pch = lPAL_PLC_GetPCH(palPlcData.channel);
         dataCfm.frameType = (PAL_FRAME)pCfmObj->frameType;
