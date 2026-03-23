@@ -95,8 +95,15 @@ static void APP_Timer2_Callback (uintptr_t context)
     appPlcData.tmr2Expired = true;
 }
 
-static void APP_PLCSetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
+static void APP_PLC_SetInitialConfiguration(DRV_PLC_PHY_CHANNEL channel)
 {
+    /* Set channel configuration */
+    appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
+    appPlcData.plcPIB.length = 1;
+    *appPlcData.plcPIB.pData = channel;
+    DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
+
+    /* Set PLC coupling configuration */
     SRV_PCOUP_SetChannelConfig(appPlcData.drvPlcHandle, channel);
     
     /* Optional ***************************************************/
@@ -255,8 +262,8 @@ void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
                     {
                             /* Update channel application data */
                             appPlcData.channel = channel;
-                            /* Set configuration for PLC */
-                            APP_PLCSetCouplingConfiguration(appPlcData.channel);
+                            /* Set PLC coupling configuration */
+                            SRV_PCOUP_SetChannelConfig(appPlcData.drvPlcHandle, channel);
                             
                             sendUSIResponse = true;
                     }
@@ -459,14 +466,8 @@ void APP_Tasks(void)
 
         case APP_PLC_STATE_CONFIG_PLC:
         {
-            /* Set channel configuration */
-            appPlcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
-            appPlcData.plcPIB.length = 1;
-            *appPlcData.plcPIB.pData = appPlcData.channel;
-            DRV_PLC_PHY_PIBSet(appPlcData.drvPlcHandle, &appPlcData.plcPIB);
-
-            /* Set configuration for PLC */
-            APP_PLCSetCouplingConfiguration(appPlcData.channel);
+            /* Set initial PLC configuration */
+            APP_PLC_SetInitialConfiguration(appPlcData.channel);
 
             /* Disable TX Enable at the beginning */
             DRV_PLC_PHY_EnableTX(appPlcData.drvPlcHandle, false);

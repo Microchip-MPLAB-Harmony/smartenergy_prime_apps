@@ -62,8 +62,15 @@ static uint8_t serialDataBuffer[APP_PLC_SERIAL_DATA_BUFFER_SIZE];
 // *****************************************************************************
 // *****************************************************************************
 
-static void APP_PLC_SetCouplingConfiguration(DRV_PLC_PHY_CHANNEL channel)
+static void APP_PLC_SetInitialConfiguration(DRV_PLC_PHY_CHANNEL channel)
 {
+    /* Set channel configuration */
+    app_plcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
+    app_plcData.plcPIB.length = 1;
+    *app_plcData.plcPIB.pData = channel;
+    DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB);
+
+    /* Set PLC coupling configuration */
     SRV_PCOUP_SetChannelConfig(app_plcData.drvPlcHandle, channel);
 
     /* Optional ***************************************************/
@@ -226,8 +233,8 @@ void _APP_PLC_UsiPhyProtocolEventCb(uint8_t *pData, size_t length)
                     {
                             /* Update channel application data */
                             app_plcData.channel = channel;
-                            /* Set configuration for PLC */
-                            APP_PLC_SetCouplingConfiguration(channel);
+                            /* Set PLC coupling configuration */
+                            SRV_PCOUP_SetChannelConfig(app_plcData.drvPlcHandle, channel);
 
                             sendUSIResponse = true;
                     }
@@ -384,14 +391,8 @@ void APP_PLC_Tasks ( void )
                 DRV_PLC_PHY_TxCfmCallbackRegister(app_plcData.drvPlcHandle,
                         _APP_PLC_DataCfmCb, DRV_PLC_PHY_INDEX);
 
-                /* Set channel configuration */
-                app_plcData.plcPIB.id = PLC_ID_CHANNEL_CFG;
-                app_plcData.plcPIB.length = 1;
-                *app_plcData.plcPIB.pData = app_plcData.channel;
-                DRV_PLC_PHY_PIBSet(app_plcData.drvPlcHandle, &app_plcData.plcPIB);
-
-                /* Set PLC coupling configuration */
-                APP_PLC_SetCouplingConfiguration(app_plcData.channel);
+                /* Set initial PLC configuration */
+                APP_PLC_SetInitialConfiguration(app_plcData.channel);
 
                 /* Disable TX Enable at the beginning */
                 DRV_PLC_PHY_EnableTX(app_plcData.drvPlcHandle, false);
