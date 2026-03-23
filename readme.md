@@ -14,8 +14,7 @@ MPLAB® Harmony 3 is an extension of the MPLAB® ecosystem for creating embedded
 This repository contains the MPLAB® Harmony 3 Smart Energy PRIME BN and PRIME SN application examples.
 
 - [Release Notes](./release_notes.md)
-- [Microchip SLA](Microchip_SLA001.md)
- 
+- [License](./License.md) 
 # Documentation
 
 Click [here](https://onlinedocs.microchip.com/v2/keyword-lookup?keyword=MPLAB_Harmony_Smart_Energy_PRIME_Applications&redirect=true) to view the online documentation of code examples hosted in this repository.

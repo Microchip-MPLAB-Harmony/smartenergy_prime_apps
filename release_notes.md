@@ -1,7 +1,72 @@
-﻿![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
+![Microchip logo](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_logo.png)
 ![Harmony logo small](https://raw.githubusercontent.com/wiki/Microchip-MPLAB-Harmony/Microchip-MPLAB-Harmony.github.io/images/microchip_mplab_harmony_logo_small.png)
 
 # Microchip MPLAB® Harmony 3 Release Notes
+
+## Harmony 3 Smart Energy PRIME application examples v1.2.0
+
+### Development kit and demo application support
+
+The following table provides the development kits used in PRIME Harmony 3 applications:
+
+| Development Kits  |
+|-------------------|
+| [PIC32CXMTG-EK Evaluation Kit](https://www.microchip.com/en-us/development-tool/EV11K09A)                          |
+| [PIC32CXMTSH-DB Evaluation Kit](https://www.microchip.com/en-us/development-tool/EV84M21A)                         |
+| [PL460 Evaluation Kit](https://www.microchip.com/en-us/development-tool/EV13L63A)                                  |
+| [ATREB215-XPRO-A EXTENSION BOARD](https://www.microchip.com/en-us/development-tool/ATREB215-XPRO-A)                |
+
+### New Features
+
+The following table provides a list of available applications, supported platforms and a brief description of functionalities:
+
+
+| Application | Platform | Description |
+| ----------- | -------- | ----------- |
+| PHY PLC and Go | PIC32CX-MTG + PL460-EK | PLC Chat Demo application using PLC PHY API |
+| PHY Tester Tool | PIC32CX-MTG + PL460-EK | PLC PHY application to send/receive frames using Microchip PLC PHY Tester Tool or Python libraries through a Serial Link on development board |
+| PHY Tester Hybrid Tool | PIC32CX-MTG + PL460-EK + ATREB215-XPRO-A | PLC & RF PHY application to send/receive frames using Python libraries through a Serial Link on development board |
+| PHY Sniffer Tool | PIC32CX-MTG + PL460-EK | PHY application to spy traffic on PLC medium and send it for graphical presentation connected to Microchip Hybrid Sniffer Tool |
+| PHY Sniffer Hybrid Tool | PIC32CX-MTG + PL460-EK + ATREB215-XPRO-A | PHY application to spy traffic on PLC & RF media and send it for graphical presentation connected to Microchip Hybrid Sniffer Tool |
+| PHY Tx Test Console | PIC32CX-MTG + PL460-EK | PLC PHY demo application to manage PLC transmissions via serial console |
+| PRIME 1.3 Base Node Modem | PIC32CX-MTG + PL460-EK | The PRIME 1.3 Base Modem is an application example that demonstrates how to configure the PRIME Stack and its serial interface as a Base Node with modem capabilies. |
+| PRIME 1.4 Base Node Modem | PIC32CX-MTG + PL460-EK + ATREB215-XPRO-A | The PRIME 1.4 Base Modem is an application example that demonstrates how to configure the PRIME Stack and its serial interface as a Base Node with modem capabilies. |
+| PRIME Dual Service Modem | PIC32CX-MTG + PL460-EK + ATREB215-XPRO-A | The PRIME Dual Service Modem is an application example that demonstrates how to configure the PRIME Stack and its serial interface as a dual Service Node with modem capabilies. |
+| PRIME 1.3 Service Bin | PIC32CX-MTx | The PRIME 1.3 Service Bin is an application example that demonstrates how to configure the PRIME Library for PRIME 1.3. |
+| PRIME 1.4 Service Bin | PIC32CX-MTx | The PRIME 1.4 Service Bin is an application example that demonstrates how to configure the PRIME Library for PRIME 1.4. |
+| PRIME Bootloader | [PIC32CX-MTG, PIC32CX-MTSH] | The PRIME Bootloader is an application example that demonstrates how to use the bootloader in a Service Node for firmware upgrade. |
+| PRIME Dual Metering Demo | PIC32CX-MTSH + PL460-EK + ATREB215-XPRO-A | The PRIME Dual Metering Demo is an application example that demonstrates how to configure the PRIME Stack and the metrology stack. |
+
+This Release adds support to FreeRTOS based projects for the Base node.
+
+- **Metrology Integration**
+  - Updated PRIME projects with Metrology to latest Metrology version.
+
+- **Configuration and Performance Improvements**
+  - Added modem to PRIME metrology app.
+  - Improvements in clock downgrade in bootloader.
+
+### Bug Fixes
+
+- Added protection in _on_reset for PIC32CXMT to avoid infinite loop in Core1 clock initialization (PIOD).
+- Changed order of PL460 pin initialization in on_reset function (bootloader).
+- Used MAINCK (12 MHz RC Oscillator) for coprocessor clock in on_reset function to speed up PL460 pin initialization.
+
+### Known Issues
+
+- Due an Issue in crypto_v4 with PIC32CX MT, the ECDSA and SHA algorithms should be configured to be done by software.
+
+### Development Tools
+
+- [MPLAB® X IDE v6.25](https://www.microchip.com/mplab/mplab-x-ide)
+- [MPLAB® XC32 C/C++ Compiler v5.00](https://www.microchip.com/mplab/compilers)
+- MPLAB® X IDE plug-ins:
+  - MPLAB® Code Configurator 5.6.3 or higher
+- PIC32CX-MT family (MCUs):
+  - PIC32CX-MT DFP 1.4.152 or higher
+- [Microchip PLC PHY Tester Tool v3.1.3](https://www.microchip.com/en-us/software-library/se_plc_phy_tester_tool)
+- [Microchip Hybrid Sniffer v2.0.4](https://www.microchip.com/en-us/software-library/se_plc_sniffer)
+- [Microchip PRIME Manager v2.2.4](https://www.microchip.com/en-us/software-library/se_prime_manager)
 
 ## Harmony 3 Smart Energy PRIME application examples v1.1.0
 
