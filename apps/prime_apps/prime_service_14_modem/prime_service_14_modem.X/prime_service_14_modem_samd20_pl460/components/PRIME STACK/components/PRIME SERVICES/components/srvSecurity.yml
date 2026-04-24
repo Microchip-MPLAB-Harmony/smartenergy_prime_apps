@@ -1,0 +1,21 @@
+configVersion: 1.0.0
+componentName: srvSecurity
+coreVersion: 5.8.4
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srvSecurity
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition: {}
+  symbols: {}
+  userData: {}

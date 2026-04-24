@@ -1,0 +1,206 @@
+configVersion: 1.0.0
+componentName: mainBoard_SAMD20_XPLAINED_PRO
+coreVersion: 5.8.4
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: mainBoard_SAMD20_XPLAINED_PRO
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: shd
+  type: package
+  version: v1.3.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: mainBoard_SAMD20_XPLAINED_PRO
+          x: '105'
+          y: '382'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    SHD_CHECK_COLLISIONS:
+      attributes:
+        id: SHD_CHECK_COLLISIONS
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_ADC MINUS
+          type: String
+        type: Attributes
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1
+      children:
+      - children:
+        - attributes:
+            value: Select extension board
+          type: User
+        type: Values
+      type: Combo
+    SHD_MAINBOARD_INTERFACE_0_OPT_0:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_0_OPT_0
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_GPIO2:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_GPIO2
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_0_OPT_1:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_0_OPT_1
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_1_OPT_0:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_1_OPT_0
+      children:
+      - children:
+        - attributes:
+            value: 'false'
+          type: User
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_SPI:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_SPI
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_1_OPT_4:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_1_OPT_4
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_IRQ:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_IRQ
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_GPIO1:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_GPIO1
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_1_OPT_3:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_1_OPT_3
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_GPIO SS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_GPIO SS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_ADC PLUS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_ADC PLUS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_ADC MINUS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_ADC MINUS
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3
+      children:
+      - children:
+        - attributes:
+            value: PL460 EK v5 (PLC PHY)
+          type: User
+        type: Values
+      type: Combo
+  userData: {}

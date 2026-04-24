@@ -1,0 +1,68 @@
+configVersion: 1.0.0
+componentName: primePal
+coreVersion: 5.8.4
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: primePal
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: primePalUSI
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'true'
+            type: Boolean
+          type: Attributes
+        type: GenericDependency
+      type: Attachments
+    type: primePal
+  elementPosition:
+    attributes:
+      id: PRIME STACK
+    children:
+    - children:
+      - attributes:
+          id: primePal
+          x: '436'
+          y: '328'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    PRIME_PAL_PHY_SNIFFER:
+      attributes:
+        id: PRIME_PAL_PHY_SNIFFER
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    PRIME_PAL_PLC_PVDD_MONITOR:
+      attributes:
+        id: PRIME_PAL_PLC_PVDD_MONITOR
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+  userData: {}

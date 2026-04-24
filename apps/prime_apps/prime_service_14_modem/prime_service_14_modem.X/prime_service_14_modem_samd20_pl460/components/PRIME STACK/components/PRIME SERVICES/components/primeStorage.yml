@@ -1,0 +1,21 @@
+configVersion: 1.0.0
+componentName: primeStorage
+coreVersion: 5.8.4
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: primeStorage
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition: {}
+  symbols: {}
+  userData: {}

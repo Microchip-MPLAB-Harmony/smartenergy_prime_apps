@@ -1,0 +1,63 @@
+configVersion: 1.0.0
+componentName: PRIME SERVICES
+coreVersion: 5.8.4
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyGroupModule
+  name: PRIME SERVICES
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: CMSIS_5
+  type: package
+  version: 5.9.0
+- dependencyPackage: ''
+  name: bsp
+  type: package
+  version: v3.23.0
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.16.0
+- dependencyPackage: ''
+  name: crypto_v4
+  type: package
+  version: v4.0.0-E3
+- dependencyPackage: ''
+  name: csp
+  type: package
+  version: v3.25.0
+- dependencyPackage: ''
+  name: shd
+  type: package
+  version: v1.3.0
+- dependencyPackage: ''
+  name: smartenergy
+  type: package
+  version: v1.5.0
+- dependencyPackage: ''
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+- dependencyPackage: ''
+  name: wolfssl
+  type: package
+  version: v5.7.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: PRIME STACK
+    children:
+    - children:
+      - attributes:
+          id: PRIME SERVICES
+          x: '97'
+          y: '80'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}

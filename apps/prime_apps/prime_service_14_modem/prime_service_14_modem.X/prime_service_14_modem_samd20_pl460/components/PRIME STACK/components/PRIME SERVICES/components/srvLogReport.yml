@@ -1,0 +1,45 @@
+configVersion: 1.0.0
+componentName: srvLogReport
+coreVersion: 5.8.4
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srvLogReport
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition: {}
+  symbols:
+    ENABLE_TRACES:
+      attributes:
+        id: ENABLE_TRACES
+      children:
+      - children:
+        - attributes:
+            id: srvLogReport
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SRV_LOG_REPORT_SOURCE:
+      attributes:
+        id: SRV_LOG_REPORT_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+  userData: {}

@@ -1,0 +1,67 @@
+configVersion: 1.0.0
+componentName: prime_config
+coreVersion: 5.8.4
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: prime_config
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy_prime
+  type: package
+  version: v1.1.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: PRIME STACK
+    children:
+    - children:
+      - attributes:
+          id: prime_config
+          x: '438'
+          y: '153'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    PRIME_FW_VERSION:
+      attributes:
+        id: PRIME_FW_VERSION
+      children:
+      - children:
+        - attributes:
+            id: prime_config
+            value: S14.01.01
+          type: Dynamic
+        type: Values
+      type: String
+    PRIME_PROJECT:
+      attributes:
+        id: PRIME_PROJECT
+      children:
+      - children:
+        - attributes:
+            id: prime_config
+            value: monolithic project
+          type: Dynamic
+        type: Values
+      type: Combo
+    PRIME_STACK_SYS_RTOS_TASK:
+      attributes:
+        id: PRIME_STACK_SYS_RTOS_TASK
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'false'
+          type: Boolean
+        type: Attributes
+      type: File
+  userData: {}
