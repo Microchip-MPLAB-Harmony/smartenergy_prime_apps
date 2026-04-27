@@ -25,13 +25,13 @@ data:
               id: targetComponentID
             children:
             - type: Value
-              value: sercom1
+              value: sercom4
             type: String
           - attributes:
               id: targetAttachmentID
             children:
             - type: Value
-              value: SERCOM1_UART
+              value: SERCOM4_UART
             type: String
           type: Attributes
         type: DirectDependency
@@ -78,6 +78,56 @@ data:
           type: Boolean
         type: Attributes
       type: File
+    SYS_CONSOLE_DEVICE_UART_INDEX:
+      attributes:
+        id: SYS_CONSOLE_DEVICE_UART_INDEX
+      children:
+      - children:
+        - attributes:
+            id: sys_console
+            value: '0'
+          type: Dynamic
+        type: Values
+      type: Integer
+    SYS_CONSOLE_UART_HEADER:
+      attributes:
+        id: SYS_CONSOLE_UART_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CONSOLE_UART_DEFINITIONS_HEADER:
+      attributes:
+        id: SYS_CONSOLE_UART_DEFINITIONS_HEADER
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    SYS_CONSOLE_UART_SOURCE:
+      attributes:
+        id: SYS_CONSOLE_UART_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
     SYS_CONSOLE_DEVICE_SET:
       attributes:
         id: SYS_CONSOLE_DEVICE_SET
@@ -96,19 +146,8 @@ data:
       - children:
         - attributes:
             id: sys_console_0
-            value: SERCOM1
+            value: SERCOM4
           type: Dynamic
         type: Values
       type: String
-    SYS_CONSOLE_DEVICE_UART_INDEX:
-      attributes:
-        id: SYS_CONSOLE_DEVICE_UART_INDEX
-      children:
-      - children:
-        - attributes:
-            id: sys_console
-            value: '0'
-          type: Dynamic
-        type: Values
-      type: Integer
   userData: {}

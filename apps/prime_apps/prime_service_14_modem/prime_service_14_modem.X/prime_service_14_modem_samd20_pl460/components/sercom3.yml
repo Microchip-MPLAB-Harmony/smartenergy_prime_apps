@@ -291,4 +291,26 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    USART_RXPO:
+      attributes:
+        id: USART_RXPO
+      children:
+      - children:
+        - attributes:
+            id: sercom3
+            value: '3'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+    USART_TXPO:
+      attributes:
+        id: USART_TXPO
+      children:
+      - children:
+        - attributes:
+            id: sercom3
+            value: '1'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
   userData: {}

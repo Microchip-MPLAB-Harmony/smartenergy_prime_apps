@@ -44,8 +44,8 @@ data:
     - children:
       - attributes:
           id: lib_crypto
-          x: '481'
-          y: '793'
+          x: '508'
+          y: '769'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

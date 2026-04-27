@@ -38,7 +38,7 @@ data:
             id: label
           children:
           - type: Value
-            value: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT3_ADC MINUS
+            value: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_UART
           type: String
         type: Attributes
       - children:
@@ -97,7 +97,7 @@ data:
       children:
       - children:
         - attributes:
-            value: 'false'
+            value: 'true'
           type: User
         type: Values
       type: Boolean
@@ -203,4 +203,14 @@ data:
           type: User
         type: Values
       type: Combo
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_UART:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_UART
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
   userData: {}

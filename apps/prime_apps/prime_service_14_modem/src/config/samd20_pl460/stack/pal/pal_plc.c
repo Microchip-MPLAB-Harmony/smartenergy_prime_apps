@@ -222,10 +222,10 @@ static void lPAL_PLC_SetTxContinuousMode(uint8_t txMode)
 static uint32_t lPAL_PLC_TimerSyncRead(uint32_t *pTimePlc)
 {
     uint32_t timeHost;
-    bool intStatus;
+//    bool intStatus;
 
     /* Enter critical region. Disable all interrupts to ensure constant delay between timers read */
-    intStatus = SYS_INT_Disable();
+//    intStatus = SYS_INT_Disable();
 
     /* Read Host timer */
     timeHost = SRV_TIME_MANAGEMENT_GetTimeUS();
@@ -240,7 +240,7 @@ static uint32_t lPAL_PLC_TimerSyncRead(uint32_t *pTimePlc)
     timeHost += PAL_PLC_TIMER_SYNC_OFFSET;
 
     /* Leave critical region */
-    SYS_INT_Restore(intStatus);
+//    SYS_INT_Restore(intStatus);
 
     return timeHost;
 }

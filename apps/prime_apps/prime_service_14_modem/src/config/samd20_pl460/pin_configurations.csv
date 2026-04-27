@@ -7,8 +7,8 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 6,PB05,,Available,,,,,,NORMAL
 9,PB06,,Available,,,,,,NORMAL
 10,PB07,,Available,,,,,,NORMAL
-11,PB08,,Available,,,,,,NORMAL
-12,PB09,,Available,,,,,,NORMAL
+11,PB08,EXT1_USART_TX,SERCOM4_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
+12,PB09,EXT1_USART_RX,SERCOM4_PAD1,Digital,High Impedance,n/a,No,No,NORMAL
 13,PA04,,Available,,,,,,NORMAL
 14,PA05,,Available,,,,,,NORMAL
 15,PA06,,Available,,,,,,NORMAL
@@ -37,8 +37,8 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 42,PA21,,Available,,,,,,NORMAL
 43,PA22,,Available,,,,,,NORMAL
 44,PA23,,Available,,,,,,NORMAL
-45,PA24,,Available,,,,,,NORMAL
-46,PA25,,Available,,,,,,NORMAL
+45,PA24,VIRTUAL_COM_TX,SERCOM3_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
+46,PA25,VIRTUAL_COM_RX,SERCOM3_PAD3,Digital,High Impedance,n/a,No,No,NORMAL
 49,PB22,PL460_MOSI,SERCOM5_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
 50,PB23,PL460_SCK,SERCOM5_PAD3,Digital,High Impedance,n/a,No,No,NORMAL
 51,PA27,PL460_NTHW0,GPIO,Digital,In,n/a,Yes,No,NORMAL

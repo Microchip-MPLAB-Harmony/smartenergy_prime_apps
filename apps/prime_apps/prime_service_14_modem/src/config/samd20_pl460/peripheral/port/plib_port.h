@@ -78,6 +78,14 @@
 #define PL460_TXEN_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 3U)) & 0x01U)
 #define PL460_TXEN_PIN                  PORT_PIN_PA03
 
+/*** Macros for EXT1_USART_TX pin ***/
+#define EXT1_USART_TX_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 8U)) & 0x01U)
+#define EXT1_USART_TX_PIN                  PORT_PIN_PB08
+
+/*** Macros for EXT1_USART_RX pin ***/
+#define EXT1_USART_RX_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 9U)) & 0x01U)
+#define EXT1_USART_RX_PIN                  PORT_PIN_PB09
+
 /*** Macros for LED0 pin ***/
 #define LED0_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 14U))
 #define LED0_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 14U))
@@ -108,6 +116,14 @@
 #define PL460_CS_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 17U))
 #define PL460_CS_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 17U)) & 0x01U)
 #define PL460_CS_PIN                  PORT_PIN_PB17
+
+/*** Macros for VIRTUAL_COM_TX pin ***/
+#define VIRTUAL_COM_TX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 24U)) & 0x01U)
+#define VIRTUAL_COM_TX_PIN                  PORT_PIN_PA24
+
+/*** Macros for VIRTUAL_COM_RX pin ***/
+#define VIRTUAL_COM_RX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 25U)) & 0x01U)
+#define VIRTUAL_COM_RX_PIN                  PORT_PIN_PA25
 
 /*** Macros for PL460_MOSI pin ***/
 #define PL460_MOSI_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 22U)) & 0x01U)
