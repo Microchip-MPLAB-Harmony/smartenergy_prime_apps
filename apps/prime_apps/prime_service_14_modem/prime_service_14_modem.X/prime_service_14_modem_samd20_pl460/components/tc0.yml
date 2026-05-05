@@ -128,7 +128,7 @@ data:
       - children:
         - attributes:
             id: tc0
-            value: '2999'
+            value: '2997'
           type: Dynamic
         type: Values
       type: Long
@@ -139,7 +139,7 @@ data:
       - children:
         - attributes:
             id: tc0
-            value: '3000000'
+            value: '2998272'
           type: Dynamic
         type: Values
       type: Integer
@@ -152,7 +152,7 @@ data:
             id: max
           children:
           - type: Value
-            value: '1431655.8'
+            value: '1432480.9'
           type: Float
         - attributes:
             id: visible

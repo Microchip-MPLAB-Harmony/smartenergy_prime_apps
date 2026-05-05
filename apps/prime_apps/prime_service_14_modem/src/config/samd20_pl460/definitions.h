@@ -118,7 +118,7 @@ extern "C" {
 #define DEVICE_SERIES        "SAMD20"
 
 /* CPU clock frequency */
-#define CPU_CLOCK_FREQUENCY 48000000U
+#define CPU_CLOCK_FREQUENCY 47972352U
 
 // *****************************************************************************
 // *****************************************************************************

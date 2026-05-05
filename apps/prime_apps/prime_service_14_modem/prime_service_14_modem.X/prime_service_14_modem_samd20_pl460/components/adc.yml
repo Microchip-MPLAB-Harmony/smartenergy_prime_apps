@@ -265,4 +265,18 @@ data:
           type: User
         type: Values
       type: Boolean
+    ADC_INPUTCTRL_MUXNEG:
+      attributes:
+        id: ADC_INPUTCTRL_MUXNEG
+      children:
+      - children:
+        - attributes:
+            id: adc
+            value: '1'
+          type: Dynamic
+        - attributes:
+            value: '8'
+          type: User
+        type: Values
+      type: KeyValueSet
   userData: {}

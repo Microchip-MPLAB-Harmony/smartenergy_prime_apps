@@ -57,7 +57,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\bsp\bsp.c
 - file: ..\src\config\samd20_pl460\bsp\bsp.h
 - file: ..\src\config\samd20_pl460\configuration.h
-  hash: a92060e76b4459497b546f4575a339450106d073ea5e5ad04a4c7ed76ad83e2d
+  hash: 57110619841e652ff0dd4a16e38b960b46a801568a31022db61d88ff3d12d996
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_aead_cipher.h
   hash: 1675e295ac9f48ee7e3b6ebc7a286ad5f5808427c9a7760b7d1fa381ff30cca7
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_common.h
@@ -113,7 +113,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\wolfcrypt_config.h
   hash: ee0712706d1d9203a21334680e076155fc8f2ad8a8c0ee07231295670f972e71
 - file: ..\src\config\samd20_pl460\definitions.h
-  hash: 6fa4ff9b5d43f4eb809b2e9c9e0599ff1fe5d7cd0e4fdebbbb4d359f8546b446
+  hash: 1fdc0caf644e56c243dda87043282454e3c5189a27cdd4f9b496dd59d1cc0bfb
 - file: ..\src\config\samd20_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\samd20_pl460\device_cache.h
@@ -143,7 +143,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\driver\plc\common\drv_plc_hal.c
   hash: c517263ea7f83826e264c3bd70089e8ec3e3657408ab385c5705ba5e51509904
 - file: ..\src\config\samd20_pl460\driver\plc\common\drv_plc_hal.h
-  hash: e0d951967dac446975142015f43a81704968bee55b10403aed938662965cb0ec
+  hash: 654d1e32a45d5415404ed1635f2915174b103f99d068ae31bcfc7d1cf1aaa676
 - file: ..\src\config\samd20_pl460\driver\plc\phy\bin\PLC_PHY_PRIME_2CHN.bin
   hash: 3e4d212703e236592a507305e95d00cdc31ca3d77edcf986a1e7c90a462a76da
 - file: ..\src\config\samd20_pl460\driver\plc\phy\bin\plc_phy_bin.S
@@ -179,13 +179,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\osal\osal_impl_basic.h
   hash: 65e68edbc0320d0407399f65e6d06ff7e6d3d7697231cf1fe0a1fdf1d65f0463
 - file: ..\src\config\samd20_pl460\peripheral\adc\plib_adc.c
-  hash: 92386c6280f01123c7d5a5acb67ddc963e63eca12edfeed573d24e6ffc4dc586
+  hash: 11b81b88252fb77ea13383f9a31e974c84e5afa0529caafa80fdd8333b9877b9
 - file: ..\src\config\samd20_pl460\peripheral\adc\plib_adc.h
   hash: c36ae8f8f611fe8278bd36f075612a694412a66637def134f34195f306978a0d
 - file: ..\src\config\samd20_pl460\peripheral\adc\plib_adc_common.h
   hash: df1428202cbb2e1366b8dd7487ef4432c2f53677ca22233043368c8c57686a24
 - file: ..\src\config\samd20_pl460\peripheral\clock\plib_clock.c
-  hash: 7adfe8a460a48593d93c7a579162a9b33f504a461693d3f7fabeacc7c674356a
+  hash: b1b299c0936344dea349943c1dac4dddbbf2a011209ea8159a83281df7434121
 - file: ..\src\config\samd20_pl460\peripheral\clock\plib_clock.h
   hash: 99bff84fe4a99e6423e2d28f881600300ece34a505bb89f3b4eb61154dbeeb10
 - file: ..\src\config\samd20_pl460\peripheral\eic\plib_eic.c
@@ -209,23 +209,23 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\peripheral\port\plib_port.h
   hash: b13a7e2014b01c42d18ed7645db0181bec2454ea708ce70d9f712216a5b7ce44
 - file: ..\src\config\samd20_pl460\peripheral\sercom\spi_master\plib_sercom5_spi_master.c
-  hash: ced468723fba53ef67ace51928a676d4cef938e0ffcc364894935dd6b4fb1d9b
+  hash: 3cf3b8d3456f7ffb73968beafe9c71fd86f437a0f5439f27677e38daa4836694
 - file: ..\src\config\samd20_pl460\peripheral\sercom\spi_master\plib_sercom5_spi_master.h
   hash: da5e2a60f2c2478505b9a3ea8c4414d7d725c12af399eff227339fe522023d67
 - file: ..\src\config\samd20_pl460\peripheral\sercom\spi_master\plib_sercom_spi_master_common.h
   hash: 06e3c7813e1608b5008e3c8955569f9cff04bef321a34c35421f7979368a4ada
 - file: ..\src\config\samd20_pl460\peripheral\sercom\usart\plib_sercom3_usart.c
-  hash: c62be6910a1725830e6246b24fa3918dc72c1df87b0c68978dcb60a0adc731f4
+  hash: d099d2ecd6bd48752a7a9a99aa4763ffb9574548a01b151d6a07f94c31617763
 - file: ..\src\config\samd20_pl460\peripheral\sercom\usart\plib_sercom3_usart.h
   hash: 6a399dec501682b3696dcbadea07b2cfc2366e216f4afc86a25b9b30933b8410
 - file: ..\src\config\samd20_pl460\peripheral\sercom\usart\plib_sercom4_usart.c
-  hash: 302cc724b3790d584b5d9fffaab4f8d2bfebefa7901a95c8ba749da8d209d608
+  hash: d6cad1c979c34d311dabb8471b9aa0b99b69b7b76837140cf8dd1e424694642b
 - file: ..\src\config\samd20_pl460\peripheral\sercom\usart\plib_sercom4_usart.h
   hash: d133204c7223f09d0e16f67986626845593cb310746e457adc708cdfeffe9ded
 - file: ..\src\config\samd20_pl460\peripheral\sercom\usart\plib_sercom_usart_common.h
   hash: 9f02e811b95f0470ca23f3546f3ddf4ccccb385b4d8b8c091899d0d20b0c56e1
 - file: ..\src\config\samd20_pl460\peripheral\tc\plib_tc0.c
-  hash: 2152a5b284ed514d291bae0d9f6f3e15ad50115d8bebc951aaad15dda26de1e2
+  hash: a42575c9464a9dce92be96a8696b101c4ca67802ae5a9e32a0389e9d99148a6a
 - file: ..\src\config\samd20_pl460\peripheral\tc\plib_tc0.h
   hash: 31f11578f46a39c877161066ed64376ee9c829c4ae3fb06a92488cea6d243ff2
 - file: ..\src\config\samd20_pl460\peripheral\tc\plib_tc_common.h

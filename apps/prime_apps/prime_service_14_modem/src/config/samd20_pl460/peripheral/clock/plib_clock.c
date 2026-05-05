@@ -53,6 +53,15 @@ static void SYSCTRL_Initialize(void)
         /* Waiting for the OSC8M Ready state */
     }
 
+    /****************** XOSC32K initialization  ******************************/
+
+    /* Configure 32K External Oscillator */
+    SYSCTRL_REGS->SYSCTRL_XOSC32K = SYSCTRL_XOSC32K_STARTUP(0U) | SYSCTRL_XOSC32K_ENABLE_Msk | SYSCTRL_XOSC32K_EN32K_Msk | SYSCTRL_XOSC32K_XTALEN_Msk;
+    while(!((SYSCTRL_REGS->SYSCTRL_PCLKSR & SYSCTRL_PCLKSR_XOSC32KRDY_Msk) == SYSCTRL_PCLKSR_XOSC32KRDY_Msk))
+    {
+        /* Waiting for the XOSC32K Ready state */
+    }
+
     SYSCTRL_REGS->SYSCTRL_OSC32K = 0x0U;
 }
 
@@ -76,7 +85,7 @@ static void DFLL_Initialize(void)
     {
         /* Waiting for the Ready state */
     }
-    SYSCTRL_REGS->SYSCTRL_DFLLMUL = SYSCTRL_DFLLMUL_MUL(1500U) | SYSCTRL_DFLLMUL_FSTEP(1U) | SYSCTRL_DFLLMUL_CSTEP(1U);
+    SYSCTRL_REGS->SYSCTRL_DFLLMUL = SYSCTRL_DFLLMUL_MUL(1464U) | SYSCTRL_DFLLMUL_FSTEP(1U) | SYSCTRL_DFLLMUL_CSTEP(1U);
 
     while((SYSCTRL_REGS->SYSCTRL_PCLKSR & SYSCTRL_PCLKSR_DFLLRDY_Msk) != SYSCTRL_PCLKSR_DFLLRDY_Msk)
     {
@@ -108,9 +117,8 @@ static void GCLK0_Initialize(void)
 
 static void GCLK1_Initialize(void)
 {
-    GCLK_REGS->GCLK_GENCTRL = GCLK_GENCTRL_SRC(6U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(1U);
+    GCLK_REGS->GCLK_GENCTRL = GCLK_GENCTRL_SRC(5U) | GCLK_GENCTRL_GENEN_Msk | GCLK_GENCTRL_ID(1U);
 
-    GCLK_REGS->GCLK_GENDIV = GCLK_GENDIV_DIV(250U) | GCLK_GENDIV_ID(1U);
     while((GCLK_REGS->GCLK_STATUS & GCLK_STATUS_SYNCBUSY_Msk) == GCLK_STATUS_SYNCBUSY_Msk)
     {
         /* wait for the Generator 1 synchronization */

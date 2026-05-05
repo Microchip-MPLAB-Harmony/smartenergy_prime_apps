@@ -68,7 +68,7 @@ Microchip or any third party.
 // Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define DRV_PLC_HAL_CPU_CLOCK_FREQ            48000000
+#define DRV_PLC_HAL_CPU_CLOCK_FREQ            47972352
 
 #define DRV_PLC_HAL_CMD_POS                   15
 #define DRV_PLC_HAL_CMD_RD                    ((uint16_t)0U << DRV_PLC_HAL_CMD_POS)

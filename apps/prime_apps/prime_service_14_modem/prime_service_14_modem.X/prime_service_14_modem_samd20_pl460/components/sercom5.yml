@@ -246,7 +246,7 @@ data:
       - children:
         - attributes:
             id: sercom5
-            value: '2'
+            value: '1'
           type: Dynamic
         type: Values
       type: Integer
@@ -405,7 +405,7 @@ data:
       - children:
         - attributes:
             id: sercom5
-            value: '63019'
+            value: '63017'
           type: Dynamic
         type: Values
       type: Integer

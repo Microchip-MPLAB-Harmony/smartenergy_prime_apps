@@ -59,7 +59,7 @@
 
 
 /* SERCOM3 USART baud value for 115200 Hz baud rate */
-#define SERCOM3_USART_INT_BAUD_VALUE            (63019UL)
+#define SERCOM3_USART_INT_BAUD_VALUE            (63017UL)
 
 static volatile SERCOM_USART_RING_BUFFER_OBJECT sercom3USARTObj;
 
@@ -153,7 +153,7 @@ void SERCOM3_USART_Initialize( void )
 
 uint32_t SERCOM3_USART_FrequencyGet( void )
 {
-    return 48000000UL;
+    return 47972352UL;
 }
 
 bool SERCOM3_USART_SerialSetup( USART_SERIAL_SETUP * serialSetup, uint32_t clkFrequency )

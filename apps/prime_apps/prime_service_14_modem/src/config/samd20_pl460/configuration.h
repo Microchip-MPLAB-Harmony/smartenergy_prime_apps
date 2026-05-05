@@ -85,7 +85,7 @@ extern "C" {
 #define SYS_TIME_HW_COUNTER_WIDTH                   (32)
 #define SYS_TIME_HW_COUNTER_PERIOD                  (4294967295U)
 #define SYS_TIME_HW_COUNTER_HALF_PERIOD             (SYS_TIME_HW_COUNTER_PERIOD>>1)
-#define SYS_TIME_CPU_CLOCK_FREQUENCY                (48000000)
+#define SYS_TIME_CPU_CLOCK_FREQUENCY                (47972352)
 #define SYS_TIME_COMPARE_UPDATE_EXECUTION_CYCLES    (200)
 
 #define SYS_CONSOLE_INDEX_0                       0
