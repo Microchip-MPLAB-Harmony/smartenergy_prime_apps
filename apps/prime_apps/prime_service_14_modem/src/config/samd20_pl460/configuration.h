@@ -152,15 +152,18 @@ extern "C" {
 #define DRV_MEMORY_INDEX_0                   0
 #define DRV_MEMORY_CLIENTS_NUMBER_IDX0       1
 #define DRV_MEMORY_BUF_Q_SIZE_IDX0    1
-#define DRV_MEMORY_DEVICE_START_ADDRESS      0x20000U
-#define DRV_MEMORY_DEVICE_MEDIA_SIZE         128UL
-#define DRV_MEMORY_DEVICE_MEDIA_SIZE_BYTES   (DRV_MEMORY_DEVICE_MEDIA_SIZE * 1024U)
-#define DRV_MEMORY_DEVICE_PROGRAM_SIZE       64U
-#define DRV_MEMORY_DEVICE_ERASE_SIZE         256U
 
 /* PRIME PAL Configuration Options */
 #define PRIME_PAL_INDEX                     0U
 #define PRIME_PAL_SNIFFER_USI_INSTANCE      SRV_USI_INDEX_0
+
+/* SST26 Driver Instance Configuration */
+#define DRV_SST26_INDEX                 (0U)
+#define DRV_SST26_CLIENTS_NUMBER        (1U)
+#define DRV_SST26_START_ADDRESS         (0x0U)
+#define DRV_SST26_PAGE_SIZE             (256U)
+#define DRV_SST26_ERASE_BUFFER_SIZE     (4096U)
+#define DRV_SST26_CHIP_SELECT_PIN       SYS_PORT_PIN_PA17
 
 
 /* USI Service Instance 0 Configuration Options */

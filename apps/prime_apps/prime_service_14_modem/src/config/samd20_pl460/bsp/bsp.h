@@ -82,6 +82,15 @@
 #define BSP_LED0_On()       BSP_LED0_Clear()
 #define BSP_LED0_Off()      BSP_LED0_Set() 
 
+/*** Macros for FLASH2_CLICK_CS output pin ***/ 
+#define BSP_FLASH2_CLICK_CS_PIN        PORT_PIN_PA17
+#define BSP_FLASH2_CLICK_CS_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 17U) & 0x01U)
+#define BSP_FLASH2_CLICK_CS_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 17U))
+#define BSP_FLASH2_CLICK_CS_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 17U))
+#define BSP_FLASH2_CLICK_CS_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 17U))
+#define BSP_FLASH2_CLICK_CS_On()       BSP_FLASH2_CLICK_CS_Clear()
+#define BSP_FLASH2_CLICK_CS_Off()      BSP_FLASH2_CLICK_CS_Set() 
+
 /*** Macros for PL460_CS output pin ***/ 
 #define BSP_PL460_CS_PIN        PORT_PIN_PB17
 #define BSP_PL460_CS_Get()      ((PORT_REGS->GROUP[1].PORT_IN >> 17U) & 0x01U)
@@ -90,6 +99,24 @@
 #define BSP_PL460_CS_Toggle()   (PORT_REGS->GROUP[1].PORT_OUTTGL = ((uint32_t)1U << 17U))
 #define BSP_PL460_CS_On()       BSP_PL460_CS_Clear()
 #define BSP_PL460_CS_Off()      BSP_PL460_CS_Set() 
+
+/*** Macros for FLASH2_CLICK_HOLD output pin ***/ 
+#define BSP_FLASH2_CLICK_HOLD_PIN        PORT_PIN_PA20
+#define BSP_FLASH2_CLICK_HOLD_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 20U) & 0x01U)
+#define BSP_FLASH2_CLICK_HOLD_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 20U))
+#define BSP_FLASH2_CLICK_HOLD_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 20U))
+#define BSP_FLASH2_CLICK_HOLD_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 20U))
+#define BSP_FLASH2_CLICK_HOLD_On()       BSP_FLASH2_CLICK_HOLD_Set()
+#define BSP_FLASH2_CLICK_HOLD_Off()      BSP_FLASH2_CLICK_HOLD_Clear() 
+
+/*** Macros for FLASH2_CLICK_WP output pin ***/ 
+#define BSP_FLASH2_CLICK_WP_PIN        PORT_PIN_PA22
+#define BSP_FLASH2_CLICK_WP_Get()      ((PORT_REGS->GROUP[0].PORT_IN >> 22U) & 0x01U)
+#define BSP_FLASH2_CLICK_WP_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 22U))
+#define BSP_FLASH2_CLICK_WP_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 22U))
+#define BSP_FLASH2_CLICK_WP_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 22U))
+#define BSP_FLASH2_CLICK_WP_On()       BSP_FLASH2_CLICK_WP_Set()
+#define BSP_FLASH2_CLICK_WP_Off()      BSP_FLASH2_CLICK_WP_Clear() 
 
 /*** Macros for PL460_NRST output pin ***/ 
 #define BSP_PL460_NRST_PIN        PORT_PIN_PB30

@@ -38,7 +38,7 @@ data:
             id: label
           children:
           - type: Value
-            value: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT1_UART
+            value: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_GPIO1
           type: String
         type: Attributes
       - children:
@@ -213,4 +213,102 @@ data:
           type: User
         type: Values
       type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_IRQ:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_IRQ
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: INT
+          type: String
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_ADC PLUS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_ADC PLUS
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: AN
+          type: String
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_PWM PLUS:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_PWM PLUS
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: PWM
+          type: String
+        type: Attributes
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_GPIO1:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_GPIO1
+      children:
+      - children:
+        - attributes:
+            id: label
+          children:
+          - type: Value
+            value: RST
+          type: String
+        type: Attributes
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_SPI:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2_SPI
+      children:
+      - children:
+        - attributes:
+            id: mainBoard_SAMD20_XPLAINED_PRO
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SHD_MAINBOARD_INTERFACE_1_OPT_5:
+      attributes:
+        id: SHD_MAINBOARD_INTERFACE_1_OPT_5
+      children:
+      - children:
+        - attributes:
+            id: readOnly
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: Boolean
+    SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2:
+      attributes:
+        id: SHD_MAINBOARD_CONNECTOR_Extension-Header-EXT2
+      children:
+      - children:
+        - attributes:
+            value: Flash 2 click
+          type: User
+        type: Values
+      type: Combo
   userData: {}

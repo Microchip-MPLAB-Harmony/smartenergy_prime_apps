@@ -27,15 +27,15 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 30,PA13,,Available,,,,,,NORMAL
 31,PA14,LED0,GPIO,Digital,Out,High,,,NORMAL
 32,PA15,USER_BUTTON0,GPIO,Digital,In,n/a,Yes,No,NORMAL
-35,PA16,,Available,,,,,,NORMAL
-36,PA17,,Available,,,,,,NORMAL
-37,PA18,,Available,,,,,,NORMAL
-38,PA19,,Available,,,,,,NORMAL
+35,PA16,FLASH2_CLICK_MISO,SERCOM1_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
+36,PA17,FLASH2_CLICK_CS,GPIO,Digital,Out,High,,,NORMAL
+37,PA18,FLASH2_CLICK_MOSI,SERCOM1_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
+38,PA19,FLASH2_CLICK_SCK,SERCOM1_PAD3,Digital,High Impedance,n/a,No,No,NORMAL
 39,PB16,PL460_MISO,SERCOM5_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
 40,PB17,PL460_CS,GPIO,Digital,Out,High,,,NORMAL
-41,PA20,,Available,,,,,,NORMAL
+41,PA20,FLASH2_CLICK_HOLD,GPIO,Digital,Out,Low,,,NORMAL
 42,PA21,,Available,,,,,,NORMAL
-43,PA22,,Available,,,,,,NORMAL
+43,PA22,FLASH2_CLICK_WP,GPIO,Digital,Out,Low,,,NORMAL
 44,PA23,,Available,,,,,,NORMAL
 45,PA24,VIRTUAL_COM_TX,SERCOM3_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
 46,PA25,VIRTUAL_COM_RX,SERCOM3_PAD3,Digital,High Impedance,n/a,No,No,NORMAL

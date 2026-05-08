@@ -1,0 +1,189 @@
+configVersion: 1.0.0
+componentName: drv_sst26
+coreVersion: 5.8.4
+device: ATSAMD20J18
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: drv_sst26
+  type: module
+  version: ''
+- dependencyPackage: ''
+  name: core
+  type: package
+  version: v3.16.0
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments:
+    children:
+    - children:
+      - attributes:
+          id: drv_sst26_DRV_SPI_dependency
+        children:
+        - children:
+          - attributes:
+              id: enabled
+            children:
+            - type: Value
+              value: 'false'
+            type: Boolean
+          type: Attributes
+        type: DirectDependency
+      - attributes:
+          id: drv_sst26_SPI_dependency
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: sercom1
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: SERCOM1_SPI
+            type: String
+          type: Attributes
+        type: DirectDependency
+      - attributes:
+          id: memory
+        children:
+        - children:
+          - attributes:
+              id: targetComponentID
+            children:
+            - type: Value
+              value: drv_memory_0
+            type: String
+          - attributes:
+              id: targetAttachmentID
+            children:
+            - type: Value
+              value: drv_memory_MEMORY_dependency
+            type: String
+          type: Attributes
+        type: DirectCapability
+      type: Attachments
+    type: drv_sst26
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: drv_sst26
+          x: '271'
+          y: '257'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols:
+    DRV_MEMORY_CONNECTED:
+      attributes:
+        id: DRV_MEMORY_CONNECTED
+      children:
+      - children:
+        - attributes:
+            id: drv_memory_0
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    DRV_SST26_HEADER_DEF:
+      attributes:
+        id: DRV_SST26_HEADER_DEF
+      children:
+      - children:
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: driver/sqi_flash/sst26/templates/drv_sst26_qspi_spi_definitions.h.ftl
+          type: String
+        type: Attributes
+      type: File
+    DRV_SST26_INTERFACE_TYPE:
+      attributes:
+        id: DRV_SST26_INTERFACE_TYPE
+      children:
+      - children:
+        - attributes:
+            id: drv_sst26
+            value: SPI_PLIB
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_SST26_PLIB:
+      attributes:
+        id: DRV_SST26_PLIB
+      children:
+      - children:
+        - attributes:
+            id: drv_sst26
+            value: SERCOM1
+          type: Dynamic
+        type: Values
+      type: String
+    DRV_SST26_PROTOCOL:
+      attributes:
+        id: DRV_SST26_PROTOCOL
+      children:
+      - children:
+        - attributes:
+            id: drv_sst26
+            value: SPI
+          type: Dynamic
+        type: Values
+      type: Combo
+    DRV_SST26_SOURCE:
+      attributes:
+        id: DRV_SST26_SOURCE
+      children:
+      - children:
+        - attributes:
+            id: markup
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        - attributes:
+            id: source
+          children:
+          - type: Value
+            value: driver/sqi_flash/sst26/src/drv_sst26_qspi_spi.c.ftl
+          type: String
+        type: Attributes
+      type: File
+    INTERRUPT_ENABLE:
+      attributes:
+        id: INTERRUPT_ENABLE
+      children:
+      - children:
+        - attributes:
+            id: drv_sst26
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    SPI_CHIP_SELECT_PIN:
+      attributes:
+        id: SPI_CHIP_SELECT_PIN
+      children:
+      - children:
+        - attributes:
+            id: visible
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      - children:
+        - attributes:
+            id: drv_sst26
+            value: '17'
+          type: Dynamic
+        type: Values
+      type: KeyValueSet
+  userData: {}

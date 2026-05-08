@@ -60,7 +60,6 @@
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
 #include "system/time/sys_time.h"
-#include "driver/memory/drv_memory_nvmctrl.h"
 #include "service/reset_handler/srv_reset_handler.h"
 #include "service/psniffer/srv_psniffer.h"
 #include "system/int/sys_int.h"
@@ -68,6 +67,7 @@
 #include "osal/osal.h"
 #include "system/debug/sys_debug.h"
 #include "peripheral/sercom/usart/plib_sercom3_usart.h"
+#include "peripheral/sercom/spi_master/plib_sercom1_spi_master.h"
 #include "stack/pal/pal.h"
 #include "peripheral/evsys/plib_evsys.h"
 #include "peripheral/port/plib_port.h"
@@ -78,6 +78,7 @@
 #include "peripheral/sercom/usart/plib_sercom4_usart.h"
 #include "peripheral/eic/plib_eic.h"
 #include "service/pcrc/srv_pcrc.h"
+#include "driver/sst26/drv_sst26.h"
 #include "service/firmware_upgrade/srv_firmware_upgrade.h"
 #include "stack/prime/prime_stack.h"
 #include "stack/prime/hal_api/hal_api.h"
@@ -236,6 +237,7 @@ typedef struct
     SYS_MODULE_OBJ  drvMemory0;
     SYS_MODULE_OBJ  sysConsole0;
 
+    SYS_MODULE_OBJ  drvSST26;
     SYS_MODULE_OBJ  sysDebug;
 
     SYS_MODULE_OBJ primeStack;

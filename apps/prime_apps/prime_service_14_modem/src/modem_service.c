@@ -23,7 +23,7 @@
 #include "definitions.h"
 #include "modem.h"
 
-#define MAX_NUM_MSG_RCV    (5)
+#define MAX_NUM_MSG_RCV    (2)
 
 #define MAX_LENGTH_BUFF    CL_432_MAX_LENGTH_DATA
 

@@ -1,23 +1,23 @@
-/*******************************************************************************
-  Memory Driver NVMCTRL Interface Definition
+/******************************************************************************
+  SST26 Driver SPI Interface Implementation
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    drv_memory_nvmctrl.h
+    drv_sst26_spi_interface.c
 
   Summary:
-    Memory Driver NVMCTRL Interface Definition
+    SST26 Driver Interface implementation
 
   Description:
-    The Memory Driver provides a interface to access the NVMCTRL peripheral on the
-    microcontroller.
+    This interface file segregates the SST26 protocol from the underlying
+    hardware layer implementation for SPI PLIB and SPI driver
 *******************************************************************************/
 
-//DOM-IGNORE-BEGIN
+// DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2018 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -37,49 +37,48 @@
 * FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
 * ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-*******************************************************************************/
-//DOM-IGNORE-END
-
-#ifndef DRV_MEMORY_NVMCTRL_H
-#define DRV_MEMORY_NVMCTRL_H
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: File includes
-// *****************************************************************************
-// *****************************************************************************
-
-#include "drv_memory_definitions.h"
-
-// DOM-IGNORE-BEGIN
-#ifdef __cplusplus  // Provide C++ Compatibility
-    extern "C" {
-#endif
-
+ *******************************************************************************/
 // DOM-IGNORE-END
 
-DRV_HANDLE DRV_NVMCTRL_Open( const SYS_MODULE_INDEX drvIndex, const DRV_IO_INTENT ioIntent );
+// *****************************************************************************
+// *****************************************************************************
+// Section: Include Files
+// *****************************************************************************
+// *****************************************************************************
 
-void DRV_NVMCTRL_Close( const DRV_HANDLE handle );
-
-SYS_STATUS DRV_NVMCTRL_Status( const SYS_MODULE_INDEX drvIndex );
-
-bool DRV_NVMCTRL_SectorErase( const DRV_HANDLE handle, uint32_t address );
-
-bool DRV_NVMCTRL_Read( const DRV_HANDLE handle, void *rx_data, uint32_t rx_data_length, uint32_t address );
-
-bool DRV_NVMCTRL_PageWrite( const DRV_HANDLE handle, void *tx_data, uint32_t address );
+#include <string.h>
+#include "drv_sst26_spi_interface.h"
 
 
-MEMORY_DEVICE_TRANSFER_STATUS DRV_NVMCTRL_TransferStatusGet( const DRV_HANDLE handle );
+void DRV_SST26_SPIPlibCallbackHandler(uintptr_t context )
+{
+    DRV_SST26_OBJECT* dObj = (DRV_SST26_OBJECT*)context;
 
-bool DRV_NVMCTRL_GeometryGet( const DRV_HANDLE handle, MEMORY_DEVICE_GEOMETRY *geometry );
+    dObj->transferDataObj.txSize = dObj->transferDataObj.rxSize = 0;
+    dObj->transferDataObj.pTransmitData = dObj->transferDataObj.pReceiveData = NULL;
 
-#ifdef __cplusplus
+    DRV_SST26_Handler();
 }
-#endif
 
-#endif // #ifndef DRV_MEMORY_NVMCTRL_H
-/*******************************************************************************
- End of File
-*/
+
+void DRV_SST26_InterfaceInit(DRV_SST26_OBJECT* dObj, DRV_SST26_INIT* sst26Init)
+{
+
+    /* Initialize the attached memory device functions */
+    dObj->sst26Plib = sst26Init->sst26Plib;
+    dObj->sst26Plib->callbackRegister(DRV_SST26_SPIPlibCallbackHandler, (uintptr_t)dObj);
+}
+
+bool DRV_SST26_SPIWriteRead(
+    DRV_SST26_OBJECT* dObj,
+    DRV_SST26_TRANSFER_OBJ* transferObj
+)
+{
+    bool isSuccess = true;
+
+    SYS_PORT_PinClear(dObj->chipSelectPin);
+
+    dObj->transferStatus    = DRV_SST26_TRANSFER_BUSY;
+    (void) dObj->sst26Plib->writeRead (transferObj->pTransmitData, transferObj->txSize, transferObj->pReceiveData, transferObj->rxSize);
+    return isSuccess;
+}

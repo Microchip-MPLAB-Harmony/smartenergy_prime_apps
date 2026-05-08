@@ -1,22 +1,23 @@
 /*******************************************************************************
- System Interrupts File
+  SST26 Driver SPI Interface Implementation
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    interrupt.h
+    drv_sst26_spi_interface.h
 
   Summary:
-    Interrupt vectors mapping
+    SST26 Driver PLIB Interface implementation
 
   Description:
-    This file contains declarations of device vectors used by Harmony 3
- *******************************************************************************/
+    This interface file segregates the SST26 protocol from the underlying
+    hardware layer implementation.
+*******************************************************************************/
 
 // DOM-IGNORE-BEGIN
 /*******************************************************************************
-* Copyright (C) 2025 Microchip Technology Inc. and its subsidiaries.
+* Copyright (C) 2019 Microchip Technology Inc. and its subsidiaries.
 *
 * Subject to your compliance with these terms, you may use Microchip software
 * and any derivatives exclusively with Microchip products. It is your
@@ -39,35 +40,31 @@
  *******************************************************************************/
 // DOM-IGNORE-END
 
-#ifndef INTERRUPTS_H
-#define INTERRUPTS_H
+#ifndef DRV_SST26_SPI_INTERFACE_H
+#define DRV_SST26_SPI_INTERFACE_H
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
-#include <stdint.h>
 
+#include "drv_sst26_local.h"
 
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Handler Routines
+// Section: Data Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-void Reset_Handler (void);
-void NonMaskableInt_Handler (void);
-void HardFault_Handler (void);
-void WDT_InterruptHandler (void);
-void EIC_InterruptHandler (void);
-void SERCOM1_SPI_InterruptHandler (void);
-void SERCOM3_USART_InterruptHandler (void);
-void SERCOM4_USART_InterruptHandler (void);
-void SERCOM5_SPI_InterruptHandler (void);
-void TC0_TimerInterruptHandler (void);
-void ADC_InterruptHandler (void);
+void DRV_SST26_SPIPlibCallbackHandler(uintptr_t context );
 
+void DRV_SST26_InterfaceInit(DRV_SST26_OBJECT* dObj, DRV_SST26_INIT* sst26Init);
 
+bool DRV_SST26_SPIWriteRead(
+    DRV_SST26_OBJECT* dObj,
+    DRV_SST26_TRANSFER_OBJ* transferObj
+);
+void DRV_SST26_Handler( void );
 
-#endif // INTERRUPTS_H
+#endif //#ifndef DRV_SST26_SPI_INTERFACE_H

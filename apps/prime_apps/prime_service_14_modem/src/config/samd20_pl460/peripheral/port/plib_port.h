@@ -104,6 +104,27 @@
 #define USER_BUTTON0_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 15U)) & 0x01U)
 #define USER_BUTTON0_PIN                  PORT_PIN_PA15
 
+/*** Macros for FLASH2_CLICK_MISO pin ***/
+#define FLASH2_CLICK_MISO_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 16U)) & 0x01U)
+#define FLASH2_CLICK_MISO_PIN                  PORT_PIN_PA16
+
+/*** Macros for FLASH2_CLICK_CS pin ***/
+#define FLASH2_CLICK_CS_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 17U))
+#define FLASH2_CLICK_CS_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 17U))
+#define FLASH2_CLICK_CS_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 17U))
+#define FLASH2_CLICK_CS_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 17U))
+#define FLASH2_CLICK_CS_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 17U))
+#define FLASH2_CLICK_CS_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 17U)) & 0x01U)
+#define FLASH2_CLICK_CS_PIN                  PORT_PIN_PA17
+
+/*** Macros for FLASH2_CLICK_MOSI pin ***/
+#define FLASH2_CLICK_MOSI_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 18U)) & 0x01U)
+#define FLASH2_CLICK_MOSI_PIN                  PORT_PIN_PA18
+
+/*** Macros for FLASH2_CLICK_SCK pin ***/
+#define FLASH2_CLICK_SCK_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 19U)) & 0x01U)
+#define FLASH2_CLICK_SCK_PIN                  PORT_PIN_PA19
+
 /*** Macros for PL460_MISO pin ***/
 #define PL460_MISO_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 16U)) & 0x01U)
 #define PL460_MISO_PIN                  PORT_PIN_PB16
@@ -116,6 +137,24 @@
 #define PL460_CS_InputEnable()       (PORT_REGS->GROUP[1].PORT_DIRCLR = ((uint32_t)1U << 17U))
 #define PL460_CS_Get()               (((PORT_REGS->GROUP[1].PORT_IN >> 17U)) & 0x01U)
 #define PL460_CS_PIN                  PORT_PIN_PB17
+
+/*** Macros for FLASH2_CLICK_HOLD pin ***/
+#define FLASH2_CLICK_HOLD_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 20U))
+#define FLASH2_CLICK_HOLD_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 20U))
+#define FLASH2_CLICK_HOLD_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 20U))
+#define FLASH2_CLICK_HOLD_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 20U))
+#define FLASH2_CLICK_HOLD_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 20U))
+#define FLASH2_CLICK_HOLD_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 20U)) & 0x01U)
+#define FLASH2_CLICK_HOLD_PIN                  PORT_PIN_PA20
+
+/*** Macros for FLASH2_CLICK_WP pin ***/
+#define FLASH2_CLICK_WP_Set()               (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 22U))
+#define FLASH2_CLICK_WP_Clear()             (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 22U))
+#define FLASH2_CLICK_WP_Toggle()            (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 22U))
+#define FLASH2_CLICK_WP_OutputEnable()      (PORT_REGS->GROUP[0].PORT_DIRSET = ((uint32_t)1U << 22U))
+#define FLASH2_CLICK_WP_InputEnable()       (PORT_REGS->GROUP[0].PORT_DIRCLR = ((uint32_t)1U << 22U))
+#define FLASH2_CLICK_WP_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 22U)) & 0x01U)
+#define FLASH2_CLICK_WP_PIN                  PORT_PIN_PA22
 
 /*** Macros for VIRTUAL_COM_TX pin ***/
 #define VIRTUAL_COM_TX_Get()               (((PORT_REGS->GROUP[0].PORT_IN >> 24U)) & 0x01U)

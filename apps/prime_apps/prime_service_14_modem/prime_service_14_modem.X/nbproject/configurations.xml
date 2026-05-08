@@ -40,7 +40,6 @@
               <itemPath>../src/config/samd20_pl460/driver/memory/src/drv_memory_local.h</itemPath>
               <itemPath>../src/config/samd20_pl460/driver/memory/drv_memory.h</itemPath>
               <itemPath>../src/config/samd20_pl460/driver/memory/drv_memory_definitions.h</itemPath>
-              <itemPath>../src/config/samd20_pl460/driver/memory/drv_memory_nvmctrl.h</itemPath>
             </logicalFolder>
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
               <logicalFolder name="common" displayName="common" projectFiles="true">
@@ -54,6 +53,12 @@
                 <itemPath>../src/config/samd20_pl460/driver/plc/phy/drv_plc_phy_comm.h</itemPath>
                 <itemPath>../src/config/samd20_pl460/driver/plc/phy/drv_plc_phy_local_comm.h</itemPath>
               </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="sst26" displayName="sst26" projectFiles="true">
+              <itemPath>../src/config/samd20_pl460/driver/sst26/drv_sst26.h</itemPath>
+              <itemPath>../src/config/samd20_pl460/driver/sst26/src/drv_sst26_local.h</itemPath>
+              <itemPath>../src/config/samd20_pl460/driver/sst26/drv_sst26_definitions.h</itemPath>
+              <itemPath>../src/config/samd20_pl460/driver/sst26/src/drv_sst26_spi_interface.h</itemPath>
             </logicalFolder>
             <itemPath>../src/config/samd20_pl460/driver/driver.h</itemPath>
             <itemPath>../src/config/samd20_pl460/driver/driver_common.h</itemPath>
@@ -90,6 +95,7 @@
               <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
                 <itemPath>../src/config/samd20_pl460/peripheral/sercom/spi_master/plib_sercom5_spi_master.h</itemPath>
                 <itemPath>../src/config/samd20_pl460/peripheral/sercom/spi_master/plib_sercom_spi_master_common.h</itemPath>
+                <itemPath>../src/config/samd20_pl460/peripheral/sercom/spi_master/plib_sercom1_spi_master.h</itemPath>
               </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/samd20_pl460/peripheral/sercom/usart/plib_sercom3_usart.h</itemPath>
@@ -492,7 +498,9 @@
           <itemPath>prime_service_14_modem_samd20_pl460/components/nvmctrl.yml</itemPath>
           <itemPath>prime_service_14_modem_samd20_pl460/components/sys_debug.yml</itemPath>
           <itemPath>prime_service_14_modem_samd20_pl460/components/srv_pcoup.yml</itemPath>
+          <itemPath>prime_service_14_modem_samd20_pl460/components/drv_sst26.yml</itemPath>
           <itemPath>prime_service_14_modem_samd20_pl460/components/evsys.yml</itemPath>
+          <itemPath>prime_service_14_modem_samd20_pl460/components/sercom1.yml</itemPath>
           <itemPath>prime_service_14_modem_samd20_pl460/components/HarmonyCore.yml</itemPath>
           <itemPath>prime_service_14_modem_samd20_pl460/components/drv_memory_0.yml</itemPath>
           <itemPath>prime_service_14_modem_samd20_pl460/components/drv_memory.yml</itemPath>
@@ -511,12 +519,10 @@
                    displayName="Linker Files"
                    projectFiles="true">
       <logicalFolder name="config" displayName="config" projectFiles="true">
-        <logicalFolder name="default" displayName="default" projectFiles="true">
-          <itemPath>../src/config/samd20_pl460/ATSAMD20J18.ld</itemPath>
-        </logicalFolder>
         <logicalFolder name="samd20_pl460"
                        displayName="samd20_pl460"
                        projectFiles="true">
+          <itemPath>../src/config/samd20_pl460/ATSAMD20J18.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -550,7 +556,6 @@
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
             <logicalFolder name="memory" displayName="memory" projectFiles="true">
               <itemPath>../src/config/samd20_pl460/driver/memory/src/drv_memory.c</itemPath>
-              <itemPath>../src/config/samd20_pl460/driver/memory/src/drv_memory_nvmctrl.c</itemPath>
             </logicalFolder>
             <logicalFolder name="plc" displayName="plc" projectFiles="true">
               <logicalFolder name="common" displayName="common" projectFiles="true">
@@ -565,6 +570,10 @@
                 <itemPath>../src/config/samd20_pl460/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
                 <itemPath>../src/config/samd20_pl460/driver/plc/phy/drv_plc_phy.c</itemPath>
               </logicalFolder>
+            </logicalFolder>
+            <logicalFolder name="sst26" displayName="sst26" projectFiles="true">
+              <itemPath>../src/config/samd20_pl460/driver/sst26/src/drv_sst26.c</itemPath>
+              <itemPath>../src/config/samd20_pl460/driver/sst26/src/drv_sst26_spi_interface.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="peripheral" displayName="peripheral" projectFiles="true">
@@ -592,6 +601,7 @@
             <logicalFolder name="sercom" displayName="sercom" projectFiles="true">
               <logicalFolder name="spi_master" displayName="spi_master" projectFiles="true">
                 <itemPath>../src/config/samd20_pl460/peripheral/sercom/spi_master/plib_sercom5_spi_master.c</itemPath>
+                <itemPath>../src/config/samd20_pl460/peripheral/sercom/spi_master/plib_sercom1_spi_master.c</itemPath>
               </logicalFolder>
               <logicalFolder name="usart" displayName="usart" projectFiles="true">
                 <itemPath>../src/config/samd20_pl460/peripheral/sercom/usart/plib_sercom3_usart.c</itemPath>
@@ -840,8 +850,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="6.3.0"/>
         <pack name="SAMD20_DFP" vendor="Microchip" version="3.7.231"/>
+        <pack name="CMSIS" vendor="ARM" version="6.3.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -865,7 +875,6 @@
                             DD="dist/release/debug/prime14_lib_sn_m0.X.">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibFileItem>../src/config/samd20_pl460/stack/prime/libs/prime14_lib_sn_m0.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
         <archiverTool>
@@ -1099,7 +1108,7 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3efff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.eraseb4program" value="false"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>
@@ -1158,7 +1167,7 @@
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
                   value="C:/work/projectsH3/smartenergy_prime_apps/apps/prime_apps/prime_service_14_modem/prime_service_14_modem.X/debug/default/prime_service_14_modem_ptg"/>
-        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.eraseb4program" value="false"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
                   value="${memories.dataflash.default}"/>

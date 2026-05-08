@@ -208,28 +208,28 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_MEMORY Instance 0 Initialization Data">
 
-static uint8_t gDrvMemory0EraseBuffer[NVMCTRL_ERASE_BUFFER_SIZE] CACHE_ALIGN;
+static uint8_t gDrvMemory0EraseBuffer[DRV_SST26_ERASE_BUFFER_SIZE] CACHE_ALIGN;
 
 static DRV_MEMORY_CLIENT_OBJECT gDrvMemory0ClientObject[DRV_MEMORY_CLIENTS_NUMBER_IDX0];
 
 static DRV_MEMORY_BUFFER_OBJECT gDrvMemory0BufferObject[DRV_MEMORY_BUF_Q_SIZE_IDX0];
 
 static const DRV_MEMORY_DEVICE_INTERFACE drvMemory0DeviceAPI = {
-    .Open               = DRV_NVMCTRL_Open,
-    .Close              = DRV_NVMCTRL_Close,
-    .Status             = DRV_NVMCTRL_Status,
-    .SectorErase        = DRV_NVMCTRL_SectorErase,
-    .Read               = DRV_NVMCTRL_Read,
-    .PageWrite          = DRV_NVMCTRL_PageWrite,
-    .EventHandlerSet    = NULL,
-    .GeometryGet        = (DRV_MEMORY_DEVICE_GEOMETRY_GET)DRV_NVMCTRL_GeometryGet,
-    .TransferStatusGet  = (DRV_MEMORY_DEVICE_TRANSFER_STATUS_GET)DRV_NVMCTRL_TransferStatusGet
+    .Open               = DRV_SST26_Open,
+    .Close              = DRV_SST26_Close,
+    .Status             = DRV_SST26_Status,
+    .SectorErase        = DRV_SST26_SectorErase,
+    .Read               = DRV_SST26_Read,
+    .PageWrite          = DRV_SST26_PageWrite,
+    .EventHandlerSet    = (DRV_MEMORY_DEVICE_EVENT_HANDLER_SET)DRV_SST26_EventHandlerSet,
+    .GeometryGet        = (DRV_MEMORY_DEVICE_GEOMETRY_GET)DRV_SST26_GeometryGet,
+    .TransferStatusGet  = (DRV_MEMORY_DEVICE_TRANSFER_STATUS_GET)DRV_SST26_TransferStatusGet
 };
 static const DRV_MEMORY_INIT drvMemory0InitData =
 {
-    .memDevIndex                = 0,
+    .memDevIndex                = DRV_SST26_INDEX,
     .memoryDevice               = &drvMemory0DeviceAPI,
-    .isMemDevInterruptEnabled   = false,
+    .isMemDevInterruptEnabled   = true,
     .isFsEnabled                = false,
     .ewBuffer                   = &gDrvMemory0EraseBuffer[0],
     .clientObjPool              = (uintptr_t)&gDrvMemory0ClientObject[0],
@@ -239,6 +239,23 @@ static const DRV_MEMORY_INIT drvMemory0InitData =
 };
 
 // </editor-fold>
+// <editor-fold defaultstate="collapsed" desc="DRV_SST26 Initialization Data">
+
+static const DRV_SST26_PLIB_INTERFACE drvSST26PlibAPI = {
+    .writeRead          = (DRV_SST26_PLIB_WRITE_READ)SERCOM1_SPI_WriteRead,
+    .write_t              = (DRV_SST26_PLIB_WRITE)SERCOM1_SPI_Write,
+    .read_t               = (DRV_SST26_PLIB_READ)SERCOM1_SPI_Read,
+    .isBusy             = (DRV_SST26_PLIB_IS_BUSY)SERCOM1_SPI_IsBusy,
+    .callbackRegister   = (DRV_SST26_PLIB_CALLBACK_REGISTER)SERCOM1_SPI_CallbackRegister,
+};
+
+static const DRV_SST26_INIT drvSST26InitData =
+{
+    .sst26Plib      = &drvSST26PlibAPI,
+    .chipSelectPin  = DRV_SST26_CHIP_SELECT_PIN,
+};
+// </editor-fold>
+
 
 // <editor-fold defaultstate="collapsed" desc="SRV_USI Instance 0 Initialization Data">
 
@@ -411,6 +428,8 @@ void SYS_Initialize ( void* data )
 
     SERCOM3_USART_Initialize();
 
+    SERCOM1_SPI_Initialize();
+
 
     SERCOM5_SPI_Initialize();
 
@@ -435,6 +454,8 @@ void SYS_Initialize ( void* data )
 
     /* Initialize PRIME Reset Handler service */
     SRV_RESET_HANDLER_Initialize();
+    sysObj.drvSST26 = DRV_SST26_Initialize((SYS_MODULE_INDEX)DRV_SST26_INDEX, (SYS_MODULE_INIT *)&drvSST26InitData);
+
 
     /* Initialize Firmware Upgrade */
     SRV_FU_Initialize();
