@@ -374,4 +374,23 @@ bool SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void *pD
 
 bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void *pData);
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: GPBR emulation (backup registers emulated in emulated EEPROM)
+//
+// Emulates the PIC32CXMTG SUPC GPBR registers used by srv_firmware_upgrade
+// and srv_reset_handler. Values are stored in the same emulated-EEPROM row
+// used by SRV_STORAGE, so they survive power-off.
+// Flash endurance cost: every write triggers a row erase+program (~14 ms,
+// 1 cycle). Use GpbrWriteBlock to persist several slots at once.
+// *****************************************************************************
+// *****************************************************************************
+
+#define SRV_STORAGE_GPBR_NUM_SLOTS    16U
+
+uint32_t SRV_STORAGE_GpbrRead(uint8_t slot);
+void     SRV_STORAGE_GpbrWrite(uint8_t slot, uint32_t value);
+void     SRV_STORAGE_GpbrWriteBlock(uint8_t startSlot, uint8_t count,
+                                    const uint32_t *values);
+
 #endif //SRV_STORAGE_H

@@ -552,15 +552,21 @@ void SRV_FU_CfgRead(void *dst, uint16_t size)
 {
     uint32_t bufferValue[4];
 
+    bufferValue[0] = SRV_STORAGE_GpbrRead(0U);
+    bufferValue[1] = SRV_STORAGE_GpbrRead(1U);
+    bufferValue[2] = SRV_STORAGE_GpbrRead(2U);
+    bufferValue[3] = SRV_STORAGE_GpbrRead(3U);
+
     (void)memcpy(dst, (void *)bufferValue, size);
 }
 
 void SRV_FU_CfgWrite(void *src, uint16_t size)
 {
-    uint32_t bufferValue[4];
+    uint32_t bufferValue[4] = {0U};
 
-    (void)memcpy(bufferValue, (uint32_t *)src, size);
+    (void)memcpy((void *)bufferValue, src, size);
 
+    SRV_STORAGE_GpbrWriteBlock(0U, 4U, bufferValue);
 }
 
 void SRV_FU_Start(SRV_FU_INFO *fuInfo)

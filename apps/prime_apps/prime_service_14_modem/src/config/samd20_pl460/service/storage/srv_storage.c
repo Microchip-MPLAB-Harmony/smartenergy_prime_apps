@@ -66,15 +66,18 @@ Microchip or any third party.
 #define SRV_STORAGE_SECURITY_OFFSET   64
 #define SRV_STORAGE_BOOT_INFO_OFFSET  112
 
-/* Total size of non-volatile data */
-#define SRV_STORAGE_TOTAL_SIZE 136U
+/* GPBR emulation block (16 slots * 4 B = 64 B) */
+#define SRV_STORAGE_GPBR_OFFSET       136
+
+/* Total size of non-volatile data: 136 existing + 64 GPBR = 200 */
+#define SRV_STORAGE_TOTAL_SIZE 200U
 
 /* Flash row reserved by NVMCTRL_EEPROM_SIZE = SIZE_256BYTES fuse (0x0003FF00-0x0003FFFF) */
 #define SRV_STORAGE_FLASH_ADDR    NVMCTRL_EMULATED_EEPROM_START_ADDRESS
 
-/* 136 bytes span 3 pages of 64 bytes; last page has 8 bytes data + 56 bytes 0xFF */
-#define SRV_STORAGE_NUM_PAGES     3U
-#define SRV_STORAGE_LAST_PAGE_OFFSET  ((SRV_STORAGE_NUM_PAGES - 1U) * NVMCTRL_EMULATED_EEPROM_PAGESIZE)  /* 128 */
+/* 200 bytes span 4 pages of 64 bytes; last page has 8 bytes data + 56 bytes 0xFF */
+#define SRV_STORAGE_NUM_PAGES     4U
+#define SRV_STORAGE_LAST_PAGE_OFFSET  ((SRV_STORAGE_NUM_PAGES - 1U) * NVMCTRL_EMULATED_EEPROM_PAGESIZE)  /* 192 */
 #define SRV_STORAGE_LAST_PAGE_DATA    (SRV_STORAGE_TOTAL_SIZE - SRV_STORAGE_LAST_PAGE_OFFSET)             /* 8   */
 #define SRV_STORAGE_LAST_PAGE_PAD     (NVMCTRL_EMULATED_EEPROM_PAGESIZE - SRV_STORAGE_LAST_PAGE_DATA)     /* 56  */
 
@@ -132,7 +135,12 @@ static void lSRV_STORAGE_WriteToFlash(void)
                              SRV_STORAGE_FLASH_ADDR + NVMCTRL_EMULATED_EEPROM_PAGESIZE);
     while (NVMCTRL_IsBusy()) {}
 
-    /* Page 2: 8 bytes of actual data + 56 bytes 0xFF padding */
+    /* Page 2: srvStorageData[128..191] — contains tail of BOOT_INFO + full GPBR block */
+    (void) NVMCTRL_PageWrite((uint32_t *)(void *)&srvStorageData[2U * NVMCTRL_EMULATED_EEPROM_PAGESIZE],
+                             SRV_STORAGE_FLASH_ADDR + (2U * NVMCTRL_EMULATED_EEPROM_PAGESIZE));
+    while (NVMCTRL_IsBusy()) {}
+
+    /* Page 3 (last): 8 bytes of actual data + 56 bytes 0xFF padding */
     (void) memcpy(lastPage, &srvStorageData[SRV_STORAGE_LAST_PAGE_OFFSET],
                   SRV_STORAGE_LAST_PAGE_DATA);
     (void) memset((uint8_t *)lastPage + SRV_STORAGE_LAST_PAGE_DATA, 0xFFU,
@@ -211,8 +219,8 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
 
     /* Interrupts disabled for the full write: SAMD20 stalls the AHB bus during
      * NVM erase/write, so ISRs in flash cannot execute during this window.
-     * Total duration: RegionUnlock (~1ms) + RowErase (~6ms) + 3×PageWrite (~7.5ms)
-     * ≈ 14ms — well within the 500ms WDT timeout. */
+     * Total duration: RegionUnlock (~1ms) + RowErase (~6ms) + 4×PageWrite (~10ms)
+     * ≈ 17ms — well within the 500ms WDT timeout. */
     interruptStatus = SYS_INT_Disable();
 
     (void) memcpy((void *) &srvStorageData[offset], pData, size);
@@ -221,4 +229,53 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
     SYS_INT_Restore(interruptStatus);
 
     return true;
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: GPBR emulation (see header for rationale)
+// *****************************************************************************
+// *****************************************************************************
+
+uint32_t SRV_STORAGE_GpbrRead(uint8_t slot)
+{
+    uint32_t value;
+    bool interruptStatus;
+
+    if (slot >= SRV_STORAGE_GPBR_NUM_SLOTS)
+    {
+        return 0U;
+    }
+
+    interruptStatus = SYS_INT_Disable();
+    (void) memcpy(&value,
+                  &srvStorageData[SRV_STORAGE_GPBR_OFFSET + ((uint16_t)slot * 4U)],
+                  sizeof(uint32_t));
+    SYS_INT_Restore(interruptStatus);
+
+    return value;
+}
+
+void SRV_STORAGE_GpbrWriteBlock(uint8_t startSlot, uint8_t count,
+                                const uint32_t *values)
+{
+    bool interruptStatus;
+
+    if ((values == NULL) ||
+        (startSlot >= SRV_STORAGE_GPBR_NUM_SLOTS) ||
+        ((uint16_t)startSlot + (uint16_t)count > SRV_STORAGE_GPBR_NUM_SLOTS))
+    {
+        return;
+    }
+
+    interruptStatus = SYS_INT_Disable();
+    (void) memcpy(&srvStorageData[SRV_STORAGE_GPBR_OFFSET + ((uint16_t)startSlot * 4U)],
+                  values, (size_t)count * 4U);
+    lSRV_STORAGE_WriteToFlash();
+    SYS_INT_Restore(interruptStatus);
+}
+
+void SRV_STORAGE_GpbrWrite(uint8_t slot, uint32_t value)
+{
+    SRV_STORAGE_GpbrWriteBlock(slot, 1U, &value);
 }

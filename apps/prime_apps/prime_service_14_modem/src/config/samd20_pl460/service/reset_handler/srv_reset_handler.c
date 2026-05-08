@@ -51,7 +51,129 @@ Microchip or any third party.
 #include "srv_reset_handler.h"
 #include "device.h"
 #include "interrupts.h"
+#include "service/storage/srv_storage.h"
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: GPBR slot layout (emulated in EEPROM via srv_storage)
+//
+// Matches the PIC32 dual_modem mapping:
+//   slot 5  : (reset_count << 16) | resetType
+//   slot 6  : PC
+//   slot 7  : LR
+//   slot 8  : PSR
+//   slot 9  : HFSR  (always 0 on Cortex-M0+)
+//   slot 10 : CFSR  (always 0 on Cortex-M0+)
+//   slot 11 : R0
+//   slot 12 : R1
+//   slot 13 : R2
+//   slot 14 : R3
+//   slot 15 : R12
+// *****************************************************************************
+// *****************************************************************************
+
+#define GPBR_SLOT_RESET_INFO  5U
+#define GPBR_SLOT_DUMP_BASE   5U    /* block covers slots 5..15 in one R-M-E-W */
+#define GPBR_DUMP_COUNT      11U
+
+/* MISRA deviation: these must be volatile globals so the debugger can inspect
+ * them after reset if EEPROM readback is not available. */
+volatile uint32_t saved_r0;
+volatile uint32_t saved_r1;
+volatile uint32_t saved_r2;
+volatile uint32_t saved_r3;
+volatile uint32_t saved_r12;
+volatile uint32_t saved_lr;
+volatile uint32_t saved_pc;
+volatile uint32_t saved_psr;
+volatile uint32_t saved_hfsr;   /* unused on M0+, kept for ABI compat */
+volatile uint32_t saved_cfsr;   /* unused on M0+, kept for ABI compat */
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File scope functions
+// *****************************************************************************
+// *****************************************************************************
+
+static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType)
+{
+    uint32_t resetInfo;
+    uint16_t numResets;
+
+    /* Read and increase number of resets since start-up */
+    numResets = (uint16_t)(SRV_STORAGE_GpbrRead(GPBR_SLOT_RESET_INFO) >> 16);
+    ++numResets;
+
+    /* Store reset information: high 16 bits = count, low 16 bits = cause */
+    resetInfo = ((uint32_t)numResets << 16) | (uint32_t)resetType;
+    SRV_STORAGE_GpbrWrite(GPBR_SLOT_RESET_INFO, resetInfo);
+}
+
+void DumpStack(uint32_t stack[]) __attribute__((noreturn));
+
+void DumpStack(uint32_t stack[])
+{
+    uint32_t dump[GPBR_DUMP_COUNT];
+    uint16_t numResets;
+
+    saved_r0   = stack[0];
+    saved_r1   = stack[1];
+    saved_r2   = stack[2];
+    saved_r3   = stack[3];
+    saved_r12  = stack[4];
+    saved_lr   = stack[5];
+    saved_pc   = stack[6];
+    saved_psr  = stack[7];
+    saved_hfsr = 0U;            /* not available on Cortex-M0+ */
+    saved_cfsr = 0U;            /* not available on Cortex-M0+ */
+
+    /* Build the full fault dump and persist all 11 slots with a single
+     * R-M-E-W of the EEPROM row (~17 ms). Writing each slot individually
+     * would take ~187 ms and consume 11 endurance cycles instead of 1. */
+    numResets = (uint16_t)(SRV_STORAGE_GpbrRead(GPBR_SLOT_RESET_INFO) >> 16);
+    ++numResets;
+
+    dump[0]  = ((uint32_t)numResets << 16) | (uint32_t)RESET_HANDLER_HARD_FAULT_RESET;
+    dump[1]  = saved_pc;
+    dump[2]  = saved_lr;
+    dump[3]  = saved_psr;
+    dump[4]  = saved_hfsr;
+    dump[5]  = saved_cfsr;
+    dump[6]  = saved_r0;
+    dump[7]  = saved_r1;
+    dump[8]  = saved_r2;
+    dump[9]  = saved_r3;
+    dump[10] = saved_r12;
+
+    SRV_STORAGE_GpbrWriteBlock(GPBR_SLOT_DUMP_BASE, GPBR_DUMP_COUNT, dump);
+
+    /* Fault is unrecoverable: reboot so the next boot can read the dump. */
+    NVIC_SystemReset();
+}
+
+/* Cortex-M0+ lacks ITE (ARMv7-M only). We use conditional branches instead.
+ * __attribute__((naked)) prevents prolog/epilog so we can read MSP/PSP
+ * exactly as they were at the instant of the exception.
+ * This overrides the weak stub in exceptions.c.
+ *
+ * Use BL instead of B for the jump to DumpStack: in ARMv6-M the `b` branch
+ * is limited to ±2 KB (R_ARM_THM_JUMP11) while `bl` reaches ±16 MB. Since
+ * DumpStack is noreturn, clobbering LR is harmless. */
+__attribute__((naked, noreturn))
+void HardFault_Handler(void)
+{
+    __asm volatile (
+        "  movs r0, #4         \n"
+        "  mov  r1, lr         \n"
+        "  tst  r0, r1         \n"
+        "  beq  1f             \n"    /* bit 2 clear → MSP was in use */
+        "  mrs  r0, psp        \n"
+        "  bl   DumpStack      \n"
+        "1:                    \n"
+        "  mrs  r0, msp        \n"
+        "  bl   DumpStack      \n"
+    );
+}
 
 // *****************************************************************************
 // *****************************************************************************
@@ -65,8 +187,8 @@ void SRV_RESET_HANDLER_Initialize(void)
 
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
 {
-    (void)resetType;
-
+    /* Persist reset cause + increment reset counter */
+    lSRV_RESET_HANDLER_StoreResetInfo(resetType);
 
     /* Trigger software reset */
     NVIC_SystemReset();
