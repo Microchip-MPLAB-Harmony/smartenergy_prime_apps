@@ -1,0 +1,217 @@
+/*******************************************************************************
+  PRIME Service Node Bootloader Header
+
+  Company:
+    Microchip Technology Inc.
+
+  File Name:
+    app_bootloader.h
+
+  Summary:
+    Constants, types and prototypes for the bare-metal SAMD20J18 bootloader.
+
+  Description:
+    The bootloader reads a boot configuration from the emulated-EEPROM row,
+    optionally applies a new firmware image from SST26 TELECARGA or restores
+    the previous image from SST26 REVERT, and finally jumps to the
+    application at APP_START. No Harmony, no C library: all peripherals are
+    accessed through direct register writes.
+
+    Full design rationale: BOOTLOADER_FROM_RAM_DESIGN.md
+*******************************************************************************/
+
+#ifndef APP_BOOTLOADER_H
+#define APP_BOOTLOADER_H
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Included Files
+// *****************************************************************************
+// *****************************************************************************
+
+#include <stdint.h>
+#include <stdbool.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions — Internal flash layout (SAMD20J18, 256 KB)
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_BOOTLOADER_ROM_BASE             (0x00000000U)
+#define APP_BOOTLOADER_ROM_SIZE             (0x00001000U)   /* 4 KB, BOOTPROT=3 */
+
+#define APP_BOOTLOADER_APP_START            (0x00001000U)
+#define APP_BOOTLOADER_APP_END              (0x0003FF00U)   /* exclusive; EEPROM row untouched */
+#define APP_BOOTLOADER_MAX_APP_SIZE         (APP_BOOTLOADER_APP_END - APP_BOOTLOADER_APP_START)
+
+#define APP_BOOTLOADER_EEPROM_ROW_ADDR      (0x0003FF00U)
+#define APP_BOOTLOADER_EEPROM_ROW_SIZE      (256U)
+
+#define APP_BOOTLOADER_FLASH_ROW_SIZE       (256U)          /* NVMCTRL erase granularity */
+#define APP_BOOTLOADER_FLASH_PAGE_SIZE      (64U)           /* NVMCTRL write granularity */
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions — External SST26 layout (4 MB available)
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_BOOTLOADER_SST26_TELECARGA_OFFSET   (0x00000000U)
+#define APP_BOOTLOADER_SST26_REVERT_OFFSET      (0x00040000U)
+#define APP_BOOTLOADER_IMAGE_ZONE_SIZE          (0x00040000U)   /* 256 KB */
+
+#define APP_BOOTLOADER_SST26_SECTOR_SIZE        (4096U)
+#define APP_BOOTLOADER_SST26_BLOCK_64K_SIZE     (65536U)
+#define APP_BOOTLOADER_SST26_PAGE_SIZE          (256U)
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions — SPI chip select for SST26
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_BOOTLOADER_SST26_CS_PIN             (17U)       /* PA17 */
+#define APP_BOOTLOADER_SST26_CS_PORT_GROUP      (0U)        /* Port A */
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions — Image header in SST26
+// *****************************************************************************
+// *****************************************************************************
+
+/* Zone layout inside SST26 (both TELECARGA and REVERT):
+ *   [0 .. size-1] : raw payload (up to APP_BOOTLOADER_MAX_APP_SIZE bytes)
+ *
+ * There is no image header. The boot-config handshake in the EEPROM
+ * row is the sole source of truth: when cfgKey matches and origAddr
+ * is valid, the bootloader trusts that the zone contains a complete
+ * image of bootCfg.imgSize bytes (for TELECARGA) or of the full
+ * application region (for REVERT — the bootloader always backs up
+ * APP_BOOTLOADER_MAX_APP_SIZE bytes, so imgSize is ignored on revert).
+ *
+ * The PRIME firmware-upgrade service already validates the image CRC
+ * while it downloads; re-validating in the bootloader would add code
+ * and latency without meaningful protection. */
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Macro Definitions — Boot configuration (shared with application)
+//
+// Layout is identical to SRV_STORAGE_BOOT_CONFIG in the PRIME library (24 B,
+// at offset 112 inside the EEPROM row). Written by the application to
+// request an operation; read by this bootloader on every reset.
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_BOOTLOADER_BOOT_CONFIG_OFFSET       (112U)
+#define APP_BOOTLOADER_BOOT_CONFIG_KEY          (0x55AA55AAU)   /* matches SRV_STORAGE_BOOT_CFG_KEY */
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Data Types
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* Boot configuration
+
+  Summary:
+    24-byte structure shared with the application through the EEPROM row.
+
+  Description:
+    Layout matches SRV_STORAGE_BOOT_CONFIG defined in srv_storage.h of the
+    application. Field names follow Harmony camelCase. The bootloader
+    interprets the bytes; the application writes them.
+*/
+
+typedef struct __attribute__((packed))
+{
+    uint32_t cfgKey;        /* APP_BOOTLOADER_BOOT_CONFIG_KEY when valid */
+    uint32_t imgSize;       /* image size in bytes */
+    uint32_t origAddr;      /* SST26 offset — TELECARGA or REVERT; selects operation */
+    uint32_t destAddr;      /* = APP_BOOTLOADER_APP_START */
+    uint8_t  pagesCounter;  /* reserved, always 0 in this bootloader */
+    uint8_t  bootState;     /* see APP_BOOTLOADER_BOOT_STATE */
+    uint8_t  _pad[2];
+} APP_BOOTLOADER_BOOT_CONFIG;
+
+// *****************************************************************************
+/* Internal boot state
+
+  Summary:
+    Values stored in the bootState byte of the boot configuration.
+
+  Description:
+    Private to this bootloader. The application always writes
+    APP_BOOTLOADER_BOOT_IDLE when requesting an operation; the bootloader
+    persists APP_BOOTLOADER_BOOT_BACKUP_DONE between phase 1 and phase 2
+    of APPLY_TELECARGA so a power loss can be recovered.
+*/
+
+typedef enum
+{
+    APP_BOOTLOADER_BOOT_IDLE            = 0,    /* no operation or backup pending */
+    APP_BOOTLOADER_BOOT_BACKUP_DONE     = 1,    /* phase 1 (APP -> REVERT) done */
+} APP_BOOTLOADER_BOOT_STATE;
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Initialization and Entry Point
+// *****************************************************************************
+// *****************************************************************************
+
+/*******************************************************************************
+  Function:
+    void APP_BOOTLOADER_Main ( void )
+
+  Summary:
+    Bootloader main entry point. Called from main().
+
+  Description:
+    Reads the boot configuration, dispatches to the appropriate operation
+    (APPLY_TELECARGA, APPLY_REVERT, or jump-to-app), and never returns.
+
+  Parameters:
+    None.
+
+  Returns:
+    Does not return. Either branches to the application via
+    APP_BOOTLOADER_JumpToApp or triggers NVIC_SystemReset().
+*/
+
+void APP_BOOTLOADER_Main(void) __attribute__((noreturn));
+
+/*******************************************************************************
+  Function:
+    void APP_BOOTLOADER_JumpToApp ( void )
+
+  Summary:
+    Transfers control to the application at APP_BOOTLOADER_APP_START.
+
+  Description:
+    Relocates the vector table via SCB->VTOR, loads the stack pointer from
+    the application vector table, and branches to its reset handler.
+
+  Parameters:
+    None.
+
+  Returns:
+    Does not return.
+*/
+
+void APP_BOOTLOADER_JumpToApp(void) __attribute__((noreturn));
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* APP_BOOTLOADER_H */
+
+/*******************************************************************************
+ End of File
+*/

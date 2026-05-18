@@ -57,7 +57,12 @@ extern "C" {
     This enumeration defines the valid application states.  These states
     determine the behavior of the application at various times.
 */
-
+/* Enable swapping of FU location */
+# define APP_FU_ENABLE_SWAP         0XFE45EC48
+    
+/* Enable swapping of stack */
+# define APP_VERSION_ENABLE_SWAP    0XEF54CE84
+    
 typedef enum
 {
     /* Application's state machine's initial state. */

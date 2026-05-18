@@ -50,9 +50,83 @@
 
 APP_DATA appData;
 
+/* New PRIME stack pointer */
+static const PRIME_API *newPrimeApi;
+
+/* Enable swapping of stack location */
+static uint32_t volatile fuSwapEn;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Callback Functions
+// *****************************************************************************
+// *****************************************************************************
+
+/* TODO:  Add any necessary callback functions.
+*/
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Local Functions
+// *****************************************************************************
+// *****************************************************************************
+
+static void lAPP_SwapFirmware(void)
+{
+    /* Swap firmware */
+    if (SRV_FU_SwapFirmware() == true)
+    {
+        /* Trigger reset to launch bootloader */
+        SRV_RESET_HANDLER_RestartSystem(RESET_HANDLER_FU_RESET);
+    }
+}
+
+static void lAPP_PrimeFuResultHandler(SRV_FU_RESULT fuResult)
+{
+    switch (fuResult) 
+    {
+        case SRV_FU_RESULT_SUCCESS:
+            /* Update FU pointer */
+            fuSwapEn = APP_FU_ENABLE_SWAP;
+            break;
+
+        case SRV_FU_RESULT_CRC_ERROR:
+            /* Nothing to do - FU will restart automatically */
+            break;
+
+        case SRV_FU_RESULT_CANCEL:
+            /* Nothing to do */
+            break;
+
+        case SRV_FU_RESULT_FW_CONFIRM:
+            /* Nothing to do */
+            break;
+
+        case SRV_FU_RESULT_FW_REVERT:
+            /* Revert FU pointer */
+            fuSwapEn = APP_FU_ENABLE_SWAP;
+            break;
+
+        case SRV_FU_RESULT_ERROR:
+            /* Nothing to do */
+            break;
+
+        case SRV_FU_RESULT_SIGNATURE_ERROR:
+            /* Nothing to do */
+            break;
+
+        case SRV_FU_RESULT_IMAGE_ERROR:
+            /* Nothing to do */
+            break;
+
+        default:
+            break;
+    }
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Initialization and State Machine Functions
 // *****************************************************************************
 // *****************************************************************************
 
@@ -62,18 +136,6 @@ static void lAPP_TimeExpiredSetFlag(uintptr_t context)
     *((bool *) context) = true;
 }
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Local Functions
-// *****************************************************************************
-// *****************************************************************************
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Initialization and State Machine Functions
-// *****************************************************************************
-// *****************************************************************************
 
 /*******************************************************************************
   Function:
@@ -87,6 +149,9 @@ void APP_Initialize ( void )
 {
     /* Place the App state machine in its initial state. */
     appData.state = APP_STATE_INIT;
+
+    /* Initialize swap flags */
+    fuSwapEn = 0;
 
     /* Initialize modem application */
     APP_Modem_Initialize();
@@ -124,8 +189,9 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
+            /* Start of PRIME STack*/
             PRIME_Open(PRIME_INDEX_0);
-
+            
             /* Register timer callback to blink LED */
             SYS_TIME_HANDLE timeHandle = SYS_TIME_CallbackRegisterMS(
                     lAPP_TimeExpiredSetFlag, (uintptr_t) &appData.timerLedExpired,
@@ -137,12 +203,21 @@ void APP_Tasks ( void )
                 SYS_CONSOLE_MESSAGE(APP_STRING_HEADER);
             }
 
+            /* Initialize FU result callback */
+            SRV_FU_RegisterCallbackFuResult(lAPP_PrimeFuResultHandler);
             break;
         }
 
         case APP_STATE_SERVICE_TASKS:
         {
             APP_Modem_Tasks();
+
+            /* Check if FU location must be swapped */
+            if (fuSwapEn == APP_FU_ENABLE_SWAP)
+            {
+                fuSwapEn = 0;
+                lAPP_SwapFirmware();
+            }
 
             break;
         }

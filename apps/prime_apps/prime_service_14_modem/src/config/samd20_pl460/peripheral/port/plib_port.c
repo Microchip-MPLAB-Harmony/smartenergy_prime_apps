@@ -72,7 +72,9 @@ void PORT_Initialize(void)
 {
    /************************** GROUP 0 Initialization *************************/
    PORT_REGS->GROUP[0].PORT_DIR = 0x524008U;
-   PORT_REGS->GROUP[0].PORT_OUT = 0x802c000U;
+   /* Bits 20 (HOLD#) and 22 (WP#) added to OUT — without these driven
+    * high the SST26 stays in hold state and SPI returns garbage. */
+   PORT_REGS->GROUP[0].PORT_OUT = 0x852c000U;
    PORT_REGS->GROUP[0].PORT_PINCFG[2] = 0x1U;
    PORT_REGS->GROUP[0].PORT_PINCFG[3] = 0x0U;
    PORT_REGS->GROUP[0].PORT_PINCFG[14] = 0x0U;

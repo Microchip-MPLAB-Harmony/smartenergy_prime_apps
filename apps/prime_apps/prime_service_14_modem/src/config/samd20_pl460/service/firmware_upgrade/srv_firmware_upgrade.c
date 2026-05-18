@@ -66,7 +66,22 @@ Microchip or any third party.
 
 #define PRIME_FU_MEM_DRV        "drv_memory_0"
 #define PRIME_FU_MEM_INSTANCE   0
-#define PRIME_FU_MEM_SIZE       (uint32_t)(0x60000)
+/* External SST26 is split into two 256 KB zones: TELECARGA (0..0x3FFFF)
+ * where the FU service writes the incoming image, and REVERT
+ * (0x40000..0x7FFFF) reserved for the bootloader's backup copy. The FU
+ * region therefore stops at 256 KB so the FU erase/write code never
+ * touches the REVERT slot. */
+#define PRIME_FU_MEM_SIZE       (uint32_t)(0x40000)
+#define PRIME_FU_MEM_REVERT_OFFSET  (uint32_t)(0x40000)
+
+/* Magic the bootloader expects in the boot-config key field to
+ * recognise a pending operation. Must match
+ * APP_BOOTLOADER_BOOT_CONFIG_KEY in the bootloader project. */
+#define PRIME_FU_BOOT_CFG_KEY   (uint32_t)(SRV_STORAGE_BOOT_CFG_KEY)
+
+/* Destination address in internal flash where the bootloader installs
+ * the image. Matches APP_BOOTLOADER_APP_START. */
+#define PRIME_FU_APP_START_ADDR (uint32_t)(0x1000)
 
 #define MEMORY_WRITE_SIZE       (uint32_t)(256)
 #define MAX_BUFFER_READ_SIZE    (uint32_t)(256)
@@ -80,8 +95,6 @@ typedef enum
     PRIME_PHY_APP,
     PRIME_MAIN_APP
 } SRV_FU_PRIME_APP_TYPE;
-
-#define PRIME_METADATA_SIZE          (uint32_t)(16)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -107,6 +120,13 @@ static CACHE_ALIGN SRV_FU_MEM_INFO memInfo;
 
 static SRV_FU_INFO fuData;
 
+/* Tracks whether the most recent FU result was a revert request. Set
+ * by SRV_FU_End and read by SRV_FU_SwapFirmware so the boot config
+ * points at the right SST26 zone (TELECARGA vs REVERT). Defaults to
+ * false so a fresh boot with no FU activity treats the pending swap,
+ * if any, as a regular install. */
+static bool fuLastResultIsRevert = false;
+
 static SRV_FU_CRC_STATE crcState;
 
 static uint32_t crcReadAddress;
@@ -118,85 +138,11 @@ static uint32_t crcRemainingSize;
 static uint32_t calculatedCrc;
 
 
-static uint8_t imageMetadata[PRIME_METADATA_SIZE];
-
-static SRV_FU_PRIME_APP_TYPE appToFu;
-
-static uint16_t imageVendor;
-
-static uint16_t imageModel;
-
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
-{
-    uint32_t iniMetadata, iniSignature;
-    uint32_t offsetSegment, offsetMetadata;
-    uint32_t sizeToCopy;
-
-    /* The first segment contains the Vendor and Model */
-    if (address == 0U)
-    {
-        imageVendor = ((uint16_t) pBuffInput[0]) << 8;
-        imageVendor |= pBuffInput[1];
-
-        imageModel = ((uint16_t) pBuffInput[2]) << 8;
-        imageModel |= pBuffInput[3];
-    }
-
-    iniMetadata = fuData.imageSize - fuData.signLength - PRIME_METADATA_SIZE;
-    iniSignature = fuData.imageSize - fuData.signLength;
-
-    /* Check if the segment to write is in metadata zone*/
-    if ((address + size) < iniMetadata)
-    {
-        return;
-    }
-
-    if (address < iniMetadata)
-    {
-        offsetSegment = iniMetadata - address;
-    }
-    else
-    {
-        offsetSegment = 0;
-    }
-
-    if ((address > iniMetadata) && (address < iniSignature))
-    {
-        offsetMetadata = address - iniMetadata;
-    }
-    else
-    {
-        offsetMetadata = 0;
-    }
-
-    /* There is metadata inside the segment */
-    if (address < iniSignature)
-    {
-        sizeToCopy = PRIME_METADATA_SIZE - offsetMetadata;
-
-        if ((size - offsetSegment) < sizeToCopy)
-        {
-            sizeToCopy = size - offsetSegment;
-        }
-
-        (void)memcpy(&imageMetadata[offsetMetadata], &pBuffInput[offsetSegment], sizeToCopy);
-    }
-
-}
-
-static bool lSRV_FU_CheckImageData(void)
-{
-    appToFu = PRIME_INVALID_APP;
-
-
-    return true;
-}
 
 static void lSRV_FU_TransferHandler
 (
@@ -537,13 +483,26 @@ void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
         return;
     }
 
+    /* Reject the write if the underlying memory driver hasn't finished
+     * its async initialization yet (handle still invalid or page size
+     * still zero). Without this guard SRV_FU_Tasks would later divide
+     * writeAddress by zero and the result would be used to index pMemWrite,
+     * landing the dst pointer outside the array and faulting in memcpy. */
+    if ((memInfo.memoryHandle == DRV_HANDLE_INVALID) ||
+        (memInfo.writePageSize == 0U))
+    {
+        if (SRV_FU_MemTransferCallback != NULL)
+        {
+            SRV_FU_MemTransferCallback(SRV_FU_MEM_TRANSFER_CMD_WRITE, SRV_FU_MEM_TRANSFER_ERROR);
+        }
+        return;
+    }
+
     memInfo.writeAddress = memInfo.startAdressFuRegion + address;
     memInfo.writeSize = size;
     memInfo.bytesWritten = 0;
 
     (void)memcpy(pBuffInput, buffer, size);
-
-    lSRV_FU_StoreImageInfo(address, size);
 
     memInfo.state = SRV_FU_MEM_STATE_WRITE_ONE_BLOCK;
 }
@@ -572,9 +531,15 @@ void SRV_FU_CfgWrite(void *src, uint16_t size)
 void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 {
     fuData.imageSize = fuInfo->imageSize;
-    fuData.pageSize = fuInfo->pageSize;
-    fuData.signAlgorithm = SRV_FU_SIGNATURE_ALGO_NO_SIGNATURE;
-    fuData.signLength = 0;
+    fuData.pageSize  = fuInfo->pageSize;
+
+    /* Signature parameters are propagated from the FU info even though
+     * signature verification is not implemented in this build. Keeping
+     * the propagation in place future-proofs the path: when (and if)
+     * verification is added later, the algorithm and length will
+     * already be available in fuData. */
+    fuData.signAlgorithm = fuInfo->signAlgorithm;
+    fuData.signLength    = fuInfo->signLength;
 
     /* Erase internal flash pages */
     lSRV_FU_EraseFuRegion();
@@ -586,6 +551,24 @@ void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 
 void SRV_FU_End(SRV_FU_RESULT fuResult)
 {
+    /* Cache whether this end-of-FU marks a revert request so the
+     * subsequent SRV_FU_SwapFirmware call can point the bootloader at
+     * the REVERT zone instead of the TELECARGA zone. SUCCESS clears
+     * the flag to cover the "success after a previous revert attempt"
+     * case; other results leave it untouched. */
+    if (fuResult == SRV_FU_RESULT_FW_REVERT)
+    {
+        fuLastResultIsRevert = true;
+    }
+    else if (fuResult == SRV_FU_RESULT_SUCCESS)
+    {
+        fuLastResultIsRevert = false;
+    }
+    else
+    {
+        /* Leave the flag as is. */
+    }
+
     /* Check callback is initialized */
     if (SRV_FU_ResultCallback == NULL)
     {
@@ -707,75 +690,68 @@ void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
 
 bool SRV_FU_SwapFirmware(void)
 {
-    uint32_t destAddress = 0;
-    uint32_t destSize = 0;
+    SRV_STORAGE_BOOT_CONFIG bootConfig;
 
-    /* Check if the current stack is 1.3 */
-    SRV_STORAGE_PRIME_MODE_INFO_CONFIG boardInfo;
-
-    if(SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_MODE_PRIME, (uint8_t)sizeof(boardInfo), (void *)&boardInfo) == false)
+    /* Read the current boot config so any fields the bootloader does
+     * not touch are preserved verbatim. */
+    if (SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_BOOT_INFO,
+                                  (uint8_t) sizeof(bootConfig),
+                                  &bootConfig) == false)
     {
         return false;
     }
 
-    if (boardInfo.primeVersion == PRIME_VERSION_1_3)
-    {
-        /* Verify if this is a right image */
-        if (lSRV_FU_CheckImageData() == false)
-        {
-            /* Trigger reset, needed in FU 1.3 */
-            return true;
-        }
-    }
+    /* Common fields: the bootloader always installs into the
+     * application region starting at PRIME_FU_APP_START_ADDR, and
+     * recognises the request only when cfgKey matches the shared
+     * magic. */
+    bootConfig.cfgKey       = PRIME_FU_BOOT_CFG_KEY;
+    bootConfig.destAddr     = PRIME_FU_APP_START_ADDR;
+    bootConfig.pagesCounter = 0U;
+    bootConfig.bootState    = 0U;
 
-
-    if(destSize == 0U)
+    if (fuLastResultIsRevert)
     {
-        return false;
+        /* Revert path: the previous TELECARGA backup lives in the
+         * REVERT zone. The bootloader knows the size of its own
+         * backup so imgSize is informational only; set it to zero to
+         * make that explicit. */
+        bootConfig.origAddr = PRIME_FU_MEM_REVERT_OFFSET;
+        bootConfig.imgSize  = 0U;
     }
     else
     {
-        /* Update boot configuration */
-        SRV_STORAGE_BOOT_CONFIG bootConfig;
-
-        if(SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE_BOOT_INFO, (uint8_t)sizeof(bootConfig), &bootConfig))
-        {
-            bootConfig.origAddr = DRV_MEMORY_AddressGet(memInfo.memoryHandle);
-            bootConfig.destAddr = destAddress;
-            bootConfig.imgSize = destSize;
-            bootConfig.cfgKey = 0;
-            bootConfig.pagesCounter = 0;
-            bootConfig.bootState = 0;
-
-            /* Store the new boot configuration */
-            (void) SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE_BOOT_INFO, (uint8_t)sizeof(bootConfig), &bootConfig);
-
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        /* Install path: the FU service just finished writing the new
+         * image to the TELECARGA zone at SST26 offset 0. imgSize is
+         * the payload length the bootloader will copy into flash. */
+        bootConfig.origAddr = 0U;
+        bootConfig.imgSize  = fuData.imageSize;
     }
+
+    /* Persist. The bootloader reads this on the next reset. */
+    (void) SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE_BOOT_INFO,
+                                     (uint8_t) sizeof(bootConfig),
+                                     &bootConfig);
+
+    return true;
 }
 
 
 void SRV_FU_VerifyImage(void)
 {
-    /* Check pointer function */
-    if (SRV_FU_ImageVerifyCallback == NULL)
+    /* The SAMD20 build only ships one binary type per device, so there
+     * is no in-image vendor/model/metadata to validate here, and the
+     * cryptographic signature path is not yet implemented. The PRIME
+     * stack still expects a verdict via SRV_FU_ImageVerifyCallback
+     * before it advances to the swap-firmware step, so report SUCCESS
+     * unconditionally — equivalent to the PIC32 path that returns
+     * SUCCESS when signAlgorithm == SRV_FU_SIGNATURE_ALGO_NO_SIGNATURE.
+     * When signature verification is added later, replace this with
+     * the real signature check. */
+    if (SRV_FU_ImageVerifyCallback != NULL)
     {
-        return;
+        SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_SUCCESS);
     }
-
-    if (lSRV_FU_CheckImageData() != true)
-    {
-        /* Wrong Metadata, vendor or model */
-        SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_IMAGE_FAIL);
-
-        return;
-    }
-
 }
 
 

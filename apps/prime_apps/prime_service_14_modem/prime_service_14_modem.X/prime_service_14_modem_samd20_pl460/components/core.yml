@@ -4406,6 +4406,9 @@ data:
             id: core
             value: C
           type: Dynamic
+        - attributes:
+            value: C
+          type: User
         type: Values
       type: String
     PIN_35_FUNCTION_NAME:
@@ -4483,6 +4486,9 @@ data:
             id: core
             value: C
           type: Dynamic
+        - attributes:
+            value: C
+          type: User
         type: Values
       type: String
     PIN_37_FUNCTION_NAME:
@@ -4549,6 +4555,9 @@ data:
             id: core
             value: GPIO
           type: Dynamic
+        - attributes:
+            value: GPIO
+          type: User
         type: Values
       type: String
     PIN_36_FUNCTION_NAME:
@@ -4637,6 +4646,9 @@ data:
             id: core
             value: C
           type: Dynamic
+        - attributes:
+            value: C
+          type: User
         type: Values
       type: String
     PIN_38_FUNCTION_NAME:
@@ -4758,6 +4770,9 @@ data:
             id: core
             value: GPIO
           type: Dynamic
+        - attributes:
+            value: GPIO
+          type: User
         type: Values
       type: String
     PIN_43_FUNCTION_NAME:
@@ -4857,6 +4872,9 @@ data:
             id: core
             value: GPIO
           type: Dynamic
+        - attributes:
+            value: GPIO
+          type: User
         type: Values
       type: String
     PIN_41_FUNCTION_NAME:
@@ -4890,6 +4908,66 @@ data:
             id: core
             value: Out
           type: Dynamic
+        type: Values
+      type: String
+    PIN_35_MODE:
+      attributes:
+        id: PIN_35_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_36_MODE:
+      attributes:
+        id: PIN_36_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_37_MODE:
+      attributes:
+        id: PIN_37_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_38_MODE:
+      attributes:
+        id: PIN_38_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_41_MODE:
+      attributes:
+        id: PIN_41_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
+        type: Values
+      type: String
+    PIN_43_MODE:
+      attributes:
+        id: PIN_43_MODE
+      children:
+      - children:
+        - attributes:
+            value: ''
+          type: User
         type: Values
       type: String
   userData:
