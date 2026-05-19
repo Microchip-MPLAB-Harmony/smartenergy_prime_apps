@@ -1013,7 +1013,7 @@
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros"
-                  value="RAM_LENGTH=0x8000;RAM_ORIGIN=0x20000000;ROM_LENGTH=0x3EF00;ROM_ORIGIN=0x1000"/>
+                  value="RAM_LENGTH=0x8000;RAM_ORIGIN=0x20000000;ROM_LENGTH=0x3DF00;ROM_ORIGIN=0x2000"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>

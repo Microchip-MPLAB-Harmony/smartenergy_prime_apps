@@ -81,7 +81,7 @@ Microchip or any third party.
 
 /* Destination address in internal flash where the bootloader installs
  * the image. Matches APP_BOOTLOADER_APP_START. */
-#define PRIME_FU_APP_START_ADDR (uint32_t)(0x1000)
+#define PRIME_FU_APP_START_ADDR (uint32_t)(0x2000)
 
 #define MEMORY_WRITE_SIZE       (uint32_t)(256)
 #define MAX_BUFFER_READ_SIZE    (uint32_t)(256)

@@ -1,10 +1,10 @@
 /*******************************************************************************
   Linker script for SAMD20 bootloader (prime_sn_boot_external_mem)
 
-  - ROM: first 4 KB of flash (0x00000000..0x00000FFF). BOOTPROT=3 protects
+  - ROM: first 8 KB of flash (0x00000000..0x00001FFF). BOOTPROT=2 protects
     this region at hardware level when the fuse is active.
   - RAM: full 32 KB (0x20000000..0x20007FFF). Stack at the top.
-  - The application occupies flash from 0x00001000 to 0x0003FEFF and is a
+  - The application occupies flash from 0x00002000 to 0x0003FEFF and is a
     separate binary with its own linker script.
   - The emulated EEPROM row (0x0003FF00..0x0003FFFF) must never be touched
     by the bootloader; it is reserved via the NVMCTRL EEPROM[2:0] fuse.
@@ -16,7 +16,7 @@ ENTRY(Reset_Handler)
 
 MEMORY
 {
-    rom  (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00001000   /* 4 KB */
+    rom  (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00002000   /* 8 KB */
     ram  (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00008000   /* 32 KB */
 }
 

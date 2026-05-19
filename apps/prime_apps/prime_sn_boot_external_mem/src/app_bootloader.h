@@ -43,9 +43,9 @@ extern "C" {
 // *****************************************************************************
 
 #define APP_BOOTLOADER_ROM_BASE             (0x00000000U)
-#define APP_BOOTLOADER_ROM_SIZE             (0x00001000U)   /* 4 KB, BOOTPROT=3 */
+#define APP_BOOTLOADER_ROM_SIZE             (0x00002000U)   /* 8 KB, BOOTPROT=2 */
 
-#define APP_BOOTLOADER_APP_START            (0x00001000U)
+#define APP_BOOTLOADER_APP_START            (0x00002000U)
 #define APP_BOOTLOADER_APP_END              (0x0003FF00U)   /* exclusive; EEPROM row untouched */
 #define APP_BOOTLOADER_MAX_APP_SIZE         (APP_BOOTLOADER_APP_END - APP_BOOTLOADER_APP_START)
 
