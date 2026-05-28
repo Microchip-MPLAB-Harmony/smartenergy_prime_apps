@@ -37,11 +37,13 @@
 // *****************************************************************************
 // *****************************************************************************
 
-/* SST26VF032B command opcodes. */
+/* SST26VFxxxB command opcodes. Same opcodes for VF032B (4 MB),
+ * VF064B (8 MB) and other variants in the family. */
 #define DRV_SST26_CMD_WREN      0x06U
 #define DRV_SST26_CMD_RDSR      0x05U
 #define DRV_SST26_CMD_READ      0x03U
 #define DRV_SST26_CMD_PP        0x02U
+#define DRV_SST26_CMD_SE_4K     0x20U
 #define DRV_SST26_CMD_BE_64K    0xD8U
 #define DRV_SST26_CMD_ULBPR     0x98U
 #define DRV_SST26_CMD_JEDEC     0x9FU
@@ -74,10 +76,9 @@ void DRV_SST26_Initialize(void)
      * and erase commands are accepted. ULBPR itself requires WREN. */
     lDRV_SST26_WriteEnable();
     lDRV_SST26_Command1(DRV_SST26_CMD_ULBPR);
-
-    /* Wait for the unlock to take effect before leaving the function. */
     DRV_SST26_WaitReady();
 }
+
 
 uint32_t DRV_SST26_ReadJedecId(void)
 {
@@ -143,6 +144,19 @@ void DRV_SST26_BlockErase64K(uint32_t address)
     DRV_SPI_CsDeassert();
 
     /* tBE is typically 25 ms, worst-case 50 ms. */
+    DRV_SST26_WaitReady();
+}
+
+void DRV_SST26_SectorErase4K(uint32_t address)
+{
+    lDRV_SST26_WriteEnable();
+
+    DRV_SPI_CsAssert();
+    (void) DRV_SPI_TransferByte(DRV_SST26_CMD_SE_4K);
+    lDRV_SST26_SendAddress(address);
+    DRV_SPI_CsDeassert();
+
+    /* tSE is typically 18 ms, worst-case 25 ms. */
     DRV_SST26_WaitReady();
 }
 

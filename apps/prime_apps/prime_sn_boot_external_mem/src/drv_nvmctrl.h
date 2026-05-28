@@ -57,6 +57,18 @@ extern "C" {
 #define DRV_NVMCTRL_ROW_SIZE        256U
 #define DRV_NVMCTRL_PAGES_PER_ROW   4U
 
+/* DRV_NVMCTRL_GetError() return values. NONE = no error since the last
+ * GetError call cleared the status. The other three mirror the SAMD20
+ * NVMCTRL.STATUS error bits and are W1C inside GetError so a subsequent
+ * call returns NONE if no new error has occurred. */
+typedef enum
+{
+    DRV_NVMCTRL_ERROR_NONE   = 0,
+    DRV_NVMCTRL_ERROR_PROG   = 1,    /* PROGE: programming error    */
+    DRV_NVMCTRL_ERROR_LOCK   = 2,    /* LOCKE: row in locked region */
+    DRV_NVMCTRL_ERROR_NVM    = 3,    /* NVME:  generic NVM error    */
+} DRV_NVMCTRL_ERROR;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Public Function Prototypes
@@ -133,6 +145,41 @@ void DRV_NVMCTRL_PageWrite(const uint32_t *data, uint32_t address);
 
 bool DRV_NVMCTRL_IsBusy(void);
 void DRV_NVMCTRL_WaitReady(void);
+
+/*******************************************************************************
+  Function:
+    void DRV_NVMCTRL_CacheInvalidate ( void )
+
+  Summary:
+    Invalidates every NVMCTRL cache line.
+
+  Description:
+    The SAMD20 NVMCTRL has an internal flash cache that is enabled by
+    default. Memory-mapped reads after a write or row erase can return
+    stale data unless the cache is invalidated. Issues the CMD INVALL
+    (0x46) and waits for completion.
+*/
+
+void DRV_NVMCTRL_CacheInvalidate(void);
+
+/*******************************************************************************
+  Function:
+    DRV_NVMCTRL_ERROR DRV_NVMCTRL_GetError ( void )
+
+  Summary:
+    Returns the first error reported in NVMCTRL.STATUS and clears the
+    status bits (W1C) so the next call only sees fresh errors.
+
+  Description:
+    Should be called after every RowErase / PageWrite / RegionUnlock that
+    targets a row whose lock state could have prevented the operation.
+    Without this check the bootloader silently proceeds even when the
+    underlying flash cycle was rejected, which produces the "write over
+    non-erased row -> result = prev AND new" bit-AND corruption pattern
+    we observed before this fix landed.
+*/
+
+DRV_NVMCTRL_ERROR DRV_NVMCTRL_GetError(void);
 
 #ifdef __cplusplus
 }

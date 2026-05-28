@@ -123,4 +123,14 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    DRV_MEMORY_NUM_CLIENTS:
+      attributes:
+        id: DRV_MEMORY_NUM_CLIENTS
+      children:
+      - children:
+        - attributes:
+            value: '2'
+          type: User
+        type: Values
+      type: Integer
   userData: {}

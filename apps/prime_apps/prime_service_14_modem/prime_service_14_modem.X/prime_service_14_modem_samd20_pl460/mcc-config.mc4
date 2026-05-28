@@ -59,11 +59,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\bsp\bsp.c
 - file: ..\src\config\samd20_pl460\bsp\bsp.h
 - file: ..\src\config\samd20_pl460\configuration.h
-  hash: 54020697e266da42f3b6eff339ac74f796c85e2ffa1fa8ddc7adf94e9a5511b8
+  hash: 91556a9426efa8733b388f3702a155b71573db77c7a7de8a240cbb51bf42106f
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_aead_cipher.h
   hash: 1675e295ac9f48ee7e3b6ebc7a286ad5f5808427c9a7760b7d1fa381ff30cca7
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_common.h
-  hash: 7e546042b673a902f890a382797efaee0ba1fcb7b47f4c3dac7c4b45a9a710b1
+  hash: ba090da4a8121d04e5974bfad53d0d896dddf556467ede6d154defd8288e6689
+- file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_digsign.h
+  hash: 811573760032e055463ee86e4fe911894ce91c604e618fe96775bf4781214304
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_hash.h
   hash: a6b070c2699dd914392ebf32372fd3c15726818ed2817e9bad7774ed17a4e82e
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_mac_cipher.h
@@ -74,6 +76,8 @@ generatedFileHashHistoryMap:
   hash: c5fbb26d283f80d9fa76710fa4b486f9a4fdd0261828eb8ede59e3763d01dd7f
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\src\crypto_aead_cipher.c
   hash: 4154310b11c33dfdb5befdf57331def4eb3fb3ed9db60b5c8097f82850cee2cd
+- file: ..\src\config\samd20_pl460\crypto\common_crypto\src\crypto_digsign.c
+  hash: 1d1e67cd29647415a9adc833545224f9520835ffb7677ee315e5a17e92937fdd
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\src\crypto_hash.c
   hash: 41b7f3c97fbfe9e8a384fd6c77622fc39a0bb152ff1e7f9ebd055ef2541cfa22
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\src\crypto_mac_cipher.c
@@ -89,7 +93,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\crypto_aead_wc_wrapper.h
   hash: 4c9a4d415c7f3520162dd96b15adaddf6e94696f1483bb9649df6d4c0af82cd7
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\crypto_common_wc_wrapper.h
-  hash: 2c79290b452eceb9400985005f6152d1aee02181401c0a8d8503597e0e54a693
+  hash: a251ff617cf97d1cc50b143e2a5507ad84ea8591091fd7fc46ef78d69a4570ff
+- file: ..\src\config\samd20_pl460\crypto\wolfcrypt\crypto_digisign_wc_wrapper.h
+  hash: 0d9dbb79cec42c6d7f0d1b1133a5bd1bdbe8ea2754c89f6165b438a15cc663fe
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\crypto_hash_wc_wrapper.h
   hash: 3d9e9e39e8e2aa878b7f9c9e62793c1997577288a6eb0efea2f03c13c6ad1a1e
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\crypto_mac_wc_wrapper.h
@@ -101,7 +107,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\src\crypto_aead_wc_wrapper.c
   hash: d3d941dda151eb74c643cad2c78ae03cdd119b0d9962d2196c366981446562fe
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\src\crypto_common_wc_wrapper.c
-  hash: c5fe661c9ae709d5d069faab8588be972b6296b925010f28e0fa2b4a2bb98c73
+  hash: 0359b550f4373594db8ad92857e24d0957ccd2bee7bc4ce503a7f1913e16765f
+- file: ..\src\config\samd20_pl460\crypto\wolfcrypt\src\crypto_digisign_wc_wrapper.c
+  hash: fd0805bf2cdf9f6e4b3be93ed58cb6646efbe7b643bbd27033d17ccc67b14930
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\src\crypto_hash_wc_wrapper.c
   hash: a0a2c5b800f1f44dba6728c4edb337a53480524f53164a6b3da2266547e741a9
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\src\crypto_mac_wc_wrapper.c

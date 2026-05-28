@@ -55,6 +55,7 @@ extern "C" {
 // *****************************************************************************
 
 #define DRV_SST26_PAGE_SIZE         256U
+#define DRV_SST26_SECTOR_SIZE_4K    (4UL * 1024UL)
 #define DRV_SST26_BLOCK_SIZE_64K    (64UL * 1024UL)
 
 /* JEDEC ID returned by the SST26VF064B mounted on the FLASH2 Click
@@ -149,6 +150,23 @@ void DRV_SST26_WritePage(uint32_t address, const uint8_t *buf, uint32_t len);
 */
 
 void DRV_SST26_BlockErase64K(uint32_t address);
+
+/*******************************************************************************
+  Function:
+    void DRV_SST26_SectorErase4K ( uint32_t address )
+
+  Summary:
+    Erases the 4 KB sector that contains address.
+
+  Description:
+    Issues WREN, then SECTOR ERASE 4 KB (20h), then waits for BUSY to
+    clear. Used for small high-frequency-write zones (e.g. BOOT_FLAG).
+    Like BlockErase64K, the address does not need to be aligned: the
+    SST26 ignores the least-significant 12 bits and erases the whole
+    4 KB sector.
+*/
+
+void DRV_SST26_SectorErase4K(uint32_t address);
 
 /*******************************************************************************
   Function:

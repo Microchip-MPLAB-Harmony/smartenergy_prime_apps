@@ -130,8 +130,8 @@
       <itemPath>../src/drv_spi.c</itemPath>
       <itemPath>../src/drv_sst26.c</itemPath>
       <itemPath>../src/drv_nvmctrl.c</itemPath>
-      <itemPath>../src/drv_crc32.c</itemPath>
-      <itemPath>../src/drv_eeprom.c</itemPath>
+      <itemPath>../src/drv_boot_mode.c</itemPath>
+      <itemPath>../src/drv_uart.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -151,8 +151,8 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD20_DFP" vendor="Microchip" version="3.7.231"/>
         <pack name="CMSIS" vendor="ARM" version="6.3.0"/>
+        <pack name="SAMD20_DFP" vendor="Microchip" version="3.7.231"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -227,7 +227,7 @@
         <property key="oXC16gcc-sfr-warn" value="false"/>
         <property key="oXC16gcc-smar-io-lvl" value="1"/>
         <property key="oXC16gcc-smart-io-fmt" value=""/>
-        <property key="optimization-level" value="-O0"/>
+        <property key="optimization-level" value="-O1"/>
         <property key="place-data-into-section" value="true"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -401,7 +401,7 @@
         <property key="memories.instruction.ram.ranges"
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.ranges" value="0-3fdff"/>
+        <property key="memories.programmemory.ranges" value="0-3dfff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programoptions.eraseb4program" value="false"/>
         <property key="programoptions.preservedataflash" value="false"/>
@@ -458,7 +458,7 @@
         <property key="memories.instruction.ram.ranges"
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
-        <property key="memories.programmemory.ranges" value="0-3fdff"/>
+        <property key="memories.programmemory.ranges" value="0-3dfff"/>
         <property key="poweroptions.powerenable" value="false"/>
         <property key="programmerToGoFilePath"
                   value="C:/work/projectsH3/smartenergy_prime_apps/apps/prime_apps/prime_sn_boot_external_mem/boot_samd20_ext_mem.X/debug/samd20/boot_samd20_ext_mem_ptg"/>

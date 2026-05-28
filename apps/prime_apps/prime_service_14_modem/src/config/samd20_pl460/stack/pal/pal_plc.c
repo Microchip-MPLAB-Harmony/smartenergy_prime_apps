@@ -58,6 +58,7 @@ Microchip or any third party.
 #include "pal_local.h"
 #include "pal_plc.h"
 #include "pal_plc_local.h"
+#include "pal_plc_boot.h"
 #include "pal_plc_rm.h"
 #include "service/psniffer/srv_psniffer.h"
 #include "service/log_report/srv_log_report.h"
@@ -863,8 +864,12 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(void)
 
     }
 
-    /* Open PLC driver */
-    palPlcData.drvPhyHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, NULL);
+    /* Open PLC driver. PAL_PLC_BOOT_DataCallback streams the PL360
+     * firmware out of the SST26 PL360_CURRENT zone (placed there by
+     * the bootloader) instead of relying on the .incbin that used to
+     * live inside this application's flash. */
+    palPlcData.drvPhyHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX,
+                                               PAL_PLC_BOOT_DataCallback);
 
     if (palPlcData.drvPhyHandle != DRV_HANDLE_INVALID)
     {

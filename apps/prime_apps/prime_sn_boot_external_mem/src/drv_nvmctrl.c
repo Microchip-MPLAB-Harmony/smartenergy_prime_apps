@@ -36,11 +36,24 @@
 
 void DRV_NVMCTRL_Initialize(void)
 {
-    /* MANW = 1 so the write is triggered explicitly by the WP command
-     * (matching how the modem project's srv_storage drives NVMCTRL). One
-     * read wait state keeps us safe even if CPU frequency ever climbs. */
-    NVMCTRL_REGS->NVMCTRL_CTRLB = NVMCTRL_CTRLB_MANW_Msk
-                                | NVMCTRL_CTRLB_RWS(1UL);
+    /* CTRLB layout matches the modem project's plib_nvmctrl_Initialize.
+     * Earlier versions of this driver only set MANW + RWS, which left
+     * READMODE and SLEEPPRM at their reset defaults; some SAMD20 silicon
+     * is sensitive to the missing READMODE bits and the corruption only
+     * shows up the SECOND time a row is programmed (the first install
+     * after a chip-erase appears to work because virgin flash is 0xFF
+     * and any write produces the right bytes regardless of erase
+     * success).
+     *
+     *   MANW = 1                        manual page write trigger
+     *   RWS  = 1                        one read wait state at 8 MHz
+     *   READMODE = NO_MISS_PENALTY      Harmony default
+     *   SLEEPPRM = WAKEONACCESS         Harmony default
+     */
+    NVMCTRL_REGS->NVMCTRL_CTRLB = NVMCTRL_CTRLB_READMODE_NO_MISS_PENALTY
+                                | NVMCTRL_CTRLB_SLEEPPRM_WAKEONACCESS
+                                | NVMCTRL_CTRLB_RWS(1UL)
+                                | NVMCTRL_CTRLB_MANW_Msk;
 }
 
 void DRV_NVMCTRL_RegionUnlock(uint32_t address)
@@ -94,6 +107,57 @@ void DRV_NVMCTRL_WaitReady(void)
     {
         /* spin */
     }
+}
+
+void DRV_NVMCTRL_CacheInvalidate(void)
+{
+    /* CMD = INVALL (0x46) drops every cache line in NVMCTRL's flash cache.
+     * No ADDR is needed; the command targets the whole cache. WaitReady
+     * after issue, same pattern as every other CTRLA command in this
+     * driver. */
+    NVMCTRL_REGS->NVMCTRL_CTRLA = (uint16_t) (NVMCTRL_CTRLA_CMD_INVALL_Val
+                                            | NVMCTRL_CTRLA_CMDEX_KEY);
+
+    DRV_NVMCTRL_WaitReady();
+}
+
+DRV_NVMCTRL_ERROR DRV_NVMCTRL_GetError(void)
+{
+    uint16_t          status;
+    DRV_NVMCTRL_ERROR result;
+
+    status = NVMCTRL_REGS->NVMCTRL_STATUS;
+
+    if ((status & NVMCTRL_STATUS_NVME_Msk) != 0U)
+    {
+        result = DRV_NVMCTRL_ERROR_NVM;
+    }
+    else if ((status & NVMCTRL_STATUS_LOCKE_Msk) != 0U)
+    {
+        result = DRV_NVMCTRL_ERROR_LOCK;
+    }
+    else if ((status & NVMCTRL_STATUS_PROGE_Msk) != 0U)
+    {
+        result = DRV_NVMCTRL_ERROR_PROG;
+    }
+    else
+    {
+        result = DRV_NVMCTRL_ERROR_NONE;
+    }
+
+    /* Clear all three error bits via W1C so the next call only sees
+     * errors that occurred after this one. Mirrors how Harmony's
+     * NVMCTRL_ErrorGet handles status. The companion INTFLAG.ERROR bit
+     * is also W1C and gets cleared here for the same reason. */
+    if (result != DRV_NVMCTRL_ERROR_NONE)
+    {
+        NVMCTRL_REGS->NVMCTRL_STATUS = (uint16_t) (NVMCTRL_STATUS_NVME_Msk
+                                                | NVMCTRL_STATUS_LOCKE_Msk
+                                                | NVMCTRL_STATUS_PROGE_Msk);
+        NVMCTRL_REGS->NVMCTRL_INTFLAG = NVMCTRL_INTFLAG_ERROR_Msk;
+    }
+
+    return result;
 }
 
 /*******************************************************************************

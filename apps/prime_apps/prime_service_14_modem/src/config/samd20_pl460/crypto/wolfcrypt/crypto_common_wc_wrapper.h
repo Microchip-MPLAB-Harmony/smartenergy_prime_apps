@@ -25,5 +25,6 @@
 
 #define CRYPTO_WC_ECC_TOTAL_CURVES (5)
 
+int Crypto_Common_Wc_Ecc_GetWcCurveId(crypto_EccCurveType_E curveType_en);
 
 #endif /* CRYPTO_COMMON_WC_WRAPPER_H */

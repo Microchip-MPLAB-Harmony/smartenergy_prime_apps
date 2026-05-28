@@ -161,6 +161,141 @@ typedef enum
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: SST26 Layout v3 — zone offsets and sizes
+//
+// External serial flash (SST26VF064B, 8 MB) is partitioned into named zones
+// shared between this bootloader and the modem application. The bootloader
+// only ever reads from DOWNLOAD/CURRENT and writes to CURRENT/REVERT plus
+// the BOOT_FLAG zone; the modem application is responsible for filling
+// DOWNLOAD during PLC FU and for setting BOOT_MODE_INFO before reset.
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_BOOTLOADER_SST26_DOWNLOAD_OFFSET    (0x000000U)
+#define APP_BOOTLOADER_SST26_DOWNLOAD_SIZE      (0x080000U)   /* 512 KB */
+
+#define APP_BOOTLOADER_SST26_APP_CURRENT_OFFSET (0x080000U)
+#define APP_BOOTLOADER_SST26_APP_CURRENT_SIZE   (0x040000U)   /* 256 KB */
+
+#define APP_BOOTLOADER_SST26_APP_REVERT_OFFSET  (0x0C0000U)
+#define APP_BOOTLOADER_SST26_APP_REVERT_SIZE    (0x040000U)   /* 256 KB */
+
+#define APP_BOOTLOADER_SST26_PL360_CURRENT_OFFSET (0x100000U)
+#define APP_BOOTLOADER_SST26_PL360_CURRENT_SIZE   (0x020000U) /* 128 KB */
+
+#define APP_BOOTLOADER_SST26_PL360_REVERT_OFFSET  (0x120000U)
+#define APP_BOOTLOADER_SST26_PL360_REVERT_SIZE    (0x020000U) /* 128 KB */
+
+#define APP_BOOTLOADER_SST26_BOOT_FLAG_OFFSET     (0x140000U)
+#define APP_BOOTLOADER_SST26_BOOT_FLAG_SIZE       (0x001000U) /* 4 KB sector */
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: BOOT_MODE_INFO — bootloader handshake (v3, in SST26 BOOT_FLAG zone)
+//
+// 12-byte structure persisted at the start of the BOOT_FLAG sector. The
+// modem application writes it to request an action at the next reset; the
+// bootloader reads it on every boot and dispatches accordingly.
+//
+// Layout duplicated as SRV_STORAGE_BOOT_MODE_INFO in the application's
+// srv_storage.h — keep both in sync (binary-compatible, packed).
+//
+// modeXor is `mode XOR magic` and acts as a sanity check: a bit-rot of the
+// struct breaks this invariant and the entry is treated as virgin/NORMAL
+// (default safe behaviour: jump to app).
+//
+// imageIdx and imageStep are install/revert progress trackers used to make
+// the operation idempotent across power-loss events. See BOOTLOADER_PLAN.md.
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_BOOTLOADER_BOOT_MODE_MAGIC          (0x444F4D42UL)  /* 'BMOD' little-endian */
+
+typedef enum
+{
+    APP_BOOTLOADER_BOOT_MODE_NORMAL          = 0x00,    /* Jump to app */
+    APP_BOOTLOADER_BOOT_MODE_INSTALL_PENDING = 0x01,    /* Install bundle from DOWNLOAD */
+    APP_BOOTLOADER_BOOT_MODE_REVERT_PENDING  = 0x02,    /* Restore from REVERT zones */
+    APP_BOOTLOADER_BOOT_MODE_UART_PENDING    = 0x03,    /* Enter UART recovery mode */
+} APP_BOOTLOADER_BOOT_MODE;
+
+typedef struct __attribute__((packed))
+{
+    uint32_t magic;          /* APP_BOOTLOADER_BOOT_MODE_MAGIC when valid */
+    uint8_t  mode;           /* APP_BOOTLOADER_BOOT_MODE */
+    uint8_t  imageIdx;       /* 0..numImages-1, current image being processed */
+    uint8_t  imageStep;      /* 0=pristine, 1=backup_done, 2=install_done */
+    uint8_t  reserved;
+    uint32_t modeXor;        /* mode XOR low byte of magic, sanity */
+} APP_BOOTLOADER_BOOT_MODE_INFO;        /* 12 B */
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: BUNDLE_HEADER — multi-image staging in SST26 DOWNLOAD zone
+//
+// The application accumulates the OTA image into the DOWNLOAD zone wrapped
+// in this format. The bootloader parses it on INSTALL_PENDING, validates the
+// structural sanity (magic + numImages + magicEnd), and iterates the
+// descriptors to install each image into its CURRENT zone.
+//
+// The structure persists between boots — REVERT_PENDING re-reads the same
+// images[] list to know which components to roll back, so the bundle header
+// also acts as the "log" of the last install.
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_BOOTLOADER_BUNDLE_MAGIC_START       (0x4C444E42UL)  /* 'BNDL' little-endian */
+#define APP_BOOTLOADER_BUNDLE_MAGIC_END         (0x444E4245UL)  /* 'EBND' little-endian */
+#define APP_BOOTLOADER_BUNDLE_FORMAT_VERSION    (1U)
+#define APP_BOOTLOADER_BUNDLE_MAX_IMAGES        (4U)
+
+#define APP_BOOTLOADER_TYPE_MAGIC_APP           (0x43505041UL)  /* 'APPC' little-endian */
+#define APP_BOOTLOADER_TYPE_MAGIC_PL360         (0x43434C50UL)  /* 'PLCC' little-endian */
+
+typedef struct __attribute__((packed))
+{
+    uint32_t typeMagic;      /* 'APPC' = APP, 'PLCC' = PL360 */
+    uint32_t offset;         /* offset from start of bundle to payload */
+    uint32_t size;           /* payload size in bytes */
+} APP_BOOTLOADER_BUNDLE_IMAGE;          /* 12 B */
+
+typedef struct __attribute__((packed))
+{
+    uint32_t magicStart;     /* APP_BOOTLOADER_BUNDLE_MAGIC_START */
+    uint32_t formatVersion;  /* APP_BOOTLOADER_BUNDLE_FORMAT_VERSION */
+    uint32_t totalSize;      /* bytes from magicStart up to (but not including) magicEnd */
+    uint32_t numImages;      /* 1..APP_BOOTLOADER_BUNDLE_MAX_IMAGES */
+    /* APP_BOOTLOADER_BUNDLE_IMAGE images[numImages] follows here */
+    /* payloads at images[i].offset (relative to magicStart) */
+    /* uint32_t magicEnd at offset totalSize */
+} APP_BOOTLOADER_BUNDLE_HEADER_FIXED;   /* 16 B fixed prefix */
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: ZONE_HEADER — per-image header at the start of each CURRENT/REVERT
+//
+// 256 B aligned to a SST26 page. Lives at offset 0 of every CURRENT and
+// REVERT zone; payload starts at offset APP_BOOTLOADER_ZONE_HEADER_SIZE.
+// *****************************************************************************
+// *****************************************************************************
+
+#define APP_BOOTLOADER_ZONE_HEADER_SIZE         (256U)
+
+#define APP_BOOTLOADER_ZONE_MAGIC_APP_CURRENT   (APP_BOOTLOADER_TYPE_MAGIC_APP)
+#define APP_BOOTLOADER_ZONE_MAGIC_APP_REVERT    (0x52505041UL)  /* 'APPR' little-endian */
+#define APP_BOOTLOADER_ZONE_MAGIC_PL360_CURRENT (APP_BOOTLOADER_TYPE_MAGIC_PL360)
+#define APP_BOOTLOADER_ZONE_MAGIC_PL360_REVERT  (0x52434C50UL)  /* 'PLCR' little-endian */
+
+typedef struct __attribute__((packed))
+{
+    uint32_t magic;
+    uint32_t size;
+    uint32_t reserved[2];
+    uint8_t  padding[240];
+} APP_BOOTLOADER_ZONE_HEADER;           /* 256 B */
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Application Initialization and Entry Point
 // *****************************************************************************
 // *****************************************************************************

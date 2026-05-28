@@ -32,6 +32,8 @@
 #include "app.h"
 #include "user.h"
 #include "modem.h"
+#include "bsp/bsp.h"
+#include "service/firmware_upgrade/srv_firmware_upgrade.h"
 
 // *****************************************************************************
 /* Application Data
@@ -50,11 +52,64 @@
 
 APP_DATA appData;
 
+/* ECDSA P-256 public key used to verify FU images. SEC1 uncompressed
+ * format: 1-byte 0x04 prefix + 32-byte X + 32-byte Y = 65 bytes total.
+ * The signing tool uses the matching private key to sign the bundle;
+ * SRV_FU_VerifyImage runs SHA-256 over the image (minus the trailing
+ * signLength bytes) and verifies the captured signature against this
+ * key via Crypto_DigiSign_Ecdsa_Verify.
+ *
+ * The pointer is handed to the FU service via SRV_FU_SetECDSAPublicKey
+ * during init; the FU service stores the pointer (no copy), so the
+ * buffer must outlive it -- file-scope const is fine.
+ */
+#define APP_LENGTH_ECDSA_KEY      65
+
+static uint8_t appPubECDSAKey[APP_LENGTH_ECDSA_KEY] =
+    {0x04,0x26,0x6f,0xfe,0x08,0x07,0x51,0xbf,0xd6,0xef,0xd6,0xde,0xf4,0x74,0xc5,
+     0x1a,0x5e,0x1a,0x10,0xbb,0x07,0xd0,0x0a,0x0a,0x4f,0x8a,0x4e,0xab,0x59,0x66,
+     0x7a,0xbb,0xd9,0xd2,0x90,0x60,0xdb,0xc7,0x95,0x16,0xab,0xfb,0x2c,0xfe,0xa0,
+     0xd4,0x7b,0xc7,0x0f,0xe8,0x2f,0x97,0xe7,0xd0,0xaa,0x4e,0x20,0x4b,0x00,0xc2,
+     0x90,0x23,0x88,0xd3,0xc8};
+
 /* New PRIME stack pointer */
 static const PRIME_API *newPrimeApi;
 
 /* Enable swapping of stack location */
 static uint32_t volatile fuSwapEn;
+
+/* SW0 handling state. Pressing SW0 (PA15, active-low) for ~APP_SW0_DEBOUNCE_TICKS
+ * consecutive APP_Tasks iterations writes BOOT_MODE_UART_PENDING into
+ * the SST26 BOOT_FLAG sector and resets the device, so the next boot
+ * lands in the bootloader's UART recovery loop. Equivalent to the PIB
+ * 0xA000 path but without needing PRIME network access -- intended as a
+ * physical emergency entry for HW debug. */
+#define APP_SW0_DEBOUNCE_TICKS              (1000U)
+
+typedef enum
+{
+    APP_SW0_IDLE = 0,
+    APP_SW0_WAIT_BOOT_MODE_OK,
+} APP_SW0_STATE;
+
+static APP_SW0_STATE appSw0State    = APP_SW0_IDLE;
+static uint16_t      appSw0LowCount = 0;
+
+/* Firmware-swap state machine. After the PRIME stack signals a FU
+ * result that needs a swap (success or revert), the swap is no
+ * longer a one-shot synchronous call -- SRV_FU_SwapFirmware now
+ * kicks an async write of BOOT_MODE_INFO into SST26, which takes
+ * ~28 ms (sector erase + page program) and is driven by SRV_FU_Tasks
+ * during the main loop. The application polls
+ * SRV_FU_ExtMemBootModeStatus until it transitions to OK and only
+ * then triggers the reset. */
+typedef enum
+{
+    APP_SWAP_IDLE = 0,
+    APP_SWAP_WAIT_BOOT_MODE_OK,
+} APP_SWAP_STATE;
+
+static APP_SWAP_STATE appSwapState = APP_SWAP_IDLE;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -73,12 +128,45 @@ static uint32_t volatile fuSwapEn;
 
 static void lAPP_SwapFirmware(void)
 {
-    /* Swap firmware */
+    /* v3 hand-off: kick the BOOT_MODE_INFO write and let
+     * lAPP_PollSwap drive the rest. SRV_FU_SwapFirmware is now async
+     * (it calls SRV_FU_ExtMemBootModeSet under the hood), so this
+     * function only schedules the operation; the reset happens later
+     * once the SST26 page program completes.
+     *
+     * If the FU service is busy (Set returns false), the request is
+     * dropped silently here -- the BS will time out and retry the
+     * swap, which is the safe behaviour. */
     if (SRV_FU_SwapFirmware() == true)
     {
-        /* Trigger reset to launch bootloader */
-        SRV_RESET_HANDLER_RestartSystem(RESET_HANDLER_FU_RESET);
+        appSwapState = APP_SWAP_WAIT_BOOT_MODE_OK;
     }
+}
+
+static void lAPP_PollSwap(void)
+{
+    SRV_FU_EXT_MEM_BOOT_MODE_STATUS status;
+
+    if (appSwapState != APP_SWAP_WAIT_BOOT_MODE_OK)
+    {
+        return;
+    }
+
+    status = SRV_FU_ExtMemBootModeStatus();
+    if (status == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK)
+    {
+        /* BOOT_MODE_INFO is now in SST26. Reset hands control to the
+         * bootloader, which reads it and dispatches install/revert. */
+        SRV_RESET_HANDLER_RestartSystem(RESET_HANDLER_FU_RESET);
+        /* unreachable */
+    }
+    else if (status == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR)
+    {
+        /* Page program failed (DRV_MEMORY error). Drop the swap and
+         * let the BS retry a full FU cycle. */
+        appSwapState = APP_SWAP_IDLE;
+    }
+    /* IDLE / BUSY: keep waiting. */
 }
 
 static void lAPP_PrimeFuResultHandler(SRV_FU_RESULT fuResult)
@@ -134,6 +222,81 @@ static void lAPP_TimeExpiredSetFlag(uintptr_t context)
 {
     /* Context holds the flag's address */
     *((bool *) context) = true;
+}
+
+/*******************************************************************************
+  Function:
+    static void lAPP_HandleSw0 ( void )
+
+  Summary:
+    Polls SW0 (PA15, active-low) and triggers a reset into UART recovery
+    when held for ~APP_SW0_DEBOUNCE_TICKS consecutive ticks.
+
+  Description:
+    Two-step state machine:
+
+      APP_SW0_IDLE
+        - Counts consecutive LOW polls. When the threshold is reached,
+          calls SRV_FU_ExtMemBootModeSet(UART_PENDING). If the FU service
+          is currently busy (e.g. mid telecarga) the call returns false
+          and we keep polling -- the press does not get lost.
+
+      APP_SW0_WAIT_BOOT_MODE_OK
+        - The set was kicked. Polls SRV_FU_ExtMemBootModeStatus until
+          OK (sector erase + page program completed in SST26) and then
+          triggers NVIC_SystemReset. ERROR returns to IDLE so the user
+          can try again.
+
+    BSP_USER_BUTTON0 pin / pull configuration is owned by plib_port.c
+    (regenerated by MCC). PA15 already comes up as an input that reads
+    HIGH when released and LOW when pressed.
+*/
+static void lAPP_HandleSw0(void)
+{
+    SRV_FU_EXT_MEM_BOOT_MODE_STATUS status;
+
+    if (appSw0State == APP_SW0_IDLE)
+    {
+        if (BSP_USER_BUTTON0_Get() == BSP_USER_BUTTON0_STATE_PRESSED)
+        {
+            appSw0LowCount++;
+            if (appSw0LowCount >= APP_SW0_DEBOUNCE_TICKS)
+            {
+                appSw0LowCount = 0U;
+                if (SRV_FU_ExtMemBootModeSet(
+                        SRV_FU_EXT_MEM_BOOT_MODE_UART_PENDING,
+                        0U, 0U) == true)
+                {
+                    appSw0State = APP_SW0_WAIT_BOOT_MODE_OK;
+                }
+                /* else: FU service busy; keep IDLE so we retry on the
+                 * next press cycle. */
+            }
+        }
+        else
+        {
+            appSw0LowCount = 0U;
+        }
+    }
+    else /* APP_SW0_WAIT_BOOT_MODE_OK */
+    {
+        status = SRV_FU_ExtMemBootModeStatus();
+        if (status == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK)
+        {
+            NVIC_SystemReset();
+            /* unreachable */
+        }
+        else if (status == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR)
+        {
+            /* Sector erase or page program failed. Reset state and let
+             * the operator try again. */
+            appSw0State = APP_SW0_IDLE;
+        }
+        else
+        {
+            /* IDLE / BUSY -- keep waiting. */
+        }
+    }
 }
 
 
@@ -205,6 +368,13 @@ void APP_Tasks ( void )
 
             /* Initialize FU result callback */
             SRV_FU_RegisterCallbackFuResult(lAPP_PrimeFuResultHandler);
+
+            /* Hand the ECDSA P-256 public key to the FU service so it
+             * can verify the signature appended to the FU image. Without
+             * this, SRV_FU_VerifyImage rejects every signed image
+             * (dsaState stays at NO_PUBLIC_KEY). The same key is shared
+             * with the dual_modem PIC32 build. */
+            SRV_FU_SetECDSAPublicKey(appPubECDSAKey, APP_LENGTH_ECDSA_KEY);
             break;
         }
 
@@ -218,6 +388,15 @@ void APP_Tasks ( void )
                 fuSwapEn = 0;
                 lAPP_SwapFirmware();
             }
+
+            /* Drive the async BOOT_MODE_INFO write that SwapFirmware
+             * kicked. When it completes, this resets the device. */
+            lAPP_PollSwap();
+
+            /* Physical emergency entry to bootloader: SW0 held
+             * triggers a reset into UART recovery. Polled every
+             * APP_Tasks iteration. */
+            lAPP_HandleSw0();
 
             break;
         }

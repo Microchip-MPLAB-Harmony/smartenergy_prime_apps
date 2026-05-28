@@ -31,6 +31,30 @@
 #include <time.h>
 
 #include "crypto/wolfcrypt/crypto_common_wc_wrapper.h"
+#include "wolfssl/wolfcrypt/ecc.h"
+
+static const int arr_EccCurveWcMap[CRYPTO_WC_ECC_TOTAL_CURVES][2] =  {
+                                                                        {(int)CRYPTO_ECC_CURVE_INVALID, (int)ECC_CURVE_INVALID},
+                                                                        {(int)CRYPTO_ECC_CURVE_SECP224R1, (int)ECC_SECP224R1}, 
+                                                                        {(int)CRYPTO_ECC_CURVE_SECP256R1, (int)ECC_SECP256R1},
+                                                                        {(int)CRYPTO_ECC_CURVE_SECP384R1, (int)ECC_SECP384R1},
+                                                                        {(int)CRYPTO_ECC_CURVE_SECP521R1, (int)ECC_SECP521R1},
+                                                                    };
+
+int Crypto_Common_Wc_Ecc_GetWcCurveId(crypto_EccCurveType_E curveType_en)
+{
+    int wcCurveId = -1;
+    
+    for(int curve = 0; curve < CRYPTO_WC_ECC_TOTAL_CURVES; curve++)
+    {
+        if(curveType_en == (crypto_EccCurveType_E)arr_EccCurveWcMap[curve][0])
+        {
+            wcCurveId = arr_EccCurveWcMap[curve][1];
+            break;
+        }
+    }    
+    return wcCurveId;
+}
 
 __attribute__((weak)) int Crypto_Rng_Wc_Prng_EntropySource(void)
 {

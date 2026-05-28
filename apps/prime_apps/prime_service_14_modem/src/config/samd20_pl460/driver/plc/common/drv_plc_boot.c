@@ -354,11 +354,29 @@ void DRV_PLC_BOOT_Start(DRV_PLC_BOOT_INFO *pBootInfo, DRV_PLC_HAL_INTERFACE *pHa
     sDrvPlcBootInfo.pDst = DRV_PLC_BOOT_PROGRAM_ADDR;
     sDrvPlcBootInfo.secNumPackets = 0;
 
-    /* Set Bootloader data callback to handle boot by external fragments */
+    /* Set Bootloader data callback to handle boot by external fragments.
+     *
+     * Harmony driver bug workaround: lDRV_PLC_BOOT_FirmwareUploadTask
+     * reads sDrvPlcBootCb / sDrvPlcBootContext (file-scope statics)
+     * but Start was only writing to sDrvPlcBootInfo.bootDataCallback /
+     * sDrvPlcBootInfo.contextBoot, which nothing ever reads. Result: the
+     * "fragmented boot from external interactions" path was dead code
+     * and binStartAddress (which we set to 0 once the .incbin was
+     * removed) was used instead, making the PLC chip boot with zero
+     * bytes. Mirror the assignment to the statics actually consumed
+     * downstream so the callback is honoured. */
     if (pBootInfo->bootDataCallback != NULL)
     {
         sDrvPlcBootInfo.bootDataCallback = pBootInfo->bootDataCallback;
         sDrvPlcBootInfo.contextBoot = pBootInfo->contextBoot;
+
+        sDrvPlcBootCb      = pBootInfo->bootDataCallback;
+        sDrvPlcBootContext = pBootInfo->contextBoot;
+    }
+    else
+    {
+        sDrvPlcBootCb      = NULL;
+        sDrvPlcBootContext = 0U;
     }
 
     lDRV_PLC_BOOT_EnableBootCmd();

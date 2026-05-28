@@ -31,12 +31,20 @@ implied, are granted under any patent or other intellectual property rights of
 Microchip or any third party.
 */
 
+/*
+ * PL360 firmware no longer lives inside the modem application: the
+ * bootloader stages it in the SST26 PL360_CURRENT zone (offset
+ * 0x100000) and the application reads it from there at boot via the
+ * APP_PLC_BOOT data callback. The plc_phy_bin_start / plc_phy_bin_end
+ * symbols are kept (and resolve to a zero-byte region) so existing
+ * references in initialization.c keep linking — DRV_PLC_PHY_Initialize
+ * happily ignores binSize when a boot data callback is supplied.
+ */
+
   .section .rodata
   .global plc_phy_bin_start
   .global plc_phy_bin_end
 
   .align 8
 plc_phy_bin_start:
-  .incbin "./PLC_PHY_PRIME_2CHN.bin"
-  .align 8
 plc_phy_bin_end:
