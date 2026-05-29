@@ -1,7 +1,7 @@
 package:
   format-version: "1.0.0"
   name: "smartenergy_prime_apps"
-  version: "v1.2.0"
+  version: "v1.3.0"
   type: "application"
   status: "production"
   required: false
@@ -9,7 +9,7 @@ package:
   dependencies:
     - name: "smartenergy_prime"
       type: "package"
-      version: "v1.1.0"
+      version: "v1.2.0"
     - name: "smartenergy_metrology"
       type: "package"
       version: "v2.0.0"
