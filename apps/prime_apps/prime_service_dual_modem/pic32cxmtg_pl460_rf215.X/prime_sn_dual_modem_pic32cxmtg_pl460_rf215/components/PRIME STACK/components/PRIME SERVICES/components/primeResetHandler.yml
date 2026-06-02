@@ -12,7 +12,7 @@ dependency:
   devMode: true
   name: smartenergy_prime
   type: package
-  version: v1.1.0
+  version: v1.2.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}
