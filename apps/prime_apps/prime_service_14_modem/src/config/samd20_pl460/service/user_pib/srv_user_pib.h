@@ -105,7 +105,7 @@ Microchip or any third party.
  * The PRIME library forwards every PIB it does not handle internally
  * (range 0xF000..0xFCFF) to SRV_USER_PIB_GetRequest/SetRequest. The
  * default PIBs above (0xF000..0xF00A) cover post-mortem fault dumps
- * (served by reading the emulated GPBR slots directly from
+ * (served by reading the non-volatile data slots directly from
  * SRV_STORAGE_ReadNonVolatileData, no RAM cache). The IDs in 0xF010..0xF0FF are
  * reserved for SAMD20-only control PIBs.
  */
@@ -114,8 +114,8 @@ Microchip or any third party.
  *
  * Type: uint32_t.
  * Read:  always returns 0 (the PIB does not store any state).
- * Write: writing 1 causes the modem to ACK, wait ~70 ms so the SET
- *        response physically leaves on the PLC line, persist
+ * Write: writing 1 causes the modem to ACK, wait a short grace period so
+ *        the SET response physically leaves on the PLC line, persist
  *        UART_PENDING into the SST26 BOOT_FLAG sector, then
  *        NVIC_SystemReset. The next boot lands in the bootloader's
  *        UART recovery loop. Writing 0 is accepted as idempotent
