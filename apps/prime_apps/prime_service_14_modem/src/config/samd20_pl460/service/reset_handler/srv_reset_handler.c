@@ -101,12 +101,12 @@ static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE rese
     uint16_t numResets;
 
     /* Read and increase number of resets since start-up */
-    numResets = (uint16_t)(SRV_STORAGE_GpbrRead(GPBR_SLOT_RESET_INFO) >> 16);
+    numResets = (uint16_t)(SRV_STORAGE_ReadNonVolatileData(GPBR_SLOT_RESET_INFO) >> 16);
     ++numResets;
 
     /* Store reset information: high 16 bits = count, low 16 bits = cause */
     resetInfo = ((uint32_t)numResets << 16) | (uint32_t)resetType;
-    SRV_STORAGE_GpbrWrite(GPBR_SLOT_RESET_INFO, resetInfo);
+    SRV_STORAGE_WriteNonVolatileData(GPBR_SLOT_RESET_INFO, resetInfo);
 }
 
 void DumpStack(uint32_t stack[]) __attribute__((noreturn));
@@ -130,7 +130,7 @@ void DumpStack(uint32_t stack[])
     /* Build the full fault dump and persist all 11 slots with a single
      * R-M-E-W of the EEPROM row (~17 ms). Writing each slot individually
      * would take ~187 ms and consume 11 endurance cycles instead of 1. */
-    numResets = (uint16_t)(SRV_STORAGE_GpbrRead(GPBR_SLOT_RESET_INFO) >> 16);
+    numResets = (uint16_t)(SRV_STORAGE_ReadNonVolatileData(GPBR_SLOT_RESET_INFO) >> 16);
     ++numResets;
 
     dump[0]  = ((uint32_t)numResets << 16) | (uint32_t)RESET_HANDLER_HARD_FAULT_RESET;
@@ -145,7 +145,7 @@ void DumpStack(uint32_t stack[])
     dump[9]  = saved_r3;
     dump[10] = saved_r12;
 
-    SRV_STORAGE_GpbrWriteBlock(GPBR_SLOT_DUMP_BASE, GPBR_DUMP_COUNT, dump);
+    SRV_STORAGE_WriteBlockNonVolatileData(GPBR_SLOT_DUMP_BASE, GPBR_DUMP_COUNT, dump);
 
     /* Fault is unrecoverable: reboot so the next boot can read the dump. */
     NVIC_SystemReset();

@@ -76,6 +76,9 @@ Microchip or any third party.
 #define PRIME_MODE_BN               1U
 #define PRIME_MODE_SN               2U
 
+/* Number of emulated Non Volatile Data Slots */
+#define SRV_STORAGE_NON_VOLATILE_DATA_NUM_SLOTS  16U
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Data Types
@@ -375,22 +378,104 @@ bool SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void *pD
 bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void *pData);
 
 // *****************************************************************************
-// *****************************************************************************
-// Section: GPBR emulation (backup registers emulated in emulated EEPROM)
-//
-// Emulates the PIC32CXMTG SUPC GPBR registers used by srv_firmware_upgrade
-// and srv_reset_handler. Values are stored in the same emulated-EEPROM row
-// used by SRV_STORAGE, so they survive power-off.
-// Flash endurance cost: every write triggers a row erase+program (~14 ms,
-// 1 cycle). Use GpbrWriteBlock to persist several slots at once.
-// *****************************************************************************
-// *****************************************************************************
+/* Function:
+    uint32_t SRV_STORAGE_ReadNonVolatileData(uint8_t slot);    
 
-#define SRV_STORAGE_GPBR_NUM_SLOTS    16U
+  Summary:
+    Reads one non-volatile data slot.
 
-uint32_t SRV_STORAGE_GpbrRead(uint8_t slot);
-void     SRV_STORAGE_GpbrWrite(uint8_t slot, uint32_t value);
-void     SRV_STORAGE_GpbrWriteBlock(uint8_t startSlot, uint8_t count,
-                                    const uint32_t *values);
+  Description:
+    This routine reads the 32-bit value stored in the given non-volatile data
+    slot from the non-volatile storage cache.
+
+  Precondition:
+    The SRV_STORAGE_Initialize routine must have been called before.
+
+  Parameters:
+    slot - Slot index to read (0 to SRV_STORAGE_NON_VOLATILE_DATA_NUM_SLOTS - 1).
+
+  Returns:
+    The 32-bit value stored in the slot, or 0 if the slot index is out of
+    range.
+
+  Example:
+    <code>
+    uint32_t resetInfo = SRV_STORAGE_ReadNonVolatileData(5);
+    </code>
+
+  Remarks:
+    None.
+*/
+
+uint32_t SRV_STORAGE_ReadNonVolatileData(uint8_t slot);
+
+// *****************************************************************************
+/* Function:
+    void SRV_STORAGE_WriteNonVolatileData(uint8_t slot, uint32_t value);
+
+  Summary:
+    Writes one non-volatile data slot.
+
+  Description:
+    This routine writes a 32-bit value to the given non-volatile data slot and
+    persists it to non-volatile storage. It is a convenience wrapper around
+    SRV_STORAGE_WriteBlockNonVolatileData for a single slot.
+
+  Precondition:
+    The SRV_STORAGE_Initialize routine must have been called before.
+
+  Parameters:
+    slot  - Slot index to write (0 to SRV_STORAGE_NON_VOLATILE_DATA_NUM_SLOTS - 1).
+    value - 32-bit value to store.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    SRV_STORAGE_WriteNonVolatileData(5, resetInfo);
+    </code>
+
+  Remarks:
+    Out-of-range slot indices are ignored.
+*/
+
+void SRV_STORAGE_WriteNonVolatileData(uint8_t slot, uint32_t value);
+
+// *****************************************************************************
+/* Function:
+    void SRV_STORAGE_WriteBlockNonVolatileData(uint8_t startSlot, uint8_t count, const uint32_t *values);
+
+  Summary:
+    Writes several consecutive non-volatile data slots in a single operation.
+
+  Description:
+    This routine writes count consecutive 32-bit values starting at startSlot
+    and persists them to non-volatile storage in a single operation.
+
+  Precondition:
+    The SRV_STORAGE_Initialize routine must have been called before.
+
+  Parameters:
+    startSlot - Index of the first slot to write.
+    count     - Number of consecutive slots to write.
+    values    - Pointer to an array of count 32-bit values.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    uint32_t dump[11];
+    SRV_STORAGE_WriteBlockNonVolatileData(5, 11, dump);
+    </code>
+
+  Remarks:
+    The request is ignored if values is NULL or the range
+    (startSlot + count) exceeds SRV_STORAGE_NON_VOLATILE_DATA_NUM_SLOTS.
+*/
+
+void SRV_STORAGE_WriteBlockNonVolatileData(uint8_t startSlot, uint8_t count,
+                                const uint32_t *values);
 
 #endif //SRV_STORAGE_H

@@ -118,7 +118,7 @@ void SRV_USER_PIB_GetRequest(uint16_t pibAttrib)
          * to tell whether a fresh fault happened since the last read. */
         uint8_t slot = (uint8_t)(SRV_USER_PIB_GPBR_BASE_SLOT
                                + (pibAttrib & 0x000FU));
-        pibValue  = SRV_STORAGE_GpbrRead(slot);
+        pibValue  = SRV_STORAGE_ReadNonVolatileData(slot);
         getResult = 1;
     }
     else if (pibAttrib == PIB_USER_BOOTLOADER_UART_MODE)

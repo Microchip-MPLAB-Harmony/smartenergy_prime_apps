@@ -106,7 +106,7 @@ Microchip or any third party.
  * (range 0xF000..0xFCFF) to SRV_USER_PIB_GetRequest/SetRequest. The
  * default PIBs above (0xF000..0xF00A) cover post-mortem fault dumps
  * (served by reading the emulated GPBR slots directly from
- * SRV_STORAGE_GpbrRead, no RAM cache). The IDs in 0xF010..0xF0FF are
+ * SRV_STORAGE_ReadNonVolatileData, no RAM cache). The IDs in 0xF010..0xF0FF are
  * reserved for SAMD20-only control PIBs.
  */
 

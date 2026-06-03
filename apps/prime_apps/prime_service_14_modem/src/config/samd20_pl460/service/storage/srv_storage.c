@@ -66,10 +66,10 @@ Microchip or any third party.
 #define SRV_STORAGE_SECURITY_OFFSET   64
 #define SRV_STORAGE_BOOT_INFO_OFFSET  112
 
-/* GPBR emulation block (16 slots * 4 B = 64 B) */
-#define SRV_STORAGE_GPBR_OFFSET       136
+/* Non-volatile data block (16 slots * 4 B = 64 B) */
+#define SRV_STORAGE_NON_VOLATILE_DATA_OFFSET       136
 
-/* Total size of non-volatile data: 136 existing + 64 GPBR = 200 */
+/* Total size of non-volatile data: 136 existing + 64 non-volatile = 200 */
 #define SRV_STORAGE_TOTAL_SIZE 200U
 
 /* Flash row reserved by NVMCTRL_EEPROM_SIZE = SIZE_256BYTES fuse (0x0003FF00-0x0003FFFF) */
@@ -97,8 +97,7 @@ static const uint8_t srvStorageOffsetList[SRV_STORAGE_TYPE_END_LIST] = {
     SRV_STORAGE_BOOT_INFO_OFFSET
 };
 
-/* RAM cache. aligned(4) allows direct use as uint32_t* in NVMCTRL_Read/PageWrite
- * without an intermediate staging buffer (saves 192 bytes of static RAM). */
+/* RAM cache. aligned(4) allows direct use as uint32_t*  */
 static uint8_t srvStorageData[SRV_STORAGE_TOTAL_SIZE] __attribute__((aligned(4)));
 
 // *****************************************************************************
@@ -109,33 +108,26 @@ static uint8_t srvStorageData[SRV_STORAGE_TOTAL_SIZE] __attribute__((aligned(4))
 
 static void lSRV_STORAGE_WriteToFlash(void)
 {
-    /* 64-byte buffer for the last partial page (8 bytes data + 56 bytes 0xFF).
-     * Stack use is temporary and far smaller than the 192-byte static buffer
-     * that would otherwise be needed. */
     uint32_t lastPage[NVMCTRL_EMULATED_EEPROM_PAGESIZE / 4U];
 
-    /* NVMCTRL_REGION_LOCKS fuse = 0xFFFF: all regions re-locked on every reset.
-     * The ER/WP commands are silently rejected on a locked region and, on some
-     * SAMD20 silicon, INTFLAG.READY is never set — causing an infinite busy-wait
-     * and a subsequent WDT reset. Unlock before each write sequence. */
     NVMCTRL_RegionUnlock(SRV_STORAGE_FLASH_ADDR);
     while (NVMCTRL_IsBusy()) {}
 
-    /* Erase the 256-byte row (~6 ms) */
+    /* Erase the 256-byte row */
     (void) NVMCTRL_RowErase(SRV_STORAGE_FLASH_ADDR);
     while (NVMCTRL_IsBusy()) {}
 
-    /* Page 0: srvStorageData[0..63] — base is aligned(4), offset 0 */
+    /* Page 0: srvStorageData[0..63] -- base is aligned(4), offset 0 */
     (void) NVMCTRL_PageWrite((uint32_t *)(void *)&srvStorageData[0],
                              SRV_STORAGE_FLASH_ADDR);
     while (NVMCTRL_IsBusy()) {}
 
-    /* Page 1: srvStorageData[64..127] — offset 64 is divisible by 4 */
+    /* Page 1: srvStorageData[64..127] -- offset 64 is divisible by 4 */
     (void) NVMCTRL_PageWrite((uint32_t *)(void *)&srvStorageData[NVMCTRL_EMULATED_EEPROM_PAGESIZE],
                              SRV_STORAGE_FLASH_ADDR + NVMCTRL_EMULATED_EEPROM_PAGESIZE);
     while (NVMCTRL_IsBusy()) {}
 
-    /* Page 2: srvStorageData[128..191] — contains tail of BOOT_INFO + full GPBR block */
+    /* Page 2: srvStorageData[128..191] -- contains tail of BOOT_INFO + full non-volatile data block */
     (void) NVMCTRL_PageWrite((uint32_t *)(void *)&srvStorageData[2U * NVMCTRL_EMULATED_EEPROM_PAGESIZE],
                              SRV_STORAGE_FLASH_ADDR + (2U * NVMCTRL_EMULATED_EEPROM_PAGESIZE));
     while (NVMCTRL_IsBusy()) {}
@@ -158,16 +150,13 @@ static void lSRV_STORAGE_WriteToFlash(void)
 
 void SRV_STORAGE_Initialize(void)
 {
-    /* Read 136 bytes from the emulated EEPROM row directly into the aligned cache.
-     * On virgin flash (all 0xFF) zero the cache: maintains the same behaviour as
-     * the previous BSS-zero stub so that SRV_FU and other callers that read boot
-     * config without a cfgKey check do not see garbage 0xFF addresses. */
+    /* Read 136 bytes from the emulated EEPROM row directly into the aligned cache */
     (void) NVMCTRL_Read((uint32_t *)(void *)srvStorageData, SRV_STORAGE_TOTAL_SIZE,
                         SRV_STORAGE_FLASH_ADDR);
 
     if (((uint16_t)srvStorageData[0] | ((uint16_t)srvStorageData[1] << 8U)) == 0xFFFFU)
     {
-        /* First cfgKey is 0xFFFF → flash is erased; default to all-zeros */
+        /* First cfgKey is 0xFFFF -> flash is erased; default to all-zeros */
         (void) memset(srvStorageData, 0, SRV_STORAGE_TOTAL_SIZE);
     }
 }
@@ -217,10 +206,6 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
         return false;
     }
 
-    /* Interrupts disabled for the full write: SAMD20 stalls the AHB bus during
-     * NVM erase/write, so ISRs in flash cannot execute during this window.
-     * Total duration: RegionUnlock (~1ms) + RowErase (~6ms) + 4×PageWrite (~10ms)
-     * ≈ 17ms — well within the 500ms WDT timeout. */
     interruptStatus = SYS_INT_Disable();
 
     (void) memcpy((void *) &srvStorageData[offset], pData, size);
@@ -231,51 +216,45 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
     return true;
 }
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: GPBR emulation (see header for rationale)
-// *****************************************************************************
-// *****************************************************************************
-
-uint32_t SRV_STORAGE_GpbrRead(uint8_t slot)
+uint32_t SRV_STORAGE_ReadNonVolatileData(uint8_t slot)
 {
     uint32_t value;
     bool interruptStatus;
 
-    if (slot >= SRV_STORAGE_GPBR_NUM_SLOTS)
+    if (slot >= SRV_STORAGE_NON_VOLATILE_DATA_NUM_SLOTS)
     {
         return 0U;
     }
 
     interruptStatus = SYS_INT_Disable();
     (void) memcpy(&value,
-                  &srvStorageData[SRV_STORAGE_GPBR_OFFSET + ((uint16_t)slot * 4U)],
+                  &srvStorageData[SRV_STORAGE_NON_VOLATILE_DATA_OFFSET + ((uint16_t)slot * 4U)],
                   sizeof(uint32_t));
     SYS_INT_Restore(interruptStatus);
 
     return value;
 }
 
-void SRV_STORAGE_GpbrWriteBlock(uint8_t startSlot, uint8_t count,
+void SRV_STORAGE_WriteBlockNonVolatileData(uint8_t startSlot, uint8_t count,
                                 const uint32_t *values)
 {
     bool interruptStatus;
 
     if ((values == NULL) ||
-        (startSlot >= SRV_STORAGE_GPBR_NUM_SLOTS) ||
-        ((uint16_t)startSlot + (uint16_t)count > SRV_STORAGE_GPBR_NUM_SLOTS))
+        (startSlot >= SRV_STORAGE_NON_VOLATILE_DATA_NUM_SLOTS) ||
+        ((uint16_t)startSlot + (uint16_t)count > SRV_STORAGE_NON_VOLATILE_DATA_NUM_SLOTS))
     {
         return;
     }
 
     interruptStatus = SYS_INT_Disable();
-    (void) memcpy(&srvStorageData[SRV_STORAGE_GPBR_OFFSET + ((uint16_t)startSlot * 4U)],
+    (void) memcpy(&srvStorageData[SRV_STORAGE_NON_VOLATILE_DATA_OFFSET + ((uint16_t)startSlot * 4U)],
                   values, (size_t)count * 4U);
     lSRV_STORAGE_WriteToFlash();
     SYS_INT_Restore(interruptStatus);
 }
 
-void SRV_STORAGE_GpbrWrite(uint8_t slot, uint32_t value)
+void SRV_STORAGE_WriteNonVolatileData(uint8_t slot, uint32_t value)
 {
-    SRV_STORAGE_GpbrWriteBlock(slot, 1U, &value);
+    SRV_STORAGE_WriteBlockNonVolatileData(slot, 1U, &value);
 }
