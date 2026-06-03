@@ -69,43 +69,17 @@ Microchip or any third party.
 
 #define PRIME_FU_MEM_DRV        "drv_memory_0"
 #define PRIME_FU_MEM_INSTANCE   0
-/* SST26 layout v3: DOWNLOAD occupies the first 512 KB of the chip
- * (offset 0..0x7FFFF). The PRIME firmware-upgrade service stages the
- * incoming bundle in this region as the BS sends it; the bootloader
- * then parses BUNDLE_HEADER from offset 0 and dispatches the install.
- * The legacy 256 KB TELECARGA + 256 KB REVERT split is gone in v3 --
- * REVERT now lives in dedicated per-image zones (APP_REVERT,
- * PL360_REVERT) further into the chip, owned by the bootloader. */
 #define PRIME_FU_MEM_SIZE       (uint32_t)(0x80000)
-
-/* Destination address in internal flash where the bootloader installs
- * the image. Matches APP_BOOTLOADER_APP_START. */
-#define PRIME_FU_APP_START_ADDR (uint32_t)(0x2000)
 
 #define MEMORY_WRITE_SIZE       (uint32_t)(256)
 #define MAX_BUFFER_READ_SIZE    (uint32_t)(256)
 
-/* Crypto session identifier for the wolfcrypt-based hash + ECDSA verify
- * used by SRV_FU_VerifyImage. Single-context so any non-zero value works. */
-#define SESSION_ID                    1
+/* Destination address in internal flash where the bootloader installs
+ * the image. Matches the bootloader's application start address. */
+#define PRIME_FU_APP_START_ADDR (uint32_t)(0x2000)
 
-/* Maximum size reserved in RAM for the incoming image signature. ECDSA
- * P-256 raw is 64 B (r||s); the buffer is sized at 128 B to also fit
- * DER-encoded signatures (up to ~72 B + slack) before lSRV_FU_ConvertDer
- * collapses them to raw r||s. */
-#define PRIME_SIGNATURE_SIZE          128
-
-/* SHA-256 hash size in bytes. */
-#define HASH_SIZE_SHA_256             32
-
-/* ECDSA P-256 raw signature size (r||s, 32 B + 32 B). */
-#define SIGNATURE_SIZE_ECDSA_256      64
-
-/* External-memory BOOT_MODE_INFO handshake — must match the bootloader.
- * See app_bootloader.h: APP_BOOTLOADER_SST26_BOOT_FLAG_OFFSET and
- * APP_BOOTLOADER_BOOT_MODE_MAGIC. The 12-byte structure lives at the
- * start of the BOOT_FLAG sector; we erase 4 KB and write the first
- * 256-byte page (struct + 0xFF padding). */
+/* External-memory BOOT_MODE_INFO handshake -- must match the bootloader.
+ * The 12-byte structure lives at the start of the BOOT_FLAG sector; */
 #define PRIME_FU_BOOT_FLAG_OFFSET   (uint32_t)(0x140000)
 #define PRIME_FU_BOOT_MODE_MAGIC    (uint32_t)(0x444F4D42UL)
 #define PRIME_FU_BOOT_MODE_SIZE     (uint32_t)(12)
@@ -119,6 +93,18 @@ typedef enum
     PRIME_PHY_APP,
     PRIME_MAIN_APP
 } SRV_FU_PRIME_APP_TYPE;
+
+/* Define Session Id for crypto */
+#define SESSION_ID                    1
+
+/* Maximum size of the signature */
+#define PRIME_SIGNATURE_SIZE          128
+
+/* Size for a hash using SHA 256 in bytes */
+#define HASH_SIZE_SHA_256             32
+
+/* Size for a signature ECDSA 256 in bytes */
+#define SIGNATURE_SIZE_ECDSA_256      64
 
 // *****************************************************************************
 // *****************************************************************************
@@ -144,18 +130,6 @@ static CACHE_ALIGN SRV_FU_MEM_INFO memInfo;
 
 static SRV_FU_INFO fuData;
 
-/* Tracks whether the most recent FU result was a revert request. Set
- * by SRV_FU_End and read by SRV_FU_SwapFirmware so the boot config
- * points at the right SST26 zone (TELECARGA vs REVERT). Defaults to
- * false so a fresh boot with no FU activity treats the pending swap,
- * if any, as a regular install. */
-static bool fuLastResultIsRevert = false;
-
-/* Latest decoded BOOT_MODE_INFO read from BOOT_FLAG. Updated when
- * SRV_FU_ExtMemBootModeGet completes, or mirrored from the most recent
- * Set so a Status==OK after Set still gives a valid Result. */
-static SRV_FU_EXT_MEM_BOOT_MODE_INFO bootModeResult;
-
 static SRV_FU_CRC_STATE crcState;
 
 static uint32_t crcReadAddress;
@@ -166,46 +140,36 @@ static uint32_t crcRemainingSize;
 
 static uint32_t calculatedCrc;
 
-/* Image signature captured from the tail of the FU bundle as the BS
- * streams it in (see lSRV_FU_StoreImageInfo). The buffer is verified
- * after the full image lands in DOWNLOAD via lSRV_FU_VerifySignature. */
+
+/* Tracks whether the most recent FU result was a revert request. */
+static bool fuLastResultIsRevert = false;
+
+/* Latest decoded BOOT_MODE_INFO read from BOOT_FLAG. */
+static SRV_FU_EXT_MEM_BOOT_MODE_INFO bootModeResult;
+
 static uint8_t imageSignature[PRIME_SIGNATURE_SIZE];
 
-/* SHA-256 digest of the image (everything except the signature itself),
- * computed asynchronously chunk by chunk in SRV_FU_VERIFY_SIGNATURE_BLOCK. */
 static uint8_t hashDigest[HASH_SIZE_SHA_256];
 
-/* wolfcrypt hash context held across the chunked SHA-256 update calls. */
 static st_Crypto_Hash_Sha_Ctx hashCtx;
 
-/* DSA / signature-verification state machine. NO_PUBLIC_KEY at boot so
- * SRV_FU_VerifyImage rejects until SRV_FU_SetECDSAPublicKey is called. */
 static SRV_FU_DSA_STATE dsaState;
 
-/* Public key + length passed by the application via SRV_FU_SetECDSAPublicKey.
- * Stored as pointer (not copied) so the caller's static buffer must
- * outlive the FU service. */
 static uint8_t *ECDSAPublicKey;
+
 static uint32_t ECDSAPublicKeyLen;
 
-/* Read-cursor / chunking bookkeeping for the SHA-256 streaming pass. */
 static uint32_t dsaReadAddress;
-static uint32_t dsaSize;
-static uint32_t dsaRemainingSize;
 
+static uint32_t dsaSize;
+
+static uint32_t dsaRemainingSize;
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-
-/* Capture the trailing signature bytes from the FU bundle as the BS
- * streams it in. Mirrors the signature-only portion of the dual_modem
- * lSRV_FU_StoreImageInfo: the SAMD20 build has no per-image vendor /
- * model / metadata block, so only the last `signLength` bytes of the
- * image are extracted into imageSignature[]. Called from
- * SRV_FU_DataWrite for every incoming segment. */
 static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
 {
     uint32_t iniSignature;
@@ -255,24 +219,6 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
                   &pBuffInput[offsetSegment], sizeToCopy);
 }
 
-/* Collapse a DER-encoded P-256 signature (70 B: 0x30 len 0x02 32 r... 0x02
- * 32 s...) into the 64-byte r||s raw form expected by Crypto_DigiSign_Ecdsa_Verify.
- * Called by lSRV_FU_VerifySignature when fuData.signLength == 70. */
-static void lSRV_FU_ConvertDerFormatSignature(void)
-{
-    uint8_t index;
-
-    for (index = 0U; index < 32U; index++)
-    {
-        imageSignature[index] = imageSignature[4U + index];
-    }
-
-    for (index = 0U; index < 32U; index++)
-    {
-        imageSignature[32U + index] = imageSignature[38U + index];
-    }
-}
-
 static void lSRV_FU_TransferHandler
 (
     DRV_MEMORY_EVENT event,
@@ -296,9 +242,7 @@ static void lSRV_FU_TransferHandler
             break;
     }
 
-    /* Boot-mode handshake completions are handled here without ever
-     * touching the FU state machine or invoking SRV_FU_MemTransferCallback.
-     * Tasks() picks up the new state on the next iteration. */
+    /* Boot-mode handshake completions */
     if (commandHandle == mInfo->bootModeHandle)
     {
         if (transferResult != SRV_FU_MEM_TRANSFER_OK)
@@ -311,18 +255,18 @@ static void lSRV_FU_TransferHandler
         switch (mInfo->state)
         {
             case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_ERASE:
-                /* Erase ok → Tasks() will kick the page write. */
+                /* Erase ok -> Tasks() will kick the page write. */
                 mInfo->state = SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE_KICK;
                 break;
 
             case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE:
-                /* Page written → Set sequence done. */
+                /* Page written -> Set sequence done. */
                 mInfo->bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK;
                 mInfo->state = SRV_FU_MEM_STATE_CMD_WAIT;
                 break;
 
             case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ:
-                /* Page read → Tasks() will validate magic + modeXor. */
+                /* Page read -> Tasks() will validate magic + modeXor. */
                 mInfo->state = SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ_DONE;
                 break;
 
@@ -348,10 +292,9 @@ static void lSRV_FU_TransferHandler
             crcState = SRV_FU_CRC_CALCULATING;
             return;
         }
-        else if (memInfo.state == SRV_FU_VERIFY_SIGNATURE_BLOCK)
+       else if (memInfo.state == SRV_FU_VERIFY_SIGNATURE_BLOCK)
         {
-            /* Calculating SHA.... no callback. Tasks() will pick up the
-             * new dsaState and feed the chunk into the hash context. */
+            /* Calculating SHA.... no callback*/
             dsaState = SRV_FU_DSA_CALCULATING;
             return;
         }
@@ -396,18 +339,29 @@ static void lSRV_FU_EraseFuRegion(void)
     memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
 }
 
-/* Kick off the chunked SHA-256 + ECDSA-P256 verification of the image
- * sitting in DOWNLOAD. Returns true if a verification has been started
- * (or no verification is required), false on hard error. The actual
- * hashing runs asynchronously in SRV_FU_VERIFY_SIGNATURE_BLOCK. */
+static void lSRV_FU_ConvertDerFormatSignature(void)
+{
+    uint8_t index;
+
+    for (index = 0U; index < 32U; index++)
+    {
+        imageSignature[index] = imageSignature[4U + index];
+    }
+
+    for (index = 0U; index < 32U; index++)
+    {
+        imageSignature[32U + index] = imageSignature[38U + index];
+    }
+
+}
+
 static bool lSRV_FU_VerifySignature(void)
 {
     crypto_Hash_Status_E stateCryptoHash;
 
     if (fuData.signAlgorithm == SRV_FU_SIGNATURE_ALGO_NO_SIGNATURE)
     {
-        /* Unsigned image: nothing to verify, finish synchronously with
-         * SUCCESS so the PRIME stack moves on to the swap step. */
+        /* No need to check any signature, finish checking */
         SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_SUCCESS);
         dsaState = SRV_FU_DSA_IDLE;
         memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
@@ -417,30 +371,23 @@ static bool lSRV_FU_VerifySignature(void)
 
     if (fuData.signAlgorithm != SRV_FU_SIGNATURE_ALGO_ECDSA256_SHA256)
     {
-        /* Only ECDSA P-256 + SHA-256 is supported on this build. */
+        /* Only ECDSA256_SHA256 is supported */
         return false;
     }
 
     if (dsaState != SRV_FU_DSA_IDLE)
     {
-        /* DSA state machine not idle; either still verifying, or no
-         * public key was registered yet (NO_PUBLIC_KEY). */
+        /* DSA state machine not idle */
         return false;
     }
 
-    /* Some BS / signing tools wrap the raw r||s into a 70-byte ASN.1
-     * DER SEQUENCE. Detect by length and collapse to raw 64-byte form
-     * so the verify call below can take it as-is. */
-    if (fuData.signLength == 70UL)
-    {
+    /* Check if signature comes in DER format */
+    if (fuData.signLength == 70UL) {
         lSRV_FU_ConvertDerFormatSignature();
     }
 
-    /* Start to verify the signature: init the SHA-256 context and queue
-     * the first chunk read from DOWNLOAD. */
-    stateCryptoHash = Crypto_Hash_Sha_Init(&hashCtx, CRYPTO_HASH_SHA2_256,
-                                            CRYPTO_HANDLER_SW_WOLFCRYPT,
-                                            SESSION_ID);
+    /* Start to verify the signature */
+    stateCryptoHash = Crypto_Hash_Sha_Init(&hashCtx, CRYPTO_HASH_SHA2_256, CRYPTO_HANDLER_SW_WOLFCRYPT, SESSION_ID);
 
     if (stateCryptoHash != CRYPTO_HASH_SUCCESS)
     {
@@ -469,9 +416,7 @@ static bool lSRV_FU_VerifySignature(void)
         nBlock = dsaSize / memInfo.readPageSize;
 
         bytesPagesRead = nBlock * memInfo.readPageSize;
-        /* Round the read up to whole pages so DRV_MEMORY_AsyncRead has
-         * a clean operand; the SHA size stays aligned with what we
-         * actually intend to feed into the hash. */
+        /* Align SHA size with the readPageSize */
         if (dsaSize > bytesPagesRead)
         {
             if (((nBlock + 1U) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)
@@ -480,13 +425,13 @@ static bool lSRV_FU_VerifySignature(void)
             }
             else
             {
-                /* Cannot read everything; cap dsaSize at full pages. */
+                /* Cannot read everything, we reduced the size of the Crc calculated
+                this time */
                 dsaSize = bytesPagesRead;
             }
         }
 
-        DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle,
-                             pBuffInput, blockStart, nBlock);
+        DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, pBuffInput, blockStart, nBlock);
 
         dsaReadAddress += dsaSize;
         dsaRemainingSize -= dsaSize;
@@ -496,7 +441,6 @@ static bool lSRV_FU_VerifySignature(void)
         return true;
     }
 }
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -523,14 +467,11 @@ void SRV_FU_Initialize(void)
 
     (void) memset(&bootModeResult, 0, sizeof(bootModeResult));
 
-    /* No public key registered yet: SRV_FU_VerifyImage must reject
-     * signed images until the application calls SRV_FU_SetECDSAPublicKey. */
+    memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
+
     dsaState = SRV_FU_DSA_NO_PUBLIC_KEY;
     ECDSAPublicKey = NULL;
     ECDSAPublicKeyLen = 0U;
-
-    memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
-
 }
 
 void SRV_FU_Tasks(void)
@@ -737,8 +678,7 @@ void SRV_FU_Tasks(void)
 
         case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE_KICK:
         {
-            /* Erase finished, queue the page write that contains the
-             * 12-byte struct (rest of the page is 0xFF padding). */
+            /* Erase finished, queue the page write. */
             uint32_t pageBlockStart;
             uint32_t modeXorByte;
 
@@ -780,10 +720,6 @@ void SRV_FU_Tasks(void)
 
         case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ_DONE:
         {
-            /* Decode the struct from pBuffInput. Bad magic or modeXor is
-             * not an error: it just means the sector is virgin or
-             * corrupted, so report NORMAL with status = OK and let the
-             * caller treat it as the safe default. */
             SRV_FU_EXT_MEM_BOOT_MODE_INFO decoded;
             uint32_t expectedXor;
 
@@ -804,7 +740,6 @@ void SRV_FU_Tasks(void)
             memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             break;
         }
-
         case SRV_FU_VERIFY_SIGNATURE_BLOCK:
         {
             if (dsaState == SRV_FU_DSA_CALCULATING)
@@ -813,25 +748,21 @@ void SRV_FU_Tasks(void)
 
                 if (dsaRemainingSize > 0U)
                 {
-                    /* Intermediate chunk: feed it to the SHA context. */
-                    stateCryptoHash = Crypto_Hash_Sha_Update(&hashCtx,
-                                                              pBuffInput, dsaSize);
+                    stateCryptoHash = Crypto_Hash_Sha_Update(&hashCtx, pBuffInput, dsaSize);
                 }
                 else
                 {
-                    /* Last chunk: feed it AND finalize the digest so the
-                     * ECDSA verify call below has a valid hash. */
-                    stateCryptoHash = Crypto_Hash_Sha_Update(&hashCtx,
-                                                              pBuffInput, dsaSize);
+                    stateCryptoHash = Crypto_Hash_Sha_Update(&hashCtx, pBuffInput, dsaSize);
                     stateCryptoHash = Crypto_Hash_Sha_Final(&hashCtx, hashDigest);
                 }
 
-                if (stateCryptoHash != CRYPTO_HASH_SUCCESS)
+                if (stateCryptoHash!= CRYPTO_HASH_SUCCESS)
                 {
                     dsaState = SRV_FU_DSA_IDLE;
                     memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
 
                     SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_SIGNATURE_FAIL);
+
                     break;
                 }
 
@@ -855,6 +786,7 @@ void SRV_FU_Tasks(void)
                     nBlock = dsaSize / memInfo.readPageSize;
 
                     bytesPagesRead = nBlock * memInfo.readPageSize;
+                    /* Align SHA size with the readPageSize */
                     if (dsaSize > bytesPagesRead)
                     {
                         if (((nBlock + 1U) * memInfo.readPageSize) <= MAX_BUFFER_READ_SIZE)
@@ -863,12 +795,13 @@ void SRV_FU_Tasks(void)
                         }
                         else
                         {
+                            /* Cannot read everything, we reduced the size of the Crc calculated
+                            this time */
                             dsaSize = bytesPagesRead;
                         }
                     }
 
-                    DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle,
-                                         pBuffInput, blockStart, nBlock);
+                    DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.readHandle, pBuffInput, blockStart, nBlock);
 
                     dsaReadAddress += dsaSize;
                     dsaRemainingSize -= dsaSize;
@@ -878,22 +811,20 @@ void SRV_FU_Tasks(void)
                     crypto_DigiSign_Status_E stateCryptoECDSA;
                     int8_t validDSA = 0;
 
-                    /* Hash done; perform ECDSA P-256 / SHA-256 verify against
-                     * the signature captured at the tail of the image. */
-                    stateCryptoECDSA = Crypto_DigiSign_Ecdsa_Verify(
-                            CRYPTO_HANDLER_SW_WOLFCRYPT,
-                            hashDigest,
-                            HASH_SIZE_SHA_256,
-                            imageSignature,
-                            SIGNATURE_SIZE_ECDSA_256,
-                            ECDSAPublicKey,
-                            ECDSAPublicKeyLen,
-                            &validDSA,
-                            CRYPTO_ECC_CURVE_P256,
-                            SESSION_ID);
+                    /* Hash already done, do ECDSA256_SHA256 verification */
+                    stateCryptoECDSA = Crypto_DigiSign_Ecdsa_Verify(CRYPTO_HANDLER_SW_WOLFCRYPT,
+                                                                    hashDigest,
+                                                                    HASH_SIZE_SHA_256,
+                                                                    imageSignature,
+                                                                    SIGNATURE_SIZE_ECDSA_256,
+                                                                    ECDSAPublicKey,
+                                                                    ECDSAPublicKeyLen,
+                                                                    &validDSA,
+                                                                    CRYPTO_ECC_CURVE_P256,
+                                                                    SESSION_ID);
 
-                    if ((validDSA != 1) ||
-                        (stateCryptoECDSA != CRYPTO_DIGISIGN_SUCCESS))
+                    /* Check verification result ECDSA256_SHA256 */
+                    if ((validDSA != 1) || (stateCryptoECDSA != CRYPTO_DIGISIGN_SUCCESS))
                     {
                         SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_SIGNATURE_FAIL);
                     }
@@ -906,9 +837,9 @@ void SRV_FU_Tasks(void)
                     memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
                 }
             }
+
             break;
         }
-
         case SRV_FU_MEM_STATE_XFER_WAIT:
         case SRV_FU_MEM_STATE_SUCCESS:
         case SRV_FU_MEM_STATE_WRITE_WAIT_END:
@@ -960,10 +891,7 @@ void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
     }
 
     /* Reject the write if the underlying memory driver hasn't finished
-     * its async initialization yet (handle still invalid or page size
-     * still zero). Without this guard SRV_FU_Tasks would later divide
-     * writeAddress by zero and the result would be used to index pMemWrite,
-     * landing the dst pointer outside the array and faulting in memcpy. */
+     * its async initialization yet. */
     if ((memInfo.memoryHandle == DRV_HANDLE_INVALID) ||
         (memInfo.writePageSize == 0U))
     {
@@ -980,10 +908,6 @@ void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
 
     (void)memcpy(pBuffInput, buffer, size);
 
-    /* Capture the trailing signature bytes (if any) into imageSignature[]
-     * before the segment is committed to DOWNLOAD. SRV_FU_VerifyImage
-     * later runs the SHA-256 over the rest of the image and compares
-     * against this captured signature. */
     lSRV_FU_StoreImageInfo(address, size);
 
     memInfo.state = SRV_FU_MEM_STATE_WRITE_ONE_BLOCK;
@@ -992,7 +916,6 @@ void SRV_FU_DataWrite(uint32_t address, uint8_t *buffer, uint16_t size)
 void SRV_FU_CfgRead(void *dst, uint16_t size)
 {
     uint32_t bufferValue[4];
-
     bufferValue[0] = SRV_STORAGE_ReadNonVolatileData(0U);
     bufferValue[1] = SRV_STORAGE_ReadNonVolatileData(1U);
     bufferValue[2] = SRV_STORAGE_ReadNonVolatileData(2U);
@@ -1003,9 +926,9 @@ void SRV_FU_CfgRead(void *dst, uint16_t size)
 
 void SRV_FU_CfgWrite(void *src, uint16_t size)
 {
-    uint32_t bufferValue[4] = {0U};
+    uint32_t bufferValue[4];
 
-    (void)memcpy((void *)bufferValue, src, size);
+    (void)memcpy(bufferValue, (uint32_t *)src, size);
 
     SRV_STORAGE_WriteBlockNonVolatileData(0U, 4U, bufferValue);
 }
@@ -1013,15 +936,9 @@ void SRV_FU_CfgWrite(void *src, uint16_t size)
 void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 {
     fuData.imageSize = fuInfo->imageSize;
-    fuData.pageSize  = fuInfo->pageSize;
-
-    /* Signature parameters are propagated from the FU info even though
-     * signature verification is not implemented in this build. Keeping
-     * the propagation in place future-proofs the path: when (and if)
-     * verification is added later, the algorithm and length will
-     * already be available in fuData. */
+    fuData.pageSize = fuInfo->pageSize;
     fuData.signAlgorithm = fuInfo->signAlgorithm;
-    fuData.signLength    = fuInfo->signLength;
+    fuData.signLength = fuInfo->signLength;
 
     /* Erase internal flash pages */
     lSRV_FU_EraseFuRegion();
@@ -1033,11 +950,6 @@ void SRV_FU_Start(SRV_FU_INFO *fuInfo)
 
 void SRV_FU_End(SRV_FU_RESULT fuResult)
 {
-    /* Cache whether this end-of-FU marks a revert request so the
-     * subsequent SRV_FU_SwapFirmware call can point the bootloader at
-     * the REVERT zone instead of the TELECARGA zone. SUCCESS clears
-     * the flag to cover the "success after a previous revert attempt"
-     * case; other results leave it untouched. */
     if (fuResult == SRV_FU_RESULT_FW_REVERT)
     {
         fuLastResultIsRevert = true;
@@ -1174,12 +1086,6 @@ bool SRV_FU_SwapFirmware(void)
 {
     uint8_t mode;
 
-    /* v3 hand-off: kick the BOOT_MODE_INFO write at the start of the
-     * SST26 BOOT_FLAG sector. The bootloader (v3) reads it on every
-     * reset and dispatches install or revert based on `mode`. The
-     * actual sector erase + page program is async -- it runs through
-     * SRV_FU_Tasks; the caller polls SRV_FU_ExtMemBootModeStatus()
-     * until OK before resetting the device. */
     mode = fuLastResultIsRevert
          ? SRV_FU_EXT_MEM_BOOT_MODE_REVERT_PENDING
          : SRV_FU_EXT_MEM_BOOT_MODE_INSTALL_PENDING;
@@ -1187,34 +1093,29 @@ bool SRV_FU_SwapFirmware(void)
     return SRV_FU_ExtMemBootModeSet(mode, 0U, 0U);
 }
 
+void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
+{
+    ECDSAPublicKey = pubKey;
+    ECDSAPublicKeyLen = pubKeyLen;
+
+    dsaState = SRV_FU_DSA_IDLE;
+}
 
 void SRV_FU_VerifyImage(void)
 {
+    /* Check pointer function */
     if (SRV_FU_ImageVerifyCallback == NULL)
     {
         return;
     }
 
-    /* Kick the chunked SHA-256 + ECDSA verify state machine. Returns
-     * synchronously SUCCESS when the image is unsigned (signAlgorithm
-     * == NO_SIGNATURE); for ECDSA images, completion happens later in
-     * SRV_FU_VERIFY_SIGNATURE_BLOCK and the callback is invoked there.
-     * Returns false for unsupported algorithms or when the FU is not
-     * idle / no public key registered. */
+    /* External-bootloader build: no per-image metadata check, go straight
+     * to the chunked SHA-256 + ECDSA signature verification. */
     if (lSRV_FU_VerifySignature() != true)
     {
+        /* Wrong signature */
         SRV_FU_ImageVerifyCallback(SRV_FU_VERIFY_RESULT_SIGNATURE_FAIL);
     }
-}
-
-void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
-{
-    ECDSAPublicKey = pubKey;
-    ECDSAPublicKeyLen = pubKeyLen;
-    /* Move out of NO_PUBLIC_KEY now that the verifier has something to
-     * check against. SRV_FU_VerifyImage will refuse to start while
-     * dsaState != IDLE; this transition unblocks it for signed images. */
-    dsaState = SRV_FU_DSA_IDLE;
 }
 
 bool SRV_FU_ExtMemBootModeSet(uint8_t mode, uint8_t imageIdx, uint8_t imageStep)
@@ -1222,9 +1123,6 @@ bool SRV_FU_ExtMemBootModeSet(uint8_t mode, uint8_t imageIdx, uint8_t imageStep)
     uint32_t eraseBlockSize;
     uint32_t eraseBlockStartBootFlag;
 
-    /* Only acceptable when the FU service is fully initialized and idle.
-     * The boot-mode path shares the FU's DRV_MEMORY client; running it
-     * concurrently with a real FU op would corrupt memInfo.state. */
     if (memInfo.state != SRV_FU_MEM_STATE_CMD_WAIT)
     {
         return false;

@@ -114,11 +114,6 @@ typedef enum
     /* Wait for commands */
     SRV_FU_MEM_STATE_CMD_WAIT,
 
-    /* External-memory BOOT_MODE_INFO handshake states. The application
-     * sets these when it needs to read or update the 12-byte boot-mode
-     * structure that lives in the SST26 BOOT_FLAG sector. They run on
-     * the FU service's own DRV_MEMORY client, so the precondition is
-     * memInfo.state == CMD_WAIT (FU idle). */
     SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_ERASE,
 
     SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE_KICK,
@@ -173,13 +168,9 @@ typedef struct
     uint32_t bytesWritten;
 
     uint32_t retrieveAddress;
-
+    
     uint32_t readPageSize;
 
-    /* External-memory BOOT_MODE_INFO handshake bookkeeping. Used by
-     * SRV_FU_ExtMemBootModeSet/Get to drive an erase + write or read
-     * sequence on the SST26 BOOT_FLAG sector without interfering with
-     * the normal FU eraseHandle/writeHandle/readHandle flow. */
     DRV_MEMORY_COMMAND_HANDLE bootModeHandle;
 
     uint8_t bootModeStatus;

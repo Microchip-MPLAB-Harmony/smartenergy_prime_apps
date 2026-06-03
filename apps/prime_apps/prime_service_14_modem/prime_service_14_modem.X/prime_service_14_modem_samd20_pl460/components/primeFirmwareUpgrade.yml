@@ -71,8 +71,18 @@ data:
       children:
       - children:
         - attributes:
-            value: 'true'
+            value: 'false'
           type: User
         type: Values
       type: Boolean
+    PRIME_FU_MEM_SIZE:
+      attributes:
+        id: PRIME_FU_MEM_SIZE
+      children:
+      - children:
+        - attributes:
+            value: '0x80000'
+          type: User
+        type: Values
+      type: String
   userData: {}

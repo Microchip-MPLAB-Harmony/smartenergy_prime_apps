@@ -63,6 +63,32 @@ Microchip or any third party.
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: Macro Definitions
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* External-memory boot-mode values written to BOOT_MODE_INFO.mode
+
+  Summary:
+    Mirror of the bootloader's boot-mode values.
+
+  Description:
+    The bootloader and the modem application share a 12-byte BOOT_MODE_INFO
+    structure persisted at the BOOT_FLAG sector of the external memory. The
+    application writes it before requesting a reset to tell the bootloader
+    what to do on the next boot. Pass one of these to SRV_FU_ExtMemBootModeSet.
+
+  Remarks:
+    None.
+*/
+#define SRV_FU_EXT_MEM_BOOT_MODE_NORMAL          (0U)
+#define SRV_FU_EXT_MEM_BOOT_MODE_INSTALL_PENDING (1U)
+#define SRV_FU_EXT_MEM_BOOT_MODE_REVERT_PENDING  (2U)
+#define SRV_FU_EXT_MEM_BOOT_MODE_UART_PENDING    (3U)
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Data Types
 // *****************************************************************************
 // *****************************************************************************
@@ -270,6 +296,53 @@ typedef enum {
     None.
 */
 typedef void (*SRV_FU_VERSION_SWAP_CB)(SRV_FU_TRAFFIC_VERSION trafficVersion);
+
+// *****************************************************************************
+/* External-memory boot-mode operation status
+
+  Summary:
+    Status of the last SRV_FU_ExtMemBootModeSet/Get request.
+
+  Description:
+    IDLE     - No operation pending or last result already consumed.
+    BUSY     - Operation in flight (erase, write or read).
+    OK       - Last operation completed successfully.
+    ERROR    - Last operation failed (DRV_MEMORY error, invalid magic
+               on read, or service not idle when kicked).
+
+  Remarks:
+    None.
+*/
+typedef enum
+{
+    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_IDLE  = 0,
+    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY  = 1,
+    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK    = 2,
+    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR = 3,
+} SRV_FU_EXT_MEM_BOOT_MODE_STATUS;
+
+// *****************************************************************************
+/* External-memory boot-mode information
+
+  Summary:
+    12-byte structure stored in the external-memory BOOT_FLAG sector.
+
+  Description:
+    Mirror of the bootloader's boot-mode info structure. Layouts must stay
+    binary-compatible (packed).
+
+  Remarks:
+    None.
+*/
+typedef struct __attribute__((packed))
+{
+    uint32_t magic;
+    uint8_t  mode;
+    uint8_t  imageIdx;
+    uint8_t  imageStep;
+    uint8_t  reserved;
+    uint32_t modeXor;
+} SRV_FU_EXT_MEM_BOOT_MODE_INFO;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -497,28 +570,35 @@ bool SRV_FU_SwapFirmware(void);
    void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
 
   Summary:
-    Sets the ECDSA public key used to verify firmware images.
+    Set the Firmware Upgrade the public key to be used for the ECDSA-256
+    signature.
 
   Description:
-    This function passes the ECDSA P-256 public key (uncompressed SEC1
-    format: 0x04 prefix + 32 B X + 32 B Y = 65 B) to the FU service so
-    that SRV_FU_VerifyImage can verify the image signature appended at
-    the end of the FU image.
+    This function sets the public key to be used for the ECDSA-256 signature.
 
   Precondition:
-    The SRV_FU_Initialize function must have been called before.
+    The SRV_FU_Initialize function should have been called before calling this
+    function.
 
   Parameters:
-    pubKey    - Pointer to the public key bytes (must outlive the FU service)
-    pubKeyLen - Length of the public key in bytes (65 for P-256 uncompressed)
+    pubKey      - Pointer to the buffer where the ECDSA-256 public key is stored
+    pubKeyLen   - Length of the key
 
   Returns:
     None.
 
+  Example:
+    <code>
+    #define LEN_PUBLIC_KEY 65
+
+    uint8_t pubKey[LEN_PUBLIC_KEY];
+    uint16_t pubKeyLen = LEN_PUBLIC_KEY;
+
+    SRV_FU_SetECDSAPublicKey(pubKey, pubKeyLen);
+    </code>
+
   Remarks:
-    Called by the application during init. The pointer is stored, not
-    copied, so the buffer must remain valid for the lifetime of the FU
-    service.
+    This function is called by the application.
 */
 void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen);
 
@@ -951,12 +1031,7 @@ void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion);
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: External-Memory BOOT_MODE_INFO Handshake (SST26 BOOT_FLAG sector)
-//
-// The bootloader and the modem application share a 12-byte structure persisted
-// at APP_BOOTLOADER_SST26_BOOT_FLAG_OFFSET (0x140000) of the SST26. The
-// application writes it before requesting a reset to tell the bootloader what
-// to do on the next boot (NORMAL, INSTALL_PENDING, REVERT_PENDING, UART_PENDING).
+// Section: External-Memory BOOT_MODE_INFO Handshake Interface
 //
 // The R/W path runs on the FU service's existing DRV_MEMORY client, so all
 // callsites must be in FU-idle state (state == CMD_WAIT). The Set/Get kicks
@@ -964,62 +1039,6 @@ void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion);
 // transitions out of BUSY, then reads SRV_FU_ExtMemBootModeResult() (Get only).
 // *****************************************************************************
 // *****************************************************************************
-
-// *****************************************************************************
-/* Boot Mode operation status
-
-  Summary:
-    Status of the last SRV_FU_ExtMemBootModeSet/Get request.
-
-  Description:
-    IDLE     - No operation pending or last result already consumed.
-    BUSY     - Operation in flight (erase, write or read).
-    OK       - Last operation completed successfully.
-    ERROR    - Last operation failed (DRV_MEMORY error, invalid magic
-               on read, or service not idle when kicked).
-*/
-typedef enum
-{
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_IDLE  = 0,
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY  = 1,
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK    = 2,
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR = 3,
-} SRV_FU_EXT_MEM_BOOT_MODE_STATUS;
-
-// *****************************************************************************
-/* Boot Mode values written to BOOT_MODE_INFO.mode
-
-  Summary:
-    Mirror of APP_BOOTLOADER_BOOT_MODE in the bootloader's app_bootloader.h.
-
-  Description:
-    Pass one of these to SRV_FU_ExtMemBootModeSet to ask the bootloader
-    to take a specific action on the next reset.
-*/
-#define SRV_FU_EXT_MEM_BOOT_MODE_NORMAL          (0U)
-#define SRV_FU_EXT_MEM_BOOT_MODE_INSTALL_PENDING (1U)
-#define SRV_FU_EXT_MEM_BOOT_MODE_REVERT_PENDING  (2U)
-#define SRV_FU_EXT_MEM_BOOT_MODE_UART_PENDING    (3U)
-
-// *****************************************************************************
-/* Boot Mode operation result
-
-  Summary:
-    12-byte structure read from the SST26 BOOT_FLAG sector.
-
-  Description:
-    Mirror of APP_BOOTLOADER_BOOT_MODE_INFO defined in the bootloader's
-    app_bootloader.h. Layouts must stay binary-compatible (packed).
-*/
-typedef struct __attribute__((packed))
-{
-    uint32_t magic;
-    uint8_t  mode;
-    uint8_t  imageIdx;
-    uint8_t  imageStep;
-    uint8_t  reserved;
-    uint32_t modeXor;
-} SRV_FU_EXT_MEM_BOOT_MODE_INFO;
 
 /*******************************************************************************
   Function:
@@ -1031,16 +1050,16 @@ typedef struct __attribute__((packed))
 
   Description:
     Builds a 12-byte structure with magic = 'BMOD' and modeXor =
-    mode XOR (magic & 0xFF), and schedules a 4 KB sector erase followed
-    by a 256-byte page write at the start of the BOOT_FLAG sector.
-    Non-blocking: the caller must poll SRV_FU_ExtMemBootModeStatus().
+    mode XOR (magic & 0xFF), and schedules a sector erase followed by a
+    page write at the start of the BOOT_FLAG sector. Non-blocking: the
+    caller must poll SRV_FU_ExtMemBootModeStatus().
 
   Precondition:
     SRV_FU_Initialize() and SRV_FU_Tasks() must have completed driver
     open and geometry probe (state == CMD_WAIT).
 
   Parameters:
-    mode      - One of APP_BOOTLOADER_BOOT_MODE values (0..3).
+    mode      - One of the boot-mode values (0..3).
     imageIdx  - Image index inside the bundle (0..numImages-1).
     imageStep - 0 pristine, 1 backup_done, 2 install_done.
 
@@ -1058,8 +1077,8 @@ bool SRV_FU_ExtMemBootModeSet(uint8_t mode, uint8_t imageIdx, uint8_t imageStep)
     Kicks an asynchronous read of the BOOT_MODE_INFO structure.
 
   Description:
-    Schedules a 256-byte page read at the start of the BOOT_FLAG sector.
-    On completion the first 12 bytes are validated against magic and
+    Schedules a page read at the start of the BOOT_FLAG sector. On
+    completion the first 12 bytes are validated against magic and
     modeXor; bad magic returns the structure with mode = NORMAL and
     status = OK so the caller treats unknown contents as a safe default.
 
