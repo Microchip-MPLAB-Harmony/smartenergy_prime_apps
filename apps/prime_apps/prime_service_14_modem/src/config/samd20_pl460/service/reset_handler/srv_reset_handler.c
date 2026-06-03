@@ -55,9 +55,10 @@ Microchip or any third party.
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: GPBR slot layout (emulated in EEPROM via srv_storage)
+// Section: Non-volatile data slot layout (stored in emulated EEPROM)
 //
-// Matches the PIC32 dual_modem mapping:
+// Reset cause and fault context are persisted across resets through the
+// non-volatile data slots provided by the storage service:
 //   slot 5  : (reset_count << 16) | resetType
 //   slot 6  : PC
 //   slot 7  : LR
@@ -72,9 +73,9 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-#define GPBR_SLOT_RESET_INFO  5U
-#define GPBR_SLOT_DUMP_BASE   5U    /* block covers slots 5..15 in one R-M-E-W */
-#define GPBR_DUMP_COUNT      11U
+#define RESET_INFO_SLOT  5U
+#define DUMP_SLOT_BASE   5U    /* block covers slots 5..15 in one R-M-E-W */
+#define DUMP_SLOT_COUNT 11U
 
 /* MISRA deviation: these must be volatile globals so the debugger can inspect
  * them after reset if EEPROM readback is not available. */
@@ -101,19 +102,19 @@ static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE rese
     uint16_t numResets;
 
     /* Read and increase number of resets since start-up */
-    numResets = (uint16_t)(SRV_STORAGE_ReadNonVolatileData(GPBR_SLOT_RESET_INFO) >> 16);
+    numResets = (uint16_t)(SRV_STORAGE_ReadNonVolatileData(RESET_INFO_SLOT) >> 16);
     ++numResets;
 
     /* Store reset information: high 16 bits = count, low 16 bits = cause */
     resetInfo = ((uint32_t)numResets << 16) | (uint32_t)resetType;
-    SRV_STORAGE_WriteNonVolatileData(GPBR_SLOT_RESET_INFO, resetInfo);
+    SRV_STORAGE_WriteNonVolatileData(RESET_INFO_SLOT, resetInfo);
 }
 
 void DumpStack(uint32_t stack[]) __attribute__((noreturn));
 
 void DumpStack(uint32_t stack[])
 {
-    uint32_t dump[GPBR_DUMP_COUNT];
+    uint32_t dump[DUMP_SLOT_COUNT];
     uint16_t numResets;
 
     saved_r0   = stack[0];
@@ -127,10 +128,7 @@ void DumpStack(uint32_t stack[])
     saved_hfsr = 0U;            /* not available on Cortex-M0+ */
     saved_cfsr = 0U;            /* not available on Cortex-M0+ */
 
-    /* Build the full fault dump and persist all 11 slots with a single
-     * R-M-E-W of the EEPROM row (~17 ms). Writing each slot individually
-     * would take ~187 ms and consume 11 endurance cycles instead of 1. */
-    numResets = (uint16_t)(SRV_STORAGE_ReadNonVolatileData(GPBR_SLOT_RESET_INFO) >> 16);
+    numResets = (uint16_t)(SRV_STORAGE_ReadNonVolatileData(RESET_INFO_SLOT) >> 16);
     ++numResets;
 
     dump[0]  = ((uint32_t)numResets << 16) | (uint32_t)RESET_HANDLER_HARD_FAULT_RESET;
@@ -145,7 +143,7 @@ void DumpStack(uint32_t stack[])
     dump[9]  = saved_r3;
     dump[10] = saved_r12;
 
-    SRV_STORAGE_WriteBlockNonVolatileData(GPBR_SLOT_DUMP_BASE, GPBR_DUMP_COUNT, dump);
+    SRV_STORAGE_WriteBlockNonVolatileData(DUMP_SLOT_BASE, DUMP_SLOT_COUNT, dump);
 
     /* Fault is unrecoverable: reboot so the next boot can read the dump. */
     NVIC_SystemReset();
@@ -157,7 +155,7 @@ void DumpStack(uint32_t stack[])
  * This overrides the weak stub in exceptions.c.
  *
  * Use BL instead of B for the jump to DumpStack: in ARMv6-M the `b` branch
- * is limited to ±2 KB (R_ARM_THM_JUMP11) while `bl` reaches ±16 MB. Since
+ * is limited to +/- 2 KB (R_ARM_THM_JUMP11) while `bl` reaches +/- 16 MB. Since
  * DumpStack is noreturn, clobbering LR is harmless. */
 __attribute__((naked, noreturn))
 void HardFault_Handler(void)
@@ -166,7 +164,7 @@ void HardFault_Handler(void)
         "  movs r0, #4         \n"
         "  mov  r1, lr         \n"
         "  tst  r0, r1         \n"
-        "  beq  1f             \n"    /* bit 2 clear → MSP was in use */
+        "  beq  1f             \n"    /* bit 2 clear -> MSP was in use */
         "  mrs  r0, psp        \n"
         "  bl   DumpStack      \n"
         "1:                    \n"
