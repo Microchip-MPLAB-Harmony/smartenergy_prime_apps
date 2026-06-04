@@ -856,31 +856,14 @@
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="SAMD20_DFP" vendor="Microchip" version="3.7.231"/>
         <pack name="CMSIS" vendor="ARM" version="6.3.0"/>
+        <pack name="SAMD20_DFP" vendor="Microchip" version="3.7.231"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
       <compileType>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../../../../../smartenergy_prime_libs/libs/prime14_lib_sn_m0.X"
-                            CT="3"
-                            CN="release"
-                            AC="true"
-                            BL="true"
-                            WD="../../../../../smartenergy_prime_libs/libs/prime14_lib_sn_m0.X"
-                            BC="${MAKE}  -f Makefile CONF=release"
-                            DBC="${MAKE}  -f Makefile CONF=release TYPE_IMAGE=DEBUG_RUN"
-                            CC="rm -rf &quot;build/release&quot; &quot;dist/release&quot;"
-                            OP="dist/release/production/prime14_lib_sn_m0.X.a"
-                            DOP="dist/release/debug/prime14_lib_sn_m0.X.a"
-                            FL="dist/release/production/prime14_lib_sn_m0.X.a"
-                            PD="dist/release/production/prime14_lib_sn_m0.X."
-                            DD="dist/release/debug/prime14_lib_sn_m0.X.">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibFileItem>../src/config/samd20_pl460/stack/prime/libs/prime14_lib_sn_m0.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>
@@ -907,7 +890,6 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -957,7 +939,6 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
-        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -989,7 +970,6 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1036,7 +1016,6 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
-        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>
