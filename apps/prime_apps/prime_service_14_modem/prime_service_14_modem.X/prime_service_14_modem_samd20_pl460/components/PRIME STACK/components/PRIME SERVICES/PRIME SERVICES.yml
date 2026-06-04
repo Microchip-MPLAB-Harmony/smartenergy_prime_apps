@@ -35,7 +35,7 @@ dependency:
 - dependencyPackage: ''
   name: smartenergy
   type: package
-  version: v1.5.0
+  version: v1.5.1
 - dependencyPackage: ''
   name: smartenergy_prime
   type: package
