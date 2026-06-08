@@ -11,11 +11,11 @@ dependency:
 - dependencyPackage: ''
   name: crypto_v4
   type: package
-  version: v4.0.0-E3
+  version: v4.0.0-E5
 - dependencyPackage: ''
   name: wolfssl
   type: package
-  version: v5.7.0
+  version: v5.9.1
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments:
