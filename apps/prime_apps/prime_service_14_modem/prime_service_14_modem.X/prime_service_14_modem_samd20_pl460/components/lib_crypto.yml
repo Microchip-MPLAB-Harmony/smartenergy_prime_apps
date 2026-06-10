@@ -9,6 +9,7 @@ dependency:
   type: module
   version: ''
 - dependencyPackage: ''
+  devMode: true
   name: crypto_v4
   type: package
   version: v4.0.0-E5

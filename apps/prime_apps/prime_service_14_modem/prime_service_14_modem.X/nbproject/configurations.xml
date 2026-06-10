@@ -373,7 +373,6 @@
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed448.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_kyber.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_lms.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_xmss.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/falcon.h</itemPath>
@@ -387,7 +386,6 @@
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hpke.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/integer.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kdf.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kyber.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/lms.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/logging.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/md2.h</itemPath>
@@ -427,7 +425,6 @@
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/types.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_encrypt.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_kyber.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_lms.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_pkcs11.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_port.h</itemPath>
@@ -435,6 +432,17 @@
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfevent.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/xmss.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ascon.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/async.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/libwolfssl_sources.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/libwolfssl_sources_asm.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/oid_sum.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rng_bank.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_slhdsa.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfentropy.h</itemPath>
             </logicalFolder>
             <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
           </logicalFolder>
@@ -569,7 +577,6 @@
               </logicalFolder>
               <logicalFolder name="phy" displayName="phy" projectFiles="true">
                 <logicalFolder name="bin" displayName="bin" projectFiles="true">
-                  <itemPath>../src/config/samd20_pl460/driver/plc/phy/bin/plc_phy_bin.S</itemPath>
                   <itemPath>../src/config/samd20_pl460/driver/plc/phy/bin/PLC_PHY_PRIME_2CHN.bin</itemPath>
                 </logicalFolder>
                 <itemPath>../src/config/samd20_pl460/driver/plc/phy/drv_plc_phy_comm.c</itemPath>
@@ -751,7 +758,6 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ed25519.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ed448.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/error.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_kyber.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_lms.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_xmss.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/falcon.c</itemPath>
@@ -810,8 +816,6 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/tfm.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_dsp.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_encrypt.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber_poly.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms_impl.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_pkcs11.c</itemPath>
@@ -820,6 +824,16 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_xmss_impl.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ascon.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asn_orig.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/async.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/evp_pk.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_mlkem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/rng_bank.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_mlkem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_mlkem_poly.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_slhdsa.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfentropy.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
@@ -890,6 +904,7 @@
       <C32>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="cast-align" value="false"/>
         <property key="code-model" value="default"/>
         <property key="const-model" value="default"/>
@@ -904,7 +919,7 @@
         <property key="exclude-floating-point" value="false"/>
         <property key="expand-pragma-config" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/samd20_pl460;../src/config/samd20_pl460/crypto/drivers;../src/config/samd20_pl460/crypto/wolfcrypt;../src/packs/ATSAMD20J18_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
+                  value="../src;../src/config/samd20_pl460;../src/config/samd20_pl460/crypto/common_crypto;../src/config/samd20_pl460/crypto/drivers;../src/config/samd20_pl460/crypto/wolfcrypt;../src/packs/ATSAMD20J18_DFP;../src/packs/CMSIS/;../src/packs/CMSIS/CMSIS/Core/Include;../src/third_party/wolfcrypt;../src/third_party/wolfssl;../src/third_party/wolfssl/wolfssl/wolfcrypt"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -939,6 +954,7 @@
         <property key="additional-options-chop-files" value="false"/>
       </C32-AR>
       <C32-AS>
+        <property key="appendMe" value=""/>
         <property key="assembler-symbols" value=""/>
         <property key="enable-symbols" value="true"/>
         <property key="exclude-floating-point-library" value="false"/>
@@ -970,6 +986,7 @@
         <property key="additional-options-use-response-files" value="false"/>
         <property key="additional-options-write-sla" value="false"/>
         <property key="allocate-dinit" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="code-dinit" value="false"/>
         <property key="ebase-addr" value=""/>
         <property key="enable-check-sections" value="false"/>
@@ -1016,6 +1033,7 @@
       <C32CPP>
         <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
+        <property key="appendMe" value=""/>
         <property key="check-new" value="false"/>
         <property key="eh-specs" value="true"/>
         <property key="enable-app-io" value="false"/>

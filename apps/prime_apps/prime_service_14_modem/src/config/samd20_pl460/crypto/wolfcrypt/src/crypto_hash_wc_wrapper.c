@@ -21,6 +21,28 @@
     files.
 *******************************************************************************/
 
+/*******************************************************************************
+* Copyright (C) 2026 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*******************************************************************************/
  
 // *****************************************************************************
 // *****************************************************************************
@@ -40,7 +62,7 @@
 
 
 // *****************************************************************************
-	
+    
 crypto_Hash_Status_E Crypto_Hash_Wc_ShaDigest(uint8_t *ptr_data, uint32_t dataLen, uint8_t *ptr_digest, crypto_Hash_Algo_E hashAlgo_en)
 {
     crypto_Hash_Status_E ret_shaStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
@@ -70,8 +92,8 @@ crypto_Hash_Status_E Crypto_Hash_Wc_ShaDigest(uint8_t *ptr_data, uint32_t dataLe
 crypto_Hash_Status_E Crypto_Hash_Wc_ShaInit(void *ptr_shaCtx_st, crypto_Hash_Algo_E hashAlgo_en)
 {
     crypto_Hash_Status_E ret_shaStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-	int wcShaStatus = BAD_FUNC_ARG;
-	
+    int wcShaStatus = BAD_FUNC_ARG;
+    
     if(ptr_shaCtx_st != NULL)
     {
         switch(hashAlgo_en)
@@ -112,21 +134,21 @@ crypto_Hash_Status_E Crypto_Hash_Wc_ShaUpdate(void *ptr_shaCtx_st, uint8_t *ptr_
 {
     crypto_Hash_Status_E ret_shaStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
     int wcShaStatus = BAD_FUNC_ARG;
-	
-	switch(hashAlgo_en)
-	{
-		case CRYPTO_HASH_SHA2_256:
-			wcShaStatus = wc_Sha256Update((wc_Sha256*)ptr_shaCtx_st, (const byte*)ptr_data, (word32)dataLen);
+    
+    switch(hashAlgo_en)
+    {
+        case CRYPTO_HASH_SHA2_256:
+            wcShaStatus = wc_Sha256Update((wc_Sha256*)ptr_shaCtx_st, (const byte*)ptr_data, (word32)dataLen);
             break;
         default:
             ret_shaStat_en = CRYPTO_HASH_ERROR_ALGO;
             break;
-	}
+    }
 
-	if(wcShaStatus == 0)
-	{
-		ret_shaStat_en = CRYPTO_HASH_SUCCESS;
-	}
+    if(wcShaStatus == 0)
+    {
+        ret_shaStat_en = CRYPTO_HASH_SUCCESS;
+    }
     else if(ret_shaStat_en == CRYPTO_HASH_ERROR_ALGO)
     {
         //do nothing
@@ -136,28 +158,28 @@ crypto_Hash_Status_E Crypto_Hash_Wc_ShaUpdate(void *ptr_shaCtx_st, uint8_t *ptr_
         ret_shaStat_en = CRYPTO_HASH_ERROR_FAIL;
     }
     
-	return ret_shaStat_en;  
+    return ret_shaStat_en;  
 }
 
 crypto_Hash_Status_E Crypto_Hash_Wc_ShaFinal(void *ptr_shaCtx_st, uint8_t *ptr_digest, crypto_Hash_Algo_E hashAlgo_en)
 {
     crypto_Hash_Status_E ret_shaStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
     int wcShaStatus = BAD_FUNC_ARG;
-	
-	switch(hashAlgo_en)
-	{
-		case CRYPTO_HASH_SHA2_256:
-			wcShaStatus = wc_Sha256Final((wc_Sha256*)ptr_shaCtx_st, (byte*)ptr_digest);
+    
+    switch(hashAlgo_en)
+    {
+        case CRYPTO_HASH_SHA2_256:
+            wcShaStatus = wc_Sha256Final((wc_Sha256*)ptr_shaCtx_st, (byte*)ptr_digest);
             break;
         default:
             ret_shaStat_en = CRYPTO_HASH_ERROR_ALGO;
             break;
-	}
+    }
 
-	if(wcShaStatus == 0)
-	{
-		ret_shaStat_en = CRYPTO_HASH_SUCCESS;
-	}
+    if(wcShaStatus == 0)
+    {
+        ret_shaStat_en = CRYPTO_HASH_SUCCESS;
+    }
     else if(ret_shaStat_en == CRYPTO_HASH_ERROR_ALGO)
     {
         //do nothing
@@ -167,5 +189,6 @@ crypto_Hash_Status_E Crypto_Hash_Wc_ShaFinal(void *ptr_shaCtx_st, uint8_t *ptr_d
         ret_shaStat_en = CRYPTO_HASH_ERROR_FAIL;
     }
     
-	return ret_shaStat_en;  
+    return ret_shaStat_en;  
 }
+

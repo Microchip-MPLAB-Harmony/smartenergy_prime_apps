@@ -21,7 +21,31 @@
     files.
 *******************************************************************************/
 
- 
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
@@ -38,7 +62,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
-#define CRYPTO_HASH_SESSION_MAX (1) 
+#define CRYPTO_HASH_SESSION_MAX (1)
 
 // *****************************************************************************
 // *****************************************************************************
@@ -46,30 +70,29 @@
 // *****************************************************************************
 // *****************************************************************************
 
-	
 //SHA-1, SHA-2 and SHA-3 except SHAKE Algorithm
-crypto_Hash_Status_E Crypto_Hash_Sha_Digest(crypto_HandlerType_E shaHandler_en, uint8_t *ptr_data, uint32_t dataLen, 
+crypto_Hash_Status_E Crypto_Hash_Sha_Digest(crypto_HandlerType_E shaHandler_en, uint8_t *ptr_data, uint32_t dataLen,
                                                 uint8_t *ptr_digest, crypto_Hash_Algo_E shaAlgorithm_en,  uint32_t shaSessionId)
 {
  	crypto_Hash_Status_E ret_shaStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-    
-    if( (ptr_data == NULL) || (dataLen == 0u) )
+
+    if( (ptr_data == NULL) && (dataLen != 0u) )
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_INPUTDATA;
     }
     else if(ptr_digest == NULL)
-    {      
+    {
         ret_shaStat_en = CRYPTO_HASH_ERROR_OUTPUTDATA;
     }
     else if( (shaAlgorithm_en <= CRYPTO_HASH_INVALID) || (shaAlgorithm_en >= CRYPTO_HASH_MAX))
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_ALGO;
     }
-    else if( (shaSessionId <= 0u) || (shaSessionId > (uint32_t)CRYPTO_HASH_SESSION_MAX) )
+    else if( (shaSessionId == 0u) || (shaSessionId > (uint32_t)CRYPTO_HASH_SESSION_MAX) )
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_SID;
     }
-	else
+    else
     {
         switch(shaHandler_en)
         {
@@ -81,13 +104,13 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Digest(crypto_HandlerType_E shaHandler_en, 
                 break;
         }
     }
-	return ret_shaStat_en;
+    return ret_shaStat_en;
 }
 
 crypto_Hash_Status_E Crypto_Hash_Sha_Init(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st, crypto_Hash_Algo_E shaAlgorithm_en, crypto_HandlerType_E shaHandler_en, uint32_t shaSessionId)
 {
  	crypto_Hash_Status_E ret_shaStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-    
+
     if(ptr_shaCtx_st == NULL)
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_CTX;
@@ -96,11 +119,11 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Init(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st,
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_ALGO;
     }
-    else if( (shaSessionId <= 0u) || (shaSessionId > (uint32_t)CRYPTO_HASH_SESSION_MAX) )
+    else if( (shaSessionId == 0u) || (shaSessionId > (uint32_t)CRYPTO_HASH_SESSION_MAX) )
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_SID;
     }
-	else
+    else
     {
         ptr_shaCtx_st->shaSessionId = shaSessionId;
         ptr_shaCtx_st->shaAlgo_en = shaAlgorithm_en;
@@ -116,18 +139,18 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Init(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st,
                 break;
         }
     }
-	return ret_shaStat_en;
+    return ret_shaStat_en;
 }
 
 crypto_Hash_Status_E Crypto_Hash_Sha_Update(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st, uint8_t *ptr_data, uint32_t dataLen)
 {
 	crypto_Hash_Status_E ret_shaStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-    
+
     if(ptr_shaCtx_st == NULL)
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_CTX;
     }
-    else if( (ptr_data == NULL) || (dataLen == 0u) )
+    else if( (ptr_data == NULL) && (dataLen != 0u) )
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_INPUTDATA;
     }
@@ -143,13 +166,13 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Update(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_s
                 break;
         }
     }
-	return ret_shaStat_en;
+    return ret_shaStat_en;
 }
 
 crypto_Hash_Status_E Crypto_Hash_Sha_Final(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st, uint8_t *ptr_digest)
 {
 	crypto_Hash_Status_E ret_shaStat_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-    
+
     if(ptr_shaCtx_st == NULL)
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_CTX;
@@ -158,7 +181,7 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Final(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st
     {
         ret_shaStat_en = CRYPTO_HASH_ERROR_OUTPUTDATA;
     }
-	else
+    else
     {
         switch(ptr_shaCtx_st->shaHandler_en)
         {
@@ -170,13 +193,13 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Final(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st
                 break;
         }
     }
-	return ret_shaStat_en;
+    return ret_shaStat_en;
 }
 
 static crypto_Hash_Status_E Crypto_Hash_GetHashSize(crypto_Hash_Algo_E hashType_en, uint32_t *hashSize)
 {
     crypto_Hash_Status_E ret_val_en = CRYPTO_HASH_SUCCESS;
-       
+
     switch(hashType_en)
     {
         case CRYPTO_HASH_SHA2_256:
@@ -184,39 +207,39 @@ static crypto_Hash_Status_E Crypto_Hash_GetHashSize(crypto_Hash_Algo_E hashType_
             break;
         default:
             ret_val_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-            break;    
-    }; 
+            break;
+    };
     return ret_val_en;
 }
 
-uint32_t Crypto_Hash_GetHashAndHashSize(crypto_HandlerType_E shaHandler_en, crypto_Hash_Algo_E hashType_en, uint8_t *ptr_wcInputData, 
+uint32_t Crypto_Hash_GetHashAndHashSize(crypto_HandlerType_E shaHandler_en, crypto_Hash_Algo_E hashType_en, uint8_t *ptr_wcInputData,
                                                                                                         uint32_t wcDataLen, uint8_t *ptr_outHash)
 {
     crypto_Hash_Status_E hashStatus_en = CRYPTO_HASH_ERROR_FAIL;
     uint32_t hashSize = 0x00;
-       
+
     switch(hashType_en)
     {
         case CRYPTO_HASH_SHA2_256:
-            hashStatus_en = Crypto_Hash_Sha_Digest(shaHandler_en, ptr_wcInputData, wcDataLen, ptr_outHash, CRYPTO_HASH_SHA2_256, 1); 
-            break;            
+            hashStatus_en = Crypto_Hash_Sha_Digest(shaHandler_en, ptr_wcInputData, wcDataLen, ptr_outHash, CRYPTO_HASH_SHA2_256, 1);
+            break;
         default:
             hashStatus_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-            break;    
+            break;
     };
-    
+
     if(hashStatus_en == CRYPTO_HASH_SUCCESS)
     {
         hashStatus_en = Crypto_Hash_GetHashSize(hashType_en, &hashSize);
-        
+
         if(hashStatus_en != CRYPTO_HASH_SUCCESS)
         {
-           hashSize = 0x00U;  
+           hashSize = 0x00U;
         }
     }
     else
     {
-       hashSize = 0x00U; 
+       hashSize = 0x00U;
     }
     return hashSize;
 }

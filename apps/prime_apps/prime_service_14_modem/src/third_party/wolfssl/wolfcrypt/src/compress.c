@@ -1,12 +1,12 @@
 /* compress.c
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -19,20 +19,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335, USA
  */
 
-
-
-#ifdef HAVE_CONFIG_H
-    #include <config.h>
-#endif
-
-#include <wolfssl/wolfcrypt/settings.h>
+#include <wolfssl/wolfcrypt/libwolfssl_sources.h>
 
 #ifdef HAVE_LIBZ
 
 
 #include <wolfssl/wolfcrypt/compress.h>
-#include <wolfssl/wolfcrypt/error-crypt.h>
-#include <wolfssl/wolfcrypt/logging.h>
 #ifdef NO_INLINE
     #include <wolfssl/wolfcrypt/misc.h>
 #else
@@ -238,7 +230,10 @@ int wc_DeCompressDynamic(byte** out, int maxSz, int memoryType,
 
     stream.next_out  = tmp;
     stream.avail_out = (uInt)tmpSz;
-    if ((uLong)stream.avail_out != tmpSz) return DECOMPRESS_INIT_E;
+    if ((uLong)stream.avail_out != tmpSz) {
+        XFREE(tmp, heap, memoryType);
+        return DECOMPRESS_INIT_E;
+    }
 
     stream.zalloc = (alloc_func)myAlloc;
     stream.zfree  = (free_func)myFree;
@@ -310,10 +305,8 @@ int wc_DeCompressDynamic(byte** out, int maxSz, int memoryType,
     if (inflateEnd(&stream) != Z_OK)
         result = DECOMPRESS_E;
 
-    if (tmp != NULL) {
-        XFREE(tmp, heap, memoryType);
-        tmp = NULL;
-    }
+    XFREE(tmp, heap, memoryType);
+    tmp = NULL;
 
     return result;
 }

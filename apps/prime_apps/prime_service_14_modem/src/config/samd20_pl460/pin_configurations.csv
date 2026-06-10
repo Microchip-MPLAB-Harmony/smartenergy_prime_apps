@@ -33,9 +33,9 @@ Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,D
 38,PA19,FLASH2_CLICK_SCK,SERCOM1_PAD3,Digital,High Impedance,n/a,No,No,NORMAL
 39,PB16,PL460_MISO,SERCOM5_PAD0,Digital,High Impedance,n/a,No,No,NORMAL
 40,PB17,PL460_CS,GPIO,Digital,Out,High,,,NORMAL
-41,PA20,FLASH2_CLICK_HOLD,GPIO,Digital,Out,Low,,,NORMAL
+41,PA20,FLASH2_CLICK_HOLD,GPIO,Digital,Out,High,,,NORMAL
 42,PA21,,Available,,,,,,NORMAL
-43,PA22,FLASH2_CLICK_WP,GPIO,Digital,Out,Low,,,NORMAL
+43,PA22,FLASH2_CLICK_WP,GPIO,Digital,Out,High,,,NORMAL
 44,PA23,,Available,,,,,,NORMAL
 45,PA24,VIRTUAL_COM_TX,SERCOM3_PAD2,Digital,High Impedance,n/a,No,No,NORMAL
 46,PA25,VIRTUAL_COM_RX,SERCOM3_PAD3,Digital,High Impedance,n/a,No,No,NORMAL

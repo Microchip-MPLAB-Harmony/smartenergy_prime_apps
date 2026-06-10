@@ -17,7 +17,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2023, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2026, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -351,6 +351,7 @@ void DRV_PLC_BOOT_Start(DRV_PLC_BOOT_INFO *pBootInfo, DRV_PLC_HAL_INTERFACE *pHa
     sDrvPlcBootInfo.pDst = DRV_PLC_BOOT_PROGRAM_ADDR;
     sDrvPlcBootInfo.secNumPackets = 0;
 
+    /* Set Bootloader data callback to handle boot by external fragments */
     if (pBootInfo->bootDataCallback != NULL)
     {
         sDrvPlcBootInfo.bootDataCallback = pBootInfo->bootDataCallback;

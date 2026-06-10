@@ -1,12 +1,12 @@
 /* xmss.h
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -160,9 +160,9 @@ enum wc_XmssState {
 };
 
 /* Private key write and read callbacks. */
-typedef enum wc_XmssRc (*write_private_key_cb)(const byte* priv, word32 privSz,
+typedef enum wc_XmssRc (*wc_xmss_write_private_key_cb)(const byte* priv, word32 privSz,
     void* context);
-typedef enum wc_XmssRc (*read_private_key_cb)(byte* priv, word32 privSz,
+typedef enum wc_XmssRc (*wc_xmss_read_private_key_cb)(byte* priv, word32 privSz,
     void* context);
 
 #ifdef __cplusplus
@@ -173,9 +173,9 @@ WOLFSSL_API int  wc_XmssKey_Init(XmssKey* key, void* heap, int devId);
 WOLFSSL_API int  wc_XmssKey_SetParamStr(XmssKey* key, const char* str);
 #ifndef WOLFSSL_XMSS_VERIFY_ONLY
 WOLFSSL_API int  wc_XmssKey_SetWriteCb(XmssKey* key,
-    write_private_key_cb write_cb);
+    wc_xmss_write_private_key_cb write_cb);
 WOLFSSL_API int  wc_XmssKey_SetReadCb(XmssKey* key,
-    read_private_key_cb read_cb);
+    wc_xmss_read_private_key_cb read_cb);
 WOLFSSL_API int  wc_XmssKey_SetContext(XmssKey* key, void* context);
 WOLFSSL_API int  wc_XmssKey_MakeKey(XmssKey* key, WC_RNG* rng);
 WOLFSSL_API int  wc_XmssKey_Reload(XmssKey* key);

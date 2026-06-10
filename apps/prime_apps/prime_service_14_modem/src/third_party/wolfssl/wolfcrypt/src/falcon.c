@@ -1,12 +1,12 @@
 /* falcon.c
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -19,25 +19,19 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335, USA
  */
 
+#include <wolfssl/wolfcrypt/libwolfssl_sources.h>
+
 /* Based on ed448.c and Reworked for Falcon by Anthony Hu. */
 
-#ifdef HAVE_CONFIG_H
-    #include <config.h>
-#endif
-
-/* in case user set HAVE_PQC there */
-#include <wolfssl/wolfcrypt/settings.h>
+#if defined(HAVE_PQC) && defined(HAVE_FALCON)
 
 #include <wolfssl/wolfcrypt/asn.h>
-
-#if defined(HAVE_PQC) && defined(HAVE_FALCON)
 
 #ifdef HAVE_LIBOQS
 #include <oqs/oqs.h>
 #endif
 
 #include <wolfssl/wolfcrypt/falcon.h>
-#include <wolfssl/wolfcrypt/error-crypt.h>
 #ifdef NO_INLINE
     #include <wolfssl/wolfcrypt/misc.h>
 #else
@@ -62,6 +56,10 @@ int wc_falcon_sign_msg(const byte* in, word32 inLen,
                               falcon_key* key, WC_RNG* rng)
 {
     int ret = 0;
+#ifdef HAVE_LIBOQS
+    OQS_SIG *oqssig = NULL;
+    size_t localOutLen = 0;
+#endif
 
     /* sanity check on arguments */
     if ((in == NULL) || (out == NULL) || (outLen == NULL) || (key == NULL)) {
@@ -73,9 +71,9 @@ int wc_falcon_sign_msg(const byte* in, word32 inLen,
     if (key->devId != INVALID_DEVID)
     #endif
     {
-        ret = wc_CryptoCb_PqcSign(in, inLen, out, outLen, rng,
-                                  WC_PQC_SIG_TYPE_FALCON, key);
-        if (ret != CRYPTOCB_UNAVAILABLE)
+        ret = wc_CryptoCb_PqcSign(in, inLen, out, outLen, NULL, 0,
+                WC_HASH_TYPE_NONE, rng, WC_PQC_SIG_TYPE_FALCON, key);
+        if (ret != WC_NO_ERR_TRACE(CRYPTOCB_UNAVAILABLE))
             return ret;
         /* fall-through when unavailable */
         ret = 0;
@@ -83,9 +81,6 @@ int wc_falcon_sign_msg(const byte* in, word32 inLen,
 #endif
 
 #ifdef HAVE_LIBOQS
-    OQS_SIG *oqssig = NULL;
-    size_t localOutLen = 0;
-
     if ((ret == 0) && (!key->prvKeySet)) {
         ret = BAD_FUNC_ARG;
     }
@@ -103,10 +98,6 @@ int wc_falcon_sign_msg(const byte* in, word32 inLen,
         }
     }
 
-    if ((ret == 0) && (oqssig == NULL)) {
-        ret = BUFFER_E;
-    }
-
     /* check and set up out length */
     if (ret == 0) {
         if ((key->level == 1) && (*outLen < FALCON_LEVEL1_SIG_SIZE)) {
@@ -122,19 +113,17 @@ int wc_falcon_sign_msg(const byte* in, word32 inLen,
 
     if (ret == 0) {
         ret = wolfSSL_liboqsRngMutexLock(rng);
+        if (ret == 0) {
+            if (OQS_SIG_sign(oqssig, out, &localOutLen, in, inLen, key->k)
+                == OQS_ERROR) {
+                ret = BAD_FUNC_ARG;
+            }
+        }
+        if (ret == 0) {
+            *outLen = (word32)localOutLen;
+        }
+        wolfSSL_liboqsRngMutexUnlock();
     }
-
-    if ((ret == 0) &&
-        (OQS_SIG_sign(oqssig, out, &localOutLen, in, inLen, key->k)
-         == OQS_ERROR)) {
-        ret = BAD_FUNC_ARG;
-    }
-
-    if (ret == 0) {
-        *outLen = (word32)localOutLen;
-    }
-
-    wolfSSL_liboqsRngMutexUnlock();
 
     if (oqssig != NULL) {
         OQS_SIG_free(oqssig);
@@ -161,6 +150,9 @@ int wc_falcon_verify_msg(const byte* sig, word32 sigLen, const byte* msg,
                         word32 msgLen, int* res, falcon_key* key)
 {
     int ret = 0;
+#ifdef HAVE_LIBOQS
+    OQS_SIG *oqssig = NULL;
+#endif
 
     if (key == NULL || sig == NULL || msg == NULL || res == NULL) {
         return BAD_FUNC_ARG;
@@ -171,9 +163,9 @@ int wc_falcon_verify_msg(const byte* sig, word32 sigLen, const byte* msg,
     if (key->devId != INVALID_DEVID)
     #endif
     {
-        ret = wc_CryptoCb_PqcVerify(sig, sigLen, msg, msgLen, res,
-                                    WC_PQC_SIG_TYPE_FALCON, key);
-        if (ret != CRYPTOCB_UNAVAILABLE)
+        ret = wc_CryptoCb_PqcVerify(sig, sigLen, msg, msgLen, NULL, 0,
+                WC_HASH_TYPE_NONE, res, WC_PQC_SIG_TYPE_FALCON, key);
+        if (ret != WC_NO_ERR_TRACE(CRYPTOCB_UNAVAILABLE))
             return ret;
         /* fall-through when unavailable */
         ret = 0;
@@ -181,8 +173,6 @@ int wc_falcon_verify_msg(const byte* sig, word32 sigLen, const byte* msg,
 #endif
 
 #ifdef HAVE_LIBOQS
-    OQS_SIG *oqssig = NULL;
-
     if ((ret == 0) && (!key->pubKeySet)) {
         ret = BAD_FUNC_ARG;
     }
@@ -198,10 +188,6 @@ int wc_falcon_verify_msg(const byte* sig, word32 sigLen, const byte* msg,
         if (oqssig == NULL) {
             ret = SIG_TYPE_E;
         }
-    }
-
-    if ((ret == 0) && (oqssig == NULL)) {
-        ret = BUFFER_E;
     }
 
     if ((ret == 0) &&
@@ -282,7 +268,7 @@ int wc_falcon_init_id(falcon_key* key, const unsigned char* id, int len,
         key->idLen = len;
     }
 
-    /* Set the maxiumum level here */
+    /* Set the maximum level here */
     wc_falcon_set_level(key, 5);
 
     return ret;
@@ -309,7 +295,7 @@ int wc_falcon_init_label(falcon_key* key, const char* label, void* heap,
         key->labelLen = labelLen;
     }
 
-    /* Set the maxiumum level here */
+    /* Set the maximum level here */
     wc_falcon_set_level(key, 5);
 
     return ret;
@@ -469,7 +455,8 @@ static int parse_private_key(const byte* priv, word32 privSz,
 
     /* At this point, it is still a PKCS8 private key. */
     if ((ret = ToTraditionalInline(priv, &idx, privSz)) < 0) {
-        return ret;
+        /* ignore error, did not have PKCS8 header */
+        (void)ret;
     }
 
     /* Now it is a octet_string(concat(priv,pub)) */
@@ -707,11 +694,11 @@ int wc_falcon_export_key(falcon_key* key, byte* priv, word32 *privSz,
  */
 int wc_falcon_check_key(falcon_key* key)
 {
+    int ret = 0;
+
     if (key == NULL) {
         return BAD_FUNC_ARG;
     }
-
-    int ret = 0;
 
     /* The public key is also decoded and stored within the private key buffer
      * behind the private key. Hence, we can compare both stored public keys. */
@@ -846,11 +833,11 @@ int wc_Falcon_PrivateKeyDecode(const byte* input, word32* inOutIdx,
                         pubKey, &pubKeyLen, keytype);
     if (ret == 0) {
         if (pubKeyLen == 0) {
-            ret = wc_falcon_import_private_only(input, inSz, key);
+            ret = wc_falcon_import_private_key(input, inSz, NULL, 0, key);
         }
         else {
-            ret = wc_falcon_import_private_key(privKey, privKeyLen,
-                                               pubKey, pubKeyLen, key);
+            ret = wc_falcon_import_private_key(input, inSz, pubKey,
+                                               pubKeyLen, key);
         }
     }
     return ret;
@@ -912,7 +899,7 @@ int wc_Falcon_PublicKeyToDer(falcon_key* key, byte* output, word32 inLen,
     word32 pubKeyLen = (word32)sizeof(pubKey);
     int    keytype = 0;
 
-    if (key == NULL || output == NULL) {
+    if (key == NULL) {
         return BAD_FUNC_ARG;
     }
 

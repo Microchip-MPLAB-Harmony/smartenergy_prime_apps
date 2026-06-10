@@ -223,12 +223,11 @@ static void lPAL_PLC_SetTxContinuousMode(uint8_t txMode)
 static uint32_t lPAL_PLC_TimerSyncRead(uint32_t *pTimePlc)
 {
     uint32_t timeHost;
-//    bool intStatus;
+    bool intStatus;
 
-    /* Enter critical region. Disable all interrupts to ensure constant delay between timers read */
-//    intStatus = SYS_INT_Disable();
-    NVIC_DisableIRQ(EIC_IRQn);
-    
+    /* Enter critical region. Disable the EIC interrupt source to ensure constant delay between timers read */
+    intStatus = SYS_INT_SourceDisable(EIC_IRQn);
+
     /* Read Host timer */
     timeHost = SRV_TIME_MANAGEMENT_GetTimeUS();
 
@@ -242,8 +241,7 @@ static uint32_t lPAL_PLC_TimerSyncRead(uint32_t *pTimePlc)
     timeHost += PAL_PLC_TIMER_SYNC_OFFSET;
 
     /* Leave critical region */
-//    SYS_INT_Restore(intStatus);
-    NVIC_EnableIRQ(EIC_IRQn);
+    SYS_INT_SourceRestore(EIC_IRQn, intStatus);
 
     return timeHost;
 }
@@ -345,7 +343,7 @@ __STATIC_INLINE void lPAL_PLC_TimerSyncUpdate(void)
     {
         SRV_LOG_REPORT_Message_With_Code(SRV_LOG_REPORT_ERROR,
                 PAL_PLC_TIMER_SYNC_ERROR,
-                "PRIME_PAL_PLC: PLC timer synchronization error TH:%08x\tTP:%08x \r\n", 
+                "PRIME_PAL_PLC: PLC timer synchronization error TH:%08x\tTP:%08x \r\n",
                 timeHost, timePlcSync);
         lPAL_PLC_TimerSyncInitialize();
     }
@@ -864,12 +862,9 @@ SYS_MODULE_OBJ PAL_PLC_Initialize(void)
 
     }
 
-    /* Open PLC driver. PAL_PLC_BOOT_DataCallback streams the PL360
-     * firmware out of the SST26 PL360_CURRENT zone (placed there by
-     * the bootloader) instead of relying on the .incbin that used to
-     * live inside this application's flash. */
-    palPlcData.drvPhyHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX,
-                                               PAL_PLC_BOOT_DataCallback);
+    /* Open PLC driver. PAL_PLC_BOOT_DataCallback streams the PL360 firmware
+     * out of the external-memory */
+    palPlcData.drvPhyHandle = DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, PAL_PLC_BOOT_DataCallback);
 
     if (palPlcData.drvPhyHandle != DRV_HANDLE_INVALID)
     {

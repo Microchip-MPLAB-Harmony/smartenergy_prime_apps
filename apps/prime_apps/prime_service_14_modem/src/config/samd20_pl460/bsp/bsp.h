@@ -106,8 +106,8 @@
 #define BSP_FLASH2_CLICK_HOLD_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 20U))
 #define BSP_FLASH2_CLICK_HOLD_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 20U))
 #define BSP_FLASH2_CLICK_HOLD_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 20U))
-#define BSP_FLASH2_CLICK_HOLD_On()       BSP_FLASH2_CLICK_HOLD_Set()
-#define BSP_FLASH2_CLICK_HOLD_Off()      BSP_FLASH2_CLICK_HOLD_Clear() 
+#define BSP_FLASH2_CLICK_HOLD_On()       BSP_FLASH2_CLICK_HOLD_Clear()
+#define BSP_FLASH2_CLICK_HOLD_Off()      BSP_FLASH2_CLICK_HOLD_Set() 
 
 /*** Macros for FLASH2_CLICK_WP output pin ***/ 
 #define BSP_FLASH2_CLICK_WP_PIN        PORT_PIN_PA22
@@ -115,8 +115,8 @@
 #define BSP_FLASH2_CLICK_WP_Set()      (PORT_REGS->GROUP[0].PORT_OUTSET = ((uint32_t)1U << 22U))
 #define BSP_FLASH2_CLICK_WP_Clear()    (PORT_REGS->GROUP[0].PORT_OUTCLR = ((uint32_t)1U << 22U))
 #define BSP_FLASH2_CLICK_WP_Toggle()   (PORT_REGS->GROUP[0].PORT_OUTTGL = ((uint32_t)1U << 22U))
-#define BSP_FLASH2_CLICK_WP_On()       BSP_FLASH2_CLICK_WP_Set()
-#define BSP_FLASH2_CLICK_WP_Off()      BSP_FLASH2_CLICK_WP_Clear() 
+#define BSP_FLASH2_CLICK_WP_On()       BSP_FLASH2_CLICK_WP_Clear()
+#define BSP_FLASH2_CLICK_WP_Off()      BSP_FLASH2_CLICK_WP_Set() 
 
 /*** Macros for PL460_NRST output pin ***/ 
 #define BSP_PL460_NRST_PIN        PORT_PIN_PB30

@@ -90,14 +90,14 @@ extern "C" {
 #define WOLFSSL_USER_IO
 #define NO_WRITEV
 #define NO_FILESYSTEM
-#define USE_FAST_MATH  //Conflicts with WOLFSSL_SP_MATH
+//#define USE_FAST_MATH  //Conflicts with WOLFSSL_SP_MATH
 #define NO_INLINE 
 
 //Math Model Defines
 //Using this to declare wolfmath functions:
 //mp_reverse used by fp_to_unsigned_bin (tfm.c)unctions: 
 //get_digit_count,get_digit in ecc.c 
-#define WOLFSSL_SP_MATH   
+//#define WOLFSSL_SP_MATH   
 
 //Needed when WOFSSL_SP_MATH defined
 //#define WOLFSSL_HAVE_SP_RSA  
@@ -161,7 +161,7 @@ extern "C" {
 #define WOLFSSL_CUSTOM_CURVES
 //#define HAVE_CURVE25519     //JK 
 //#define HAVE_ED25519        //JK
-#define FP_ECC
+//#define FP_ECC
 #define HAVE_ECC521           //ECC_MAX_BITS
 
 //#define HAVE_DH

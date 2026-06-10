@@ -1,12 +1,12 @@
 /* hash.h
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -40,7 +40,7 @@
 #if defined(WOLFSSL_SHA384) || defined(WOLFSSL_SHA512)
     #include <wolfssl/wolfcrypt/sha512.h>
 #endif
-#ifdef HAVE_BLAKE2
+#if defined(HAVE_BLAKE2B) || defined(HAVE_BLAKE2S)
     #include <wolfssl/wolfcrypt/blake2.h>
 #endif
 #ifdef WOLFSSL_SHA3
@@ -51,9 +51,6 @@
 #endif
 #ifdef WOLFSSL_MD2
     #include <wolfssl/wolfcrypt/md2.h>
-#endif
-#if defined(HAVE_BLAKE2) || defined(HAVE_BLAKE2S)
-    #include <wolfssl/wolfcrypt/blake2.h>
 #endif
 #ifdef WOLFSSL_SM3
     #include <wolfssl/wolfcrypt/sm3.h>
@@ -80,62 +77,69 @@ enum wc_MACAlgorithm {
     sha512_mac,
     rmd_mac,
     blake2b_mac,
-    sm3_mac,
+    sm3_mac
 };
 
-enum wc_HashFlags {
-    WC_HASH_FLAG_NONE =     0x00000000,
-    WC_HASH_FLAG_WILLCOPY = 0x00000001, /* flag to indicate hash will be copied */
-    WC_HASH_FLAG_ISCOPY =   0x00000002, /* hash is copy */
-#ifdef WOLFSSL_SHA3
-    WC_HASH_SHA3_KECCAK256 =0x00010000, /* Older KECCAK256 */
+/* hash union */
+typedef union {
+#ifndef NO_MD5
+    wc_Md5 md5;
 #endif
-    WOLF_ENUM_DUMMY_LAST_ELEMENT(WC_HASH)
-};
+#ifndef NO_SHA
+    wc_Sha sha;
+#endif
+#ifdef WOLFSSL_SHA224
+    wc_Sha224 sha224;
+#endif
+#ifndef NO_SHA256
+    wc_Sha256 sha256;
+#endif
+#ifdef WOLFSSL_SHA384
+    wc_Sha384 sha384;
+#endif
+#ifdef WOLFSSL_SHA512
+    wc_Sha512 sha512;
+#endif
+#ifdef WOLFSSL_SHA3
+    wc_Sha3 sha3;
+#endif
+#ifdef WOLFSSL_SM3
+    wc_Sm3 sm3;
+#endif
+    WOLF_AGG_DUMMY_MEMBER;
+} wc_Hashes;
 
 #ifndef NO_HASH_WRAPPER
-typedef union {
-    #ifndef NO_MD5
-        wc_Md5 md5;
-    #endif
-    #ifndef NO_SHA
-        wc_Sha sha;
-    #endif
-    #ifdef WOLFSSL_SHA224
-        wc_Sha224 sha224;
-    #endif
-    #ifndef NO_SHA256
-        wc_Sha256 sha256;
-    #endif
-    #ifdef WOLFSSL_SHA384
-        wc_Sha384 sha384;
-    #endif
-    #ifdef WOLFSSL_SHA512
-        wc_Sha512 sha512;
-    #endif
-    #ifdef WOLFSSL_SHA3
-        wc_Sha3 sha3;
-    #endif
-    #ifdef WOLFSSL_SM3
-        wc_Sm3 sm3;
-    #endif
+typedef struct {
+    wc_Hashes alg;
+    enum wc_HashType type; /* sanity check */
+#ifndef WC_NO_CONSTRUCTORS
+    void *heap;
+#endif
 } wc_HashAlg;
 #endif /* !NO_HASH_WRAPPER */
 
+
 /* Find largest possible digest size
    Note if this gets up to the size of 80 or over check smallstack build */
+#undef WC_MAX_DIGEST_SIZE
+#undef WC_MAX_BLOCK_SIZE
 #if defined(WOLFSSL_SHA3)
+    /* note: SHA3-224 has the largest block size */
     #define WC_MAX_DIGEST_SIZE WC_SHA3_512_DIGEST_SIZE
-    #define WC_MAX_BLOCK_SIZE  WC_SHA3_224_BLOCK_SIZE /* 224 is the largest block size */
+    #define WC_MAX_BLOCK_SIZE  WC_SHA3_224_BLOCK_SIZE
 #elif defined(WOLFSSL_SHA512)
     #define WC_MAX_DIGEST_SIZE WC_SHA512_DIGEST_SIZE
     #define WC_MAX_BLOCK_SIZE  WC_SHA512_BLOCK_SIZE
-#elif defined(HAVE_BLAKE2)
+#elif defined(HAVE_BLAKE2B)
     #define WC_MAX_DIGEST_SIZE BLAKE2B_OUTBYTES
     #define WC_MAX_BLOCK_SIZE  BLAKE2B_BLOCKBYTES
 #elif defined(WOLFSSL_SHA384)
     #define WC_MAX_DIGEST_SIZE WC_SHA384_DIGEST_SIZE
     #define WC_MAX_BLOCK_SIZE  WC_SHA384_BLOCK_SIZE
+#elif !defined(NO_SHA) && !defined(NO_MD5)
+    #define WC_MAX_DIGEST_SIZE (WC_SHA_DIGEST_SIZE + WC_MD5_DIGEST_SIZE)
+    #define WC_MAX_BLOCK_SIZE  WC_SHA_BLOCK_SIZE
 #elif !defined(NO_SHA256)
     #define WC_MAX_DIGEST_SIZE WC_SHA256_DIGEST_SIZE
     #define WC_MAX_BLOCK_SIZE  WC_SHA256_BLOCK_SIZE
@@ -154,6 +158,78 @@ typedef union {
 #else
     #define WC_MAX_DIGEST_SIZE 64 /* default to max size of 64 */
     #define WC_MAX_BLOCK_SIZE  128
+#endif
+
+#if defined(WC_HASH_CUSTOM_MAX_DIGEST_SIZE) && \
+    defined(WC_HASH_CUSTOM_MIN_DIGEST_SIZE)
+    #if WC_HASH_CUSTOM_MAX_DIGEST_SIZE < \
+        WC_HASH_CUSTOM_MIN_DIGEST_SIZE
+        #error HASH_CUSTOM_MAX_DIGEST_SIZE < WC_HASH_CUSTOM_MIN_DIGEST_SIZE
+    #endif
+#endif
+#ifdef WC_HASH_CUSTOM_MAX_DIGEST_SIZE
+    #undef WC_MAX_DIGEST_SIZE
+    #define WC_MAX_DIGEST_SIZE WC_HASH_CUSTOM_MAX_DIGEST_SIZE
+#endif
+#ifdef WC_HASH_CUSTOM_MAX_BLOCK_SIZE
+    #undef WC_MAX_BLOCK_SIZE
+    #define WC_MAX_BLOCK_SIZE WC_HASH_CUSTOM_MAX_BLOCK_SIZE
+#endif
+
+#if defined(WC_HASH_CUSTOM_MIN_DIGEST_SIZE)
+    #if defined(WC_FIPS_186_5_PLUS) && \
+            (WC_HASH_CUSTOM_MIN_DIGEST_SIZE < 224 / 8)
+        #error FIPS 186-5 requires a minimum hash size >= SHA-224.
+    #elif defined(WC_FIPS_186_4) && \
+            (WC_HASH_CUSTOM_MIN_DIGEST_SIZE < 160 / 8)
+        #error FIPS 186-4 requires a minimum hash size >= SHA-1.
+    #elif (WC_HASH_CUSTOM_MIN_DIGEST_SIZE < 128 / 8)
+        #error WC_HASH_CUSTOM_MIN_DIGEST_SIZE is too small.
+    #endif
+    /* Let the user override the minimum digest size */
+    #define WC_MIN_DIGEST_SIZE WC_HASH_CUSTOM_MIN_DIGEST_SIZE
+#elif defined(WOLFSSL_MD2) && !defined(WC_FIPS_186_4_PLUS)
+    #define WC_MIN_DIGEST_SIZE WC_MD2_DIGEST_SIZE /* 16 */
+#elif !defined(NO_MD4) && !defined(WC_FIPS_186_4_PLUS)
+    #define WC_MIN_DIGEST_SIZE WC_MD4_DIGEST_SIZE /* 16 */
+#elif !defined(NO_MD5) && !defined(WC_FIPS_186_4_PLUS)
+    #define WC_MIN_DIGEST_SIZE WC_MD5_DIGEST_SIZE /* 16 */
+#elif !defined(NO_SHA) && !defined(WC_FIPS_186_5_PLUS)
+    #define WC_MIN_DIGEST_SIZE WC_SHA_DIGEST_SIZE /* 20 */
+#elif defined(WOLFSSL_SHA224)
+    #define WC_MIN_DIGEST_SIZE WC_SHA224_DIGEST_SIZE
+#elif !defined(HAVE_FIPS) && !defined(HAVE_SELFTEST) && \
+    defined(WOLFSSL_SHA512) && !defined(WOLFSSL_NOSHA512_224)
+    #define WC_MIN_DIGEST_SIZE WC_SHA512_224_DIGEST_SIZE
+#elif defined(WOLFSSL_SHA3) && !defined(WOLFSSL_NOSHA3_224)
+    #define WC_MIN_DIGEST_SIZE WC_SHA3_224_DIGEST_SIZE
+#elif !defined(NO_SHA256)
+    #define WC_MIN_DIGEST_SIZE WC_SHA256_DIGEST_SIZE
+#elif !defined(HAVE_FIPS) && !defined(HAVE_SELFTEST) && \
+    defined(WOLFSSL_SHA512) && !defined(WOLFSSL_NOSHA512_256)
+    #define WC_MIN_DIGEST_SIZE WC_SHA512_256_DIGEST_SIZE
+#elif defined(WOLFSSL_SHA3) && !defined(WOLFSSL_NOSHA3_256)
+    #define WC_MIN_DIGEST_SIZE WC_SHA3_256_DIGEST_SIZE
+#elif defined(HAVE_BLAKE2S)
+    #define WC_MIN_DIGEST_SIZE BLAKE2S_OUTBYTES /* 32 */
+#elif defined(WOLFSSL_SM3)
+    #define WC_MIN_DIGEST_SIZE WC_SM3_DIGEST_SIZE /* 32 */
+#elif defined(WOLFSSL_SHA384)
+    #define WC_MIN_DIGEST_SIZE WC_SHA384_DIGEST_SIZE
+#elif defined(WOLFSSL_SHA3) && !defined(WOLFSSL_NOSHA3_384)
+    #define WC_MIN_DIGEST_SIZE WC_SHA3_384_DIGEST_SIZE
+#elif defined(WOLFSSL_SHA512)
+    #define WC_MIN_DIGEST_SIZE WC_SHA512_DIGEST_SIZE
+#elif defined(WOLFSSL_SHA3) && !defined(WOLFSSL_NOSHA3_512)
+    #define WC_MIN_DIGEST_SIZE WC_SHA3_512_DIGEST_SIZE
+#elif defined(HAVE_BLAKE2B)
+    #define WC_MIN_DIGEST_SIZE BLAKE2B_OUTBYTES /* 64 */
+#elif defined(WOLFSSL_SHAKE128) || defined(WOLFSSL_SHAKE256)
+    #error SHAKE enabled without SHA-3.
+    #define WC_MIN_DIGEST_SIZE 64
+#else
+    #error No builtin hashes enabled and no WC_HASH_CUSTOM_MIN_DIGEST_SIZE.
+    #define WC_MIN_DIGEST_SIZE 64
 #endif
 
 #if !defined(NO_ASN) || !defined(NO_DH) || defined(HAVE_ECC)
@@ -183,6 +259,11 @@ WOLFSSL_API int wc_HashUpdate(wc_HashAlg* hash, enum wc_HashType type,
 WOLFSSL_API int wc_HashFinal(wc_HashAlg* hash, enum wc_HashType type,
     byte* out);
 WOLFSSL_API int wc_HashFree(wc_HashAlg* hash, enum wc_HashType type);
+#ifndef WC_NO_CONSTRUCTORS
+WOLFSSL_API wc_HashAlg* wc_HashNew(enum wc_HashType type, void* heap,
+                                   int devId, int *result_code);
+WOLFSSL_API int wc_HashDelete(wc_HashAlg *hash, wc_HashAlg **hash_p);
+#endif
 
 #ifdef WOLFSSL_HASH_FLAGS
     WOLFSSL_API int wc_HashSetFlags(wc_HashAlg* hash, enum wc_HashType type,

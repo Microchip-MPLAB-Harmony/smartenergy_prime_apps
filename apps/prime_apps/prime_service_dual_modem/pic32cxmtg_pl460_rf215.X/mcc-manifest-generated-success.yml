@@ -22,7 +22,7 @@ modules:
 - {name: core, type: HARMONY, version: v3.16.0}
 - {name: CMSIS_5, type: HARMONY, version: 5.9.0}
 - {name: smartenergy_prime, type: HARMONY, version: v1.2.0}
-- {name: crypto_v4, type: HARMONY, version: v4.0.0-E5}
-- {name: wolfssl, type: HARMONY, version: v5.9.1}
+- {name: crypto_v4, type: HARMONY, version: v4.0.0-E3}
+- {name: wolfssl, type: HARMONY, version: v5.7.0}
 - {name: smartenergy, type: HARMONY, version: v1.5.1}
 - {name: shd, type: HARMONY, version: v1.4.0}

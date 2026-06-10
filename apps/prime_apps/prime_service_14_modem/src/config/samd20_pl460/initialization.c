@@ -94,7 +94,7 @@
 /* pull up resistors are configured by default */
 void _on_reset(void)
 {
-    /* Enable Reset Pin */
+    /* Enable and Clear Reset Pin */
     SYS_PORT_PinOutputEnable(DRV_PLC_RESET_PIN);
     SYS_PORT_PinClear(DRV_PLC_RESET_PIN);
 }
@@ -193,10 +193,10 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
     .numClients = DRV_PLC_PHY_CLIENTS_NUMBER_IDX,
 
     /* PLC Binary start address */
-    .binStartAddress = (uint32_t)&plc_phy_bin_start,
+    .binStartAddress = DRV_PLC_BIN_START_ADDRESS,
 
     /* PLC Binary end address */
-    .binEndAddress = (uint32_t)&plc_phy_bin_end,
+    .binEndAddress = DRV_PLC_BIN_START_ADDRESS + DRV_PLC_BIN_SIZE - 1,
 
     /* Secure Mode */
     .secure = DRV_PLC_SECURE,
@@ -438,6 +438,7 @@ void SYS_Initialize ( void* data )
     EIC_Initialize();
 
     BSP_Initialize();
+
 
     /* MISRAC 2023 deviation block start */
     /* Following MISRA-C rules deviated in this block  */
