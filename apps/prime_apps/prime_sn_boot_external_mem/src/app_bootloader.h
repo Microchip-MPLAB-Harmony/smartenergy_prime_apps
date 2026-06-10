@@ -11,14 +11,39 @@
     Constants, types and prototypes for the bare-metal SAMD20J18 bootloader.
 
   Description:
-    The bootloader reads a boot configuration from the emulated-EEPROM row,
-    optionally applies a new firmware image from SST26 TELECARGA or restores
-    the previous image from SST26 REVERT, and finally jumps to the
-    application at APP_START. No Harmony, no C library: all peripherals are
-    accessed through direct register writes.
+    The bootloader reads the BOOT_MODE_INFO handshake from the SST26
+    BOOT_FLAG sector, optionally installs a firmware bundle from the SST26
+    DOWNLOAD zone or restores the previous image from the REVERT zones, and
+    finally jumps to the application at APP_START. No Harmony, no C library:
+    all peripherals are accessed through direct register writes.
 
-    Full design rationale: BOOTLOADER_FROM_RAM_DESIGN.md
+    Full design rationale: BOOTLOADER_PLAN.md (v3)
 *******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
 
 #ifndef APP_BOOTLOADER_H
 #define APP_BOOTLOADER_H
@@ -32,38 +57,31 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef __cplusplus
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
 extern "C" {
+
 #endif
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Macro Definitions — Internal flash layout (SAMD20J18, 256 KB)
+// Section: Macro Definitions - Internal flash layout (SAMD20J18, 256 KB)
 // *****************************************************************************
 // *****************************************************************************
-
-#define APP_BOOTLOADER_ROM_BASE             (0x00000000U)
-#define APP_BOOTLOADER_ROM_SIZE             (0x00002000U)   /* 8 KB, BOOTPROT=2 */
 
 #define APP_BOOTLOADER_APP_START            (0x00002000U)
 #define APP_BOOTLOADER_APP_END              (0x0003FF00U)   /* exclusive; EEPROM row untouched */
 #define APP_BOOTLOADER_MAX_APP_SIZE         (APP_BOOTLOADER_APP_END - APP_BOOTLOADER_APP_START)
 
-#define APP_BOOTLOADER_EEPROM_ROW_ADDR      (0x0003FF00U)
-#define APP_BOOTLOADER_EEPROM_ROW_SIZE      (256U)
-
 #define APP_BOOTLOADER_FLASH_ROW_SIZE       (256U)          /* NVMCTRL erase granularity */
-#define APP_BOOTLOADER_FLASH_PAGE_SIZE      (64U)           /* NVMCTRL write granularity */
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Macro Definitions — External SST26 layout (4 MB available)
+// Section: Macro Definitions - SST26 geometry constants
 // *****************************************************************************
 // *****************************************************************************
-
-#define APP_BOOTLOADER_SST26_TELECARGA_OFFSET   (0x00000000U)
-#define APP_BOOTLOADER_SST26_REVERT_OFFSET      (0x00040000U)
-#define APP_BOOTLOADER_IMAGE_ZONE_SIZE          (0x00040000U)   /* 256 KB */
 
 #define APP_BOOTLOADER_SST26_SECTOR_SIZE        (4096U)
 #define APP_BOOTLOADER_SST26_BLOCK_64K_SIZE     (65536U)
@@ -71,105 +89,12 @@ extern "C" {
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Macro Definitions — SPI chip select for SST26
+// Section: SST26 Layout v3 - zone offsets and sizes
 // *****************************************************************************
 // *****************************************************************************
 
-#define APP_BOOTLOADER_SST26_CS_PIN             (17U)       /* PA17 */
-#define APP_BOOTLOADER_SST26_CS_PORT_GROUP      (0U)        /* Port A */
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Macro Definitions — Image header in SST26
-// *****************************************************************************
-// *****************************************************************************
-
-/* Zone layout inside SST26 (both TELECARGA and REVERT):
- *   [0 .. size-1] : raw payload (up to APP_BOOTLOADER_MAX_APP_SIZE bytes)
- *
- * There is no image header. The boot-config handshake in the EEPROM
- * row is the sole source of truth: when cfgKey matches and origAddr
- * is valid, the bootloader trusts that the zone contains a complete
- * image of bootCfg.imgSize bytes (for TELECARGA) or of the full
- * application region (for REVERT — the bootloader always backs up
- * APP_BOOTLOADER_MAX_APP_SIZE bytes, so imgSize is ignored on revert).
- *
- * The PRIME firmware-upgrade service already validates the image CRC
- * while it downloads; re-validating in the bootloader would add code
- * and latency without meaningful protection. */
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Macro Definitions — Boot configuration (shared with application)
-//
-// Layout is identical to SRV_STORAGE_BOOT_CONFIG in the PRIME library (24 B,
-// at offset 112 inside the EEPROM row). Written by the application to
-// request an operation; read by this bootloader on every reset.
-// *****************************************************************************
-// *****************************************************************************
-
-#define APP_BOOTLOADER_BOOT_CONFIG_OFFSET       (112U)
-#define APP_BOOTLOADER_BOOT_CONFIG_KEY          (0x55AA55AAU)   /* matches SRV_STORAGE_BOOT_CFG_KEY */
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Data Types
-// *****************************************************************************
-// *****************************************************************************
-
-// *****************************************************************************
-/* Boot configuration
-
-  Summary:
-    24-byte structure shared with the application through the EEPROM row.
-
-  Description:
-    Layout matches SRV_STORAGE_BOOT_CONFIG defined in srv_storage.h of the
-    application. Field names follow Harmony camelCase. The bootloader
-    interprets the bytes; the application writes them.
-*/
-
-typedef struct __attribute__((packed))
-{
-    uint32_t cfgKey;        /* APP_BOOTLOADER_BOOT_CONFIG_KEY when valid */
-    uint32_t imgSize;       /* image size in bytes */
-    uint32_t origAddr;      /* SST26 offset — TELECARGA or REVERT; selects operation */
-    uint32_t destAddr;      /* = APP_BOOTLOADER_APP_START */
-    uint8_t  pagesCounter;  /* reserved, always 0 in this bootloader */
-    uint8_t  bootState;     /* see APP_BOOTLOADER_BOOT_STATE */
-    uint8_t  _pad[2];
-} APP_BOOTLOADER_BOOT_CONFIG;
-
-// *****************************************************************************
-/* Internal boot state
-
-  Summary:
-    Values stored in the bootState byte of the boot configuration.
-
-  Description:
-    Private to this bootloader. The application always writes
-    APP_BOOTLOADER_BOOT_IDLE when requesting an operation; the bootloader
-    persists APP_BOOTLOADER_BOOT_BACKUP_DONE between phase 1 and phase 2
-    of APPLY_TELECARGA so a power loss can be recovered.
-*/
-
-typedef enum
-{
-    APP_BOOTLOADER_BOOT_IDLE            = 0,    /* no operation or backup pending */
-    APP_BOOTLOADER_BOOT_BACKUP_DONE     = 1,    /* phase 1 (APP -> REVERT) done */
-} APP_BOOTLOADER_BOOT_STATE;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: SST26 Layout v3 — zone offsets and sizes
-//
-// External serial flash (SST26VF064B, 8 MB) is partitioned into named zones
-// shared between this bootloader and the modem application. The bootloader
-// only ever reads from DOWNLOAD/CURRENT and writes to CURRENT/REVERT plus
-// the BOOT_FLAG zone; the modem application is responsible for filling
-// DOWNLOAD during PLC FU and for setting BOOT_MODE_INFO before reset.
-// *****************************************************************************
-// *****************************************************************************
+/* External serial flash (SST26VF064B, 8 MB) is partitioned into named zones
+ * shared between this bootloader and the modem application. */
 
 #define APP_BOOTLOADER_SST26_DOWNLOAD_OFFSET    (0x000000U)
 #define APP_BOOTLOADER_SST26_DOWNLOAD_SIZE      (0x080000U)   /* 512 KB */
@@ -191,23 +116,13 @@ typedef enum
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: BOOT_MODE_INFO — bootloader handshake (v3, in SST26 BOOT_FLAG zone)
-//
-// 12-byte structure persisted at the start of the BOOT_FLAG sector. The
-// modem application writes it to request an action at the next reset; the
-// bootloader reads it on every boot and dispatches accordingly.
-//
-// Layout duplicated as SRV_STORAGE_BOOT_MODE_INFO in the application's
-// srv_storage.h — keep both in sync (binary-compatible, packed).
-//
-// modeXor is `mode XOR magic` and acts as a sanity check: a bit-rot of the
-// struct breaks this invariant and the entry is treated as virgin/NORMAL
-// (default safe behaviour: jump to app).
-//
-// imageIdx and imageStep are install/revert progress trackers used to make
-// the operation idempotent across power-loss events. See BOOTLOADER_PLAN.md.
+// Section: BOOT_MODE_INFO - bootloader handshake (v3, in SST26 BOOT_FLAG zone)
 // *****************************************************************************
 // *****************************************************************************
+
+/* 12-byte structure persisted at the start of the BOOT_FLAG sector. The
+ * modem application writes it to request an action at the next reset; the
+ * bootloader reads it on every boot and dispatches accordingly. */
 
 #define APP_BOOTLOADER_BOOT_MODE_MAGIC          (0x444F4D42UL)  /* 'BMOD' little-endian */
 
@@ -231,16 +146,7 @@ typedef struct __attribute__((packed))
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: BUNDLE_HEADER — multi-image staging in SST26 DOWNLOAD zone
-//
-// The application accumulates the OTA image into the DOWNLOAD zone wrapped
-// in this format. The bootloader parses it on INSTALL_PENDING, validates the
-// structural sanity (magic + numImages + magicEnd), and iterates the
-// descriptors to install each image into its CURRENT zone.
-//
-// The structure persists between boots — REVERT_PENDING re-reads the same
-// images[] list to know which components to roll back, so the bundle header
-// also acts as the "log" of the last install.
+// Section: BUNDLE_HEADER - multi-image staging in SST26 DOWNLOAD zone
 // *****************************************************************************
 // *****************************************************************************
 
@@ -272,12 +178,11 @@ typedef struct __attribute__((packed))
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: ZONE_HEADER — per-image header at the start of each CURRENT/REVERT
-//
-// 256 B aligned to a SST26 page. Lives at offset 0 of every CURRENT and
-// REVERT zone; payload starts at offset APP_BOOTLOADER_ZONE_HEADER_SIZE.
+// Section: ZONE_HEADER - per-image header at the start of each CURRENT/REVERT
 // *****************************************************************************
 // *****************************************************************************
+
+/* 256 B aligned to a SST26 page. */
 
 #define APP_BOOTLOADER_ZONE_HEADER_SIZE         (256U)
 
@@ -341,9 +246,11 @@ void APP_BOOTLOADER_Main(void) __attribute__((noreturn));
 
 void APP_BOOTLOADER_JumpToApp(void) __attribute__((noreturn));
 
+//DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
+//DOM-IGNORE-END
 
 #endif /* APP_BOOTLOADER_H */
 

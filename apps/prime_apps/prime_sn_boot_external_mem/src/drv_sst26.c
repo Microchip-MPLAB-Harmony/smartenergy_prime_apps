@@ -8,7 +8,7 @@
     drv_sst26.c
 
   Summary:
-    Bare-metal driver for the SST26VF032B serial flash.
+    Bare-metal driver for the SST26VF064B serial flash.
 
   Description:
     All operations are synchronous (polling-based). The driver owns the
@@ -21,6 +21,31 @@
     BUSY bit while an erase or program is in flight. Both are managed
     by the helper sequences below.
 *******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -129,8 +154,6 @@ void DRV_SST26_WritePage(uint32_t address, const uint8_t *buf, uint32_t len)
     DRV_SPI_Write(buf, writeLen);
     DRV_SPI_CsDeassert();
 
-    /* Typical tPP is 1.5 ms; RDSR polling is fast enough that the cost
-     * of the wait is dominated by the program time itself. */
     DRV_SST26_WaitReady();
 }
 

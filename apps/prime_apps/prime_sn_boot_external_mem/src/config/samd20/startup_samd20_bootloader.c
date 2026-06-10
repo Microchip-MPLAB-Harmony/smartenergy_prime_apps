@@ -24,8 +24,33 @@
     Default_Handler, which loops forever: peripheral interrupts are never
     enabled by the bootloader, so reaching Default_Handler indicates a bug.
 
-    See BOOTLOADER_FROM_RAM_DESIGN.md §4.1 for the design rationale.
+    See BOOTLOADER_FROM_RAM_DESIGN.md Sec. 4.1 for the design rationale.
 *******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -91,16 +116,17 @@ void Default_Handler(void)
 // *****************************************************************************
 // *****************************************************************************
 // Section: Interrupt Vector Table
-//
-// Cortex-M0+ requires the first two words to be:
-//   [0] = Initial MSP value (top of stack)
-//   [1] = Reset handler address
-//
-// The remaining 14 ARM system vectors + 25 SAMD20 peripheral vectors all
-// point to Default_Handler. The whole table is 176 B; we align it to 256 B
-// because SCB->VTOR requires that alignment on this implementation.
 // *****************************************************************************
 // *****************************************************************************
+
+/* Cortex-M0+ requires the first two words to be:
+ *   [0] = Initial MSP value (top of stack)
+ *   [1] = Reset handler address
+ *
+ * The remaining 14 ARM system vectors + 25 SAMD20 peripheral vectors all
+ * point to Default_Handler. The whole table is 176 B; we align it to 256 B
+ * because SCB->VTOR requires that alignment on this implementation.
+ */
 
 __attribute__((section(".vectors"), aligned(256), used))
 const void *const vectors[] =

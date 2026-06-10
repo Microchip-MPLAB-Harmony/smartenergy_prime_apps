@@ -34,6 +34,31 @@
     See BOOTLOADER_PLAN.md (v3) for the full design rationale.
 *******************************************************************************/
 
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
@@ -84,13 +109,14 @@
 // *****************************************************************************
 // *****************************************************************************
 // Section: USI Sub-Protocol (HDLC framing + CRC8)
-//
-// The bootloader UART loop speaks the same wire format as the rest of the
-// PRIME stack USI: 0x7E start delimiter, escape byte 0x7D with mask 0x20,
-// CRC8 (polynomial 0x07, init 0) over the unescaped payload, 0x7E end
-// delimiter. Sub-protocol ID is 0x32 (first byte of every payload).
 // *****************************************************************************
 // *****************************************************************************
+
+/* The bootloader UART loop speaks the same wire format as the rest of the
+ * PRIME stack USI: 0x7E start delimiter, escape byte 0x7D with mask 0x20,
+ * CRC8 (polynomial 0x07, init 0) over the unescaped payload, 0x7E end
+ * delimiter. Sub-protocol ID is 0x32 (first byte of every payload).
+ */
 
 #define APP_BOOTLOADER_USI_DELIM            0x7EU
 #define APP_BOOTLOADER_USI_ESC              0x7DU
@@ -139,12 +165,7 @@
 #define APP_BOOTLOADER_READ_ERR_RANGE       (0x01U)
 #define APP_BOOTLOADER_READ_ERR_LEN         (0x02U)
 
-/* Maximum bytes a single REQ_READ response can carry. The USI frame
- * accumulator is 320 B unescaped; the response payload is
- * proto_id(1) + cmd(1) + status(1) + len(2) + data(N) + crc(1), so
- * the worst case unescaped frame is 6 + N. Capping data to 256 B
- * keeps the response well within the 320 B accumulator and matches
- * the SST26 page granularity the operator usually wants to dump. */
+/* Maximum bytes a single REQ_READ */
 #define APP_BOOTLOADER_READ_MAX_LEN         (256U)
 
 /* Total SST26 capacity (VF064B = 8 MB). Bound check for REQ_READ. */
@@ -154,63 +175,31 @@
 #define APP_BOOTLOADER_ERASE_ALL_OK             (0x00U)
 #define APP_BOOTLOADER_ERASE_ALL_ERR_BAD_MAGIC  (0x01U)
 
-/* Magic word the host must send in REQ_ERASE_ALL to confirm intent.
- * Sent as the 4-byte payload (LE). Anything else is rejected so a
- * stray frame never wipes the flash by accident. */
+/* Magic word the host must send in REQ_ERASE_ALL to confirm intent. */
 #define APP_BOOTLOADER_ERASE_ALL_MAGIC      (0xDEADBEEFUL)
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: UART Loop Timing
-//
-// The recovery loop polls the UART without a timer interrupt — every byte
-// is consumed inside a tight while(true) at 8 MHz. The two divisors below
-// approximate cadences relative to that loop. Numbers were calibrated by
-// counting cycles in the disassembly of a release build (-O1) and walked
-// back to whole 100s for readability. They are coarse: ±20 % is acceptable
-// for both the LED blink and the 2 s BOOT_HELLO emission.
 // *****************************************************************************
 // *****************************************************************************
 
-/* SysTick configuration. The Cortex-M0+ system timer is loaded with
- * one tick = 10 ms at 8 MHz CPU clock (80000 cycles). The UART loop
- * polls SysTick->CTRL.COUNTFLAG; that bit latches when the counter
- * wraps and self-clears on read, so each "tick" event corresponds to
- * 10 ms of real time regardless of how fast or slow the rest of the
- * loop runs. This frees the LED / HELLO timing from any dependency
- * on -O0 vs -O1 iteration rates. */
 #define APP_BOOTLOADER_SYSTICK_RELOAD       (80000UL - 1UL)
 #define APP_BOOTLOADER_TICK_MS              (10UL)
 
-/* LED phase durations expressed in 10 ms ticks.
- *
- * IDLE: symmetric 50 ms / 50 ms (10 Hz fast blink, "no host yet").
- *
- * ATTACHED: asymmetric 200 ms ON / 1800 ms OFF (one short flash every
- * 2 s, ~0.5 Hz heartbeat). Visually distinct from the application's
- * 1 Hz steady blink so the operator can tell at a glance whether the
- * device is in the bootloader or has booted into the app. */
-/* The bootloader LED runs at a steady 10 Hz whenever it is idle, so an
- * operator can tell at a glance "we are in the bootloader" -- distinct
- * from the application's 1 Hz steady blink. Command handlers (Install,
- * Backup, EraseSst26Zone, the per-row NVMCTRL writes, ...) take over
- * the LED while they run with their own per-iteration toggle cadence,
- * which makes them visually different from the idle 10 Hz. */
+/* LED phase durations expressed in 10 ms ticks. */
 #define APP_BOOTLOADER_LED_IDLE_ON_TICKS    (5U)    /* 50 ms */
 #define APP_BOOTLOADER_LED_IDLE_OFF_TICKS   (5U)    /* 50 ms */
 
-/* BOOT_HELLO period while waiting for a host = 2 s
- * (decision §3 #17 of BOOTLOADER_PLAN.md). */
+/* BOOT_HELLO period while waiting for a host. */
 #define APP_BOOTLOADER_HELLO_TICKS          (200U)  /* 2000 ms */
 
-/* RX accumulator size. The largest unescaped frame is REQ_WRITE
- * (proto_id + cmd + 4 B offset + 2 B len + 256 B data + CRC = 265 B);
- * 320 leaves margin for protocol growth without dwarfing the bss. */
+/* RX accumulator size. */
 #define APP_BOOTLOADER_USI_MAX_FRAME        320U
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Local Functions — Forward Declarations
+// Section: Local Functions - Forward Declarations
 // *****************************************************************************
 // *****************************************************************************
 
@@ -269,24 +258,16 @@ static void        lAPP_BOOTLOADER_RevertBundle(
 static void        lAPP_BOOTLOADER_UartRecovery(void);
 static void        lAPP_BOOTLOADER_Panic(void) __attribute__((noreturn));
 
-/* 256-byte page buffer reused by every backup/install loop. Aligned to
- * 4 bytes so DRV_NVMCTRL_PageWrite can consume it as uint32_t words. */
-static uint32_t gPageBuf[APP_BOOTLOADER_SST26_PAGE_SIZE / 4U];
+/* 256-byte page buffer reused by every backup/install loop. */
+static uint32_t sPageBuf[APP_BOOTLOADER_SST26_PAGE_SIZE / 4U];
 
-/* Response buffer for REQ_READ. Layout: [0]=status, [1..2]=len (LE),
- * [3..3+len-1]=data. Sized to (3 + APP_BOOTLOADER_READ_MAX_LEN). */
-static uint8_t  gReadRspBuf[3U + APP_BOOTLOADER_READ_MAX_LEN];
+/* Response buffer for REQ_READ. */
+static uint8_t  sReadRspBuf[3U + APP_BOOTLOADER_READ_MAX_LEN];
 
-/* Latched on the first REQ_WRITE of a UART session so the DOWNLOAD
- * zone is erased exactly once per session (not on every write). The
- * UART recovery loop resets this to false on entry. Inspection paths
- * that never write (REQ_READ, plain SW0 entry) leave DOWNLOAD intact. */
-static bool gDownloadEraseDone;
+/* Latched on the first REQ_WRITE of a UART session. */
+static bool sDownloadEraseDone;
 
-/* RX state machine for the USI sub-protocol. The accumulator collects
- * bytes between two 0x7E delimiters, with 0x7D unescape applied
- * inline. usiRxLen reaches the unescaped frame length when the closing
- * delimiter is seen. */
+/* RX state machine for the USI sub-protocol. */
 typedef enum
 {
     APP_BOOTLOADER_USI_RX_IDLE,     /* waiting for the start delimiter   */
@@ -294,9 +275,9 @@ typedef enum
     APP_BOOTLOADER_USI_RX_ESCAPED,  /* last byte was 0x7D                */
 } APP_BOOTLOADER_USI_RX_STATE;
 
-static uint8_t                     usiRxBuf[APP_BOOTLOADER_USI_MAX_FRAME];
-static uint16_t                    usiRxLen;
-static APP_BOOTLOADER_USI_RX_STATE usiRxState;
+static uint8_t                     sUsiRxBuf[APP_BOOTLOADER_USI_MAX_FRAME];
+static uint16_t                    sUsiRxLen;
+static APP_BOOTLOADER_USI_RX_STATE sUsiRxState;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -313,7 +294,7 @@ static APP_BOOTLOADER_USI_RX_STATE usiRxState;
     byte buffer.
 
   Description:
-    Bitwise implementation — the bootloader handles small payloads (max
+    Bitwise implementation - the bootloader handles small payloads (max
     ~265 B per frame) so a 256-byte lookup table would cost more flash
     than it saves in cycles.
 */
@@ -358,8 +339,8 @@ static uint8_t lAPP_BOOTLOADER_Crc8(const uint8_t *data, uint16_t len)
 
 static void lAPP_BOOTLOADER_UsiRxReset(void)
 {
-    usiRxLen   = 0U;
-    usiRxState = APP_BOOTLOADER_USI_RX_IDLE;
+    sUsiRxLen   = 0U;
+    sUsiRxState = APP_BOOTLOADER_USI_RX_IDLE;
 }
 
 /*******************************************************************************
@@ -369,21 +350,21 @@ static void lAPP_BOOTLOADER_UsiRxReset(void)
   Summary:
     Feeds one byte into the RX state machine. Returns true (with *outLen
     set) when a complete frame whose CRC matches has been collected in
-    usiRxBuf. The frame layout in the buffer on success:
+    sUsiRxBuf. The frame layout in the buffer on success:
 
-      usiRxBuf[0]                : protocol ID (must be 0x32)
-      usiRxBuf[1]                : command byte
-      usiRxBuf[2..outLen-1]      : command-specific arguments (if any)
+      sUsiRxBuf[0]                : protocol ID (must be 0x32)
+      sUsiRxBuf[1]                : command byte
+      sUsiRxBuf[2..outLen-1]      : command-specific arguments (if any)
 
     The CRC byte and the start/end delimiters are NOT in the buffer.
 
   Description:
     State machine:
       - IDLE     : drop bytes until a 0x7E start delimiter is seen.
-      - COLLECT  : append bytes to usiRxBuf, unescaping 0x7D <next>;
-                   on 0x7E, validate CRC over usiRxBuf[0..usiRxLen-2]
-                   against usiRxBuf[usiRxLen-1].
-      - ESCAPED  : transient state — next non-delimiter byte is XORed
+      - COLLECT  : append bytes to sUsiRxBuf, unescaping 0x7D <next>;
+                   on 0x7E, validate CRC over sUsiRxBuf[0..sUsiRxLen-2]
+                   against sUsiRxBuf[sUsiRxLen-1].
+      - ESCAPED  : transient state - next non-delimiter byte is XORed
                    with 0x20 and appended.
 
     Any anomaly (overflow, bad CRC, escape immediately followed by 0x7E)
@@ -399,13 +380,13 @@ static bool lAPP_BOOTLOADER_UsiFeedByte(uint8_t b, uint16_t *outLen)
 
     frameReady = false;
 
-    switch (usiRxState)
+    switch (sUsiRxState)
     {
         case APP_BOOTLOADER_USI_RX_IDLE:
             if (b == APP_BOOTLOADER_USI_DELIM)
             {
-                usiRxLen   = 0U;
-                usiRxState = APP_BOOTLOADER_USI_RX_COLLECT;
+                sUsiRxLen   = 0U;
+                sUsiRxState = APP_BOOTLOADER_USI_RX_COLLECT;
             }
             break;
 
@@ -413,27 +394,27 @@ static bool lAPP_BOOTLOADER_UsiFeedByte(uint8_t b, uint16_t *outLen)
             if (b == APP_BOOTLOADER_USI_DELIM)
             {
                 /* Closing delimiter: at least proto_id + cmd + CRC. */
-                if (usiRxLen < 3U)
+                if (sUsiRxLen < 3U)
                 {
                     /* Two delimiters back-to-back, or empty frame.
                      * Treat this 0x7E as a fresh start. */
-                    usiRxLen = 0U;
+                    sUsiRxLen = 0U;
                     break;
                 }
 
-                payloadLen  = (uint16_t) (usiRxLen - 1U);
-                expectedCrc = lAPP_BOOTLOADER_Crc8(usiRxBuf, payloadLen);
+                payloadLen  = (uint16_t) (sUsiRxLen - 1U);
+                expectedCrc = lAPP_BOOTLOADER_Crc8(sUsiRxBuf, payloadLen);
 
-                if (expectedCrc != usiRxBuf[payloadLen])
+                if (expectedCrc != sUsiRxBuf[payloadLen])
                 {
-                    /* CRC mismatch — discard and look for next start. */
+                    /* CRC mismatch - discard and look for next start. */
                     lAPP_BOOTLOADER_UsiRxReset();
                     break;
                 }
 
-                if (usiRxBuf[0] != APP_BOOTLOADER_USI_PROTO_ID)
+                if (sUsiRxBuf[0] != APP_BOOTLOADER_USI_PROTO_ID)
                 {
-                    /* Frame valid but for some other USI sub-protocol —
+                    /* Frame valid but for some other USI sub-protocol -
                      * the bootloader only owns 0x32. */
                     lAPP_BOOTLOADER_UsiRxReset();
                     break;
@@ -446,22 +427,22 @@ static bool lAPP_BOOTLOADER_UsiFeedByte(uint8_t b, uint16_t *outLen)
 
                 /* Caller now consumes the frame; reset state for the
                  * next one. */
-                usiRxState = APP_BOOTLOADER_USI_RX_IDLE;
+                sUsiRxState = APP_BOOTLOADER_USI_RX_IDLE;
                 frameReady = true;
             }
             else if (b == APP_BOOTLOADER_USI_ESC)
             {
-                usiRxState = APP_BOOTLOADER_USI_RX_ESCAPED;
+                sUsiRxState = APP_BOOTLOADER_USI_RX_ESCAPED;
             }
             else
             {
-                if (usiRxLen >= APP_BOOTLOADER_USI_MAX_FRAME)
+                if (sUsiRxLen >= APP_BOOTLOADER_USI_MAX_FRAME)
                 {
                     lAPP_BOOTLOADER_UsiRxReset();
                     break;
                 }
-                usiRxBuf[usiRxLen] = b;
-                usiRxLen++;
+                sUsiRxBuf[sUsiRxLen] = b;
+                sUsiRxLen++;
             }
             break;
 
@@ -474,14 +455,14 @@ static bool lAPP_BOOTLOADER_UsiFeedByte(uint8_t b, uint16_t *outLen)
                 lAPP_BOOTLOADER_UsiRxReset();
                 break;
             }
-            if (usiRxLen >= APP_BOOTLOADER_USI_MAX_FRAME)
+            if (sUsiRxLen >= APP_BOOTLOADER_USI_MAX_FRAME)
             {
                 lAPP_BOOTLOADER_UsiRxReset();
                 break;
             }
-            usiRxBuf[usiRxLen] = (uint8_t) (b ^ APP_BOOTLOADER_USI_ESC_MASK);
-            usiRxLen++;
-            usiRxState = APP_BOOTLOADER_USI_RX_COLLECT;
+            sUsiRxBuf[sUsiRxLen] = (uint8_t) (b ^ APP_BOOTLOADER_USI_ESC_MASK);
+            sUsiRxLen++;
+            sUsiRxState = APP_BOOTLOADER_USI_RX_COLLECT;
             break;
     }
 
@@ -540,9 +521,7 @@ static void lAPP_BOOTLOADER_UsiSendFrame(uint8_t cmd,
     prefix[0] = APP_BOOTLOADER_USI_PROTO_ID;
     prefix[1] = cmd;
 
-    /* CRC over unescaped bytes: [proto_id, cmd, payload[]]. The bitwise
-     * helper accepts a single contiguous buffer at a time, so chain
-     * the two segments. */
+    /* CRC over unescaped bytes. */
     crc = lAPP_BOOTLOADER_Crc8(prefix, sizeof(prefix));
     if ((payload != NULL) && (payloadLen > 0U))
     {
@@ -597,45 +576,23 @@ void APP_BOOTLOADER_Main(void)
 {
     APP_BOOTLOADER_BOOT_MODE_INFO info;
 
-    /* The application's fuse may leave the WDT armed after reset. Long
-     * SST26/flash operations in this bootloader comfortably exceed the
-     * default WDT period, so disable it up front; the application will
-     * re-enable it during its own init. */
     lAPP_BOOTLOADER_DisableWdt();
 
     /* Bring PA14 up as a GPIO output so the LED can be toggled during
-     * long memory operations. This gives a visible "bootloader active"
-     * signal that blinks faster than the application's idle pattern. */
+     * long memory operations. */
     lAPP_BOOTLOADER_LedInit();
 
-    /* Bring up the peripherals the bootloader needs to talk to the SST26
-     * and to the internal flash controller. The boot-mode handshake
-     * lives in SST26, so SPI must be ready before reading it. */
     DRV_SPI_Initialize();
     DRV_SST26_Initialize();
     DRV_NVMCTRL_Initialize();
 
-    /* Sanity-check that the connected SST26 is the expected variant.
-     * The bootloader's erase logic depends on the variable block-size
-     * geometry of the SST26VFxxxB family (4 x 8 KB parameter blocks +
-     * 1 x 32 KB sub-block in the bottom 64 KB). A different chip with
-     * a uniform 64 KB geometry, or any other SPI flash, would silently
-     * corrupt DOWNLOAD because EraseSst26Zone strides the bottom region
-     * in 8 KB / 32 KB chunks. Fail loud rather than fail silently. */
     if (DRV_SST26_ReadJedecId() != DRV_SST26_JEDEC_ID)
     {
         lAPP_BOOTLOADER_Panic();
     }
 
     /* Emergency entry: holding SW0 (PA15) at power-up forces UART
-     * recovery regardless of BOOT_MODE_INFO. Lets the operator escape
-     * a brick where the application is corrupt and cannot run its
-     * own SW0 handler. The recovery loop runs in place and never
-     * returns -- it ends the session via REQ_EXIT (clears BOOT_FLAG to
-     * NORMAL + reset) or REQ_INSTALL (writes INSTALL_PENDING + reset).
-     * BOOT_FLAG is intentionally NOT modified before entering the
-     * loop, so a release of SW0 followed by a power cycle returns to
-     * whatever boot mode was previously set. */
+     * recovery regardless of BOOT_MODE_INFO.  */
     if (lAPP_BOOTLOADER_Sw0Held() == true)
     {
         lAPP_BOOTLOADER_UartRecovery();
@@ -648,27 +605,14 @@ void APP_BOOTLOADER_Main(void)
     {
         case APP_BOOTLOADER_BOOT_MODE_NORMAL:
         default:
-            /* No pending operation, or unknown / virgin sector: go
-             * straight to the application. DRV_BOOT_MODE_Read collapses
-             * any inconsistent read to NORMAL with magic = 0, so this
-             * is also the safe default for bit-rot or first-ever boot.
-             *
-             * On the very first boot after factory programming the
-             * SST26 APP_CURRENT zone is virgin even though the internal
-             * flash holds a valid app. Mirror it now so the first FU
-             * has a usable APP_REVERT to back up to. The function is a
-             * no-op on every subsequent boot. */
+            /* No pending operation. */
             lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded();
             break;
 
         case APP_BOOTLOADER_BOOT_MODE_INSTALL_PENDING:
             if (lAPP_BOOTLOADER_InstallBundle(&info, NULL) == false)
             {
-                /* Bundle in DOWNLOAD is malformed: an install request
-                 * should never reach the bootloader without a valid
-                 * bundle (the application validates CRC + signature
-                 * first), so divert to UART recovery for operator
-                 * intervention instead of bricking. */
+                /* Bundle in DOWNLOAD is malformed. */
                 lAPP_BOOTLOADER_RebootIntoUart();
             }
             lAPP_BOOTLOADER_ClearBootMode();
@@ -680,9 +624,7 @@ void APP_BOOTLOADER_Main(void)
             break;
 
         case APP_BOOTLOADER_BOOT_MODE_UART_PENDING:
-            /* Recovery loop owns the rest of this boot. It only returns
-             * when the operator has cleared the flag and asked for a
-             * jump-to-app, otherwise it ends the session with a reset. */
+            /* Recovery loop . */
             lAPP_BOOTLOADER_UartRecovery();
             lAPP_BOOTLOADER_ClearBootMode();
             break;
@@ -698,10 +640,7 @@ void APP_BOOTLOADER_JumpToApp(void)
     uint32_t appSp;
     uint32_t appPc;
 
-    /* Hand SERCOM1 back to the application in reset state. The Harmony
-     * plib called by the modem writes CTRLB without an SWRST first,
-     * and SAMD20 silently rejects CTRLB writes when ENABLE=1, which
-     * causes its subsequent SYNCBUSY poll to spin forever. */
+    /* Hand SERCOM1 back to the application in reset state. */
     DRV_SPI_Deinitialize();
 
     appVectors = (const uint32_t *) APP_BOOTLOADER_APP_START;
@@ -725,7 +664,7 @@ void APP_BOOTLOADER_JumpToApp(void)
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Local Functions — Boot Mode Dispatch
+// Section: Local Functions - Boot Mode Dispatch
 // *****************************************************************************
 // *****************************************************************************
 
@@ -965,13 +904,7 @@ static void lAPP_BOOTLOADER_EraseSst26Zone(uint32_t offset, uint32_t sizeBytes)
 
         DRV_SST26_BlockErase64K(cursor);
 
-        /* Post-erase verify: read the first 4 bytes of the block we
-         * just erased and confirm they are 0xFF. If they are not, the
-         * chip's actual geometry does not match the assumption made by
-         * the size selection above (different chip variant, future
-         * silicon revision, or simply a hardware fault), and continuing
-         * would silently propagate "previous content AND new bytes"
-         * corruption on the next program. Panic visibly. */
+        /* Post-erase verify. */
         DRV_SST26_Read(cursor, sample, (uint32_t) sizeof(sample));
         for (i = 0U; i < (uint32_t) sizeof(sample); i++)
         {
@@ -999,7 +932,7 @@ static void lAPP_BOOTLOADER_EraseSst26Zone(uint32_t offset, uint32_t sizeBytes)
     After PICkit/JTAG factory programming the internal flash holds the
     application image but APP_CURRENT in SST26 is virgin (0xFF). The
     first PRIME firmware-upgrade would back up this empty zone into
-    APP_REVERT — leaving the device with no usable rollback target.
+    APP_REVERT - leaving the device with no usable rollback target.
     This function fixes the asymmetry: at the first NORMAL boot, when
     APP_CURRENT does not yet have the 'APPC' magic, copy the entire
     APP_BOOTLOADER_MAX_APP_SIZE bytes (~248 KB) of internal flash into
@@ -1028,24 +961,16 @@ static void lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded(void)
     uint32_t        i;
     uint32_t        k;
 
-    /* Already mirrored on a previous boot? Read just the first word
-     * (the magic) to keep the cold path cheap on every subsequent
-     * boot — under one SPI byte transfer plus the 4-byte read. */
+    /* Already mirrored on a previous boot? */
     DRV_SST26_Read(APP_BOOTLOADER_SST26_APP_CURRENT_OFFSET,
-                   (uint8_t *) gPageBuf, 4U);
-    magic = gPageBuf[0];
+                   (uint8_t *) sPageBuf, 4U);
+    magic = sPageBuf[0];
 
     if (magic == APP_BOOTLOADER_ZONE_MAGIC_APP_CURRENT)
     {
         return;
     }
 
-    /* Vector-table plausibility check on the internal flash app slot.
-     * Initial SP must point inside SAMD20J18 SRAM (0x20000000..
-     * 0x20007FFF) and the reset handler PC must be inside the app
-     * region with the Thumb bit set. If neither holds, the chip has
-     * been erased or never programmed at all and there is nothing
-     * useful to mirror. */
     flashWords = (const uint32_t *) APP_BOOTLOADER_APP_START;
     sp = flashWords[0];
     pc = flashWords[1];
@@ -1058,31 +983,23 @@ static void lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded(void)
         return;
     }
 
-    /* Erase APP_CURRENT zone in SST26 (256 KB at 0x080000, all in
-     * regular 64 KB blocks; EraseSst26Zone handles the strides). */
+    /* Erase APP_CURRENT zone in SST26 (256 KB at 0x080000. */
     lAPP_BOOTLOADER_EraseSst26Zone(APP_BOOTLOADER_SST26_APP_CURRENT_OFFSET,
                                    APP_BOOTLOADER_SST26_APP_CURRENT_SIZE);
 
-    /* Write the ZONE_HEADER: 'APPC' magic + payload size in the first
-     * 8 bytes of the first page, rest 0xFF padding. */
-    for (k = 0U; k < (sizeof(gPageBuf) / sizeof(gPageBuf[0])); k++)
+    /* Write the ZONE_HEADER. */
+    for (k = 0U; k < (sizeof(sPageBuf) / sizeof(sPageBuf[0])); k++)
     {
-        gPageBuf[k] = 0xFFFFFFFFUL;
+        sPageBuf[k] = 0xFFFFFFFFUL;
     }
-    gPageBuf[0] = APP_BOOTLOADER_ZONE_MAGIC_APP_CURRENT;
-    gPageBuf[1] = APP_BOOTLOADER_MAX_APP_SIZE;
+    sPageBuf[0] = APP_BOOTLOADER_ZONE_MAGIC_APP_CURRENT;
+    sPageBuf[1] = APP_BOOTLOADER_MAX_APP_SIZE;
 
     DRV_SST26_WritePage(APP_BOOTLOADER_SST26_APP_CURRENT_OFFSET,
-                        (const uint8_t *) gPageBuf,
+                        (const uint8_t *) sPageBuf,
                         APP_BOOTLOADER_SST26_PAGE_SIZE);
 
-    /* Copy the entire app region byte-for-byte into the SST26 zone,
-     * page by page (256 B). Internal flash is memory-mapped so a
-     * straight word copy fills gPageBuf without an intermediate driver
-     * call. The size used is APP_BOOTLOADER_MAX_APP_SIZE (= 248 KB);
-     * that may include trailing 0xFF padding past the actual app
-     * binary, which is fine — the install path uses the descriptor's
-     * size when overwriting later. */
+    /* Copy the entire app region byte-for-byte into the SST26 zone. */
     numPages = APP_BOOTLOADER_MAX_APP_SIZE
              / APP_BOOTLOADER_SST26_PAGE_SIZE;
     srcAddr  = APP_BOOTLOADER_APP_START;
@@ -1096,10 +1013,10 @@ static void lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded(void)
              k < (APP_BOOTLOADER_SST26_PAGE_SIZE / 4U);
              k++)
         {
-            gPageBuf[k] = flashWords[k];
+            sPageBuf[k] = flashWords[k];
         }
 
-        DRV_SST26_WritePage(dstAddr, (const uint8_t *) gPageBuf,
+        DRV_SST26_WritePage(dstAddr, (const uint8_t *) sPageBuf,
                             APP_BOOTLOADER_SST26_PAGE_SIZE);
 
         srcAddr += APP_BOOTLOADER_SST26_PAGE_SIZE;
@@ -1125,11 +1042,11 @@ static void lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded(void)
     1. Read ZONE_HEADER from CURRENT to extract the payload size.
     2. Erase REVERT.
     3. Write a fresh ZONE_HEADER {revertMagic, currentSize} to REVERT[0].
-    4. Loop page by page: read CURRENT[256 + i*256] → write
+    4. Loop page by page: read CURRENT[256 + i*256] -> write
        REVERT[256 + i*256], for ceil(currentSize / 256) pages.
 
     If the CURRENT zone is virgin (magic == 0xFFFFFFFF) we skip the
-    backup entirely — there is nothing to roll back to. The REVERT zone
+    backup entirely - there is nothing to roll back to. The REVERT zone
     stays unchanged, which is fine: a future revert against a virgin
     REVERT is itself an anomaly handled in the REVERT_PENDING path.
 */
@@ -1148,10 +1065,10 @@ static void lAPP_BOOTLOADER_BackupZone(uint32_t currentOffset,
 
     /* 1. Read CURRENT header. The first 8 bytes give us magic and size;
      *    we only need those to plan the backup. */
-    DRV_SST26_Read(currentOffset, (uint8_t *) gPageBuf,
+    DRV_SST26_Read(currentOffset, (uint8_t *) sPageBuf,
                    APP_BOOTLOADER_ZONE_HEADER_SIZE);
-    currentMagic = gPageBuf[0];
-    currentSize  = gPageBuf[1];
+    currentMagic = sPageBuf[0];
+    currentSize  = sPageBuf[1];
 
     if ((currentMagic == 0xFFFFFFFFUL) || (currentSize == 0U) ||
         (currentSize > (zoneSize - APP_BOOTLOADER_ZONE_HEADER_SIZE)))
@@ -1163,16 +1080,16 @@ static void lAPP_BOOTLOADER_BackupZone(uint32_t currentOffset,
     /* 2. Erase REVERT. */
     lAPP_BOOTLOADER_EraseSst26Zone(revertOffset, zoneSize);
 
-    /* 3. Build new ZONE_HEADER directly inside gPageBuf (magic + size at
+    /* 3. Build new ZONE_HEADER directly inside sPageBuf (magic + size at
      *    offsets 0 and 4, the rest of the 256 B page is 0xFF padding). */
-    for (i = 0U; i < (sizeof(gPageBuf) / sizeof(gPageBuf[0])); i++)
+    for (i = 0U; i < (sizeof(sPageBuf) / sizeof(sPageBuf[0])); i++)
     {
-        gPageBuf[i] = 0xFFFFFFFFUL;
+        sPageBuf[i] = 0xFFFFFFFFUL;
     }
-    gPageBuf[0] = revertMagic;
-    gPageBuf[1] = currentSize;
+    sPageBuf[0] = revertMagic;
+    sPageBuf[1] = currentSize;
 
-    DRV_SST26_WritePage(revertOffset, (const uint8_t *) gPageBuf,
+    DRV_SST26_WritePage(revertOffset, (const uint8_t *) sPageBuf,
                         APP_BOOTLOADER_SST26_PAGE_SIZE);
 
     /* 4. Copy payload page by page. */
@@ -1183,9 +1100,9 @@ static void lAPP_BOOTLOADER_BackupZone(uint32_t currentOffset,
 
     for (i = 0U; i < numPages; i++)
     {
-        DRV_SST26_Read(srcAddr, (uint8_t *) gPageBuf,
+        DRV_SST26_Read(srcAddr, (uint8_t *) sPageBuf,
                        APP_BOOTLOADER_SST26_PAGE_SIZE);
-        DRV_SST26_WritePage(dstAddr, (const uint8_t *) gPageBuf,
+        DRV_SST26_WritePage(dstAddr, (const uint8_t *) sPageBuf,
                             APP_BOOTLOADER_SST26_PAGE_SIZE);
 
         srcAddr += APP_BOOTLOADER_SST26_PAGE_SIZE;
@@ -1215,10 +1132,10 @@ static void lAPP_BOOTLOADER_BackupZone(uint32_t currentOffset,
   Description:
     1. Erase the destination CURRENT zone.
     2. Write a fresh ZONE_HEADER {zoneMagic, payloadSize} to zone[0].
-    3. Loop page by page (256 B): read source payload → write CURRENT
+    3. Loop page by page (256 B): read source payload -> write CURRENT
        payload area. If alsoToInternalFlash is true, the same page is
        also programmed into the internal flash app region (one row per
-       page → unlock + RowErase + 4 × PageWrite).
+       page -> unlock + RowErase + 4 x PageWrite).
     4. The final partial row is padded with 0xFF before being programmed.
 
     srcOffset is an absolute SST26 address pointing at the start of the
@@ -1243,21 +1160,21 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
     uint32_t dstFlash;
     uint8_t *pageBytes;
 
-    pageBytes = (uint8_t *) gPageBuf;
+    pageBytes = (uint8_t *) sPageBuf;
 
     /* 1. Erase the destination CURRENT zone. */
     lAPP_BOOTLOADER_EraseSst26Zone(zoneOffset, zoneSize);
 
     /* 2. Write ZONE_HEADER. The page buffer is reused everywhere; fill
      *    with 0xFF then drop magic and size at offsets 0 and 4. */
-    for (k = 0U; k < (sizeof(gPageBuf) / sizeof(gPageBuf[0])); k++)
+    for (k = 0U; k < (sizeof(sPageBuf) / sizeof(sPageBuf[0])); k++)
     {
-        gPageBuf[k] = 0xFFFFFFFFUL;
+        sPageBuf[k] = 0xFFFFFFFFUL;
     }
-    gPageBuf[0] = zoneMagic;
-    gPageBuf[1] = payloadSize;
+    sPageBuf[0] = zoneMagic;
+    sPageBuf[1] = payloadSize;
 
-    DRV_SST26_WritePage(zoneOffset, (const uint8_t *) gPageBuf,
+    DRV_SST26_WritePage(zoneOffset, (const uint8_t *) sPageBuf,
                         APP_BOOTLOADER_SST26_PAGE_SIZE);
 
     /* 3. Streaming page-by-page copy. */
@@ -1276,8 +1193,7 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
                           - (i * APP_BOOTLOADER_SST26_PAGE_SIZE);
         }
 
-        /* Load page from DOWNLOAD; pad short tail with 0xFF so both
-         * SST26 and internal flash see a clean fully-formed page. */
+        /* Load page from DOWNLOAD. */
         DRV_SST26_Read(srcAddr, pageBytes, bytesThisPage);
         if (bytesThisPage < APP_BOOTLOADER_SST26_PAGE_SIZE)
         {
@@ -1289,21 +1205,10 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
         }
 
         /* SST26 destination. */
-        DRV_SST26_WritePage(dstSst26, (const uint8_t *) gPageBuf,
+        DRV_SST26_WritePage(dstSst26, (const uint8_t *) sPageBuf,
                             APP_BOOTLOADER_SST26_PAGE_SIZE);
 
-        /* Internal flash destination (APP only). One SST26 page = one
-         * 256 B row = four 64 B flash pages.
-         *
-         * Each NVMCTRL command is followed by DRV_NVMCTRL_GetError so a
-         * silently-rejected operation (LOCKE on a locked region, PROGE
-         * on a row that was not erased, NVME on a hardware fault) is
-         * surfaced as a panic LED pattern instead of producing the
-         * "result = previous bits AND new bits" bit-AND corruption that
-         * was masking real failures before this fix. CacheInvalidate
-         * after the row write keeps subsequent flash reads (e.g. for
-         * verify, JumpToApp, or future self-mirror) from returning
-         * stale cached data. */
+        /* Internal flash destination (APP only). */
         if (alsoToInternalFlash)
         {
             DRV_NVMCTRL_RegionUnlock(dstFlash);
@@ -1321,7 +1226,7 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
             for (k = 0U; k < DRV_NVMCTRL_PAGES_PER_ROW; k++)
             {
                 DRV_NVMCTRL_PageWrite(
-                    &gPageBuf[k * (DRV_NVMCTRL_PAGE_SIZE / 4U)],
+                    &sPageBuf[k * (DRV_NVMCTRL_PAGE_SIZE / 4U)],
                     dstFlash + (k * DRV_NVMCTRL_PAGE_SIZE));
                 if (DRV_NVMCTRL_GetError() != DRV_NVMCTRL_ERROR_NONE)
                 {
@@ -1346,11 +1251,12 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
 
 /*******************************************************************************
   Function:
-    static void lAPP_BOOTLOADER_InstallBundle (
-        const APP_BOOTLOADER_BOOT_MODE_INFO *info )
+    static bool lAPP_BOOTLOADER_InstallBundle (
+        const APP_BOOTLOADER_BOOT_MODE_INFO *info,
+        uint8_t *outNumInstalled )
 
   Summary:
-    INSTALL_PENDING handler — applies the bundle currently in the SST26
+    INSTALL_PENDING handler - applies the bundle currently in the SST26
     DOWNLOAD zone.
 
   Description:
@@ -1359,8 +1265,8 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
     so a power loss restarts at the half-finished image without
     corrupting the existing REVERT:
 
-      step 0 → 1 : back up the matching CURRENT zone into REVERT
-      step 1 → 2 : install the DOWNLOAD payload into CURRENT (and into
+      step 0 -> 1 : back up the matching CURRENT zone into REVERT
+      step 1 -> 2 : install the DOWNLOAD payload into CURRENT (and into
                    internal flash for APP)
 
     After the last image, the caller writes mode = NORMAL and the next
@@ -1392,10 +1298,7 @@ static bool lAPP_BOOTLOADER_InstallBundle(const APP_BOOTLOADER_BOOT_MODE_INFO *i
         return false;
     }
 
-    /* Resume from where the previous boot left off. info->imageIdx may
-     * be ≥ numImages if a power cut hit just after the last (idx, 2)
-     * persist but before the caller wrote mode = NORMAL — in that case
-     * the loop simply runs zero iterations. */
+    /* Resume from where the previous boot left off. */
     for (i = (uint32_t) info->imageIdx; i < header.numImages; i++)
     {
         step = (i == (uint32_t) info->imageIdx) ? info->imageStep : 0U;
@@ -1457,7 +1360,7 @@ static bool lAPP_BOOTLOADER_InstallBundle(const APP_BOOTLOADER_BOOT_MODE_INFO *i
 
   Description:
     Revert is a single-phase operation per image (no backup), so only
-    imageIdx is meaningful — imageStep is always written as 0. The
+    imageIdx is meaningful - imageStep is always written as 0. The
     install loop calls this after each image so a power cut resumes at
     the next image instead of reverting an already-reverted slot.
 */
@@ -1486,7 +1389,7 @@ static void lAPP_BOOTLOADER_PersistRevertStep(uint8_t imageIdx)
 
   Description:
     Called when REVERT_PENDING discovers that one of the REVERT zones is
-    virgin or malformed — a state that should not occur in normal
+    virgin or malformed - a state that should not occur in normal
     operation (every install backs CURRENT into REVERT before
     overwriting), and that the bootloader cannot self-resolve. Writes
     UART_PENDING into BOOT_MODE_INFO and triggers a system reset so the
@@ -1510,7 +1413,10 @@ static void lAPP_BOOTLOADER_RebootIntoUart(void)
     NVIC_SystemReset();
 
     /* Reset is unconditional, but keep the compiler happy. */
-    while (true) { /* unreachable */ }
+    while (true)
+    {
+        /* unreachable */
+    }
 }
 
 /*******************************************************************************
@@ -1519,7 +1425,7 @@ static void lAPP_BOOTLOADER_RebootIntoUart(void)
         const APP_BOOTLOADER_BOOT_MODE_INFO *info )
 
   Summary:
-    REVERT_PENDING handler — restores each image from its REVERT zone.
+    REVERT_PENDING handler - restores each image from its REVERT zone.
 
   Description:
     Re-parses the BUNDLE_HEADER in DOWNLOAD (which acts as the install
@@ -1579,10 +1485,10 @@ static void lAPP_BOOTLOADER_RevertBundle(const APP_BOOTLOADER_BOOT_MODE_INFO *in
 
         /* Inspect REVERT header. The first 8 bytes are magic + size; the
          * rest of the page is irrelevant for the decision. */
-        DRV_SST26_Read(revertOffset, (uint8_t *) gPageBuf,
+        DRV_SST26_Read(revertOffset, (uint8_t *) sPageBuf,
                        APP_BOOTLOADER_ZONE_HEADER_SIZE);
-        revertHeaderMagic = gPageBuf[0];
-        revertHeaderSize  = gPageBuf[1];
+        revertHeaderMagic = sPageBuf[0];
+        revertHeaderSize  = sPageBuf[1];
 
         maxPayload = zoneSize - APP_BOOTLOADER_ZONE_HEADER_SIZE;
 
@@ -1624,7 +1530,7 @@ static void lAPP_BOOTLOADER_RevertBundle(const APP_BOOTLOADER_BOOT_MODE_INFO *in
   Description:
     Called once when the recovery loop starts. The convention shared
     with the modem application is that any new firmware-upload session
-    begins with a fully erased DOWNLOAD region — REQ_WRITE then turns
+    begins with a fully erased DOWNLOAD region - REQ_WRITE then turns
     into pure page-program with no per-block tracking.
 */
 
@@ -1680,8 +1586,8 @@ static void lAPP_BOOTLOADER_SendBootHello(void)
     Layout (all little-endian):
       [0..3]  version
       [4..7]  DOWNLOAD zone size (bytes)
-      [8..11] SST26 page size (bytes — REQ_WRITE chunks must align)
-      [12..15] SST26 erase granularity (bytes — informational)
+      [8..11] SST26 page size (bytes - REQ_WRITE chunks must align)
+      [12..15] SST26 erase granularity (bytes - informational)
 */
 
 static void lAPP_BOOTLOADER_HandleReqInfo(void)
@@ -1776,10 +1682,10 @@ static void lAPP_BOOTLOADER_HandleReqWrite(const uint8_t *args, uint16_t argLen)
             /* Erase DOWNLOAD on the first write of the session. Keeps
              * the previous bundle intact for inspection up until the
              * operator actually starts a new flash. */
-            if (gDownloadEraseDone == false)
+            if (sDownloadEraseDone == false)
             {
                 lAPP_BOOTLOADER_PrepareDownloadZone();
-                gDownloadEraseDone = true;
+                sDownloadEraseDone = true;
             }
 
             DRV_SST26_WritePage(APP_BOOTLOADER_SST26_DOWNLOAD_OFFSET + offset,
@@ -1889,7 +1795,7 @@ static void lAPP_BOOTLOADER_HandleReqExit(void)
     Args layout: 4 B offset (LE) + 2 B len (LE).
 
     Validates len in [1..APP_BOOTLOADER_READ_MAX_LEN] and offset+len
-    inside the SST26 capacity (8 MB). On success, fills gReadRspBuf
+    inside the SST26 capacity (8 MB). On success, fills sReadRspBuf
     with [status=OK, len_lo, len_hi, data...] and replies via
     RSP_READ. On failure replies with the appropriate status code
     and len = 0.
@@ -1934,17 +1840,17 @@ static void lAPP_BOOTLOADER_HandleReqRead(const uint8_t *args, uint16_t argLen)
         }
         else
         {
-            DRV_SST26_Read(offset, &gReadRspBuf[3], (uint32_t) len);
+            DRV_SST26_Read(offset, &sReadRspBuf[3], (uint32_t) len);
             status = APP_BOOTLOADER_READ_OK;
         }
     }
 
-    gReadRspBuf[0] = status;
-    gReadRspBuf[1] = (uint8_t) (len & 0xFFU);
-    gReadRspBuf[2] = (uint8_t) ((len >> 8) & 0xFFU);
+    sReadRspBuf[0] = status;
+    sReadRspBuf[1] = (uint8_t) (len & 0xFFU);
+    sReadRspBuf[2] = (uint8_t) ((len >> 8) & 0xFFU);
 
     lAPP_BOOTLOADER_UsiSendFrame(APP_BOOTLOADER_CMD_RSP_READ,
-                                 gReadRspBuf,
+                                 sReadRspBuf,
                                  (uint16_t) (3U + len));
 }
 
@@ -1965,7 +1871,7 @@ static void lAPP_BOOTLOADER_HandleReqRead(const uint8_t *args, uint16_t argLen)
     region (0..0x1FFF) and the EEPROM emulation row (0x3FF00..0x3FFFF)
     are deliberately excluded from this command.
 
-    On success, fills gReadRspBuf with [status=OK, len_lo, len_hi, data...]
+    On success, fills sReadRspBuf with [status=OK, len_lo, len_hi, data...]
     via a byte copy from the absolute address (internal flash is
     memory-mapped read-only on SAMD20) and replies via RSP_READ_FLASH.
     On failure replies with the appropriate status code and len = 0.
@@ -2017,18 +1923,18 @@ static void lAPP_BOOTLOADER_HandleReqReadFlash(const uint8_t *args,
             src = (const uint8_t *) offset;
             for (i = 0U; i < len; i++)
             {
-                gReadRspBuf[3U + i] = src[i];
+                sReadRspBuf[3U + i] = src[i];
             }
             status = APP_BOOTLOADER_READ_OK;
         }
     }
 
-    gReadRspBuf[0] = status;
-    gReadRspBuf[1] = (uint8_t) (len & 0xFFU);
-    gReadRspBuf[2] = (uint8_t) ((len >> 8) & 0xFFU);
+    sReadRspBuf[0] = status;
+    sReadRspBuf[1] = (uint8_t) (len & 0xFFU);
+    sReadRspBuf[2] = (uint8_t) ((len >> 8) & 0xFFU);
 
     lAPP_BOOTLOADER_UsiSendFrame(APP_BOOTLOADER_CMD_RSP_READ_FLASH,
-                                 gReadRspBuf,
+                                 sReadRspBuf,
                                  (uint16_t) (3U + len));
 }
 
@@ -2115,7 +2021,7 @@ static void lAPP_BOOTLOADER_HandleReqEraseAll(const uint8_t *args,
     static void lAPP_BOOTLOADER_UartRecovery ( void )
 
   Summary:
-    UART_PENDING entry point — main recovery loop.
+    UART_PENDING entry point - main recovery loop.
 
   Description:
     Initializes the UART, erases the DOWNLOAD zone, then enters a tight
@@ -2150,33 +2056,21 @@ static void lAPP_BOOTLOADER_UartRecovery(void)
 
     DRV_UART_Initialize();
 
-    /* Configure SysTick for a 10 ms tick. The loop below polls the
-     * COUNTFLAG bit; each set→clear cycle is exactly one tick of real
-     * time, independent of compiler optimization or how fast the loop
-     * runs. */
+    /* Configure SysTick for a 10 ms tick. */
     SysTick->LOAD = APP_BOOTLOADER_SYSTICK_RELOAD;
     SysTick->VAL  = 0U;
     SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk;
 
-    /* Reset the "DOWNLOAD has been erased this session" latch. UART
-     * entry alone does NOT erase DOWNLOAD any more -- only the first
-     * REQ_WRITE in the session does (lAPP_BOOTLOADER_HandleReqWrite).
-     * That preserves the previously-flashed bundle for inspection
-     * (REQ_READ) while still guaranteeing a clean canvas at the start
-     * of every new flash session. */
-    gDownloadEraseDone = false;
+    /* Reset the "DOWNLOAD has been erased this session" latch. */
+    sDownloadEraseDone = false;
 
     lAPP_BOOTLOADER_UsiRxReset();
 
-    /* Send the first hello immediately so a host listening on the line
-     * gets a prompt response without waiting the full 2 s period. */
+    /* Send the first hello immediately. */
     lAPP_BOOTLOADER_SendBootHello();
 
     attached     = false;
     ledCounter   = 0U;
-    /* lAPP_BOOTLOADER_LedInit drove the pin HIGH (LED OFF, active-low),
-     * so the next phase is the OFF phase -- we wait IDLE_OFF_TICKS
-     * before the first toggle that turns the LED on. */
     ledIsOn      = false;
     ledLimit     = APP_BOOTLOADER_LED_IDLE_OFF_TICKS;
     helloCounter = 0U;
@@ -2187,18 +2081,13 @@ static void lAPP_BOOTLOADER_UartRecovery(void)
         {
             if (lAPP_BOOTLOADER_UsiFeedByte(rxByte, &frameLen) == true)
             {
-                /* Valid frame received: lock into the attached state.
-                 * Stops emitting BOOT_HELLOs; LED stays at the same
-                 * 10 Hz idle cadence so the operator's visual cue for
-                 * "in bootloader" is identical with or without an
-                 * attached host. Command handlers below take over the
-                 * LED while they run. */
+                /* Valid frame received. */
                 attached     = true;
                 helloCounter = 0U;
 
                 if (frameLen >= 2U)
                 {
-                    cmd    = usiRxBuf[1];
+                    cmd    = sUsiRxBuf[1];
                     argLen = (uint16_t) (frameLen - 2U);
 
                     switch (cmd)
@@ -2208,7 +2097,7 @@ static void lAPP_BOOTLOADER_UartRecovery(void)
                             break;
 
                         case APP_BOOTLOADER_CMD_REQ_WRITE:
-                            lAPP_BOOTLOADER_HandleReqWrite(&usiRxBuf[2],
+                            lAPP_BOOTLOADER_HandleReqWrite(&sUsiRxBuf[2],
                                                            argLen);
                             break;
 
@@ -2222,22 +2111,22 @@ static void lAPP_BOOTLOADER_UartRecovery(void)
                             break;
 
                         case APP_BOOTLOADER_CMD_REQ_READ:
-                            lAPP_BOOTLOADER_HandleReqRead(&usiRxBuf[2],
+                            lAPP_BOOTLOADER_HandleReqRead(&sUsiRxBuf[2],
                                                           argLen);
                             break;
 
                         case APP_BOOTLOADER_CMD_REQ_READ_FLASH:
-                            lAPP_BOOTLOADER_HandleReqReadFlash(&usiRxBuf[2],
+                            lAPP_BOOTLOADER_HandleReqReadFlash(&sUsiRxBuf[2],
                                                                argLen);
                             break;
 
                         case APP_BOOTLOADER_CMD_REQ_ERASE_ALL:
-                            lAPP_BOOTLOADER_HandleReqEraseAll(&usiRxBuf[2],
+                            lAPP_BOOTLOADER_HandleReqEraseAll(&sUsiRxBuf[2],
                                                               argLen);
                             break;
 
                         default:
-                            /* Unknown command — silently ignore. The
+                            /* Unknown command - silently ignore. The
                              * host can detect timeouts and retry. */
                             break;
                     }
@@ -2245,16 +2134,12 @@ static void lAPP_BOOTLOADER_UartRecovery(void)
             }
         }
 
-        /* SysTick gate: counters tick once per 10 ms of real time.
-         * Reading SysTick->CTRL self-clears COUNTFLAG, so this only
-         * succeeds once per wrap. The rest of the loop body runs
-         * many times per tick at whatever rate the build allows. */
         if ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) == 0U)
         {
             continue;
         }
 
-        /* BOOT_HELLO heartbeat — only while no host has shown up. */
+        /* BOOT_HELLO heartbeat - only while no host has shown up. */
         if (attached == false)
         {
             helloCounter++;
@@ -2265,12 +2150,7 @@ static void lAPP_BOOTLOADER_UartRecovery(void)
             }
         }
 
-        /* LED state machine. Symmetric 10 Hz blink whenever the
-         * recovery loop is idle. While a command handler is running
-         * (Install, Backup, EraseSst26Zone, ...) the inner loops own
-         * the LED and toggle at their own per-iteration cadence; this
-         * counter keeps incrementing meanwhile and just resyncs the
-         * IDLE pattern once the handler returns. */
+        /* LED state machine. */
         ledCounter++;
         if (ledCounter >= ledLimit)
         {
@@ -2285,7 +2165,7 @@ static void lAPP_BOOTLOADER_UartRecovery(void)
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Local Functions — Peripherals and Utility
+// Section: Local Functions - Peripherals and Utility
 // *****************************************************************************
 // *****************************************************************************
 

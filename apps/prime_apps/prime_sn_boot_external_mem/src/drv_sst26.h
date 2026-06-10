@@ -8,14 +8,14 @@
     drv_sst26.h
 
   Summary:
-    Minimal bare-metal driver for the SST26VF032B serial flash used by the
+    Minimal bare-metal driver for the SST26VF064B serial flash used by the
     SAMD20 bootloader.
 
   Description:
     This driver exposes only the operations the bootloader needs to
     implement dual-zone firmware upgrade:
 
-      - Read  from either zone (TELECARGA or REVERT)
+      - Read  from either zone (DOWNLOAD, CURRENT or REVERT)
       - Page program (256 bytes)   into the REVERT zone during backup
       - Block erase (64 KB)        to prepare the REVERT zone
       - Status / JEDEC ID queries  for readiness and sanity checks
@@ -33,6 +33,31 @@
     this module.
 *******************************************************************************/
 
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
+
 #ifndef DRV_SST26_H
 #define DRV_SST26_H
 
@@ -44,9 +69,13 @@
 
 #include <stdint.h>
 
-#ifdef __cplusplus
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
 extern "C" {
+
 #endif
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -96,7 +125,7 @@ void DRV_SST26_Initialize(void);
   Description:
     Useful as a sanity check to make sure SPI wiring and SERCOM1 clocks
     are configured correctly. The expected value for the
-    SST26VF032B is DRV_SST26_JEDEC_ID.
+    SST26VF064B is DRV_SST26_JEDEC_ID.
 */
 
 uint32_t DRV_SST26_ReadJedecId(void);
@@ -182,9 +211,11 @@ void DRV_SST26_SectorErase4K(uint32_t address);
 
 void DRV_SST26_WaitReady(void);
 
+//DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
+//DOM-IGNORE-END
 
 #endif /* DRV_SST26_H */
 

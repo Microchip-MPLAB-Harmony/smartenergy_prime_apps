@@ -26,10 +26,35 @@
     The NVMCTRL_REGION_LOCKS fuse normally locks every region on reset,
     which means the caller must invoke DRV_NVMCTRL_RegionUnlock for the
     row being written before the RowErase/PageWrite sequence. The modem
-    project's srv_storage does the same — the ER/WP commands are
+    project's srv_storage does the same - the ER/WP commands are
     silently rejected on a locked region and INTFLAG.READY can even get
     stuck on some SAMD20 silicon.
 *******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
 
 #ifndef DRV_NVMCTRL_H
 #define DRV_NVMCTRL_H
@@ -43,9 +68,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef __cplusplus
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
 extern "C" {
+
 #endif
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -57,10 +86,7 @@ extern "C" {
 #define DRV_NVMCTRL_ROW_SIZE        256U
 #define DRV_NVMCTRL_PAGES_PER_ROW   4U
 
-/* DRV_NVMCTRL_GetError() return values. NONE = no error since the last
- * GetError call cleared the status. The other three mirror the SAMD20
- * NVMCTRL.STATUS error bits and are W1C inside GetError so a subsequent
- * call returns NONE if no new error has occurred. */
+/* DRV_NVMCTRL_GetError() return values. */
 typedef enum
 {
     DRV_NVMCTRL_ERROR_NONE   = 0,
@@ -181,9 +207,11 @@ void DRV_NVMCTRL_CacheInvalidate(void);
 
 DRV_NVMCTRL_ERROR DRV_NVMCTRL_GetError(void);
 
+//DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
+//DOM-IGNORE-END
 
 #endif /* DRV_NVMCTRL_H */
 

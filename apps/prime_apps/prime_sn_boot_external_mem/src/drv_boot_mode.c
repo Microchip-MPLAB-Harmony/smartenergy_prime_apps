@@ -21,6 +21,31 @@
                with the 12-byte struct followed by 0xFF padding).
 *******************************************************************************/
 
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Included Files
@@ -48,9 +73,6 @@ APP_BOOTLOADER_BOOT_MODE_INFO DRV_BOOT_MODE_Read(void)
                    raw, sizeof(raw));
     (void) memcpy(&info, raw, sizeof(info));
 
-    /* Sanity: magic and modeXor must match. Anything else (virgin sector
-     * with magic 0xFFFFFFFF, partial write that broke the invariant,
-     * bit rot) is treated as NORMAL — the bootloader jumps to the app. */
     expectedXor = (uint32_t) info.mode ^ (APP_BOOTLOADER_BOOT_MODE_MAGIC & 0xFFU);
 
     if ((info.magic != APP_BOOTLOADER_BOOT_MODE_MAGIC) ||
@@ -69,8 +91,7 @@ APP_BOOTLOADER_BOOT_MODE_INFO DRV_BOOT_MODE_Read(void)
 
 void DRV_BOOT_MODE_Write(const APP_BOOTLOADER_BOOT_MODE_INFO *info)
 {
-    /* Page-sized buffer for the page program. The struct lives at the
-     * start of the first page; the rest is 0xFF padding. */
+    /* Page-sized buffer for the page program. */
     uint8_t page[DRV_SST26_PAGE_SIZE];
     APP_BOOTLOADER_BOOT_MODE_INFO toWrite;
 
@@ -79,8 +100,7 @@ void DRV_BOOT_MODE_Write(const APP_BOOTLOADER_BOOT_MODE_INFO *info)
         return;
     }
 
-    /* Build the on-flash structure: copy the caller-provided fields and
-     * compute the magic + modeXor sanity. */
+    /* Build the on-flash structure. */
     toWrite.magic     = APP_BOOTLOADER_BOOT_MODE_MAGIC;
     toWrite.mode      = info->mode;
     toWrite.imageIdx  = info->imageIdx;
@@ -92,9 +112,7 @@ void DRV_BOOT_MODE_Write(const APP_BOOTLOADER_BOOT_MODE_INFO *info)
     (void) memset(page, 0xFFU, sizeof(page));
     (void) memcpy(page, &toWrite, sizeof(toWrite));
 
-    /* Erase the 4 KB sector reserved for BOOT_FLAG, then program the
-     * 256-byte page that contains the struct. The remaining sector
-     * stays at 0xFF and will be overwritten on the next call. */
+    /* Erase the 4 KB sector reserved for BOOT_FLAG */
     DRV_SST26_SectorErase4K(APP_BOOTLOADER_SST26_BOOT_FLAG_OFFSET);
     DRV_SST26_WritePage(APP_BOOTLOADER_SST26_BOOT_FLAG_OFFSET,
                         page, sizeof(page));

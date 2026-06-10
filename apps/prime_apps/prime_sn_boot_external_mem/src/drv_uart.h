@@ -19,13 +19,38 @@
     no byte is pending.
 
     Pins:
-      - PA24 → SERCOM3 PAD2 = TX (function C)
-      - PA25 → SERCOM3 PAD3 = RX (function C)
+      - PA24 -> SERCOM3 PAD2 = TX (function C)
+      - PA25 -> SERCOM3 PAD3 = RX (function C)
 
     Layout matches what the modem application uses for its own UART so
     the same physical wiring works for both bootloader recovery and
     normal operation.
 *******************************************************************************/
+
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
 
 #ifndef DRV_UART_H
 #define DRV_UART_H
@@ -39,9 +64,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef __cplusplus
+// DOM-IGNORE-BEGIN
+#ifdef __cplusplus  // Provide C++ Compatibility
+
 extern "C" {
+
 #endif
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -86,9 +115,11 @@ void DRV_UART_SendByte(uint8_t value);
 
 bool DRV_UART_RecvByteIfReady(uint8_t *out);
 
+//DOM-IGNORE-BEGIN
 #ifdef __cplusplus
 }
 #endif
+//DOM-IGNORE-END
 
 #endif /* DRV_UART_H */
 
