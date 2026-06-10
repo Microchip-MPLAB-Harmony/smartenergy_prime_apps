@@ -15,6 +15,31 @@
     the USI for the Service Node.
 *******************************************************************************/
 
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
+
 #include <string.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -86,7 +111,7 @@ static void APP_Modem_EstablishConfirm(uint16_t conHandle,
             MAC_ESTABLISH_CONFIRM_RESULT result, uint8_t *eui48, uint8_t type,
             uint8_t *data, uint16_t dataLen, uint8_t ae)
 {
-	uint8_t serialLen = 0U;
+    uint8_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_ESTABLISH_CONFIRM_CMD;
     appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
@@ -101,7 +126,7 @@ static void APP_Modem_EstablishConfirm(uint16_t conHandle,
         memset(&appSerialBuf[serialLen], 0, 6);
     }
 
-	serialLen += 6;
+    serialLen += 6;
     appSerialBuf[serialLen++] = type;
     appSerialBuf[serialLen++] = (uint8_t)(dataLen >> 8);
     appSerialBuf[serialLen++] = (uint8_t)(dataLen);
@@ -142,8 +167,8 @@ static void APP_Modem_ReleaseConfirm(uint16_t conHandle,
     /* Send packet */
     SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf,
                          serialLen);
-	/* Change node state */
-	sAppNodeState = APP_MODEM_NODE_REGISTERED;
+    /* Change node state */
+    sAppNodeState = APP_MODEM_NODE_REGISTERED;
 }
 
 static void APP_Modem_JoinIndication(uint16_t conHandle,
@@ -163,7 +188,7 @@ static void APP_Modem_JoinIndication(uint16_t conHandle,
     {
         memset(&appSerialBuf[serialLen], 0, 6);
     }
-	serialLen += 6;
+    serialLen += 6;
     appSerialBuf[serialLen++] = conType;
     appSerialBuf[serialLen++] = (uint8_t)(dataLen >> 8);
     appSerialBuf[serialLen++] = (uint8_t)(dataLen);
@@ -252,7 +277,7 @@ static void APP_Modem_DataConfirm(uint16_t conHandle, uint8_t *dataBuf,
 static void APP_Modem_DataIndication(uint16_t conHandle,
         uint8_t *data, uint16_t dataLen, uint32_t timeRef)
 {
-	uint8_t serialLen = 0U;
+    uint8_t serialLen = 0U;
 
     appSerialBuf[serialLen++] = APP_MODEM_CL_NULL_DATA_INDICATION_CMD;
     appSerialBuf[serialLen++] = (uint8_t)(conHandle >> 8);
@@ -403,7 +428,7 @@ static void APP_Modem_MLME_RegisterIndication(uint8_t *sna, uint8_t sid)
     serialLen += 6;
     appSerialBuf[serialLen++] = sid;
 
-	/* Send packet */
+    /* Send packet */
     SRV_USI_Send_Message(gUsiHandle, SRV_USI_PROT_ID_PRIME_API, appSerialBuf,
                          serialLen);
 
@@ -1243,7 +1268,7 @@ void APP_Modem_Initialize(void)
 
     /* Reset node state */
     sAppNodeState = APP_MODEM_NODE_UNREGISTERED;
-    
+
     /* Get PRIME API pointer */
     PRIME_API_GetPrimeAPI(&gPrimeApi);
 

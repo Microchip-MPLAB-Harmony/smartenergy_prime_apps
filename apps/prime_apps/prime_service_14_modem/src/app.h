@@ -58,10 +58,10 @@ extern "C" {
     determine the behavior of the application at various times.
 */
 /* Enable swapping of FU location */
-# define APP_FU_ENABLE_SWAP         0XFE45EC48
+#define APP_FU_ENABLE_SWAP          0xFE45EC48U
     
 /* Enable swapping of stack */
-# define APP_VERSION_ENABLE_SWAP    0XEF54CE84
+#define APP_VERSION_ENABLE_SWAP     0xEF54CE84U
     
 typedef enum
 {
@@ -101,10 +101,10 @@ typedef struct
 // *****************************************************************************
 // *****************************************************************************
 /* Period to blink LED in milliseconds */
-#define APP_LED_BLINK_PERIOD_MS     500
+#define APP_LED_BLINK_PERIOD_MS     500U
 
 #define APP_STRING_HEADER "\r\n-- MCHP PRIME 1.4 Monolithic Modem application for Service Node --\r\n" \
-	"-- Compiled: "__DATE__" "__TIME__" --\r\n" \
+    "-- Compiled: "__DATE__" "__TIME__" --\r\n" \
     
 // *****************************************************************************
 // *****************************************************************************

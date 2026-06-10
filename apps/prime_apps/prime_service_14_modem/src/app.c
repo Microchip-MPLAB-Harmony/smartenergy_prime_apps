@@ -93,7 +93,7 @@ typedef enum
 } APP_SW0_STATE;
 
 static APP_SW0_STATE appSw0State    = APP_SW0_IDLE;
-static uint16_t      appSw0LowCount = 0;
+static uint16_t      appSw0LowCount = 0U;
 
 /* Firmware-swap state machine. After the PRIME stack signals a FU
  * result that needs a swap (success or revert), the swap is no
@@ -314,7 +314,7 @@ void APP_Initialize ( void )
     appData.state = APP_STATE_INIT;
 
     /* Initialize swap flags */
-    fuSwapEn = 0;
+    fuSwapEn = 0U;
 
     /* Initialize modem application */
     APP_Modem_Initialize();
@@ -352,11 +352,13 @@ void APP_Tasks ( void )
         /* Application's initial state. */
         case APP_STATE_INIT:
         {
+            SYS_TIME_HANDLE timeHandle;
+
             /* Start of PRIME STack*/
             PRIME_Open(PRIME_INDEX_0);
             
             /* Register timer callback to blink LED */
-            SYS_TIME_HANDLE timeHandle = SYS_TIME_CallbackRegisterMS(
+            timeHandle = SYS_TIME_CallbackRegisterMS(
                     lAPP_TimeExpiredSetFlag, (uintptr_t) &appData.timerLedExpired,
                     APP_LED_BLINK_PERIOD_MS, SYS_TIME_PERIODIC);
 
@@ -385,7 +387,7 @@ void APP_Tasks ( void )
             /* Check if FU location must be swapped */
             if (fuSwapEn == APP_FU_ENABLE_SWAP)
             {
-                fuSwapEn = 0;
+                fuSwapEn = 0U;
                 lAPP_SwapFirmware();
             }
 
