@@ -45,8 +45,8 @@ data:
     - children:
       - attributes:
           id: drvPlcPhy
-          x: '747'
-          y: '589'
+          x: '844'
+          y: '473'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

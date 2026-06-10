@@ -23,8 +23,8 @@ data:
     - children:
       - attributes:
           id: mainBoard_SAMD20_XPLAINED_PRO
-          x: '105'
-          y: '382'
+          x: '477'
+          y: '87'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

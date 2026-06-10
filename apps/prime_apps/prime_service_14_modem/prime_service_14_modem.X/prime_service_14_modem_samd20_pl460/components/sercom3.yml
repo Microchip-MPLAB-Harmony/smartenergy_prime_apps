@@ -68,8 +68,8 @@ data:
     - children:
       - attributes:
           id: sercom3
-          x: '275'
-          y: '555'
+          x: '676'
+          y: '382'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph
