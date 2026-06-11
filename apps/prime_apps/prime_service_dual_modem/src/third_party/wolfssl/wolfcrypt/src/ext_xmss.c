@@ -1,12 +1,12 @@
 /* ext_xmss.c
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -19,16 +19,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335, USA
  */
 
-#ifdef HAVE_CONFIG_H
-    #include <config.h>
-#endif
+#include <wolfssl/wolfcrypt/libwolfssl_sources.h>
 
-#include <wolfssl/wolfcrypt/settings.h>
-#include <wolfssl/wolfcrypt/error-crypt.h>
-#include <wolfssl/wolfcrypt/logging.h>
 #include <wolfssl/wolfcrypt/sha256.h>
 
-#ifdef WOLFSSL_HAVE_XMSS
+#if defined(WOLFSSL_HAVE_XMSS) && defined(HAVE_LIBXMSS)
+
 #include <wolfssl/wolfcrypt/ext_xmss.h>
 
 #ifdef NO_INLINE
@@ -307,7 +303,7 @@ void wc_XmssKey_Free(XmssKey* key)
  *  returns     BAD_FUNC_ARG when a parameter is NULL.
  *  returns     -1 on failure.
  * */
-int wc_XmssKey_SetWriteCb(XmssKey * key, write_private_key_cb write_cb)
+int wc_XmssKey_SetWriteCb(XmssKey * key, wc_xmss_write_private_key_cb write_cb)
 {
     if (key == NULL || write_cb == NULL) {
         return BAD_FUNC_ARG;
@@ -336,7 +332,7 @@ int wc_XmssKey_SetWriteCb(XmssKey * key, write_private_key_cb write_cb)
  *  returns     BAD_FUNC_ARG when a parameter is NULL.
  *  returns     -1 on failure.
  * */
-int wc_XmssKey_SetReadCb(XmssKey * key, read_private_key_cb read_cb)
+int wc_XmssKey_SetReadCb(XmssKey * key, wc_xmss_read_private_key_cb read_cb)
 {
     if (key == NULL || read_cb == NULL) {
         return BAD_FUNC_ARG;
@@ -1042,4 +1038,4 @@ int wc_XmssKey_Verify(XmssKey * key, const byte * sig, word32 sigLen,
     return ret;
 }
 
-#endif /* WOLFSSL_HAVE_XMSS */
+#endif /* WOLFSSL_HAVE_XMSS && HAVE_LIBXMSS */

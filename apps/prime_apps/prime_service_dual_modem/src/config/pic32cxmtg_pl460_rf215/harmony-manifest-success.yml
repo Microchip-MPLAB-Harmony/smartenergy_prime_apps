@@ -4,22 +4,22 @@
 
 
 project: prime_sn_dual_modem
-creation_date: 2026-03-20T11:52:31.635+01:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2026-06-11T10:33:48.235+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
-mcc_version: v5.6.3
-mcc_core_version: v5.8.3
-mplabx_version: v6.25        # if MPLAB X plugin only
-harmony_version: v5.6.3
-compiler: XC32 5.00
+mcc_version: v5.7.0
+mcc_core_version: v5.9.0
+mplabx_version: v6.30        # if MPLAB X plugin only
+harmony_version: 1.7.0
+compiler: XC32 5.10
 
 modules:
     - {name: "csp", version: "v3.25.0"}
     - {name: "core", version: "v3.16.0"}
     - {name: "CMSIS_5", version: "5.9.0"}
     - {name: "smartenergy_prime", version: "v1.2.0"}
-    - {name: "crypto_v4", version: "v4.0.0-E3"}
-    - {name: "wolfssl", version: "v5.7.0"}
+    - {name: "crypto_v4", version: "v4.0.0-E5"}
+    - {name: "wolfssl", version: "v5.9.1"}
     - {name: "smartenergy", version: "v1.5.1"}
     - {name: "shd", version: "v1.4.0"}
 

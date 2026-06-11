@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 componentName: lib_wolfcrypt
-coreVersion: 5.8.4
+coreVersion: 5.9.0
 device: PIC32CX2051MTG128
 library: []
 dependency:
@@ -12,12 +12,12 @@ dependency:
   devMode: true
   name: crypto_v4
   type: package
-  version: v4.0.0-E3
+  version: v4.0.0-E5
 - dependencyPackage: ''
   devMode: true
   name: wolfssl
   type: package
-  version: v5.7.0
+  version: v5.9.1
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments:

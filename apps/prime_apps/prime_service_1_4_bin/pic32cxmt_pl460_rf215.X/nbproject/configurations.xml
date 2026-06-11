@@ -266,15 +266,15 @@
                              displayName="PRIME SERVICES"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvSecurity.yml</itemPath>
-                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeStorage.yml</itemPath>
                   <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvQueue.yml</itemPath>
                   <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srv_pcrc.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvSecurity.yml</itemPath>
                   <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeResetHandler.yml</itemPath>
-                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeUserPib.yml</itemPath>
-                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvLogReport.yml</itemPath>
                   <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeTimeManagement.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeUserPib.yml</itemPath>
                   <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvRandom.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeStorage.yml</itemPath>
+                  <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvLogReport.yml</itemPath>
                 </logicalFolder>
                 <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/PRIME SERVICES.yml</itemPath>
               </logicalFolder>
@@ -282,13 +282,13 @@
             </logicalFolder>
             <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/PRIME STACK/PRIME STACK.yml</itemPath>
           </logicalFolder>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/srv_usi.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/dfp.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/srv_usi_0.yml</itemPath>
           <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/core.yml</itemPath>
+          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/sefc0.yml</itemPath>
           <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/cmsis.yml</itemPath>
           <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/sefc1.yml</itemPath>
-          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/dfp.yml</itemPath>
-          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/srv_usi.yml</itemPath>
-          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/sefc0.yml</itemPath>
-          <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/srv_usi_0.yml</itemPath>
           <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/primeFirmwareUpgrade.yml</itemPath>
           <itemPath>prime_sn_14_bin_pic32cxmt_pl460_rf215/components/HarmonyCore.yml</itemPath>
         </logicalFolder>
@@ -413,7 +413,7 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>5.00</languageToolchainVersion>
+        <languageToolchainVersion>5.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>

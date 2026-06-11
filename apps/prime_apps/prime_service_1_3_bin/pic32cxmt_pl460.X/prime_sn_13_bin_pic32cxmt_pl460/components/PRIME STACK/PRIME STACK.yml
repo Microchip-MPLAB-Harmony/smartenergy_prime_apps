@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 componentName: PRIME STACK
-coreVersion: 5.8.3
+coreVersion: 5.9.0
 device: PIC32CX2051MTG128
 library: []
 dependency:
@@ -23,11 +23,11 @@ dependency:
 - dependencyPackage: ''
   name: smartenergy
   type: package
-  version: v1.5.0
+  version: v1.5.1
 - dependencyPackage: ''
   name: smartenergy_prime
   type: package
-  version: v1.1.0
+  version: v1.2.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}

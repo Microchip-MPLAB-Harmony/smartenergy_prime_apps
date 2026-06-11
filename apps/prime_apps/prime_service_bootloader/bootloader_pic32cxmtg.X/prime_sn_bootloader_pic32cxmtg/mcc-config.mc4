@@ -1,6 +1,6 @@
 configVersion: 1.0.0
-coreVersion: 5.8.3
-spaHostVersion: 1.2.0
+coreVersion: 5.9.0
+spaHostVersion: 1.3.0
 device: PIC32CX2051MTG128
 deviceLibrary:
   className: com.microchip.mcc.harmony.Harmony3Library

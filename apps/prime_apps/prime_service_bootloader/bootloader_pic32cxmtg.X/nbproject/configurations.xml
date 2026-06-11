@@ -193,12 +193,12 @@
                      displayName="prime_sn_bootloader_pic32cxmtg"
                      projectFiles="true">
         <logicalFolder name="components" displayName="components" projectFiles="true">
-          <itemPath>prime_sn_bootloader_pic32cxmtg/components/sefc0.yml</itemPath>
-          <itemPath>prime_sn_bootloader_pic32cxmtg/components/core.yml</itemPath>
-          <itemPath>prime_sn_bootloader_pic32cxmtg/components/cmsis.yml</itemPath>
           <itemPath>prime_sn_bootloader_pic32cxmtg/components/HarmonyCore.yml</itemPath>
           <itemPath>prime_sn_bootloader_pic32cxmtg/components/dfp.yml</itemPath>
           <itemPath>prime_sn_bootloader_pic32cxmtg/components/sefc1.yml</itemPath>
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/sefc0.yml</itemPath>
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/core.yml</itemPath>
+          <itemPath>prime_sn_bootloader_pic32cxmtg/components/cmsis.yml</itemPath>
         </logicalFolder>
         <itemPath>prime_sn_bootloader_pic32cxmtg/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -288,12 +288,12 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>5.00</languageToolchainVersion>
+        <languageToolchainVersion>5.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.4.152"/>
         <pack name="CMSIS" vendor="ARM" version="5.8.0"/>
+        <pack name="PIC32CX-MT_DFP" vendor="Microchip" version="1.4.152"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>

@@ -22,10 +22,60 @@
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/crypto_mac_cipher.h</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/crypto_hash.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+              <logicalFolder name="cpkcl_lib" displayName="cpkcl_lib" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_cf.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_clearflags_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_comp_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_condcopy_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_crt_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_div_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_expmod_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_fastcopy_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_fill_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_fmult_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gcd_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2neccadd_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2neccconv_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2neccdbl_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2neccmul_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_gf2necdsa_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_hash_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_headers_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_jumptable_addr_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_jumptable_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_mapping_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_nop_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_primegen_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_rc_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_redmod_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_rng_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_selftest_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_services_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_smult_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_square_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_swap_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_typedef_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccadd_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccconv_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccdbl_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpeccmul_pb.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/cpkcl_lib/cryptolib_zpecdsa_pb.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="driver" displayName="driver" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_aes_hw_6149.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_sha_hw_6156.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_ecc_hw_cpkcl.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/drv_crypto_ecdsa_hw_cpkcl.h</itemPath>
+              </logicalFolder>
+              <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/crypto_sym_aes6149_wrapper.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/crypto_hash_sha6156_wrapper.h</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/crypto_digisign_cpkcc44163_wrapper.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/user_settings.h</itemPath>
-              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/crypto_hash_wc_wrapper.h</itemPath>
-              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/crypto_digisign_wc_wrapper.h</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/wolfcrypt_config.h</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/crypto_mac_wc_wrapper.h</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/crypto_common_wc_wrapper.h</itemPath>
@@ -394,7 +444,6 @@
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dsa.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_kyber.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/visibility.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha256.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/dh.h</itemPath>
@@ -459,14 +508,12 @@
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/pkcs11.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_xmss.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ge_448.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kyber.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/hash.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/fips_test.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/error-crypt.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/selftest.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_kyber.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/cmac.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/misc.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ecc.h</itemPath>
@@ -480,6 +527,17 @@
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/chacha20_poly1305.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfmath.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ascon.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/async.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/libwolfssl_sources.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/libwolfssl_sources_asm.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/oid_sum.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rng_bank.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_slhdsa.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfentropy.h</itemPath>
             </logicalFolder>
             <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
           </logicalFolder>
@@ -501,54 +559,54 @@
                              displayName="PRIME SERVICES"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvRandom.yml</itemPath>
-                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeUserPib.yml</itemPath>
-                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvLogReport.yml</itemPath>
                   <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeStorage.yml</itemPath>
-                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeResetHandler.yml</itemPath>
+                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvLogReport.yml</itemPath>
+                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeUserPib.yml</itemPath>
+                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvRandom.yml</itemPath>
+                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeTimeManagement.yml</itemPath>
                   <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srv_pcrc.yml</itemPath>
                   <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvQueue.yml</itemPath>
-                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeTimeManagement.yml</itemPath>
                   <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvSecurity.yml</itemPath>
+                  <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeResetHandler.yml</itemPath>
                 </logicalFolder>
                 <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/PRIME SERVICES.yml</itemPath>
               </logicalFolder>
-              <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/prime_config.yml</itemPath>
-              <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/srv_rsniffer.yml</itemPath>
               <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/primePal.yml</itemPath>
               <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/srv_psniffer.yml</itemPath>
+              <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/srv_rsniffer.yml</itemPath>
+              <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/prime_config.yml</itemPath>
             </logicalFolder>
             <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/PRIME STACK.yml</itemPath>
           </logicalFolder>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/cmsis.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/dfp.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/HarmonyCore.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/srv_pvddmon.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sys_console.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/srv_usi_0.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/tc0.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/drvPlcPhy.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/primeFirmwareUpgrade.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sefc0.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/drv_memory.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/lib_wolfcrypt.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sefc1.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sys_console_0.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
           <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/flexcom5.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/srv_pcoup.yml</itemPath>
           <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/flexcom0.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/srv_usi.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/drv_memory_0.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sys_console.yml</itemPath>
           <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/core.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sys_debug.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/lib_crypto.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sys_time.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/adc.yml</itemPath>
           <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/drvRf215.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/flexcom3.yml</itemPath>
-          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/trng.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sys_time.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/tc0.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/primeFirmwareUpgrade.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/cmsis.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sys_debug.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/HarmonyCore.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/lib_crypto.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sefc1.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/srv_pcoup.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/srv_usi_0.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/srv_pvddmon.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/adc.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sefc0.yml</itemPath>
           <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/flexcom7.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/srv_usi.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/flexcom3.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/sys_console_0.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/dfp.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/drv_memory.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/drvPlcPhy.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/drv_memory_0.yml</itemPath>
+          <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/components/trng.yml</itemPath>
         </logicalFolder>
         <itemPath>prime_sn_dual_modem_pic32cxmtg_pl460_rf215/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -589,13 +647,24 @@
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/src/crypto_sym_cipher.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/common_crypto/src/crypto_aead_cipher.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="drivers" displayName="drivers" projectFiles="true">
+              <logicalFolder name="driver" displayName="driver" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_aes_hw_6149.c</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_sha_hw_6156.c</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_ecc_hw_cpkcl.c</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/driver/src/drv_crypto_ecdsa_hw_cpkcl.c</itemPath>
+              </logicalFolder>
+              <logicalFolder name="wrapper" displayName="wrapper" projectFiles="true">
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/src/crypto_sym_aes6149_wrapper.c</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/src/crypto_hash_sha6156_wrapper.c</itemPath>
+                <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/drivers/wrapper/src/crypto_digisign_cpkcc44163_wrapper.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
             <logicalFolder name="wolfcrypt" displayName="wolfcrypt" projectFiles="true">
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_mac_wc_wrapper.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_common_wc_wrapper.c</itemPath>
-              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_digisign_wc_wrapper.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_sym_wc_wrapper.c</itemPath>
               <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_aead_wc_wrapper.c</itemPath>
-              <itemPath>../src/config/pic32cxmtg_pl460_rf215/crypto/wolfcrypt/src/crypto_hash_wc_wrapper.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="driver" displayName="driver" projectFiles="true">
@@ -802,7 +871,6 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfevent.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/fe_448.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber_poly.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms_impl.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/kdf.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/logging.c</itemPath>
@@ -839,14 +907,12 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_armthumb.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfmath.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/signature.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_kyber.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_xmss.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/fe_operations.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/camellia.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_arm64.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/aes.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_c32.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/chacha.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/arc4.c</itemPath>
@@ -881,6 +947,16 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_cortexm.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sha512.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hash.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ascon.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asn_orig.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/async.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/evp_pk.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_mlkem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/rng_bank.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_mlkem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_mlkem_poly.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_slhdsa.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfentropy.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">
@@ -912,9 +988,9 @@
         <targetDevice>PIC32CX2051MTG128</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>jlink</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>5.00</languageToolchainVersion>
+        <languageToolchainVersion>5.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
@@ -985,7 +1061,7 @@
         </subordinates>
       </compileType>
       <makeCustomizationType>
-        <makeCustomizationPreStepEnabled>true</makeCustomizationPreStepEnabled>
+        <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>
         <makeUseCleanTarget>false</makeUseCleanTarget>
         <makeCustomizationPreStep>cd "../src/config/pic32cxmtg_pl460_rf215/driver/plc/phy/bin" &amp;&amp; xc32-objcopy -I binary -O ihex --change-addresses 0x10b8000 PLC_PHY_PRIME_2CHN.bin PLC_PHY_PRIME_2CHN.hex</makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>false</makeCustomizationPostStepEnabled>
