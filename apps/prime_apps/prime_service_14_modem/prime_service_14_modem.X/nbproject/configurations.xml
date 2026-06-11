@@ -454,11 +454,6 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="true">
-      <logicalFolder name="prime_service_14_modem_default"
-                     displayName="prime_service_14_modem_default"
-                     projectFiles="true">
-        <itemPath>prime_service_14_modem_default/mcc-config.mc4</itemPath>
-      </logicalFolder>
       <logicalFolder name="prime_service_14_modem_samd20_pl460"
                      displayName="prime_service_14_modem_samd20_pl460"
                      projectFiles="true">
@@ -1020,7 +1015,7 @@
         <property key="oXC32ld-extra-opts" value=""/>
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros"
-                  value="RAM_LENGTH=0x8000;RAM_ORIGIN=0x20000000;ROM_LENGTH=0x3DF00;ROM_ORIGIN=0x2000"/>
+                  value="RAM_LENGTH=0x8000;RAM_ORIGIN=0x20000000;ROM_LENGTH=0x40000;ROM_ORIGIN=0x0"/>
         <property key="remove-unused-sections" value="true"/>
         <property key="report-memory-usage" value="false"/>
         <property key="serial-length" value=""/>

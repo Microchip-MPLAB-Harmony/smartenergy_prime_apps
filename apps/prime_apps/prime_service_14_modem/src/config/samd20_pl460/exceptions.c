@@ -75,11 +75,11 @@ void __attribute__((noreturn, weak)) NonMaskableInt_Handler(void)
 void __attribute__((noreturn, weak)) HardFault_Handler(void)
 {
 #if defined(__DEBUG) || defined(__DEBUG_D) && defined(__XC32)
-    __builtin_software_breakpoint();
+   __builtin_software_breakpoint();
 #endif
-    while (true)
-    {
-    }
+   while (true)
+   {
+   }
 }
 
  
