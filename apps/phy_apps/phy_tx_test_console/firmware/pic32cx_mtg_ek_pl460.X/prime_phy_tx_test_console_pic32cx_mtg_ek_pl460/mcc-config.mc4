@@ -1,6 +1,6 @@
 configVersion: 1.0.0
-coreVersion: 5.8.3
-spaHostVersion: 1.2.0
+coreVersion: 5.9.0
+spaHostVersion: 1.3.0
 device: PIC32CX2051MTG128
 deviceLibrary:
   className: com.microchip.mcc.harmony.Harmony3Library
@@ -21,6 +21,7 @@ modules:
 - qspi
 - sefc0
 - sefc1
+- srvRandom
 - srv_pcoup
 - srv_pvddmon
 - sys_console
@@ -50,7 +51,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\configuration.h
   hash: 781cfb981c6e17fbba984a38f995f7cab5305395979fd569ff331514449bc91a
 - file: ..\src\config\pic32cx_mtg_ek_pl460\definitions.h
-  hash: 1b8932d35668783427fbe8422732b15179b382697fecb9cbce3eb1a8c457335e
+  hash: 27a3ab4737bd4d4532a86366097e01c2190b0566e69e1566cfb5afa55c12e825
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device_cache.h
@@ -70,7 +71,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\driver\memory\src\drv_memory_local.h
   hash: 129258f301260bf3f612f02652c061c7df89379cc21950df0d02ba5f5ee1845d
 - file: ..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.c
-  hash: 9e5ea32f9cbee2525b8e4a8650591c51b47fcbed749614b19a56cff55f65e030
+  hash: 9ca1bc4cc6775cbc6939c4b22d0939c92227b6bb29833c69f1b51cb325792424
 - file: ..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.h
   hash: 4f91187cb22a27ddf0400d5b14f63c248a3b0327929268b67da78e884004df54
 - file: ..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_hal.c
@@ -203,6 +204,10 @@ generatedFileHashHistoryMap:
   hash: c4f3a3c5187c3f0afb08e6ea337e36fc4da0f530c9aa591ec271c88a06c62f1c
 - file: ..\src\config\pic32cx_mtg_ek_pl460\service\pvddmon\srv_pvddmon.h
   hash: 0c1d6937ea647f56286a07f217f79494479775e49da30dc563192533bb052595
+- file: ..\src\config\pic32cx_mtg_ek_pl460\service\random\srv_random.c
+  hash: 85e554899c8365e8683cda05529af86b0f711801949c72e3a5dc68fa91c39d3b
+- file: ..\src\config\pic32cx_mtg_ek_pl460\service\random\srv_random.h
+  hash: 74409dadccb1a152f9717e596b31af36c8cac01d1a33a4a40a15c5fbdcd52a78
 - file: ..\src\config\pic32cx_mtg_ek_pl460\startup_xc32.c
   hash: 945560c1e9a770d581ead8ce23ffab8c2fe49948bbc028d5820114fafb1ae5f4
 - file: ..\src\config\pic32cx_mtg_ek_pl460\stdio\xc32_monitor.c

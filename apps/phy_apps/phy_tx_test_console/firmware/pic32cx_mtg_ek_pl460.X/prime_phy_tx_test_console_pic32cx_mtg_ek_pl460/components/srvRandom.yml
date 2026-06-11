@@ -1,0 +1,32 @@
+configVersion: 1.0.0
+componentName: srvRandom
+coreVersion: 5.9.0
+device: PIC32CX2051MTG128
+library: []
+dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyModule
+  name: srvRandom
+  type: module
+  version: ''
+- dependencyPackage: ''
+  devMode: true
+  name: smartenergy
+  type: package
+  version: v1.5.1
+customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
+data:
+  attachments: {}
+  elementPosition:
+    attributes:
+      id: __ROOTVIEW
+    children:
+    - children:
+      - attributes:
+          id: srvRandom
+          x: '361'
+          y: '590'
+        type: ElementPosition
+      type: ElementPositions
+    type: ComponentGraph
+  symbols: {}
+  userData: {}

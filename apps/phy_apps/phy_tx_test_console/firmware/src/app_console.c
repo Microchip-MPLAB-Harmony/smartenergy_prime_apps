@@ -54,6 +54,7 @@
 #include <stdarg.h>
 #include <math.h>
 #include "definitions.h"
+#include "service/random/srv_random.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -437,7 +438,7 @@ static bool APP_CONSOLE_SetDataMode(char *mode)
             length++;
             while(length--)
             {
-                dataValue = TRNG_ReadData();
+                dataValue = SRV_RANDOM_Get32bits();
                 *pData++ = (uint8_t)dataValue;
                 *pData++ = (uint8_t)(dataValue >> 8);
                 *pData++ = (uint8_t)(dataValue >> 16);

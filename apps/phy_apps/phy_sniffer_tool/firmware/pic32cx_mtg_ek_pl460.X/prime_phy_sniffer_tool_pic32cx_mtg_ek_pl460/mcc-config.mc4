@@ -1,6 +1,6 @@
 configVersion: 1.0.0
-coreVersion: 5.8.3
-spaHostVersion: 1.2.0
+coreVersion: 5.9.0
+spaHostVersion: 1.3.0
 device: PIC32CX2051MTG128
 deviceLibrary:
   className: com.microchip.mcc.harmony.Harmony3Library
@@ -50,7 +50,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\driver\driver_common.h
   hash: 5217965f6720b4fdf717e99ce9df4f2c9fbd82bbbc9655847166d1eefa806fee
 - file: ..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.c
-  hash: 9e5ea32f9cbee2525b8e4a8650591c51b47fcbed749614b19a56cff55f65e030
+  hash: 9ca1bc4cc6775cbc6939c4b22d0939c92227b6bb29833c69f1b51cb325792424
 - file: ..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_boot.h
   hash: 4f91187cb22a27ddf0400d5b14f63c248a3b0327929268b67da78e884004df54
 - file: ..\src\config\pic32cx_mtg_ek_pl460\driver\plc\common\drv_plc_hal.c

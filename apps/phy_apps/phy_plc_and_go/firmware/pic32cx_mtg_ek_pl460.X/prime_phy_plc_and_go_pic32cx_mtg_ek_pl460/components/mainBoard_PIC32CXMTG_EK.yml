@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 componentName: mainBoard_PIC32CXMTG_EK
-coreVersion: 5.8.3
+coreVersion: 5.9.0
 device: PIC32CX2051MTG128
 library: []
 dependency:
@@ -12,7 +12,7 @@ dependency:
   devMode: true
   name: shd
   type: package
-  version: v1.3.0
+  version: v1.4.0
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments: {}

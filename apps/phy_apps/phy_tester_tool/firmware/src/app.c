@@ -187,6 +187,7 @@ static void APP_PLCDataCfmCb(DRV_PLC_PHY_TRANSMISSION_CFM_OBJ *cfmObj, uintptr_t
 
 }
 
+#ifndef APP_PLC_DISABLE_PVDDMON
 static void APP_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
 {
     (void)context;
@@ -208,6 +209,7 @@ static void APP_PVDDMonitorCb( SRV_PVDDMON_CMP_MODE cmpMode, uintptr_t context )
         SRV_PVDDMON_Restart(SRV_PVDDMON_CMP_MODE_OUT);
     }
 }
+#endif
 
 void APP_USIPhyProtocolEventHandler(uint8_t *pData, size_t length)
 {
@@ -469,12 +471,18 @@ void APP_Tasks(void)
             /* Set initial PLC configuration */
             APP_PLC_SetInitialConfiguration(appPlcData.channel);
 
+#ifndef APP_PLC_DISABLE_PVDDMON
             /* Disable TX Enable at the beginning */
             DRV_PLC_PHY_EnableTX(appPlcData.drvPlcHandle, false);
             appPlcData.pvddMonTxEnable = false;
             /* Enable PLC PVDD Monitor Service */
             SRV_PVDDMON_CallbackRegister(APP_PVDDMonitorCb, 0);
             SRV_PVDDMON_Start(SRV_PVDDMON_CMP_MODE_IN);
+#else
+            /* Enable TX Enable at the beginning */
+            DRV_PLC_PHY_EnableTX(appPlcData.drvPlcHandle, true);
+            appPlcData.pvddMonTxEnable = true;
+#endif
             /* Set Application to next state */
             appPlcData.state = APP_PLC_STATE_READY;
             break;
