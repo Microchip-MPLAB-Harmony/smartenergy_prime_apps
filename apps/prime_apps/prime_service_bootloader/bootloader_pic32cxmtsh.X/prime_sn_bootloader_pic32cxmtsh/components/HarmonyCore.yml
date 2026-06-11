@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 componentName: HarmonyCore
-coreVersion: 5.8.3
+coreVersion: 5.9.0
 device: PIC32CX2051MTSH128
 library: []
 dependency:

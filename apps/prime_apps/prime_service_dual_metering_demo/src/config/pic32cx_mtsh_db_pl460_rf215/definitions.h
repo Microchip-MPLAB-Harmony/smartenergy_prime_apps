@@ -111,6 +111,7 @@
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
 #include "gfx/driver/controller/slcdc/cl010.h"
+#include "crypto/crypto_config.h"
 #include "app_metrology.h"
 #include "app_console.h"
 #include "app_datalog.h"

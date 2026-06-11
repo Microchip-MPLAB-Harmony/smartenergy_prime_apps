@@ -1,12 +1,12 @@
-/* ext_kyber.h
+/* ext_mlkem.h
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -26,30 +26,27 @@
     #include <wolfssl/wolfcrypt/cryptocb.h>
 #endif
 
-#ifdef WOLFSSL_HAVE_KYBER
-#include <wolfssl/wolfcrypt/kyber.h>
+#ifdef WOLFSSL_HAVE_MLKEM
+#include <wolfssl/wolfcrypt/mlkem.h>
 
-#if !defined(HAVE_LIBOQS) && !defined(HAVE_PQM4)
-#error "This code requires liboqs or pqm4"
+#if !defined(HAVE_LIBOQS)
+#error "This code requires liboqs"
 #endif
 
-#if defined(WOLFSSL_WC_KYBER)
+#if defined(WOLFSSL_WC_MLKEM)
 #error "This code is incompatible with wolfCrypt's implementation of Kyber."
 #endif
 
 #if defined (HAVE_LIBOQS)
     #include <oqs/kem.h>
-    #define EXT_KYBER_MAX_PRIV_SZ OQS_KEM_kyber_1024_length_secret_key
-    #define EXT_KYBER_MAX_PUB_SZ  OQS_KEM_kyber_1024_length_public_key
-#elif defined(HAVE_PQM4)
-    #include "api_kyber.h"
-    #define PQM4_PUBLIC_KEY_LENGTH    CRYPTO_PUBLICKEYBYTES
-    #define PQM4_PRIVATE_KEY_LENGTH   CRYPTO_SECRETKEYBYTES
-    #define PQM4_SHARED_SECRET_LENGTH CRYPTO_BYTES
-    #define PQM4_CIPHERTEXT_LENGTH    CRYPTO_CIPHERTEXTBYTES
 
-    #define EXT_KYBER_MAX_PRIV_SZ PQM4_PRIVATE_KEY_LENGTH
-    #define EXT_KYBER_MAX_PUB_SZ  PQM4_PUBLIC_KEY_LENGTH
+    #ifndef WOLFSSL_NO_ML_KEM
+        #define EXT_KYBER_MAX_PRIV_SZ OQS_KEM_ml_kem_1024_length_secret_key
+        #define EXT_KYBER_MAX_PUB_SZ  OQS_KEM_ml_kem_1024_length_public_key
+    #elif defined(WOLFSSL_MLKEM_KYBER)
+        #define EXT_KYBER_MAX_PRIV_SZ OQS_KEM_kyber_1024_length_secret_key
+        #define EXT_KYBER_MAX_PUB_SZ  OQS_KEM_kyber_1024_length_public_key
+    #endif
 #endif
 
 struct KyberKey {
@@ -71,7 +68,7 @@ struct KyberKey {
 };
 
 #if defined (HAVE_LIBOQS)
-WOLFSSL_LOCAL int ext_kyber_enabled(int id);
+WOLFSSL_LOCAL int ext_mlkem_enabled(int id);
 #endif
-#endif /* WOLFSSL_HAVE_KYBER */
+#endif /* WOLFSSL_HAVE_MLKEM */
 #endif /* EXT_KYBER_H */

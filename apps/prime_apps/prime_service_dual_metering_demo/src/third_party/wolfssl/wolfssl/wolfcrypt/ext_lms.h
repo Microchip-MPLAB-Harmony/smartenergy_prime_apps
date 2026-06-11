@@ -1,12 +1,12 @@
 /* ext_lms.h
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -22,12 +22,9 @@
 #ifndef EXT_LMS_H
 #define EXT_LMS_H
 
-#ifdef WOLFSSL_HAVE_LMS
-#include <wolfssl/wolfcrypt/lms.h>
+#if defined(WOLFSSL_HAVE_LMS) && defined(HAVE_LIBLMS)
 
-#if !defined(HAVE_LIBLMS)
-#error "This code requires liblms"
-#endif
+#include <wolfssl/wolfcrypt/lms.h>
 
 /* hash-sigs LMS HSS includes */
 #include <hss.h>
@@ -53,8 +50,8 @@ struct LmsKey {
     unsigned char        pub[HSS_MAX_PUBLIC_KEY_LEN];
 #ifndef WOLFSSL_LMS_VERIFY_ONLY
     hss_working_key *    working_key;
-    write_private_key_cb write_private_key; /* Callback to write/update key. */
-    read_private_key_cb  read_private_key;  /* Callback to read key. */
+    wc_lms_write_private_key_cb write_private_key; /* Callback to write/update key. */
+    wc_lms_read_private_key_cb  read_private_key;  /* Callback to read key. */
     void *               context;           /* Context arg passed to callbacks. */
     hss_extra_info       info;
 #endif /* ifndef WOLFSSL_LMS_VERIFY_ONLY */

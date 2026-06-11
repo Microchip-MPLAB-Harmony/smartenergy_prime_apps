@@ -15,30 +15,28 @@
     hardware driver for Microchip microcontrollers.
 **************************************************************************/
 
-//DOM-IGNORE-BEGIN
-/*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
-
-The software and documentation is provided by microchip and its contributors
-"as is" and any express, implied or statutory warranties, including, but not
-limited to, the implied warranties of merchantability, fitness for a particular
-purpose and non-infringement of third party intellectual property rights are
-disclaimed to the fullest extent permitted by law. In no event shall microchip
-or its contributors be liable for any direct, indirect, incidental, special,
-exemplary, or consequential damages (including, but not limited to, procurement
-of substitute goods or services; loss of use, data, or profits; or business
-interruption) however caused and on any theory of liability, whether in contract,
-strict liability, or tort (including negligence or otherwise) arising in any way
-out of the use of the software and documentation, even if advised of the
-possibility of such damage.
-
-Except as expressly permitted hereunder and subject to the applicable license terms
-for any third-party software incorporated in the software and any applicable open
-source software license terms, no license or other rights, whether express or
-implied, are granted under any patent or other intellectual property rights of
-Microchip or any third party.
-*/
-//DOM-IGNORE-END
+/*******************************************************************************
+* Copyright (C) 2026 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*******************************************************************************/
 
 // *****************************************************************************
 // *****************************************************************************
@@ -251,7 +249,7 @@ crypto_Hash_Status_E Crypto_Hash_Hw_Sha_Update(void *shaUpdateCtx,
     fill = blockSizeBytes - left;
     shaCtx->totalLen += dataLen;
 
-    if ((left & dataLen) >= fill)
+    if ((left != 0U) && (dataLen >= fill))
     {
         (void) memcpy((shaCtx->buffer + left), data, fill);
         
@@ -260,24 +258,21 @@ crypto_Hash_Status_E Crypto_Hash_Hw_Sha_Update(void *shaUpdateCtx,
         /* Load message */
         localBuffer = (uint32_t *)shaCtx->buffer;
         /* MISRA C-2012 deviation block end */
-
-        for (uint32_t x = 0; x < dataLen; x += blockSizeBytes)
-        {
-            DRV_CRYPTO_SHA_Update(localBuffer, blockSizeWords);
-            localBuffer += (uint32_t)blockSizeWords;
-        }
         
+        DRV_CRYPTO_SHA_Update(localBuffer, blockSizeWords);
         data += fill;
         dataLen -= fill;
         left = 0;
     }
 
-    if (dataLen >= blockSizeBytes)
+    while (dataLen >= blockSizeBytes)
     {
         /* MISRA C-2012 deviation block start */
         /* MISRA C-2012 Rule 11.3 deviated: 1. Deviation record ID - H3_MISRAC_2012_R_11_3_DR_1 */
-        DRV_CRYPTO_SHA_Update((uint32_t *)data, blockSizeWords);
+        /* Load message */
+        localBuffer = (uint32_t *)data;
         /* MISRA C-2012 deviation block end */
+        DRV_CRYPTO_SHA_Update(localBuffer, blockSizeWords);
         data += blockSizeBytes;
         dataLen -= blockSizeBytes; 
     }
@@ -309,9 +304,10 @@ crypto_Hash_Status_E Crypto_Hash_Hw_Sha_Final(void *shaFinalCtx,
     blockSizeBytes = lCrypto_Hash_Hw_Sha_GetBlockSizeBytes(shaCtx->algo);
     paddingSizeBytes = lCrypto_Hash_Hw_Sha_GetPaddingSizeBytes(shaCtx->algo);
    
-    /* Get the number of bits */    
+    /* Get the number of bits before padding */    
     uint64_t totalBits = shaCtx->totalLen << 3;
     
+    /* Add padding */
     last = ((uint32_t)(shaCtx->totalLen)) & ((uint32_t)(blockSizeBytes - 1UL));
     if (last < paddingSizeBytes)
     { 
