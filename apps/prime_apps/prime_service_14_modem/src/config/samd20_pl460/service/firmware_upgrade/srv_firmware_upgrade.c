@@ -183,6 +183,12 @@ static void lSRV_FU_StoreImageInfo(uint32_t address, uint32_t size)
         return;
     }
 
+    /* Reject a malformed FU_INIT whose signature would overrun the buffer. */
+    if (fuData.signLength > (uint32_t) PRIME_SIGNATURE_SIZE)
+    {
+        return;
+    }
+
     iniSignature = fuData.imageSize - fuData.signLength;
 
     /* Skip segments that fall entirely before the signature tail. */
@@ -339,20 +345,73 @@ static void lSRV_FU_EraseFuRegion(void)
     memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
 }
 
-static void lSRV_FU_ConvertDerFormatSignature(void)
+/* Convert a DER-encoded ECDSA signature (SEQUENCE { INTEGER r, INTEGER s })
+ * into the raw 64-byte r||s form expected by Crypto_DigiSign_Ecdsa_Verify.
+ * Parses the TLV structure instead of assuming fixed offsets, so it accepts
+ * any valid P-256 DER length (70..72 B, depending on the sign padding of r/s)
+ * and right-aligns each component into its 32-byte half. Returns false on any
+ * malformed input. */
+static bool lSRV_FU_DerToRawSignature(uint16_t derLen)
 {
-    uint8_t index;
+    uint8_t  rawSig[SIGNATURE_SIZE_ECDSA_256];   /* 64: r||s, zero-padded */
+    uint16_t pos;
+    uint8_t  intLen;
+    uint8_t  comp;
+    uint8_t  half = (uint8_t)(SIGNATURE_SIZE_ECDSA_256 / 2U);   /* 32 */
 
-    for (index = 0U; index < 32U; index++)
+    (void) memset(rawSig, 0, sizeof(rawSig));
+
+    /* SEQUENCE tag + short-form length (P-256 signatures are always < 128 B). */
+    if ((derLen < 8U) || (imageSignature[0] != 0x30U))
     {
-        imageSignature[index] = imageSignature[4U + index];
+        return false;
+    }
+    if ((uint16_t) imageSignature[1] != (uint16_t)(derLen - 2U))
+    {
+        return false;
     }
 
-    for (index = 0U; index < 32U; index++)
+    pos = 2U;
+
+    /* Two INTEGERs: r then s. */
+    for (comp = 0U; comp < 2U; comp++)
     {
-        imageSignature[32U + index] = imageSignature[38U + index];
+        if (((uint16_t)(pos + 2U) > derLen) || (imageSignature[pos] != 0x02U))
+        {
+            return false;
+        }
+        intLen = imageSignature[pos + 1U];
+        pos = (uint16_t)(pos + 2U);
+
+        if (((uint16_t)(pos + intLen)) > derLen)
+        {
+            return false;
+        }
+
+        /* Skip DER leading sign-pad zero byte(s). */
+        while ((intLen > 0U) && (imageSignature[pos] == 0x00U))
+        {
+            pos++;
+            intLen--;
+        }
+
+        if (intLen > half)        /* a P-256 component never exceeds 32 bytes */
+        {
+            return false;
+        }
+
+        (void) memcpy(&rawSig[((uint16_t)comp * half) + (half - intLen)],
+                      &imageSignature[pos], intLen);
+        pos = (uint16_t)(pos + intLen);
     }
 
+    if (pos != derLen)            /* the SEQUENCE must be consumed exactly */
+    {
+        return false;
+    }
+
+    (void) memcpy(imageSignature, rawSig, sizeof(rawSig));
+    return true;
 }
 
 static bool lSRV_FU_VerifySignature(void)
@@ -381,9 +440,25 @@ static bool lSRV_FU_VerifySignature(void)
         return false;
     }
 
-    /* Check if signature comes in DER format */
-    if (fuData.signLength == 70UL) {
-        lSRV_FU_ConvertDerFormatSignature();
+    /* Normalise the signature to the raw 64-byte r||s the verifier expects.
+     * PRIME may deliver it raw (signLength == 64) or DER-encoded (SEQUENCE,
+     * 70..72 B for P-256). */
+    if (fuData.signLength == SIGNATURE_SIZE_ECDSA_256)
+    {
+        /* Already raw r||s -- nothing to do. */
+    }
+    else if ((fuData.signLength >= 8UL) &&
+             (fuData.signLength <= (uint32_t) PRIME_SIGNATURE_SIZE) &&
+             (imageSignature[0] == 0x30U))
+    {
+        if (!lSRV_FU_DerToRawSignature((uint16_t) fuData.signLength))
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;   /* unsupported signature length / format */
     }
 
     /* Start to verify the signature */
@@ -811,7 +886,15 @@ void SRV_FU_Tasks(void)
                     crypto_DigiSign_Status_E stateCryptoECDSA;
                     int8_t validDSA = 0;
 
-                    /* Hash already done, do ECDSA256_SHA256 verification */
+                    /* Hash already done, do ECDSA256_SHA256 verification.
+                     * The software P-256 verify (wolfSSL SP) is a single
+                     * blocking call of several hundred ms on this Cortex-M0+,
+                     * during which APP_Tasks (and thus CLEAR_WATCHDOG) never
+                     * runs. Suspend the watchdog around it so it does not time
+                     * out mid-verify; re-arm and refresh it immediately after.
+                     * The hashing phase above is chunked across task cycles, so
+                     * only this call needs the guard. */
+                    WDT_Disable();
                     stateCryptoECDSA = Crypto_DigiSign_Ecdsa_Verify(CRYPTO_HANDLER_SW_WOLFCRYPT,
                                                                     hashDigest,
                                                                     HASH_SIZE_SHA_256,
@@ -822,6 +905,8 @@ void SRV_FU_Tasks(void)
                                                                     &validDSA,
                                                                     CRYPTO_ECC_CURVE_P256,
                                                                     SESSION_ID);
+                    WDT_Enable();
+                    WDT_Clear();
 
                     /* Check verification result ECDSA256_SHA256 */
                     if ((validDSA != 1) || (stateCryptoECDSA != CRYPTO_DIGISIGN_SUCCESS))

@@ -1,7 +1,7 @@
 /*******************************************************************************
   Linker script for SAMD20 bootloader (prime_sn_boot_external_mem)
 
-  - ROM: first 8 KB of flash (0x00000000..0x00001FFF). BOOTPROT=2 protects
+  - ROM: first 8 KB of flash (0x00000000..0x00001FFF). BOOTPROT protects
     this region at hardware level when the fuse is active.
   - RAM: full 32 KB (0x20000000..0x20007FFF). Stack at the top.
   - The application occupies flash from 0x00002000 to 0x0003FEFF and is a
