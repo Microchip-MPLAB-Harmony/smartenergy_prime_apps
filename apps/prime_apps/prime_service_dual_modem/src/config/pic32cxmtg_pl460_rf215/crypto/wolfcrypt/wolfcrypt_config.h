@@ -19,30 +19,28 @@
 
 *******************************************************************************/
 
-/*----------------------------------------------------------------------------
- Copyright (C) 2019-2024 Microchip Technology Inc. and its subsidiaries.
-
-Microchip Technology Inc. and its subsidiaries.
-
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-----------------------------------------------------------------------------*/
+/*******************************************************************************
+* Copyright (C) 2026 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*******************************************************************************/
 
 #ifndef WOLFCRYPT_CONFIG_H
 #define WOLFCRYPT_CONFIG_H
@@ -69,7 +67,6 @@ extern "C" {
 //Crypto V4 Common Crypto API - WolfCrypt Library Support
 #define CRYPTO_WOLFCRYPT_SUPPORT_ENABLE
 
-//JK
 #define CRYPTO_DIGISIGN_ALGO_EN
 #define CRYPTO_KAS_ALGO_EN    
 
@@ -90,14 +87,14 @@ extern "C" {
 #define WOLFSSL_USER_IO
 #define NO_WRITEV
 #define NO_FILESYSTEM
-//#define USE_FAST_MATH  //Conflicts with WOLFSSL_SP_MATH
+//#define USE_FAST_MATH  //Disabled: conflicts with WOLFSSL_SP_MATH_ALL (wolfSSL 5.9.1 enforces this)
 #define NO_INLINE 
 
 //Math Model Defines
 //Using this to declare wolfmath functions:
 //mp_reverse used by fp_to_unsigned_bin (tfm.c)unctions: 
 //get_digit_count,get_digit in ecc.c 
-//#define WOLFSSL_SP_MATH   
+//#define WOLFSSL_SP_MATH   //Disabled: incompatible with WOLFSSL_SP_MATH_ALL (wolfSSL 5.9.1 enforces this)
 
 //Needed when WOFSSL_SP_MATH defined
 //#define WOLFSSL_HAVE_SP_RSA  
@@ -107,22 +104,23 @@ extern "C" {
 //#if defined(HAVE_FIPS_VERSION) && HAVE_FIPS_VERSION == 2 
 //&& ( defined(WOLFSSL_SP_ARM32_ASM) || defined(WOLFSSL_SP_ARM64_ASM) ) 
 //#define WOLFSSL_SP_NO_256   
-#define WOLFSSL_SP_384   
+#define WOLFSSL_SP_384
+#define WOLFSSL_SP_521
 
 //#define WOLFSSL_SP_ARM32_ASM   //Dependent on MCU Arch.
 
-#define WOLFSSL_SP_MATH_ALL   //JK
-#define WOLFSSL_HAVE_SP_ECC  //JK
+#define WOLFSSL_SP_MATH_ALL   
+#define WOLFSSL_HAVE_SP_ECC  
 
-#define WOLFSSL_SP_NO_MALLOC //JK
-#define WOLFSSL_SP_SMALL     //JK
-#define WOLFSSL_SP_NONBLOCK  //JK
-#define WC_ECC_NONBLOCK      //JK
+#define WOLFSSL_SP_NO_MALLOC 
+#define WOLFSSL_SP_SMALL     
+#define WOLFSSL_SP_NONBLOCK  
+#define WC_ECC_NONBLOCK      
 
 #define NO_PWDBASED
 //#define WOLF_CRYPTO_CB     //Provide call-back support 
 #define WOLFCRYPT_ONLY
-#define HAVE_COMP_KEY        //JK 
+#define HAVE_COMP_KEY        
 
 #define WOLFSSL_AES_SMALL_TABLES
 #define NO_MD4
@@ -133,7 +131,7 @@ extern "C" {
 #define WOLFSSL_SHA3
 #define HAVE_BLAKE2
 #define WOLFSSL_RIPEMD
-//#define NO_HMAC            //JK
+//#define NO_HMAC            
 #define WOLFSSL_AES_128
 #define WOLFSSL_AES_192
 #define WOLFSSL_AES_256
@@ -155,13 +153,13 @@ extern "C" {
 #define HAVE_RABBIT
 
 #define HAVE_ECC
-//#define HAVE_ECC_KEY_EXPORT //JK //Required for WOLFCRYPT_HAVE_ECCSI
+//#define HAVE_ECC_KEY_EXPORT  //Required for WOLFCRYPT_HAVE_ECCSI
 #define HAVE_X963_KDF
 #define ECC_SHAMIR
 #define WOLFSSL_CUSTOM_CURVES
-//#define HAVE_CURVE25519     //JK 
-//#define HAVE_ED25519        //JK
-//#define FP_ECC
+//#define HAVE_CURVE25519     
+//#define HAVE_ED25519        
+#define FP_ECC
 #define HAVE_ECC521           //ECC_MAX_BITS
 
 //#define HAVE_DH
@@ -170,11 +168,14 @@ extern "C" {
 #define HAVE_ANON
 #define WOLFSSL_OLD_PRIME_CHECK
 #define NO_DSA
-#define FP_MAX_BITS 4096
+#define FP_MAX_BITS 8192
+#define USE_CERT_BUFFERS_1024   
 #define USE_CERT_BUFFERS_2048
-//#define WOLFSSL_RSA_PUBLIC_ONLY  //JK //Conflict with WOLFSSL_HAVE_SP_DH
-//#define WC_RSA_PSS               //JK
-//#define WOLFSSL_STATIC_RSA       //JK
+#define USE_CERT_BUFFERS_3072
+#define USE_CERT_BUFFERS_4096
+//#define WOLFSSL_RSA_PUBLIC_ONLY  //Conflict with WOLFSSL_HAVE_SP_DH
+//#define WC_RSA_PSS               
+//#define WOLFSSL_STATIC_RSA       
 #define NO_DEV_RANDOM
 #define HAVE_HASHDRBG
 #define WC_NO_HARDEN
@@ -183,14 +184,12 @@ extern "C" {
 #define NO_WOLFSSL_MEMORY
 
 //********************************************************
-//#define WOLFSSL_SHAKE128  //Manually Commented, Not supported by Wolfcrypt
-#define WOLFSSL_SHAKE256 
 #define HAVE_BLAKE2S    
 #define HAVE_BLAKE2B   
 #define HAVE_CHACHA      
 #define HAVE_AES_KEYWRAP
 #define HAVE_ECC_DHE   
-//#define WOLFCRYPT_HAVE_ECCSI  //JK
+//#define WOLFCRYPT_HAVE_ECCSI 
 #define WOLFSSL_AES_EAX 
 #define WOLFSSL_AESGCM_STREAM
 //*********************************************************
@@ -202,11 +201,16 @@ int Crypto_Rng_Wc_Prng_Srand(uint8_t* output, unsigned int sz);
 //#define WC_NO_RNG //when using RNG
 //#define WC_NO_HASHDRBG
 //#define HAVE_ECC_ENCRYPT
-#define NO_RSA                 //JK
-#define NO_DH                  //JK
+//#define NO_RSA                
+#define NO_DH                  
 //#define NO_SIG_WRAPPER
 //**********************************************************
-
+#define HAVE_POLY1305
+#define WC_ASYNC_ENABLE_RSA
+#define WC_RSA_PSS 
+#define WOLFSSL_HAVE_SP_RSA 
+#define WC_RSA_NO_PADDING
+#define WOLFSSL_SP_4096
 // ---------- WOLFCRYPT CONFIGURATION END ----------
 
 //DOM-IGNORE-BEGIN

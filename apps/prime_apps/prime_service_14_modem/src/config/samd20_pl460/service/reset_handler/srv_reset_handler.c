@@ -90,6 +90,12 @@ volatile uint32_t saved_psr;
 volatile uint32_t saved_hfsr;   /* unused on M0+, kept for ABI compat */
 volatile uint32_t saved_cfsr;   /* unused on M0+, kept for ABI compat */
 
+/* Hardware reset cause latched at boot from PM_RCAUSE. Cached here (not written
+ * to the storage slot) so SRV_RESET_HANDLER_Initialize() has NO dependency on
+ * SRV_STORAGE_Initialize() -- PM_RCAUSE is readable straight out of reset.
+ * Query it with SRV_RESET_HANDLER_GetResetCause(). */
+static volatile SRV_RESET_HANDLER_RESET_CAUSE gBootResetCause = RESET_HANDLER_GENERAL_RESET;
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: File scope functions
@@ -181,6 +187,40 @@ void HardFault_Handler(void)
 
 void SRV_RESET_HANDLER_Initialize(void)
 {
+    uint8_t rcause = (uint8_t) PM_REGS->PM_RCAUSE;
+    SRV_RESET_HANDLER_RESET_CAUSE cause;
+
+    /* Latch the hardware reset cause directly from PM_RCAUSE. This deliberately
+     * does NOT touch the storage slot, so it has no ordering dependency on
+     * SRV_STORAGE_Initialize() (unlike the PIC32, whose cause lives in the
+     * always-available SUPC GPBR). A software reset -- used by
+     * SRV_RESET_HANDLER_RestartSystem() and the fault DumpStack() path -- reads
+     * back as SYST here; the finer software/fault cause is already in the
+     * storage slot, written at runtime before that reset. */
+    if ((rcause & PM_RCAUSE_WDT_Msk) != 0U)
+    {
+        cause = RESET_HANDLER_WATCHDOG_RESET;
+    }
+    else if ((rcause & PM_RCAUSE_SYST_Msk) != 0U)
+    {
+        cause = RESET_HANDLER_SOFTWARE_RESET;
+    }
+    else if ((rcause & PM_RCAUSE_EXT_Msk) != 0U)
+    {
+        cause = RESET_HANDLER_USER_RESET;
+    }
+    else
+    {
+        /* POR / BOD12 / BOD33: first power-on / general reset. */
+        cause = RESET_HANDLER_GENERAL_RESET;
+    }
+
+    gBootResetCause = cause;
+}
+
+SRV_RESET_HANDLER_RESET_CAUSE SRV_RESET_HANDLER_GetResetCause(void)
+{
+    return gBootResetCause;
 }
 
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
