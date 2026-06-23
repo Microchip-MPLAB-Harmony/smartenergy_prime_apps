@@ -67,7 +67,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_digsign.h
   hash: 9b1e5f9889b27f329f38dc2e58e20c74345e6ebfb5ef0442ff7b9d4c246d5ec7
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_hash.h
-  hash: 05055ee4ac96a0877b9d087561140221a62bd5f72fdf8a601d45059ba6f44446
+  hash: e0163150e0dd882bb31d32dd538102bdf43a2b593d10398facbe94c0cd307144
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_mac_cipher.h
   hash: 90e7a68e57e979ffbbdfc7f74d91a868bdbd280614feee7346334a9ac526b6dd
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_rng.h
@@ -117,13 +117,13 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\src\crypto_rng_wc_wrapper.c
   hash: ff52f0395670341d34bf2781b2f859eb7af6b461cad5053d252b78a79ad315bd
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\src\crypto_sym_wc_wrapper.c
-  hash: 23022fe439a0f6e21a1745d4ae08fa13fe0a1b6db1d275517b78542656c95e9b
+  hash: 1324d9163ff4669a0559e62dbf7e41e3c4a0d549e294b5cecf47d0a756e11fcc
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\user_settings.h
   hash: 14ce4562fba9b1d5b60e35046a31d2e472b724b84ea7dbede89e6f15ff0a3dba
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\wolfcrypt_config.h
-  hash: b4f9e0e8fdef7cd7b1013eb875266b0150f2817e4c7ed608c68255965b0fbf1a
+  hash: 9ba3639b485581f9cd9f806e2e926d464d8a90cb111a5ccf392594df6f409202
 - file: ..\src\config\samd20_pl460\definitions.h
-  hash: 5d931eb42e252994b86aa963920dd765d7dd0d753d835f22038e2aafbae9443f
+  hash: f4acaa7709b8a94722ffbb8f82b0cd20c99efa64b01a3193e3083923cd61aa8c
 - file: ..\src\config\samd20_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\samd20_pl460\device_cache.h
@@ -257,7 +257,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\pin_configurations.csv
   hash: 67d9b90f8e596c83a636b2cf01a3d7bf728d52274686ebb7c8d7d0a1f32463f3
 - file: ..\src\config\samd20_pl460\service\firmware_upgrade\srv_firmware_upgrade.c
-  hash: 0168cc585828b855673fcfac0e0b8bf46b700c0246b1cec843a0a5d57a275fa5
+  hash: ce23500725cf7a5a1b562301822a4629ab8a3537edce40d006b4eb3b531bdf5a
 - file: ..\src\config\samd20_pl460\service\firmware_upgrade\srv_firmware_upgrade.h
   hash: 5ac921a55e6708513547a18c2cb7d59fd92079f05303fc6173f05a3c0b77a0e4
 - file: ..\src\config\samd20_pl460\service\firmware_upgrade\srv_firmware_upgrade_local.h

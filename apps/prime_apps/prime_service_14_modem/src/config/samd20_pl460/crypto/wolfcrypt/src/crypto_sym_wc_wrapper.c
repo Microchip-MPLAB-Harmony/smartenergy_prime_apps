@@ -69,11 +69,6 @@ crypto_Sym_Status_E Crypto_Sym_Wc_Aes_Init(void *ptr_aesCtx, crypto_CipherOper_E
          * inverse key schedule and decryption produces garbage from block 2
          * onwards (single-block CFB happens to work because only the IV
          * encryption applies). */
-        if(    false
-          )
-        {
-            isKeystreamMode = true;
-        }
 
         if(isKeystreamMode)
         {

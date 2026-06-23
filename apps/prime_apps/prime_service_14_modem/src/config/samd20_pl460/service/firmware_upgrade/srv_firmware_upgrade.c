@@ -61,6 +61,7 @@ Microchip or any third party.
 #include "crypto/common_crypto/crypto_hash.h"
 #include "crypto/common_crypto/crypto_digsign.h"
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Macro definitions
@@ -346,11 +347,7 @@ static void lSRV_FU_EraseFuRegion(void)
 }
 
 /* Convert a DER-encoded ECDSA signature (SEQUENCE { INTEGER r, INTEGER s })
- * into the raw 64-byte r||s form expected by Crypto_DigiSign_Ecdsa_Verify.
- * Parses the TLV structure instead of assuming fixed offsets, so it accepts
- * any valid P-256 DER length (70..72 B, depending on the sign padding of r/s)
- * and right-aligns each component into its 32-byte half. Returns false on any
- * malformed input. */
+ * into the raw 64-byte r||s form expected by Crypto_DigiSign_Ecdsa_Verify. */
 static bool lSRV_FU_DerToRawSignature(uint16_t derLen)
 {
     uint8_t  rawSig[SIGNATURE_SIZE_ECDSA_256];   /* 64: r||s, zero-padded */
@@ -440,9 +437,7 @@ static bool lSRV_FU_VerifySignature(void)
         return false;
     }
 
-    /* Normalise the signature to the raw 64-byte r||s the verifier expects.
-     * PRIME may deliver it raw (signLength == 64) or DER-encoded (SEQUENCE,
-     * 70..72 B for P-256). */
+    /* Normalise the signature to the raw 64-byte r||s the verifier expects. */
     if (fuData.signLength == SIGNATURE_SIZE_ECDSA_256)
     {
         /* Already raw r||s -- nothing to do. */
@@ -886,14 +881,6 @@ void SRV_FU_Tasks(void)
                     crypto_DigiSign_Status_E stateCryptoECDSA;
                     int8_t validDSA = 0;
 
-                    /* Hash already done, do ECDSA256_SHA256 verification.
-                     * The software P-256 verify (wolfSSL SP) is a single
-                     * blocking call of several hundred ms on this Cortex-M0+,
-                     * during which APP_Tasks (and thus CLEAR_WATCHDOG) never
-                     * runs. Suspend the watchdog around it so it does not time
-                     * out mid-verify; re-arm and refresh it immediately after.
-                     * The hashing phase above is chunked across task cycles, so
-                     * only this call needs the guard. */
                     WDT_Disable();
                     stateCryptoECDSA = Crypto_DigiSign_Ecdsa_Verify(CRYPTO_HANDLER_SW_WOLFCRYPT,
                                                                     hashDigest,
