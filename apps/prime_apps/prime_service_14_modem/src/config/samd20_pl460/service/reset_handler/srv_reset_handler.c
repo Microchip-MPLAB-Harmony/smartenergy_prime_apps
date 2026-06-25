@@ -55,6 +55,18 @@ Microchip or any third party.
 
 // *****************************************************************************
 // *****************************************************************************
+// Section: File Scope Function Declarations
+// *****************************************************************************
+// *****************************************************************************
+
+/* Reset-info writer. The shared definition lives in the common section at the
+ * end of this file; declared here so the per-platform fault/WDT handlers can
+ * call it before that definition. */
+static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType);
+
+
+// *****************************************************************************
+// *****************************************************************************
 // Section: Non-volatile data slot layout (stored in emulated EEPROM)
 //
 // Reset cause and fault context are persisted across resets through the
@@ -74,7 +86,7 @@ Microchip or any third party.
 // *****************************************************************************
 
 #define RESET_INFO_SLOT  5U
-#define DUMP_SLOT_BASE   5U    /* block covers slots 5..15 in one R-M-E-W */
+#define DUMP_SLOT_BASE   5U    
 #define DUMP_SLOT_COUNT 11U
 
 /* MISRA deviation: these must be volatile globals so the debugger can inspect
@@ -87,34 +99,14 @@ volatile uint32_t saved_r12;
 volatile uint32_t saved_lr;
 volatile uint32_t saved_pc;
 volatile uint32_t saved_psr;
-volatile uint32_t saved_hfsr;   /* unused on M0+, kept for ABI compat */
-volatile uint32_t saved_cfsr;   /* unused on M0+, kept for ABI compat */
-
-/* Hardware reset cause latched at boot from PM_RCAUSE. Cached here (not written
- * to the storage slot) so SRV_RESET_HANDLER_Initialize() has NO dependency on
- * SRV_STORAGE_Initialize() -- PM_RCAUSE is readable straight out of reset.
- * Query it with SRV_RESET_HANDLER_GetResetCause(). */
-static volatile SRV_RESET_HANDLER_RESET_CAUSE gBootResetCause = RESET_HANDLER_GENERAL_RESET;
+volatile uint32_t saved_hfsr;   /* unused on M0+ */
+volatile uint32_t saved_cfsr;   /* unused on M0+ */
 
 // *****************************************************************************
 // *****************************************************************************
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-
-static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType)
-{
-    uint32_t resetInfo;
-    uint16_t numResets;
-
-    /* Read and increase number of resets since start-up */
-    numResets = (uint16_t)(SRV_STORAGE_ReadNonVolatileData(RESET_INFO_SLOT) >> 16);
-    ++numResets;
-
-    /* Store reset information: high 16 bits = count, low 16 bits = cause */
-    resetInfo = ((uint32_t)numResets << 16) | (uint32_t)resetType;
-    SRV_STORAGE_WriteNonVolatileData(RESET_INFO_SLOT, resetInfo);
-}
 
 void DumpStack(uint32_t stack[]) __attribute__((noreturn));
 
@@ -155,14 +147,6 @@ void DumpStack(uint32_t stack[])
     NVIC_SystemReset();
 }
 
-/* Cortex-M0+ lacks ITE (ARMv7-M only). We use conditional branches instead.
- * __attribute__((naked)) prevents prolog/epilog so we can read MSP/PSP
- * exactly as they were at the instant of the exception.
- * This overrides the weak stub in exceptions.c.
- *
- * Use BL instead of B for the jump to DumpStack: in ARMv6-M the `b` branch
- * is limited to +/- 2 KB (R_ARM_THM_JUMP11) while `bl` reaches +/- 16 MB. Since
- * DumpStack is noreturn, clobbering LR is harmless. */
 __attribute__((naked, noreturn))
 void HardFault_Handler(void)
 {
@@ -179,6 +163,13 @@ void HardFault_Handler(void)
     );
 }
 
+/* Watchdog Early-Warning callback. */
+static void lSRV_RESET_HANDLER_WdtEarlyWarning(uintptr_t context)
+{
+    (void) context;
+    lSRV_RESET_HANDLER_StoreResetInfo(RESET_HANDLER_WATCHDOG_RESET);
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Reset Handler Service Interface Implementation
@@ -187,46 +178,28 @@ void HardFault_Handler(void)
 
 void SRV_RESET_HANDLER_Initialize(void)
 {
-    uint8_t rcause = (uint8_t) PM_REGS->PM_RCAUSE;
-    SRV_RESET_HANDLER_RESET_CAUSE cause;
-
-    /* Latch the hardware reset cause directly from PM_RCAUSE. This deliberately
-     * does NOT touch the storage slot, so it has no ordering dependency on
-     * SRV_STORAGE_Initialize() (unlike the PIC32, whose cause lives in the
-     * always-available SUPC GPBR). A software reset -- used by
-     * SRV_RESET_HANDLER_RestartSystem() and the fault DumpStack() path -- reads
-     * back as SYST here; the finer software/fault cause is already in the
-     * storage slot, written at runtime before that reset. */
-    if ((rcause & PM_RCAUSE_WDT_Msk) != 0U)
-    {
-        cause = RESET_HANDLER_WATCHDOG_RESET;
-    }
-    else if ((rcause & PM_RCAUSE_SYST_Msk) != 0U)
-    {
-        cause = RESET_HANDLER_SOFTWARE_RESET;
-    }
-    else if ((rcause & PM_RCAUSE_EXT_Msk) != 0U)
-    {
-        cause = RESET_HANDLER_USER_RESET;
-    }
-    else
-    {
-        /* POR / BOD12 / BOD33: first power-on / general reset. */
-        cause = RESET_HANDLER_GENERAL_RESET;
-    }
-
-    gBootResetCause = cause;
+    WDT_CallbackRegister(lSRV_RESET_HANDLER_WdtEarlyWarning, 0U);
 }
 
-SRV_RESET_HANDLER_RESET_CAUSE SRV_RESET_HANDLER_GetResetCause(void)
+static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType)
 {
-    return gBootResetCause;
+    uint32_t resetInfo;
+    uint16_t numResets;
+
+    /* Read and increase number of resets since start-up */
+    numResets = (uint16_t)(SRV_STORAGE_ReadNonVolatileData(RESET_INFO_SLOT) >> 16);
+    ++numResets;
+
+    /* Store reset information: high 16 bits = count, low 16 bits = cause */
+    resetInfo = ((uint32_t)numResets << 16) | (uint32_t)resetType;
+    SRV_STORAGE_WriteNonVolatileData(RESET_INFO_SLOT, resetInfo);
 }
 
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
 {
     /* Persist reset cause + increment reset counter */
     lSRV_RESET_HANDLER_StoreResetInfo(resetType);
+
 
     /* Trigger software reset */
     NVIC_SystemReset();

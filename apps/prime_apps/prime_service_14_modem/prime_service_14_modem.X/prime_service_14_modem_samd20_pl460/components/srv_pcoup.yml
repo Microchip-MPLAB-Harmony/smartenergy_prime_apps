@@ -23,8 +23,8 @@ data:
     - children:
       - attributes:
           id: srv_pcoup
-          x: '476'
-          y: '367'
+          x: '486'
+          y: '381'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

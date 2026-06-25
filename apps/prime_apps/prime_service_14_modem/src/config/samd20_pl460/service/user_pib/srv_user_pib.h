@@ -100,27 +100,7 @@ Microchip or any third party.
 #define PIB_USER_R3                             0xF009U
 #define PIB_USER_R12                            0xF00AU
 
-/* SAMD20 platform-specific user PIBs.
- *
- * The PRIME library forwards every PIB it does not handle internally
- * (range 0xF000..0xFCFF) to SRV_USER_PIB_GetRequest/SetRequest. The
- * default PIBs above (0xF000..0xF00A) cover post-mortem fault dumps
- * (served by reading the non-volatile data slots directly from
- * SRV_STORAGE_ReadNonVolatileData, no RAM cache). The IDs in 0xF010..0xF0FF are
- * reserved for SAMD20-only control PIBs.
- */
-
-/* Bootloader UART recovery trigger.
- *
- * Type: uint32_t.
- * Read:  always returns 0 (the PIB does not store any state).
- * Write: writing 1 causes the modem to ACK, wait a short grace period so
- *        the SET response physically leaves on the PLC line, persist
- *        UART_PENDING into the SST26 BOOT_FLAG sector, then
- *        NVIC_SystemReset. The next boot lands in the bootloader's
- *        UART recovery loop. Writing 0 is accepted as idempotent
- *        no-op. Any other value is rejected with SET response = error.
- */
+/* SAMD20 platform-specific user PIBs, Bootloader UART recovery trigger. */
 #define PIB_USER_BOOTLOADER_UART_MODE         0xF010U
 
 // *****************************************************************************
@@ -223,18 +203,28 @@ void SRV_USER_PIB_Initialize(void);
     Maintenance routine for asynchronous user-PIB-driven actions.
 
   Description:
-    Drives the deferred reboot triggered by a Set on
-    PIB_USER_BOOTLOADER_UART_MODE: counts down a small grace period
-    so the SET response can leave the PLC line, then asks
-    SRV_FU_ExtMemBootModeSet to persist UART_PENDING in the SST26
-    BOOT_FLAG sector and waits for that async write to complete
-    before issuing NVIC_SystemReset.
-
-    Must be called from the system task loop on every iteration. A no-op
-    when no UART-mode trigger is pending.
+    Maintenance tasks for user PIBs.
 
   Precondition:
     The SRV_USER_PIB_Initialize routine must have been called before.
+
+  Parameters:
+    None.
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    void SYS_Tasks(void)
+    {
+        SRV_USER_PIB_Tasks();
+    }
+    </code>
+
+  Remarks:
+    Available only on the SAMD20 platform. It is normally called by the system
+    task routine (SYS_Tasks), not directly by the application.
 */
 
 void SRV_USER_PIB_Tasks(void);
@@ -307,7 +297,7 @@ void SRV_USER_PIB_GetRequestCbRegister(SRV_USER_PIB_GET_REQUEST_CALLBACK callbac
 
   Example:
     <code>
-    static void APP_GetRequestHandler(uint8_t result, uint16_t pibAttrib,
+    static void APP_GetRequestHandler(uint8_t getResult, uint16_t pibAttrib,
                                       void *pibValue, uint8_t pibSize)
     {
         if (getResult == true)
@@ -335,7 +325,7 @@ void SRV_USER_PIB_GetRequest(uint16_t pibAttrib);
 // *****************************************************************************
 /* Function:
     void SRV_USER_PIB_SetRequestCbRegister(
-        SRV_USER_PIB_GET_REQUEST_CALLBACK callback)
+        SRV_USER_PIB_SET_REQUEST_CALLBACK callback)
 
   Summary:
     Register a function to be called to get the result of setting a user PIB.

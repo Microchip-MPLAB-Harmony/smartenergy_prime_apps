@@ -96,9 +96,6 @@ DRV_MEMORY_Tasks(sysObj.drvMemory0);
     
     
 
-    /* Maintain User PIBs (drives the deferred-reboot state machine
-     * triggered by writes to PIB_USER_BOOTLOADER_UART_MODE; cheap
-     * no-op when idle). */
     SRV_USER_PIB_Tasks();
 
 

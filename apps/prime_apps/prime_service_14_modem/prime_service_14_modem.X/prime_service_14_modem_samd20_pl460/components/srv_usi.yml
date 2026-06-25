@@ -23,8 +23,8 @@ data:
     - children:
       - attributes:
           id: srv_usi
-          x: '840'
-          y: '225'
+          x: '913'
+          y: '228'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

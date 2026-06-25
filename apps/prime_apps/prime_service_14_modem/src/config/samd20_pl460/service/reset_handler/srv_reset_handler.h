@@ -180,25 +180,5 @@ void SRV_RESET_HANDLER_Initialize(void);
 
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
 
-// *****************************************************************************
-/* Function:
-    SRV_RESET_HANDLER_RESET_CAUSE SRV_RESET_HANDLER_GetResetCause(void)
-
-  Summary:
-    Returns the hardware reset cause latched at boot from PM_RCAUSE.
-
-  Description:
-    Returns the cause of the last device reset (watchdog, software/system,
-    external/NRST, or general/power-on), captured in
-    SRV_RESET_HANDLER_Initialize() with no dependency on other services.
-
-  Remarks:
-    For a software reset this returns RESET_HANDLER_SOFTWARE_RESET; the finer
-    software/fault cause is kept in the reset-info storage slot.
-*/
-
-SRV_RESET_HANDLER_RESET_CAUSE SRV_RESET_HANDLER_GetResetCause(void);
-
-void DWDT0_Handler(void);
 
 #endif //SRV_RESET_HANDLER_H

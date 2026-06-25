@@ -47,13 +47,9 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-#include <string.h>
-
 #include "definitions.h"
 #include "srv_user_pib.h"
 #include "device.h"
-#include "service/firmware_upgrade/srv_firmware_upgrade.h"
-#include "service/storage/srv_storage.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -65,16 +61,10 @@ Microchip or any third party.
 static SRV_USER_PIB_GET_REQUEST_CALLBACK SRV_USER_PIB_GetRequestCb;
 static SRV_USER_PIB_SET_REQUEST_CALLBACK SRV_USER_PIB_SetRequestCb;
 
-/* Non-volatile data slot that holds reset_info (slots 5..15 cover
- * RESET_INFO + the full HardFault dump; see srv_reset_handler.c). User
- * PIBs 0xF000..0xF00A map to those slots via the convention
- * slot = base + (pibAttrib & 0xF). */
+/* Non-volatile data slot that holds reset_info). */
 #define SRV_USER_PIB_BASE_SLOT          5U
 
-/* Deferred-reboot state machine driven by writes to
- * PIB_USER_BOOTLOADER_UART_MODE. The Set handler arms the trigger and
- * SRV_USER_PIB_Tasks finishes the work asynchronously so the SET
- * response is on the wire before the modem actually reboots. */
+/* Deferred-reboot state machine. */
 typedef enum
 {
     SRV_USER_PIB_UART_MODE_IDLE       = 0,
@@ -105,18 +95,18 @@ void SRV_USER_PIB_GetRequest(uint16_t pibAttrib)
     getResult = 0; /* false: PIB not handled */
     pibValue  = 0U;
 
+    /* Default PIBs 0xF000..0xF00A: post-mortem fault dump */
     if ((pibAttrib >= PIB_USER_RESET_INFO) && (pibAttrib <= PIB_USER_R12))
     {
+        getResult = 1; /* true */
         uint8_t slot = (uint8_t)(SRV_USER_PIB_BASE_SLOT
                                + (pibAttrib & 0x000FU));
-        pibValue  = SRV_STORAGE_ReadNonVolatileData(slot);
-        getResult = 1;
+        pibValue = SRV_STORAGE_ReadNonVolatileData(slot);
     }
     else if (pibAttrib == PIB_USER_BOOTLOADER_UART_MODE)
     {
-        /* Write-only PIB */
+        /* Write-only PIB: acknowledge the GET but always return 0. */
         getResult = 1;
-        pibValue  = 0U;
     }
     else
     {
@@ -124,6 +114,7 @@ void SRV_USER_PIB_GetRequest(uint16_t pibAttrib)
          * generates MLME_RESULT_FAILED to the BS. */
     }
 
+    /* Return result */
     if (SRV_USER_PIB_GetRequestCb != NULL)
     {
         SRV_USER_PIB_GetRequestCb(getResult, pibAttrib, &pibValue,
@@ -170,6 +161,7 @@ void SRV_USER_PIB_SetRequest(uint16_t pibAttrib, void *pibValue, uint8_t pibSize
         }
     }
 
+    /* Return result */
     if (SRV_USER_PIB_SetRequestCb != NULL)
     {
         SRV_USER_PIB_SetRequestCb(setResult);
@@ -198,9 +190,9 @@ void SRV_USER_PIB_Tasks(void)
             break;
 
         case SRV_USER_PIB_UART_MODE_KICK_FU:
-            if (SRV_FU_ExtMemBootModeSet(
+            if (SRV_FU_WriteExtMemBootMode(
                     SRV_FU_EXT_MEM_BOOT_MODE_UART_PENDING,
-                    0U, 0U) == true)
+                    0U, SRV_FU_EXT_MEM_BOOT_STEP_PRISTINE) == true)
             {
                 gUartModeState = SRV_USER_PIB_UART_MODE_WAIT_FU;
             }
@@ -208,7 +200,7 @@ void SRV_USER_PIB_Tasks(void)
             break;
 
         case SRV_USER_PIB_UART_MODE_WAIT_FU:
-            fuStatus = SRV_FU_ExtMemBootModeStatus();
+            fuStatus = SRV_FU_GetExtMemBootModeStatus();
             if (fuStatus == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK)
             {
                 /* BOOT_FLAG persisted; reboot lands in UART recovery. */

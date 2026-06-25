@@ -150,7 +150,7 @@ static void lSRV_STORAGE_WriteToFlash(void)
 
 void SRV_STORAGE_Initialize(void)
 {
-    /* Read 136 bytes from the emulated EEPROM row directly into the aligned cache */
+    /* Read the emulated-EEPROM row directly into the aligned cache */
     (void) NVMCTRL_Read((uint32_t *)(void *)srvStorageData, SRV_STORAGE_TOTAL_SIZE,
                         SRV_STORAGE_FLASH_ADDR);
 
@@ -169,18 +169,22 @@ bool SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
 
     if (infoType >= SRV_STORAGE_TYPE_END_LIST)
     {
+        /* Invalid type */
         return false;
     }
 
+    /* Get offset depending on info type */
     offset = srvStorageOffsetList[infoType];
     totalSize = (uint16_t) offset + (uint16_t) size;
 
     if (totalSize > SRV_STORAGE_TOTAL_SIZE)
     {
+        /* Invalid size */
         return false;
     }
 
     interruptStatus = SYS_INT_Disable();
+    /* Serve from the RAM cache loaded at initialization */
     (void) memcpy(pData, (const void *) &srvStorageData[offset], size);
     SYS_INT_Restore(interruptStatus);
 
@@ -195,24 +199,26 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
 
     if (infoType >= SRV_STORAGE_TYPE_END_LIST)
     {
+        /* Invalid type */
         return false;
     }
 
+    /* Get offset depending on info type */
     offset = srvStorageOffsetList[infoType];
     totalSize = (uint16_t) offset + (uint16_t) size;
 
     if (totalSize > SRV_STORAGE_TOTAL_SIZE)
     {
+        /* Invalid size */
         return false;
     }
 
     interruptStatus = SYS_INT_Disable();
-
+    /* Update the RAM cache and persist the whole row to the emulated EEPROM */
     (void) memcpy((void *) &srvStorageData[offset], pData, size);
     lSRV_STORAGE_WriteToFlash();
 
     SYS_INT_Restore(interruptStatus);
-
     return true;
 }
 

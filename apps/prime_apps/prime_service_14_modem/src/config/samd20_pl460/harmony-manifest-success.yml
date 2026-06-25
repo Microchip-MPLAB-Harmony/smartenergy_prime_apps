@@ -4,7 +4,7 @@
 
 
 project: prime_service_14_modem
-creation_date: 2026-06-11T09:26:33.268+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+creation_date: 2026-06-25T16:45:36.848+02:00[Europe/Paris]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
 operating_system: Windows 11
 mcc_mode: IDE            # [IDE|Standalone|Headless]
 mcc_version: v5.7.0

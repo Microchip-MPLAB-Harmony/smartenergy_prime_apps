@@ -22,7 +22,7 @@ data:
     - children:
       - attributes:
           id: drv_memory
-          x: '489'
+          x: '482'
           y: '157'
         type: ElementPosition
       type: ElementPositions

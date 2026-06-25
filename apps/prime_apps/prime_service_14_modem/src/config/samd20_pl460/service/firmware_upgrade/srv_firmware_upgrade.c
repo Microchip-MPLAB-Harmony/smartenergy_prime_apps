@@ -75,14 +75,15 @@ Microchip or any third party.
 #define MEMORY_WRITE_SIZE       (uint32_t)(256)
 #define MAX_BUFFER_READ_SIZE    (uint32_t)(256)
 
-/* Destination address in internal flash where the bootloader installs
- * the image. Matches the bootloader's application start address. */
-#define PRIME_FU_APP_START_ADDR (uint32_t)(0x2000)
-
-/* External-memory BOOT_MODE_INFO handshake -- must match the bootloader.
- * The 12-byte structure lives at the start of the BOOT_FLAG sector; */
+/* External-memory boot-mode handshake with the bootloader ("boot flag").
+ *
+ * On a firmware-upgrade swap -- or a UART-recovery request -- the FU service
+ * writes a 12-byte BOOT_MODE_INFO record into a reserved sector of the external
+ * memory. On the next reset the bootloader reads that record and acts on it
+ * (install the downloaded image / step, or enter UART recovery). The offset,
+ * magic and 12-byte layout below must match the bootloader exactly. */
 #define PRIME_FU_BOOT_FLAG_OFFSET   (uint32_t)(0x140000)
-#define PRIME_FU_BOOT_MODE_MAGIC    (uint32_t)(0x444F4D42UL)
+#define PRIME_FU_BOOT_MODE_MAGIC    (uint32_t)(0x444F4D42UL)   /* "BMOD" */
 #define PRIME_FU_BOOT_MODE_SIZE     (uint32_t)(12)
 
 /* Define application number */
@@ -751,6 +752,7 @@ void SRV_FU_Tasks(void)
             /* Erase finished, queue the page write. */
             uint32_t pageBlockStart;
             uint32_t modeXorByte;
+            SRV_FU_EXT_MEM_BOOT_MODE_INFO toWrite;
 
             pageBlockStart = PRIME_FU_BOOT_FLAG_OFFSET / memInfo.writePageSize;
             modeXorByte = (uint32_t) memInfo.bootModeRequestMode
@@ -759,19 +761,15 @@ void SRV_FU_Tasks(void)
             (void) memset(pMemWrite, 0xFF, sizeof(pMemWrite));
 
             /* Build the on-flash struct directly inside pMemWrite at offset 0. */
-            {
-                SRV_FU_EXT_MEM_BOOT_MODE_INFO toWrite;
+            toWrite.magic     = PRIME_FU_BOOT_MODE_MAGIC;
+            toWrite.mode      = memInfo.bootModeRequestMode;
+            toWrite.imageIdx  = memInfo.bootModeRequestImageIdx;
+            toWrite.imageStep = memInfo.bootModeRequestImageStep;
+            toWrite.reserved  = 0U;
+            toWrite.modeXor   = modeXorByte;
 
-                toWrite.magic     = PRIME_FU_BOOT_MODE_MAGIC;
-                toWrite.mode      = memInfo.bootModeRequestMode;
-                toWrite.imageIdx  = memInfo.bootModeRequestImageIdx;
-                toWrite.imageStep = memInfo.bootModeRequestImageStep;
-                toWrite.reserved  = 0U;
-                toWrite.modeXor   = modeXorByte;
-
-                (void) memcpy(pMemWrite, &toWrite, sizeof(toWrite));
-                (void) memcpy(&bootModeResult, &toWrite, sizeof(toWrite));
-            }
+            (void) memcpy(pMemWrite, &toWrite, sizeof(toWrite));
+            (void) memcpy(&bootModeResult, &toWrite, sizeof(toWrite));
 
             DRV_MEMORY_AsyncWrite(memInfo.memoryHandle, &memInfo.bootModeHandle,
                                   pMemWrite, pageBlockStart, 1U);
@@ -1156,13 +1154,13 @@ void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
 
 bool SRV_FU_SwapFirmware(void)
 {
-    uint8_t mode;
+    SRV_FU_EXT_MEM_BOOT_MODE mode;
 
     mode = fuLastResultIsRevert
          ? SRV_FU_EXT_MEM_BOOT_MODE_REVERT_PENDING
          : SRV_FU_EXT_MEM_BOOT_MODE_INSTALL_PENDING;
 
-    return SRV_FU_ExtMemBootModeSet(mode, 0U, 0U);
+    return SRV_FU_WriteExtMemBootMode(mode, 0U, SRV_FU_EXT_MEM_BOOT_STEP_PRISTINE);
 }
 
 void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
@@ -1190,7 +1188,8 @@ void SRV_FU_VerifyImage(void)
     }
 }
 
-bool SRV_FU_ExtMemBootModeSet(uint8_t mode, uint8_t imageIdx, uint8_t imageStep)
+bool SRV_FU_WriteExtMemBootMode(SRV_FU_EXT_MEM_BOOT_MODE mode, uint8_t imageIdx,
+                              SRV_FU_EXT_MEM_BOOT_STEP imageStep)
 {
     uint32_t eraseBlockSize;
     uint32_t eraseBlockStartBootFlag;
@@ -1214,9 +1213,9 @@ bool SRV_FU_ExtMemBootModeSet(uint8_t mode, uint8_t imageIdx, uint8_t imageStep)
 
     eraseBlockStartBootFlag = PRIME_FU_BOOT_FLAG_OFFSET / eraseBlockSize;
 
-    memInfo.bootModeRequestMode      = mode;
+    memInfo.bootModeRequestMode      = (uint8_t) mode;
     memInfo.bootModeRequestImageIdx  = imageIdx;
-    memInfo.bootModeRequestImageStep = imageStep;
+    memInfo.bootModeRequestImageStep = (uint8_t) imageStep;
     memInfo.bootModeStatus           = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY;
 
     DRV_MEMORY_AsyncErase(memInfo.memoryHandle, &memInfo.bootModeHandle,
@@ -1232,7 +1231,7 @@ bool SRV_FU_ExtMemBootModeSet(uint8_t mode, uint8_t imageIdx, uint8_t imageStep)
     return true;
 }
 
-bool SRV_FU_ExtMemBootModeGet(void)
+bool SRV_FU_ReadExtMemBootMode(void)
 {
     uint32_t pageBlockStart;
 
@@ -1263,12 +1262,12 @@ bool SRV_FU_ExtMemBootModeGet(void)
     return true;
 }
 
-SRV_FU_EXT_MEM_BOOT_MODE_STATUS SRV_FU_ExtMemBootModeStatus(void)
+SRV_FU_EXT_MEM_BOOT_MODE_STATUS SRV_FU_GetExtMemBootModeStatus(void)
 {
     return (SRV_FU_EXT_MEM_BOOT_MODE_STATUS) memInfo.bootModeStatus;
 }
 
-void SRV_FU_ExtMemBootModeResult(SRV_FU_EXT_MEM_BOOT_MODE_INFO *info)
+void SRV_FU_GetExtMemBootModeResult(SRV_FU_EXT_MEM_BOOT_MODE_INFO *info)
 {
     if (info == NULL)
     {
