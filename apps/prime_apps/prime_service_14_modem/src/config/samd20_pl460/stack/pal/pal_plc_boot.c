@@ -8,13 +8,14 @@
     pal_plc_boot.c
 
   Summary:
-    Synchronous SST26 reader exposed as a DRV_PLC_BOOT_DATA_CALLBACK.
+    Synchronous external memory reader exposed as a DRV_PLC_BOOT_DATA_CALLBACK.
 
   Description:
-    See pal_plc_boot.h for the contract. This translation unit owns a
-    dedicated DRV_MEMORY client and the streaming cursor used by the
-    callback. It uses a static fragment buffer sized to the PLC boot
-    driver's MAX_FRAG_SIZE (512 B).
+    Implementation of the external-memory boot streamer declared in
+    pal_plc_boot.h. It owns a dedicated DRV_MEMORY client and the
+    streaming state used by PAL_PLC_BOOT_DataCallback, with a static
+    fragment buffer sized to the PLC boot driver's maximum fragment
+    (512 bytes).
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
@@ -55,20 +56,21 @@ Microchip or any third party.
 
 #include "pal_plc_boot.h"
 #include "definitions.h"
-#include "driver/memory/drv_memory.h"
 #include "system/system_media.h"
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Layout Constants - must mirror app_bootloader.h
+// Section: Macro Definitions
 // *****************************************************************************
 // *****************************************************************************
 
-/* PL360_CURRENT zone - bootloader v3 layout. */
+/* The layout constants below must mirror the bootloader. */
+
+/* PL360_CURRENT zone - bootloader layout. */
 #define PAL_PLC_BOOT_ZONE_OFFSET            (0x00100000UL)
 #define PAL_PLC_BOOT_ZONE_SIZE              (0x00020000UL)   /* 128 KB */
 #define PAL_PLC_BOOT_ZONE_HEADER_SIZE       (256U)
-#define PAL_PLC_BOOT_ZONE_MAGIC             (0x43434C50UL)   /* 'PLCC' LE */
+#define PAL_PLC_BOOT_ZONE_MAGIC             (0x43434C50UL)   /* zone magic = ASCII "PLCC", little-endian */
 
 #define PAL_PLC_BOOT_PAGE_SIZE              (256U)
 
@@ -90,6 +92,20 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
+// *****************************************************************************
+/* PLC boot streamer state
+
+  Summary:
+    State of the external-memory firmware-streaming sequence.
+
+  Description:
+    Tracks the progress of PAL_PLC_BOOT_DataCallback across its successive
+    invocations: from the initial open, through streaming, to completion
+    or failure.
+
+  Remarks:
+    None.
+*/
 typedef enum
 {
     PAL_PLC_BOOT_STATE_UNINITIALIZED = 0,
@@ -102,11 +118,11 @@ static CACHE_ALIGN uint8_t palPlcBootFragBuf[PAL_PLC_BOOT_FRAG_SIZE];
 
 static DRV_HANDLE                  palPlcBootMemHandle = DRV_HANDLE_INVALID;
 static DRV_MEMORY_COMMAND_HANDLE   palPlcBootCmdHandle = DRV_MEMORY_COMMAND_HANDLE_INVALID;
-static volatile bool               palPlcBootXferDone;
-static volatile bool               palPlcBootXferError;
+static volatile bool               palPlcBootTransferDone;
+static volatile bool               palPlcBootTransferError;
 
 static PAL_PLC_BOOT_STATE          palPlcBootState     = PAL_PLC_BOOT_STATE_UNINITIALIZED;
-static uint32_t                    palPlcBootSrcOffset;     /* SST26 byte offset */
+static uint32_t                    palPlcBootSrcOffset;     /* external memory byte offset */
 static uint32_t                    palPlcBootPendingBytes;  /* payload bytes left */
 
 /* Read block size as reported by DRV_MEMORY at runtime. */
@@ -129,14 +145,14 @@ static void lPAL_PLC_BOOT_TransferHandler(DRV_MEMORY_EVENT event,
         return;
     }
 
-    palPlcBootXferError = (event != DRV_MEMORY_EVENT_COMMAND_COMPLETE);
-    palPlcBootXferDone  = true;
+    palPlcBootTransferError = (event != DRV_MEMORY_EVENT_COMMAND_COMPLETE);
+    palPlcBootTransferDone  = true;
 }
 
 static bool lPAL_PLC_BOOT_SyncRead(void *dst, uint32_t blockStart, uint32_t nBlocks)
 {
-    palPlcBootXferDone  = false;
-    palPlcBootXferError = false;
+    palPlcBootTransferDone  = false;
+    palPlcBootTransferError = false;
 
     DRV_MEMORY_AsyncRead(palPlcBootMemHandle, &palPlcBootCmdHandle,
                          dst, blockStart, nBlocks);
@@ -146,12 +162,12 @@ static bool lPAL_PLC_BOOT_SyncRead(void *dst, uint32_t blockStart, uint32_t nBlo
         return false;
     }
 
-    while (palPlcBootXferDone == false)
+    while (palPlcBootTransferDone == false)
     {
         DRV_MEMORY_Tasks(sysObj.drvMemory0);
     }
 
-    return (palPlcBootXferError == false);
+    return (palPlcBootTransferError == false);
 }
 
 static void lPAL_PLC_BOOT_Close(void)
@@ -165,8 +181,8 @@ static void lPAL_PLC_BOOT_Close(void)
 
 static bool lPAL_PLC_BOOT_SyncErase(uint32_t blockStart, uint32_t nBlocks)
 {
-    palPlcBootXferDone  = false;
-    palPlcBootXferError = false;
+    palPlcBootTransferDone  = false;
+    palPlcBootTransferError = false;
 
     DRV_MEMORY_AsyncErase(palPlcBootMemHandle, &palPlcBootCmdHandle,
                           blockStart, nBlocks);
@@ -176,19 +192,19 @@ static bool lPAL_PLC_BOOT_SyncErase(uint32_t blockStart, uint32_t nBlocks)
         return false;
     }
 
-    while (palPlcBootXferDone == false)
+    while (palPlcBootTransferDone == false)
     {
         DRV_MEMORY_Tasks(sysObj.drvMemory0);
     }
 
-    return (palPlcBootXferError == false);
+    return (palPlcBootTransferError == false);
 }
 
 static bool lPAL_PLC_BOOT_SyncWrite(const void *src, uint32_t blockStart,
                                     uint32_t nBlocks)
 {
-    palPlcBootXferDone  = false;
-    palPlcBootXferError = false;
+    palPlcBootTransferDone  = false;
+    palPlcBootTransferError = false;
 
     DRV_MEMORY_AsyncWrite(palPlcBootMemHandle, &palPlcBootCmdHandle,
                           (void *) src, blockStart, nBlocks);
@@ -198,19 +214,19 @@ static bool lPAL_PLC_BOOT_SyncWrite(const void *src, uint32_t blockStart,
         return false;
     }
 
-    while (palPlcBootXferDone == false)
+    while (palPlcBootTransferDone == false)
     {
         DRV_MEMORY_Tasks(sysObj.drvMemory0);
     }
 
-    return (palPlcBootXferError == false);
+    return (palPlcBootTransferError == false);
 }
 
 /* Persist BOOT_MODE_INFO with mode = UART_PENDING and trigger a reset. */
 static void lPAL_PLC_BOOT_RebootIntoUart(void)
 {
-    /* Page-sized buffer: 12 B BOOT_MODE_INFO struct followed by 0xFF
-     * padding. */
+    /* Page-sized buffer: the 12-byte boot-mode record (mirrors the bootloader
+     * struct) followed by 0xFF padding. */
     static uint8_t  page[PAL_PLC_BOOT_PAGE_SIZE];
     uint32_t        eraseBlockStart;
     uint32_t        pageBlockStart;
@@ -223,7 +239,7 @@ static void lPAL_PLC_BOOT_RebootIntoUart(void)
 
     (void) memset(page, 0xFF, sizeof(page));
 
-    /* Field layout matches APP_BOOTLOADER_BOOT_MODE_INFO. */
+    /* Field layout matches the bootloader boot-mode record. */
     page[0]  = (uint8_t) (PAL_PLC_BOOT_MODE_MAGIC        & 0xFFU);
     page[1]  = (uint8_t) ((PAL_PLC_BOOT_MODE_MAGIC >> 8) & 0xFFU);
     page[2]  = (uint8_t) ((PAL_PLC_BOOT_MODE_MAGIC >> 16) & 0xFFU);
@@ -351,8 +367,8 @@ void PAL_PLC_BOOT_DataCallback(uint32_t *address, uint16_t *length,
         }
         else
         {
-            /* No usable PL360 image in SST26 (factory-fresh device or
-             * corrupted CURRENT zone). */
+            /* No usable PL360 image in external memory (factory-fresh device or
+             * corrupted PL360_CURRENT zone). */
             lPAL_PLC_BOOT_RebootIntoUart();
             palPlcBootState = PAL_PLC_BOOT_STATE_FAILED;
             lPAL_PLC_BOOT_Close();

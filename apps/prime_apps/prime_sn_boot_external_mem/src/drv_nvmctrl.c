@@ -90,7 +90,10 @@ void DRV_NVMCTRL_PageWrite(const uint32_t *data, uint32_t address)
     uint32_t *pDest;
     uint32_t i;
 
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_4_DR_1 */
     pDest = (uint32_t *) address;
+    /* MISRA C-2023 deviation block end */
     for (i = 0U; i < (DRV_NVMCTRL_PAGE_SIZE / 4U); i++)
     {
         pDest[i] = data[i];

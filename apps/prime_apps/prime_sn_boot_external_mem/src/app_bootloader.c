@@ -66,6 +66,7 @@ Microchip or any third party.
 // *****************************************************************************
 
 #include <stddef.h>
+#include <string.h>
 
 #include "app_bootloader.h"
 #include "device.h"
@@ -214,7 +215,7 @@ static void        lAPP_BOOTLOADER_ClearBootMode(void);
 static void        lAPP_BOOTLOADER_PersistInstallStep(uint8_t imageIdx,
                                                      uint8_t imageStep);
 static void        lAPP_BOOTLOADER_PersistRevertStep(uint8_t imageIdx);
-static void        lAPP_BOOTLOADER_RebootIntoUart(void) __attribute__((noreturn));
+static void        lAPP_BOOTLOADER_RebootIntoUart(void);
 static uint8_t     lAPP_BOOTLOADER_Crc8(const uint8_t *data, uint16_t len);
 static void        lAPP_BOOTLOADER_UsiRxReset(void);
 static bool        lAPP_BOOTLOADER_UsiFeedByte(uint8_t b, uint16_t *outLen);
@@ -226,7 +227,7 @@ static void        lAPP_BOOTLOADER_HandleReqInfo(void);
 static void        lAPP_BOOTLOADER_HandleReqWrite(const uint8_t *args,
                                                   uint16_t        argLen);
 static void        lAPP_BOOTLOADER_HandleReqInstall(void);
-static void        lAPP_BOOTLOADER_HandleReqExit(void) __attribute__((noreturn));
+static void        lAPP_BOOTLOADER_HandleReqExit(void);
 static void        lAPP_BOOTLOADER_HandleReqRead(const uint8_t *args,
                                                  uint16_t        argLen);
 static void        lAPP_BOOTLOADER_HandleReqReadFlash(const uint8_t *args,
@@ -256,10 +257,17 @@ static bool        lAPP_BOOTLOADER_InstallBundle(
 static void        lAPP_BOOTLOADER_RevertBundle(
                        const APP_BOOTLOADER_BOOT_MODE_INFO *info);
 static void        lAPP_BOOTLOADER_UartRecovery(void);
-static void        lAPP_BOOTLOADER_Panic(void) __attribute__((noreturn));
+static void        lAPP_BOOTLOADER_Panic(void);
 
-/* 256-byte page buffer reused by every backup/install loop. */
-static uint32_t sPageBuf[APP_BOOTLOADER_SST26_PAGE_SIZE / 4U];
+/* 256-byte page buffer reused by every backup/install loop. The union
+ * exposes both a byte view (.b, for the byte-oriented SST26 API) and a word
+ * view (.w, for the header fields and the internal-flash page program) over
+ * the same storage, so neither view needs a cast between pointer types. */
+static union
+{
+    uint8_t  b[APP_BOOTLOADER_SST26_PAGE_SIZE];
+    uint32_t w[APP_BOOTLOADER_SST26_PAGE_SIZE / 4U];
+} sPageBuf;
 
 /* Response buffer for REQ_READ. */
 static uint8_t  sReadRspBuf[3U + APP_BOOTLOADER_READ_MAX_LEN];
@@ -643,7 +651,10 @@ void APP_BOOTLOADER_JumpToApp(void)
     /* Hand SERCOM1 back to the application in reset state. */
     DRV_SPI_Deinitialize();
 
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_4_DR_1 */
     appVectors = (const uint32_t *) APP_BOOTLOADER_APP_START;
+    /* MISRA C-2023 deviation block end */
     appSp      = appVectors[0];
     appPc      = appVectors[1];
 
@@ -653,13 +664,14 @@ void APP_BOOTLOADER_JumpToApp(void)
 
     /* Load the application's stack pointer and branch to its reset
      * handler. Bit 0 of appPc already selects Thumb mode. */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Dir 4.3 deviated once. Deviation record ID - H3_MISRAC_2023_D_4_3_DR_1 */
     __asm volatile (
         "msr msp, %0 \n"
         "bx  %1      \n"
         : : "r" (appSp), "r" (appPc)
     );
-
-    __builtin_unreachable();
+    /* MISRA C-2023 deviation block end */
 }
 
 // *****************************************************************************
@@ -756,11 +768,14 @@ static bool lAPP_BOOTLOADER_ParseBundle(
     uint32_t magicEnd;
     uint32_t i;
     uint32_t maxSize;
+    uint8_t  raw[APP_BOOTLOADER_BUNDLE_MAX_IMAGES
+                 * sizeof(APP_BOOTLOADER_BUNDLE_IMAGE)];
 
-    /* 1. Fixed 16 B prefix. */
+    /* 1. Fixed 16 B prefix. Read raw bytes then copy into the (naturally
+     *    aligned) struct so no pointer-type cast is required. */
     DRV_SST26_Read(APP_BOOTLOADER_SST26_DOWNLOAD_OFFSET,
-                   (uint8_t *) header,
-                   sizeof(APP_BOOTLOADER_BUNDLE_HEADER_FIXED));
+                   raw, sizeof(APP_BOOTLOADER_BUNDLE_HEADER_FIXED));
+    (void) memcpy(header, raw, sizeof(*header));
 
     if (header->magicStart != APP_BOOTLOADER_BUNDLE_MAGIC_START)
     {
@@ -788,15 +803,16 @@ static bool lAPP_BOOTLOADER_ParseBundle(
     descriptorsAddr = APP_BOOTLOADER_SST26_DOWNLOAD_OFFSET
                     + sizeof(APP_BOOTLOADER_BUNDLE_HEADER_FIXED);
 
-    DRV_SST26_Read(descriptorsAddr,
-                   (uint8_t *) images,
+    DRV_SST26_Read(descriptorsAddr, raw,
                    header->numImages
                    * sizeof(APP_BOOTLOADER_BUNDLE_IMAGE));
+    (void) memcpy(images, raw,
+                  header->numImages * sizeof(APP_BOOTLOADER_BUNDLE_IMAGE));
 
     /* 3. magicEnd lies exactly at offset totalSize from the bundle base. */
     DRV_SST26_Read(APP_BOOTLOADER_SST26_DOWNLOAD_OFFSET + header->totalSize,
-                   (uint8_t *) &magicEnd,
-                   sizeof(magicEnd));
+                   raw, sizeof(magicEnd));
+    (void) memcpy(&magicEnd, raw, sizeof(magicEnd));
 
     if (magicEnd != APP_BOOTLOADER_BUNDLE_MAGIC_END)
     {
@@ -963,15 +979,18 @@ static void lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded(void)
 
     /* Already mirrored on a previous boot? */
     DRV_SST26_Read(APP_BOOTLOADER_SST26_APP_CURRENT_OFFSET,
-                   (uint8_t *) sPageBuf, 4U);
-    magic = sPageBuf[0];
+                   sPageBuf.b, 4U);
+    magic = sPageBuf.w[0];
 
     if (magic == APP_BOOTLOADER_ZONE_MAGIC_APP_CURRENT)
     {
         return;
     }
 
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_4_DR_1 */
     flashWords = (const uint32_t *) APP_BOOTLOADER_APP_START;
+    /* MISRA C-2023 deviation block end */
     sp = flashWords[0];
     pc = flashWords[1];
 
@@ -988,15 +1007,15 @@ static void lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded(void)
                                    APP_BOOTLOADER_SST26_APP_CURRENT_SIZE);
 
     /* Write the ZONE_HEADER. */
-    for (k = 0U; k < (sizeof(sPageBuf) / sizeof(sPageBuf[0])); k++)
+    for (k = 0U; k < (sizeof(sPageBuf) / sizeof(sPageBuf.w[0])); k++)
     {
-        sPageBuf[k] = 0xFFFFFFFFUL;
+        sPageBuf.w[k] = 0xFFFFFFFFUL;
     }
-    sPageBuf[0] = APP_BOOTLOADER_ZONE_MAGIC_APP_CURRENT;
-    sPageBuf[1] = APP_BOOTLOADER_MAX_APP_SIZE;
+    sPageBuf.w[0] = APP_BOOTLOADER_ZONE_MAGIC_APP_CURRENT;
+    sPageBuf.w[1] = APP_BOOTLOADER_MAX_APP_SIZE;
 
     DRV_SST26_WritePage(APP_BOOTLOADER_SST26_APP_CURRENT_OFFSET,
-                        (const uint8_t *) sPageBuf,
+                        sPageBuf.b,
                         APP_BOOTLOADER_SST26_PAGE_SIZE);
 
     /* Copy the entire app region byte-for-byte into the SST26 zone. */
@@ -1008,15 +1027,18 @@ static void lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded(void)
 
     for (i = 0U; i < numPages; i++)
     {
+        /* MISRA C-2023 deviation block start */
+        /* MISRA C-2023 Rule 11.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_4_DR_1 */
         flashWords = (const uint32_t *) srcAddr;
+        /* MISRA C-2023 deviation block end */
         for (k = 0U;
              k < (APP_BOOTLOADER_SST26_PAGE_SIZE / 4U);
              k++)
         {
-            sPageBuf[k] = flashWords[k];
+            sPageBuf.w[k] = flashWords[k];
         }
 
-        DRV_SST26_WritePage(dstAddr, (const uint8_t *) sPageBuf,
+        DRV_SST26_WritePage(dstAddr, sPageBuf.b,
                             APP_BOOTLOADER_SST26_PAGE_SIZE);
 
         srcAddr += APP_BOOTLOADER_SST26_PAGE_SIZE;
@@ -1065,10 +1087,10 @@ static void lAPP_BOOTLOADER_BackupZone(uint32_t currentOffset,
 
     /* 1. Read CURRENT header. The first 8 bytes give us magic and size;
      *    we only need those to plan the backup. */
-    DRV_SST26_Read(currentOffset, (uint8_t *) sPageBuf,
+    DRV_SST26_Read(currentOffset, sPageBuf.b,
                    APP_BOOTLOADER_ZONE_HEADER_SIZE);
-    currentMagic = sPageBuf[0];
-    currentSize  = sPageBuf[1];
+    currentMagic = sPageBuf.w[0];
+    currentSize  = sPageBuf.w[1];
 
     if ((currentMagic == 0xFFFFFFFFUL) || (currentSize == 0U) ||
         (currentSize > (zoneSize - APP_BOOTLOADER_ZONE_HEADER_SIZE)))
@@ -1082,14 +1104,14 @@ static void lAPP_BOOTLOADER_BackupZone(uint32_t currentOffset,
 
     /* 3. Build new ZONE_HEADER directly inside sPageBuf (magic + size at
      *    offsets 0 and 4, the rest of the 256 B page is 0xFF padding). */
-    for (i = 0U; i < (sizeof(sPageBuf) / sizeof(sPageBuf[0])); i++)
+    for (i = 0U; i < (sizeof(sPageBuf) / sizeof(sPageBuf.w[0])); i++)
     {
-        sPageBuf[i] = 0xFFFFFFFFUL;
+        sPageBuf.w[i] = 0xFFFFFFFFUL;
     }
-    sPageBuf[0] = revertMagic;
-    sPageBuf[1] = currentSize;
+    sPageBuf.w[0] = revertMagic;
+    sPageBuf.w[1] = currentSize;
 
-    DRV_SST26_WritePage(revertOffset, (const uint8_t *) sPageBuf,
+    DRV_SST26_WritePage(revertOffset, sPageBuf.b,
                         APP_BOOTLOADER_SST26_PAGE_SIZE);
 
     /* 4. Copy payload page by page. */
@@ -1100,9 +1122,9 @@ static void lAPP_BOOTLOADER_BackupZone(uint32_t currentOffset,
 
     for (i = 0U; i < numPages; i++)
     {
-        DRV_SST26_Read(srcAddr, (uint8_t *) sPageBuf,
+        DRV_SST26_Read(srcAddr, sPageBuf.b,
                        APP_BOOTLOADER_SST26_PAGE_SIZE);
-        DRV_SST26_WritePage(dstAddr, (const uint8_t *) sPageBuf,
+        DRV_SST26_WritePage(dstAddr, sPageBuf.b,
                             APP_BOOTLOADER_SST26_PAGE_SIZE);
 
         srcAddr += APP_BOOTLOADER_SST26_PAGE_SIZE;
@@ -1160,21 +1182,21 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
     uint32_t dstFlash;
     uint8_t *pageBytes;
 
-    pageBytes = (uint8_t *) sPageBuf;
+    pageBytes = sPageBuf.b;
 
     /* 1. Erase the destination CURRENT zone. */
     lAPP_BOOTLOADER_EraseSst26Zone(zoneOffset, zoneSize);
 
     /* 2. Write ZONE_HEADER. The page buffer is reused everywhere; fill
      *    with 0xFF then drop magic and size at offsets 0 and 4. */
-    for (k = 0U; k < (sizeof(sPageBuf) / sizeof(sPageBuf[0])); k++)
+    for (k = 0U; k < (sizeof(sPageBuf) / sizeof(sPageBuf.w[0])); k++)
     {
-        sPageBuf[k] = 0xFFFFFFFFUL;
+        sPageBuf.w[k] = 0xFFFFFFFFUL;
     }
-    sPageBuf[0] = zoneMagic;
-    sPageBuf[1] = payloadSize;
+    sPageBuf.w[0] = zoneMagic;
+    sPageBuf.w[1] = payloadSize;
 
-    DRV_SST26_WritePage(zoneOffset, (const uint8_t *) sPageBuf,
+    DRV_SST26_WritePage(zoneOffset, sPageBuf.b,
                         APP_BOOTLOADER_SST26_PAGE_SIZE);
 
     /* 3. Streaming page-by-page copy. */
@@ -1205,7 +1227,7 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
         }
 
         /* SST26 destination. */
-        DRV_SST26_WritePage(dstSst26, (const uint8_t *) sPageBuf,
+        DRV_SST26_WritePage(dstSst26, sPageBuf.b,
                             APP_BOOTLOADER_SST26_PAGE_SIZE);
 
         /* Internal flash destination (APP only). */
@@ -1226,7 +1248,7 @@ static void lAPP_BOOTLOADER_InstallZone(uint32_t srcOffset,
             for (k = 0U; k < DRV_NVMCTRL_PAGES_PER_ROW; k++)
             {
                 DRV_NVMCTRL_PageWrite(
-                    &sPageBuf[k * (DRV_NVMCTRL_PAGE_SIZE / 4U)],
+                    &sPageBuf.w[k * (DRV_NVMCTRL_PAGE_SIZE / 4U)],
                     dstFlash + (k * DRV_NVMCTRL_PAGE_SIZE));
                 if (DRV_NVMCTRL_GetError() != DRV_NVMCTRL_ERROR_NONE)
                 {
@@ -1413,7 +1435,7 @@ static void lAPP_BOOTLOADER_RebootIntoUart(void)
     NVIC_SystemReset();
 
     /* Reset is unconditional, but keep the compiler happy. */
-    while (true)
+    for (;;)
     {
         /* unreachable */
     }
@@ -1485,10 +1507,10 @@ static void lAPP_BOOTLOADER_RevertBundle(const APP_BOOTLOADER_BOOT_MODE_INFO *in
 
         /* Inspect REVERT header. The first 8 bytes are magic + size; the
          * rest of the page is irrelevant for the decision. */
-        DRV_SST26_Read(revertOffset, (uint8_t *) sPageBuf,
+        DRV_SST26_Read(revertOffset, sPageBuf.b,
                        APP_BOOTLOADER_ZONE_HEADER_SIZE);
-        revertHeaderMagic = sPageBuf[0];
-        revertHeaderSize  = sPageBuf[1];
+        revertHeaderMagic = sPageBuf.w[0];
+        revertHeaderSize  = sPageBuf.w[1];
 
         maxPayload = zoneSize - APP_BOOTLOADER_ZONE_HEADER_SIZE;
 
@@ -1656,8 +1678,8 @@ static void lAPP_BOOTLOADER_HandleReqWrite(const uint8_t *args, uint16_t argLen)
                | ((uint32_t) args[2] << 16)
                | ((uint32_t) args[3] << 24);
 
-        len = (uint16_t) args[4]
-            | (uint16_t) ((uint16_t) args[5] << 8);
+        len = (uint16_t) (((uint32_t) args[4])
+            | ((uint32_t) args[5] << 8));
 
         if ((uint16_t) (argLen - 6U) != len)
         {
@@ -1745,7 +1767,7 @@ static void lAPP_BOOTLOADER_HandleReqInstall(void)
 
     NVIC_SystemReset();
 
-    while (true)
+    for (;;)
     {
         /* unreachable */
     }
@@ -1777,7 +1799,7 @@ static void lAPP_BOOTLOADER_HandleReqExit(void)
 
     NVIC_SystemReset();
 
-    while (true)
+    for (;;)
     {
         /* unreachable */
     }
@@ -1825,8 +1847,8 @@ static void lAPP_BOOTLOADER_HandleReqRead(const uint8_t *args, uint16_t argLen)
                | ((uint32_t) args[2] << 16)
                | ((uint32_t) args[3] << 24);
 
-        len = (uint16_t) args[4]
-            | (uint16_t) ((uint16_t) args[5] << 8);
+        len = (uint16_t) (((uint32_t) args[4])
+            | ((uint32_t) args[5] << 8));
 
         if ((len == 0U) || (len > APP_BOOTLOADER_READ_MAX_LEN))
         {
@@ -1901,8 +1923,8 @@ static void lAPP_BOOTLOADER_HandleReqReadFlash(const uint8_t *args,
                | ((uint32_t) args[2] << 16)
                | ((uint32_t) args[3] << 24);
 
-        len = (uint16_t) args[4]
-            | (uint16_t) ((uint16_t) args[5] << 8);
+        len = (uint16_t) (((uint32_t) args[4])
+            | ((uint32_t) args[5] << 8));
 
         if ((len == 0U) || (len > APP_BOOTLOADER_READ_MAX_LEN))
         {
@@ -1920,7 +1942,10 @@ static void lAPP_BOOTLOADER_HandleReqReadFlash(const uint8_t *args,
             const uint8_t *src;
             uint16_t       i;
 
+            /* MISRA C-2023 deviation block start */
+            /* MISRA C-2023 Rule 11.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_4_DR_1 */
             src = (const uint8_t *) offset;
+            /* MISRA C-2023 deviation block end */
             for (i = 0U; i < len; i++)
             {
                 sReadRspBuf[3U + i] = src[i];
@@ -2075,7 +2100,7 @@ static void lAPP_BOOTLOADER_UartRecovery(void)
     ledLimit     = APP_BOOTLOADER_LED_IDLE_OFF_TICKS;
     helloCounter = 0U;
 
-    while (true)
+    for (;;)
     {
         if (DRV_UART_RecvByteIfReady(&rxByte) == true)
         {
@@ -2337,7 +2362,7 @@ static void lAPP_BOOTLOADER_DelayMs(uint32_t ms)
 
 static void lAPP_BOOTLOADER_Panic(void)
 {
-    while (true)
+    for (;;)
     {
         lAPP_BOOTLOADER_LedToggle();
         lAPP_BOOTLOADER_DelayMs(APP_BOOTLOADER_PANIC_DELAY_MS);

@@ -208,15 +208,7 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_MEMORY Instance 0 Initialization Data">
 
-/* Erase-write (read-modify-write) buffer for DRV_MEMORY. This Service Node
- * NEVER calls DRV_MEMORY_(Async)EraseWrite -- the FU service and the bootloader
- * handshake use explicit AsyncErase + AsyncWrite -- so the full 4 KB sector
- * buffer would be dead RAM. Shrunk to free ~4 KB for the FU signature verify
- * (wolfSSL ECDSA-P256) crypto stack, which is the binding RAM constraint on
- * this 32 KB part. The SST26 erase-block geometry stays at
- * DRV_SST26_ERASE_BUFFER_SIZE (4096) -- only this unused scratch buffer shrinks.
- * NOTE: MCC regen restores the full-size array -- re-apply after regenerating. */
-static uint8_t gDrvMemory0EraseBuffer[4] CACHE_ALIGN;
+static uint8_t gDrvMemory0EraseBuffer[DRV_SST26_ERASE_BUFFER_SIZE] CACHE_ALIGN;
 
 static DRV_MEMORY_CLIENT_OBJECT gDrvMemory0ClientObject[DRV_MEMORY_CLIENTS_NUMBER_IDX0];
 

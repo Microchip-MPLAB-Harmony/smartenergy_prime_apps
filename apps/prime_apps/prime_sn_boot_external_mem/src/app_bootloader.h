@@ -134,7 +134,7 @@ typedef enum
     APP_BOOTLOADER_BOOT_MODE_UART_PENDING    = 0x03,    /* Enter UART recovery mode */
 } APP_BOOTLOADER_BOOT_MODE;
 
-typedef struct __attribute__((packed))
+typedef struct
 {
     uint32_t magic;          /* APP_BOOTLOADER_BOOT_MODE_MAGIC when valid */
     uint8_t  mode;           /* APP_BOOTLOADER_BOOT_MODE */
@@ -158,14 +158,14 @@ typedef struct __attribute__((packed))
 #define APP_BOOTLOADER_TYPE_MAGIC_APP           (0x43505041UL)  /* 'APPC' little-endian */
 #define APP_BOOTLOADER_TYPE_MAGIC_PL360         (0x43434C50UL)  /* 'PLCC' little-endian */
 
-typedef struct __attribute__((packed))
+typedef struct
 {
     uint32_t typeMagic;      /* 'APPC' = APP, 'PLCC' = PL360 */
     uint32_t offset;         /* offset from start of bundle to payload */
     uint32_t size;           /* payload size in bytes */
 } APP_BOOTLOADER_BUNDLE_IMAGE;          /* 12 B */
 
-typedef struct __attribute__((packed))
+typedef struct
 {
     uint32_t magicStart;     /* APP_BOOTLOADER_BUNDLE_MAGIC_START */
     uint32_t formatVersion;  /* APP_BOOTLOADER_BUNDLE_FORMAT_VERSION */
@@ -191,13 +191,11 @@ typedef struct __attribute__((packed))
 #define APP_BOOTLOADER_ZONE_MAGIC_PL360_CURRENT (APP_BOOTLOADER_TYPE_MAGIC_PL360)
 #define APP_BOOTLOADER_ZONE_MAGIC_PL360_REVERT  (0x52434C50UL)  /* 'PLCR' little-endian */
 
-typedef struct __attribute__((packed))
-{
-    uint32_t magic;
-    uint32_t size;
-    uint32_t reserved[2];
-    uint8_t  padding[240];
-} APP_BOOTLOADER_ZONE_HEADER;           /* 256 B */
+/* The zone header occupies the first APP_BOOTLOADER_ZONE_HEADER_SIZE bytes of
+ * each CURRENT/REVERT zone. Only the first two 32-bit words (magic and size)
+ * are interpreted; the remainder is 0xFF padding. The bootloader reads and
+ * writes those words directly through the page buffer, so no dedicated struct
+ * type is declared for the header. */
 
 // *****************************************************************************
 // *****************************************************************************
@@ -224,7 +222,7 @@ typedef struct __attribute__((packed))
     APP_BOOTLOADER_JumpToApp or triggers NVIC_SystemReset().
 */
 
-void APP_BOOTLOADER_Main(void) __attribute__((noreturn));
+void APP_BOOTLOADER_Main(void);
 
 /*******************************************************************************
   Function:
@@ -244,7 +242,7 @@ void APP_BOOTLOADER_Main(void) __attribute__((noreturn));
     Does not return.
 */
 
-void APP_BOOTLOADER_JumpToApp(void) __attribute__((noreturn));
+void APP_BOOTLOADER_JumpToApp(void);
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

@@ -60,8 +60,9 @@ int main(void)
 {
     APP_BOOTLOADER_Main();
 
-    /* APP_BOOTLOADER_Main is marked noreturn. This return statement is
-     * only here to keep the C standard happy. */
+    /* APP_BOOTLOADER_Main does not return in practice: it either jumps to
+     * the application or resets the device. This return statement is only
+     * here to satisfy the C standard for main(). */
     return 0;
 }
 

@@ -8,32 +8,14 @@
     pal_plc_boot.h
 
   Summary:
-    Feeds the PL360 firmware image to the PLC PHY driver from the
-    external SST26 PL360_CURRENT zone.
+    Streams the PL360 firmware image to the PLC PHY driver from external
+    memory.
 
   Description:
-    The bootloader (v3) stages the PL360 binary in the SST26
-    PL360_CURRENT zone (offset 0x100000, 256-byte ZONE_HEADER at
-    offset 0, payload from offset 256). The modem application no
-    longer carries a copy of the same binary in its own flash; it
-    passes the callback declared here to DRV_PLC_PHY_Open so the PLC
-    boot sequence streams the image fragment by fragment from SST26.
-
-    Internals:
-
-      - First invocation opens a dedicated DRV_MEMORY client, reads
-        the ZONE_HEADER, validates magic ('PLCC') and the payload size
-        against the zone capacity, and prepares the streaming cursor.
-
-      - Subsequent invocations issue one synchronous AsyncRead +
-        polling DRV_MEMORY_Tasks loop per fragment.
-
-      - When the payload runs out (or anything fails - virgin zone,
-        bad magic, transfer error), the callback sets *length = 0 and
-        closes the DRV_MEMORY client. The PLC boot driver treats that
-        as "boot finished" and the firmware-check that follows will
-        fail if no PL360 was actually loaded; that failure is the
-        application's cue to enter UART recovery.
+    Declares the boot-data callback used by the PLC PHY driver to load the
+    PL360 firmware image from external memory instead of from internal flash.
+    Refer to the PRIME PAL documentation for the external-memory layout and the
+    bootloader handshake.
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
@@ -90,18 +72,42 @@ extern "C" {
         uintptr_t context )
 
   Summary:
-    DRV_PLC_BOOT_DATA_CALLBACK implementation that streams PL360
-    firmware from SST26 PL360_CURRENT.
+    Boot-data callback (DRV_PLC_BOOT_DATA_CALLBACK) that supplies the
+    PL360 firmware image to the PLC PHY driver.
 
   Description:
-    Pass this function to DRV_PLC_PHY_Open as the second argument
-    instead of NULL. The PLC boot driver invokes it once per fragment
-    until *length is set to 0.
+    The PLC PHY driver invokes this callback repeatedly while it boots
+    the PL360 device, each call returning the next fragment of the
+    firmware image read from the external-memory PL360_CURRENT zone. A
+    zero-length fragment signals the end of the image. It is registered
+    by passing it to DRV_PLC_PHY_Open() in place of NULL.
 
-    The function is synchronous on the calling thread: each fragment
-    triggers an SST26 read that blocks until the SPI transfer
-    completes (the function pumps DRV_MEMORY_Tasks while waiting).
-    Safe to call from a cooperative scheduler.
+    Each call is synchronous: it reads one fragment from external memory
+    and blocks (pumping DRV_MEMORY_Tasks) until the SPI transfer
+    completes, so it is safe to call from a cooperative scheduler.
+
+  Precondition:
+    Registered as the data callback when DRV_PLC_PHY_Open() is called;
+    invoked by the PLC boot sequence, not directly by the application.
+
+  Parameters:
+    address - (output) Receives the address of the buffer holding the next
+              firmware fragment.
+    length  - (output) Receives the fragment size in bytes; set to 0 to signal
+              the end of the stream (or on any error).
+    context - User context supplied by the PLC boot driver (unused).
+
+  Returns:
+    None.
+
+  Example:
+    <code>
+    // Stream the PL360 image from external memory instead of internal flash.
+    DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, PAL_PLC_BOOT_DataCallback);
+    </code>
+
+  Remarks:
+    None.
 */
 
 void PAL_PLC_BOOT_DataCallback(uint32_t *address, uint16_t *length,
