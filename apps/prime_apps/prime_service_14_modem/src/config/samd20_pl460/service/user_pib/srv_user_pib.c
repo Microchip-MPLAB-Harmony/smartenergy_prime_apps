@@ -170,7 +170,7 @@ void SRV_USER_PIB_SetRequest(uint16_t pibAttrib, void *pibValue, uint8_t pibSize
 
 void SRV_USER_PIB_Tasks(void)
 {
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS fuStatus;
+    SRV_FU_BOOT_MODE_STATUS fuStatus;
 
     switch (gUartModeState)
     {
@@ -190,9 +190,9 @@ void SRV_USER_PIB_Tasks(void)
             break;
 
         case SRV_USER_PIB_UART_MODE_KICK_FU:
-            if (SRV_FU_WriteExtMemBootMode(
-                    SRV_FU_EXT_MEM_BOOT_MODE_UART_PENDING,
-                    0U, SRV_FU_EXT_MEM_BOOT_STEP_PRISTINE) == true)
+            if (SRV_FU_AsyncUpdateBootMode(
+                    SRV_FU_BOOT_MODE_UART_PENDING,
+                    0U, SRV_FU_BOOT_STEP_PRISTINE) == true)
             {
                 gUartModeState = SRV_USER_PIB_UART_MODE_WAIT_FU;
             }
@@ -200,14 +200,14 @@ void SRV_USER_PIB_Tasks(void)
             break;
 
         case SRV_USER_PIB_UART_MODE_WAIT_FU:
-            fuStatus = SRV_FU_GetExtMemBootModeStatus();
-            if (fuStatus == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK)
+            fuStatus = SRV_FU_UpdateBootModeStatus();
+            if (fuStatus == SRV_FU_BOOT_MODE_STATUS_OK)
             {
                 /* BOOT_FLAG persisted; reboot lands in UART recovery. */
                 NVIC_SystemReset();
                 /* unreachable */
             }
-            else if (fuStatus == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR)
+            else if (fuStatus == SRV_FU_BOOT_MODE_STATUS_ERROR)
             {
                 /* Page program failed. Drop the request and let the BS
                  * retry; better than rebooting into an inconsistent

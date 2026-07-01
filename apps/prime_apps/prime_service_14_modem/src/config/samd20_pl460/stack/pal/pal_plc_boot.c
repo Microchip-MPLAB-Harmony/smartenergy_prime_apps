@@ -8,14 +8,14 @@
     pal_plc_boot.c
 
   Summary:
-    Synchronous external memory reader exposed as a DRV_PLC_BOOT_DATA_CALLBACK.
+    Streams the PL360 firmware image to the PLC PHY driver from external memory.
 
   Description:
-    Implementation of the external-memory boot streamer declared in
-    pal_plc_boot.h. It owns a dedicated DRV_MEMORY client and the
-    streaming state used by PAL_PLC_BOOT_DataCallback, with a static
-    fragment buffer sized to the PLC boot driver's maximum fragment
-    (512 bytes).
+    Implements the boot-data callback that lets the PLC PHY boot driver load the
+    PL360 firmware image fragment by fragment, each fragment served from
+    external memory. It owns a dedicated DRV_MEMORY client and the streaming
+    state used by PAL_PLC_BOOT_DataCallback, with a static fragment buffer sized
+    to the PLC boot driver's maximum fragment (512 bytes).
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*

@@ -146,9 +146,6 @@ static uint32_t calculatedCrc;
 /* Tracks whether the most recent FU result was a revert request. */
 static bool fuLastResultIsRevert = false;
 
-/* Latest decoded BOOT_MODE_INFO read from BOOT_FLAG. */
-static SRV_FU_EXT_MEM_BOOT_MODE_INFO bootModeResult;
-
 static uint8_t imageSignature[PRIME_SIGNATURE_SIZE];
 
 static uint8_t hashDigest[HASH_SIZE_SHA_256];
@@ -255,7 +252,7 @@ static void lSRV_FU_TransferHandler
     {
         if (transferResult != SRV_FU_MEM_TRANSFER_OK)
         {
-            mInfo->bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR;
+            mInfo->bootModeStatus = (uint8_t) SRV_FU_BOOT_MODE_STATUS_ERROR;
             mInfo->state = SRV_FU_MEM_STATE_CMD_WAIT;
             return;
         }
@@ -269,17 +266,12 @@ static void lSRV_FU_TransferHandler
 
             case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE:
                 /* Page written -> Set sequence done. */
-                mInfo->bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK;
+                mInfo->bootModeStatus = (uint8_t) SRV_FU_BOOT_MODE_STATUS_OK;
                 mInfo->state = SRV_FU_MEM_STATE_CMD_WAIT;
                 break;
 
-            case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ:
-                /* Page read -> Tasks() will validate magic + modeXor. */
-                mInfo->state = SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ_DONE;
-                break;
-
             default:
-                mInfo->bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR;
+                mInfo->bootModeStatus = (uint8_t) SRV_FU_BOOT_MODE_STATUS_ERROR;
                 mInfo->state = SRV_FU_MEM_STATE_CMD_WAIT;
                 break;
         }
@@ -531,12 +523,10 @@ void SRV_FU_Initialize(void)
     memInfo.sizeFuRegion = PRIME_FU_MEM_SIZE;
 
     memInfo.bootModeHandle = DRV_MEMORY_COMMAND_HANDLE_INVALID;
-    memInfo.bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_IDLE;
+    memInfo.bootModeStatus = (uint8_t) SRV_FU_BOOT_MODE_STATUS_IDLE;
     memInfo.bootModeRequestMode = 0U;
     memInfo.bootModeRequestImageIdx = 0U;
     memInfo.bootModeRequestImageStep = 0U;
-
-    (void) memset(&bootModeResult, 0, sizeof(bootModeResult));
 
     memInfo.state = SRV_FU_MEM_STATE_OPEN_DRIVER;
 
@@ -736,12 +726,11 @@ void SRV_FU_Tasks(void)
 
         case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_ERASE:
         case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE:
-        case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ:
         {
             /* Operation in flight; the transfer handler advances state. */
             if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.bootModeHandle)
             {
-                memInfo.bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR;
+                memInfo.bootModeStatus = (uint8_t) SRV_FU_BOOT_MODE_STATUS_ERROR;
                 memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             }
             break;
@@ -752,7 +741,7 @@ void SRV_FU_Tasks(void)
             /* Erase finished, queue the page write. */
             uint32_t pageBlockStart;
             uint32_t modeXorByte;
-            SRV_FU_EXT_MEM_BOOT_MODE_INFO toWrite;
+            SRV_FU_BOOT_MODE_INFO toWrite;
 
             pageBlockStart = PRIME_FU_BOOT_FLAG_OFFSET / memInfo.writePageSize;
             modeXorByte = (uint32_t) memInfo.bootModeRequestMode
@@ -769,14 +758,13 @@ void SRV_FU_Tasks(void)
             toWrite.modeXor   = modeXorByte;
 
             (void) memcpy(pMemWrite, &toWrite, sizeof(toWrite));
-            (void) memcpy(&bootModeResult, &toWrite, sizeof(toWrite));
 
             DRV_MEMORY_AsyncWrite(memInfo.memoryHandle, &memInfo.bootModeHandle,
                                   pMemWrite, pageBlockStart, 1U);
 
             if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.bootModeHandle)
             {
-                memInfo.bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR;
+                memInfo.bootModeStatus = (uint8_t) SRV_FU_BOOT_MODE_STATUS_ERROR;
                 memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
             }
             else
@@ -786,28 +774,6 @@ void SRV_FU_Tasks(void)
             break;
         }
 
-        case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ_DONE:
-        {
-            SRV_FU_EXT_MEM_BOOT_MODE_INFO decoded;
-            uint32_t expectedXor;
-
-            (void) memcpy(&decoded, pBuffInput, sizeof(decoded));
-
-            expectedXor = (uint32_t) decoded.mode
-                        ^ (PRIME_FU_BOOT_MODE_MAGIC & 0xFFU);
-
-            if ((decoded.magic != PRIME_FU_BOOT_MODE_MAGIC) ||
-                (decoded.modeXor != expectedXor))
-            {
-                (void) memset(&decoded, 0, sizeof(decoded));
-            }
-
-            (void) memcpy(&bootModeResult, &decoded, sizeof(decoded));
-
-            memInfo.bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK;
-            memInfo.state = SRV_FU_MEM_STATE_CMD_WAIT;
-            break;
-        }
         case SRV_FU_VERIFY_SIGNATURE_BLOCK:
         {
             if (dsaState == SRV_FU_DSA_CALCULATING)
@@ -1154,13 +1120,13 @@ void SRV_FU_RegisterCallbackMemTransfer(SRV_FU_MEM_TRANSFER_CB callback)
 
 bool SRV_FU_SwapFirmware(void)
 {
-    SRV_FU_EXT_MEM_BOOT_MODE mode;
+    SRV_FU_BOOT_MODE mode;
 
     mode = fuLastResultIsRevert
-         ? SRV_FU_EXT_MEM_BOOT_MODE_REVERT_PENDING
-         : SRV_FU_EXT_MEM_BOOT_MODE_INSTALL_PENDING;
+         ? SRV_FU_BOOT_MODE_REVERT_PENDING
+         : SRV_FU_BOOT_MODE_INSTALL_PENDING;
 
-    return SRV_FU_WriteExtMemBootMode(mode, 0U, SRV_FU_EXT_MEM_BOOT_STEP_PRISTINE);
+    return SRV_FU_AsyncUpdateBootMode(mode, 0U, SRV_FU_BOOT_STEP_PRISTINE);
 }
 
 void SRV_FU_SetECDSAPublicKey(uint8_t *pubKey, uint32_t pubKeyLen)
@@ -1188,8 +1154,8 @@ void SRV_FU_VerifyImage(void)
     }
 }
 
-bool SRV_FU_WriteExtMemBootMode(SRV_FU_EXT_MEM_BOOT_MODE mode, uint8_t imageIdx,
-                              SRV_FU_EXT_MEM_BOOT_STEP imageStep)
+bool SRV_FU_AsyncUpdateBootMode(SRV_FU_BOOT_MODE mode, uint8_t imageIdx,
+                              SRV_FU_BOOT_STEP imageStep)
 {
     uint32_t eraseBlockSize;
     uint32_t eraseBlockStartBootFlag;
@@ -1216,14 +1182,14 @@ bool SRV_FU_WriteExtMemBootMode(SRV_FU_EXT_MEM_BOOT_MODE mode, uint8_t imageIdx,
     memInfo.bootModeRequestMode      = (uint8_t) mode;
     memInfo.bootModeRequestImageIdx  = imageIdx;
     memInfo.bootModeRequestImageStep = (uint8_t) imageStep;
-    memInfo.bootModeStatus           = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY;
+    memInfo.bootModeStatus           = (uint8_t) SRV_FU_BOOT_MODE_STATUS_BUSY;
 
     DRV_MEMORY_AsyncErase(memInfo.memoryHandle, &memInfo.bootModeHandle,
                           eraseBlockStartBootFlag, 1U);
 
     if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.bootModeHandle)
     {
-        memInfo.bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR;
+        memInfo.bootModeStatus = (uint8_t) SRV_FU_BOOT_MODE_STATUS_ERROR;
         return false;
     }
 
@@ -1231,50 +1197,9 @@ bool SRV_FU_WriteExtMemBootMode(SRV_FU_EXT_MEM_BOOT_MODE mode, uint8_t imageIdx,
     return true;
 }
 
-bool SRV_FU_ReadExtMemBootMode(void)
+SRV_FU_BOOT_MODE_STATUS SRV_FU_UpdateBootModeStatus(void)
 {
-    uint32_t pageBlockStart;
-
-    if (memInfo.state != SRV_FU_MEM_STATE_CMD_WAIT)
-    {
-        return false;
-    }
-
-    if ((nvmGeometry == NULL) || (memInfo.readPageSize == 0U))
-    {
-        return false;
-    }
-
-    pageBlockStart = PRIME_FU_BOOT_FLAG_OFFSET / memInfo.readPageSize;
-
-    memInfo.bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY;
-
-    DRV_MEMORY_AsyncRead(memInfo.memoryHandle, &memInfo.bootModeHandle,
-                         pBuffInput, pageBlockStart, 1U);
-
-    if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.bootModeHandle)
-    {
-        memInfo.bootModeStatus = (uint8_t) SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR;
-        return false;
-    }
-
-    memInfo.state = SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ;
-    return true;
-}
-
-SRV_FU_EXT_MEM_BOOT_MODE_STATUS SRV_FU_GetExtMemBootModeStatus(void)
-{
-    return (SRV_FU_EXT_MEM_BOOT_MODE_STATUS) memInfo.bootModeStatus;
-}
-
-void SRV_FU_GetExtMemBootModeResult(SRV_FU_EXT_MEM_BOOT_MODE_INFO *info)
-{
-    if (info == NULL)
-    {
-        return;
-    }
-
-    (void) memcpy(info, &bootModeResult, sizeof(*info));
+    return (SRV_FU_BOOT_MODE_STATUS) memInfo.bootModeStatus;
 }
 
 

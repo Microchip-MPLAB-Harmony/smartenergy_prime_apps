@@ -12,10 +12,9 @@
     memory.
 
   Description:
-    Declares the boot-data callback used by the PLC PHY driver to load the
-    PL360 firmware image from external memory instead of from internal flash.
-    Refer to the PRIME PAL documentation for the external-memory layout and the
-    bootloader handshake.
+    Declares the boot-data callback that lets the PLC PHY boot driver load the
+    PL360 firmware image fragment by fragment, each fragment served from
+    external memory.
 *******************************************************************************/
 //DOM-IGNORE-BEGIN
 /*
@@ -87,22 +86,27 @@ extern "C" {
     completes, so it is safe to call from a cooperative scheduler.
 
   Precondition:
-    Registered as the data callback when DRV_PLC_PHY_Open() is called;
-    invoked by the PLC boot sequence, not directly by the application.
+    The external-memory driver (DRV_MEMORY) must be initialized and the
+    callback registered with DRV_PLC_PHY_Open(). It is invoked by the PLC boot
+    sequence, not called directly by the application.
 
   Parameters:
-    address - (output) Receives the address of the buffer holding the next
-              firmware fragment.
-    length  - (output) Receives the fragment size in bytes; set to 0 to signal
-              the end of the stream (or on any error).
-    context - User context supplied by the PLC boot driver (unused).
+    address - Receives the address of the buffer holding the next firmware
+              fragment.
+    length  - Receives the fragment size in bytes; set to 0 to signal the end
+              of the stream (or on any error).
+    context - Context supplied by the PLC boot driver when it invokes the
+              callback; part of the DRV_PLC_BOOT_DATA_CALLBACK signature and not
+              used by this implementation.
 
   Returns:
     None.
 
   Example:
     <code>
-    // Stream the PL360 image from external memory instead of internal flash.
+    // Register the callback; the PLC boot driver invokes it during boot and
+    // supplies/fills the address and length parameters (it is not called
+    // directly by the application).
     DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, PAL_PLC_BOOT_DataCallback);
     </code>
 

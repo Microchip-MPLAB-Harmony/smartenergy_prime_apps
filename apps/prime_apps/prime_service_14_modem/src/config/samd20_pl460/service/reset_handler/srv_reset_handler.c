@@ -59,11 +59,7 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-/* Reset-info writer. The shared definition lives in the common section at the
- * end of this file; declared here so the per-platform fault/WDT handlers can
- * call it before that definition. */
 static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType);
-
 
 // *****************************************************************************
 // *****************************************************************************
@@ -170,17 +166,6 @@ static void lSRV_RESET_HANDLER_WdtEarlyWarning(uintptr_t context)
     lSRV_RESET_HANDLER_StoreResetInfo(RESET_HANDLER_WATCHDOG_RESET);
 }
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Reset Handler Service Interface Implementation
-// *****************************************************************************
-// *****************************************************************************
-
-void SRV_RESET_HANDLER_Initialize(void)
-{
-    WDT_CallbackRegister(lSRV_RESET_HANDLER_WdtEarlyWarning, 0U);
-}
-
 static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType)
 {
     uint32_t resetInfo;
@@ -193,6 +178,18 @@ static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE rese
     /* Store reset information: high 16 bits = count, low 16 bits = cause */
     resetInfo = ((uint32_t)numResets << 16) | (uint32_t)resetType;
     SRV_STORAGE_WriteNonVolatileData(RESET_INFO_SLOT, resetInfo);
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Reset Handler Service Interface Implementation
+// *****************************************************************************
+// *****************************************************************************
+
+void SRV_RESET_HANDLER_Initialize(void)
+{
+    /* Hook the watchdog early-warning so a pending WDT reset is recorded. */
+    WDT_CallbackRegister(lSRV_RESET_HANDLER_WdtEarlyWarning, 0U);
 }
 
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)

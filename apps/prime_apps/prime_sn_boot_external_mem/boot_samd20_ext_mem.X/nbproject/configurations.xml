@@ -145,7 +145,7 @@
         <targetDevice>ATSAMD20J18</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>EdbgTool</platformTool>
+        <platformTool>noID</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>5.10</languageToolchainVersion>
         <platform>3</platform>
@@ -168,7 +168,7 @@
                         CT="1"
                         CN="samd20_pl460"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../../prime_service_14_modem/prime_service_14_modem.X"
                         BC="${MAKE}  -f Makefile CONF=samd20_pl460"
                         DBC="${MAKE}  -f Makefile CONF=samd20_pl460 TYPE_IMAGE=DEBUG_RUN"
@@ -403,8 +403,6 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-3dfff"/>
         <property key="poweroptions.powerenable" value="false"/>
-        <property key="programmerToGoFilePath"
-                  value="C:/work/projectsH3/smartenergy_prime_apps/apps/prime_apps/prime_sn_boot_external_mem/boot_samd20_ext_mem.X/debug/samd20/boot_samd20_ext_mem_ptg"/>
         <property key="programoptions.eraseb4program" value="false"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

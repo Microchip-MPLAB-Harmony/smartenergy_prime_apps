@@ -23,7 +23,7 @@ data:
     - children:
       - attributes:
           id: srv_usi
-          x: '913'
+          x: '907'
           y: '228'
         type: ElementPosition
       type: ElementPositions

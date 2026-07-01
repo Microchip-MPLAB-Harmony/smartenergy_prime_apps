@@ -101,7 +101,7 @@ static uint16_t      appSw0LowCount = 0U;
  * kicks an async write of BOOT_MODE_INFO into SST26, which takes
  * ~28 ms (sector erase + page program) and is driven by SRV_FU_Tasks
  * during the main loop. The application polls
- * SRV_FU_GetExtMemBootModeStatus until it transitions to OK and only
+ * SRV_FU_UpdateBootModeStatus until it transitions to OK and only
  * then triggers the reset. */
 typedef enum
 {
@@ -130,7 +130,7 @@ static void lAPP_SwapFirmware(void)
 {
     /* v3 hand-off: kick the BOOT_MODE_INFO write and let
      * lAPP_PollSwap drive the rest. SRV_FU_SwapFirmware is now async
-     * (it calls SRV_FU_WriteExtMemBootMode under the hood), so this
+     * (it calls SRV_FU_AsyncUpdateBootMode under the hood), so this
      * function only schedules the operation; the reset happens later
      * once the SST26 page program completes.
      *
@@ -145,22 +145,22 @@ static void lAPP_SwapFirmware(void)
 
 static void lAPP_PollSwap(void)
 {
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS status;
+    SRV_FU_BOOT_MODE_STATUS status;
 
     if (appSwapState != APP_SWAP_WAIT_BOOT_MODE_OK)
     {
         return;
     }
 
-    status = SRV_FU_GetExtMemBootModeStatus();
-    if (status == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK)
+    status = SRV_FU_UpdateBootModeStatus();
+    if (status == SRV_FU_BOOT_MODE_STATUS_OK)
     {
         /* BOOT_MODE_INFO is now in SST26. Reset hands control to the
          * bootloader, which reads it and dispatches install/revert. */
         SRV_RESET_HANDLER_RestartSystem(RESET_HANDLER_FU_RESET);
         /* unreachable */
     }
-    else if (status == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR)
+    else if (status == SRV_FU_BOOT_MODE_STATUS_ERROR)
     {
         /* Page program failed (DRV_MEMORY error). Drop the swap and
          * let the BS retry a full FU cycle. */
@@ -237,12 +237,12 @@ static void lAPP_TimeExpiredSetFlag(uintptr_t context)
 
       APP_SW0_IDLE
         - Counts consecutive LOW polls. When the threshold is reached,
-          calls SRV_FU_WriteExtMemBootMode(UART_PENDING). If the FU service
+          calls SRV_FU_AsyncUpdateBootMode(UART_PENDING). If the FU service
           is currently busy (e.g. mid telecarga) the call returns false
           and we keep polling -- the press does not get lost.
 
       APP_SW0_WAIT_BOOT_MODE_OK
-        - The set was kicked. Polls SRV_FU_GetExtMemBootModeStatus until
+        - The set was kicked. Polls SRV_FU_UpdateBootModeStatus until
           OK (sector erase + page program completed in SST26) and then
           triggers NVIC_SystemReset. ERROR returns to IDLE so the user
           can try again.
@@ -253,7 +253,7 @@ static void lAPP_TimeExpiredSetFlag(uintptr_t context)
 */
 static void lAPP_HandleSw0(void)
 {
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS status;
+    SRV_FU_BOOT_MODE_STATUS status;
 
     if (appSw0State == APP_SW0_IDLE)
     {
@@ -263,9 +263,9 @@ static void lAPP_HandleSw0(void)
             if (appSw0LowCount >= APP_SW0_DEBOUNCE_TICKS)
             {
                 appSw0LowCount = 0U;
-                if (SRV_FU_WriteExtMemBootMode(
-                        SRV_FU_EXT_MEM_BOOT_MODE_UART_PENDING,
-                        0U, SRV_FU_EXT_MEM_BOOT_STEP_PRISTINE) == true)
+                if (SRV_FU_AsyncUpdateBootMode(
+                        SRV_FU_BOOT_MODE_UART_PENDING,
+                        0U, SRV_FU_BOOT_STEP_PRISTINE) == true)
                 {
                     appSw0State = APP_SW0_WAIT_BOOT_MODE_OK;
                 }
@@ -280,13 +280,13 @@ static void lAPP_HandleSw0(void)
     }
     else /* APP_SW0_WAIT_BOOT_MODE_OK */
     {
-        status = SRV_FU_GetExtMemBootModeStatus();
-        if (status == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK)
+        status = SRV_FU_UpdateBootModeStatus();
+        if (status == SRV_FU_BOOT_MODE_STATUS_OK)
         {
             NVIC_SystemReset();
             /* unreachable */
         }
-        else if (status == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR)
+        else if (status == SRV_FU_BOOT_MODE_STATUS_ERROR)
         {
             /* Sector erase or page program failed. Reset state and let
              * the operator try again. */

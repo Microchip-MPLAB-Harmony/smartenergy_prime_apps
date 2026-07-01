@@ -77,7 +77,7 @@ Microchip or any third party.
   Description:
     The application and the bootloader share a 12-byte BOOT_MODE_INFO record
     persisted in the external memory. Before requesting a reset the application
-    writes this record (with SRV_FU_WriteExtMemBootMode) using one of these values
+    writes this record (with SRV_FU_AsyncUpdateBootMode) using one of these values
     to tell the bootloader what to do on the next boot.
 
   Remarks:
@@ -85,11 +85,11 @@ Microchip or any third party.
 */
 typedef enum
 {
-    SRV_FU_EXT_MEM_BOOT_MODE_NORMAL          = 0,  /* boot the current application    */
-    SRV_FU_EXT_MEM_BOOT_MODE_INSTALL_PENDING = 1,  /* install the downloaded image    */
-    SRV_FU_EXT_MEM_BOOT_MODE_REVERT_PENDING  = 2,  /* roll back to the previous image */
-    SRV_FU_EXT_MEM_BOOT_MODE_UART_PENDING    = 3,  /* enter UART recovery             */
-} SRV_FU_EXT_MEM_BOOT_MODE;
+    SRV_FU_BOOT_MODE_NORMAL          = 0,  /* boot the current application    */
+    SRV_FU_BOOT_MODE_INSTALL_PENDING = 1,  /* install the downloaded image    */
+    SRV_FU_BOOT_MODE_REVERT_PENDING  = 2,  /* roll back to the previous image */
+    SRV_FU_BOOT_MODE_UART_PENDING    = 3,  /* enter UART recovery             */
+} SRV_FU_BOOT_MODE;
 
 // *****************************************************************************
 /* External-memory image-swap step
@@ -106,10 +106,10 @@ typedef enum
 */
 typedef enum
 {
-    SRV_FU_EXT_MEM_BOOT_STEP_PRISTINE     = 0,  /* nothing done yet              */
-    SRV_FU_EXT_MEM_BOOT_STEP_BACKUP_DONE  = 1,  /* previous image backed up      */
-    SRV_FU_EXT_MEM_BOOT_STEP_INSTALL_DONE = 2,  /* new image installed           */
-} SRV_FU_EXT_MEM_BOOT_STEP;
+    SRV_FU_BOOT_STEP_PRISTINE     = 0,  /* nothing done yet              */
+    SRV_FU_BOOT_STEP_BACKUP_DONE  = 1,  /* previous image backed up      */
+    SRV_FU_BOOT_STEP_INSTALL_DONE = 2,  /* new image installed           */
+} SRV_FU_BOOT_STEP;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -325,11 +325,11 @@ typedef void (*SRV_FU_VERSION_SWAP_CB)(SRV_FU_TRAFFIC_VERSION trafficVersion);
 /* External-memory boot-mode operation status
 
   Summary:
-    Status of the last SRV_FU_WriteExtMemBootMode / SRV_FU_ReadExtMemBootMode request.
+    Status of the last SRV_FU_AsyncUpdateBootMode request.
 
   Description:
     IDLE     - No operation pending or last result already consumed.
-    BUSY     - Operation in flight (erase, write or read).
+    BUSY     - Operation in flight (erase or write).
     OK       - Last operation completed successfully.
     ERROR    - Last operation failed (DRV_MEMORY error, invalid magic
                on read, or service not idle when kicked).
@@ -339,11 +339,11 @@ typedef void (*SRV_FU_VERSION_SWAP_CB)(SRV_FU_TRAFFIC_VERSION trafficVersion);
 */
 typedef enum
 {
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_IDLE  = 0,
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY  = 1,
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK    = 2,
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS_ERROR = 3,
-} SRV_FU_EXT_MEM_BOOT_MODE_STATUS;
+    SRV_FU_BOOT_MODE_STATUS_IDLE  = 0,
+    SRV_FU_BOOT_MODE_STATUS_BUSY  = 1,
+    SRV_FU_BOOT_MODE_STATUS_OK    = 2,
+    SRV_FU_BOOT_MODE_STATUS_ERROR = 3,
+} SRV_FU_BOOT_MODE_STATUS;
 
 // *****************************************************************************
 /* External-memory boot-mode information
@@ -366,7 +366,7 @@ typedef struct __attribute__((packed))
     uint8_t  imageStep;
     uint8_t  reserved;
     uint32_t modeXor;
-} SRV_FU_EXT_MEM_BOOT_MODE_INFO;
+} SRV_FU_BOOT_MODE_INFO;
 
 // *****************************************************************************
 // *****************************************************************************
@@ -1055,30 +1055,31 @@ void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion);
 
 /*******************************************************************************
   Function:
-    bool SRV_FU_WriteExtMemBootMode(SRV_FU_EXT_MEM_BOOT_MODE mode,
+    bool SRV_FU_AsyncUpdateBootMode(SRV_FU_BOOT_MODE mode,
                                   uint8_t imageIdx,
-                                  SRV_FU_EXT_MEM_BOOT_STEP imageStep)
+                                  SRV_FU_BOOT_STEP imageStep)
 
   Summary:
-    Requests a boot action from the external bootloader for the next reset.
+    Asynchronously updates the boot-mode record the external bootloader reads on
+    the next reset.
 
   Description:
     Stores a boot-mode record in the external memory that the bootloader reads
     on the next reset to decide what to do: install the downloaded image, revert
-    to the previous one, or enter UART recovery (see SRV_FU_EXT_MEM_BOOT_MODE).
+    to the previous one, or enter UART recovery (see SRV_FU_BOOT_MODE).
     The operation is asynchronous: the request is queued and the caller must poll
-    SRV_FU_GetExtMemBootModeStatus() until it leaves the BUSY state.
+    SRV_FU_UpdateBootModeStatus() until it leaves the BUSY state.
 
   Precondition:
     SRV_FU_Initialize() must have been called and the service must be idle
     (no firmware-upgrade transfer in progress).
 
   Parameters:
-    mode      - Boot action to request (see SRV_FU_EXT_MEM_BOOT_MODE).
+    mode      - Boot action to request (see SRV_FU_BOOT_MODE).
     imageIdx  - Index of the target image when the download contains more than
                 one image; use 0 for a single-image download.
     imageStep - Swap progress for the target image (see
-                SRV_FU_EXT_MEM_BOOT_STEP).
+                SRV_FU_BOOT_STEP).
 
   Returns:
     true  - Request accepted; the status moves to BUSY.
@@ -1086,11 +1087,11 @@ void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion);
 
   Example:
     <code>
-    if (SRV_FU_WriteExtMemBootMode(SRV_FU_EXT_MEM_BOOT_MODE_INSTALL_PENDING,
-                                 0U, SRV_FU_EXT_MEM_BOOT_STEP_PRISTINE))
+    if (SRV_FU_AsyncUpdateBootMode(SRV_FU_BOOT_MODE_INSTALL_PENDING,
+                                 0U, SRV_FU_BOOT_STEP_PRISTINE))
     {
-        while (SRV_FU_GetExtMemBootModeStatus() ==
-               SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY)
+        while (SRV_FU_UpdateBootModeStatus() ==
+               SRV_FU_BOOT_MODE_STATUS_BUSY)
         {
             SRV_FU_Tasks();
         }
@@ -1100,85 +1101,36 @@ void SRV_FU_RequestSwapVersion(SRV_FU_TRAFFIC_VERSION trafficVersion);
   Remarks:
     Asynchronous; the request completes across several SRV_FU_Tasks() calls.
 */
-bool SRV_FU_WriteExtMemBootMode(SRV_FU_EXT_MEM_BOOT_MODE mode, uint8_t imageIdx,
-                              SRV_FU_EXT_MEM_BOOT_STEP imageStep);
+bool SRV_FU_AsyncUpdateBootMode(SRV_FU_BOOT_MODE mode, uint8_t imageIdx,
+                              SRV_FU_BOOT_STEP imageStep);
 
 /*******************************************************************************
   Function:
-    bool SRV_FU_ReadExtMemBootMode(void)
+    SRV_FU_BOOT_MODE_STATUS SRV_FU_UpdateBootModeStatus(void)
 
   Summary:
-    Starts an asynchronous read of the stored boot-mode record.
-
-  Description:
-    Begins reading the boot-mode record from the external memory. This call only
-    starts the operation and reports whether it was accepted; it does not return
-    the record itself. Poll SRV_FU_GetExtMemBootModeStatus() until it leaves
-    BUSY and, once it reports OK, read the record with
-    SRV_FU_GetExtMemBootModeResult(). A missing or invalid record is reported as
-    SRV_FU_EXT_MEM_BOOT_MODE_NORMAL so the caller sees a safe default.
-
-  Precondition:
-    SRV_FU_Initialize() must have been called and the service must be idle
-    (no firmware-upgrade transfer in progress).
-
-  Parameters:
-    None.
-
-  Returns:
-    true  - Request accepted; the status moves to BUSY.
-    false - The service is busy or another boot-mode request is already pending.
-
-  Example:
-    <code>
-    SRV_FU_EXT_MEM_BOOT_MODE_INFO info;
-
-    if (SRV_FU_ReadExtMemBootMode())
-    {
-        while (SRV_FU_GetExtMemBootModeStatus() ==
-               SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY)
-        {
-            SRV_FU_Tasks();
-        }
-
-        if (SRV_FU_GetExtMemBootModeStatus() ==
-            SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK)
-        {
-            SRV_FU_GetExtMemBootModeResult(&info);
-        }
-    }
-    </code>
-
-  Remarks:
-    None.
-*/
-bool SRV_FU_ReadExtMemBootMode(void);
-
-/*******************************************************************************
-  Function:
-    SRV_FU_EXT_MEM_BOOT_MODE_STATUS SRV_FU_GetExtMemBootModeStatus(void)
-
-  Summary:
-    Returns the status of the last boot-mode write or read request.
+    Returns the status of the last boot-mode update request.
 
   Description:
     Reports the progress of the asynchronous request started by
-    SRV_FU_WriteExtMemBootMode() or SRV_FU_ReadExtMemBootMode(): BUSY while it is
-    still running, OK once it has completed successfully, or ERROR on failure.
+    SRV_FU_AsyncUpdateBootMode(): BUSY while it is still running, OK once it has
+    completed successfully, or ERROR on failure.
 
   Precondition:
-    SRV_FU_Initialize() must have been called.
+    SRV_FU_Initialize() must have been called, and a write request must have been
+    started with SRV_FU_AsyncUpdateBootMode().
 
   Parameters:
     None.
 
   Returns:
-    The current status (see SRV_FU_EXT_MEM_BOOT_MODE_STATUS).
+    BUSY while the request is still running, OK once it completed successfully,
+    or ERROR on failure (see SRV_FU_BOOT_MODE_STATUS).
 
   Example:
     <code>
-    while (SRV_FU_GetExtMemBootModeStatus() ==
-           SRV_FU_EXT_MEM_BOOT_MODE_STATUS_BUSY)
+    while (SRV_FU_UpdateBootModeStatus() ==
+           SRV_FU_BOOT_MODE_STATUS_BUSY)
     {
         SRV_FU_Tasks();
     }
@@ -1187,43 +1139,7 @@ bool SRV_FU_ReadExtMemBootMode(void);
   Remarks:
     None.
 */
-SRV_FU_EXT_MEM_BOOT_MODE_STATUS SRV_FU_GetExtMemBootModeStatus(void);
-
-/*******************************************************************************
-  Function:
-    void SRV_FU_GetExtMemBootModeResult(SRV_FU_EXT_MEM_BOOT_MODE_INFO *info)
-
-  Summary:
-    Copies the boot-mode record obtained by the last get request.
-
-  Description:
-    Copies into *info the boot-mode record read by SRV_FU_ReadExtMemBootMode().
-    Only meaningful once SRV_FU_GetExtMemBootModeStatus() has returned OK after a
-    read; after a successful write the record mirrors what was written.
-
-  Precondition:
-    SRV_FU_Initialize() must have been called.
-
-  Parameters:
-    info - Pointer to a caller-allocated structure that receives the record.
-
-  Returns:
-    None.
-
-  Example:
-    <code>
-    SRV_FU_EXT_MEM_BOOT_MODE_INFO info;
-
-    if (SRV_FU_GetExtMemBootModeStatus() == SRV_FU_EXT_MEM_BOOT_MODE_STATUS_OK)
-    {
-        SRV_FU_GetExtMemBootModeResult(&info);
-    }
-    </code>
-
-  Remarks:
-    None.
-*/
-void SRV_FU_GetExtMemBootModeResult(SRV_FU_EXT_MEM_BOOT_MODE_INFO *info);
+SRV_FU_BOOT_MODE_STATUS SRV_FU_UpdateBootModeStatus(void);
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility

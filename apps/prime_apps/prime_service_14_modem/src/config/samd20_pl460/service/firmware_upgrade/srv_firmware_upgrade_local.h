@@ -120,10 +120,6 @@ typedef enum
 
     SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE,
 
-    SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ,
-
-    SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_READ_DONE,
-
     /* Attached memory cannot be initialized */
     SRV_FU_MEM_UNINITIALIZED
 

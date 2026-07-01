@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: drv_memory
-          x: '482'
-          y: '157'
+          x: '475'
+          y: '159'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

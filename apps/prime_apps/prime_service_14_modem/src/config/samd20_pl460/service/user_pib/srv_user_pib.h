@@ -223,8 +223,8 @@ void SRV_USER_PIB_Initialize(void);
     </code>
 
   Remarks:
-    Available only on the SAMD20 platform. It is normally called by the system
-    task routine (SYS_Tasks), not directly by the application.
+    It is normally called by the system task routine (SYS_Tasks), not directly
+    by the application.
 */
 
 void SRV_USER_PIB_Tasks(void);
