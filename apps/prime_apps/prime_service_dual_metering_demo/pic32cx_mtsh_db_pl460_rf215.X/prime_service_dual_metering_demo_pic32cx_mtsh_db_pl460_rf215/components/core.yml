@@ -75,8 +75,13 @@ data:
     AES_CLOCK_ENABLE:
       attributes:
         id: AES_CLOCK_ENABLE
+        label: AES
       children:
       - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
         - attributes:
             value: 'true'
           type: User
@@ -301,8 +306,13 @@ data:
     CPKCC_CLOCK_ENABLE:
       attributes:
         id: CPKCC_CLOCK_ENABLE
+        label: CPKCC
       children:
       - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
         - attributes:
             value: 'true'
           type: User
@@ -4593,8 +4603,13 @@ data:
     SHA_CLOCK_ENABLE:
       attributes:
         id: SHA_CLOCK_ENABLE
+        label: SHA
       children:
       - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
         - attributes:
             value: 'true'
           type: User

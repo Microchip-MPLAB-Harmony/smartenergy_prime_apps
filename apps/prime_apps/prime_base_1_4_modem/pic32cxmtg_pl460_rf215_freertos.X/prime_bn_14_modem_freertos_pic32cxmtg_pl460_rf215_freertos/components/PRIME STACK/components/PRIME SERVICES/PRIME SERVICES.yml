@@ -1,9 +1,13 @@
 configVersion: 1.0.0
 componentName: PRIME SERVICES
-coreVersion: 5.8.3
+coreVersion: 5.8.4
 device: PIC32CX2051MTG128
 library: []
 dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyGroupModule
+  name: PRIME SERVICES
+  type: module
+  version: ''
 - dependencyPackage: class com.microchip.mcc.harmony.HarmonyGroupModule
   name: PRIME SERVICES
   type: module

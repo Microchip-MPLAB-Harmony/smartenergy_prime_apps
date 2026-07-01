@@ -1,5 +1,5 @@
 configVersion: 1.0.0
-coreVersion: 5.9.0
+coreVersion: 5.8.4
 spaHostVersion: 1.3.0
 device: PIC32CX2051MTG128
 deviceLibrary:
@@ -110,11 +110,11 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cxmt_pl460\service\queue\srv_queue_local.h
   hash: fc6385f319bc7e02ce7d2fcb2412c4e5f7e84f158a52839f2cd5ce16db1ac2e8
 - file: ..\src\config\pic32cxmt_pl460\service\random\srv_random.c
-  hash: 70b7a9e6982ebb5755a247d3d4e05857623aec9b9712474e058f9caca8820f23
+  hash: 5ef0bed25d1d11d4c802a73ca2ca3bac1eda51c889cce8b94c980165915fa67b
 - file: ..\src\config\pic32cxmt_pl460\service\random\srv_random.h
   hash: 74409dadccb1a152f9717e596b31af36c8cac01d1a33a4a40a15c5fbdcd52a78
 - file: ..\src\config\pic32cxmt_pl460\service\reset_handler\srv_reset_handler.c
-  hash: dcb0dbb27f2a65ce31bad5a76e9047c998b5e2a27ec5917f19995ca8c7fb3656
+  hash: 86f70d96fa872448b8e1ee302da84e4e7daffc5a7b0915bc51cf6e11be0d2d45
 - file: ..\src\config\pic32cxmt_pl460\service\reset_handler\srv_reset_handler.h
   hash: ec7b6148f8c792c9e336367359a533f3c6f768aaf1d09477e3de2430f90e928c
 - file: ..\src\config\pic32cxmt_pl460\service\security\aes_wrapper.c
@@ -126,7 +126,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cxmt_pl460\service\security\cipher_wrapper.h
   hash: d0c164818bbe5d1871d318b0231ea957418ade6dba9bffe2925f22dc4fa32664
 - file: ..\src\config\pic32cxmt_pl460\service\storage\srv_storage.c
-  hash: b3d88d69bfb01fd6f7c9a088bcf054844d94f982c8006669f70cd3d805f8c30e
+  hash: b5216d9b7ce86fa08c05282409d93e7bd64f7e76f0b1c70b2ec65257dfa3c42e
 - file: ..\src\config\pic32cxmt_pl460\service\storage\srv_storage.h
   hash: 1ee4899eff5eabca3bd3dd289ec79a386df6d041a270607fd17cd77d6400ded1
 - file: ..\src\config\pic32cxmt_pl460\service\time_management\srv_time_management.c
@@ -134,9 +134,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cxmt_pl460\service\time_management\srv_time_management.h
   hash: 8dfb49e0825d37d324a50abd32291e8b6b8b398ab89ebdcc62bb25ef77d24472
 - file: ..\src\config\pic32cxmt_pl460\service\user_pib\srv_user_pib.c
-  hash: 08baab9b8b8e52c4eb231740536fbb994ed7fb5c74d650631efa2fb277cd98e7
+  hash: 24bea4fb8088fd46fb59d79c454a3d9d65ed7b6bcf8c177c168a6f1144839f57
 - file: ..\src\config\pic32cxmt_pl460\service\user_pib\srv_user_pib.h
-  hash: 9a2889d2132b3078bc3bd19bd3e5774425f22db1e68950f19376b21525278774
+  hash: b5e90625c5a714317b620fbfacfc75c023852083d5571d51b0cc404f0c47b0df
 - file: ..\src\config\pic32cxmt_pl460\service\usi\srv_usi.c
   hash: e264c7bdd532feed19bf1814d8e594f01e38debadeed0933ce72ea110cf425f7
 - file: ..\src\config\pic32cxmt_pl460\service\usi\srv_usi.h

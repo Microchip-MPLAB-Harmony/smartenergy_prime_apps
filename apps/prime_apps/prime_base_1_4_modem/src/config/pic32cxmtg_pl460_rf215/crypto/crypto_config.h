@@ -19,33 +19,31 @@
 
 *******************************************************************************/
 
-/*----------------------------------------------------------------------------
- Copyright (C) 2019-2024 Microchip Technology Inc. and its subsidiaries.
+/*******************************************************************************
+* Copyright (C) 2026 Microchip Technology Inc. and its subsidiaries.
+*
+* Subject to your compliance with these terms, you may use Microchip software
+* and any derivatives exclusively with Microchip products. It is your
+* responsibility to comply with third party license terms applicable to your
+* use of third party software (including open source software) that may
+* accompany Microchip software.
+*
+* THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER
+* EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED
+* WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A
+* PARTICULAR PURPOSE.
+*
+* IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE,
+* INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND
+* WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS
+* BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE
+* FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN
+* ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY,
+* THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
+*******************************************************************************/
 
-Microchip Technology Inc. and its subsidiaries.
-
-Subject to your compliance with these terms, you may use Microchip software 
-and any derivatives exclusively with Microchip products. It is your 
-responsibility to comply with third party license terms applicable to your 
-use of third party software (including open source software) that may 
-accompany Microchip software.
-
-THIS SOFTWARE IS SUPPLIED BY MICROCHIP "AS IS". NO WARRANTIES, WHETHER 
-EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS SOFTWARE, INCLUDING ANY IMPLIED 
-WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR 
-PURPOSE.
-
-IN NO EVENT WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
-INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY KIND 
-WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF MICROCHIP HAS 
-BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE FORESEEABLE. TO THE 
-FULLEST EXTENT ALLOWED BY LAW, MICROCHIP'S TOTAL LIABILITY ON ALL CLAIMS IN 
-ANY WAY RELATED TO THIS SOFTWARE WILL NOT EXCEED THE AMOUNT OF FEES, IF ANY, 
-THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
-----------------------------------------------------------------------------*/
-
-#ifndef CRYPTO_HW_CONFIG_H
-#define CRYPTO_HW_CONFIG_H
+#ifndef CRYPTO_CONFIG_H
+#define CRYPTO_CONFIG_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -53,7 +51,12 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 // *****************************************************************************
 // *****************************************************************************
 
-//#include "user.h"
+/* Crypto v4 API */
+#include "crypto/common_crypto/crypto_common.h"
+#include "crypto/common_crypto/crypto_aead_cipher.h"
+#include "crypto/common_crypto/crypto_mac_cipher.h"
+#include "crypto/common_crypto/crypto_sym_cipher.h"
+
 #include "device.h"
 
 // DOM-IGNORE-BEGIN
@@ -64,18 +67,7 @@ THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 #endif
 // DOM-IGNORE-END
 
-/*** Crypto Library Configuration ***/
-
-//Crypto V4 Common Crypto API - WolfCrypt Library Support
-#define CRYPTO_V4_API
-
-/*** Hardware Driver Configuration ***/
-//Hardware Drivers Available:
-#define HAVE_CRYPTO_HW_AES_6149_DRIVER
-#define HAVE_CRYPTO_HW_CPKCC_44163_DRIVER
-#define HAVE_CRYPTO_HW_ICM_11105_DRIVER
-#define HAVE_CRYPTO_HW_SHA_6156_DRIVER
-#define HAVE_CRYPTO_HW_TRNG_6334_DRIVER
+ 
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus

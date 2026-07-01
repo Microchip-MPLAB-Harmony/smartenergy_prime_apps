@@ -57,7 +57,7 @@ Microchip or any third party.
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
-#define CRYPTO_HASH_SHA512CTX_SIZE (288)
+#define CRYPTO_HASH_SHA512CTX_SIZE (792UL)
 
 #define CRYPTO_HASH_MAX_DIGEST_SIZE (64U) // Max size of a hash digest (SHA-512 or SHA3-512)
 
@@ -96,5 +96,4 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Init(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st,
 crypto_Hash_Status_E Crypto_Hash_Sha_Update(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st, uint8_t *ptr_data, uint32_t dataLen);
 crypto_Hash_Status_E Crypto_Hash_Sha_Final(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st, uint8_t *ptr_digest);
 
-uint32_t Crypto_Hash_GetHashAndHashSize(crypto_HandlerType_E shaHandler_en, crypto_Hash_Algo_E hashType_en, uint8_t *ptr_wcInputData, uint32_t wcDataLen, uint8_t *ptr_outHash);
 #endif //CRYPTO_HASH_H

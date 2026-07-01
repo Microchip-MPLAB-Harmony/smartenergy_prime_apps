@@ -18,7 +18,7 @@
 
 //DOM-IGNORE-BEGIN
 /*
-Copyright (C) 2024, Microchip Technology Inc., and its subsidiaries. All rights reserved.
+Copyright (C) 2026, Microchip Technology Inc., and its subsidiaries. All rights reserved.
 
 The software and documentation is provided by microchip and its contributors
 "as is" and any express, implied or statutory warranties, including, but not
@@ -260,7 +260,7 @@ void SRV_USER_PIB_GetRequestCbRegister(SRV_USER_PIB_GET_REQUEST_CALLBACK callbac
 
   Example:
     <code>
-    static void APP_GetRequestHandler(uint8_t result, uint16_t pibAttrib,
+    static void APP_GetRequestHandler(uint8_t getResult, uint16_t pibAttrib,
                                       void *pibValue, uint8_t pibSize)
     {
         if (getResult == true)
@@ -288,7 +288,7 @@ void SRV_USER_PIB_GetRequest(uint16_t pibAttrib);
 // *****************************************************************************
 /* Function:
     void SRV_USER_PIB_SetRequestCbRegister(
-        SRV_USER_PIB_GET_REQUEST_CALLBACK callback)
+        SRV_USER_PIB_SET_REQUEST_CALLBACK callback)
 
   Summary:
     Register a function to be called to get the result of setting a user PIB.

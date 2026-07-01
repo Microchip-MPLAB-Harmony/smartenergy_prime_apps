@@ -51,6 +51,12 @@ Microchip or any third party.
 #include "definitions.h"
 #include "srv_random.h"
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Random Service Local Functions
+// *****************************************************************************
+// *****************************************************************************
+
 /* Linear Congruential Random Generator Implementation */
 /* MISRA C does not allow the usage of standard C rand() function */
 
@@ -77,6 +83,7 @@ static uint32_t lcgRand(void)
     nextRand = (LCG_A * nextRand + LCG_C) & 0xFFFFFFFF;
     return nextRand;
 }
+
 
 // *****************************************************************************
 // *****************************************************************************

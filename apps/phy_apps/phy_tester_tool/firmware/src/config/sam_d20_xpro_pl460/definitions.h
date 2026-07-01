@@ -48,8 +48,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdbool.h>
-#include "peripheral/sercom/usart/plib_sercom3_usart.h"
 #include "service/pcoup/srv_pcoup.h"
+#include "peripheral/sercom/usart/plib_sercom3_usart.h"
 #include "peripheral/nvmctrl/plib_nvmctrl.h"
 #include "service/pserial/srv_pserial.h"
 #include "peripheral/evsys/plib_evsys.h"

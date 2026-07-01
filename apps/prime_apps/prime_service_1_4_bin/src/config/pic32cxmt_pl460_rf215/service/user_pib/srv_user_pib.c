@@ -57,7 +57,7 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
-/* PIB values */
+/* PIB values cached from the backup registers at initialization */
 static uint32_t srvUserPibValues[11];
 
 /* Callback function pointers */
@@ -73,9 +73,12 @@ static SRV_USER_PIB_SET_REQUEST_CALLBACK SRV_USER_PIB_SetRequestCb;
 void SRV_USER_PIB_GetRequest(uint16_t pibAttrib)
 {
     uint32_t pibValue;
-    uint8_t getResult;
+    uint8_t  getResult;
 
-    /* Check PIB value */
+    getResult = 0; /* false: PIB not handled */
+    pibValue  = 0U;
+
+    /* Default PIBs 0xF000..0xF00A: post-mortem fault dump */
     if ((pibAttrib >= PIB_USER_RESET_INFO) && (pibAttrib <= PIB_USER_R12))
     {
         getResult = 1; /* true */
@@ -83,27 +86,32 @@ void SRV_USER_PIB_GetRequest(uint16_t pibAttrib)
     }
     else
     {
-        getResult = 0; /* false */
-        pibValue = 0;
+        /* Unhandled user PIB: respond with getResult=0 so the library
+         * generates MLME_RESULT_FAILED to the BS. */
     }
 
     /* Return result */
     if (SRV_USER_PIB_GetRequestCb != NULL)
     {
-        SRV_USER_PIB_GetRequestCb(getResult, pibAttrib, &pibValue, 4);
+        SRV_USER_PIB_GetRequestCb(getResult, pibAttrib, &pibValue,
+                                   (uint8_t) sizeof(pibValue));
     }
 }
 
 void SRV_USER_PIB_SetRequest(uint16_t pibAttrib, void *pibValue, uint8_t pibSize)
 {
-    (void)pibAttrib;
-    (void)pibValue;
-    (void)pibSize;
+    bool setResult;
+
+    setResult = false;
+
+    (void) pibAttrib;
+    (void) pibValue;
+    (void) pibSize;
 
     /* Return result */
     if (SRV_USER_PIB_SetRequestCb != NULL)
     {
-        SRV_USER_PIB_SetRequestCb(false);
+        SRV_USER_PIB_SetRequestCb(setResult);
     }
 }
 

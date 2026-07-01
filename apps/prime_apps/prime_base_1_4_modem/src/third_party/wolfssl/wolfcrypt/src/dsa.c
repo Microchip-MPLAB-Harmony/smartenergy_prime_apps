@@ -1,12 +1,12 @@
 /* dsa.c
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -19,21 +19,15 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335, USA
  */
 
-
-#ifdef HAVE_CONFIG_H
-    #include <config.h>
-#endif
-
-#include <wolfssl/wolfcrypt/settings.h>
+#include <wolfssl/wolfcrypt/libwolfssl_sources.h>
 
 #ifndef NO_DSA
 
 #include <wolfssl/wolfcrypt/random.h>
 #include <wolfssl/wolfcrypt/wolfmath.h>
-#include <wolfssl/wolfcrypt/error-crypt.h>
-#include <wolfssl/wolfcrypt/logging.h>
 #include <wolfssl/wolfcrypt/sha.h>
 #include <wolfssl/wolfcrypt/dsa.h>
+#include <wolfssl/wolfcrypt/hash.h>
 
 #ifdef NO_INLINE
     #include <wolfssl/wolfcrypt/misc.h>
@@ -42,12 +36,12 @@
     #include <wolfcrypt/src/misc.c>
 #endif
 
-#if defined(WOLFSSL_LINUXKM) && !defined(WOLFSSL_SP_ASM)
+#if defined(WOLFSSL_USE_SAVE_VECTOR_REGISTERS) && !defined(WOLFSSL_SP_ASM)
     /* force off unneeded vector register save/restore. */
     #undef SAVE_VECTOR_REGISTERS
-    #define SAVE_VECTOR_REGISTERS(...) WC_DO_NOTHING
+    #define SAVE_VECTOR_REGISTERS(fail_clause) SAVE_NO_VECTOR_REGISTERS(fail_clause)
     #undef RESTORE_VECTOR_REGISTERS
-    #define RESTORE_VECTOR_REGISTERS() WC_DO_NOTHING
+    #define RESTORE_VECTOR_REGISTERS() RESTORE_NO_VECTOR_REGISTERS()
 #endif
 
 #ifdef _MSC_VER
@@ -92,10 +86,7 @@ void wc_FreeDsaKey(DsaKey* key)
     if (key == NULL)
         return;
 
-    if (key->type == DSA_PRIVATE)
-        mp_forcezero(&key->x);
-
-    mp_clear(&key->x);
+    mp_forcezero(&key->x);
     mp_clear(&key->y);
     mp_clear(&key->g);
     mp_clear(&key->q);
@@ -148,12 +139,13 @@ static int CheckDsaLN(int modLen, int divLen)
  * return 0 on success, negative on error */
 int wc_MakeDsaKey(WC_RNG *rng, DsaKey *dsa)
 {
-    byte* cBuf;
     int qSz, pSz, cSz, err;
-#ifdef WOLFSSL_SMALL_STACK
+#if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
     mp_int *tmpQ = NULL;
+    byte* cBuf = NULL;
 #else
     mp_int tmpQ[1];
+    byte cBuf[(3072+64)/WOLFSSL_BIT_SIZE ];
 #endif
 
     if (rng == NULL || dsa == NULL)
@@ -168,15 +160,22 @@ int wc_MakeDsaKey(WC_RNG *rng, DsaKey *dsa)
 
     /* generate extra 64 bits so that bias from mod function is negligible */
     cSz = qSz + (64 / WOLFSSL_BIT_SIZE);
+#if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
     cBuf = (byte*)XMALLOC((size_t)cSz, dsa->heap, DYNAMIC_TYPE_TMP_BUFFER);
     if (cBuf == NULL) {
         return MEMORY_E;
     }
+#else
+    if (sizeof(cBuf) < (size_t)cSz) {
+        return BUFFER_E;
+    }
+#endif
 
-    SAVE_VECTOR_REGISTERS();
+    SAVE_VECTOR_REGISTERS(;);
 
-#ifdef WOLFSSL_SMALL_STACK
-    if ((tmpQ = (mp_int *)XMALLOC(sizeof(*tmpQ), NULL, DYNAMIC_TYPE_WOLF_BIGINT)) == NULL)
+#if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
+    if ((tmpQ = (mp_int *)XMALLOC(sizeof(*tmpQ), NULL,
+            DYNAMIC_TYPE_WOLF_BIGINT)) == NULL)
         err = MEMORY_E;
     else
         err = MP_OKAY;
@@ -226,13 +225,13 @@ int wc_MakeDsaKey(WC_RNG *rng, DsaKey *dsa)
         dsa->type = DSA_PRIVATE;
 
     if (err != MP_OKAY) {
-        mp_clear(&dsa->x);
+        mp_forcezero(&dsa->x);
         mp_clear(&dsa->y);
     }
 
+    ForceZero(cBuf, (word32)cSz);
+#if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
     XFREE(cBuf, dsa->heap, DYNAMIC_TYPE_TMP_BUFFER);
-
-#ifdef WOLFSSL_SMALL_STACK
     if (tmpQ != NULL) {
         mp_clear(tmpQ);
         XFREE(tmpQ, dsa->heap, DYNAMIC_TYPE_TMP_BUFFER);
@@ -246,19 +245,20 @@ int wc_MakeDsaKey(WC_RNG *rng, DsaKey *dsa)
     return err;
 }
 
-
 /* modulus_size in bits */
 int wc_MakeDsaParameters(WC_RNG *rng, int modulus_size, DsaKey *dsa)
 {
-#ifdef WOLFSSL_SMALL_STACK
+#if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
     mp_int *tmp = NULL, *tmp2 = NULL;
+    unsigned char *buf = NULL;
 #else
     mp_int tmp[1], tmp2[1];
+    unsigned char buf[(3072/WOLFSSL_BIT_SIZE)-32];
 #endif
     int     err, msize, qsize,
             loop_check_prime = 0,
             check_prime = MP_NO;
-    unsigned char   *buf;
+
 
     if (rng == NULL || dsa == NULL)
         return BAD_FUNC_ARG;
@@ -285,17 +285,25 @@ int wc_MakeDsaParameters(WC_RNG *rng, int modulus_size, DsaKey *dsa)
     /* modulus size in bytes */
     msize = modulus_size / WOLFSSL_BIT_SIZE;
 
+#if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
     /* allocate ram */
     buf = (unsigned char *)XMALLOC((size_t)(msize - qsize),
                                    dsa->heap, DYNAMIC_TYPE_TMP_BUFFER);
     if (buf == NULL) {
         return MEMORY_E;
     }
+#else
+    if (sizeof(buf) < (size_t)(msize - qsize)) {
+        return BUFFER_E;
+    }
+#endif
 
     /* make a random string that will be multiplied against q */
     err = wc_RNG_GenerateBlock(rng, buf, (word32)(msize - qsize));
     if (err != MP_OKAY) {
+    #if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
         XFREE(buf, dsa->heap, DYNAMIC_TYPE_TMP_BUFFER);
+    #endif
         return err;
     }
 
@@ -305,7 +313,7 @@ int wc_MakeDsaParameters(WC_RNG *rng, int modulus_size, DsaKey *dsa)
     /* force even */
     buf[msize - qsize - 1] &= (unsigned char)~1;
 
-#ifdef WOLFSSL_SMALL_STACK
+#if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
     if (((tmp = (mp_int *)XMALLOC(sizeof(*tmp), NULL, DYNAMIC_TYPE_WOLF_BIGINT)) == NULL) ||
         ((tmp2 = (mp_int *)XMALLOC(sizeof(*tmp2), NULL, DYNAMIC_TYPE_WOLF_BIGINT)) == NULL))
         err = MEMORY_E;
@@ -314,7 +322,7 @@ int wc_MakeDsaParameters(WC_RNG *rng, int modulus_size, DsaKey *dsa)
 
     if (err == MP_OKAY)
 #endif
-        err = mp_init_multi(tmp, tmp2, &dsa->p, &dsa->q, 0, 0);
+        err = mp_init_multi(tmp, tmp2, &dsa->p, &dsa->q, &dsa->g, 0);
 
     if (err == MP_OKAY)
         err = mp_read_unsigned_bin(tmp2, buf, (word32)(msize - qsize));
@@ -359,9 +367,6 @@ int wc_MakeDsaParameters(WC_RNG *rng, int modulus_size, DsaKey *dsa)
             err = mp_add_d(tmp2, 2 * (mp_digit)loop_check_prime, tmp2);
     }
 
-    if (err == MP_OKAY)
-        err = mp_init(&dsa->g);
-
     /* find a value g for which g^tmp2 != 1 */
     if (err == MP_OKAY)
         err = mp_set(&dsa->g, 1);
@@ -387,22 +392,27 @@ int wc_MakeDsaParameters(WC_RNG *rng, int modulus_size, DsaKey *dsa)
 #endif
     }
 
+#if defined(WOLFSSL_SMALL_STACK) && !defined(WOLFSSL_NO_MALLOC)
     XFREE(buf, dsa->heap, DYNAMIC_TYPE_TMP_BUFFER);
-
-#ifdef WOLFSSL_SMALL_STACK
     if (tmp != NULL) {
-        mp_clear(tmp);
+        if ((err != WC_NO_ERR_TRACE(MP_INIT_E)) &&
+                (err != WC_NO_ERR_TRACE(MEMORY_E)))
+            mp_clear(tmp);
         XFREE(tmp, NULL, DYNAMIC_TYPE_WOLF_BIGINT);
     }
     if (tmp2 != NULL) {
-        mp_clear(tmp2);
+        if ((err != WC_NO_ERR_TRACE(MP_INIT_E)) &&
+                (err != WC_NO_ERR_TRACE(MEMORY_E)))
+            mp_clear(tmp2);
         XFREE(tmp2, NULL, DYNAMIC_TYPE_WOLF_BIGINT);
     }
 #else
-    mp_clear(tmp);
-    mp_clear(tmp2);
+    if (err != WC_NO_ERR_TRACE(MP_INIT_E)) {
+        mp_clear(tmp);
+        mp_clear(tmp2);
+    }
 #endif
-    if (err != MP_OKAY) {
+    if ((err != MP_OKAY) && (err != WC_NO_ERR_TRACE(MP_INIT_E))) {
         mp_clear(&dsa->q);
         mp_clear(&dsa->p);
         mp_clear(&dsa->g);
@@ -542,7 +552,7 @@ int wc_DsaExportParamsRaw(DsaKey* dsa, byte* p, word32* pSz,
         *pSz = pLen;
         *qSz = qLen;
         *gSz = gLen;
-        return LENGTH_ONLY_E;
+        return WC_NO_ERR_TRACE(LENGTH_ONLY_E);
     }
 
     if (p == NULL || q == NULL || g == NULL)
@@ -616,7 +626,7 @@ int wc_DsaExportKeyRaw(DsaKey* dsa, byte* x, word32* xSz, byte* y, word32* ySz)
     if (x == NULL && y == NULL) {
         *xSz = xLen;
         *ySz = yLen;
-        return LENGTH_ONLY_E;
+        return WC_NO_ERR_TRACE(LENGTH_ONLY_E);
     }
 
     if (x == NULL || y == NULL)
@@ -679,6 +689,12 @@ int wc_DsaSign_ex(const byte* digest, word32 digestSz, byte* out, DsaKey* key,
 
     if (digest == NULL || out == NULL || key == NULL || rng == NULL)
         return BAD_FUNC_ARG;
+
+    if ((digestSz > WC_MAX_DIGEST_SIZE) ||
+        (digestSz < WC_MIN_DIGEST_SIZE))
+    {
+        return BAD_LENGTH_E;
+    }
 
     SAVE_VECTOR_REGISTERS(return _svr_ret;);
 
@@ -930,33 +946,39 @@ int wc_DsaSign_ex(const byte* digest, word32 digestSz, byte* out, DsaKey* key,
 
 #ifdef WOLFSSL_SMALL_STACK
     if (k) {
-        if ((ret != MP_INIT_E) && (ret != MEMORY_E))
+        if ((ret != WC_NO_ERR_TRACE(MP_INIT_E)) &&
+            (ret != WC_NO_ERR_TRACE(MEMORY_E)))
             mp_forcezero(k);
         XFREE(k, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (kInv) {
-        if ((ret != MP_INIT_E) && (ret != MEMORY_E))
+        if ((ret != WC_NO_ERR_TRACE(MP_INIT_E)) &&
+            (ret != WC_NO_ERR_TRACE(MEMORY_E)))
             mp_forcezero(kInv);
         XFREE(kInv, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (r) {
-        if ((ret != MP_INIT_E) && (ret != MEMORY_E))
+        if ((ret != WC_NO_ERR_TRACE(MP_INIT_E)) &&
+            (ret != WC_NO_ERR_TRACE(MEMORY_E)))
             mp_clear(r);
         XFREE(r, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (s) {
-        if ((ret != MP_INIT_E) && (ret != MEMORY_E))
+        if ((ret != WC_NO_ERR_TRACE(MP_INIT_E)) &&
+            (ret != WC_NO_ERR_TRACE(MEMORY_E)))
             mp_clear(s);
         XFREE(s, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (H) {
-        if ((ret != MP_INIT_E) && (ret != MEMORY_E))
+        if ((ret != WC_NO_ERR_TRACE(MP_INIT_E)) &&
+            (ret != WC_NO_ERR_TRACE(MEMORY_E)))
             mp_clear(H);
         XFREE(H, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
 #ifndef WOLFSSL_MP_INVMOD_CONSTANT_TIME
     if (b) {
-        if ((ret != MP_INIT_E) && (ret != MEMORY_E))
+        if ((ret != WC_NO_ERR_TRACE(MP_INIT_E)) &&
+            (ret != WC_NO_ERR_TRACE(MEMORY_E)))
             mp_forcezero(b);
         XFREE(b, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
@@ -966,7 +988,7 @@ int wc_DsaSign_ex(const byte* digest, word32 digestSz, byte* out, DsaKey* key,
         XFREE(buffer, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
 #else /* !WOLFSSL_SMALL_STACK */
-    if (ret != MP_INIT_E) {
+    if (ret != WC_NO_ERR_TRACE(MP_INIT_E)) {
         ForceZero(buffer, halfSz);
         mp_forcezero(kInv);
         mp_forcezero(k);
@@ -1006,6 +1028,16 @@ int wc_DsaVerify_ex(const byte* digest, word32 digestSz, const byte* sig,
 
     if (digest == NULL || sig == NULL || key == NULL || answer == NULL)
         return BAD_FUNC_ARG;
+
+    /* Note the min allowed digestSz here is WC_SHA_DIGEST_SIZE, not
+     * WC_MIN_DIGEST_SIZE, to allow verify-only legacy DSA operations, as
+     * expressly allowed under FIPS 186-5, FIPS 140-3, and SP 800-131A.
+     */
+    if ((digestSz > WC_MAX_DIGEST_SIZE) ||
+        (digestSz < WC_SHA_DIGEST_SIZE))
+    {
+        return BAD_LENGTH_E;
+    }
 
     do {
 #ifdef WOLFSSL_SMALL_STACK
@@ -1106,37 +1138,37 @@ int wc_DsaVerify_ex(const byte* digest, word32 digestSz, const byte* sig,
 
 #ifdef WOLFSSL_SMALL_STACK
     if (s) {
-        if (ret != MP_INIT_E)
+        if (ret != WC_NO_ERR_TRACE(MP_INIT_E) && ret != WC_NO_ERR_TRACE(MEMORY_E))
             mp_clear(s);
         XFREE(s, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (r) {
-        if (ret != MP_INIT_E)
+        if (ret != WC_NO_ERR_TRACE(MP_INIT_E) && ret != WC_NO_ERR_TRACE(MEMORY_E))
             mp_clear(r);
         XFREE(r, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (u1) {
-        if (ret != MP_INIT_E)
+        if (ret != WC_NO_ERR_TRACE(MP_INIT_E) && ret != WC_NO_ERR_TRACE(MEMORY_E))
             mp_clear(u1);
         XFREE(u1, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (u2) {
-        if (ret != MP_INIT_E)
+        if (ret != WC_NO_ERR_TRACE(MP_INIT_E) && ret != WC_NO_ERR_TRACE(MEMORY_E))
             mp_clear(u2);
         XFREE(u2, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (w) {
-        if (ret != MP_INIT_E)
+        if (ret != WC_NO_ERR_TRACE(MP_INIT_E) && ret != WC_NO_ERR_TRACE(MEMORY_E))
             mp_clear(w);
         XFREE(w, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
     if (v) {
-        if (ret != MP_INIT_E)
+        if (ret != WC_NO_ERR_TRACE(MP_INIT_E) && ret != WC_NO_ERR_TRACE(MEMORY_E))
             mp_clear(v);
         XFREE(v, key->heap, DYNAMIC_TYPE_TMP_BUFFER);
     }
 #else
-    if (ret != MP_INIT_E) {
+    if (ret != WC_NO_ERR_TRACE(MP_INIT_E)) {
         mp_clear(s);
         mp_clear(r);
         mp_clear(u1);

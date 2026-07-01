@@ -1,5 +1,5 @@
 configVersion: 1.0.0
-coreVersion: 5.9.0
+coreVersion: 5.8.4
 spaHostVersion: 1.3.0
 device: ATSAMD20J18
 deviceLibrary:
@@ -40,7 +40,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\configuration.h
   hash: 2f104cf1be3b325a629dbf96c4036266b1a9b3d789fc151231439bd28bf5b839
 - file: ..\src\config\sam_d20_xpro_pl460\definitions.h
-  hash: 9b15f62916358587fdfe62c9eea8ab973c578a0a5f7f1aefbfa541d1d2987467
+  hash: 0a62240ee04fc030d1936c7da968700f57b6fd3209e43e0accf183b8700e4e61
 - file: ..\src\config\sam_d20_xpro_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\sam_d20_xpro_pl460\device_cache.h

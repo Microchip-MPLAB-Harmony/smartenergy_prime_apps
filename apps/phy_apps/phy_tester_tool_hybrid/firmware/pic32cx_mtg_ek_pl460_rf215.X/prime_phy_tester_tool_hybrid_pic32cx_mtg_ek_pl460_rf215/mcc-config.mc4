@@ -1,5 +1,5 @@
 configVersion: 1.0.0
-coreVersion: 5.8.3
+coreVersion: 5.8.4
 spaHostVersion: 1.2.0
 device: PIC32CX2051MTG128
 deviceLibrary:
@@ -46,7 +46,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\configuration.h
   hash: f48a67ada28e05bd8dc82234694f96b79d107d5bdac3e0cf79f33c9d2c72bf4a
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\definitions.h
-  hash: e7195c720eb0fa8256ebc297d53900b773ac8afe5f7f1d16b5b61687efc8d30c
+  hash: 0428ed21d239ffcb12f9a1ce23365aa84280200bb9af3f52a0ca829d7bce4618
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\device_cache.h
@@ -58,7 +58,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\driver_common.h
   hash: 5217965f6720b4fdf717e99ce9df4f2c9fbd82bbbc9655847166d1eefa806fee
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_boot.c
-  hash: 9e5ea32f9cbee2525b8e4a8650591c51b47fcbed749614b19a56cff55f65e030
+  hash: 9ca1bc4cc6775cbc6939c4b22d0939c92227b6bb29833c69f1b51cb325792424
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_boot.h
   hash: 4f91187cb22a27ddf0400d5b14f63c248a3b0327929268b67da78e884004df54
 - file: ..\src\config\pic32cx_mtg_ek_pl460_rf215\driver\plc\common\drv_plc_hal.c

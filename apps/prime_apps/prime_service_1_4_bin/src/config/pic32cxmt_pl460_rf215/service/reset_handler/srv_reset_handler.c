@@ -58,6 +58,14 @@ Microchip or any third party.
 // *****************************************************************************
 // *****************************************************************************
 
+static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType);
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: File Scope Function Declarations
+// *****************************************************************************
+// *****************************************************************************
+
 void DumpStack(uint32_t stack[]);
 
 // *****************************************************************************
@@ -65,21 +73,6 @@ void DumpStack(uint32_t stack[]);
 // Section: File scope functions
 // *****************************************************************************
 // *****************************************************************************
-
-static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType)
-{
-    uint32_t resetInfo;
-    uint16_t numResets;
-
-    /* Read and increase number of resets since start-up */
-    numResets = (uint16_t)(SUPC_GPBRRead(GPBR_REGS_5) >> 16);
-    ++numResets;
-
-    /* Store reset information */
-    resetInfo = ((uint32_t)(numResets) << 16) + (uint32_t)(resetType);
-    SUPC_GPBRWrite(GPBR_REGS_5, resetInfo);
-}
-
 
 /* MISRA C-2023 deviation block start */
 /* MISRA C-2023 Rule 5.8 deviated 6 times. Deviation record ID - H3_MISRAC_2023_R_5_8_DR_1 */
@@ -209,6 +202,21 @@ void DumpStack(uint32_t stack[])
     SRV_RESET_HANDLER_RestartSystem(resetType);
 }
 
+
+static void lSRV_RESET_HANDLER_StoreResetInfo(SRV_RESET_HANDLER_RESET_CAUSE resetType)
+{
+    uint32_t resetInfo;
+    uint16_t numResets;
+
+    /* Read and increase number of resets since start-up */
+    numResets = (uint16_t)(SUPC_GPBRRead(GPBR_REGS_5) >> 16);
+    ++numResets;
+
+    /* Store reset information: high 16 bits = count, low 16 bits = cause */
+    resetInfo = ((uint32_t)numResets << 16) | (uint32_t)resetType;
+    SUPC_GPBRWrite(GPBR_REGS_5, resetInfo);
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Reset Handler Service Interface Implementation
@@ -234,7 +242,7 @@ void SRV_RESET_HANDLER_Initialize(void)
 
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
 {
-    /* Store reset information */
+    /* Persist reset cause + increment reset counter */
     lSRV_RESET_HANDLER_StoreResetInfo(resetType);
 
 

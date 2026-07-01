@@ -18,6 +18,31 @@
     are defined here for convenience.
 *******************************************************************************/
 
+//DOM-IGNORE-BEGIN
+/*
+Copyright (C) 2026 Microchip Technology Inc., and its subsidiaries. All rights reserved.
+
+The software and documentation is provided by microchip and its contributors
+"as is" and any express, implied or statutory warranties, including, but not
+limited to, the implied warranties of merchantability, fitness for a particular
+purpose and non-infringement of third party intellectual property rights are
+disclaimed to the fullest extent permitted by law. In no event shall microchip
+or its contributors be liable for any direct, indirect, incidental, special,
+exemplary, or consequential damages (including, but not limited to, procurement
+of substitute goods or services; loss of use, data, or profits; or business
+interruption) however caused and on any theory of liability, whether in contract,
+strict liability, or tort (including negligence or otherwise) arising in any way
+out of the use of the software and documentation, even if advised of the
+possibility of such damage.
+
+Except as expressly permitted hereunder and subject to the applicable license terms
+for any third-party software incorporated in the software and any applicable open
+source software license terms, no license or other rights, whether express or
+implied, are granted under any patent or other intellectual property rights of
+Microchip or any third party.
+*/
+//DOM-IGNORE-END
+
 #ifndef CRYPTO_AEAD_CIPHER_H
 #define CRYPTO_AEAD_CIPHER_H
 
@@ -35,16 +60,16 @@ typedef enum
     CRYPTO_AEAD_ERROR_KEY = -125,
     CRYPTO_AEAD_ERROR_HDLR = -124,
     CRYPTO_AEAD_ERROR_INPUTDATA = -123,
-    CRYPTO_AEAD_ERROR_OUTPUTDATA = -122,        
+    CRYPTO_AEAD_ERROR_OUTPUTDATA = -122,
     CRYPTO_AEAD_ERROR_NONCE = -121,
     CRYPTO_AEAD_ERROR_AUTHTAG = -120,
-    CRYPTO_AEAD_ERROR_AAD = -119,        
+    CRYPTO_AEAD_ERROR_AAD = -119,
     CRYPTO_AEAD_ERROR_CIPOPER = -118,
-    CRYPTO_AEAD_ERROR_SID = -117,  ////session ID Error
+    CRYPTO_AEAD_ERROR_SID = -117,
     CRYPTO_AEAD_ERROR_ARG = -116,
     CRYPTO_AEAD_ERROR_CIPFAIL = -115,
-    CRYPTO_AEAD_ERROR_AUTHFAIL = -114,        
-    CRYPTO_AEAD_CIPHER_SUCCESS = 0,        
+    CRYPTO_AEAD_ERROR_AUTHFAIL = -114,
+    CRYPTO_AEAD_CIPHER_SUCCESS = 0,
 }crypto_Aead_Status_E;
 
 // *****************************************************************************
@@ -52,6 +77,7 @@ typedef enum
 // Section: Type Definitions
 // *****************************************************************************
 // *****************************************************************************
+
 typedef struct
 {
     uint32_t cryptoSessionID;
@@ -62,11 +88,12 @@ typedef struct
 }st_Crypto_Aead_AesCcm_ctx;
 // *****************************************************************************
 
-crypto_Aead_Status_E Crypto_Aead_AesCcm_Init(st_Crypto_Aead_AesCcm_ctx *ptr_aesCcmCtx_st, crypto_HandlerType_E handlerType_en, 
+crypto_Aead_Status_E Crypto_Aead_AesCcm_Init(st_Crypto_Aead_AesCcm_ctx *ptr_aesCcmCtx_st, crypto_HandlerType_E handlerType_en,
                                               uint8_t *ptr_key, uint32_t keyLen, uint32_t sessionID);
 
-crypto_Aead_Status_E Crypto_Aead_AesCcm_Cipher(st_Crypto_Aead_AesCcm_ctx *ptr_aesCcmCtx_st, crypto_CipherOper_E cipherOper_en, uint8_t *ptr_inputData, uint32_t dataLen, 
+crypto_Aead_Status_E Crypto_Aead_AesCcm_Cipher(st_Crypto_Aead_AesCcm_ctx *ptr_aesCcmCtx_st, crypto_CipherOper_E cipherOper_en, uint8_t *ptr_inputData, uint32_t dataLen,
                                                     uint8_t *ptr_outData, uint8_t *ptr_nonce, uint32_t nonceLen, uint8_t *ptr_authTag,
                                                     uint32_t authTagLen, uint8_t *ptr_aad, uint32_t aadLen);
+
 
 #endif //CRYPTO_AEAD_CIPHER_H

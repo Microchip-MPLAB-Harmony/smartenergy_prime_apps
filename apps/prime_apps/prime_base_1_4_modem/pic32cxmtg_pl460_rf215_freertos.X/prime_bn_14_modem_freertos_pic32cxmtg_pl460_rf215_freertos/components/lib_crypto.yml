@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 componentName: lib_crypto
-coreVersion: 5.8.3
+coreVersion: 5.8.4
 device: PIC32CX2051MTG128
 library: []
 dependency:
@@ -9,9 +9,10 @@ dependency:
   type: module
   version: ''
 - dependencyPackage: ''
+  devMode: true
   name: crypto_v4
   type: package
-  version: v4.0.0-E3
+  version: v4.0.0-E5
 customDataClassName: com.microchip.utils_mh3.utils.persistence.CustomModuleData
 data:
   attachments:

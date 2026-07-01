@@ -51,7 +51,6 @@ Microchip or any third party.
 #include "srv_storage.h"
 #include "device.h"
 #include "definitions.h"
-#include "peripheral/sefc/plib_sefc0.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -131,6 +130,7 @@ bool SRV_STORAGE_GetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
     if (SEFC0_UserSignatureRead((void*) srvStorageData, ((uint32_t) totalSize + 3U) >> 2, BLOCK_0, PAGE_0) == false)
     {
         /* Error reading User Signature */
+        SYS_INT_Restore(interruptStatus);
         return false;
     }
 
@@ -169,6 +169,7 @@ bool SRV_STORAGE_SetConfigInfo(SRV_STORAGE_TYPE infoType, uint8_t size, void* pD
     if (SEFC0_UserSignatureRead((void*) srvStorageData, SRV_STORAGE_TOTAL_SIZE >> 2, BLOCK_0, PAGE_0) == false)
     {
         /* Error reading User Signature */
+        SYS_INT_Restore(interruptStatus);
         return false;
     }
 

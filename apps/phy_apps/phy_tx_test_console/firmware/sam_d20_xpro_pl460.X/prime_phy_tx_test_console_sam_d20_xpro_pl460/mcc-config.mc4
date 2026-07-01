@@ -1,5 +1,5 @@
 configVersion: 1.0.0
-coreVersion: 5.9.0
+coreVersion: 5.8.4
 spaHostVersion: 1.3.0
 device: ATSAMD20J18
 deviceLibrary:
@@ -49,7 +49,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\configuration.h
   hash: a21a606fdc97486c92ba06f762c496792133d486a1f9a06a45500292b0e8ed5d
 - file: ..\src\config\sam_d20_xpro_pl460\definitions.h
-  hash: 8c95b877afe5fa109e7a1f75db1395ff4b5561a00722b343be13a8337968549a
+  hash: c7fa9c1cffc97d3c90af8e7ff2225c97abd83c117fa8364ad8d7ab375539a406
 - file: ..\src\config\sam_d20_xpro_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\sam_d20_xpro_pl460\device_cache.h
@@ -177,7 +177,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\sam_d20_xpro_pl460\service\pvddmon\srv_pvddmon.h
   hash: d45d51b283f796d4842dc4ba4d00233224f096c009c2872693342ac128833876
 - file: ..\src\config\sam_d20_xpro_pl460\service\random\srv_random.c
-  hash: 70b7a9e6982ebb5755a247d3d4e05857623aec9b9712474e058f9caca8820f23
+  hash: 5ef0bed25d1d11d4c802a73ca2ca3bac1eda51c889cce8b94c980165915fa67b
 - file: ..\src\config\sam_d20_xpro_pl460\service\random\srv_random.h
   hash: 74409dadccb1a152f9717e596b31af36c8cac01d1a33a4a40a15c5fbdcd52a78
 - file: ..\src\config\sam_d20_xpro_pl460\startup_xc32.c

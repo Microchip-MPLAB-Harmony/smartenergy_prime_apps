@@ -55,7 +55,6 @@ Microchip or any third party.
 #include "crypto/common_crypto/crypto_common.h"
 #include "crypto/common_crypto/crypto_hash.h"
 #include "crypto/drivers/wrapper/crypto_hash_sha6156_wrapper.h"
-#include "crypto/wolfcrypt/crypto_hash_wc_wrapper.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -197,50 +196,3 @@ crypto_Hash_Status_E Crypto_Hash_Sha_Final(st_Crypto_Hash_Sha_Ctx *ptr_shaCtx_st
     return ret_shaStat_en;
 }
 
-static crypto_Hash_Status_E Crypto_Hash_GetHashSize(crypto_Hash_Algo_E hashType_en, uint32_t *hashSize)
-{
-    crypto_Hash_Status_E ret_val_en = CRYPTO_HASH_SUCCESS;
-
-    switch(hashType_en)
-    {
-        case CRYPTO_HASH_SHA2_256:
-            *hashSize = 0x20;   //32 Bytes
-            break;
-        default:
-            ret_val_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-            break;
-    };
-    return ret_val_en;
-}
-
-uint32_t Crypto_Hash_GetHashAndHashSize(crypto_HandlerType_E shaHandler_en, crypto_Hash_Algo_E hashType_en, uint8_t *ptr_wcInputData,
-                                                                                                        uint32_t wcDataLen, uint8_t *ptr_outHash)
-{
-    crypto_Hash_Status_E hashStatus_en = CRYPTO_HASH_ERROR_FAIL;
-    uint32_t hashSize = 0x00;
-
-    switch(hashType_en)
-    {
-        case CRYPTO_HASH_SHA2_256:
-            hashStatus_en = Crypto_Hash_Sha_Digest(shaHandler_en, ptr_wcInputData, wcDataLen, ptr_outHash, CRYPTO_HASH_SHA2_256, 1);
-            break;
-        default:
-            hashStatus_en = CRYPTO_HASH_ERROR_NOTSUPPTED;
-            break;
-    };
-
-    if(hashStatus_en == CRYPTO_HASH_SUCCESS)
-    {
-        hashStatus_en = Crypto_Hash_GetHashSize(hashType_en, &hashSize);
-
-        if(hashStatus_en != CRYPTO_HASH_SUCCESS)
-        {
-           hashSize = 0x00U;
-        }
-    }
-    else
-    {
-       hashSize = 0x00U;
-    }
-    return hashSize;
-}

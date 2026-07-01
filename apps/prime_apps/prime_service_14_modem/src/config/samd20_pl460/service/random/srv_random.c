@@ -53,6 +53,12 @@ Microchip or any third party.
 #include "crypto/common_crypto/crypto_rng.h"
 #include "srv_random.h"
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Random Service Local Functions
+// *****************************************************************************
+// *****************************************************************************
+
 /* Linear Congruential Random Generator Implementation */
 /* MISRA C does not allow the usage of standard C rand() function */
 
@@ -80,6 +86,36 @@ static uint32_t lcgRand(void)
     return nextRand;
 }
 
+/* Fill a buffer with random bytes using the crypto library.
+
+   A nonce derived from the system time counter is passed to the crypto RNG.
+   The crypto library seeds its DRBG from the C-library rand(), which is
+   identical after every boot; the nonce is used as additional instantiation
+   input so that the generated sequence differs between boots. If the crypto
+   library fails, the Linear Congruential Generator is used as a fallback. */
+static void lGetRandomBytes(uint8_t *buffer, uint32_t length)
+{
+    uint32_t timeCount = SYS_TIME_CounterGet();
+    uint8_t nonce[4];
+    uint32_t i;
+
+    nonce[0] = (uint8_t)(timeCount >> 24);
+    nonce[1] = (uint8_t)(timeCount >> 16);
+    nonce[2] = (uint8_t)(timeCount >> 8);
+    nonce[3] = (uint8_t)timeCount;
+
+    if (Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT, buffer, length,
+        nonce, (uint32_t)sizeof(nonce), 1U) != CRYPTO_RNG_SUCCESS)
+    {
+        lcgSrand(timeCount);
+
+        for (i = 0U; i < length; i++)
+        {
+            buffer[i] = (uint8_t)lcgRand();
+        }
+    }
+}
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Random Service Interface Implementation
@@ -90,24 +126,10 @@ uint8_t SRV_RANDOM_Get8bits(void)
 {
     uint8_t retValue = 0;
 
-    crypto_Rng_Status_E status;
-    uint32_t seed;
     uint8_t randBuf[1];
 
-    // Generate random number from Crypto
-    status = Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
-        randBuf, 1, NULL, 0, 1);
-
-    if (status == CRYPTO_RNG_SUCCESS)
-    {
-        retValue = randBuf[0];
-    }
-    else
-    {
-        seed = SYS_TIME_CounterGet();
-        lcgSrand(seed);
-        retValue = (uint8_t)lcgRand();
-    }
+    lGetRandomBytes(randBuf, 1U);
+    retValue = randBuf[0];
 
     return retValue;
 }
@@ -116,24 +138,10 @@ uint16_t SRV_RANDOM_Get16bits(void)
 {
     uint16_t retValue = 0;
 
-    crypto_Rng_Status_E status;
-    uint32_t seed;
     uint8_t randBuf[2];
 
-    // Generate random number from Crypto
-    status = Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
-        randBuf, 2, NULL, 0, 1);
-
-    if (status == CRYPTO_RNG_SUCCESS)
-    {
-        retValue = ((uint16_t)randBuf[1] << 8) + (uint16_t)randBuf[0];
-    }
-    else
-    {
-        seed = SYS_TIME_CounterGet();
-        lcgSrand(seed);
-        retValue = (uint16_t)lcgRand();
-    }
+    lGetRandomBytes(randBuf, 2U);
+    retValue = ((uint16_t)randBuf[1] << 8) + (uint16_t)randBuf[0];
 
     return retValue;
 }
@@ -155,25 +163,11 @@ uint32_t SRV_RANDOM_Get32bits(void)
 {
     uint32_t retValue = 0;
 
-    crypto_Rng_Status_E status;
-    uint32_t seed;
     uint8_t randBuf[4];
 
-    // Generate random number from Crypto
-    status = Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
-        randBuf, 4, NULL, 0, 1);
-
-    if (status == CRYPTO_RNG_SUCCESS)
-    {
-        retValue = ((uint32_t)randBuf[3] << 24) + ((uint32_t)randBuf[2] << 16) +
-            ((uint32_t)randBuf[1] << 8) + (uint32_t)randBuf[0];
-    }
-    else
-    {
-        seed = SYS_TIME_CounterGet();
-        lcgSrand(seed);
-        retValue = (uint32_t)lcgRand();
-    }
+    lGetRandomBytes(randBuf, 4U);
+    retValue = ((uint32_t)randBuf[3] << 24) + ((uint32_t)randBuf[2] << 16) +
+        ((uint32_t)randBuf[1] << 8) + (uint32_t)randBuf[0];
 
     return retValue;
 }
@@ -193,28 +187,5 @@ uint32_t SRV_RANDOM_Get32bitsInRange(uint32_t minVal, uint32_t maxVal)
 
 void SRV_RANDOM_Get128bits(uint8_t *rndValue)
 {
-    crypto_Rng_Status_E status;
-    uint32_t seed;
-    uint32_t randNum;
-    uint8_t n;
-
-    // Generate random number from Crypto
-    status = Crypto_Rng_Generate(CRYPTO_HANDLER_SW_WOLFCRYPT,
-        rndValue, 16, NULL, 0, 1);
-
-    if (status != CRYPTO_RNG_SUCCESS)
-    {
-        seed = SYS_TIME_CounterGet();
-        lcgSrand(seed);
-
-        for (n = 0; n < 4U; n ++)
-        {
-            randNum = (uint32_t)lcgRand();
-
-            *rndValue++ = (uint8_t)(randNum >> 24);
-            *rndValue++ = (uint8_t)(randNum >> 16);
-            *rndValue++ = (uint8_t)(randNum >> 8);
-            *rndValue++ = (uint8_t)randNum;
-        }
-    }
+    lGetRandomBytes(rndValue, 16U);
 }

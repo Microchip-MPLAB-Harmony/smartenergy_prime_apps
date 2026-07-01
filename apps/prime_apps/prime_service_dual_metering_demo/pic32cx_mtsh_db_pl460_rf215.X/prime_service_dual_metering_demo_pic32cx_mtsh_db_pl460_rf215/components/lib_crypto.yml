@@ -54,10 +54,11 @@ data:
     CRYPTO_HW_ECDSA:
       attributes:
         id: CRYPTO_HW_ECDSA
+        label: ECDSA
       children:
       - children:
         - attributes:
-            value: 'false'
+            value: 'true'
           type: User
         type: Values
       type: Boolean
@@ -74,6 +75,7 @@ data:
     crypto_aead_aes6149_wrapper_c_ftl_flag:
       attributes:
         id: crypto_aead_aes6149_wrapper_c_ftl_flag
+        label: crypto_aead_aes6149_wrapper_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -85,6 +87,7 @@ data:
     crypto_aead_aes6149_wrapper_h_ftl_flag:
       attributes:
         id: crypto_aead_aes6149_wrapper_h_ftl_flag
+        label: crypto_aead_aes6149_wrapper_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -96,6 +99,7 @@ data:
     crypto_aead_cipher_c_ftl_flag:
       attributes:
         id: crypto_aead_cipher_c_ftl_flag
+        label: crypto_aead_cipher_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -107,6 +111,7 @@ data:
     crypto_aead_cipher_h_ftl_flag:
       attributes:
         id: crypto_aead_cipher_h_ftl_flag
+        label: crypto_aead_cipher_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -118,6 +123,7 @@ data:
     crypto_common_h_ftl_flag:
       attributes:
         id: crypto_common_h_ftl_flag
+        label: crypto_common_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -129,6 +135,7 @@ data:
     crypto_config_h_ftl_flag:
       attributes:
         id: crypto_config_h_ftl_flag
+        label: crypto_config_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -140,28 +147,31 @@ data:
     crypto_digisign_cpkcc44163_wrapper_c_ftl_flag:
       attributes:
         id: crypto_digisign_cpkcc44163_wrapper_c_ftl_flag
+        label: crypto_digisign_cpkcc44163_wrapper_c_ftl_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     crypto_digisign_cpkcc44163_wrapper_h_ftl_flag:
       attributes:
         id: crypto_digisign_cpkcc44163_wrapper_h_ftl_flag
+        label: crypto_digisign_cpkcc44163_wrapper_h_ftl_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     crypto_digsign_c_ftl_flag:
       attributes:
         id: crypto_digsign_c_ftl_flag
+        label: crypto_digsign_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -173,6 +183,7 @@ data:
     crypto_digsign_h_ftl_flag:
       attributes:
         id: crypto_digsign_h_ftl_flag
+        label: crypto_digsign_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -184,6 +195,7 @@ data:
     crypto_hash_c_ftl_flag:
       attributes:
         id: crypto_hash_c_ftl_flag
+        label: crypto_hash_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -195,6 +207,7 @@ data:
     crypto_hash_h_ftl_flag:
       attributes:
         id: crypto_hash_h_ftl_flag
+        label: crypto_hash_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -206,6 +219,7 @@ data:
     crypto_hash_sha6156_wrapper_c_ftl_flag:
       attributes:
         id: crypto_hash_sha6156_wrapper_c_ftl_flag
+        label: crypto_hash_sha6156_wrapper_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -217,6 +231,7 @@ data:
     crypto_hash_sha6156_wrapper_h_ftl_flag:
       attributes:
         id: crypto_hash_sha6156_wrapper_h_ftl_flag
+        label: crypto_hash_sha6156_wrapper_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -228,6 +243,7 @@ data:
     crypto_kas_c_ftl_flag:
       attributes:
         id: crypto_kas_c_ftl_flag
+        label: crypto_kas_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -239,6 +255,7 @@ data:
     crypto_kas_cpkcc44163_wrapper_c_ftl_flag:
       attributes:
         id: crypto_kas_cpkcc44163_wrapper_c_ftl_flag
+        label: crypto_kas_cpkcc44163_wrapper_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -250,6 +267,7 @@ data:
     crypto_kas_cpkcc44163_wrapper_h_ftl_flag:
       attributes:
         id: crypto_kas_cpkcc44163_wrapper_h_ftl_flag
+        label: crypto_kas_cpkcc44163_wrapper_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -261,6 +279,7 @@ data:
     crypto_kas_h_ftl_flag:
       attributes:
         id: crypto_kas_h_ftl_flag
+        label: crypto_kas_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -272,6 +291,7 @@ data:
     crypto_mac_cipher_c_ftl_flag:
       attributes:
         id: crypto_mac_cipher_c_ftl_flag
+        label: crypto_mac_cipher_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -283,6 +303,7 @@ data:
     crypto_mac_cipher_h_ftl_flag:
       attributes:
         id: crypto_mac_cipher_h_ftl_flag
+        label: crypto_mac_cipher_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -294,6 +315,7 @@ data:
     crypto_rng_c_ftl_flag:
       attributes:
         id: crypto_rng_c_ftl_flag
+        label: crypto_rng_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -305,6 +327,7 @@ data:
     crypto_rng_h_ftl_flag:
       attributes:
         id: crypto_rng_h_ftl_flag
+        label: crypto_rng_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -316,6 +339,7 @@ data:
     crypto_rng_trng6334_wrapper_c_ftl_flag:
       attributes:
         id: crypto_rng_trng6334_wrapper_c_ftl_flag
+        label: crypto_rng_trng6334_wrapper_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -327,6 +351,7 @@ data:
     crypto_rng_trng6334_wrapper_h_ftl_flag:
       attributes:
         id: crypto_rng_trng6334_wrapper_h_ftl_flag
+        label: crypto_rng_trng6334_wrapper_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -338,28 +363,31 @@ data:
     crypto_sym_aes6149_wrapper_c_ftl_flag:
       attributes:
         id: crypto_sym_aes6149_wrapper_c_ftl_flag
+        label: crypto_sym_aes6149_wrapper_c_ftl_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     crypto_sym_aes6149_wrapper_h_ftl_flag:
       attributes:
         id: crypto_sym_aes6149_wrapper_h_ftl_flag
+        label: crypto_sym_aes6149_wrapper_h_ftl_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     crypto_sym_cipher_c_ftl_flag:
       attributes:
         id: crypto_sym_cipher_c_ftl_flag
+        label: crypto_sym_cipher_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -371,6 +399,7 @@ data:
     crypto_sym_cipher_h_ftl_flag:
       attributes:
         id: crypto_sym_cipher_h_ftl_flag
+        label: crypto_sym_cipher_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -382,50 +411,55 @@ data:
     drv_crypto_aes_hw_6149_c_ftl_flag:
       attributes:
         id: drv_crypto_aes_hw_6149_c_ftl_flag
+        label: drv_crypto_aes_hw_6149_c_ftl_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     drv_crypto_aes_hw_6149_h_ftl_flag:
       attributes:
         id: drv_crypto_aes_hw_6149_h_ftl_flag
+        label: drv_crypto_aes_hw_6149_h_ftl_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     drv_crypto_ecc_hw_cpkcl_c_ftl_flag:
       attributes:
         id: drv_crypto_ecc_hw_cpkcl_c_ftl_flag
+        label: drv_crypto_ecc_hw_cpkcl_c_ftl_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     drv_crypto_ecc_hw_cpkcl_h_flag:
       attributes:
         id: drv_crypto_ecc_hw_cpkcl_h_flag
+        label: drv_crypto_ecc_hw_cpkcl_h_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     drv_crypto_ecdh_hw_cpkcl_c_ftl_flag:
       attributes:
         id: drv_crypto_ecdh_hw_cpkcl_c_ftl_flag
+        label: drv_crypto_ecdh_hw_cpkcl_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -437,6 +471,7 @@ data:
     drv_crypto_ecdh_hw_cpkcl_h_flag:
       attributes:
         id: drv_crypto_ecdh_hw_cpkcl_h_flag
+        label: drv_crypto_ecdh_hw_cpkcl_h_flag
       children:
       - children:
         - attributes:
@@ -448,28 +483,31 @@ data:
     drv_crypto_ecdsa_hw_cpkcl_c_ftl_flag:
       attributes:
         id: drv_crypto_ecdsa_hw_cpkcl_c_ftl_flag
+        label: drv_crypto_ecdsa_hw_cpkcl_c_ftl_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     drv_crypto_ecdsa_hw_cpkcl_h_flag:
       attributes:
         id: drv_crypto_ecdsa_hw_cpkcl_h_flag
+        label: drv_crypto_ecdsa_hw_cpkcl_h_flag
       children:
       - children:
         - attributes:
             id: lib_crypto
-            value: 'false'
+            value: 'true'
           type: Dynamic
         type: Values
       type: Boolean
     drv_crypto_sha_hw_6156_c_ftl_flag:
       attributes:
         id: drv_crypto_sha_hw_6156_c_ftl_flag
+        label: drv_crypto_sha_hw_6156_c_ftl_flag
       children:
       - children:
         - attributes:
@@ -481,6 +519,7 @@ data:
     drv_crypto_sha_hw_6156_h_ftl_flag:
       attributes:
         id: drv_crypto_sha_hw_6156_h_ftl_flag
+        label: drv_crypto_sha_hw_6156_h_ftl_flag
       children:
       - children:
         - attributes:
@@ -492,6 +531,7 @@ data:
     drv_crypto_trng_hw_6334_c_flag:
       attributes:
         id: drv_crypto_trng_hw_6334_c_flag
+        label: drv_crypto_trng_hw_6334_c_flag
       children:
       - children:
         - attributes:
@@ -503,6 +543,7 @@ data:
     drv_crypto_trng_hw_6334_h_flag:
       attributes:
         id: drv_crypto_trng_hw_6334_h_flag
+        label: drv_crypto_trng_hw_6334_h_flag
       children:
       - children:
         - attributes:
@@ -511,4 +552,1350 @@ data:
           type: Dynamic
         type: Values
       type: Boolean
+    drv_crypto_ecckeygen_hw_cpkcl_c_ftl_flag:
+      attributes:
+        id: drv_crypto_ecckeygen_hw_cpkcl_c_ftl_flag
+        label: drv_crypto_ecckeygen_hw_cpkcl_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_fmult_pb_h_flag:
+      attributes:
+        id: cryptolib_fmult_pb_h_flag
+        label: cryptolib_fmult_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_swap_pb_h_flag:
+      attributes:
+        id: cryptolib_swap_pb_h_flag
+        label: cryptolib_swap_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_zpeccmul_pb_h_flag:
+      attributes:
+        id: cryptolib_zpeccmul_pb_h_flag
+        label: cryptolib_zpeccmul_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_hash_c_ftl:
+      attributes:
+        id: crypto_hash_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    crypto_sym_cipher_c_ftl:
+      attributes:
+        id: crypto_sym_cipher_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    crypto_mac_cipher_c_ftl:
+      attributes:
+        id: crypto_mac_cipher_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_gf2neccadd_pb_h_flag:
+      attributes:
+        id: cryptolib_gf2neccadd_pb_h_flag
+        label: cryptolib_gf2neccadd_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_rc_pb_h_flag:
+      attributes:
+        id: cryptolib_rc_pb_h_flag
+        label: cryptolib_rc_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_digsign_c_ftl:
+      attributes:
+        id: crypto_digsign_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_jumptable_addr_pb_h_ftl_flag:
+      attributes:
+        id: cryptolib_jumptable_addr_pb_h_ftl_flag
+        label: cryptolib_jumptable_addr_pb_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_common_h_ftl:
+      attributes:
+        id: crypto_common_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    crypto_ecckeygen_cpkcc44163_wrapper_c_ftl_flag:
+      attributes:
+        id: crypto_ecckeygen_cpkcc44163_wrapper_c_ftl_flag
+        label: crypto_ecckeygen_cpkcc44163_wrapper_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_hash_sha6156_wrapper_h_ftl:
+      attributes:
+        id: crypto_hash_sha6156_wrapper_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_nop_pb_h_flag:
+      attributes:
+        id: cryptolib_nop_pb_h_flag
+        label: cryptolib_nop_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_clearflags_pb_h_flag:
+      attributes:
+        id: cryptolib_clearflags_pb_h_flag
+        label: cryptolib_clearflags_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_zpeccconv_pb_h_flag:
+      attributes:
+        id: cryptolib_zpeccconv_pb_h_flag
+        label: cryptolib_zpeccconv_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_div_pb_h_flag:
+      attributes:
+        id: cryptolib_div_pb_h_flag
+        label: cryptolib_div_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_asym_cipher_c_ftl_flag:
+      attributes:
+        id: crypto_asym_cipher_c_ftl_flag
+        label: crypto_asym_cipher_c_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_services_pb_h_flag:
+      attributes:
+        id: cryptolib_services_pb_h_flag
+        label: cryptolib_services_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_smult_pb_h_flag:
+      attributes:
+        id: cryptolib_smult_pb_h_flag
+        label: cryptolib_smult_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_fill_pb_h_flag:
+      attributes:
+        id: cryptolib_fill_pb_h_flag
+        label: cryptolib_fill_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_primegen_pb_h_flag:
+      attributes:
+        id: cryptolib_primegen_pb_h_flag
+        label: cryptolib_primegen_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_gcd_pb_h_flag:
+      attributes:
+        id: cryptolib_gcd_pb_h_flag
+        label: cryptolib_gcd_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_zpeccdbl_pb_h_flag:
+      attributes:
+        id: cryptolib_zpeccdbl_pb_h_flag
+        label: cryptolib_zpeccdbl_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_aead_cipher_h_ftl:
+      attributes:
+        id: crypto_aead_cipher_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_selftest_pb_h_flag:
+      attributes:
+        id: cryptolib_selftest_pb_h_flag
+        label: cryptolib_selftest_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_condcopy_pb_h_flag:
+      attributes:
+        id: cryptolib_condcopy_pb_h_flag
+        label: cryptolib_condcopy_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_expmod_pb_h_flag:
+      attributes:
+        id: cryptolib_expmod_pb_h_flag
+        label: cryptolib_expmod_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_redmod_pb_h_flag:
+      attributes:
+        id: cryptolib_redmod_pb_h_flag
+        label: cryptolib_redmod_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_square_pb_h_flag:
+      attributes:
+        id: cryptolib_square_pb_h_flag
+        label: cryptolib_square_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_zpecdsa_pb_h_flag:
+      attributes:
+        id: cryptolib_zpecdsa_pb_h_flag
+        label: cryptolib_zpecdsa_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_config_h_ftl:
+      attributes:
+        id: crypto_config_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    drv_crypto_ecckeygen_hw_cpkcl_h_flag:
+      attributes:
+        id: drv_crypto_ecckeygen_hw_cpkcl_h_flag
+        label: drv_crypto_ecckeygen_hw_cpkcl_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_crt_pb_h_flag:
+      attributes:
+        id: cryptolib_crt_pb_h_flag
+        label: cryptolib_crt_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_hash_pb_h_flag:
+      attributes:
+        id: cryptolib_hash_pb_h_flag
+        label: cryptolib_hash_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_rng_pb_h_flag:
+      attributes:
+        id: cryptolib_rng_pb_h_flag
+        label: cryptolib_rng_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_sym_cipher_h_ftl:
+      attributes:
+        id: crypto_sym_cipher_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_zpeccadd_pb_h_flag:
+      attributes:
+        id: cryptolib_zpeccadd_pb_h_flag
+        label: cryptolib_zpeccadd_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    drv_crypto_sha_hw_6156_h_ftl:
+      attributes:
+        id: drv_crypto_sha_hw_6156_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_jumptable_pb_h_flag:
+      attributes:
+        id: cryptolib_jumptable_pb_h_flag
+        label: cryptolib_jumptable_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_digsign_h_ftl:
+      attributes:
+        id: crypto_digsign_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_gf2neccmul_pb_h_flag:
+      attributes:
+        id: cryptolib_gf2neccmul_pb_h_flag
+        label: cryptolib_gf2neccmul_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_hash_h_ftl:
+      attributes:
+        id: crypto_hash_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    crypto_ecckeygen_cpkcc44163_wrapper_h_ftl_flag:
+      attributes:
+        id: crypto_ecckeygen_cpkcc44163_wrapper_h_ftl_flag
+        label: crypto_ecckeygen_cpkcc44163_wrapper_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_gf2neccconv_pb_h_flag:
+      attributes:
+        id: cryptolib_gf2neccconv_pb_h_flag
+        label: cryptolib_gf2neccconv_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_fastcopy_pb_h_flag:
+      attributes:
+        id: cryptolib_fastcopy_pb_h_flag
+        label: cryptolib_fastcopy_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_gf2neccdbl_pb_h_flag:
+      attributes:
+        id: cryptolib_gf2neccdbl_pb_h_flag
+        label: cryptolib_gf2neccdbl_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_aead_cipher_c_ftl:
+      attributes:
+        id: crypto_aead_cipher_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    drv_crypto_sha_hw_6156_c_ftl:
+      attributes:
+        id: drv_crypto_sha_hw_6156_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_comp_pb_h_flag:
+      attributes:
+        id: cryptolib_comp_pb_h_flag
+        label: cryptolib_comp_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_cf_h_flag:
+      attributes:
+        id: cryptolib_cf_h_flag
+        label: cryptolib_cf_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_mac_cipher_h_ftl:
+      attributes:
+        id: crypto_mac_cipher_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_headers_pb_h_ftl_flag:
+      attributes:
+        id: cryptolib_headers_pb_h_ftl_flag
+        label: cryptolib_headers_pb_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_asym_cipher_h_ftl_flag:
+      attributes:
+        id: crypto_asym_cipher_h_ftl_flag
+        label: crypto_asym_cipher_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'false'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_gf2necdsa_pb_h_flag:
+      attributes:
+        id: cryptolib_gf2necdsa_pb_h_flag
+        label: cryptolib_gf2necdsa_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_typedef_pb_h_ftl_flag:
+      attributes:
+        id: cryptolib_typedef_pb_h_ftl_flag
+        label: cryptolib_typedef_pb_h_ftl_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    cryptolib_mapping_pb_h_flag:
+      attributes:
+        id: cryptolib_mapping_pb_h_flag
+        label: cryptolib_mapping_pb_h_flag
+      children:
+      - children:
+        - attributes:
+            id: lib_crypto
+            value: 'true'
+          type: Dynamic
+        type: Values
+      type: Boolean
+    crypto_hash_sha6156_wrapper_c_ftl:
+      attributes:
+        id: crypto_hash_sha6156_wrapper_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    drv_crypto_aes_hw_6149_h_ftl:
+      attributes:
+        id: drv_crypto_aes_hw_6149_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    crypto_sym_aes6149_wrapper_h_ftl:
+      attributes:
+        id: crypto_sym_aes6149_wrapper_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    drv_crypto_aes_hw_6149_c_ftl:
+      attributes:
+        id: drv_crypto_aes_hw_6149_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    crypto_sym_aes6149_wrapper_c_ftl:
+      attributes:
+        id: crypto_sym_aes6149_wrapper_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    CRYPTO_HW_AES_ECB:
+      attributes:
+        id: CRYPTO_HW_AES_ECB
+        label: AES-ECB
+      children:
+      - children:
+        - attributes:
+            value: 'true'
+          type: User
+        type: Values
+      type: Boolean
+    drv_crypto_ecc_hw_cpkcl_h:
+      attributes:
+        id: drv_crypto_ecc_hw_cpkcl_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_fmult_pb_h:
+      attributes:
+        id: cryptolib_fmult_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_swap_pb_h:
+      attributes:
+        id: cryptolib_swap_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_zpeccmul_pb_h:
+      attributes:
+        id: cryptolib_zpeccmul_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_gf2neccadd_pb_h:
+      attributes:
+        id: cryptolib_gf2neccadd_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_rc_pb_h:
+      attributes:
+        id: cryptolib_rc_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_jumptable_addr_pb_h_ftl:
+      attributes:
+        id: cryptolib_jumptable_addr_pb_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    drv_crypto_ecdsa_hw_cpkcl_h:
+      attributes:
+        id: drv_crypto_ecdsa_hw_cpkcl_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    drv_crypto_ecc_hw_cpkcl_c_ftl:
+      attributes:
+        id: drv_crypto_ecc_hw_cpkcl_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_nop_pb_h:
+      attributes:
+        id: cryptolib_nop_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_clearflags_pb_h:
+      attributes:
+        id: cryptolib_clearflags_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_zpeccconv_pb_h:
+      attributes:
+        id: cryptolib_zpeccconv_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_div_pb_h:
+      attributes:
+        id: cryptolib_div_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    crypto_digisign_cpkcc44163_wrapper_c_ftl:
+      attributes:
+        id: crypto_digisign_cpkcc44163_wrapper_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_services_pb_h:
+      attributes:
+        id: cryptolib_services_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_smult_pb_h:
+      attributes:
+        id: cryptolib_smult_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_fill_pb_h:
+      attributes:
+        id: cryptolib_fill_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_primegen_pb_h:
+      attributes:
+        id: cryptolib_primegen_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_gcd_pb_h:
+      attributes:
+        id: cryptolib_gcd_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_zpeccdbl_pb_h:
+      attributes:
+        id: cryptolib_zpeccdbl_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_selftest_pb_h:
+      attributes:
+        id: cryptolib_selftest_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_condcopy_pb_h:
+      attributes:
+        id: cryptolib_condcopy_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_expmod_pb_h:
+      attributes:
+        id: cryptolib_expmod_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_redmod_pb_h:
+      attributes:
+        id: cryptolib_redmod_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_square_pb_h:
+      attributes:
+        id: cryptolib_square_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_zpecdsa_pb_h:
+      attributes:
+        id: cryptolib_zpecdsa_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    drv_crypto_ecdsa_hw_cpkcl_c_ftl:
+      attributes:
+        id: drv_crypto_ecdsa_hw_cpkcl_c_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_crt_pb_h:
+      attributes:
+        id: cryptolib_crt_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_hash_pb_h:
+      attributes:
+        id: cryptolib_hash_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_rng_pb_h:
+      attributes:
+        id: cryptolib_rng_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_zpeccadd_pb_h:
+      attributes:
+        id: cryptolib_zpeccadd_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_jumptable_pb_h:
+      attributes:
+        id: cryptolib_jumptable_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_gf2neccmul_pb_h:
+      attributes:
+        id: cryptolib_gf2neccmul_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_gf2neccconv_pb_h:
+      attributes:
+        id: cryptolib_gf2neccconv_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_fastcopy_pb_h:
+      attributes:
+        id: cryptolib_fastcopy_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_gf2neccdbl_pb_h:
+      attributes:
+        id: cryptolib_gf2neccdbl_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_comp_pb_h:
+      attributes:
+        id: cryptolib_comp_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_cf_h:
+      attributes:
+        id: cryptolib_cf_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_headers_pb_h_ftl:
+      attributes:
+        id: cryptolib_headers_pb_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    crypto_digisign_cpkcc44163_wrapper_h_ftl:
+      attributes:
+        id: crypto_digisign_cpkcc44163_wrapper_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_gf2necdsa_pb_h:
+      attributes:
+        id: cryptolib_gf2necdsa_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_typedef_pb_h_ftl:
+      attributes:
+        id: cryptolib_typedef_pb_h_ftl
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
+    cryptolib_mapping_pb_h:
+      attributes:
+        id: cryptolib_mapping_pb_h
+      children:
+      - children:
+        - attributes:
+            id: enabled
+          children:
+          - type: Value
+            value: 'true'
+          type: Boolean
+        type: Attributes
+      type: File
   userData: {}

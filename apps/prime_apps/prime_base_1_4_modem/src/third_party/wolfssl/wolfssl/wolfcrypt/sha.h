@@ -1,12 +1,12 @@
 /* sha.h
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -31,8 +31,7 @@
 
 #ifndef NO_SHA
 
-#if defined(HAVE_FIPS) && \
-    defined(HAVE_FIPS_VERSION) && (HAVE_FIPS_VERSION >= 2)
+#if FIPS_VERSION3_GE(2,0,0)
     #include <wolfssl/wolfcrypt/fips.h>
 #endif /* HAVE_FIPS_VERSION >= 2 */
 
@@ -49,8 +48,22 @@
     #include "fsl_dcp.h"
 #endif
 
+#if defined(WOLFSSL_PSOC6_CRYPTO)
+    #include <wolfssl/wolfcrypt/port/cypress/psoc6_crypto.h>
+
+    #include "cy_crypto_core_sha.h"
+    #include "cy_device_headers.h"
+    #include "cy_crypto_common.h"
+    #include "cy_crypto_core.h"
+#endif
+
 #ifdef __cplusplus
     extern "C" {
+#endif
+
+#if FIPS_VERSION3_GE(6,0,0)
+    extern const unsigned int wolfCrypt_FIPS_sha_ro_sanity[2];
+    WOLFSSL_LOCAL int wolfCrypt_FIPS_SHA_sanity(void);
 #endif
 
 /* avoid redefinition of structs */
@@ -72,6 +85,9 @@
 #if defined(WOLFSSL_SILABS_SE_ACCEL)
     #include <wolfssl/wolfcrypt/port/silabs/silabs_hash.h>
 #endif
+#if defined(WOLFSSL_MAX3266X) || defined(WOLFSSL_MAX3266X_OLD)
+    #include <wolfssl/wolfcrypt/port/maxim/max3266x.h>
+#endif
 
 #if !defined(NO_OLD_SHA_NAMES)
     #define SHA             WC_SHA
@@ -85,12 +101,10 @@
 #endif
 
 /* in bytes */
-enum {
-    WC_SHA              =  WC_HASH_TYPE_SHA,
-    WC_SHA_BLOCK_SIZE   = 64,
-    WC_SHA_DIGEST_SIZE  = 20,
-    WC_SHA_PAD_SIZE     = 56
-};
+#define WC_SHA              WC_HASH_TYPE_SHA
+#define WC_SHA_BLOCK_SIZE   64
+#define WC_SHA_DIGEST_SIZE  20
+#define WC_SHA_PAD_SIZE     56
 
 
 #if defined(WOLFSSL_TI_HASH)
@@ -106,7 +120,7 @@ enum {
     #include "wolfssl/wolfcrypt/port/Renesas/renesas-rx64-hw-crypt.h"
 #elif defined(WOLFSSL_RENESAS_RSIP) && \
     !defined(NO_WOLFSSL_RENESAS_FSPSM_HASH)
-    #include "wolfssl/wolfcrypt/port/Renesas/renesas-fspsm-crypt.h"
+    #include "wolfssl/wolfcrypt/port/Renesas/renesas_fspsm_internal.h"
 #else
 
 #if defined(WOLFSSL_SE050) && defined(WOLFSSL_SE050_HASH)
@@ -134,6 +148,9 @@ struct wc_Sha {
     dcp_hash_ctx_t ctx;
 #elif defined(WOLFSSL_HAVE_PSA) && !defined(WOLFSSL_PSA_NO_HASH)
     psa_hash_operation_t psa_ctx;
+#elif defined(PSOC6_HASH_SHA1)
+    cy_stc_crypto_sha_state_t hash_state;
+    cy_stc_crypto_v2_sha1_buffers_t sha_buffers;
 #else
     word32  buffLen;   /* in bytes          */
     word32  loLen;     /* length in bytes   */
@@ -144,8 +161,8 @@ struct wc_Sha {
     #else
     word32  digest[WC_SHA_DIGEST_SIZE / sizeof(word32)];
     #endif
-    void*   heap;
 #endif
+    void*   heap;
 #ifdef WOLFSSL_PIC32MZ_HASH
     hashUpdCache cache; /* cache for updates */
 #endif

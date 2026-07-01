@@ -1,5 +1,5 @@
 configVersion: 1.0.0
-coreVersion: 5.9.0
+coreVersion: 5.8.4
 spaHostVersion: 1.3.0
 device: PIC32CX2051MTG128
 deviceLibrary:
@@ -42,7 +42,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\pic32cx_mtg_ek_pl460\configuration.h
   hash: 4db206ff4a00f91730269701ca532eeabfe925c95844534ee2f8ff69b4cbdc7e
 - file: ..\src\config\pic32cx_mtg_ek_pl460\definitions.h
-  hash: e93e3b5f741f1d3a1094b8d20c7ea5d5da61149ae0b4332f77f8284776edf975
+  hash: 11226c8f2943eacadf6415e200c24c54873756d5db2833ecb011b16b1c0da16f
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device.h
   hash: e4b74d8dc6f2114c392f806fb108aa7196cdab6de9ddfff17a111337ad5b70c0
 - file: ..\src\config\pic32cx_mtg_ek_pl460\device_cache.h

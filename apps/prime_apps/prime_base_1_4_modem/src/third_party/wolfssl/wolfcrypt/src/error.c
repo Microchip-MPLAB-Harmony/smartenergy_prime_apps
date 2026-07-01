@@ -1,12 +1,12 @@
 /* error.c
  *
- * Copyright (C) 2006-2023 wolfSSL Inc.
+ * Copyright (C) 2006-2026 wolfSSL Inc.
  *
  * This file is part of wolfSSL.
  *
  * wolfSSL is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
+ * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * wolfSSL is distributed in the hope that it will be useful,
@@ -19,14 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335, USA
  */
 
-
-#ifdef HAVE_CONFIG_H
-    #include <config.h>
-#endif
-
-#include <wolfssl/wolfcrypt/settings.h>
-
-#include <wolfssl/wolfcrypt/error-crypt.h>
+#include <wolfssl/wolfcrypt/libwolfssl_sources.h>
 
 #ifdef _MSC_VER
     /* 4996 warning to use MS extensions e.g., strcpy_s instead of XSTRNCPY */
@@ -34,10 +27,33 @@
 #endif
 
 #ifndef NO_ERROR_STRINGS
+
+#ifdef WOLFSSL_DEBUG_TRACE_ERROR_CODES_H
+#include <wolfssl/debug-untrace-error-codes.h>
+#endif
+
 WOLFSSL_ABI
 const char* wc_GetErrorString(int error)
 {
-    switch (error) {
+    switch ((enum wolfCrypt_ErrorCodes)error) {
+
+    case WC_SUCCESS:
+        return "wolfCrypt generic success";
+
+    case WC_FAILURE:
+        return "wolfCrypt generic failure";
+
+    case MP_MEM :
+        return "MP integer dynamic memory allocation failed";
+
+    case MP_VAL :
+        return "MP integer invalid argument";
+
+    case MP_WOULDBLOCK :
+        return "MP integer non-blocking operation would block";
+
+    case MP_NOT_INF:
+        return "MP point not at infinity";
 
     case OPEN_RAN_E :
         return "opening random device error";
@@ -169,10 +185,10 @@ const char* wc_GetErrorString(int error)
         return "ASN date error, bad size";
 
     case ASN_BEFORE_DATE_E :
-        return "ASN date error, current date before";
+        return "ASN date error, current date is before start of validity";
 
     case ASN_AFTER_DATE_E :
-        return "ASN date error, current date after";
+        return "ASN date error, current date is after expiration";
 
     case ASN_SIG_OID_E :
         return "ASN signature error, mismatched oid";
@@ -302,7 +318,7 @@ const char* wc_GetErrorString(int error)
         return "Random Number Generator failed";
 
     case HMAC_MIN_KEYLEN_E:
-        return "FIPS Mode HMAC Minimum Key Length error";
+        return "FIPS Mode HMAC Minimum Key or Salt Length error";
 
     case RSA_PAD_E:
         return "Rsa Padding error";
@@ -347,13 +363,13 @@ const char* wc_GetErrorString(int error)
         return "ECC is point on curve failed";
 
     case ECC_INF_E:
-        return " ECC point at infinity error";
+        return "ECC point at infinity error";
 
     case ECC_OUT_OF_RANGE_E:
-        return " ECC Qx or Qy out of range error";
+        return "ECC Qx or Qy out of range error";
 
     case ECC_PRIV_KEY_E:
-        return " ECC private key is not valid error";
+        return "ECC private key is not valid error";
 
     case SRP_CALL_ORDER_E:
         return "SRP function called in the wrong order error";
@@ -604,11 +620,68 @@ const char* wc_GetErrorString(int error)
     case KEY_EXHAUSTED_E:
         return "Key no longer usable for operation";
 
+    case FIPS_INVALID_VER_E:
+        return "Invalid FIPS version defined, check length";
+
+    case FIPS_DATA_SZ_E:
+        return "FIPS Module Data too large adjust MAX_FIPS_DATA_SZ";
+
+    case FIPS_CODE_SZ_E:
+        return "FIPS Module Code too large adjust MAX_FIPS_CODE_SZ";
+
+    case KDF_SRTP_KAT_FIPS_E:
+        return "wolfCrypt FIPS SRTP-KDF Known Answer Test Failure";
+
+    case ED25519_KAT_FIPS_E:
+        return "wolfCrypt FIPS Ed25519 Known Answer Test Failure";
+
+    case ED448_KAT_FIPS_E:
+        return "wolfCrypt FIPS Ed448 Known Answer Test Failure";
+
+    case PBKDF2_KAT_FIPS_E:
+        return "wolfCrypt FIPS PBKDF2 Known Answer Test Failure";
+
+    case WC_KEY_MISMATCH_E:
+        return "key values mismatch";
+
+    case DEADLOCK_AVERTED_E:
+        return "Deadlock averted -- retry the call";
+
+    case ASCON_AUTH_E:
+        return "ASCON Authentication check fail";
+
+    case WC_ACCEL_INHIBIT_E:
+        return "Crypto acceleration is currently inhibited";
+
+    case BAD_INDEX_E:
+        return "Bad index";
+
+    case INTERRUPTED_E:
+        return "Process interrupted";
+
+    case MLKEM_PUB_HASH_E:
+        return "ML-KEM priv key's stored hash doesn't match encoded pub key";
+
+    case BUSY_E:
+        return "Object is busy";
+
+    case ALREADY_E:
+        return "Operation was redundant or preempted";
+
+    case SEQ_OVERFLOW_E:
+        return "Sequence counter would overflow";
+
+    case MAX_CODE_E:
+    case WC_SPAN1_MIN_CODE_E:
+    case MIN_CODE_E:
     default:
         return "unknown error number";
-
     }
 }
+
+#ifdef WOLFSSL_DEBUG_TRACE_ERROR_CODES
+#include <wolfssl/debug-trace-error-codes.h>
+#endif
 
 void wc_ErrorString(int error, char* buffer)
 {
@@ -616,4 +689,3 @@ void wc_ErrorString(int error, char* buffer)
     buffer[WOLFSSL_MAX_ERROR_SZ-1] = 0;
 }
 #endif /* !NO_ERROR_STRINGS */
-

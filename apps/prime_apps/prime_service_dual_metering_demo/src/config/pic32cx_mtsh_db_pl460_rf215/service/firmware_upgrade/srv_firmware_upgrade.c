@@ -61,6 +61,7 @@ Microchip or any third party.
 #include "crypto/common_crypto/crypto_hash.h"
 #include "crypto/common_crypto/crypto_digsign.h"
 
+
 // *****************************************************************************
 // *****************************************************************************
 // Section: Macro definitions
@@ -422,20 +423,69 @@ static void lSRV_FU_EraseFuRegion(void)
     memInfo.state = SRV_FU_MEM_STATE_ERASE_FLASH;
 }
 
-static void lSRV_FU_ConvertDerFormatSignature(void)
+/* Convert a DER-encoded ECDSA signature (SEQUENCE { INTEGER r, INTEGER s })
+ * into the raw 64-byte r||s form expected by Crypto_DigiSign_Ecdsa_Verify. */
+static bool lSRV_FU_DerToRawSignature(uint16_t derLen)
 {
-    uint8_t index;
+    uint8_t  rawSig[SIGNATURE_SIZE_ECDSA_256];   /* 64: r||s, zero-padded */
+    uint16_t pos;
+    uint8_t  intLen;
+    uint8_t  comp;
+    uint8_t  half = (uint8_t)(SIGNATURE_SIZE_ECDSA_256 / 2U);   /* 32 */
 
-    for (index = 0U; index < 32U; index++)
+    (void) memset(rawSig, 0, sizeof(rawSig));
+
+    /* SEQUENCE tag + short-form length (P-256 signatures are always < 128 B). */
+    if ((derLen < 8U) || (imageSignature[0] != 0x30U))
     {
-        imageSignature[index] = imageSignature[4U + index];
+        return false;
+    }
+    if ((uint16_t) imageSignature[1] != (uint16_t)(derLen - 2U))
+    {
+        return false;
     }
 
-    for (index = 0U; index < 32U; index++)
+    pos = 2U;
+
+    /* Two INTEGERs: r then s. */
+    for (comp = 0U; comp < 2U; comp++)
     {
-        imageSignature[32U + index] = imageSignature[38U + index];
+        if (((uint16_t)(pos + 2U) > derLen) || (imageSignature[pos] != 0x02U))
+        {
+            return false;
+        }
+        intLen = imageSignature[pos + 1U];
+        pos = (uint16_t)(pos + 2U);
+
+        if (((uint16_t)(pos + intLen)) > derLen)
+        {
+            return false;
+        }
+
+        /* Skip DER leading sign-pad zero byte(s). */
+        while ((intLen > 0U) && (imageSignature[pos] == 0x00U))
+        {
+            pos++;
+            intLen--;
+        }
+
+        if (intLen > half)        /* a P-256 component never exceeds 32 bytes */
+        {
+            return false;
+        }
+
+        (void) memcpy(&rawSig[((uint16_t)comp * half) + (half - intLen)],
+                      &imageSignature[pos], intLen);
+        pos = (uint16_t)(pos + intLen);
     }
 
+    if (pos != derLen)            /* the SEQUENCE must be consumed exactly */
+    {
+        return false;
+    }
+
+    (void) memcpy(imageSignature, rawSig, sizeof(rawSig));
+    return true;
 }
 
 static bool lSRV_FU_VerifySignature(void)
@@ -464,9 +514,23 @@ static bool lSRV_FU_VerifySignature(void)
         return false;
     }
 
-    /* Check if signature comes in DER format */
-    if (fuData.signLength == 70UL) {
-        lSRV_FU_ConvertDerFormatSignature();
+    /* Normalise the signature to the raw 64-byte r||s the verifier expects. */
+    if (fuData.signLength == SIGNATURE_SIZE_ECDSA_256)
+    {
+        /* Already raw r||s -- nothing to do. */
+    }
+    else if ((fuData.signLength >= 8UL) &&
+             (fuData.signLength <= (uint32_t) PRIME_SIGNATURE_SIZE) &&
+             (imageSignature[0] == 0x30U))
+    {
+        if (!lSRV_FU_DerToRawSignature((uint16_t) fuData.signLength))
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;   /* unsupported signature length / format */
     }
 
     /* Start to verify the signature */
@@ -807,8 +871,7 @@ void SRV_FU_Tasks(void)
                     crypto_DigiSign_Status_E stateCryptoECDSA;
                     int8_t validDSA = 0;
 
-                    /* Hash already done, do ECDSA256_SHA256 verification */
-                    stateCryptoECDSA = Crypto_DigiSign_Ecdsa_Verify(CRYPTO_HANDLER_SW_WOLFCRYPT,
+                    stateCryptoECDSA = Crypto_DigiSign_Ecdsa_Verify(CRYPTO_HANDLER_HW_INTERNAL,
                                                                     hashDigest,
                                                                     HASH_SIZE_SHA_256,
                                                                     imageSignature,

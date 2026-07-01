@@ -54,6 +54,7 @@ Microchip or any third party.
 // *****************************************************************************
 #include "crypto/common_crypto/crypto_common.h"
 #include "crypto/common_crypto/crypto_sym_cipher.h"
+#include "crypto/drivers/wrapper/crypto_sym_aes6149_wrapper.h"
 #include "crypto/wolfcrypt/crypto_sym_wc_wrapper.h"
 
 // *****************************************************************************
@@ -117,12 +118,9 @@ crypto_Sym_Status_E Crypto_Sym_Aes_Init(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st, c
 
         switch(ptr_aesCtx_st->symHandlerType_en)
         {
-            case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                {
-                    ret_aesStatus_en = Crypto_Sym_Wc_Aes_Init((void*)ptr_aesCtx_st->arr_symDataCtx,ptr_aesCtx_st->symCipherOper_en,
-                                                  ptr_aesCtx_st->symAlgoMode_en, ptr_aesCtx_st->ptr_key, ptr_aesCtx_st->symKeySize, ptr_aesCtx_st->ptr_initVect);
-
-				}
+            case CRYPTO_HANDLER_HW_INTERNAL:
+                ret_aesStatus_en =  Crypto_Sym_Hw_Aes_Init(ptr_aesCtx_st->symCipherOper_en,  ptr_aesCtx_st->symAlgoMode_en,
+                                                            ptr_aesCtx_st->ptr_key, ptr_aesCtx_st->symKeySize, ptr_aesCtx_st->ptr_initVect);
                 break;
             default:
                 ret_aesStatus_en = CRYPTO_SYM_ERROR_HDLR;
@@ -153,19 +151,8 @@ crypto_Sym_Status_E Crypto_Sym_Aes_Cipher(st_Crypto_Sym_BlockCtx *ptr_aesCtx_st,
     {
         switch(ptr_aesCtx_st->symHandlerType_en)
         {
-            case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                if(ptr_aesCtx_st->symCipherOper_en == CRYPTO_CIOP_ENCRYPT)
-                {
-                    ret_aesStatus_en = Crypto_Sym_Wc_Aes_Encrypt(ptr_aesCtx_st->arr_symDataCtx, ptr_aesCtx_st->symAlgoMode_en, ptr_inputData, dataLen, ptr_outData);
-                }
-                else if(ptr_aesCtx_st->symCipherOper_en == CRYPTO_CIOP_DECRYPT)
-                {
-                    ret_aesStatus_en = Crypto_Sym_Wc_Aes_Decrypt(ptr_aesCtx_st->arr_symDataCtx, ptr_aesCtx_st->symAlgoMode_en, ptr_inputData, dataLen, ptr_outData);
-                }
-                else
-                {
-                    ret_aesStatus_en = CRYPTO_SYM_ERROR_CIPOPER;
-                }
+            case CRYPTO_HANDLER_HW_INTERNAL:
+                ret_aesStatus_en =  Crypto_Sym_Hw_Aes_Cipher(ptr_inputData, dataLen, ptr_outData);
                 break;
             default:
                 ret_aesStatus_en = CRYPTO_SYM_ERROR_HDLR;
@@ -215,8 +202,8 @@ crypto_Sym_Status_E Crypto_Sym_Aes_EncryptDirect(crypto_HandlerType_E handlerTyp
     {
         switch(handlerType_en)
         {
-            case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_aesStatus_en = Crypto_Sym_Wc_Aes_EncryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, keyLen, ptr_initVect);
+            case CRYPTO_HANDLER_HW_INTERNAL:
+                ret_aesStatus_en = Crypto_Sym_Hw_Aes_EncryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, keyLen, ptr_initVect);
                 break;
             default:
                 ret_aesStatus_en = CRYPTO_SYM_ERROR_HDLR;
@@ -262,8 +249,8 @@ crypto_Sym_Status_E Crypto_Sym_Aes_DecryptDirect(crypto_HandlerType_E handlerTyp
     {
         switch(handlerType_en)
         {
-            case CRYPTO_HANDLER_SW_WOLFCRYPT:
-                ret_aesStatus_en = Crypto_Sym_Wc_Aes_DecryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, keyLen, ptr_initVect);
+            case CRYPTO_HANDLER_HW_INTERNAL:
+                ret_aesStatus_en = Crypto_Sym_Hw_Aes_DecryptDirect(opMode_en, ptr_inputData, dataLen, ptr_outData, ptr_key, keyLen, ptr_initVect);
                 break;
 
             default:

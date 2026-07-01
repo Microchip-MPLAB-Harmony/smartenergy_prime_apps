@@ -406,10 +406,8 @@
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm4.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ripemd.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ed25519.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_kyber.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/memory.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/lms.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_kyber.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm3.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mpi_superclass.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/blake2-impl.h</itemPath>
@@ -488,7 +486,17 @@
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/signature.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sm2.h</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/sha3.h</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/kyber.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ascon.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/async.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/ext_mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/libwolfssl_sources.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/libwolfssl_sources_asm.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/oid_sum.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/rng_bank.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_mlkem.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wc_slhdsa.h</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfssl/wolfcrypt/wolfentropy.h</itemPath>
             </logicalFolder>
             <itemPath>../src/third_party/wolfssl/wolfssl/certs_test.h</itemPath>
           </logicalFolder>
@@ -510,54 +518,54 @@
                              displayName="PRIME SERVICES"
                              projectFiles="true">
                 <logicalFolder name="components" displayName="components" projectFiles="true">
-                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeTimeManagement.yml</itemPath>
-                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvSecurity.yml</itemPath>
-                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvQueue.yml</itemPath>
-                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srv_pcrc.yml</itemPath>
-                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvRandom.yml</itemPath>
-                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeUserPib.yml</itemPath>
-                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeResetHandler.yml</itemPath>
-                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvLogReport.yml</itemPath>
                   <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeStorage.yml</itemPath>
+                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srv_pcrc.yml</itemPath>
+                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvQueue.yml</itemPath>
+                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeTimeManagement.yml</itemPath>
+                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeUserPib.yml</itemPath>
+                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvRandom.yml</itemPath>
+                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvLogReport.yml</itemPath>
+                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/primeResetHandler.yml</itemPath>
+                  <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/components/srvSecurity.yml</itemPath>
                 </logicalFolder>
                 <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/PRIME SERVICES/PRIME SERVICES.yml</itemPath>
               </logicalFolder>
-              <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/srv_psniffer.yml</itemPath>
-              <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/primePal.yml</itemPath>
-              <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/prime_config.yml</itemPath>
               <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/srv_rsniffer.yml</itemPath>
+              <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/prime_config.yml</itemPath>
+              <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/primePal.yml</itemPath>
+              <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/components/srv_psniffer.yml</itemPath>
             </logicalFolder>
             <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/PRIME STACK/PRIME STACK.yml</itemPath>
           </logicalFolder>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sefc1.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sys_console_0.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/srv_pcoup.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/trng.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/primeFirmwareUpgrade.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/srv_usi_0.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/flexcom5.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/lib_crypto.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/srv_pvddmon.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sys_debug.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sys_time.yml</itemPath>
           <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/cmsis.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/srv_usi.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/flexcom5.yml</itemPath>
           <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/flexcom0.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/HarmonyCore.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/adc.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/dfp.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sefc0.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/drv_memory_0.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/drvRf215.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/core.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/lib_wolfcrypt.yml</itemPath>
           <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/tc0.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sys_console.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/flexcom3.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/drvPlcPhy.yml</itemPath>
-          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/drv_memory.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/drvRf215.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/srv_pcoup.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/core.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/srv_pvddmon.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/adc.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sys_time.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sys_console_0.yml</itemPath>
           <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/flexcom7.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/lib_crypto.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/srv_usi.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/drv_memory_0.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sefc1.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/lib_wolfcrypt.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/drv_memory.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/flexcom3.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/primeFirmwareUpgrade.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/mainBoard_PIC32CXMTG_EK.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/drvPlcPhy.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/srv_usi_0.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/trng.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sefc0.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sys_debug.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/HarmonyCore.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/dfp.yml</itemPath>
+          <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/components/sys_console.yml</itemPath>
         </logicalFolder>
         <itemPath>prime_bn_14_modem_pic32cxmtg_pl460_rf215/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -837,11 +845,9 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_xmss.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_arm32.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hmac.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_kyber.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/chacha.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/pwdbased.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asm.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber_poly.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ge_low_mem.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ed448.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ge_448.c</itemPath>
@@ -854,7 +860,6 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_arm64.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/siphash.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/rc2.c</itemPath>
-              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_kyber.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_cortexm.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/curve25519.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/curve448.c</itemPath>
@@ -888,6 +893,16 @@
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/hpke.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_lms_impl.c</itemPath>
               <itemPath>../src/third_party/wolfssl/wolfcrypt/src/sp_sm2_c64.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ascon.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/asn_orig.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/async.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/evp_pk.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/ext_mlkem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/rng_bank.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_mlkem.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_mlkem_poly.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wc_slhdsa.c</itemPath>
+              <itemPath>../src/third_party/wolfssl/wolfcrypt/src/wolfentropy.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="wolfssl" displayName="wolfssl" projectFiles="true">

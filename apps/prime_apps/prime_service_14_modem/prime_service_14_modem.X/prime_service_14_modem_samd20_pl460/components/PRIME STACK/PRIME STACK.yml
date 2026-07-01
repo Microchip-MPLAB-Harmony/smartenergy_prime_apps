@@ -1,9 +1,13 @@
 configVersion: 1.0.0
 componentName: PRIME STACK
-coreVersion: 5.9.0
+coreVersion: 5.8.4
 device: ATSAMD20J18
 library: []
 dependency:
+- dependencyPackage: class com.microchip.mcc.harmony.HarmonyGroupModule
+  name: PRIME STACK
+  type: module
+  version: ''
 - dependencyPackage: class com.microchip.mcc.harmony.HarmonyGroupModule
   name: PRIME STACK
   type: module
