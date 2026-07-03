@@ -214,7 +214,10 @@ void SRV_USER_PIB_Tasks(void)
                  * state. */
                 gUartModeState = SRV_USER_PIB_UART_MODE_IDLE;
             }
-            /* IDLE / BUSY: keep waiting. */
+            else
+            {
+                /* IDLE / BUSY: keep waiting. */
+            }
             break;
 
         default:

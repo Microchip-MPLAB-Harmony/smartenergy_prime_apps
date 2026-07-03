@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 componentName: sys_console
-coreVersion: 5.8.4
+coreVersion: 5.9.0
 device: ATSAMD20J18
 library: []
 dependency:
@@ -22,8 +22,8 @@ data:
     - children:
       - attributes:
           id: sys_console
-          x: '288'
-          y: '455'
+          x: '299'
+          y: '453'
         type: ElementPosition
       type: ElementPositions
     type: ComponentGraph

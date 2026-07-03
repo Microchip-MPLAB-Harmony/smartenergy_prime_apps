@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 componentName: drv_sst26
-coreVersion: 5.8.4
+coreVersion: 5.9.0
 device: ATSAMD20J18
 library: []
 dependency:
@@ -74,7 +74,7 @@ data:
     - children:
       - attributes:
           id: drv_sst26
-          x: '298'
+          x: '292'
           y: '220'
         type: ElementPosition
       type: ElementPositions
@@ -201,7 +201,7 @@ data:
         type: Attributes
       - children:
         - attributes:
-            value: '4'
+            value: '4096'
           type: User
         type: Values
       type: Integer

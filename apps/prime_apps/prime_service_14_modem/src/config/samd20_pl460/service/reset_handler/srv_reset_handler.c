@@ -143,7 +143,9 @@ void DumpStack(uint32_t stack[])
     NVIC_SystemReset();
 }
 
-__attribute__((naked, noreturn))
+/* MISRA C-2023 deviation block start */
+/* MISRA C-2023 Rule 5.8 deviated 1 time. Deviation record ID - H3_MISRAC_2023_R_5_8_DR_1 */
+__attribute__((naked))
 void HardFault_Handler(void)
 {
     __asm volatile (
@@ -158,6 +160,7 @@ void HardFault_Handler(void)
         "  bl   DumpStack      \n"
     );
 }
+/* MISRA C-2023 deviation block end */
 
 /* Watchdog Early-Warning callback. */
 static void lSRV_RESET_HANDLER_WdtEarlyWarning(uintptr_t context)
@@ -192,6 +195,9 @@ void SRV_RESET_HANDLER_Initialize(void)
     WDT_CallbackRegister(lSRV_RESET_HANDLER_WdtEarlyWarning, 0U);
 }
 
+/* Ends unconditionally in NVIC_SystemReset() (__NO_RETURN), so it never
+ * returns to its caller (MISRA C-2023 Rule 17.11). */
+__attribute__((noreturn))
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType)
 {
     /* Persist reset cause + increment reset counter */

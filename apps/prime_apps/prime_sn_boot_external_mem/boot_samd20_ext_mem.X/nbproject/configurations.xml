@@ -145,14 +145,14 @@
         <targetDevice>ATSAMD20J18</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>5.10</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="CMSIS" vendor="ARM" version="6.3.0"/>
         <pack name="SAMD20_DFP" vendor="Microchip" version="3.7.231"/>
+        <pack name="CMSIS" vendor="ARM" version="6.3.0"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -168,7 +168,7 @@
                         CT="1"
                         CN="samd20_pl460"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../../prime_service_14_modem/prime_service_14_modem.X"
                         BC="${MAKE}  -f Makefile CONF=samd20_pl460"
                         DBC="${MAKE}  -f Makefile CONF=samd20_pl460 TYPE_IMAGE=DEBUG_RUN"

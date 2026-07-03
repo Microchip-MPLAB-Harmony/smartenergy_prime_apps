@@ -259,12 +259,12 @@ static void lSRV_FU_TransferHandler
 
         switch (mInfo->state)
         {
-            case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_ERASE:
+            case SRV_FU_MEM_STATE_BM_ERASE:
                 /* Erase ok -> Tasks() will kick the page write. */
-                mInfo->state = SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE_KICK;
+                mInfo->state = SRV_FU_MEM_STATE_BM_WRITE_KICK;
                 break;
 
-            case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE:
+            case SRV_FU_MEM_STATE_BM_WRITE:
                 /* Page written -> Set sequence done. */
                 mInfo->bootModeStatus = (uint8_t) SRV_FU_BOOT_MODE_STATUS_OK;
                 mInfo->state = SRV_FU_MEM_STATE_CMD_WAIT;
@@ -341,13 +341,14 @@ static void lSRV_FU_EraseFuRegion(void)
 
 /* Convert a DER-encoded ECDSA signature (SEQUENCE { INTEGER r, INTEGER s })
  * into the raw 64-byte r||s form expected by Crypto_DigiSign_Ecdsa_Verify. */
+#define SIG_COMP_HALF   ((uint16_t)SIGNATURE_SIZE_ECDSA_256 / 2U)   /* 32 */
+
 static bool lSRV_FU_DerToRawSignature(uint16_t derLen)
 {
     uint8_t  rawSig[SIGNATURE_SIZE_ECDSA_256];   /* 64: r||s, zero-padded */
     uint16_t pos;
     uint8_t  intLen;
     uint8_t  comp;
-    uint8_t  half = (uint8_t)(SIGNATURE_SIZE_ECDSA_256 / 2U);   /* 32 */
 
     (void) memset(rawSig, 0, sizeof(rawSig));
 
@@ -385,12 +386,13 @@ static bool lSRV_FU_DerToRawSignature(uint16_t derLen)
             intLen--;
         }
 
-        if (intLen > half)        /* a P-256 component never exceeds 32 bytes */
+        /* A P-256 r/s component is 1..32 bytes. */
+        if ((intLen == 0U) || (intLen > SIG_COMP_HALF))
         {
             return false;
         }
 
-        (void) memcpy(&rawSig[((uint16_t)comp * half) + (half - intLen)],
+        (void) memcpy(&rawSig[((uint16_t)comp * SIG_COMP_HALF) + (SIG_COMP_HALF - intLen)],
                       &imageSignature[pos], intLen);
         pos = (uint16_t)(pos + intLen);
     }
@@ -431,7 +433,7 @@ static bool lSRV_FU_VerifySignature(void)
     }
 
     /* Normalise the signature to the raw 64-byte r||s the verifier expects. */
-    if (fuData.signLength == SIGNATURE_SIZE_ECDSA_256)
+    if (fuData.signLength == (uint16_t)SIGNATURE_SIZE_ECDSA_256)
     {
         /* Already raw r||s -- nothing to do. */
     }
@@ -724,8 +726,8 @@ void SRV_FU_Tasks(void)
             break;
         }
 
-        case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_ERASE:
-        case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE:
+        case SRV_FU_MEM_STATE_BM_ERASE:
+        case SRV_FU_MEM_STATE_BM_WRITE:
         {
             /* Operation in flight; the transfer handler advances state. */
             if (DRV_MEMORY_COMMAND_HANDLE_INVALID == memInfo.bootModeHandle)
@@ -736,7 +738,7 @@ void SRV_FU_Tasks(void)
             break;
         }
 
-        case SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE_KICK:
+        case SRV_FU_MEM_STATE_BM_WRITE_KICK:
         {
             /* Erase finished, queue the page write. */
             uint32_t pageBlockStart;
@@ -757,7 +759,7 @@ void SRV_FU_Tasks(void)
             toWrite.reserved  = 0U;
             toWrite.modeXor   = modeXorByte;
 
-            (void) memcpy(pMemWrite, &toWrite, sizeof(toWrite));
+            (void) memcpy(pMemWrite, (const uint8_t *)&toWrite, sizeof(toWrite));
 
             DRV_MEMORY_AsyncWrite(memInfo.memoryHandle, &memInfo.bootModeHandle,
                                   pMemWrite, pageBlockStart, 1U);
@@ -769,7 +771,7 @@ void SRV_FU_Tasks(void)
             }
             else
             {
-                memInfo.state = SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_WRITE;
+                memInfo.state = SRV_FU_MEM_STATE_BM_WRITE;
             }
             break;
         }
@@ -1193,7 +1195,7 @@ bool SRV_FU_AsyncUpdateBootMode(SRV_FU_BOOT_MODE mode, uint8_t imageIdx,
         return false;
     }
 
-    memInfo.state = SRV_FU_MEM_STATE_EXT_MEM_BOOT_MODE_ERASE;
+    memInfo.state = SRV_FU_MEM_STATE_BM_ERASE;
     return true;
 }
 

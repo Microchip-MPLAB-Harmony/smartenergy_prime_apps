@@ -103,10 +103,10 @@ extern "C" {
     None.
 
   Example:
+    The PLC boot driver invokes the callback during boot and fills the address
+    and length parameters; the application only registers it (it is not called
+    directly by the application):
     <code>
-    // Register the callback; the PLC boot driver invokes it during boot and
-    // supplies/fills the address and length parameters (it is not called
-    // directly by the application).
     DRV_PLC_PHY_Open(DRV_PLC_PHY_INDEX, PAL_PLC_BOOT_DataCallback);
     </code>
 

@@ -200,14 +200,14 @@ static bool lPAL_PLC_BOOT_SyncErase(uint32_t blockStart, uint32_t nBlocks)
     return (palPlcBootTransferError == false);
 }
 
-static bool lPAL_PLC_BOOT_SyncWrite(const void *src, uint32_t blockStart,
+static bool lPAL_PLC_BOOT_SyncWrite(void *src, uint32_t blockStart,
                                     uint32_t nBlocks)
 {
     palPlcBootTransferDone  = false;
     palPlcBootTransferError = false;
 
     DRV_MEMORY_AsyncWrite(palPlcBootMemHandle, &palPlcBootCmdHandle,
-                          (void *) src, blockStart, nBlocks);
+                          src, blockStart, nBlocks);
 
     if (palPlcBootCmdHandle == DRV_MEMORY_COMMAND_HANDLE_INVALID)
     {
@@ -310,8 +310,8 @@ static bool lPAL_PLC_BOOT_Open(void)
         return false;
     }
 
-    (void) memcpy(&magic, &palPlcBootFragBuf[0], sizeof(magic));
-    (void) memcpy(&size,  &palPlcBootFragBuf[4], sizeof(size));
+    (void) memcpy((void *)&magic, (const void *)&palPlcBootFragBuf[0], sizeof(magic));
+    (void) memcpy((void *)&size,  (const void *)&palPlcBootFragBuf[4], sizeof(size));
 
     if (magic != PAL_PLC_BOOT_ZONE_MAGIC)
     {

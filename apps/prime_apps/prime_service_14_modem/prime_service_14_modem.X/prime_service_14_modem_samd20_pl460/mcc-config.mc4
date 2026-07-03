@@ -1,5 +1,5 @@
 configVersion: 1.0.0
-coreVersion: 5.8.4
+coreVersion: 5.9.0
 spaHostVersion: 1.3.0
 device: ATSAMD20J18
 deviceLibrary: {}
@@ -59,7 +59,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\bsp\bsp.c
 - file: ..\src\config\samd20_pl460\bsp\bsp.h
 - file: ..\src\config\samd20_pl460\configuration.h
-  hash: 5526c8092838458eecef490c02099ec199206dc0fc27ce8d6c3443271c926f70
+  hash: 2bf0860a7c165b4fad57145814c9cef1c00a864f07cf4be9777f87ec5ba50b1c
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_aead_cipher.h
   hash: 865ec1e096d5abb1d1eacf038a98c53921e722f5a3b1c477b85ea7fb1eaa0a56
 - file: ..\src\config\samd20_pl460\crypto\common_crypto\crypto_common.h
@@ -123,7 +123,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\wolfcrypt_config.h
   hash: 9ba3639b485581f9cd9f806e2e926d464d8a90cb111a5ccf392594df6f409202
 - file: ..\src\config\samd20_pl460\definitions.h
-  hash: 3b5dbc6bfc995292ab4e693655fb2d200c8b2436f6b7d936fca22c9688e59e46
+  hash: 001234848da9951b0dd7ca149e002ca6aeb20d3435b0f58bdf50175f6fee5e89
 - file: ..\src\config\samd20_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\samd20_pl460\device_cache.h
@@ -257,11 +257,11 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\pin_configurations.csv
   hash: 67d9b90f8e596c83a636b2cf01a3d7bf728d52274686ebb7c8d7d0a1f32463f3
 - file: ..\src\config\samd20_pl460\service\firmware_upgrade\srv_firmware_upgrade.c
-  hash: 9654c7ab11999dc7f4860eb4e5c977b987b886e7f82739392f0f7ba56dc9348f
+  hash: 35aa86fffea198b857d05e65c8180009955b6fd11da980d95704ed4d087e852e
 - file: ..\src\config\samd20_pl460\service\firmware_upgrade\srv_firmware_upgrade.h
   hash: fbf2226831a9a0cfd9f8c8c33415ea1c7093bbcf597385d6ddf385f6f7ae916d
 - file: ..\src\config\samd20_pl460\service\firmware_upgrade\srv_firmware_upgrade_local.h
-  hash: ce82a97ae5db40e0c5f79313b6268276d83d12767c67cf5ce8d5e6811c268626
+  hash: c7a9295cfb4851164b5a2bca3703f131149a907daa74bc2f5c8fa6cd5ad5b40e
 - file: ..\src\config\samd20_pl460\service\log_report\srv_log_report.c
   hash: 3de5439237eec5e9779e4098cafafef2034607b1eb0a52f749c6679628e5b32a
 - file: ..\src\config\samd20_pl460\service\log_report\srv_log_report.h
@@ -293,9 +293,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\service\random\srv_random.h
   hash: 74409dadccb1a152f9717e596b31af36c8cac01d1a33a4a40a15c5fbdcd52a78
 - file: ..\src\config\samd20_pl460\service\reset_handler\srv_reset_handler.c
-  hash: 92b1f15ea07f45250ffe370fff15d85de9ef686cea4319dc85cbb96f2e34bb75
+  hash: f3028b96ea9d150f0a8e1d0bb96ac3957a94766cc33901553c81c03e9200017b
 - file: ..\src\config\samd20_pl460\service\reset_handler\srv_reset_handler.h
-  hash: ea13aa5a5b19952ca4a6eac28ff78503fda10e7da90a86aa2ed0ea95052eb2e6
+  hash: 88be7581719e0b3d25dd230dfa7f0be32765a9645317e8f47e4ba71a830d6eda
 - file: ..\src\config\samd20_pl460\service\security\aes_wrapper.c
   hash: 715d3751dfaf263160eafdf934fc116e64a1c5bbe8d5deb5aed7d5281609d752
 - file: ..\src\config\samd20_pl460\service\security\aes_wrapper.h
@@ -305,7 +305,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\service\security\cipher_wrapper.h
   hash: d0c164818bbe5d1871d318b0231ea957418ade6dba9bffe2925f22dc4fa32664
 - file: ..\src\config\samd20_pl460\service\storage\srv_storage.c
-  hash: a0119319ec63e1716d9bc4915ddc3ea41e7a06c30aad75ddab7ed508caf05998
+  hash: 24d318ec1822fe7124fd375ce92948bc630cd9f25013e4270cc6d74ed6a48baf
 - file: ..\src\config\samd20_pl460\service\storage\srv_storage.h
   hash: 8886d55c735f7eb1842bd6a5e4cdf86b371d73a043f36e72f03d8f805be7fb58
 - file: ..\src\config\samd20_pl460\service\time_management\srv_time_management.c
@@ -313,7 +313,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\service\time_management\srv_time_management.h
   hash: 8dfb49e0825d37d324a50abd32291e8b6b8b398ab89ebdcc62bb25ef77d24472
 - file: ..\src\config\samd20_pl460\service\user_pib\srv_user_pib.c
-  hash: ccf82b97a8978dddd5cd14735409f0212bec23d40bd459d6540ae36be28b623d
+  hash: 66f96119807ab86ad265e65a8ffa8d963afa404cf43648f9f62bb342ed1d5e75
 - file: ..\src\config\samd20_pl460\service\user_pib\srv_user_pib.h
   hash: 632d672a241a343870ac6acc58b374b691f6514aabd1d6152bcc5a91b6aad304
 - file: ..\src\config\samd20_pl460\service\usi\srv_usi.c
@@ -339,9 +339,9 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\stack\pal\pal_plc.h
   hash: bef7c2a68cfeedff4f321ae6ebd0eb1c117a6df8e67007bc429df4849213b26d
 - file: ..\src\config\samd20_pl460\stack\pal\pal_plc_boot.c
-  hash: 5be3decaa21d36186b658e42f680d53f716636faf61b4a08b43089563737ba32
+  hash: 7ab0f2ac9df1902e9ed21dadbe41b1e1fadb1fb4720980903b77f610c9fc2494
 - file: ..\src\config\samd20_pl460\stack\pal\pal_plc_boot.h
-  hash: b7d028c40da26d23416d671c6b633ced8f710366fbc36b28909184264aa394f2
+  hash: 3fb9334fa53e99a4977e291c27e9d1a05b3ea2ce3a1756a703db916744c8dba1
 - file: ..\src\config\samd20_pl460\stack\pal\pal_plc_local.h
   hash: 04e9740feb1a7be9b268a41cd24713820c63034f44ac914b37d646d60a3e53e3
 - file: ..\src\config\samd20_pl460\stack\pal\pal_plc_rm.c

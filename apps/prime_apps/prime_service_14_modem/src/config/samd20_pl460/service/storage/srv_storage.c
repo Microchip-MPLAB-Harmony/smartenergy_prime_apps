@@ -133,9 +133,9 @@ static void lSRV_STORAGE_WriteToFlash(void)
     while (NVMCTRL_IsBusy()) {}
 
     /* Page 3 (last): 8 bytes of actual data + 56 bytes 0xFF padding */
-    (void) memcpy(lastPage, &srvStorageData[SRV_STORAGE_LAST_PAGE_OFFSET],
+    (void) memcpy((void *)lastPage, (const void *)&srvStorageData[SRV_STORAGE_LAST_PAGE_OFFSET],
                   SRV_STORAGE_LAST_PAGE_DATA);
-    (void) memset((uint8_t *)lastPage + SRV_STORAGE_LAST_PAGE_DATA, 0xFFU,
+    (void) memset((uint8_t *)lastPage + SRV_STORAGE_LAST_PAGE_DATA, 0xFF,
                   SRV_STORAGE_LAST_PAGE_PAD);
     (void) NVMCTRL_PageWrite(lastPage,
                              SRV_STORAGE_FLASH_ADDR + SRV_STORAGE_LAST_PAGE_OFFSET);
@@ -233,8 +233,8 @@ uint32_t SRV_STORAGE_ReadNonVolatileData(uint8_t slot)
     }
 
     interruptStatus = SYS_INT_Disable();
-    (void) memcpy(&value,
-                  &srvStorageData[SRV_STORAGE_NON_VOLATILE_DATA_OFFSET + ((uint16_t)slot * 4U)],
+    (void) memcpy((void *)&value,
+                  (const void *)&srvStorageData[(uint16_t)SRV_STORAGE_NON_VOLATILE_DATA_OFFSET + ((uint16_t)slot * 4U)],
                   sizeof(uint32_t));
     SYS_INT_Restore(interruptStatus);
 
@@ -254,8 +254,8 @@ void SRV_STORAGE_WriteBlockNonVolatileData(uint8_t startSlot, uint8_t count,
     }
 
     interruptStatus = SYS_INT_Disable();
-    (void) memcpy(&srvStorageData[SRV_STORAGE_NON_VOLATILE_DATA_OFFSET + ((uint16_t)startSlot * 4U)],
-                  values, (size_t)count * 4U);
+    (void) memcpy((void *)&srvStorageData[(uint16_t)SRV_STORAGE_NON_VOLATILE_DATA_OFFSET + ((uint16_t)startSlot * 4U)],
+                  (const void *)values, (size_t)count * 4U);
     lSRV_STORAGE_WriteToFlash();
     SYS_INT_Restore(interruptStatus);
 }

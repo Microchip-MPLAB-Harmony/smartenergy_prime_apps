@@ -178,6 +178,7 @@ void SRV_RESET_HANDLER_Initialize(void);
     None.
 */
 
+__attribute__((noreturn))
 void SRV_RESET_HANDLER_RestartSystem(SRV_RESET_HANDLER_RESET_CAUSE resetType);
 
 

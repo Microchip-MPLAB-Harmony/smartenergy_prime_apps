@@ -56,10 +56,10 @@
 #include "service/usi/srv_usi.h"
 #include "service/usi/srv_usi_usart.h"
 #include "service/log_report/srv_log_report.h"
-#include "system/time/sys_time.h"
 #include "driver/plc/phy/drv_plc_phy_definitions.h"
 #include "driver/plc/phy/drv_plc_phy.h"
 #include "driver/plc/phy/drv_plc_phy_comm.h"
+#include "system/time/sys_time.h"
 #include "service/reset_handler/srv_reset_handler.h"
 #include "service/psniffer/srv_psniffer.h"
 #include "system/int/sys_int.h"
@@ -96,9 +96,9 @@
 #include "service/user_pib/srv_user_pib.h"
 #include "service/pvddmon/srv_pvddmon.h"
 #include "service/storage/srv_storage.h"
-#include "bsp/bsp.h"
 #include "system/console/sys_console.h"
 #include "system/console/src/sys_console_uart_definitions.h"
+#include "bsp/bsp.h"
 #include "crypto/crypto_config.h"
 #include "service/time_management/srv_time_management.h"
 #include "app.h"
@@ -232,9 +232,9 @@ Remarks:
 
 typedef struct
 {
-    SYS_MODULE_OBJ  sysTime;
 
     SYS_MODULE_OBJ drvPlcPhy;
+    SYS_MODULE_OBJ  sysTime;
     SYS_MODULE_OBJ  drvMemory0;
     SYS_MODULE_OBJ  sysConsole0;
 

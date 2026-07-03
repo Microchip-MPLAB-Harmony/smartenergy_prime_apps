@@ -208,7 +208,10 @@ DRV_PLC_PHY_INIT drvPlcPhyInitData = {
 // </editor-fold>
 // <editor-fold defaultstate="collapsed" desc="DRV_MEMORY Instance 0 Initialization Data">
 
-static uint8_t gDrvMemory0EraseBuffer[DRV_SST26_ERASE_BUFFER_SIZE] CACHE_ALIGN;
+/* This buffer is not used in our application, and the RAM is needed for the resto of the
+ * application, so it is manually reduced its size 
+ */
+static uint8_t gDrvMemory0EraseBuffer[4] CACHE_ALIGN;
 
 static DRV_MEMORY_CLIENT_OBJECT gDrvMemory0ClientObject[DRV_MEMORY_CLIENTS_NUMBER_IDX0];
 
