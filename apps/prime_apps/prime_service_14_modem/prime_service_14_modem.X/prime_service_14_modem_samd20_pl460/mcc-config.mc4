@@ -123,7 +123,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\crypto\wolfcrypt\wolfcrypt_config.h
   hash: 9ba3639b485581f9cd9f806e2e926d464d8a90cb111a5ccf392594df6f409202
 - file: ..\src\config\samd20_pl460\definitions.h
-  hash: 001234848da9951b0dd7ca149e002ca6aeb20d3435b0f58bdf50175f6fee5e89
+  hash: 5d931eb42e252994b86aa963920dd765d7dd0d753d835f22038e2aafbae9443f
 - file: ..\src\config\samd20_pl460\device.h
   hash: 5847311f7358c9120549b11e53650ee68db8c2d886fa1aa8659af1ca42789dac
 - file: ..\src\config\samd20_pl460\device_cache.h
@@ -213,7 +213,7 @@ generatedFileHashHistoryMap:
 - file: ..\src\config\samd20_pl460\peripheral\evsys\plib_evsys.h
   hash: f7d08eb8162f271ce1db384c082586a6624e506aa7f502c64c4ab5a1aadac47d
 - file: ..\src\config\samd20_pl460\peripheral\nvic\plib_nvic.c
-  hash: 76f4e1242bae9883c802d5666e21379b90219434c3e28d767778b39f81b27b82
+  hash: 98ef50b5a4e08e23a2ad7095a542aac83a523c76667ffa0033042f853dba9db0
 - file: ..\src\config\samd20_pl460\peripheral\nvic\plib_nvic.h
   hash: 9936ac782115af41003255283fa2f603f4ff2212d16275b7c80ea8d067a9e208
 - file: ..\src\config\samd20_pl460\peripheral\nvmctrl\plib_nvmctrl.c
