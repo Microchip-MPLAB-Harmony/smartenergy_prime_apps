@@ -23,6 +23,11 @@ To view the documentation offline, follow these steps:
  - Extract the zip file into a folder.
  - Navigate to the folder and open **index.html** in a web browser of your choice.
  
+# Collaterals
+
+The Microchip Smart Energy PRIME package includes some collateral tools and files to help users in the development process.
+These collaterals can be found [here](https://github.com/MicrochipTech/smartenergy_prime_collaterals)
+
 # Contents Summary
 
 | Folder     | Description                             |
