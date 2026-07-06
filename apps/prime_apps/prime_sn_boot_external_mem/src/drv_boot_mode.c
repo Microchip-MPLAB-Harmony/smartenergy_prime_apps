@@ -11,7 +11,8 @@
     Bare-metal R/W of the BOOT_MODE_INFO handshake structure on the SST26.
 
   Description:
-    See drv_boot_mode.h for the contract. This implementation:
+    Hand-written driver: no Harmony. See drv_boot_mode.h for the
+    contract. This implementation:
 
       - Read:  one SST26 read of 12 bytes at the start of the BOOT_FLAG
                sector, then validates magic and modeXor.

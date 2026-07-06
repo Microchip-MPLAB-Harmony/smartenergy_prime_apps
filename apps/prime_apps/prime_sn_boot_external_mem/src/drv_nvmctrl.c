@@ -11,7 +11,8 @@
     Bare-metal driver for the SAMD20 internal flash controller.
 
   Description:
-    See drv_nvmctrl.h for the rationale behind each function. Register
+    Direct register-level driver: no Harmony. See drv_nvmctrl.h for the
+    rationale behind each function. Register
     access follows the same convention used in the modem project's
     plib_nvmctrl.c: writes to the CTRLA command register always OR in the
     NVMCTRL_CTRLA_CMDEX_KEY value (0xA5) that the controller requires to

@@ -12,7 +12,8 @@
     BOOT_FLAG sector of the external SST26 serial flash.
 
   Description:
-    The bootloader and the modem application share a 12-byte structure
+    Hand-written driver: no Harmony. The bootloader and the modem
+    application share a 12-byte structure
     that controls what the bootloader does on every reset:
 
       - NORMAL          jump to the application

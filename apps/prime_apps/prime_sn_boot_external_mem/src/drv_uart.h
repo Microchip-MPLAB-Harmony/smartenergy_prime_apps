@@ -11,7 +11,8 @@
     Polled SERCOM3 UART driver for the bare-metal SAMD20J18 bootloader.
 
   Description:
-    Configures SERCOM3 in async USART mode at 115200 8N1 using the
+    Direct register-level driver: no Harmony. Configures SERCOM3 in async
+    USART mode at 115200 8N1 using the
     OSC8M 8 MHz clock that the SAMD20 boots up on. The bootloader's
     UART recovery loop drives this driver directly: there is no ring
     buffer, no interrupt, no DMA. SendByte spins until the data

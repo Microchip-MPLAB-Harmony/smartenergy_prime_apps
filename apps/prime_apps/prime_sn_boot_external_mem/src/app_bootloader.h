@@ -16,8 +16,6 @@
     DOWNLOAD zone or restores the previous image from the REVERT zones, and
     finally jumps to the application at APP_START. No Harmony, no C library:
     all peripherals are accessed through direct register writes.
-
-    Full design rationale: BOOTLOADER_PLAN.md (v3)
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN

@@ -12,7 +12,8 @@
     SAMD20 bootloader.
 
   Description:
-    This driver exposes only the operations the bootloader needs to
+    Direct register-level driver: no Harmony. This driver exposes only the
+    operations the bootloader needs to
     implement dual-zone firmware upgrade:
 
       - Read  from either zone (DOWNLOAD, CURRENT or REVERT)

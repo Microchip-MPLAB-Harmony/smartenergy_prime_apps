@@ -11,7 +11,7 @@
     Bare-metal SPI master driver for the SAMD20 bootloader, on SERCOM1.
 
   Description:
-    This driver owns four things:
+    Direct register-level driver: no Harmony. This driver owns four things:
 
       1. The OSC8M configuration. At reset OSC8M ships with PRESC=3 (1 MHz);
          we lift it to the full 8 MHz so SPI and CPU run fast enough to

@@ -11,7 +11,8 @@
     Minimal bare-metal SPI master driver for the SAMD20 bootloader.
 
   Description:
-    This driver is dedicated to talking to the on-board SST26VF064B serial
+    Direct register-level driver: no Harmony. This driver is dedicated to
+    communicate with the on-board SST26VF064B serial
     flash over SERCOM1. Board wiring:
       - PA16  SERCOM1 PAD0  MISO
       - PA17  GPIO          CS  (active low, driven manually)

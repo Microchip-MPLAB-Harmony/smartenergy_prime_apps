@@ -30,8 +30,6 @@
     Power-loss safety relies on imageStep persisted inside BOOT_MODE_INFO
     (0=pristine, 1=backup_done, 2=install_done) so each per-image
     install or revert is idempotent across power cuts.
-
-    See BOOTLOADER_PLAN.md (v3) for the full design rationale.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
@@ -572,106 +570,6 @@ static void lAPP_BOOTLOADER_UsiSendFrame(uint8_t cmd,
 
     lAPP_BOOTLOADER_UsiSendByteEscaped(crc);
     DRV_UART_SendByte(APP_BOOTLOADER_USI_DELIM);
-}
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Bootloader Main and Jump
-// *****************************************************************************
-// *****************************************************************************
-
-void APP_BOOTLOADER_Main(void)
-{
-    APP_BOOTLOADER_BOOT_MODE_INFO info;
-
-    lAPP_BOOTLOADER_DisableWdt();
-
-    /* Bring PA14 up as a GPIO output so the LED can be toggled during
-     * long memory operations. */
-    lAPP_BOOTLOADER_LedInit();
-
-    DRV_SPI_Initialize();
-    DRV_SST26_Initialize();
-    DRV_NVMCTRL_Initialize();
-
-    if (DRV_SST26_ReadJedecId() != DRV_SST26_JEDEC_ID)
-    {
-        lAPP_BOOTLOADER_Panic();
-    }
-
-    /* Emergency entry: holding SW0 (PA15) at power-up forces UART
-     * recovery regardless of BOOT_MODE_INFO.  */
-    if (lAPP_BOOTLOADER_Sw0Held() == true)
-    {
-        lAPP_BOOTLOADER_UartRecovery();
-        /* Unreachable: UartRecovery only exits via system reset. */
-    }
-
-    info = DRV_BOOT_MODE_Read();
-
-    switch ((APP_BOOTLOADER_BOOT_MODE) info.mode)
-    {
-        case APP_BOOTLOADER_BOOT_MODE_NORMAL:
-        default:
-            /* No pending operation. */
-            lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded();
-            break;
-
-        case APP_BOOTLOADER_BOOT_MODE_INSTALL_PENDING:
-            if (lAPP_BOOTLOADER_InstallBundle(&info, NULL) == false)
-            {
-                /* Bundle in DOWNLOAD is malformed. */
-                lAPP_BOOTLOADER_RebootIntoUart();
-            }
-            lAPP_BOOTLOADER_ClearBootMode();
-            break;
-
-        case APP_BOOTLOADER_BOOT_MODE_REVERT_PENDING:
-            lAPP_BOOTLOADER_RevertBundle(&info);
-            lAPP_BOOTLOADER_ClearBootMode();
-            break;
-
-        case APP_BOOTLOADER_BOOT_MODE_UART_PENDING:
-            /* Recovery loop . */
-            lAPP_BOOTLOADER_UartRecovery();
-            lAPP_BOOTLOADER_ClearBootMode();
-            break;
-    }
-
-    lAPP_BOOTLOADER_LedOff();
-    APP_BOOTLOADER_JumpToApp();
-}
-
-void APP_BOOTLOADER_JumpToApp(void)
-{
-    const uint32_t *appVectors;
-    uint32_t appSp;
-    uint32_t appPc;
-
-    /* Hand SERCOM1 back to the application in reset state. */
-    DRV_SPI_Deinitialize();
-
-    /* MISRA C-2023 deviation block start */
-    /* MISRA C-2023 Rule 11.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_4_DR_1 */
-    appVectors = (const uint32_t *) APP_BOOTLOADER_APP_START;
-    /* MISRA C-2023 deviation block end */
-    appSp      = appVectors[0];
-    appPc      = appVectors[1];
-
-    /* Relocate the vector table so the application's interrupt vectors
-     * resolve inside its own address range. */
-    SCB->VTOR = APP_BOOTLOADER_APP_START;
-
-    /* Load the application's stack pointer and branch to its reset
-     * handler. Bit 0 of appPc already selects Thumb mode. */
-    /* MISRA C-2023 deviation block start */
-    /* MISRA C-2023 Dir 4.3 deviated once. Deviation record ID - H3_MISRAC_2023_D_4_3_DR_1 */
-    __asm volatile (
-        "msr msp, %0 \n"
-        "bx  %1      \n"
-        : : "r" (appSp), "r" (appPc)
-    );
-    /* MISRA C-2023 deviation block end */
 }
 
 // *****************************************************************************
@@ -2367,6 +2265,106 @@ static void lAPP_BOOTLOADER_Panic(void)
         lAPP_BOOTLOADER_LedToggle();
         lAPP_BOOTLOADER_DelayMs(APP_BOOTLOADER_PANIC_DELAY_MS);
     }
+}
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Global Functions
+// *****************************************************************************
+// *****************************************************************************
+
+void APP_BOOTLOADER_Main(void)
+{
+    APP_BOOTLOADER_BOOT_MODE_INFO info;
+
+    lAPP_BOOTLOADER_DisableWdt();
+
+    /* Bring PA14 up as a GPIO output so the LED can be toggled during
+     * long memory operations. */
+    lAPP_BOOTLOADER_LedInit();
+
+    DRV_SPI_Initialize();
+    DRV_SST26_Initialize();
+    DRV_NVMCTRL_Initialize();
+
+    if (DRV_SST26_ReadJedecId() != DRV_SST26_JEDEC_ID)
+    {
+        lAPP_BOOTLOADER_Panic();
+    }
+
+    /* Emergency entry: holding SW0 (PA15) at power-up forces UART
+     * recovery regardless of BOOT_MODE_INFO.  */
+    if (lAPP_BOOTLOADER_Sw0Held() == true)
+    {
+        lAPP_BOOTLOADER_UartRecovery();
+        /* Unreachable: UartRecovery only exits via system reset. */
+    }
+
+    info = DRV_BOOT_MODE_Read();
+
+    switch ((APP_BOOTLOADER_BOOT_MODE) info.mode)
+    {
+        case APP_BOOTLOADER_BOOT_MODE_NORMAL:
+        default:
+            /* No pending operation. */
+            lAPP_BOOTLOADER_SelfMirrorAppCurrentIfNeeded();
+            break;
+
+        case APP_BOOTLOADER_BOOT_MODE_INSTALL_PENDING:
+            if (lAPP_BOOTLOADER_InstallBundle(&info, NULL) == false)
+            {
+                /* Bundle in DOWNLOAD is malformed. */
+                lAPP_BOOTLOADER_RebootIntoUart();
+            }
+            lAPP_BOOTLOADER_ClearBootMode();
+            break;
+
+        case APP_BOOTLOADER_BOOT_MODE_REVERT_PENDING:
+            lAPP_BOOTLOADER_RevertBundle(&info);
+            lAPP_BOOTLOADER_ClearBootMode();
+            break;
+
+        case APP_BOOTLOADER_BOOT_MODE_UART_PENDING:
+            /* Recovery loop . */
+            lAPP_BOOTLOADER_UartRecovery();
+            lAPP_BOOTLOADER_ClearBootMode();
+            break;
+    }
+
+    lAPP_BOOTLOADER_LedOff();
+    APP_BOOTLOADER_JumpToApp();
+}
+
+void APP_BOOTLOADER_JumpToApp(void)
+{
+    const uint32_t *appVectors;
+    uint32_t appSp;
+    uint32_t appPc;
+
+    /* Hand SERCOM1 back to the application in reset state. */
+    DRV_SPI_Deinitialize();
+
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Rule 11.4 deviated once. Deviation record ID - H3_MISRAC_2023_R_11_4_DR_1 */
+    appVectors = (const uint32_t *) APP_BOOTLOADER_APP_START;
+    /* MISRA C-2023 deviation block end */
+    appSp      = appVectors[0];
+    appPc      = appVectors[1];
+
+    /* Relocate the vector table so the application's interrupt vectors
+     * resolve inside its own address range. */
+    SCB->VTOR = APP_BOOTLOADER_APP_START;
+
+    /* Load the application's stack pointer and branch to its reset
+     * handler. Bit 0 of appPc already selects Thumb mode. */
+    /* MISRA C-2023 deviation block start */
+    /* MISRA C-2023 Dir 4.3 deviated once. Deviation record ID - H3_MISRAC_2023_D_4_3_DR_1 */
+    __asm volatile (
+        "msr msp, %0 \n"
+        "bx  %1      \n"
+        : : "r" (appSp), "r" (appPc)
+    );
+    /* MISRA C-2023 deviation block end */
 }
 
 /*******************************************************************************

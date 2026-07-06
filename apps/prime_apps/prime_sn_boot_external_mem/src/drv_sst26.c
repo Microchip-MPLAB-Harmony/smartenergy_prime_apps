@@ -11,7 +11,8 @@
     Bare-metal driver for the SST26VF064B serial flash.
 
   Description:
-    All operations are synchronous (polling-based). The driver owns the
+    Direct register-level driver: no Harmony. All operations are synchronous
+    (polling-based). The driver owns the
     CS line via DRV_SPI_CsAssert / DRV_SPI_CsDeassert; it never returns
     with CS asserted. WREN is issued internally before every program or
     erase so higher-level code does not have to remember to do it.

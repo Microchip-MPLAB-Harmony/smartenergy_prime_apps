@@ -11,7 +11,8 @@
     Minimal bare-metal driver for the SAMD20 internal flash controller.
 
   Description:
-    Used by the bootloader to program the application region and the
+    Direct register-level driver: no Harmony. Used by the bootloader to
+    program the application region and the
     emulated-EEPROM row. Operations are synchronous: every call waits for
     the previous one to finish before returning.
 
@@ -22,13 +23,6 @@
 
     All addresses are byte addresses in the CPU memory map. The driver
     converts to the halfword-based ADDR register internally (address >> 1).
-
-    The NVMCTRL_REGION_LOCKS fuse normally locks every region on reset,
-    which means the caller must invoke DRV_NVMCTRL_RegionUnlock for the
-    row being written before the RowErase/PageWrite sequence. The modem
-    project's srv_storage does the same - the ER/WP commands are
-    silently rejected on a locked region and INTFLAG.READY can even get
-    stuck on some SAMD20 silicon.
 *******************************************************************************/
 
 //DOM-IGNORE-BEGIN
