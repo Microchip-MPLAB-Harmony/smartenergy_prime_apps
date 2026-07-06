@@ -57,12 +57,6 @@ extern "C" {
     This enumeration defines the valid application states.  These states
     determine the behavior of the application at various times.
 */
-/* Enable swapping of FU location */
-#define APP_FU_ENABLE_SWAP          0xFE45EC48U
-    
-/* Enable swapping of stack */
-#define APP_VERSION_ENABLE_SWAP     0xEF54CE84U
-    
 typedef enum
 {
     /* Application's state machine's initial state. */
@@ -70,7 +64,6 @@ typedef enum
     APP_STATE_SERVICE_TASKS,
 
 } APP_STATES;
-
 
 // *****************************************************************************
 /* Application Data
@@ -100,20 +93,18 @@ typedef struct
 // Section: User Configuration macros
 // *****************************************************************************
 // *****************************************************************************
+/* Enable swapping of FU location */
+#define APP_FU_ENABLE_SWAP          0xFE45EC48U
+    
+/* Enable swapping of stack */
+#define APP_VERSION_ENABLE_SWAP     0xEF54CE84U
+
 /* Period to blink LED in milliseconds */
 #define APP_LED_BLINK_PERIOD_MS     500U
 
 #define APP_STRING_HEADER "\r\n-- MCHP PRIME 1.4 Monolithic Modem application for Service Node --\r\n" \
     "-- Compiled: "__DATE__" "__TIME__" --\r\n" \
     
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Routines
-// *****************************************************************************
-// *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
-
 // *****************************************************************************
 // *****************************************************************************
 // Section: Application Initialization and State Machine Functions
